@@ -29,6 +29,14 @@
          <lastmod>2026-07-16</lastmod>
     </url>
     <url>
+         <loc>https://dmccreary.github.io/learning-record-store/chapters/01-what-is-an-ibook-lrs/</loc>
+         <lastmod>2026-07-16</lastmod>
+    </url>
+    <url>
+         <loc>https://dmccreary.github.io/learning-record-store/chapters/01-what-is-an-ibook-lrs/quiz/</loc>
+         <lastmod>2026-07-16</lastmod>
+    </url>
+    <url>
          <loc>https://dmccreary.github.io/learning-record-store/learning-graph/</loc>
          <lastmod>2026-07-16</lastmod>
     </url>
@@ -37,7 +45,19 @@
          <lastmod>2026-07-16</lastmod>
     </url>
     <url>
+         <loc>https://dmccreary.github.io/learning-record-store/sims/animal-cell/</loc>
+         <lastmod>2026-07-16</lastmod>
+    </url>
+    <url>
+         <loc>https://dmccreary.github.io/learning-record-store/sims/bouncing-ball/</loc>
+         <lastmod>2026-07-16</lastmod>
+    </url>
+    <url>
          <loc>https://dmccreary.github.io/learning-record-store/sims/lrs-data-model/</loc>
+         <lastmod>2026-07-16</lastmod>
+    </url>
+    <url>
+         <loc>https://dmccreary.github.io/learning-record-store/sims/scientific-method/</loc>
          <lastmod>2026-07-16</lastmod>
     </url>
     <url>
@@ -62,6 +82,10 @@
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/specs/mvp-plan/</loc>
+         <lastmod>2026-07-16</lastmod>
+    </url>
+    <url>
+         <loc>https://dmccreary.github.io/learning-record-store/specs/xapi-producer-contract-v1/</loc>
          <lastmod>2026-07-16</lastmod>
     </url>
 </urlset>

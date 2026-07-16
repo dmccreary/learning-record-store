@@ -1,0 +1,2434 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="An intelligent textbook on Learning Record Stores: what they are, how xAPI statements work, and how to design, deploy, and query an LRS.">
+      
+      
+        <meta name="author" content="Dan McCreary">
+      
+      
+        <link rel="canonical" href="https://dmccreary.github.io/learning-record-store/specs/xapi-producer-contract-v1/">
+      
+      
+        <link rel="prev" href="../lrs-design-v1/">
+      
+      
+        <link rel="next" href="../hardware-requirements/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>xAPI Producer Contract (v1) - Learning Record Store</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/extra.css">
+    
+      <link rel="stylesheet" href="../../css/lrs-xapi.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#xapi-producer-contract-v1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Learning Record Store" class="md-header__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Learning Record Store
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              xAPI Producer Contract (v1)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Learning Record Store" class="md-nav__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Learning Record Store
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../course-description/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course Description
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Specifications
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Specifications
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lrs-spec-v1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LRS Specification (v1)
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--scaffold" title="Scaffold — placeholder, not yet implemented">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lrs-design-v1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LRS Design & Deployment (v1)
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--scaffold" title="Scaffold — placeholder, not yet implemented">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    xAPI Producer Contract (v1)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    xAPI Producer Contract (v1)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-canonical-activity-iri-resolved" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The canonical activity IRI [RESOLVED]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. The canonical activity IRI [RESOLVED]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The rule
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-the-sources-actually-said" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the sources actually said
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-sine-wavejs-is-wrong-twice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why sine-wave.js is wrong twice
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed-2026-07-16-and-it-was-never-one-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed 2026-07-16 — and it was never one line
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rules
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-question-iris-the-fragment-scheme-resolved-2026-07-16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Question IRIs — the fragment scheme [RESOLVED 2026-07-16]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Question IRIs — the fragment scheme [RESOLVED 2026-07-16]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-off-by-one-this-exposed-and-how-it-was-found" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The off-by-one this exposed, and how it was found
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fragments-for-sub-activities-that-are-not-questions-new-2026-07-16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fragments for sub-activities that are not questions [NEW 2026-07-16]
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-ordinal-rule-only-holds-when-the-order-is-stable-resolved-2026-07-16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The ordinal rule only holds when the order is stable [RESOLVED 2026-07-16]
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-verbs-resolved" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Verbs [RESOLVED]
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-textbook-version-iri-grouping0-resolved" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. The textbook version IRI (grouping[0]) [RESOLVED]
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-objectdefinitiontype-object_type-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. object.definition.type → object_type [NEW]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. object.definition.type → object_type [NEW]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-control-exists-and-why-it-is-not-microsim-resolved-2026-07-16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Control exists, and why it is not MicroSim [RESOLVED 2026-07-16]
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#one-object-one-type-the-mode-does-not-change-it-resolved-2026-07-16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        One object, one type — the mode does not change it [RESOLVED 2026-07-16]
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-microsim-rollup-gap-closed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The MicroSim rollup gap — closed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-concepts-extension-vs-enrichment-open-a-real-conflict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Concepts: extension vs. enrichment [OPEN — a real conflict]
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-startpause-the-dwell-pattern-new-2026-07-16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Start/Pause: the dwell pattern [NEW 2026-07-16]
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-what-producers-never-send" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. What producers never send
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-transport-ratified" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Transport [RATIFIED]
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-the-reference-statement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. The reference statement
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-field-column-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Field → column map
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-open-items" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Open items
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware-requirements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware Requirements & Cost Estimate
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--scaffold" title="Scaffold — placeholder, not yet implemented">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dev-environment-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dev Environment Setup
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--scaffold" title="Scaffold — placeholder, not yet implemented">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mvp-plan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MVP Plan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../chapters/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapters
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../learning-graph/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning Graph
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../sims/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MicroSims
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    License
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contact/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contact
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-canonical-activity-iri-resolved" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The canonical activity IRI [RESOLVED]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. The canonical activity IRI [RESOLVED]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The rule
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-the-sources-actually-said" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the sources actually said
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-sine-wavejs-is-wrong-twice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why sine-wave.js is wrong twice
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed-2026-07-16-and-it-was-never-one-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed 2026-07-16 — and it was never one line
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rules
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-question-iris-the-fragment-scheme-resolved-2026-07-16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Question IRIs — the fragment scheme [RESOLVED 2026-07-16]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Question IRIs — the fragment scheme [RESOLVED 2026-07-16]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-off-by-one-this-exposed-and-how-it-was-found" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The off-by-one this exposed, and how it was found
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fragments-for-sub-activities-that-are-not-questions-new-2026-07-16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fragments for sub-activities that are not questions [NEW 2026-07-16]
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-ordinal-rule-only-holds-when-the-order-is-stable-resolved-2026-07-16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The ordinal rule only holds when the order is stable [RESOLVED 2026-07-16]
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-verbs-resolved" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Verbs [RESOLVED]
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-textbook-version-iri-grouping0-resolved" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. The textbook version IRI (grouping[0]) [RESOLVED]
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-objectdefinitiontype-object_type-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. object.definition.type → object_type [NEW]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. object.definition.type → object_type [NEW]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-control-exists-and-why-it-is-not-microsim-resolved-2026-07-16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Control exists, and why it is not MicroSim [RESOLVED 2026-07-16]
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#one-object-one-type-the-mode-does-not-change-it-resolved-2026-07-16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        One object, one type — the mode does not change it [RESOLVED 2026-07-16]
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-microsim-rollup-gap-closed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The MicroSim rollup gap — closed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-concepts-extension-vs-enrichment-open-a-real-conflict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Concepts: extension vs. enrichment [OPEN — a real conflict]
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-startpause-the-dwell-pattern-new-2026-07-16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Start/Pause: the dwell pattern [NEW 2026-07-16]
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-what-producers-never-send" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. What producers never send
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-transport-ratified" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Transport [RATIFIED]
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-the-reference-statement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. The reference statement
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-field-column-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Field → column map
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-open-items" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Open items
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../lrs-spec-v1/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Specifications
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/specs/xapi-producer-contract-v1.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="xapi-producer-contract-v1">xAPI Producer Contract v1<a class="headerlink" href="#xapi-producer-contract-v1" title="Permanent link">&para;</a></h1>
+<p><strong>Status:</strong> normative for the MVP. <strong>Version:</strong> 1.0.0. <strong>Last updated:</strong> 2026-07-16.</p>
+<p>This pins the statement shape that emitters produce and the LRS consumes. It is the authority for four
+things that previously had no authority: the <strong>canonical activity IRI</strong>, the <strong>verb set</strong>, the
+<strong><code>object.definition.type</code> → <code>object_type</code> mapping</strong> that <code>clickhouse.sql</code>'s materialized views filter
+on, and the <strong>Start/Pause dwell pattern</strong> every MicroSim needs (§7).</p>
+<p>It exists because <a href="../lrs-design-v1/"><code>lrs-design-v1.md</code></a> §1.3 explicitly defers the producer side, so
+the DDL consumes fields nothing is contracted to send.
+<a href="https://github.com/dmccreary/learning-record-store/blob/main/scripts/smoke.sh"><code>scripts/smoke.sh</code></a>
+already cites "<code>xapi-producer-contract-v1.md §3</code>" — the harness was written against this document
+before it existed. Where this contract and the harness agree, the agreement is now deliberate.</p>
+<p><strong>Scope.</strong> This is the minimal version the plan calls for: enough to pin the DDL and give <code>lrs loadgen</code>
+a spec. It closes the first bullet of <code>TODO.md</code>'s retrofit item (verbs, activity types, required
+<code>result</code> fields) and nothing else — emission strategy, batching, throttling, and consent remain open
+there.</p>
+<p>Each rule below is tagged:
+<strong>[RATIFIED]</strong> already true in code, now binding · <strong>[RESOLVED]</strong> a real disagreement, settled with
+evidence · <strong>[NEW]</strong> the design was silent; this decides it · <strong>[OPEN]</strong> needs your call.</p>
+<hr />
+<h2 id="1-the-canonical-activity-iri-resolved">1. The canonical activity IRI  <strong>[RESOLVED]</strong><a class="headerlink" href="#1-the-canonical-activity-iri-resolved" title="Permanent link">&para;</a></h2>
+<h3 id="the-rule">The rule<a class="headerlink" href="#the-rule" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong><code>object.id</code> for a page is <code>{site_url}</code> + the page's nav path, with a trailing slash.</strong>
+<code>site_url</code> is <a href="https://github.com/dmccreary/learning-record-store/blob/main/mkdocs.yml"><code>mkdocs.yml</code></a>'s
+<code>site_url</code> — <code>https://dmccreary.github.io/learning-record-store/</code>.
+It is never <code>main.html</code>, never another site, never a bare path.</p>
+</blockquote>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>https://dmccreary.github.io/learning-record-store/sims/lrs-data-model/
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>https://dmccreary.github.io/learning-record-store/sims/sine-wave/
+</span></code></pre></div>
+<h3 id="what-the-sources-actually-said">What the sources actually said<a class="headerlink" href="#what-the-sources-actually-said" title="Permanent link">&para;</a></h3>
+<p>The plan (<code>mvp-plan.md:84</code>) describes this as three sources disagreeing on the IRI. Having read all
+three: <strong>that framing is slightly off, and the correction matters.</strong> <code>smoke.sh</code> and the design doc do
+not use different <em>forms</em> — they use the same form and name a <em>different page</em>. That is not a
+conflict; a contract governs the rule, not which page emits. The real defects are narrower:</p>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Value</th>
+<th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/dmccreary/learning-record-store/blob/main/mkdocs.yml"><code>mkdocs.yml</code></a> <code>site_url</code></td>
+<td><code>https://dmccreary.github.io/learning-record-store/</code></td>
+<td><strong>Authoritative.</strong> It defines what is actually served.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/dmccreary/learning-record-store/blob/main/scripts/smoke.sh"><code>scripts/smoke.sh</code></a></td>
+<td><code>…/learning-record-store/sims/lrs-data-model/</code></td>
+<td><strong>Correct.</strong> Conforms. Names a different page than sine-wave — not a conflict.</td>
+</tr>
+<tr>
+<td><a href="../lrs-design-v1/"><code>lrs-design-v1.md:1190</code></a></td>
+<td><code>…/learning-record-store/sims/lrs-data-model/</code></td>
+<td><strong>Correct</strong>, and identical to <code>smoke.sh</code>.</td>
+</tr>
+<tr>
+<td><a href="../lrs-design-v1/"><code>lrs-design-v1.md:1194</code></a> (<code>grouping</code>)</td>
+<td><code>https://example.edu/textbook/lrs/v1.0.0</code></td>
+<td><strong>Placeholder.</strong> Rejected — see §4.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/sims/sine-wave/sine-wave.js"><code>sine-wave.js</code></a> <code>ACTIVITY_BASE_ID</code></td>
+<td><em>was</em> <code>https://dmccreary.github.io/microsims/sims/sine-wave/main.html</code></td>
+<td><strong>Was wrong twice.</strong> <strong>Fixed 2026-07-16</strong> — see below.</td>
+</tr>
+</tbody>
+</table>
+<p>So: one genuinely malformed emitter, one placeholder. Not a three-way split.</p>
+<h3 id="why-sine-wavejs-is-wrong-twice">Why <code>sine-wave.js</code> is wrong twice<a class="headerlink" href="#why-sine-wavejs-is-wrong-twice" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Wrong site.</strong> It points at <code>dmccreary.github.io/microsims/</code>, a different repo's Pages site. The
+   file lives here, and <code>mkdocs.yml</code>'s nav serves it from <em>this</em> site at <code>sims/sine-wave/</code>. The IRI is
+   a leftover from wherever the sim was transplanted from.</li>
+<li><strong>Wrong page — and this is the load-bearing one.</strong> <code>main.html</code> is the <strong>iframe payload</strong>, not a
+   navigable page. MkDocs renders <code>index.md</code> to <code>/sims/sine-wave/</code> and copies <code>main.html</code> beside it
+   (both files exist in every sim directory). Citing <code>main.html</code> mints a <em>second IRI for one activity</em>.</li>
+</ol>
+<p>That is not cosmetic. <code>lrs.student_page_rollup</code> is <code>ORDER BY (district_id, student_key, object_id)</code>.
+   Two IRIs for one page put one student's engagement in <strong>two rows that never merge</strong> — so
+   <code>statements_compressed</code> splits, C-6's compression ratio under-reports, and the graph grows a second
+   <code>PageEngagement</code> vertex for a page the student visited once. The C-6 assertion in
+   <code>smoke.sh --tier=graph</code> would be measuring a number corrupted at the producer.</p>
+<h3 id="fixed-2026-07-16-and-it-was-never-one-line">Fixed 2026-07-16 — and it was never one line<a class="headerlink" href="#fixed-2026-07-16-and-it-was-never-one-line" title="Permanent link">&para;</a></h3>
+<p><code>ACTIVITY_BASE_ID</code> is now <code>https://dmccreary.github.io/learning-record-store/sims/sine-wave/</code>.</p>
+<p>Worth recording <em>why this took more than a one-line edit</em>, because the original note in
+<code>mvp-plan.md:84</code> described it as a single bad IRI. Fixing it surfaced <strong>five more wrong URLs in the
+same file</strong>, none of which that note mentions:</p>
+<table>
+<thead>
+<tr>
+<th>What</th>
+<th>Was</th>
+<th>Now</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ACTIVITY_BASE_ID</code></td>
+<td><code>…/microsims/sims/sine-wave/main.html</code></td>
+<td><code>…/learning-record-store/sims/sine-wave/</code></td>
+</tr>
+<tr>
+<td><code>actor.account.homePage</code></td>
+<td><code>https://dmccreary.github.io/microsims/</code></td>
+<td><code>https://demo.example.edu</code> (§10) — it names an account namespace, not a website</td>
+</tr>
+<tr>
+<td><code>result.extensions</code> ×2</td>
+<td><code>…/microsims/xapi/ext/value</code>, <code>…/previous-value</code></td>
+<td><code>https://w3id.org/lrs/ext/…</code> (§6)</td>
+</tr>
+<tr>
+<td><strong><code>grouping[0]</code></strong></td>
+<td><code>…/microsims/sims/sine-wave/</code> — <em>a page URL</em></td>
+<td>the textbook <strong>version IRI</strong> (§4)</td>
+</tr>
+<tr>
+<td><code>metadata.json</code> <code>identifier</code></td>
+<td><code>…/microsims/sims/sine-wave/</code></td>
+<td><code>…/learning-record-store/sims/sine-wave/</code></td>
+</tr>
+</tbody>
+</table>
+<p>The <code>grouping[0]</code> one is the interesting failure: it was not merely pointing at the wrong host, it was
+holding <strong>the wrong kind of thing entirely</strong> — this sim's own page URL where the textbook version
+belongs. <code>parent</code> is where a page URL goes. A host-only search-and-replace would have "fixed" the URL
+and left <code>textbook_id</code>/<code>version_id</code> unparseable, which is worse than the original, because it looks
+correct.</p>
+<p>The statement also gained <code>parent[0]</code> and the <code>concept_id</code> extension it needs to reach
+<code>mv_student_concept_rollup</code> at all.</p>
+<p>sine-wave never POSTs — the statements render in a log panel. But it is the artifact students read to
+learn what an xAPI statement <em>is</em>, so a shape the gateway would reject is a teaching bug, not a
+harmless one.</p>
+<h3 id="rules">Rules<a class="headerlink" href="#rules" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Trailing slash is significant.</strong> <code>…/sims/x/</code> and <code>…/sims/x</code> are different strings to
+  <code>ORDER BY object_id</code>. Always emit the slash.</li>
+<li><strong>Absolute HTTPS only.</strong> No relative paths, no <code>http://</code>, no <code>localhost</code>. The IRI is an identifier
+  and must be stable across environments — a statement emitted from a local <code>mkdocs serve</code> must carry
+  the <em>published</em> IRI, not <code>http://127.0.0.1:8000/…</code>.</li>
+<li><strong>The IRI is an identifier, not a URL to fetch.</strong> It need not resolve at ingest time. It must not
+  change when the site moves; if <code>site_url</code> ever changes, that is a migration, not a redeploy.</li>
+</ul>
+<hr />
+<h2 id="2-question-iris-the-fragment-scheme-resolved-2026-07-16">2. Question IRIs — the fragment scheme  <strong>[RESOLVED 2026-07-16]</strong><a class="headerlink" href="#2-question-iris-the-fragment-scheme-resolved-2026-07-16" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><strong>A question's <code>object.id</code> is its page IRI + <code>#q{N}</code>, where <code>N</code> is the question's ONE-BASED ordinal
+as presented to the student.</strong> <code>#q1</code> is the first question. This holds for every source — a
+MicroSim's <code>keyQuestions</code> array and a chapter quiz's numbered list alike.</p>
+</blockquote>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>https://dmccreary.github.io/learning-record-store/sims/lrs-data-model/#q3
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>https://dmccreary.github.io/learning-record-store/chapters/01-what-is-an-ibook-lrs/quiz/#q1
+</span></code></pre></div>
+<p><strong>One rule, not two.</strong> The tempting alternative was to let the fragment follow each source's own
+natural indexing — a zero-based array index for <code>keyQuestions</code> (it <em>is</em> an array), a one-based ordinal
+for a chapter quiz (it <em>is</em> a displayed number). That was rejected: it would give one field two
+meanings, and every reader of a statement would have to know which kind of source produced it before
+they could interpret the IRI.</p>
+<p><strong>Why one-based.</strong> The fragment should mean what the student and a debugger both see on the page.
+<code>#q0</code> denoting "Question 1" is a permanent footgun — every future reader has to remember the offset,
+and a chapter quiz that visibly numbers itself 1–10 would emit IRIs disagreeing with its own headings.</p>
+<h3 id="the-off-by-one-this-exposed-and-how-it-was-found">The off-by-one this exposed, and how it was found<a class="headerlink" href="#the-off-by-one-this-exposed-and-how-it-was-found" title="Permanent link">&para;</a></h3>
+<p>The first draft of this contract pinned <strong>zero-based</strong>, inferred from the only evidence available:</p>
+<ul>
+<li><code>smoke.sh</code> emitted <code>${OBJECT_ID}#q2</code> while naming that question <em>"How many PageEngagement vertices
+  exist?"</em> — which is <code>keyQuestions[2]</code> <strong>zero-based</strong>, i.e. the <strong>third</strong> question. A one-based <code>q2</code>
+  would have been <em>"Where do the raw xAPI statements actually live…"</em>, which does not match the name.</li>
+</ul>
+<p>So the harness was self-consistent only under a zero-based reading, and the contract followed it. That
+inference was flagged as needing confirmation rather than presented as fact — correctly, because it
+was wrong. What the evidence actually showed was a <strong>latent off-by-one</strong>: the fragment was being
+written as a zero-based array index while the name beside it was chosen by counting questions the way
+a human does. The two conventions were already in conflict inside a single statement; nobody had
+noticed because nothing consumed it.</p>
+<p><strong>Fixed:</strong> <code>smoke.sh</code> now emits <code>#q3</code> for that question, matching its name and this rule.</p>
+<blockquote>
+<p><strong>Method note.</strong> Building the first chapter quiz is what forced this. A four-question sim can hide an
+off-by-one; a quiz that prints "1." through "10." beside its own emitted IRIs cannot. A second,
+differently-shaped emitter is worth more than more reasoning about the first one.</p>
+</blockquote>
+<h3 id="fragments-for-sub-activities-that-are-not-questions-new-2026-07-16">Fragments for sub-activities that are not questions  <strong>[NEW 2026-07-16]</strong><a class="headerlink" href="#fragments-for-sub-activities-that-are-not-questions-new-2026-07-16" title="Permanent link">&para;</a></h3>
+<p><code>#q{N}</code> covers questions. A page can also contain <strong>named</strong> sub-activities — a slider, a node in a
+diagram — and those need a fragment too.</p>
+<blockquote>
+<p><strong>A named sub-activity's fragment is its stable local name, slugified</strong>, not its position.</p>
+</blockquote>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>…/sims/bouncing-ball/#speed-slider
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>…/sims/scientific-method/#hypothesis
+</span></code></pre></div>
+<p><strong>Why names here and ordinals for questions — this is one rule, not two.</strong> The fragment always names
+the sub-activity by <strong>its most stable local identifier</strong>, and what that is depends on what the thing
+<em>is</em>:</p>
+<ul>
+<li>A quiz question's identity <strong>is</strong> its position in a numbered list. The student sees "3."; the text
+  may be reworded without becoming a different question. Ordinal is stable, prose is not.</li>
+<li>A diagram node's identity <strong>is</strong> its name. <code>Formulate Hypothesis</code> stays that step even if the
+  diagram is reordered or a branch is inserted above it. An ordinal would silently re-point the IRI at
+  a different concept the moment the layout changed — the same class of failure as §1's <code>main.html</code>:
+  one activity quietly acquiring a second identity, or two acquiring one.</li>
+</ul>
+<p>The test for any fragment scheme is the same: <strong>would an edit that does not change what the thing
+<em>is</em> change its IRI?</strong> If yes, the scheme is wrong, because <code>student_page_rollup</code> and
+<code>student_concept_rollup</code> both key on <code>object_id</code> and will split or merge silently.</p>
+<h3 id="the-ordinal-rule-only-holds-when-the-order-is-stable-resolved-2026-07-16">The ordinal rule only holds when the order is stable  <strong>[RESOLVED 2026-07-16]</strong><a class="headerlink" href="#the-ordinal-rule-only-holds-when-the-order-is-stable-resolved-2026-07-16" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong><code>#q{N}</code> requires a STABLE presentation order. When a quiz randomizes its question order, the
+ordinal is not an identity and MUST NOT be used — name the question by what it asks about,
+using the named-sub-activity rule above.</strong></p>
+</blockquote>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>…/sims/animal-cell/#q-nucleus          ✔ randomized order — named
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>…/chapters/01-what-is-an-ibook-lrs/quiz/#q1   ✔ fixed order — ordinal
+</span></code></pre></div>
+<p><strong>This was found by building <code>sims/animal-cell</code>, and it is a real defect in the rule as first
+written, not a local preference.</strong> That sim's quiz does:</p>
+<div class="language-js highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nx">initQuiz</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">quizQueue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[...</span><span class="k">this</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">callouts</span><span class="p">].</span><span class="nx">sort</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">0.5</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+</span></code></pre></div>
+<p>The order is reshuffled <strong>on every load</strong>. So <code>#q1</code> is "identify the nucleus" for one student and
+"identify the cytoplasm" for the next. <code>mv_student_question_rollup</code> is
+<code>GROUP BY (district_id, student_key, object_id)</code>, so answers about six different structures would
+merge into six rows keyed by position — each one an average across whichever questions happened to
+land in that slot. <strong>That is worse than collecting nothing, because it looks like data.</strong></p>
+<p>This is <strong>§2's own test failing</strong>: "would an edit that does not change what the thing <em>is</em> change its
+IRI?" Here not even an edit is required — <em>a page reload</em> does it. So the ordinal was never this
+question's stable identity; what it asks about is. That is exactly the named-sub-activity rule above,
+and this is therefore <strong>still one rule, not a third one</strong>: the fragment always names the
+sub-activity by its most stable local identifier. For a fixed-order quiz that is the number the
+student sees. For a shuffled one it cannot be.</p>
+<p><strong>Why <code>#q-{name}</code> and not bare <code>#{name}</code>.</strong> The <code>q-</code> prefix keeps questions visibly in the <code>#q…</code>
+family, and — load-bearing — it keeps a question's IRI <strong>distinct from the hotspot of the same name</strong>
+on the same page. <code>animal-cell</code> emits both <code>#nucleus</code> (a Control the student inspected) and
+<code>#q-nucleus</code> (a Question they answered). Those are different activities that share a pixel; see §5's
+new "one object, one type" note.</p>
+<p><strong>How to tell which you have:</strong> if you can reword a question without it becoming a different
+question, its identity is positional → ordinal. If you can <em>reorder</em> it without it becoming a
+different question, its identity is its subject → name. A shuffled quiz answers yes to the second,
+so it must be named.</p>
+<hr />
+<h2 id="3-verbs-resolved">3. Verbs  <strong>[RESOLVED]</strong><a class="headerlink" href="#3-verbs-resolved" title="Permanent link">&para;</a></h2>
+<p>Exactly three verbs are valid in v1. A statement with any other verb is rejected at the gateway.</p>
+<table>
+<thead>
+<tr>
+<th>Verb IRI</th>
+<th>Emitted for</th>
+<th>Required <code>result</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>http://adlnet.gov/expapi/verbs/answered</code></td>
+<td>A question attempt</td>
+<td><code>success</code> (bool). <code>score.scaled</code> when scored.</td>
+</tr>
+<tr>
+<td><code>http://adlnet.gov/expapi/verbs/experienced</code></td>
+<td>Page or MicroSim engagement</td>
+<td><code>duration</code> (ISO-8601). See §7.</td>
+</tr>
+<tr>
+<td><code>http://adlnet.gov/expapi/verbs/interacted</code></td>
+<td>A control being manipulated — a slider, a button</td>
+<td>none required; <code>result.extensions</code> carry the value</td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>interacted</code> was added 2026-07-16</strong>, widening <code>mvp-plan.md:82</code>'s "2 verbs" scope. The reason is that
+the plan's two verbs could not express what this repo's own MicroSims already do: <code>sine-wave.js</code>
+emits <code>interacted</code> and <code>docs/sims/sine-wave/index.md</code> discusses it at length in the emission-strategy
+trade-off. A slider drag is neither an answer (no <code>success</code>) nor dwell (no interval), so forcing it
+into <code>answered</code> or <code>experienced</code> would make the verb carry a meaning it does not have. <code>interacted</code>
+statements are still real evidence: they carry <code>concept_id</code>, so they feed
+<code>mv_student_concept_rollup</code>'s <code>statements_compressed</code> — which <em>is</em> the C-6 compression signal — even
+though they contribute <code>attempts = 0</code>.</p>
+<p><strong><code>completed</code> is not in v1.</strong> It is the only verb appearing anywhere in the design
+(<code>lrs-design-v1.md:1187</code>), and it is none of these three. The design's <code>smoke.sh</code> used it; the
+rewritten <code>scripts/smoke.sh</code> uses <code>answered</code>. That rewrite was correct and this ratifies it —
+<code>completed</code> carries no <code>success</code>, so it cannot feed
+<code>mv_student_concept_rollup</code>'s <code>countIf(result_success IS NOT NULL)</code>, and a rollup fed by <code>completed</code>
+reports <code>attempts = 0</code> for every student. Adding <code>completed</code> later means deciding what it means for
+mastery first.</p>
+<p><strong>Why <code>answered</code> and not <code>interacted</code> for a question:</strong> already argued at <code>smoke.sh</code>. <code>answered</code>
+carries the <code>result.success</code> and <code>result.score.scaled</code> the concept rollup needs to produce
+<code>attempts &gt; 0</code>. The two verbs coexist; they are not alternatives.</p>
+<hr />
+<h2 id="4-the-textbook-version-iri-grouping0-resolved">4. The textbook version IRI (<code>grouping[0]</code>)  <strong>[RESOLVED]</strong><a class="headerlink" href="#4-the-textbook-version-iri-grouping0-resolved" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><strong><code>context.contextActivities.grouping[0].id</code> = <code>{site_url}textbook/{textbook_id}/{version_id}</code></strong></p>
+</blockquote>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>https://dmccreary.github.io/learning-record-store/textbook/lrs/v1.0.0
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>   → textbook_id = &quot;lrs&quot;   version_id = &quot;v1.0.0&quot;
+</span></code></pre></div>
+<p>This is <code>smoke.sh</code>'s form and it is correct. <code>lrs-design-v1.md:1194</code>'s
+<code>https://example.edu/textbook/lrs/v1.0.0</code> is a placeholder from the design's worked example —
+<code>example.edu</code> is not a real host and must not reach a durable statement.</p>
+<p><code>grouping[0]</code> is <strong>required on every statement.</strong> <code>textbook_id</code> and <code>version_id</code> are
+<code>LowCardinality(String)</code> and <code>NOT NULL</code> in <code>lrs.statements</code>; there is no sensible default, and a
+statement that cannot be attributed to a textbook version cannot be replayed against the version of
+the content it describes (C-2).</p>
+<p><code>parent[0]</code>, when present, is the page IRI a question belongs to (<code>smoke.sh</code>). Required for
+<code>answered</code>, meaningless for <code>experienced</code> (a page is not its own parent).</p>
+<hr />
+<h2 id="5-objectdefinitiontype-object_type-new">5. <code>object.definition.type</code> → <code>object_type</code>  <strong>[NEW]</strong><a class="headerlink" href="#5-objectdefinitiontype-object_type-new" title="Permanent link">&para;</a></h2>
+<p><code>lrs.statements.object_type</code> is <code>Page | MicroSim | Question | Concept</code> (<code>clickhouse.sql</code>), and two
+materialized views filter on it — <code>mv_student_page_rollup</code> on <code>'Page'</code>, <code>mv_student_question_rollup</code>
+on <code>'Question'</code>. <strong>The design never says how the processor derives it.</strong> Without this mapping both
+rollups are empty and C-6 has nothing to measure. This table decides it:</p>
+<table>
+<thead>
+<tr>
+<th><code>object.definition.type</code></th>
+<th>→ <code>object_type</code></th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>http://adlnet.gov/expapi/activities/lesson</code></td>
+<td><code>Page</code></td>
+<td>A prose/textbook page.</td>
+</tr>
+<tr>
+<td><code>http://adlnet.gov/expapi/activities/simulation</code></td>
+<td><code>MicroSim</code></td>
+<td>An interactive sim <strong>page</strong>. Object is the page IRI, no fragment.</td>
+</tr>
+<tr>
+<td><code>http://adlnet.gov/expapi/activities/cmi.interaction</code></td>
+<td><code>Question</code></td>
+<td><strong>Ratified</strong> — <code>smoke.sh</code> already emits this.</td>
+</tr>
+<tr>
+<td><code>http://adlnet.gov/expapi/activities/interaction</code></td>
+<td><code>Control</code></td>
+<td>A slider or button <strong>within</strong> a page. Object IRI is fragment-qualified.</td>
+</tr>
+<tr>
+<td><em>(anything else)</em></td>
+<td>—</td>
+<td><strong>Reject at the gateway.</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Note <code>cmi.interaction</code> (Question) and <code>interaction</code> (Control) differ by four characters and mean
+entirely different things. That is an unfortunate inheritance from the ADL vocabulary, not a choice
+made here — but it is exactly the sort of thing a gateway validator should be strict about.</p>
+<p><code>Concept</code> is in the enum but <strong>no producer emits it.</strong> Concepts attach via the extension in §6, never
+as an object. It stays for the enrichment path.</p>
+<h3 id="why-control-exists-and-why-it-is-not-microsim-resolved-2026-07-16">Why <code>Control</code> exists, and why it is not <code>MicroSim</code>  <strong>[RESOLVED 2026-07-16]</strong><a class="headerlink" href="#why-control-exists-and-why-it-is-not-microsim-resolved-2026-07-16" title="Permanent link">&para;</a></h3>
+<p><code>mv_student_page_rollup</code> is <code>GROUP BY (district_id, student_key, object_id)</code>. A control's IRI is
+fragment-qualified (<code>…/sims/bouncing-ball/#speed-slider</code>). So if a slider were typed <code>MicroSim</code>,
+<strong>every control on a page would become its own <code>PageEngagement</code> vertex</strong> for a page the student visited
+once — the same defect as naming <code>main.html</code> in §1, arriving by a different road. Controls are
+therefore excluded from the page rollup by type, and land in the concept rollup instead, which is where
+their evidence belongs.</p>
+<p><code>object_type</code> is a <code>LowCardinality(String)</code>, not an <code>ENUM</code>, so adding <code>Control</code> needed no migration.</p>
+<h3 id="one-object-one-type-the-mode-does-not-change-it-resolved-2026-07-16">One object, one type — the mode does not change it  <strong>[RESOLVED 2026-07-16]</strong><a class="headerlink" href="#one-object-one-type-the-mode-does-not-change-it-resolved-2026-07-16" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong><code>object_type</code> is a property of the OBJECT, never of the UI mode the student was in.</strong> An artifact
+with two modes emits two <em>objects</em>, not one object with two types.</p>
+</blockquote>
+<p><code>TODO.md</code> raised this as an open contract question against the interactive-poster shape: <em>does a
+hotspot's <code>object_type</code> depend on the mode it is clicked in?</em> <code>sims/animal-cell</code> is that artifact —
+it has an explore mode and a quiz mode over the same six hotspots — and the answer is <strong>no</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>The student's act</th>
+<th><code>object.id</code></th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>explore</td>
+<td>inspect the nucleus</td>
+<td><code>…/sims/animal-cell/#nucleus</code></td>
+<td><code>Control</code></td>
+</tr>
+<tr>
+<td>quiz</td>
+<td>answer "where is the nucleus?"</td>
+<td><code>…/sims/animal-cell/#q-nucleus</code></td>
+<td><code>Question</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why not one IRI with a mode-dependent type.</strong> It is the same defect §1 rejects for <code>main.html</code>,
+arriving from the opposite direction. §1 forbids <em>one activity with two identities</em>; this would
+create <em>two activities with one identity</em>. Every reader of a statement would have to know the
+emitter's UI state before they could interpret its IRI, and <code>mv_student_question_rollup</code> — which
+filters <code>object_type = 'Question'</code> and groups by <code>object_id</code> — would key a question row on an IRI
+that also denotes a hotspot. The type filter happens to keep the two apart in <em>today's</em> views, which
+is precisely what makes it dangerous: it is correct by accident of the current DDL, not by
+construction, and the first view that groups by <code>object_id</code> without a type filter merges them.</p>
+<p><strong>Inspecting a thing and being asked to find it are different activities.</strong> They are related, and
+they <em>should</em> re-converge — but at the <strong>concept</strong>, which is where relatedness belongs.
+<code>mv_student_concept_rollup</code> applies no type filter, so <code>#nucleus</code> and <code>#q-nucleus</code> both carry
+<code>concept_id: cell-nucleus</code> and both land in one <code>ConceptMastery</code> vertex. <strong>Splitting the IRI
+therefore costs nothing and buys type sanity</strong>: the explore statements contribute
+<code>statements_compressed</code> at <code>attempts = 0</code>, the quiz statements contribute real <code>attempts</code>/<code>successes</code>,
+and the rollup adds them up correctly without either pretending to be the other.</p>
+<p>The general rule: <strong>if two acts would need different <code>result</code> fields to be honest, they are different
+objects.</strong> An inspection has no <code>success</code> to report; an answer must have one (§3). That difference is
+the tell.</p>
+<h3 id="the-microsim-rollup-gap-closed">The MicroSim rollup gap — closed<a class="headerlink" href="#the-microsim-rollup-gap-closed" title="Permanent link">&para;</a></h3>
+<p>The first draft of this contract flagged that <code>mv_student_page_rollup</code> filtered <code>object_type = 'Page'</code>,
+so a MicroSim's dwell was stored in <code>lrs.statements</code> and then <strong>silently dropped</strong> at the rollup —
+PageEngagement would report zero dwell for every sim in the textbook while the evidence sat in the log.
+The bouncing ball made this concrete rather than theoretical: dwell is its <em>entire</em> output.</p>
+<p><strong>Resolved:</strong> <code>clickhouse.sql</code>'s <code>mv_student_page_rollup</code> now filters
+<code>object_type IN ('Page', 'MicroSim')</code>. Verified against a live ClickHouse with the statements the
+bouncing ball actually emitted — the MicroSim's <code>PT26.12S</code> reaches <code>dwell_ms_total</code> as <code>26120</code>, exactly
+one rollup row is produced, and the <code>#speed-slider</code> Control does not leak in. Changed while nothing is
+durable; the same change against a populated rollup would need a backfill.</p>
+<hr />
+<h2 id="6-concepts-extension-vs-enrichment-open-a-real-conflict">6. Concepts: extension vs. enrichment  <strong>[OPEN — a real conflict]</strong><a class="headerlink" href="#6-concepts-extension-vs-enrichment-open-a-real-conflict" title="Permanent link">&para;</a></h2>
+<p><strong>The design and the harness disagree, and this is not cosmetic.</strong></p>
+<ul>
+<li><code>lrs-design-v1.md:309</code> (§5.3 step 3, "Enrich"): the processor attaches <code>section_id</code>, <code>version_id</code>,
+  and <strong>"the <code>concept_ids</code> the object covers, from the cached structural graph."</strong> Producers send
+  nothing; the LRS knows which concepts a page covers.</li>
+<li><code>scripts/smoke.sh</code>: the producer sends
+  <code>context.extensions["https://w3id.org/lrs/ext/concept_id"] = "compression-ratio"</code>.</li>
+</ul>
+<p>These are different architectures. Enrichment scales to unlabeled content and keeps the concept map
+server-side; the extension makes the producer authoritative and requires every emitter to know the
+concept taxonomy.</p>
+<p><strong>v1 rule (pragmatic, and reversible):</strong></p>
+<blockquote>
+<p>Producers <strong>SHOULD</strong> send <code>https://w3id.org/lrs/ext/concept_id</code> — a <strong>single concept ID string</strong>.
+When present it is authoritative. When absent, <code>concept_ids</code> is <code>[]</code> and the statement is excluded
+from <code>mv_student_concept_rollup</code> by its own <code>WHERE notEmpty(concept_ids)</code>. Graph-based enrichment is
+<strong>deferred</strong>, not rejected: when it lands, it fills the gap when the extension is absent, and the
+extension still wins.</p>
+</blockquote>
+<p><strong>Why:</strong> no structural graph is seeded in the MVP, so enrichment has nothing to read. If the extension
+weren't authoritative, <code>concept_ids</code> would be empty for every statement, <code>mv_student_concept_rollup</code>
+would stay empty, and step 4's mastery join would have nothing to join — the exact null-forever failure
+the mastery fix (<code>clickhouse.sql</code>) exists to prevent.</p>
+<p><strong>Note the singular/plural mismatch:</strong> the extension is <code>concept_id</code> (one string); the column is
+<code>concept_ids Array(String)</code>. <strong>The processor wraps it: <code>concept_ids = [value]</code>.</strong> Statements covering
+multiple concepts are not expressible in v1. If that's needed, add <code>…/ext/concept_ids</code> (array) in v1.1
+and keep the singular as an alias — do not redefine the singular key.</p>
+<p><strong>This changes the ingest contract relative to design §5.3, which is why it is tagged OPEN</strong> rather
+than silently written down.</p>
+<hr />
+<h2 id="7-startpause-the-dwell-pattern-new-2026-07-16">7. Start/Pause: the dwell pattern  <strong>[NEW 2026-07-16]</strong><a class="headerlink" href="#7-startpause-the-dwell-pattern-new-2026-07-16" title="Permanent link">&para;</a></h2>
+<p>Nearly every MicroSim has a Start/Pause control, and it is the interaction the verb set could not
+express until this section existed. The reference implementation is
+<a href="../../sims/bouncing-ball/"><code>docs/sims/bouncing-ball/</code></a>.</p>
+<blockquote>
+<p><strong>A Start/Pause pair is ONE run interval, and a run interval is ONE <code>experienced</code> statement,
+emitted on Pause, carrying the elapsed time as <code>result.duration</code>.</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Emit</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Start</strong></td>
+<td><strong>Nothing.</strong> Record the wall clock.</td>
+<td>A student who starts a sim and walks away has produced no evidence. A <code>started</code> with no matching <code>paused</code> is an unclosed interval nothing can score, and it would inflate <code>statements_compressed</code> with rows that carry no duration.</td>
+</tr>
+<tr>
+<td><strong>Pause</strong></td>
+<td><strong>One</strong> <code>experienced</code>, <code>result.duration</code> = elapsed.</td>
+<td>The interval <em>is</em> the evidence. <code>result.duration</code> is the only field feeding <code>dwell_ms_total</code>, and one statement carries it as well as two do.</td>
+</tr>
+<tr>
+<td><strong>Tab hidden while running</strong></td>
+<td>The same <code>experienced</code>, flushed.</td>
+<td>Start-it-and-close-the-tab is the <strong>common</strong> case, not the edge case. Without a flush the modal student emits nothing at all. Use <code>visibilitychange</code>, not <code>beforeunload</code> — it is the only one that fires reliably on mobile Safari.</td>
+</tr>
+<tr>
+<td><strong>Run &lt; 250 ms</strong></td>
+<td><strong>Nothing.</strong></td>
+<td>A mis-click is not engagement. Emitting it puts <code>PT0S</code> rows into <code>dwell_ms_total</code> and pollutes the C-6 ratio with noise.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The object is the page, not the button.</strong> <code>object.id</code> is the sim's page IRI with no fragment, typed
+<code>simulation</code> → <code>MicroSim</code> (§5). The Start/Pause button is <em>not</em> its own activity: what is being
+measured is engagement with the simulation, and the button is merely how the student expressed it. A
+button-fragment IRI here would land the dwell in a <code>PageEngagement</code> vertex named after a button.</p>
+<p><strong>Why not two statements.</strong> The literal instrumentation — <code>started</code> on Start, <code>paused</code> on Pause — is
+more xAPI-idiomatic and is what most LRS integrations do. It is rejected here because it doubles
+statement volume for zero additional information, requires the reader to reconstruct duration by
+pair-joining statements at read time (ordering under at-least-once delivery makes that unreliable), and
+produces unclosed intervals whenever a student never pauses. The pattern above degrades gracefully:
+the worst case is a <em>missing</em> interval, never a <em>wrong</em> one.</p>
+<p><strong>Paused-by-default is load-bearing.</strong> The MicroSim standard requires every sim to load paused. That
+is primarily pedagogical — a sim animating as a student scrolls past is a distraction. But it is also a
+data rule here: an auto-running sim would emit dwell the student never chose to spend, and every
+downstream engagement number would be inflated by however long the page happened to sit in a viewport.</p>
+<p><strong>Repeated cycles are repeated statements.</strong> Start→Pause→Start→Pause emits two <code>experienced</code>
+statements, and <code>mv_student_page_rollup</code> sums them into one <code>PageEngagement</code> row via
+<code>sum(duration_ms)</code>. That is the intended compression: N intervals → 1 vertex.</p>
+<h2 id="8-what-producers-never-send">8. What producers never send<a class="headerlink" href="#8-what-producers-never-send" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Who sets it</th>
+<th>Why not the producer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>district_id</code></td>
+<td>Gateway, from the auth token</td>
+<td>A producer must not be able to claim another district's tenancy.</td>
+</tr>
+<tr>
+<td><code>student_key</code></td>
+<td>Processor, HMAC of the actor</td>
+<td>§5.2's boundary. The producer sends the <em>real</em> identity in <code>actor.account.name</code>; the pseudonym is derived exactly once, server-side.</td>
+</tr>
+<tr>
+<td><code>stored_at</code></td>
+<td>Gateway, at receipt</td>
+<td>Arrival time. <code>timestamp</code> is event time and is the producer's.</td>
+</tr>
+<tr>
+<td><code>section_id</code></td>
+<td>Processor (enrichment, design:309)</td>
+<td>Roster data. <strong>Empty in v1</strong> — nothing seeds the structural graph yet.</td>
+</tr>
+<tr>
+<td><code>voided_by</code></td>
+<td>The void API (F-3)</td>
+<td>Retraction is never deletion.</td>
+</tr>
+<tr>
+<td><code>provisional</code></td>
+<td>Processor</td>
+<td>Set when the object isn't reconciled yet (§5.4 accept-first).</td>
+</tr>
+</tbody>
+</table>
+<p><code>actor.account.name</code> <strong>is PII by design and that is correct</strong> — it is the only place real identity
+enters, and the processor rewrites the actor block before the <code>raw</code> column is stored
+(<code>clickhouse.sql</code>). Producers must not pre-hash it: the salt is per-district and lives in the
+vault.</p>
+<hr />
+<h2 id="9-transport-ratified">9. Transport  <strong>[RATIFIED]</strong><a class="headerlink" href="#9-transport-ratified" title="Permanent link">&para;</a></h2>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="err">POST /xapi/statements</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="err">Content-Type: application/json</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="err">X-Experience-API-Version: 1.0.3</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="err">Authorization: Bearer &lt;token&gt;</span>
+</span></code></pre></div>
+<ul>
+<li><strong>Body is always a JSON array</strong>, even for one statement (<code>smoke.sh</code>).</li>
+<li><strong>All-or-nothing per batch</strong>, per xAPI conformance and <code>mvp-plan.md:90</code>. One invalid statement
+  rejects the batch; there is no partial success.</li>
+<li><strong><code>id</code> is optional.</strong> When the producer supplies one it is preserved verbatim — <code>smoke.sh</code> sends
+  <code>id</code> and then queries <code>WHERE statement_id = '${STATEMENT_ID}'</code>, so round-tripping it is load-bearing
+  for the harness. When absent the gateway assigns a UUIDv7 (<code>mvp-plan.md:90</code>).</li>
+<li><strong><code>timestamp</code></strong> is ISO-8601 UTC, producer-supplied, event time.</li>
+</ul>
+<blockquote>
+<p><strong>Interaction with the §7 open question in <code>mvp-status.md</code>.</strong> Producer-supplied <code>id</code> is what makes
+gateway-side dedup on <code>statement_id</code> (candidate (a)) possible at all. A producer that omits <code>id</code> gets
+a fresh UUIDv7 per delivery and <strong>cannot be deduplicated</strong> — a retry becomes a distinct statement and
+double-counts in every rollup. If dedup lands, <code>id</code> becomes <strong>required</strong>, not optional. Worth knowing
+before that decision, since it is a producer-visible change.</p>
+</blockquote>
+<hr />
+<h2 id="10-the-reference-statement">10. The reference statement<a class="headerlink" href="#10-the-reference-statement" title="Permanent link">&para;</a></h2>
+<p>This is <code>scripts/smoke.sh</code> verbatim in shape, and it is the shape <code>lrs loadgen</code> must emit
+(<code>mvp-plan.md:94</code>: "same shape in, nothing downstream changes").</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">[{</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0190f8a1-...-7b3c&quot;</span><span class="p">,</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span><span class="nt">&quot;actor&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="nt">&quot;objectType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Agent&quot;</span><span class="p">,</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="nt">&quot;account&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;homePage&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://demo.example.edu&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;student-0042&quot;</span><span class="p">}</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">  </span><span class="nt">&quot;verb&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://adlnet.gov/expapi/verbs/answered&quot;</span><span class="p">,</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">    </span><span class="nt">&quot;display&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;en-US&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;answered&quot;</span><span class="p">}</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">  </span><span class="nt">&quot;object&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">    </span><span class="nt">&quot;objectType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Activity&quot;</span><span class="p">,</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://dmccreary.github.io/learning-record-store/sims/lrs-data-model/#q2&quot;</span><span class="p">,</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="w">    </span><span class="nt">&quot;definition&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://adlnet.gov/expapi/activities/cmi.interaction&quot;</span><span class="p">,</span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;en-US&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;How many PageEngagement vertices exist?&quot;</span><span class="p">}</span>
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="w">  </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;score&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;scaled&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.9</span><span class="p">},</span><span class="w"> </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;duration&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PT4M12S&quot;</span><span class="p">},</span>
+</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a><span class="w">  </span><span class="nt">&quot;context&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a><span class="w">    </span><span class="nt">&quot;contextActivities&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a><span class="w">      </span><span class="nt">&quot;grouping&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://dmccreary.github.io/learning-record-store/textbook/lrs/v1.0.0&quot;</span><span class="p">}],</span>
+</span><span id="__span-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a><span class="w">      </span><span class="nt">&quot;parent&quot;</span><span class="p">:</span><span class="w">   </span><span class="p">[{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://dmccreary.github.io/learning-record-store/sims/lrs-data-model/&quot;</span><span class="p">}]</span>
+</span><span id="__span-7-24"><a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a><span class="w">    </span><span class="p">},</span>
+</span><span id="__span-7-25"><a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a><span class="w">    </span><span class="nt">&quot;extensions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;https://w3id.org/lrs/ext/concept_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;compression-ratio&quot;</span><span class="p">}</span>
+</span><span id="__span-7-26"><a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-7-27"><a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a><span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-07-16T14:22:03Z&quot;</span>
+</span><span id="__span-7-28"><a id="__codelineno-7-28" name="__codelineno-7-28" href="#__codelineno-7-28"></a><span class="p">}]</span>
+</span></code></pre></div>
+<p><code>actor.account.homePage</code> is <code>https://demo.example.edu</code> — a <strong>demo tenant</strong>, not a placeholder to purge.
+Unlike <code>example.edu</code> in <code>grouping</code> (§4), it identifies the account namespace rather than a content
+version, and real districts supply their own.</p>
+<h2 id="11-field-column-map">11. Field → column map<a class="headerlink" href="#11-field-column-map" title="Permanent link">&para;</a></h2>
+<p>Everything the DDL reads, and where it comes from. If a row here is wrong, a rollup is wrong.</p>
+<table>
+<thead>
+<tr>
+<th>Statement path</th>
+<th>Column</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td><code>statement_id</code> UUID</td>
+<td>Or gateway UUIDv7 — §9.</td>
+</tr>
+<tr>
+<td><code>actor.account.name</code></td>
+<td>→ <code>student_key</code></td>
+<td>HMAC'd. Never stored raw.</td>
+</tr>
+<tr>
+<td><code>verb.id</code></td>
+<td><code>verb_id</code></td>
+<td>§3. Exactly two values.</td>
+</tr>
+<tr>
+<td><code>object.definition.type</code></td>
+<td>→ <code>object_type</code></td>
+<td>§5. Both page/question MVs filter on this.</td>
+</tr>
+<tr>
+<td><code>object.id</code></td>
+<td><code>object_id</code></td>
+<td>§1. Trailing slash significant.</td>
+</tr>
+<tr>
+<td><code>grouping[0].id</code></td>
+<td>→ <code>textbook_id</code>, <code>version_id</code></td>
+<td>§4. Parsed from the IRI.</td>
+</tr>
+<tr>
+<td><code>result.score.scaled</code></td>
+<td><code>result_score</code> Nullable(Float32)</td>
+<td><code>0.0</code>–<code>1.0</code>. Null ⇒ not counted in <code>score_count</code>.</td>
+</tr>
+<tr>
+<td><code>result.success</code></td>
+<td><code>result_success</code> Nullable(UInt8)</td>
+<td>Null ⇒ not counted in <code>attempts</code>.</td>
+</tr>
+<tr>
+<td><code>result.duration</code></td>
+<td><code>duration_ms</code> Nullable(UInt32)</td>
+<td>ISO-8601 → ms. Feeds <code>dwell_ms_total</code>.</td>
+</tr>
+<tr>
+<td><code>ext/concept_id</code></td>
+<td>→ <code>concept_ids</code> Array(String)</td>
+<td>§6. Wrapped to a 1-element array.</td>
+</tr>
+<tr>
+<td><code>timestamp</code></td>
+<td><code>timestamp</code> DateTime64(3)</td>
+<td>Event time. Partition key + rollup min/max.</td>
+</tr>
+<tr>
+<td><em>(whole statement)</em></td>
+<td><code>raw</code></td>
+<td>Actor block pseudonymized first — <code>clickhouse.sql</code>.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="12-open-items">12. Open items<a class="headerlink" href="#12-open-items" title="Permanent link">&para;</a></h2>
+<p><strong>Still open:</strong></p>
+<ol>
+<li><strong>§6 — extension vs. enrichment.</strong> v1 makes the producer authoritative. This contradicts design
+   §5.3 step 3 and should be reflected there, or reversed here.</li>
+<li><strong>§9 — <code>id</code> becomes required if gateway dedup lands</strong> (<code>mvp-status.md</code> §7 candidate (a)).</li>
+<li><strong>The design doc is not yet amended.</strong> §§1, 3, 4, 5, 6, 7 each correct or fill something in
+   <code>lrs-design-v1.md</code>. Tracked in the plan's "Amend the docs as we go".</li>
+<li><strong><code>smoke.sh</code> does not yet exercise <code>interacted</code> or the §7 dwell pattern.</strong> Its one statement is an
+   <code>answered</code>. Neither new path has a tier asserting it.</li>
+<li><strong>Multi-concept statements are not expressible</strong> (§6). <code>concept_id</code> is one string. If a page covers
+   three concepts, v1 cannot say so.</li>
+<li><strong>Repeat attempts — a producer now exists; the <em>policy</em> is still open.</strong> <code>quiz-xapi.js</code> emits at
+   most one <code>answered</code> per question per page load, and never for an answer chosen after the
+   explanation was revealed. That is the right <em>default</em> for a reveal-the-answer quiz — a peeked
+   answer is not evidence of knowledge.</li>
+</ol>
+<p><strong>What changed 2026-07-16:</strong> <code>sims/animal-cell</code>'s quiz mode <strong>does</strong> produce a sequence, and it is
+   the first thing in the repo that does. It never reveals the answer, and <code>handleAnswer()</code> locks only
+   on a <em>correct</em> click, so a wrong click leaves the question live and the student retries. Verified
+   in-browser: three clicks at one question emitted three <code>answered</code> statements against the single IRI
+   <code>…/#q-mitochondria</code> with <code>success: false, false, true</code> — which
+   <code>mv_student_question_rollup</code> aggregates to <code>attempts = 3, successes = 1</code>.</p>
+<p><strong>Emitting the failures is the honest choice, not the noisy one.</strong> With six hotspots a student can
+   brute-force: click every marker and the last is necessarily right. Emitting only the success would
+   render that student identical to one who knew it instantly (<code>attempts = 1, successes = 1</code>) — the
+   rollup would report mastery the interaction plainly disproves. The full sequence yields
+   <code>attempts = 6, successes = 1</code>, which is what BKT's guess parameter exists to read. <strong>For a
+   click-to-identify quiz the sequence is not noise around the signal; it <em>is</em> the signal.</strong></p>
+<p>Note this is consistent with the peek rule rather than an exception to it: both follow from <em>do not
+   report success the interaction does not support.</em></p>
+<p><strong>Still open:</strong> whether a <em>reveal-style</em> quiz should offer retry at all (that is the UX decision
+   the original item named), and whether BKT should treat within-question retries as one opportunity
+   or several. A guess-then-correct sequence is not the same evidence as two attempts a week apart,
+   and <code>mv_student_concept_rollup</code> currently cannot tell them apart — it counts both as <code>attempts</code>.
+   That distinction needs deciding before F-7 is read as a mastery number.
+7. <strong>Every emitter hardcodes <code>demo-student</code>.</strong> One actor means the §8 pseudonymization boundary has
+   never been exercised by a producer. That is <code>loadgen</code>'s job, not a sim's.
+8. <strong>The same activity in two textbooks is indistinguishable in every rollup.</strong> <code>object.id</code> is the
+   canonical URL (§1), so a shared MicroSim — <code>sims/scientific-method/</code> is embedded by physics and
+   chemistry as well as this book — carries the <strong>same IRI</strong> everywhere; only <code>grouping[0]</code> differs.
+   But every rollup is keyed <code>(district_id, student_key, {concept_id|object_id})</code> with <strong>no
+   <code>textbook_id</code></strong>, so exposures across books <strong>merge into one vertex</strong> with dwell summed.
+   <code>lrs.statements</code> retains <code>textbook_id</code>/<code>version_id</code>, so the question is answerable from the log —
+   never from <code>ConceptMastery</code>. <strong>This is the two-store split working</strong>, not a defect, but it has a
+   sharp consequence: <em>a student skimming because they already met the material in physics looks
+   identical to a student who did not engage.</em> Low engagement is not evidence of low mastery. If a
+   report ever wants to distinguish "this book taught them" from "they arrived knowing it", that
+   requires either a textbook-keyed rollup or a log query — decide which before a dashboard implies
+   the former.
+9. <strong>Per-node dwell reaches no rollup.</strong> <code>interacted</code>/<code>Control</code> statements carry <code>result.duration</code>
+   (scientific-method emits per-step dwell), but <code>mv_student_page_rollup</code> sums <code>duration_ms</code> while
+   excluding <code>Control</code>, and <code>mv_student_concept_rollup</code> ignores duration entirely. So "which step did
+   the student labour over?" lives only in <code>lrs.statements</code>. Deliberate for now — the log is the
+   system of record, so a rollup can be added later without re-collecting anything.</p>
+<ol>
+<li><strong>Every emitter still renders; none POSTs, and the shape has never been validated by a
+    consumer.</strong> <code>docs/js/lrs-xapi.js</code> now enforces the rules this document states — it rejects
+    non-v1 verbs and types outright, and warns on a <code>main.html</code> IRI, a fragment-qualified
+    <code>MicroSim</code>/<code>Page</code>, an <code>answered</code> with no <code>success</code>, and a local origin. That is a real
+    improvement over five hand-written copies, but <strong>it is the producer marking its own homework</strong>.
+    Until the gateway exists, "conforms to the contract" means "conforms to one JS file's reading of
+    it."</li>
+</ol>
+<p><strong>Closed 2026-07-16:</strong></p>
+<ul>
+<li>~~<strong>Does a hotspot's <code>object_type</code> depend on the mode it is clicked in?</strong>~~ <strong>Resolved: no.</strong>
+  <code>object_type</code> is a property of the object; two modes emit two objects (<code>#nucleus</code> Control,
+  <code>#q-nucleus</code> Question) which re-converge at the concept rollup. See §5's "one object, one type".
+  Settled against a real artifact — <code>sims/animal-cell</code> — as <code>TODO.md</code> insisted it should be.</li>
+<li>~~<strong>§2's ordinal rule is universal.</strong>~~ <strong>Amended: it requires a stable presentation order.</strong>
+  <code>sims/animal-cell</code> shuffles its quiz on every load, so <code>#q{N}</code> would have merged six different
+  questions into six position-keyed rows. Named fragments (<code>#q-nucleus</code>) apply. See §2.</li>
+<li>~~<strong>Five emitters, five implementations of the contract.</strong>~~ <strong>Extracted</strong> to
+  <code>docs/js/lrs-xapi.js</code>; <code>animal-cell</code> is the first consumer. The derive-vs-hardcode split is
+  resolved in favour of <strong>derive</strong>, which required a rule the previous derive-based copy did not
+  have: strip the <code>main.html</code>/<code>index.html</code> payload filename, not just the site base path. Verified
+  in-browser — from a localhost iframe at <code>/learning-record-store/sims/animal-cell/main.html</code> the
+  module derives <code>https://dmccreary.github.io/learning-record-store/sims/animal-cell/</code>. §1 is now
+  satisfied <strong>by construction</strong> rather than by luck. The four older emitters have <strong>not</strong> been
+  migrated yet.</li>
+</ul>
+<p><strong>Closed 2026-07-16:</strong></p>
+<ul>
+<li>~~<strong>§2 — is <code>#q{N}</code> zero-based?</strong>~~ <strong>Resolved: ONE-based</strong>, one rule for every source. The
+  zero-based pin was an inference from <code>smoke.sh</code> that turned out to be reading a <strong>latent off-by-one</strong>
+  rather than an intent. <code>smoke.sh</code> now emits <code>#q3</code> for the question it names. See §2.</li>
+</ul>
+<p><strong>Closed 2026-07-16:</strong></p>
+<ul>
+<li>~~<strong>§5 — MicroSim engagement doesn't reach <code>student_page_rollup</code>.</strong>~~ <strong>Fixed.</strong> MV widened to
+  <code>object_type IN ('Page','MicroSim')</code>, verified against live ClickHouse with real emitted statements.</li>
+<li>~~<strong><code>sine-wave.js</code> emits a malformed IRI.</strong>~~ <strong>Fixed</strong>, along with five <em>other</em> wrong URLs in the
+  same file that the original note missed — <code>actor.account.homePage</code>, two <code>result.extensions</code>
+  namespaces, <code>grouping[0]</code> (which held a page URL where the version IRI belongs), and
+  <code>metadata.json</code>'s <code>identifier</code>. The lesson generalizes: the malformed IRI was never one line, and
+  "fix the URI" was not a one-line job.</li>
+<li>~~<strong>Start/Pause has no contracted representation.</strong>~~ Now §7, with
+  <a href="../../sims/bouncing-ball/"><code>bouncing-ball</code></a> as the reference emitter.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../lrs-design-v1/" class="md-footer__link md-footer__link--prev" aria-label="Previous: LRS Design &amp; Deployment (v1)">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                LRS Design & Deployment (v1)
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../hardware-requirements/" class="md-footer__link md-footer__link--next" aria-label="Next: Hardware Requirements &amp; Cost Estimate">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Hardware Requirements & Cost Estimate
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Dan McCreary. Licensed under <a href="license/">CC BY-NC-SA 4.0</a> for non-commercial use.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="../../js/katex.js"></script>
+      
+        <script src="../../js/quiz-xapi.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

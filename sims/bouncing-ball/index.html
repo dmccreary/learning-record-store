@@ -6,37 +6,37 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="An intelligent textbook on Learning Record Stores: what they are, how xAPI statements work, and how to design, deploy, and query an LRS.">
+        <meta name="description" content="An interactive MicroSim demonstrating motion and collision, and the reference emitter for the xAPI Start/Pause dwell pattern.">
       
       
         <meta name="author" content="Dan McCreary">
       
       
-        <link rel="canonical" href="https://dmccreary.github.io/learning-record-store/course-description/">
+        <link rel="canonical" href="https://dmccreary.github.io/learning-record-store/sims/bouncing-ball/">
       
       
-        <link rel="prev" href="../about/">
+        <link rel="prev" href="../sine-wave/">
       
       
-        <link rel="next" href="../specs/lrs-spec-v1/">
+        <link rel="next" href="../scientific-method/">
       
       
         
       
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
     
     
       
-        <title>Course Description - Learning Record Store</title>
+        <title>Bouncing Ball - Learning Record Store</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -55,19 +55,21 @@
       
     
     
-      <link rel="stylesheet" href="../css/extra.css">
+      <link rel="stylesheet" href="../../css/extra.css">
     
-      <link rel="stylesheet" href="../css/lrs-xapi.css">
+      <link rel="stylesheet" href="../../css/lrs-xapi.css">
     
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
     
     
-  </head>
+    <meta property="og:image" content="https://dmccreary.github.io/learning-record-store/sims/bouncing-ball/bouncing-ball.png">
+  <meta name="twitter:image" content="https://dmccreary.github.io/learning-record-store/sims/bouncing-ball/bouncing-ball.png">
+</head>
   
   
     
@@ -84,7 +86,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#course-description" class="md-skip">
+        <a href="#bouncing-ball" class="md-skip">
           Skip to content
         </a>
       
@@ -100,7 +102,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="Learning Record Store" class="md-header__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+    <a href="../.." title="Learning Record Store" class="md-header__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -120,7 +122,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Course Description
+              Bouncing Ball
             
           </span>
         </div>
@@ -217,7 +219,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Learning Record Store" class="md-nav__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+    <a href="../.." title="Learning Record Store" class="md-nav__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -247,7 +249,7 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -274,7 +276,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../about/" class="md-nav__link">
+      <a href="../../about/" class="md-nav__link">
         
   
   
@@ -298,37 +300,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Course Description
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../course-description/" class="md-nav__link">
         
   
   
@@ -344,81 +319,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#title" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Title
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#audience" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Audience
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Prerequisites
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#topics" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Topics
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#learning-outcomes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Learning Outcomes
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -459,7 +359,7 @@
   
   
   
-    <a href="../specs/lrs-spec-v1/" class="md-nav__link">
+    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
       
   
   
@@ -515,7 +415,7 @@
   
   
   
-    <a href="../chapters/" class="md-nav__link">
+    <a href="../../chapters/" class="md-nav__link">
       
   
   
@@ -569,7 +469,7 @@
   
   
   
-    <a href="../learning-graph/" class="md-nav__link">
+    <a href="../../learning-graph/" class="md-nav__link">
       
   
   
@@ -599,6 +499,8 @@
       
   
   
+    
+  
   
   
     
@@ -623,18 +525,17 @@
     
     
       
-        
-        
-      
     
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
-  
-  
-  
-    <a href="../sims/" class="md-nav__link">
-      
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
@@ -648,12 +549,286 @@
   
   
 
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    MicroSims
   
 
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lrs-data-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LRS Graph Data Model Explorer
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--built" title="Built — implementation complete, awaiting review">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sine-wave/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sine Wave
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bouncing Ball
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bouncing Ball
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-this-sim-exists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why This Sim Exists
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-startpause-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Start/Pause Plan
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Start/Pause Plan">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-the-button-and-the-slider-produce-different-object_types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why the button and the slider produce different object_types
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#things-worth-asking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Things Worth Asking
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scientific-method/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scientific Method Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../animal-cell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Animal Cell
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
       
     </li>
   
@@ -666,7 +841,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../glossary/" class="md-nav__link">
+      <a href="../../glossary/" class="md-nav__link">
         
   
   
@@ -693,7 +868,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../license/" class="md-nav__link">
+      <a href="../../license/" class="md-nav__link">
         
   
   
@@ -720,7 +895,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../contact/" class="md-nav__link">
+      <a href="../../contact/" class="md-nav__link">
         
   
   
@@ -767,10 +942,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#title" class="md-nav__link">
+  <a href="#why-this-sim-exists" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Title
+        Why This Sim Exists
       
     </span>
   </a>
@@ -778,10 +953,38 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#audience" class="md-nav__link">
+  <a href="#the-startpause-plan" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Audience
+        The Start/Pause Plan
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Start/Pause Plan">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-the-button-and-the-slider-produce-different-object_types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why the button and the slider produce different object_types
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#things-worth-asking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Things Worth Asking
       
     </span>
   </a>
@@ -789,32 +992,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
+  <a href="#references" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Prerequisites
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#topics" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Topics
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#learning-outcomes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Learning Outcomes
+        References
       
     </span>
   </a>
@@ -839,6 +1020,46 @@
   
 
 
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    MicroSims
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
               
               <article class="md-content__inner md-typeset">
                 
@@ -846,7 +1067,7 @@
 
 
   
-    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/course-description.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/sims/bouncing-ball/index.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -854,42 +1075,94 @@
   
 
 
-<h1 id="course-description">Course Description<a class="headerlink" href="#course-description" title="Permanent link">&para;</a></h1>
-<p>This file is the seed document used by the learning-graph-generator skill to
-enumerate concepts, build the dependency graph, and assign concepts to a
-taxonomy. Keep it focused, concrete, and free of marketing language.</p>
-<p>A good course description includes:</p>
+<h1 id="bouncing-ball">Bouncing Ball<a class="headerlink" href="#bouncing-ball" title="Permanent link">&para;</a></h1>
+<iframe src="main.html" height="700px" scrolling="no"></iframe>
+
+<p><a class="md-button md-button--primary" href="main.html">Run the Bouncing Ball MicroSim Fullscreen</a></p>
+<p>A ball bounces inside the drawing region. The slider changes its speed; the
+<strong>Start/Pause</strong> button runs and halts the animation.</p>
+<p>Note that the ball is <strong>not moving when the page loads</strong>. That is deliberate, and it is
+a MicroSim standard with no exceptions: a simulation that animates as a student scrolls
+past is a distraction and a source of cognitive load. Here it also matters for the data
+— an auto-running sim would emit engagement time the student never chose to spend.</p>
+<h2 id="why-this-sim-exists">Why This Sim Exists<a class="headerlink" href="#why-this-sim-exists" title="Permanent link">&para;</a></h2>
+<p>This is the reference emitter for the <strong>Start/Pause dwell pattern</strong> in the
+<a href="../../specs/xapi-producer-contract-v1/">xAPI Producer Contract v1</a>. A Start/Pause
+control is the most common thing a MicroSim has, and it was the one interaction the
+contract's verbs could not express until the pattern was written down.</p>
+<p>Like <a href="../sine-wave/">Sine Wave</a>, this sim <strong>never sends anything to a server</strong> —
+the statements appear in the log panel under the canvas so you can read them. But the
+shape is exactly what a real gateway would accept, which is the point of a test emitter:
+if the shape is wrong here, it is wrong everywhere.</p>
+<h2 id="the-startpause-plan">The Start/Pause Plan<a class="headerlink" href="#the-startpause-plan" title="Permanent link">&para;</a></h2>
+<p>The naive instrumentation emits a statement when the student presses Start and another
+when they press Pause. This sim does <strong>not</strong> do that. It emits <strong>one statement per run
+interval</strong>, on Pause:</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>What is emitted</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Start</strong></td>
+<td><em>Nothing.</em> The wall clock is recorded.</td>
+<td>A student who starts the sim and walks away has produced no evidence. A <code>started</code> with no matching <code>paused</code> is an unclosed interval that nothing can score.</td>
+</tr>
+<tr>
+<td><strong>Pause</strong></td>
+<td>One <code>experienced</code> statement, with <code>result.duration</code> = the elapsed run time.</td>
+<td>The interval is the evidence. <code>result.duration</code> is the only field that feeds <code>dwell_ms_total</code>, and one statement carries it as well as two would.</td>
+</tr>
+<tr>
+<td><strong>Tab hidden while running</strong></td>
+<td>The same <code>experienced</code> statement, flushed.</td>
+<td>Start-it-and-close-the-tab is the <em>common</em> case, not the edge case. Without the flush it would emit nothing at all.</td>
+</tr>
+<tr>
+<td><strong>Run shorter than 250 ms</strong></td>
+<td><em>Nothing.</em></td>
+<td>A mis-click is not engagement. Emitting it would put <code>PT0S</code> rows into <code>dwell_ms_total</code>.</td>
+</tr>
+<tr>
+<td><strong>Speed slider moved</strong></td>
+<td>An <code>interacted</code> statement, throttled by a deadband.</td>
+<td>See the trade-off discussion in <a href="../sine-wave/#architecture-trade-off-where-should-the-scoring-happen">Sine Wave</a>. The raw <code>input</code> event fires hundreds of times per drag; almost none of those values carry new information.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="why-the-button-and-the-slider-produce-different-object_types">Why the button and the slider produce different <code>object_type</code>s<a class="headerlink" href="#why-the-button-and-the-slider-produce-different-object_types" title="Permanent link">&para;</a></h3>
+<p>This is subtle and it is the kind of thing that silently corrupts a metric:</p>
 <ul>
-<li><strong>Title</strong> — same as <code>site_name</code> in <code>mkdocs.yml</code></li>
-<li><strong>Audience</strong> — who this book is for and what they already know</li>
-<li><strong>Prerequisites</strong> — concepts the reader is assumed to have mastered</li>
-<li><strong>Topics</strong> — the major areas the book covers (typically 8–20 topics)</li>
-<li><strong>Bloom's Taxonomy outcomes</strong> — what the reader should be able to <em>remember,
-  understand, apply, analyze, evaluate,</em> and <em>create</em> by the end</li>
+<li>The <strong>Start/Pause statement</strong>'s object is the <strong>page itself</strong> —
+  <code>…/sims/bouncing-ball/</code>, no fragment — typed <code>MicroSim</code>. That is what makes it roll up
+  into exactly one <code>PageEngagement</code> row for this sim.</li>
+<li>The <strong>slider statement</strong>'s object is a <strong>control</strong> —
+  <code>…/sims/bouncing-ball/#speed-slider</code> — typed <code>Control</code>.</li>
 </ul>
-<p>Run the <code>course-description-analyzer</code> skill to validate completeness, then run
-<code>learning-graph-generator</code> to enumerate ~200 concepts with dependencies.</p>
-<hr />
-<h2 id="title">Title<a class="headerlink" href="#title" title="Permanent link">&para;</a></h2>
-<p>Learning Record Store</p>
-<h2 id="audience">Audience<a class="headerlink" href="#audience" title="Permanent link">&para;</a></h2>
-<p>Describe the intended reader.</p>
-<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
-<p>List the assumed prior knowledge.</p>
-<h2 id="topics">Topics<a class="headerlink" href="#topics" title="Permanent link">&para;</a></h2>
+<p><code>mv_student_page_rollup</code> groups by <code>object_id</code>. If the slider were also typed <code>MicroSim</code>,
+every control on the page would become <strong>its own <code>PageEngagement</code> row</strong> for a page the
+student visited once — the same defect as naming <code>main.html</code> instead of the page. So
+controls are deliberately excluded from the page rollup; they are engagement evidence for
+the concept rollup instead.</p>
+<h2 id="things-worth-asking">Things Worth Asking<a class="headerlink" href="#things-worth-asking" title="Permanent link">&para;</a></h2>
 <ol>
-<li>...</li>
-<li>...</li>
+<li>Why does pressing Start emit no xAPI statement at all?</li>
+<li>A student starts the simulation and closes the tab without pausing. What is emitted,
+   and why?</li>
+<li>Why does the speed slider produce a different <code>object_type</code> than the Start/Pause
+   button?</li>
+<li>Why is the ball paused when the page loads instead of already moving?</li>
 </ol>
-<h2 id="learning-outcomes">Learning Outcomes<a class="headerlink" href="#learning-outcomes" title="Permanent link">&para;</a></h2>
-<p>By the end of this book, the reader will be able to:</p>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Remember:</strong> ...</li>
-<li><strong>Understand:</strong> ...</li>
-<li><strong>Apply:</strong> ...</li>
-<li><strong>Analyze:</strong> ...</li>
-<li><strong>Evaluate:</strong> ...</li>
-<li><strong>Create:</strong> ...</li>
+<li><a href="../../specs/xapi-producer-contract-v1/">xAPI Producer Contract v1</a> — the statement
+  shape this sim emits, and why.</li>
+<li><a href="../sine-wave/">Sine Wave</a> — the emission-strategy trade-off (send every
+  interaction vs. summary-on-blur vs. deadband) this sim's slider follows.</li>
 </ul>
 
 
@@ -897,6 +1170,9 @@ taxonomy. Keep it focused, concrete, and free of marketing language.</p>
 
 
 
+
+  
+  
 
 
 
@@ -926,7 +1202,7 @@ taxonomy. Keep it focused, concrete, and free of marketing language.</p>
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../about/" class="md-footer__link md-footer__link--prev" aria-label="Previous: About">
+          <a href="../sine-wave/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Sine Wave">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -936,20 +1212,20 @@ taxonomy. Keep it focused, concrete, and free of marketing language.</p>
                 Previous
               </span>
               <div class="md-ellipsis">
-                About
+                Sine Wave
               </div>
             </div>
           </a>
         
         
           
-          <a href="../specs/lrs-spec-v1/" class="md-footer__link md-footer__link--next" aria-label="Next: LRS Specification (v1)">
+          <a href="../scientific-method/" class="md-footer__link md-footer__link--next" aria-label="Next: Scientific Method Workflow">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                LRS Specification (v1)
+                Scientific Method Workflow
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -985,14 +1261,14 @@ taxonomy. Keep it focused, concrete, and free of marketing language.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
       
-        <script src="../js/katex.js"></script>
+        <script src="../../js/katex.js"></script>
       
-        <script src="../js/quiz-xapi.js"></script>
+        <script src="../../js/quiz-xapi.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
       

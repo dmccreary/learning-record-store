@@ -6,19 +6,19 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Interactive vis-network diagram of the Learning Record Store graph data model. Click any node label or relationship to see its properties and enumerated metadata.">
+        <meta name="description" content="An intelligent textbook on Learning Record Stores: what they are, how xAPI statements work, and how to design, deploy, and query an LRS.">
       
       
         <meta name="author" content="Dan McCreary">
       
       
-        <link rel="canonical" href="https://dmccreary.github.io/learning-record-store/sims/lrs-data-model/">
+        <link rel="canonical" href="https://dmccreary.github.io/learning-record-store/sims/animal-cell/">
       
       
-        <link rel="prev" href="../">
+        <link rel="prev" href="../scientific-method/">
       
       
-        <link rel="next" href="../sine-wave/">
+        <link rel="next" href="../../glossary/">
       
       
         
@@ -29,7 +29,7 @@
     
     
       
-        <title>LRS Graph Data Model Explorer - Learning Record Store</title>
+        <title>Animal Cell - Learning Record Store</title>
       
     
     
@@ -67,9 +67,7 @@
 
     
     
-    <meta property="og:image" content="https://dmccreary.github.io/learning-record-store/sims/lrs-data-model/lrs-data-model.png">
-  <meta name="twitter:image" content="https://dmccreary.github.io/learning-record-store/sims/lrs-data-model/lrs-data-model.png">
-</head>
+  </head>
   
   
     
@@ -86,7 +84,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#lrs-graph-data-model-explorer" class="md-skip">
+        <a href="#animal-cell-microsim" class="md-skip">
           Skip to content
         </a>
       
@@ -122,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              LRS Graph Data Model Explorer
+              Animal Cell
             
           </span>
         </div>
@@ -209,6 +207,8 @@
         <div class="md-main__inner md-grid">
           
             
+              
+                
               
               <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
                 <div class="md-sidebar__scrollwrap">
@@ -575,45 +575,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    LRS Graph Data Model Explorer
-  
-
-    
-  </span>
-  
-  
-    
-  
-  
-    <span class="md-status md-status--built" title="Built — implementation complete, awaiting review">
-    </span>
-  
-
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../lrs-data-model/" class="md-nav__link">
         
   
   
@@ -637,164 +602,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#about-this-microsim" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        About This MicroSim
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#the-thing-worth-noticing-there-is-no-statement-vertex" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The Thing Worth Noticing: There Is No Statement Vertex
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-to-use" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How to Use
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#iframe-embed-code" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Iframe Embed Code
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#lesson-plan" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Lesson Plan
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Lesson Plan">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#level" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Level
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#duration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Duration
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#learning-objective-bloom-analyze-evaluate" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Learning Objective (Bloom: Analyze / Evaluate)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Prerequisites
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#activities" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Activities
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#assessment" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Assessment
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        References
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -888,10 +695,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../animal-cell/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Animal Cell
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -907,6 +741,220 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-this-microsim-emits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What this MicroSim emits
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What this MicroSim emits">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#two-verb-families-from-one-artifact" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two verb families from one artifact
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-quiz-produces-a-sequence-and-that-is-the-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The quiz produces a sequence, and that is the point
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-hover-and-click-count-as-one-act-here" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why hover and click count as one act here
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-it-cannot-tell-you" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What it cannot tell you
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lesson-plan-exploring-the-animal-cell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lesson Plan: Exploring the Animal Cell
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lesson Plan: Exploring the Animal Cell">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning Objectives
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lesson-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lesson Flow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lesson Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-engage-5-minutes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Engage (5 minutes)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-explore-15-minutes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Explore (15 minutes)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-explain-15-minutes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Explain (15 minutes)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-elaborate-10-minutes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Elaborate (10 minutes)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-evaluate-exit-ticket" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Evaluate (Exit Ticket)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#differentiation-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Differentiation &amp; Extensions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assessment-ideas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assessment Ideas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#teacher-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Teacher Notes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1008,7 +1056,9 @@
             
             
               
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" hidden>
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -1027,66 +1077,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#about-this-microsim" class="md-nav__link">
+  <a href="#what-this-microsim-emits" class="md-nav__link">
     <span class="md-ellipsis">
       
-        About This MicroSim
+        What this MicroSim emits
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#the-thing-worth-noticing-there-is-no-statement-vertex" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The Thing Worth Noticing: There Is No Statement Vertex
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-to-use" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How to Use
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#iframe-embed-code" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Iframe Embed Code
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#lesson-plan" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Lesson Plan
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Lesson Plan">
+    <nav class="md-nav" aria-label="What this MicroSim emits">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#level" class="md-nav__link">
+  <a href="#two-verb-families-from-one-artifact" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Level
+        Two verb families from one artifact
       
     </span>
   </a>
@@ -1094,10 +1100,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#duration" class="md-nav__link">
+  <a href="#the-quiz-produces-a-sequence-and-that-is-the-point" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Duration
+        The quiz produces a sequence, and that is the point
       
     </span>
   </a>
@@ -1105,10 +1111,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#learning-objective-bloom-analyze-evaluate" class="md-nav__link">
+  <a href="#why-hover-and-click-count-as-one-act-here" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Learning Objective (Bloom: Analyze / Evaluate)
+        Why hover and click count as one act here
       
     </span>
   </a>
@@ -1116,32 +1122,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
+  <a href="#what-it-cannot-tell-you" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Prerequisites
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#activities" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Activities
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#assessment" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Assessment
+        What it cannot tell you
       
     </span>
   </a>
@@ -1154,13 +1138,135 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
+  <a href="#lesson-plan-exploring-the-animal-cell" class="md-nav__link">
     <span class="md-ellipsis">
       
-        References
+        Lesson Plan: Exploring the Animal Cell
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Lesson Plan: Exploring the Animal Cell">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning Objectives
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lesson-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lesson Flow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lesson Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-engage-5-minutes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Engage (5 minutes)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-explore-15-minutes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Explore (15 minutes)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-explain-15-minutes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Explain (15 minutes)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-elaborate-10-minutes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Elaborate (10 minutes)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-evaluate-exit-ticket" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Evaluate (Exit Ticket)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#differentiation-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Differentiation &amp; Extensions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assessment-ideas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assessment Ideas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#teacher-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Teacher Notes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1176,6 +1282,8 @@
             <div class="md-content" data-md-component="content">
               
                 
+
+  
 
 
 
@@ -1226,10 +1334,12 @@
               <article class="md-content__inner md-typeset">
                 
                   
+  
+
 
 
   
-    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/sims/lrs-data-model/index.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/sims/animal-cell/index.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1237,176 +1347,147 @@
   
 
 
-<h1 id="lrs-graph-data-model-explorer">LRS Graph Data Model Explorer<a class="headerlink" href="#lrs-graph-data-model-explorer" title="Permanent link">&para;</a></h1>
-<p><a class="md-button md-button--primary" href="main.html">Run the LRS Graph Data Model Explorer Fullscreen</a></p>
-<div class="admonition tip">
-<p class="admonition-title">Open this one fullscreen</p>
-<p>The full model is 25 node labels and 42 relationships. The embedded preview
-below is legible enough to get your bearings, but the relationship labels
-only become readable once you open it fullscreen and zoom in.</p>
-</div>
-<iframe src="main.html" height="642px" width="100%" scrolling="no"></iframe>
+<h1 id="animal-cell-microsim">Animal Cell MicroSim<a class="headerlink" href="#animal-cell-microsim" title="Permanent link">&para;</a></h1>
+<iframe src="main.html" height="960px" width="100%" scrolling="no"></iframe>
 
-<h2 id="about-this-microsim">About This MicroSim<a class="headerlink" href="#about-this-microsim" title="Permanent link">&para;</a></h2>
-<p>This MicroSim renders the Learning Record Store (LRS) <strong>graph data model</strong> from
-<a href="../../specs/lrs-spec-v1/">the specification</a> (&sect;4) as an interactive
-<a href="https://visjs.github.io/vis-network/docs/network/">vis-network</a> diagram.</p>
-<p>Every <strong>node label</strong> (District, Section, Student, TextbookVersion, MicroSim,
-ConceptMastery, Experiment, ...) and every <strong>relationship</strong> (<code>HAS_SECTION</code>,
-<code>ENROLLED_IN</code>, <code>DEPLOYS</code>, <code>HAS_MASTERY</code>, <code>SUMMARIZES</code>, <code>DEPENDS_ON</code>, ...) in the
-model appears in the graph. Nodes are colored by category:</p>
-<ul>
-<li><strong>Tenancy</strong> (blue) — the district → school → course → section → student hierarchy</li>
-<li><strong>Content</strong> (green) — the textbook, chapter, page, MicroSim, quiz, question, and concept structure</li>
-<li><strong>Summary</strong> (orange) — the compressed vertices: <code>ConceptMastery</code>, <code>PageEngagement</code>, <code>MicroSimEngagement</code>, <code>QuestionResponse</code>, <code>LearningSession</code>, <code>SectionRollup</code></li>
-<li><strong>Vocabulary</strong> (grey) — the controlled <code>Verb</code> vocabulary</li>
-<li><strong>Experiment</strong> (purple) — the A/B testing <code>Experiment</code> and <code>Variant</code> nodes</li>
-<li><strong>Event store</strong> (dashed red cylinder) — <strong>not part of the graph</strong>; see below</li>
-</ul>
-<p>Solid grey arrows are graph relationships. Dashed <strong>orange</strong> arrows are the
-compression pipeline and dashed grey is a property reference — neither is stored
-in the graph.</p>
-<h2 id="the-thing-worth-noticing-there-is-no-statement-vertex">The Thing Worth Noticing: There Is No <code>Statement</code> Vertex<a class="headerlink" href="#the-thing-worth-noticing-there-is-no-statement-vertex" title="Permanent link">&para;</a></h2>
-<p>The obvious way to model learning events is one graph vertex per xAPI statement:
-<code>(:Student)-[:PERFORMED]-&gt;(:Statement)-[:ABOUT]-&gt;(:Page)</code>. <strong>The LRS does not do
-this, and the specification prohibits it</strong> (&sect;5.6, requirement C-1).</p>
-<p>The reason is arithmetic. At the specified ingest rate of 10,000 statements/sec,
-one vertex per event would add roughly <strong>144 million vertices per day</strong> — about
-4.3 billion vertices in a 30-day window — and demand on the order of <strong>50,000
-graph writes/sec</strong>. No property-graph engine operates there. And nothing would
-read it: every report in the specification is an <em>aggregate</em>.</p>
-<p>So the statements stay in the <strong>event store</strong> (the dashed red cylinder — drawn on
-the canvas to show you where they are, but <em>not</em> a graph vertex), and a
-<strong>compression pipeline</strong> distills them into the orange <strong>summary vertices</strong>, one
-per analytical grain:</p>
+<p><a href="main.html">View the Animal Cell MicroSim Fullscreen</a></p>
+<hr />
+<h2 id="what-this-microsim-emits">What this MicroSim emits<a class="headerlink" href="#what-this-microsim-emits" title="Permanent link">&para;</a></h2>
+<p>Every statement conforms to the <a href="../../specs/xapi-producer-contract-v1/">xAPI Producer Contract v1</a>.
+Nothing is sent to a server — statements render in the panel below the diagram so you can read the
+wire format directly. This sim is the reference emitter for three things nothing else in the textbook
+does.</p>
+<h3 id="two-verb-families-from-one-artifact">Two verb families from one artifact<a class="headerlink" href="#two-verb-families-from-one-artifact" title="Permanent link">&para;</a></h3>
+<p>The same six hotspots are <strong>two different sets of activities</strong>, depending on what the student is
+being asked to do with them:</p>
 <table>
 <thead>
 <tr>
-<th>Summary vertex</th>
-<th>One vertex per…</th>
-<th>Compresses</th>
+<th>Mode</th>
+<th>The student's act</th>
+<th><code>object.id</code></th>
+<th>Verb</th>
+<th>Type</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>ConceptMastery</code></td>
-<td>(Student, Concept)</td>
-<td>~100 evidence statements → 1</td>
+<td>Explore</td>
+<td>inspect the nucleus</td>
+<td><code>…/sims/animal-cell/#nucleus</code></td>
+<td><code>interacted</code></td>
+<td><code>Control</code></td>
 </tr>
 <tr>
-<td><code>PageEngagement</code></td>
-<td>(Student, Page)</td>
-<td>~40 views, scrolls, dwell pings → 1</td>
-</tr>
-<tr>
-<td><code>MicroSimEngagement</code></td>
-<td>(Student, MicroSim)</td>
-<td>~60 interactions → 1</td>
-</tr>
-<tr>
-<td><code>QuestionResponse</code></td>
-<td>(Student, Question)</td>
-<td>~3 attempts → 1</td>
-</tr>
-<tr>
-<td><code>LearningSession</code></td>
-<td>(Student, Session)</td>
-<td>~60 statements in one sitting → 1</td>
-</tr>
-<tr>
-<td><code>SectionRollup</code></td>
-<td>(Section, Concept)</td>
-<td>a whole class → 1 (~3,000:1)</td>
+<td>Quiz</td>
+<td>answer "where is the nucleus?"</td>
+<td><code>…/sims/animal-cell/#q-nucleus</code></td>
+<td><code>answered</code></td>
+<td><code>Question</code></td>
 </tr>
 </tbody>
 </table>
-<p>A student who visits a page fifty times still has exactly <strong>one</strong>
-<code>PageEngagement</code> vertex — the fiftieth visit updates it rather than growing the
-graph. Every summary carries a <code>statements_compressed</code> property recording how
-many statements it stands for, so each figure knows how much evidence is behind
-it.</p>
-<p>Nothing is lost: the full statements remain queryable in the event store. The
-compression decides only what gets <em>materialized in the graph</em>.</p>
-<h2 id="how-to-use">How to Use<a class="headerlink" href="#how-to-use" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>Click a node</strong> to see its stored properties as a numbered list, plus any
-  <strong>enumerated metadata</strong> — for example, <code>MicroSim.status</code> (scaffold / built /
-  approved) or <code>Question.bloom_level</code> (Remember ... Create). The panel also lists
-  every relationship the node participates in.</li>
-<li><strong>Click an orange summary vertex</strong> to see its <strong>grain</strong>, its <strong>compression
-  ratio</strong>, and exactly what it compresses.</li>
-<li><strong>Click the red cylinder</strong> to see what the event store holds and why it is
-  deliberately outside the graph.</li>
-<li><strong>Click a relationship</strong> (edge) to see what it connects, a description of its
-  meaning, and any <strong>edge properties</strong> — for example, <code>ENROLLED_IN</code> carries
-  <code>enrolled_at</code> and a <code>status</code> enumeration, and <code>TOUCHED</code> carries <code>event_count</code>
-  and <code>dwell_ms</code>.</li>
-<li><strong>Drag a node</strong> to pull it away from the cluster and declutter the view.</li>
-<li>Use the <strong>navigation buttons</strong> (lower left) to zoom and pan.</li>
-</ul>
-<h2 id="iframe-embed-code">Iframe Embed Code<a class="headerlink" href="#iframe-embed-code" title="Permanent link">&para;</a></h2>
-<p>You can add this MicroSim to any web page by adding this to your HTML:</p>
-<div class="language-html highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">&lt;</span><span class="nt">iframe</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://dmccreary.github.io/learning-record-store/sims/lrs-data-model/main.html&quot;</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>        <span class="na">height</span><span class="o">=</span><span class="s">&quot;642px&quot;</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>        <span class="na">width</span><span class="o">=</span><span class="s">&quot;100%&quot;</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        <span class="na">scrolling</span><span class="o">=</span><span class="s">&quot;no&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">iframe</span><span class="p">&gt;</span>
-</span></code></pre></div>
-<h2 id="lesson-plan">Lesson Plan<a class="headerlink" href="#lesson-plan" title="Permanent link">&para;</a></h2>
-<h3 id="level">Level<a class="headerlink" href="#level" title="Permanent link">&para;</a></h3>
-<p>Undergraduate / professional — data engineers, learning-analytics designers, and
-instructors evaluating an LRS.</p>
-<h3 id="duration">Duration<a class="headerlink" href="#duration" title="Permanent link">&para;</a></h3>
-<p>10–15 minutes</p>
-<h3 id="learning-objective-bloom-analyze-evaluate">Learning Objective (Bloom: Analyze / Evaluate)<a class="headerlink" href="#learning-objective-bloom-analyze-evaluate" title="Permanent link">&para;</a></h3>
-<p>Given the LRS specification, learners <strong>analyze</strong> how the entities of a
-learning-analytics graph relate to one another, and <strong>evaluate</strong> why a
-high-volume event stream must be compressed before it is materialized as graph
-vertices.</p>
-<h3 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Familiarity with the <a href="https://xapi.com/">xAPI</a> Actor–Verb–Object statement model</li>
-<li>Basic understanding of a labeled property graph (nodes, edges, properties)</li>
-</ul>
-<h3 id="activities">Activities<a class="headerlink" href="#activities" title="Permanent link">&para;</a></h3>
+<p>They are <strong>not</strong> one object whose type changes with the mode. Inspecting a structure and being asked
+to find it are different acts — an inspection has no <code>success</code> to report, and an answer must have one
+— so they get different IRIs. They re-converge where relatedness belongs: both carry
+<code>concept_id: cell-nucleus</code>, and the concept rollup applies no type filter, so both count as evidence
+about the nucleus in one <code>ConceptMastery</code> vertex.</p>
+<h3 id="the-quiz-produces-a-sequence-and-that-is-the-point">The quiz produces a <em>sequence</em>, and that is the point<a class="headerlink" href="#the-quiz-produces-a-sequence-and-that-is-the-point" title="Permanent link">&para;</a></h3>
+<p>A wrong click does not end the question — the sim says "Not quite, try again" and the student
+retries. So one question emits <code>success: false, false, true</code> against a single IRI, which the rollup
+reads as <code>attempts = 3, successes = 1</code>.</p>
+<p>Emitting the failures is the honest choice rather than the noisy one. With six hotspots a student can
+brute-force the answer by clicking every marker. If only the success were emitted, that student would
+be <strong>indistinguishable from one who knew it instantly</strong> — both would read <code>attempts = 1,
+successes = 1</code>, and the graph would report mastery that the interaction plainly disproves. The full
+sequence reports <code>attempts = 6, successes = 1</code>, which is exactly what a guessing model is for. For a
+click-to-identify quiz, the sequence <em>is</em> the signal.</p>
+<h3 id="why-hover-and-click-count-as-one-act-here">Why hover and click count as one act here<a class="headerlink" href="#why-hover-and-click-count-as-one-act-here" title="Permanent link">&para;</a></h3>
+<p>Explore mode emits one statement per inspection, whether the student hovered or clicked, gated at
+0.6s of dwell. The gate matters: without it, a mouse crossing the label list would emit six
+statements for one meaningless movement. Sweeping all twelve targets in 40ms emits <strong>nothing</strong>; a
+deliberate 0.7s pause emits <strong>one</strong>.</p>
+<p>Both paths carry <code>concept_id</code>, and that is a deliberate departure from how
+<a href="../scientific-method/">Scientific Method Workflow</a> treats hover. There, clicking <em>pins</em> the
+infobox — a separate, stronger act, so weighting it differently is defensible. Here <code>diagram.js</code>
+wires hover and click to the same function: there is no pin, and <strong>click is simply what hover is
+called on a touchscreen</strong>. Discounting hover would not filter weak evidence; it would count tablet
+users and discard laptop users for the identical act — device-correlated bias, which in schools
+correlates with funding.</p>
+<p>The generalisable rule: <strong>weight hover against click only where clicking is a separate designed act.
+Where click is the touch fallback for hover, they are one act and must be counted once.</strong></p>
+<h3 id="what-it-cannot-tell-you">What it cannot tell you<a class="headerlink" href="#what-it-cannot-tell-you" title="Permanent link">&para;</a></h3>
+<p>Explore mode cannot measure understanding. Only <code>answered</code> carries <code>result.success</code>, so every
+<code>interacted</code> statement contributes <code>attempts = 0</code>, forever, by design. Quiz mode is where this
+diagram earns a mastery signal. Per-hotspot dwell is recorded but reaches no rollup — it lives in
+<code>lrs.statements</code> only (contract §12 item 9).</p>
+<hr />
+<h2 id="lesson-plan-exploring-the-animal-cell">Lesson Plan: Exploring the Animal Cell<a class="headerlink" href="#lesson-plan-exploring-the-animal-cell" title="Permanent link">&para;</a></h2>
+<p><strong>Audience:</strong> college placement Biology or advanced high-school biology students<br />
+<strong>Duration:</strong> 45–60 minutes<br />
+<strong>Materials:</strong> Animal Cell MicroSim (embedded above), student notebooks or digital lab journal, projector (optional)</p>
+<h3 id="learning-objectives">Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permanent link">&para;</a></h3>
+<p>By the end of this lesson, students will be able to:</p>
 <ol>
-<li><strong>Exploration</strong> (4 min): Click through each category of node and read its
-   properties. Note which nodes store pseudonymous keys and which store no PII.</li>
-<li><strong>Do the arithmetic</strong> (5 min): Click the red <strong>Event Store</strong> cylinder. At
-   10,000 statements/sec, compute how many statements arrive in one 6-hour school
-   day. (~216 million.) If each became a vertex with three edges, how many graph
-   writes per second would that demand? (~40,000.) Decide for yourself whether a
-   graph database should be asked to do this.</li>
-<li><strong>Follow the compression</strong> (5 min): Click each orange summary vertex and record
-   its grain and ratio. Why is <code>QuestionResponse</code> only ~3:1 while <code>SectionRollup</code>
-   is ~3,000:1? What does that tell you about what controls the ratio?</li>
-<li><strong>Trace a learner</strong> (4 min): Starting from <code>Student</code>, follow <code>HAS_MASTERY</code> to
-   <code>ConceptMastery</code>, then <code>OF_CONCEPT</code> to <code>Concept</code> and <code>IN_CONTEXT_OF</code> to
-   <code>TextbookVersion</code>. Explain how evidence is attributed to a textbook version
-   even though the individual statements are not in the graph.</li>
-<li><strong>Enumerations</strong> (2 min): Find every node or edge carrying an enumerated
-   property (e.g. <code>MicroSim.status</code>, <code>Question.bloom_level</code>, <code>Experiment.status</code>,
-   <code>ENROLLED_IN.status</code>) and list the allowed values.</li>
+<li>Identify the nucleus, cell membrane, cytoplasm, ribosomes, mitochondria, and endoplasmic reticulum on a schematic animal cell.</li>
+<li>Explain how structure supports function for each organelle, citing at least one specific detail (e.g., cristae of mitochondria, pores of the nuclear envelope).</li>
+<li>Trace the movement of a newly synthesized protein through the endomembrane system using the MicroSim annotations.</li>
+<li>Connect each organelle to a relevant college placement Biology concept or exam tip (e.g., selective permeability, endosymbiotic theory, glycolysis location).</li>
 </ol>
-<h3 id="assessment">Assessment<a class="headerlink" href="#assessment" title="Permanent link">&para;</a></h3>
+<h3 id="lesson-flow">Lesson Flow<a class="headerlink" href="#lesson-flow" title="Permanent link">&para;</a></h3>
+<h4 id="1-engage-5-minutes">1. Engage (5 minutes)<a class="headerlink" href="#1-engage-5-minutes" title="Permanent link">&para;</a></h4>
 <ul>
-<li>Why is there no <code>Statement</code> vertex in this model? Give the quantitative reason,
-  not just "it would be big."</li>
-<li>Where do the raw xAPI statements actually live, and are they lost? (The event
-  store; no — they stay queryable at full fidelity. Compression only decides what
-  is <em>materialized in the graph</em>.)</li>
-<li>A student views one page 50 times. How many <code>PageEngagement</code> vertices exist
-  afterward, and which property records the 50? (One; <code>statements_compressed</code>.)</li>
-<li><code>SectionRollup</code> compresses ~3,000:1 but <code>QuestionResponse</code> only ~3:1. Explain
-  what determines a grain's compression ratio.</li>
-<li>Which relationship encodes the learning-graph prerequisite DAG? (<code>DEPENDS_ON</code>)</li>
-<li>Name the six summary vertices and the grain each is keyed on.</li>
+<li>Project the MicroSim and hide callout labels (click the “i” icons off) to display the cell diagram without text. Ask: “If a virus wanted to take over this cell, which structure would it target first and why?” Discuss initial guesses to surface prior knowledge.</li>
 </ul>
-<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
-<ol>
-<li><a href="../../specs/lrs-spec-v1/">LRS Specification &sect;4 — Graph Data Model</a></li>
-<li><a href="https://visjs.github.io/vis-network/docs/network/">vis-network documentation</a></li>
-<li><a href="https://github.com/adlnet/xAPI-Spec">xAPI (Experience API) specification</a></li>
-</ol>
+<h4 id="2-explore-15-minutes">2. Explore (15 minutes)<a class="headerlink" href="#2-explore-15-minutes" title="Permanent link">&para;</a></h4>
+<p>Students work in pairs with laptops:</p>
+<ul>
+<li>Click each hotspot to reveal the organelle description and college placement tip.  </li>
+<li>Record two facts per organelle in a T-chart: <strong>Structure Detail</strong> vs. <strong>Function/Process Supported</strong>.  </li>
+<li>Prompt questions:</li>
+<li>Nucleus: How do nuclear pores support rapid transcription-response cycles?</li>
+<li>Cell membrane: Which molecules move freely vs. require a transport protein?</li>
+<li>Mitochondria: Where exactly do the Krebs cycle and electron transport chain occur?</li>
+<li>Cytoplasm: Which reactions stay here rather than moving into organelles?</li>
+<li>Ribosomes: How do free vs. bound ribosomes decide a protein’s destination?</li>
+<li>Endoplasmic Reticulum: What differentiates rough and smooth ER roles?</li>
+</ul>
+<h4 id="3-explain-15-minutes">3. Explain (15 minutes)<a class="headerlink" href="#3-explain-15-minutes" title="Permanent link">&para;</a></h4>
+<p>Facilitate a class discussion anchored in the MicroSim:</p>
+<ul>
+<li><strong>Mini whiteboard share-out:</strong> Each pair chooses one organelle and sketches it quickly, labeling one key structural feature from the sim (e.g., folded cristae).  </li>
+<li><strong>Protein journey walkthrough:</strong> Use the callouts to narrate the path of a hormone protein: transcription in the nucleus → ribosome on rough ER → ER lumen processing → transport vesicle → Golgi (describe even if not shown) → plasma membrane secretion. Emphasize the college placement exam “endomembrane system” terminology noted in the ER callout.</li>
+<li>Highlight college placement tips embedded in the data (e.g., endosymbiotic evidence in mitochondria, glycolysis location in cytoplasm) and connect them to past FRQs or MCQ distractors.</li>
+</ul>
+<h4 id="4-elaborate-10-minutes">4. Elaborate (10 minutes)<a class="headerlink" href="#4-elaborate-10-minutes" title="Permanent link">&para;</a></h4>
+<p>Assign quick synthesis tasks:</p>
+<ul>
+<li><strong>Option A:</strong> Students write a 4–5 sentence “cell diary” entry from the perspective of an organelle, referencing at least one fact from the MicroSim callout.  </li>
+<li><strong>Option B:</strong> Challenge learners to design a mutation or toxin that disrupts one structure shown, predicting downstream impacts on the cell.</li>
+</ul>
+<h4 id="5-evaluate-exit-ticket">5. Evaluate (Exit Ticket)<a class="headerlink" href="#5-evaluate-exit-ticket" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Prompt: “Match each process to its correct location: glycolysis, electron transport chain, mRNA translation for secreted proteins, lipid detoxification, selective permeability.” Students submit a short response citing at least three organelles.  </li>
+<li>Alternatively, use a quick auto-graded form with image hotspots derived from the sim.</li>
+</ul>
+<h3 id="differentiation-extensions">Differentiation &amp; Extensions<a class="headerlink" href="#differentiation-extensions" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Support:</strong> Provide a printed diagram with labels for students who need scaffolding; allow them to annotate directly while others use the interactive version.  </li>
+<li><strong>Extension:</strong> Have advanced students compare the animal cell MicroSim to a plant cell diagram, listing which structures are unique and hypothesizing how the MicroSim could be expanded.  </li>
+<li><strong>Cross-topic tie-ins:</strong> Link mitochondria to the cellular respiration chapter, ribosomes to molecular genetics, and cell membrane concepts to membrane transport simulations elsewhere in the course.</li>
+</ul>
+<h3 id="assessment-ideas">Assessment Ideas<a class="headerlink" href="#assessment-ideas" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Short quiz asking students to drag labels onto the correct organelles (screenshots from the sim).  </li>
+<li>FRQ practice: “Explain how defects in the rough ER or mitochondria would differentially impact ATP production and protein secretion.”  </li>
+<li>Peer teaching: students create a brief screencast walking through three organelles using the MicroSim, graded with a rubric focusing on accuracy and explanatory clarity.</li>
+</ul>
+<h3 id="teacher-notes">Teacher Notes<a class="headerlink" href="#teacher-notes" title="Permanent link">&para;</a></h3>
+<ul>
+<li>The MicroSim callouts include AP-specific reminders (e.g., ribosome size differences, endosymbiotic theory). Encourage students to capture these in their notebooks as “exam traps to avoid.”  </li>
+<li>If bandwidth is limited, download the <code>main.html</code> bundle locally so each group can run the simulation offline.  </li>
+<li>Reinforce vocabulary precision: nucleus vs. nucleolus, cytoplasm vs. cytosol, rough vs. smooth ER. These distinctions often appear in college placement free-response questions.</li>
+</ul>
 
 
 
@@ -1419,6 +1500,8 @@ vertices.</p>
 
 
 
+
+  
 
 
 
@@ -1442,10 +1525,12 @@ vertices.</p>
   
     
       
+        
+      
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: List of MicroSims">
+          <a href="../scientific-method/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Scientific Method Workflow">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1455,20 +1540,20 @@ vertices.</p>
                 Previous
               </span>
               <div class="md-ellipsis">
-                List of MicroSims
+                Scientific Method Workflow
               </div>
             </div>
           </a>
         
         
           
-          <a href="../sine-wave/" class="md-footer__link md-footer__link--next" aria-label="Next: Sine Wave">
+          <a href="../../glossary/" class="md-footer__link md-footer__link--next" aria-label="Next: Glossary">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Sine Wave
+                Glossary
               </div>
             </div>
             <div class="md-footer__button md-icon">

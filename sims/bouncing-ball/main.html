@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Bouncing Ball MicroSim using p5.js 1.11.10</title>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/p5.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        canvas {
+            display: block;
+        }
+        .xapi-panel {
+            margin: 12px 10px 0 10px;
+            border: 1px solid silver;
+            border-radius: 6px;
+            background: white;
+            padding: 10px 12px;
+            box-sizing: border-box;
+        }
+        .xapi-panel-header {
+            font-size: 14px;
+            margin-bottom: 6px;
+            color: #222;
+        }
+        .xapi-header-note {
+            color: #666;
+            font-weight: normal;
+        }
+        .xapi-log {
+            max-height: 160px;
+            overflow-y: auto;
+            background: #1e1e1e;
+            color: #b5f4b5;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 11px;
+            line-height: 1.5;
+            padding: 8px;
+            border-radius: 4px;
+        }
+        .xapi-log-line {
+            white-space: nowrap;
+            overflow-x: auto;
+        }
+        .xapi-log-raw {
+            color: #6f8f6f;
+        }
+    </style>
+    <!-- Put your script file name here -->
+    <script src="bouncing-ball.js"></script>
+</head>
+<body>
+    <main></main>
+
+    <div class="xapi-panel">
+        <div class="xapi-panel-header">
+            <strong>xAPI statements emitted:</strong> <span id="stmt-count">0</span>
+            <span class="xapi-header-note">
+                &mdash; press <em>Start</em>, wait, then <em>Pause</em>: one
+                <code>experienced</code> statement carries the whole run as
+                <code>result.duration</code>. Nothing is sent to a server.
+            </span>
+        </div>
+        <div id="xapi-log" class="xapi-log"></div>
+    </div>
+
+    <br/>
+    <a href="./">Back to Bouncing Ball Lesson Plan</a>
+</body>
+</html>

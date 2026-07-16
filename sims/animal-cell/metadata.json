@@ -1,0 +1,73 @@
+{
+  "title": "Animal Cell",
+  "description": "Interactive labeled diagram of an animal cell over a rendered background image, with an explore mode that reveals organelle structure/function and a click-to-identify quiz mode",
+  "subject": "Biology - Cell Structure",
+  "creator": "Claude AI with Interactive Infographic Overlay Skill",
+  "date": "2026-07-16",
+  "type": "Interactive Diagram MicroSim",
+  "format": "text/html",
+  "language": "en-US",
+  "coverage": "Introductory",
+  "rights": "CC BY-NC-SA 4.0",
+  "audience": "College Placement Biology / Advanced High School",
+  "diagram_type": "image-overlay",
+  "layout": "side-panel",
+  "callout_count": "6",
+  "concepts": [
+    "Cell Nucleus",
+    "Cell Membrane",
+    "Mitochondria",
+    "Endoplasmic Reticulum",
+    "Ribosomes",
+    "Cytoplasm",
+    "Animal Cell Structure"
+  ],
+  "bloom_taxonomy": "Remember",
+  "version": "1.0",
+  "features": [
+    "Background image with calibrated hotspot overlay",
+    "SVG leader lines from marker to label",
+    "Explore mode with structure/function and exam-tip callouts",
+    "Click-to-identify quiz mode with retry-until-correct",
+    "Edit mode (?edit=true) for recalibrating marker positions",
+    "xAPI emission for both explore and quiz modes"
+  ],
+  "visualizationType": [
+    "diagram",
+    "interactive-demo",
+    "simulation"
+  ],
+  "learningObjectives": [
+    "Identify the nucleus, cell membrane, cytoplasm, ribosomes, mitochondria, and endoplasmic reticulum on a schematic animal cell",
+    "Explain how structure supports function for each organelle",
+    "Trace the movement of a newly synthesized protein through the endomembrane system",
+    "Connect each organelle to a relevant college placement Biology concept"
+  ],
+  "bloomsTaxonomy": [
+    "Remember",
+    "Understand",
+    "Apply"
+  ],
+  "pedagogical": {
+    "pattern": "exploration-then-assessment",
+    "bloomAlignment": [
+      "remember",
+      "understand"
+    ],
+    "bloomVerbs": [
+      "identify",
+      "locate",
+      "label",
+      "explain"
+    ],
+    "pacing": "self-paced",
+    "supportsPrediction": false,
+    "dataVisibility": "low",
+    "feedbackType": [
+      "immediate",
+      "corrective"
+    ],
+    "interactionStyle": "explore-and-quiz"
+  },
+  "identifier": "https://dmccreary.github.io/learning-record-store/sims/animal-cell/"
+}

@@ -1,0 +1,73 @@
+{
+  "title": "Animal Cell",
+  "orientation": "landscape",
+  "image": "animal-cell.png",
+  "callouts": [
+    {
+      "id": 1,
+      "label": "Nucleus",
+      "x": 40.2,
+      "y": 16.1,
+      "radius": 5,
+      "color": "#8E44AD",
+      "hint": "Large round purple structure near the center of the cell, the most prominent organelle.",
+      "description": "The control center of the cell. The nucleus is enclosed by a double-membrane nuclear envelope studded with pores, and contains the cell's DNA organized into chromosomes. It directs all cellular activity through gene expression.",
+      "ap_tip": "Do not confuse the nucleus with the nucleolus — the nucleolus is a dense region inside the nucleus where ribosomal RNA is assembled. Both are common college placement exam distractors."
+    },
+    {
+      "id": 2,
+      "label": "Cell membrane",
+      "x": 89.3,
+      "y": 21.1,
+      "radius": 3.5,
+      "color": "#E67E22",
+      "hint": "Thin outer boundary line enclosing the entire cell, visible at the edges.",
+      "description": "The flexible outer boundary of the cell, made of a phospholipid bilayer with embedded proteins. It controls what enters and exits the cell (selective permeability) and maintains the internal environment.",
+      "ap_tip": "The cell membrane is selectively permeable — small nonpolar molecules (O₂, CO₂) cross freely; charged ions and large polar molecules need channel or carrier proteins."
+    },
+    {
+      "id": 3,
+      "label": "Mitochondria",
+      "x": 75.3,
+      "y": 22.7,
+      "radius": 4,
+      "color": "#E74C3C",
+      "hint": "Oval or bean-shaped organelles with visible internal folds (cristae), scattered in the cytoplasm.",
+      "description": "The site of cellular respiration. Mitochondria convert glucose and oxygen into ATP through the Krebs cycle and the electron transport chain. They have a double membrane — the highly folded inner membrane (cristae) is where most ATP is produced.",
+      "ap_tip": "Mitochondria have their own circular DNA and replicate independently, supporting the endosymbiotic theory. The matrix (inside inner membrane) is where the Krebs cycle runs; the cristae is where the ETC runs."
+    },
+    {
+      "id": 4,
+      "label": "Endoplasmic reticulum",
+      "x": 88.1,
+      "y": 44.3,
+      "radius": 4.5,
+      "color": "#3498DB",
+      "hint": "Network of folded membrane sacs extending from the nuclear envelope, rough ER has dots on surface.",
+      "description": "A network of interconnected membrane sacs and tubes extending from the nuclear envelope. The rough ER (studded with ribosomes) synthesizes and processes proteins destined for secretion or membrane insertion. The smooth ER (no ribosomes) synthesizes lipids and detoxifies drugs and poisons.",
+      "ap_tip": "The rough ER → Golgi apparatus → vesicle → cell membrane secretory pathway is called the endomembrane system. Know the order and function of each step for the college placement exam."
+    },
+    {
+      "id": 5,
+      "label": "Ribosomes",
+      "x": 65.4,
+      "y": 50.6,
+      "radius": 3,
+      "color": "#2C3E50",
+      "hint": "Tiny dark dots scattered throughout the cytoplasm and on the surface of the rough ER.",
+      "description": "Tiny molecular machines that synthesize proteins by translating messenger RNA (mRNA) sequences into amino acid chains. Ribosomes are found both free in the cytoplasm (making proteins for use inside the cell) and attached to the rough endoplasmic reticulum (making proteins for export or membranes).",
+      "ap_tip": "Ribosomes are not membrane-bound, so they are present in both prokaryotic and eukaryotic cells. Prokaryotic ribosomes (70S) are smaller than eukaryotic ribosomes (80S) — this difference is exploited by many antibiotics."
+    },
+    {
+      "id": 6,
+      "label": "Cytoplasm",
+      "x": 66.6,
+      "y": 74.6,
+      "radius": 4.5,
+      "color": "#BDC3C7",
+      "hint": "The gel-like fluid filling the interior of the cell between organelles.",
+      "description": "The gel-like fluid that fills the interior of the cell, composed mostly of water with dissolved salts, sugars, and proteins. The cytoplasm suspends and surrounds all organelles and is the site of many metabolic reactions including glycolysis.",
+      "ap_tip": "Glycolysis — the first stage of cellular respiration — occurs in the cytoplasm (cytosol), not in the mitochondria. This is a frequent college placement exam question."
+    }
+  ]
+}

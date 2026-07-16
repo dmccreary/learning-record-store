@@ -1,0 +1,85 @@
+{
+  "title": "Scientific Method Workflow",
+  "description": "Interactive flowchart visualizing the scientific method process with decision points for hypothesis testing and iterative investigation cycles",
+  "subject": "Physics - Scientific Method",
+  "creator": "Claude AI with Mermaid Generator Skill",
+  "date": "2025-11-09",
+  "type": "Interactive Workflow Diagram",
+  "format": "text/html",
+  "language": "en-US",
+  "coverage": "Introductory",
+  "rights": "CC BY-NC-SA 4.0",
+  "audience": "High School",
+  "diagram_type": "flowchart",
+  "direction": "TD",
+  "node_count": "12",
+  "edge_count": "13",
+  "concepts": [
+    "Scientific Observation",
+    "Background Research",
+    "Hypothesis Formation",
+    "Experimental Design",
+    "Data Collection",
+    "Data Analysis",
+    "Hypothesis Testing",
+    "Scientific Communication",
+    "Iterative Investigation"
+  ],
+  "bloom_taxonomy": "Understand",
+  "version": "1.0",
+  "features": [
+    "Color-coded process phases",
+    "Decision points for hypothesis validation",
+    "Iterative feedback loop",
+    "Zoom controls",
+    "SVG export capability",
+    "Accessible design"
+  ],
+  "visualizationType": [
+    "animation",
+    "diagram",
+    "graph",
+    "interactive-demo",
+    "network",
+    "simulation"
+  ],
+  "learningObjectives": [
+    "Understand the key concepts of scientific method workflow",
+    "Explore scientific method workflow through interactive visualization",
+    "Apply knowledge of scientific method workflow to solve problems",
+    "Test understanding of scientific method workflow through interactive exercises"
+  ],
+  "bloomsTaxonomy": [
+    "Remember",
+    "Understand",
+    "Apply",
+    "Analyze",
+    "Evaluate",
+    "Create"
+  ],
+  "pedagogical": {
+    "pattern": "exploration",
+    "bloomAlignment": [
+      "understand",
+      "apply",
+      "analyze"
+    ],
+    "bloomVerbs": [
+      "compare",
+      "explain",
+      "summarize",
+      "apply",
+      "calculate"
+    ],
+    "pacing": "self-paced",
+    "supportsPrediction": true,
+    "dataVisibility": "medium",
+    "feedbackType": [
+      "delayed",
+      "corrective",
+      "explanatory"
+    ],
+    "interactionStyle": "explore"
+  },
+  "identifier": "https://dmccreary.github.io/learning-record-store/sims/scientific-method/"
+}
