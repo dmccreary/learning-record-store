@@ -11,7 +11,15 @@
 
 ## 1. Where we are, in one paragraph
 
-The repo had a mature spec/design/hardware trio and **zero implementation**. We picked an MVP goal — **prove the architecture, don't chase a user** — and lifted the design doc's copy-paste-ready artifacts into real files, fixing four verified defects along the way. **Step 1 (foundation) is largely on disk. No Python exists yet.** The image cannot build until the `lrs` CLI and `uv.lock` are written, which is build step 1–2. The next physical action is provisioning a bigger host (this laptop is 8 GB and too small) and running the two code-free infrastructure checks.
+The repo had a mature spec/design/hardware trio and **zero implementation**. We picked an MVP goal — **prove the architecture, don't chase a user** — and lifted the design doc's copy-paste-ready artifacts into real files, fixing four verified defects along the way. **Step 1 (foundation) is largely on disk. No Python exists yet.** The image cannot build until the `lrs` CLI and `uv.lock` are written, which is build step 1–2.
+
+**Update 2026-07-16 — the infrastructure is real now.** Development moved to a 32 GB workstation, the
+environment constraint is gone (§6), and **the two code-free infrastructure checks both passed** (§8):
+all five backing services come up healthy, the compose file survives a real Compose v5, and composite
+`IS UNIQUE` is confirmed enforceable on Neo4j Community — so C-1 needs no Enterprise license. The
+"nothing here has ever been executed" caveat in §4 is now **partly retired**: the infrastructure has
+run, the Python still does not exist. **The next physical action is writing the producer contract, then
+the CLI.**
 
 **Plan of record:** [`docs/specs/mvp-plan.md`](../docs/specs/mvp-plan.md) — the full approved plan (context, what we're proving, lift-vs-rewrite table, 5 steps with exit criteria, what's deferred).
 **Environment runbook:** [`docs/specs/dev-environment-setup.md`](../docs/specs/dev-environment-setup.md) — how to provision and use the larger host.
@@ -25,8 +33,8 @@ The repo had a mature spec/design/hardware trio and **zero implementation**. We 
 | Who is the first user? | **Nobody yet — prove the architecture** | The docs' M0–M5 roadmap doesn't reach a user until week 21 because dashboards need a roster + district agreement + FERPA consent. We instead validate the one falsifiable claim everything rests on (design §4.1: graph writes stay flat through a 5× ingest burst). |
 | Where does code live? | **This repo, under `src/`** | Not a separate `dmccreary/lrs` repo, despite the design doc assuming one in ~6 places. **Consequence: GitHub Actions path filters are mandatory** so a prose typo doesn't rebuild the image and a code change doesn't redeploy the site. Not yet written. |
 | First emitter to instrument? | **`docs/sims/lrs-data-model/`** | Its quiz questions are already authored in `metadata.json` (`pedagogical.keyQuestions`), and the design's own `smoke.sh` already uses that page's URL as its object IRI. **Deferred — not part of this MVP**; `loadgen` emits the same contract, so instrumenting later changes nothing downstream. |
-| Container runtime? | **Docker Desktop** | On a headless Linux host the equivalent is Docker Engine — same `docker compose` CLI, identical compose file. |
-| Where does it run? | **A larger remote host, not this laptop** | 8 GB M2 can't hold the stack (~8 GB resident; Neo4j alone 3.3 GB). See §6. |
+| Container runtime? | **Docker Desktop** | On a headless Linux host the equivalent is Docker Engine — same `docker compose` CLI, identical compose file. Now on engine 29.6.1 / **Compose v5.3.0**; the file was authored against v2 and still parses clean. |
+| Where does it run? | **Locally, on the 32 GB workstation** — *revised 2026-07-16* | Was "a larger remote host" when dev was stuck on an 8 GB laptop. That reasoning no longer applies: 23.43 GiB reaches containers, which covers every step including the step-5 burst test. No host to provision, nothing to rent. See §6. |
 
 ---
 
@@ -80,10 +88,10 @@ src/lrs/processor/        # consume -> pseudonymize -> enrich -> BKT -> ClickHou
 src/lrs/summarizer/       # 60s loop; absolute SET writes; the mastery join
 src/lrs/loadgen.py        # synthetic firehose at the producer-contract shape
 tests/                    # test_c1_no_statement_vertices.py, test_c3_idempotent_resync.py
-uv.lock                   # `uv lock` — Dockerfile needs it
-docs/specs/xapi-producer-contract-v1.md   # ~1 page; pins the statement shape
 .github/workflows/{docs,lrs}.yml          # path filters (mandatory, see §2)
 ```
+
+(`uv.lock` was listed twice here and `docs/specs/xapi-producer-contract-v1.md` is now **written** — see §8 step 3.)
 
 **Nothing in this repo has ever been executed.** No Docker runtime was installed on the laptop, so every artifact above is verified by inspection and structural validation only — never by running it. That is precisely the failure mode this MVP exists to correct, so treat "it looks right" as untested.
 
@@ -105,15 +113,30 @@ Plus smaller ones: compose had no `networks` at all (vault-db reachable by every
 
 ---
 
-## 6. Environment constraint
+## 6. Environment constraint — RESOLVED 2026-07-16
 
-**This laptop (8 GB M2) is too small and the decision is to not run the stack on it.** No container runtime is installed (no Docker Desktop/OrbStack/colima/podman). Homebrew is available.
+**The stack now runs locally. No remote host is needed for any step, including step 5.**
 
-- Steps 1–4 (correctness: C-1, C-3, C-6, mastery join) fit on a **dedicated 8 GB** box.
-- **Step 5 — the burst test — needs 16 GB / 8 vCPU / local NVMe.** On a saturated box a flat graph-write line is ambiguous: it could mean the architecture works, or that loadgen never pushed 1,000/sec. NVMe matters because AWS's default network-attached EBS would contaminate the number (hardware §8.2).
-- Recommended: Hetzner CPX41 or equivalent, by the hour (~€0.20 per burst session), destroy after.
+Development moved to a 32 GB / 10-core M-series machine with Docker Desktop. The rented-Hetzner
+plan in [`dev-environment-setup.md`](../docs/specs/dev-environment-setup.md) §3–§4 is **no longer on
+the critical path** — keep it as the fallback if this machine becomes unavailable, but do not
+provision anything.
 
-Full provisioning steps, remote dev loop, and security in [`dev-environment-setup.md`](../docs/specs/dev-environment-setup.md).
+**The trap, if you ever move machines again:** RAM on the box is not RAM available to containers.
+Docker Desktop had `MemoryMiB: 8092` in
+`~/Library/Group Containers/group.com.docker/settings-store.json`, so a 32 GB host was still handing
+containers only **7.65 GiB** — the same ceiling that drove the original 8 GB diagnosis, just relocated
+from hardware into a config file. Raised to `24576` (**23.43 GiB** to containers, confirmed via
+`docker info`). Check `docker info --format '{{.MemTotal}}'` before concluding anything about capacity;
+`sysctl hw.memsize` will lie to you about what the stack can actually have.
+
+- Steps 1–4 (correctness: C-1, C-3, C-6, mastery join) need ~8 GB. Satisfied with room to spare.
+- **Step 5 — the burst test — needs 16 GB / 8 vCPU / local NVMe.** Now satisfied: 23.43 GiB, 10 vCPU,
+  Apple internal NVMe. This matters for the reason §9 gives — on a saturated box a flat graph-write
+  line is ambiguous between "the architecture works" and "loadgen never reached 1,000/sec." It is no
+  longer ambiguous for lack of headroom.
+- Measured idle footprint of the five backing services: **1.6 GiB** (ClickHouse 734 MiB, Neo4j 512 MiB,
+  Redpanda 327 MiB, vault-db 25 MiB, Redis 10 MiB). The docs' ~8 GB figure is loaded-state, not idle.
 
 ---
 
@@ -142,24 +165,68 @@ cd learning-record-store
 git log --oneline -3          # expect the handoff commit on top of 2421a9a
 ```
 
-**Then, in order:**
+**Steps 1 and 2 are DONE (2026-07-16). Both passed. Do not redo them.**
 
-1. **Provision the host** per [`dev-environment-setup.md`](../docs/specs/dev-environment-setup.md) §3–§4. If the new machine has 16 GB+, just install Docker Desktop and use it directly.
+1. ~~**Provision the host.**~~ **Done — no host needed.** Runs locally; see §6. Docker Desktop present
+   (engine 29.6.1, Compose **v5.3.0**), `uv 0.11.29` on PATH, `.env` created with generated secrets.
 
-2. **Run the two code-free infrastructure checks** (`dev-environment-setup.md` §4a step 5). These need **no Python** and de-risk the two assumptions everything rests on:
-   ```bash
-   cp .env.example .env && $EDITOR .env      # change every password
-   make stores                               # backing services only; prints health
-   ```
-   Then: **does composite `IS UNIQUE` work on `neo4j:5.26-community`?** It sits adjacent to `IS NODE KEY`, which *is* Enterprise-only, and design line 571 says these constraints **are** C-1's enforcement mechanism. If it needs Enterprise, C-1 is unenforced in dev *and* in the pilot tier — a finding worth having in minute 10 rather than month 6.
-   ```bash
-   source .env
-   docker compose -f deploy/docker-compose.yml exec neo4j cypher-shell -u neo4j -p "$NEO4J_PASSWORD" \
-     "CREATE CONSTRAINT mastery_grain IF NOT EXISTS
-      FOR (m:ConceptMastery) REQUIRE (m.student_key, m.concept_id) IS UNIQUE;"
-   ```
+2. ~~**Run the two code-free infrastructure checks.**~~ **Done. Both green.** Results:
 
-3. **Write the producer contract** (~1 page, `docs/specs/xapi-producer-contract-v1.md`) — 2 verbs (`answered`, `experienced`), `object.id` = canonical published page URL, `grouping[0]` = textbook version IRI, required `result` fields. It pins the DDL and becomes loadgen's spec. **Three sources currently disagree on the activity IRI** (`sine-wave.js`'s `ACTIVITY_BASE_ID`, the page's actual served URL, and `smoke.sh:1190`) — pin it before any statement is durable.
+   - **`make stores` — all five services healthy on the first attempt.** ClickHouse, Neo4j, Redpanda,
+     vault-db, Redis. This was the first time *anything in this repo had ever been executed*. The
+     §5 healthcheck fix holds (the images really don't ship `wget`; the replacements work).
+   - **Compose file survived first contact with real Compose.** It had only ever been checked by
+     inspection and a YAML parser. `docker compose config` exits 0 with no warnings under **v5.3.0** —
+     note the major-version jump from the v2.29.7 the file was written against. Verified in the
+     *resolved* config: `NEO4J_AUTH` interpolated to the real password (the §3b blank-password trap did
+     **not** fire), nothing resolved to empty, both `lrs-net`/`vault-net` exist, vault-db unpublished.
+   - **Composite `IS UNIQUE` WORKS on `neo4j:5.26-community` — C-1 is enforceable.** This was the open
+     worry (it sits next to `IS NODE KEY`, which *is* Enterprise-only, and design line 571 makes these
+     constraints C-1's whole enforcement mechanism). Verified on 5.26.28 community, not assumed: the
+     constraint registers as type `UNIQUENESS` over `["student_key","concept_id"]`, and a duplicate
+     insert is **rejected** with `Node(0) already exists with label ConceptMastery and properties...`,
+     leaving exactly 1 node. **No Enterprise license is needed for the pilot tier.**
+
+   > **Probe hygiene, learned the hard way.** The first version of this probe `grep`ed the duplicate
+   > insert's output for constraint-error text — and printed a confident "C-1 is NOT enforced" when the
+   > *probe itself* had failed to run (zsh doesn't word-split unquoted `$VAR`, so the command never
+   > executed and the grep matched nothing). That is defect §5.1 all over again, reproduced in the test
+   > of the fix for §5.1. **Assert on state, not on error text**, and make the probe prove itself alive
+   > before it is allowed to report a negative. The corrected probe uses node count as the oracle and
+   > exits `2` (inconclusive) rather than reporting a finding when it cannot read that oracle. It also
+   > **drops the constraint it created** — leaving it behind would later mask whether `bootstrap`
+   > actually creates it from `neo4j.cypher`.
+
+**Then, in order — resume here:**
+
+3. ~~**Write the producer contract.**~~ **Done 2026-07-16** —
+   [`docs/specs/xapi-producer-contract-v1.md`](../docs/specs/xapi-producer-contract-v1.md), added to the
+   mkdocs nav, `mkdocs build --strict` clean. Every `file:line` citation in it was verified
+   mechanically, not by eye. What it settles, and what it deliberately leaves open:
+
+   - **The activity IRI is pinned:** `{site_url}` + nav path + trailing slash, where `site_url` is
+     `mkdocs.yml`'s. Never `main.html`, never another site.
+   - **The "three sources disagree" framing was wrong**, and the correction is worth carrying forward:
+     `smoke.sh` and the design use the *same* IRI form and merely name a *different page* — not a
+     conflict. There is exactly **one** malformed emitter (`sine-wave.js:29`, pointing at the
+     `microsims` site *and* at `main.html`) and **one** placeholder (`lrs-design-v1.md:1194`'s
+     `example.edu` grouping). `main.html` is the load-bearing half: it is the iframe payload, not the
+     page, so citing it mints a second IRI for one activity and silently splits
+     `student_page_rollup`'s `ORDER BY (district_id, student_key, object_id)` — which would corrupt the
+     C-6 ratio at the producer, before any of our code runs.
+   - **`completed` is out.** It is the *only* verb anywhere in the design (`lrs-design-v1.md:1187`) and
+     it is neither of the two contract verbs. It carries no `success`, so a rollup fed by it reports
+     `attempts = 0` forever. The `smoke.sh` rewrite to `answered` was right; the contract ratifies it.
+   - **`object.definition.type` → `object_type` is NEW** — the design never defined it, yet two MVs
+     filter on it. Undefined, both rollups are empty and C-6 measures nothing.
+   - **Newly surfaced conflict (contract §6):** design line 309 says the processor *enriches*
+     `concept_ids` from the structural graph; `smoke.sh:111` has the *producer* send them as an
+     extension. Different architectures. v1 makes the producer authoritative because no structural
+     graph is seeded — but this **changes the ingest contract**, so it is tagged OPEN, not silently
+     decided.
+   - **Needs your call (contract §2):** `#q{N}` is pinned **zero-based**, inferred from `smoke.sh:103`
+     emitting `#q2` while `smoke.sh:105` names `keyQuestions[2]` zero-based. If you meant one-based,
+     `smoke.sh` has an off-by-one and both change together.
 
 4. **Then build step 2**: `uv lock`, `src/lrs/cli.py`, gateway, processor. Exit criterion: `make smoke` green — *and provably red when the processor is broken*.
 
@@ -169,12 +236,16 @@ git log --oneline -3          # expect the handoff commit on top of 2421a9a
 
 ## 9. Sequencing reminder
 
-| Step | Deliverable | Exit criterion | Host |
-|---|---|---|---|
-| 1 | Foundation + honest harness + producer contract | `make up && lrs bootstrap --verify` green from a cold clone; `make smoke` correctly **red** | 8 GB |
-| 2 | Ingest path (gateway → processor → ClickHouse) | `make smoke --tier=ingest` green, and red when broken | 8 GB |
-| 3 | `loadgen` at the contract shape | ≥200 stmt/sec; ClickHouse count == emitted count | 8 GB |
-| 4 | Compression + graph + mastery join | `--tier=graph` green; C-1 = 0; C-3 identical; C-6 ≥ 20:1 **asserted**; scores non-null | 8 GB |
-| **5** | **The proof** | **a chart: ingest 5×, graph writes flat** | **16 GB NVMe** |
+All five steps now run on the one 32 GB workstation (§6), so the old per-step host column is dropped —
+there is no longer a machine decision embedded in the sequence.
+
+| Step | Deliverable | Exit criterion |
+|---|---|---|
+| 0 | *Infrastructure up, C-1 enforceable* | **DONE 2026-07-16** — 5/5 services healthy; composite `IS UNIQUE` enforces on community |
+| 1 | Foundation + honest harness + producer contract | `make up && lrs bootstrap --verify` green from a cold clone; `make smoke` correctly **red** |
+| 2 | Ingest path (gateway → processor → ClickHouse) | `make smoke --tier=ingest` green, and red when broken |
+| 3 | `loadgen` at the contract shape | ≥200 stmt/sec; ClickHouse count == emitted count |
+| 4 | Compression + graph + mastery join | `--tier=graph` green; C-1 = 0; C-3 identical; C-6 ≥ 20:1 **asserted**; scores non-null |
+| **5** | **The proof** | **a chart: ingest 5×, graph writes flat** |
 
 Step 5 is the point. Everything before it earns the right to measure.

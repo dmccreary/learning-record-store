@@ -39,6 +39,7 @@ nav:
   - Specifications:
       - LRS Specification (v1): specs/lrs-spec-v1.md
       - LRS Design & Deployment (v1): specs/lrs-design-v1.md
+      - xAPI Producer Contract (v1): specs/xapi-producer-contract-v1.md
       - Hardware Requirements & Cost Estimate: specs/hardware-requirements.md
 
   - Chapters:
