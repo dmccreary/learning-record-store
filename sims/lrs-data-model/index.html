@@ -1,0 +1,1251 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Interactive vis-network diagram of the Learning Record Store graph data model. Click any node label or relationship to see its properties and enumerated metadata.">
+      
+      
+        <meta name="author" content="Dan McCreary">
+      
+      
+        <link rel="canonical" href="https://dmccreary.github.io/learning-record-store/sims/lrs-data-model/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../sine-wave/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.12">
+    
+    
+      
+        <title>LRS Graph Data Model Explorer - Learning Record Store</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.2afb09e1.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/extra.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+    <meta property="og:image" content="https://dmccreary.github.io/learning-record-store/sims/lrs-data-model/lrs-data-model.png">
+  <meta name="twitter:image" content="https://dmccreary.github.io/learning-record-store/sims/lrs-data-model/lrs-data-model.png">
+</head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lrs-graph-data-model-explorer" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Learning Record Store" class="md-header__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Learning Record Store
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              LRS Graph Data Model Explorer
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Learning Record Store" class="md-nav__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Learning Record Store
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    About
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../course-description/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Course Description
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Specifications
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../chapters/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Chapters
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../learning-graph/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Learning Graph
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    MicroSims
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            MicroSims
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    LRS Graph Data Model Explorer
+    
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--built" title="Built — implementation complete, awaiting review">
+    </span>
+  
+
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    LRS Graph Data Model Explorer
+    
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--built" title="Built — implementation complete, awaiting review">
+    </span>
+  
+
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#about-this-microsim" class="md-nav__link">
+    <span class="md-ellipsis">
+      About This MicroSim
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-thing-worth-noticing-there-is-no-statement-vertex" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Thing Worth Noticing: There Is No Statement Vertex
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to Use
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iframe-embed-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Iframe Embed Code
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lesson-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lesson Plan
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lesson Plan">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#duration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Duration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#learning-objective-bloom-analyze-evaluate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learning Objective (Bloom: Analyze / Evaluate)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#activities" class="md-nav__link">
+    <span class="md-ellipsis">
+      Activities
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assessment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Assessment
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sine-wave/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sine Wave
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Glossary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    License
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contact/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contact
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#about-this-microsim" class="md-nav__link">
+    <span class="md-ellipsis">
+      About This MicroSim
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-thing-worth-noticing-there-is-no-statement-vertex" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Thing Worth Noticing: There Is No Statement Vertex
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to Use
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iframe-embed-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Iframe Embed Code
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lesson-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lesson Plan
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lesson Plan">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#duration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Duration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#learning-objective-bloom-analyze-evaluate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learning Objective (Bloom: Analyze / Evaluate)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#activities" class="md-nav__link">
+    <span class="md-ellipsis">
+      Activities
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assessment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Assessment
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/sims/lrs-data-model/index.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="lrs-graph-data-model-explorer">LRS Graph Data Model Explorer<a class="headerlink" href="#lrs-graph-data-model-explorer" title="Permanent link">&para;</a></h1>
+<p><a class="md-button md-button--primary" href="main.html">Run the LRS Graph Data Model Explorer Fullscreen</a></p>
+<div class="admonition tip">
+<p class="admonition-title">Open this one fullscreen</p>
+<p>The full model is 25 node labels and 42 relationships. The embedded preview
+below is legible enough to get your bearings, but the relationship labels
+only become readable once you open it fullscreen and zoom in.</p>
+</div>
+<iframe src="main.html" height="642px" width="100%" scrolling="no"></iframe>
+
+<h2 id="about-this-microsim">About This MicroSim<a class="headerlink" href="#about-this-microsim" title="Permanent link">&para;</a></h2>
+<p>This MicroSim renders the Learning Record Store (LRS) <strong>graph data model</strong> from
+<a href="../../specs/lrs-spec-v1/">the specification</a> (&sect;4) as an interactive
+<a href="https://visjs.github.io/vis-network/docs/network/">vis-network</a> diagram.</p>
+<p>Every <strong>node label</strong> (District, Section, Student, TextbookVersion, MicroSim,
+ConceptMastery, Experiment, ...) and every <strong>relationship</strong> (<code>HAS_SECTION</code>,
+<code>ENROLLED_IN</code>, <code>DEPLOYS</code>, <code>HAS_MASTERY</code>, <code>SUMMARIZES</code>, <code>DEPENDS_ON</code>, ...) in the
+model appears in the graph. Nodes are colored by category:</p>
+<ul>
+<li><strong>Tenancy</strong> (blue) — the district → school → course → section → student hierarchy</li>
+<li><strong>Content</strong> (green) — the textbook, chapter, page, MicroSim, quiz, question, and concept structure</li>
+<li><strong>Summary</strong> (orange) — the compressed vertices: <code>ConceptMastery</code>, <code>PageEngagement</code>, <code>MicroSimEngagement</code>, <code>QuestionResponse</code>, <code>LearningSession</code>, <code>SectionRollup</code></li>
+<li><strong>Vocabulary</strong> (grey) — the controlled <code>Verb</code> vocabulary</li>
+<li><strong>Experiment</strong> (purple) — the A/B testing <code>Experiment</code> and <code>Variant</code> nodes</li>
+<li><strong>Event store</strong> (dashed red cylinder) — <strong>not part of the graph</strong>; see below</li>
+</ul>
+<p>Solid grey arrows are graph relationships. Dashed <strong>orange</strong> arrows are the
+compression pipeline and dashed grey is a property reference — neither is stored
+in the graph.</p>
+<h2 id="the-thing-worth-noticing-there-is-no-statement-vertex">The Thing Worth Noticing: There Is No <code>Statement</code> Vertex<a class="headerlink" href="#the-thing-worth-noticing-there-is-no-statement-vertex" title="Permanent link">&para;</a></h2>
+<p>The obvious way to model learning events is one graph vertex per xAPI statement:
+<code>(:Student)-[:PERFORMED]-&gt;(:Statement)-[:ABOUT]-&gt;(:Page)</code>. <strong>The LRS does not do
+this, and the specification prohibits it</strong> (&sect;5.6, requirement C-1).</p>
+<p>The reason is arithmetic. At the specified ingest rate of 10,000 statements/sec,
+one vertex per event would add roughly <strong>144 million vertices per day</strong> — about
+4.3 billion vertices in a 30-day window — and demand on the order of <strong>50,000
+graph writes/sec</strong>. No property-graph engine operates there. And nothing would
+read it: every report in the specification is an <em>aggregate</em>.</p>
+<p>So the statements stay in the <strong>event store</strong> (the dashed red cylinder — drawn on
+the canvas to show you where they are, but <em>not</em> a graph vertex), and a
+<strong>compression pipeline</strong> distills them into the orange <strong>summary vertices</strong>, one
+per analytical grain:</p>
+<table>
+<thead>
+<tr>
+<th>Summary vertex</th>
+<th>One vertex per…</th>
+<th>Compresses</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ConceptMastery</code></td>
+<td>(Student, Concept)</td>
+<td>~100 evidence statements → 1</td>
+</tr>
+<tr>
+<td><code>PageEngagement</code></td>
+<td>(Student, Page)</td>
+<td>~40 views, scrolls, dwell pings → 1</td>
+</tr>
+<tr>
+<td><code>MicroSimEngagement</code></td>
+<td>(Student, MicroSim)</td>
+<td>~60 interactions → 1</td>
+</tr>
+<tr>
+<td><code>QuestionResponse</code></td>
+<td>(Student, Question)</td>
+<td>~3 attempts → 1</td>
+</tr>
+<tr>
+<td><code>LearningSession</code></td>
+<td>(Student, Session)</td>
+<td>~60 statements in one sitting → 1</td>
+</tr>
+<tr>
+<td><code>SectionRollup</code></td>
+<td>(Section, Concept)</td>
+<td>a whole class → 1 (~3,000:1)</td>
+</tr>
+</tbody>
+</table>
+<p>A student who visits a page fifty times still has exactly <strong>one</strong>
+<code>PageEngagement</code> vertex — the fiftieth visit updates it rather than growing the
+graph. Every summary carries a <code>statements_compressed</code> property recording how
+many statements it stands for, so each figure knows how much evidence is behind
+it.</p>
+<p>Nothing is lost: the full statements remain queryable in the event store. The
+compression decides only what gets <em>materialized in the graph</em>.</p>
+<h2 id="how-to-use">How to Use<a class="headerlink" href="#how-to-use" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Click a node</strong> to see its stored properties as a numbered list, plus any
+  <strong>enumerated metadata</strong> — for example, <code>MicroSim.status</code> (scaffold / built /
+  approved) or <code>Question.bloom_level</code> (Remember ... Create). The panel also lists
+  every relationship the node participates in.</li>
+<li><strong>Click an orange summary vertex</strong> to see its <strong>grain</strong>, its <strong>compression
+  ratio</strong>, and exactly what it compresses.</li>
+<li><strong>Click the red cylinder</strong> to see what the event store holds and why it is
+  deliberately outside the graph.</li>
+<li><strong>Click a relationship</strong> (edge) to see what it connects, a description of its
+  meaning, and any <strong>edge properties</strong> — for example, <code>ENROLLED_IN</code> carries
+  <code>enrolled_at</code> and a <code>status</code> enumeration, and <code>TOUCHED</code> carries <code>event_count</code>
+  and <code>dwell_ms</code>.</li>
+<li><strong>Drag a node</strong> to pull it away from the cluster and declutter the view.</li>
+<li>Use the <strong>navigation buttons</strong> (lower left) to zoom and pan.</li>
+</ul>
+<h2 id="iframe-embed-code">Iframe Embed Code<a class="headerlink" href="#iframe-embed-code" title="Permanent link">&para;</a></h2>
+<p>You can add this MicroSim to any web page by adding this to your HTML:</p>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">&lt;</span><span class="nt">iframe</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://dmccreary.github.io/learning-record-store/sims/lrs-data-model/main.html&quot;</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>        <span class="na">height</span><span class="o">=</span><span class="s">&quot;642px&quot;</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>        <span class="na">width</span><span class="o">=</span><span class="s">&quot;100%&quot;</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        <span class="na">scrolling</span><span class="o">=</span><span class="s">&quot;no&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">iframe</span><span class="p">&gt;</span>
+</span></code></pre></div>
+<h2 id="lesson-plan">Lesson Plan<a class="headerlink" href="#lesson-plan" title="Permanent link">&para;</a></h2>
+<h3 id="level">Level<a class="headerlink" href="#level" title="Permanent link">&para;</a></h3>
+<p>Undergraduate / professional — data engineers, learning-analytics designers, and
+instructors evaluating an LRS.</p>
+<h3 id="duration">Duration<a class="headerlink" href="#duration" title="Permanent link">&para;</a></h3>
+<p>10–15 minutes</p>
+<h3 id="learning-objective-bloom-analyze-evaluate">Learning Objective (Bloom: Analyze / Evaluate)<a class="headerlink" href="#learning-objective-bloom-analyze-evaluate" title="Permanent link">&para;</a></h3>
+<p>Given the LRS specification, learners <strong>analyze</strong> how the entities of a
+learning-analytics graph relate to one another, and <strong>evaluate</strong> why a
+high-volume event stream must be compressed before it is materialized as graph
+vertices.</p>
+<h3 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Familiarity with the <a href="https://xapi.com/">xAPI</a> Actor–Verb–Object statement model</li>
+<li>Basic understanding of a labeled property graph (nodes, edges, properties)</li>
+</ul>
+<h3 id="activities">Activities<a class="headerlink" href="#activities" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Exploration</strong> (4 min): Click through each category of node and read its
+   properties. Note which nodes store pseudonymous keys and which store no PII.</li>
+<li><strong>Do the arithmetic</strong> (5 min): Click the red <strong>Event Store</strong> cylinder. At
+   10,000 statements/sec, compute how many statements arrive in one 6-hour school
+   day. (~216 million.) If each became a vertex with three edges, how many graph
+   writes per second would that demand? (~40,000.) Decide for yourself whether a
+   graph database should be asked to do this.</li>
+<li><strong>Follow the compression</strong> (5 min): Click each orange summary vertex and record
+   its grain and ratio. Why is <code>QuestionResponse</code> only ~3:1 while <code>SectionRollup</code>
+   is ~3,000:1? What does that tell you about what controls the ratio?</li>
+<li><strong>Trace a learner</strong> (4 min): Starting from <code>Student</code>, follow <code>HAS_MASTERY</code> to
+   <code>ConceptMastery</code>, then <code>OF_CONCEPT</code> to <code>Concept</code> and <code>IN_CONTEXT_OF</code> to
+   <code>TextbookVersion</code>. Explain how evidence is attributed to a textbook version
+   even though the individual statements are not in the graph.</li>
+<li><strong>Enumerations</strong> (2 min): Find every node or edge carrying an enumerated
+   property (e.g. <code>MicroSim.status</code>, <code>Question.bloom_level</code>, <code>Experiment.status</code>,
+   <code>ENROLLED_IN.status</code>) and list the allowed values.</li>
+</ol>
+<h3 id="assessment">Assessment<a class="headerlink" href="#assessment" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Why is there no <code>Statement</code> vertex in this model? Give the quantitative reason,
+  not just "it would be big."</li>
+<li>Where do the raw xAPI statements actually live, and are they lost? (The event
+  store; no — they stay queryable at full fidelity. Compression only decides what
+  is <em>materialized in the graph</em>.)</li>
+<li>A student views one page 50 times. How many <code>PageEngagement</code> vertices exist
+  afterward, and which property records the 50? (One; <code>statements_compressed</code>.)</li>
+<li><code>SectionRollup</code> compresses ~3,000:1 but <code>QuestionResponse</code> only ~3:1. Explain
+  what determines a grain's compression ratio.</li>
+<li>Which relationship encodes the learning-graph prerequisite DAG? (<code>DEPENDS_ON</code>)</li>
+<li>Name the six summary vertices and the grain each is keyed on.</li>
+</ul>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ol>
+<li><a href="../../specs/lrs-spec-v1/">LRS Specification &sect;4 — Graph Data Model</a></li>
+<li><a href="https://visjs.github.io/vis-network/docs/network/">vis-network documentation</a></li>
+<li><a href="https://github.com/adlnet/xAPI-Spec">xAPI (Experience API) specification</a></li>
+</ol>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: List of MicroSims">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                List of MicroSims
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../sine-wave/" class="md-footer__link md-footer__link--next" aria-label="Next: Sine Wave">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Sine Wave
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Dan McCreary. Licensed under <a href="license/">CC BY-NC-SA 4.0</a> for non-commercial use.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="../../js/katex.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

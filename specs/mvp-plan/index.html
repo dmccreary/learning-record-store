@@ -1,0 +1,965 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="An intelligent textbook on Learning Record Stores: what they are, how xAPI statements work, and how to design, deploy, and query an LRS.">
+      
+      
+        <meta name="author" content="Dan McCreary">
+      
+      
+        <link rel="canonical" href="https://dmccreary.github.io/learning-record-store/specs/mvp-plan/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.12">
+    
+    
+      
+        <title>MVP: Prove the LRS Architecture - Learning Record Store</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.2afb09e1.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/extra.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mvp-prove-the-lrs-architecture" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Learning Record Store" class="md-header__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Learning Record Store
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              MVP: Prove the LRS Architecture
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Learning Record Store" class="md-nav__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Learning Record Store
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    About
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../course-description/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Course Description
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../lrs-spec-v1/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Specifications
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../chapters/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Chapters
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../learning-graph/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Learning Graph
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../sims/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    MicroSims
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Glossary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    License
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contact/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contact
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#context" class="md-nav__link">
+    <span class="md-ellipsis">
+      Context
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-we-are-proving" class="md-nav__link">
+    <span class="md-ellipsis">
+      What we are proving
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lift-vs-rewrite" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lift vs. rewrite
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lift vs. rewrite">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fixes-that-must-land-with-the-lift" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fixes that must land with the lift
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#repo-layout-this-repo-per-decision" class="md-nav__link">
+    <span class="md-ellipsis">
+      Repo layout (this repo, per decision)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Steps
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deferred-explicitly" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deferred, explicitly
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verification
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#follow-on-not-this-mvp" class="md-nav__link">
+    <span class="md-ellipsis">
+      Follow-on (not this MVP)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#amend-the-docs-as-we-go" class="md-nav__link">
+    <span class="md-ellipsis">
+      Amend the docs as we go
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/specs/mvp-plan.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="mvp-prove-the-lrs-architecture">MVP: Prove the LRS Architecture<a class="headerlink" href="#mvp-prove-the-lrs-architecture" title="Permanent link">&para;</a></h1>
+<h2 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h2>
+<p><code>docs/specs/</code> contains a mature, self-aware spec (595 lines), design (1467 lines), and hardware estimate — and <strong>zero implementation</strong>. All three commits in this repo's history are documentation. The Dockerfile, <code>docker-compose.yml</code>, <code>Makefile</code>, <code>smoke.sh</code>, ClickHouse DDL, and Cypher constraints exist only as fenced code blocks inside <code>lrs-design-v1.md</code>.</p>
+<p>The design's own roadmap (§12) is a 26-week, layer-by-layer build (M0→M5) that doesn't reach a real user until week 21, because M3's dashboards need a roster, a district agreement, and FERPA consent — none of which code can conjure.</p>
+<p><strong>Decision: don't chase a user yet. Prove the architecture first.</strong> The design rests on one central, falsifiable claim (§4.1):</p>
+<blockquote>
+<p>"The property that matters most is not the ratio — it's the insensitivity. A burst to 50,000 statements/sec means each active student emits <em>more</em> events; it does not create five times as many students... <strong>the graph write rate stays ~2,500/sec through a 5× ingest burst.</strong>"</p>
+</blockquote>
+<p>Everything downstream — the $10K/month hardware estimate, the Neo4j licensing question, the C-1 prohibition on per-statement vertices — is a consequence of that claim. It has never been executed. This MVP executes it.</p>
+<p><strong>Two findings make this urgent rather than academic</strong> (both verified against the source):</p>
+<ol>
+<li>
+<p><strong>The proof harness doesn't prove anything.</strong> <code>smoke.sh</code> (design lines 1169–1231) is M0's stated exit criterion. Three of its five checks are decorative — <code>... | grep -q '^1$' &amp;&amp; echo "✓ clickhouse stored it"</code> (line 1206) exits <strong>0</strong> when the grep fails, because <code>set -e</code> is ignored for non-final commands in an <code>&amp;&amp;</code> list. Verified empirically. The C-6 compression block (lines 1221–1228) has no assertion at all — it prints a number and falls through to an unconditional <code>echo "✓ smoke passed"</code>. The doc's own commentary (line 1233) calls C-6 one of "the interesting" assertions.</p>
+</li>
+<li>
+<p><strong>The mastery path is disconnected.</strong> BKT's P(L) — ADR-006, function F-7, the product's central number — has no defined route to the graph. The summarizer's <code>SELECT</code> (lines 332–340) returns <code>statements_compressed, mean_score, last_seen</code>; its Cypher (line 349) writes <code>SET m.mastery_score = row.mastery_score</code>, a column the SELECT never produces. <code>mv_student_concept_rollup</code> (485–500) doesn't compute it. <code>lrs.concept_mastery</code> (449–460) has the column but §5.3 step 5 (line 311) says <code>lrs.statements</code> is "the processor's <strong>only</strong> durable write," and step 4 puts BKT state in Redis — which §9 (line 1354) says is not backed up.</p>
+</li>
+</ol>
+<p>An architecture proof that emits a green checkmark and a null mastery score is worse than no proof.</p>
+<h2 id="what-we-are-proving">What we are proving<a class="headerlink" href="#what-we-are-proving" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Claim</th>
+<th>Source</th>
+<th>Test</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Burst insensitivity</strong> — graph writes decouple from ingest</td>
+<td>design §4.1</td>
+<td><code>loadgen</code> at rate N vs. 5N; graph upserts/sec stays flat</td>
+</tr>
+<tr>
+<td>C-1 — no per-statement vertices</td>
+<td>spec line 259</td>
+<td><code>MATCH (s:Statement) RETURN count(s)</code> = 0, enforced by constraints</td>
+</tr>
+<tr>
+<td>C-3 — materialization is idempotent</td>
+<td>spec line 261</td>
+<td>summarizer twice → graph byte-identical</td>
+</tr>
+<tr>
+<td>C-6 — compression ratio observable per grain</td>
+<td>spec line 264</td>
+<td>ratio ≥ 20:1 on seeded data, <strong>asserted</strong></td>
+</tr>
+<tr>
+<td>C-2 — summaries reproducible from the log</td>
+<td>spec line 260</td>
+<td><code>lrs replay --rebuild-graph</code> reproduces the graph</td>
+</tr>
+<tr>
+<td>§5.4 — ingest never blocks on the graph</td>
+<td>spec §5.4</td>
+<td>kill Neo4j → gateway still 200s</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The burst test is a ratio, not a throughput number</strong> — so a laptop suffices. Running 200→1000 stmt/sec and showing graph writes flat proves the same property as 10k→50k. Do <strong>not</strong> buy the hardware-requirements §8 server for this; that tier is sized for ~10,000 concurrent students and belongs to the classroom pilot, not here.</p>
+<h2 id="lift-vs-rewrite">Lift vs. rewrite<a class="headerlink" href="#lift-vs-rewrite" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Design lines</th>
+<th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dockerfile</td>
+<td>694–736</td>
+<td><strong>Lift verbatim.</strong> Add <code>LABEL org.opencontainers.image.source</code> so GHCR links to this repo.</td>
+</tr>
+<tr>
+<td>docker-compose.yml</td>
+<td>~768–1075</td>
+<td><strong>Lift, 3 fixes</strong> (below)</td>
+</tr>
+<tr>
+<td>.env.example</td>
+<td>1085–1105</td>
+<td>Lift verbatim</td>
+</tr>
+<tr>
+<td>Makefile</td>
+<td>1109–1142</td>
+<td>Lift</td>
+</tr>
+<tr>
+<td>ClickHouse DDL</td>
+<td>413–518</td>
+<td><strong>Lift, 2 fixes</strong> (below)</td>
+</tr>
+<tr>
+<td>Cypher constraints</td>
+<td>528–569</td>
+<td>Lift; verify composite uniqueness on Community (step 1)</td>
+</tr>
+<tr>
+<td>Kafka topics</td>
+<td>402–409</td>
+<td>Lift; <strong>48 → 6 partitions</strong> for MVP</td>
+</tr>
+<tr>
+<td>scripts/smoke.sh</td>
+<td>1169–1231</td>
+<td><strong>Do not lift. Rewrite.</strong></td>
+</tr>
+<tr>
+<td>release.yml</td>
+<td>1294–1311</td>
+<td>Defer — abridged, <code>${DIGEST}</code> undefined</td>
+</tr>
+</tbody>
+</table>
+<h3 id="fixes-that-must-land-with-the-lift">Fixes that must land with the lift<a class="headerlink" href="#fixes-that-must-land-with-the-lift" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><code>smoke.sh</code></strong>: rewrite every check as <code>if ! ...; then exit 1; fi</code>. Tier it <code>--tier=ingest|graph|mastery</code> so each step has a real gate. Assert the C-6 ratio; don't print it.</li>
+<li><strong><code>raw</code> column PII hole</strong> (line 433, <code>-- the full original JSON, verbatim</code>; line 444, "kept forever"): the original JSON contains <code>actor.account.name</code>. Any analytics reader can <code>JSONExtractString(raw, 'actor', 'account', 'name')</code> and re-identify without vault access — contradicting §5.2's claim (line 297) that "nothing downstream of the processor ever sees anything but the derived key." Fix now: processor rewrites the actor block in <code>raw</code> before insert, <strong>or</strong> <code>raw</code> moves to an access-restricted table. Cheap today; brutal to retrofit across an immutable append-only log.</li>
+<li><strong><code>last_seen</code> type</strong> (line 497 <code>maxState(timestamp)</code>, line 338 <code>WHERE last_seen &gt;= {watermark:DateTime64}</code>): <code>WHERE</code> runs pre-aggregation against an <code>AggregateFunction(max, DateTime64(3))</code> column — type error. Declare <code>last_seen SimpleAggregateFunction(max, DateTime64(3))</code> so it stays plain, filterable, and indexable. <code>HAVING maxMerge(...)</code> compiles but full-scans, destroying the "changed rows only" claim (line 330).</li>
+<li><strong>Mastery join</strong>: processor writes <code>lrs.concept_mastery</code> alongside <code>lrs.statements</code>; summarizer JOINs it with the rollup. This is clearly the intent — it's why <code>lrs replay --into concept_mastery</code> exists (line 1138).</li>
+<li><strong>compose</strong>: add a <code>vault-net</code> only <code>identity</code> joins and drop <code>vault-db</code>'s host port (hardware §8.2 calls this "a compliance boundary, not a scale-driven one"); add <code>vault-db</code> to <code>bootstrap</code>'s <code>depends_on</code> (it runs Alembic per §8.7); the ClickHouse/Neo4j healthchecks shell out to <code>wget</code>, which neither image reliably ships.</li>
+<li><strong><code>.gitignore</code></strong>: add <code>.env</code>. It is <strong>not</strong> currently ignored, though <code>.env.example</code> line 1087 says it is.</li>
+<li><strong><code>.dockerignore</code></strong>: exclude <code>docs/</code>, <code>site/</code> (5.4 MB), <code>.git</code>.</li>
+</ul>
+<blockquote>
+<p><strong>Do not touch</strong> the single most load-bearing line: <code>gateway</code> must <code>depend_on</code> only <code>redpanda</code>. Adding <code>clickhouse</code> "for consistency" makes the analytics store an ingestion dependency and breaks spec §5.4.</p>
+</blockquote>
+<h2 id="repo-layout-this-repo-per-decision">Repo layout (this repo, per decision)<a class="headerlink" href="#repo-layout-this-repo-per-decision" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pyproject.toml          [project.scripts] lrs = &quot;lrs.cli:app&quot;   ← shown nowhere in the docs
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>uv.lock                 must exist — Dockerfile runs `uv sync --frozen`
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>src/lrs/                cli.py, gateway/, processor/, summarizer/, identity/, ddl/
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>deploy/docker-compose.yml
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>scripts/smoke.sh
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>tests/                  test_c1_no_statement_vertices.py, test_c3_idempotent_resync.py
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>Dockerfile  Makefile  .dockerignore  .env.example
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>.github/workflows/docs.yml   paths: docs/**, mkdocs.yml       → mkdocs gh-deploy
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>.github/workflows/lrs.yml    paths: src/**, tests/**, Dockerfile, pyproject.toml
+</span></code></pre></div>
+<p><code>mkdocs</code> only reads <code>docs_dir</code>, so <code>src/</code> is invisible to the site build. The existing <code>plugins/social_override.py</code> hook is unaffected. <strong>Path filters are mandatory</strong> — without them a prose typo rebuilds and rescans the image, and a code change redeploys the site.</p>
+<p>Roles to build (10 of 13 CLI commands): <code>bootstrap</code>, <code>gateway</code>, <code>processor</code>, <code>summarizer</code>, <code>identity</code>, <code>loadgen</code>, <code>replay</code>, <code>healthcheck</code>, <code>seed --demo</code>. Skip <code>analytics-api</code>, <code>admin-api</code>, <code>dashboards</code>.</p>
+<h2 id="steps">Steps<a class="headerlink" href="#steps" title="Permanent link">&para;</a></h2>
+<p><strong>Step 1 — Foundation + an honest harness.</strong> <code>uv init</code>, lift Dockerfile/compose/Makefile/DDL/Cypher with the fixes above. <code>lrs bootstrap</code> creates topics, DDL, constraints; <code>--verify</code> fails if any <code>:Statement</code> node exists. Write the <strong>producer contract</strong> (~1 page, <code>docs/specs/xapi-producer-contract-v1.md</code>): 2 verbs (<code>answered</code>, <code>experienced</code>), <code>object.id</code> = canonical published page URL, <code>grouping[0]</code> = textbook version IRI, required <code>result</code> fields. This pins the DDL and becomes loadgen's spec. It closes the top item in <code>TODO.md</code>, scoped minimally.</p>
+<blockquote>
+<p>Three sources currently disagree on the activity IRI: <code>sine-wave.js</code>'s <code>ACTIVITY_BASE_ID</code> points at <code>dmccreary.github.io/microsims/...</code>, but it's served from <code>learning-record-store/sims/sine-wave/</code>, and <code>smoke.sh:1190</code> uses a third form. Pin this before any statement is durable.</p>
+</blockquote>
+<p><em>Two things to prove on day 1, before writing Python:</em> do the compose healthchecks actually go healthy on the pinned tags, and does <code>REQUIRE (m.student_key, m.concept_id) IS UNIQUE</code> work on <code>neo4j:5.26-community</code>? Composite uniqueness sits adjacent to <code>IS NODE KEY</code>, which <strong>is</strong> Enterprise-only. Line 571 says those constraints <em>are</em> C-1's enforcement mechanism, and both compose and the §8 pilot tier run Community. Better to learn this in minute 10 than month 6.</p>
+<p><strong>Exit:</strong> <code>make up &amp;&amp; lrs bootstrap --verify</code> green from a cold clone. <code>make smoke --tier=ingest</code> correctly <strong>red</strong>.</p>
+<p><strong>Step 2 — Ingest path.</strong> <code>lrs gateway</code> (FastAPI, UUIDv7 for time-sortable IDs, tier-1 validation, all-or-nothing batches per xAPI conformance, produce with <code>acks=all</code>) → <code>lrs processor</code> (consume ≤1000/200ms, pseudonymize via HMAC with salts from <code>lrs identity</code>, resolve IRIs, accept-first stub <code>MERGE</code>, batched INSERT, commit offset only after the ack). Land the <code>raw</code> PII fix here.</p>
+<p><strong>Exit:</strong> <code>make smoke --tier=ingest</code> green — <strong>and provably red when the processor is broken.</strong> Verify the harness before trusting it.</p>
+<p><strong>Step 3 — loadgen that emits the real contract.</strong> <code>lrs loadgen --rate N</code> generates exactly the step-1 contract shape. This is the bridge to instrumenting <code>lrs-data-model</code> later: same shape in, nothing downstream changes.</p>
+<blockquote>
+<p>Emit <code>answered</code> (MCQ) + <code>experienced</code> (page dwell) — <strong>not</strong> <code>interacted</code>. This is deliberate. <code>sine-wave.js:282</code> already builds well-formed xAPI, but emits <code>interacted</code> with <code>result.extensions.value</code> and <strong>no <code>result.score</code>/<code>result.success</code></strong> — so <code>mv_student_concept_rollup</code>'s <code>countIfState(result_success IS NOT NULL)</code> yields <code>attempts = 0</code> and BKT has nothing to condition on. That's design §13.7 (nothing owns the continuous-interaction → soft-correctness mapping) made concrete. <code>answered</code> has a natural author-defined score, so the MVP dodges §13.7 entirely; <code>experienced</code>/dwell is a measured fact, not a derived score, and buys the ~40:1 ratio that makes C-6 demonstrable (quiz answers alone compress only ~3:1 — the worst grain).</p>
+</blockquote>
+<p><strong>Exit:</strong> loadgen sustains ≥200 stmt/sec against compose; ClickHouse row count matches emitted count exactly.</p>
+<p><strong>Step 4 — Compression + graph.</strong> Three rollup MVs (<code>concept_mastery</code>, <code>question_response</code>, <code>page_engagement</code> — <strong>spec C-7 line 265 explicitly authorizes materializing fewer grains</strong>, and <code>SUMMARIZER_GRAINS</code> is already the config knob at line 797). <code>lrs summarizer</code> on the 60s loop writing <strong>absolute values — <code>SET</code>, never <code>+=</code></strong>. Land the mastery join. Write <code>SUMMARIZES</code>, <code>ENGAGED_WITH</code>, <code>RESPONDED_TO</code> edges, not just <code>HAS_MASTERY</code>/<code>OF_CONCEPT</code>.</p>
+<blockquote>
+<p>Skip <code>LearningSession</code> — its grain is unbuildable as specified. No sessionization gap threshold is defined anywhere in either doc.</p>
+</blockquote>
+<p><strong>Exit:</strong> <code>make smoke --tier=graph</code> green. C-1 = 0. C-3 double-run identical. C-6 ratio <strong>asserted</strong> ≥ 20:1. Mastery scores are non-null.</p>
+<p><strong>Step 5 — The proof.</strong> <code>lrs replay --rebuild-graph</code> (C-2). The burst test: loadgen 200 → 1000 stmt/sec, measure graph upserts/sec across the step. Chaos: <code>docker compose stop neo4j</code> → ingest continues, graph goes stale but never wrong.</p>
+<p><strong>Exit:</strong> <strong>a chart showing ingest 5× while graph writes stay flat.</strong> That is the architecture proven — or falsified, which is worth more.</p>
+<h2 id="deferred-explicitly">Deferred, explicitly<a class="headerlink" href="#deferred-explicitly" title="Permanent link">&para;</a></h2>
+<p>Experiments (spec §8) and the admin UIs (§10) entirely — an A/B test at n=50 is noise. 33 of 35 reports, <code>analytics-api</code>, dashboards, RBAC, audit, <code>meta-db</code>, OIDC/Keycloak, OneRoster, the reconciler <em>worker</em> (keep the accept-first stub <code>MERGE</code> — it's the non-blocking claim), Helm/KEDA/managed stores, cosign/SBOM/Trivy, the observability stack, the ADL conformance suite.</p>
+<p><strong>D-4 (the privacy threshold that would blank every instructor dashboard) defers for free</strong> — synthetic actors have no rostered scope. It bites the day a teacher logs in, which is exactly when it must be resolved. The design already flags it as "the one worth acting on before M3."</p>
+<p><strong>What cannot be cut:</strong> C-1/C-3 enforcement (cutting them means proving nothing), ClickHouse-as-SoR, <code>ReplacingMergeTree</code> idempotency, the absolute-write summarizer, and the pseudonymization boundary — the vault is ~100 lines, it's already in compose, it keeps the processor's hot path honest for throughput numbers, and it means the shape doesn't change the day a real roster arrives.</p>
+<h2 id="verification">Verification<a class="headerlink" href="#verification" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>make<span class="w"> </span>up<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>lrs<span class="w"> </span>bootstrap<span class="w"> </span>--verify<span class="w">     </span><span class="c1"># constraints exist; zero :Statement nodes</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>make<span class="w"> </span>smoke<span class="w"> </span>--tier<span class="o">=</span>ingest<span class="w">              </span><span class="c1"># each tier a hard exit 1, never a decorative echo</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>make<span class="w"> </span>smoke<span class="w"> </span>--tier<span class="o">=</span>graph
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>pytest<span class="w"> </span>tests/<span class="w"> </span>-k<span class="w"> </span><span class="s2">&quot;c1 or c3&quot;</span><span class="w">           </span><span class="c1"># test names cite spec IDs so drift fails CI</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>lrs<span class="w"> </span>loadgen<span class="w"> </span>--rate<span class="w"> </span><span class="m">200</span><span class="w">  </span>--duration<span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>lrs<span class="w"> </span>loadgen<span class="w"> </span>--rate<span class="w"> </span><span class="m">1000</span><span class="w"> </span>--duration<span class="w"> </span><span class="m">300</span>
+</span></code></pre></div>
+<p>Then falsify deliberately: break the processor and confirm smoke goes red; <code>SET n.x = n.x + 1</code> instead of <code>SET n.x = $v</code> and confirm the C-3 test catches it. A harness that has never failed has never been tested.</p>
+<h2 id="follow-on-not-this-mvp">Follow-on (not this MVP)<a class="headerlink" href="#follow-on-not-this-mvp" title="Permanent link">&para;</a></h2>
+<p>Instrument <code>docs/sims/lrs-data-model/</code> with the step-1 contract — its quiz questions are already authored in <code>metadata.json</code> under <code>pedagogical.keyQuestions</code>, and <code>smoke.sh:1190</code> already uses that page's URL. The LRS textbook becomes the LRS's first customer, and because the emitter matches loadgen's contract, nothing downstream changes. Then: author-facing content analytics (R-303/R-306, no roster, no PII) → hardware §8 pilot tier + roster + D-4 → §13.7 retrofit spec + <code>interacted</code> → experiments.</p>
+<h2 id="amend-the-docs-as-we-go">Amend the docs as we go<a class="headerlink" href="#amend-the-docs-as-we-go" title="Permanent link">&para;</a></h2>
+<p>The specs are <code>status: scaffold</code> and this repo is their home. Fold back: the <code>smoke.sh</code> rewrite, the <code>last_seen</code> type, the mastery join, the <code>raw</code> PII resolution, and the IRI convention. Left unamended, the next reader inherits verified-broken copy-paste.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Dan McCreary. Licensed under <a href="license/">CC BY-NC-SA 4.0</a> for non-commercial use.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="../../js/katex.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

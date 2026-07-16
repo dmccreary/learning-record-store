@@ -1,0 +1,1044 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="How to provision and use a host with enough RAM and disk to run the LRS architecture-proof stack, why an 8 GB laptop is too small for the burst test, and the develop-against-remote workflow.">
+      
+      
+        <meta name="author" content="Dan McCreary">
+      
+      
+        <link rel="canonical" href="https://dmccreary.github.io/learning-record-store/specs/dev-environment-setup/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.12">
+    
+    
+      
+        <title>Development Environment — Running the MVP Stack on a Larger Host - Learning Record Store</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.2afb09e1.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/extra.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+    <meta property="og:image" content="https://dmccreary.github.io/learning-record-store/../img/cover.png">
+  <meta name="twitter:image" content="https://dmccreary.github.io/learning-record-store/../img/cover.png">
+</head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#development-environment-running-the-mvp-stack-on-a-larger-host" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Learning Record Store" class="md-header__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Learning Record Store
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Development Environment — Running the MVP Stack on a Larger Host
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Learning Record Store" class="md-nav__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Learning Record Store
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    About
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../course-description/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Course Description
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../lrs-spec-v1/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Specifications
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../chapters/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Chapters
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../learning-graph/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Learning Graph
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../sims/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    MicroSims
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Glossary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    License
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contact/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contact
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-why-not-the-laptop" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Why not the laptop
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-what-the-host-actually-needs" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. What the host actually needs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-choose-a-host" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Choose a host
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4a-provision-a-linux-cloud-host-ubuntu-2404-docker-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      4a. Provision a Linux cloud host (Ubuntu 24.04 + Docker Engine)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4b-docker-desktop-on-a-mac-or-windows-workstation" class="md-nav__link">
+    <span class="md-ellipsis">
+      4b. Docker Desktop on a Mac or Windows workstation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-developing-against-a-remote-host" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Developing against a remote host
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Security
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-cost-control-and-teardown" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Cost control and teardown
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-how-this-maps-to-the-build-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. How this maps to the build steps
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/specs/dev-environment-setup.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="development-environment-running-the-mvp-stack-on-a-larger-host">Development Environment — Running the MVP Stack on a Larger Host<a class="headerlink" href="#development-environment-running-the-mvp-stack-on-a-larger-host" title="Permanent link">&para;</a></h1>
+<p><strong>Companion to:</strong> <a href="../lrs-design-v1/">LRS Design &amp; Deployment v1</a> · <a href="../hardware-requirements/">Hardware Requirements</a>
+<strong>Status:</strong> Draft for review · 2026-07-16
+<strong>Scope:</strong> The developer host that runs <code>docker compose</code> for the architecture-proof MVP (the <code>deploy/docker-compose.yml</code> stack), <strong>not</strong> the production or single-server pilot tiers — those are <a href="../hardware-requirements/">hardware-requirements §7 and §8</a>. This is the box you build and test on.</p>
+<hr />
+<h2 id="1-why-not-the-laptop">1. Why not the laptop<a class="headerlink" href="#1-why-not-the-laptop" title="Permanent link">&para;</a></h2>
+<p>The development machine this was scoped on is an Apple M2 with <strong>8 GB of RAM</strong>. The MVP compose stack — already trimmed below the design's Core profile (no <code>meta-db</code>, no MinIO, three app roles dropped) — still needs roughly this much resident memory:</p>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Resident (approx.)</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Neo4j</td>
+<td>~3.3 GB</td>
+<td>2 G heap + 1 G pagecache + JVM (as lifted from design §8.4)</td>
+</tr>
+<tr>
+<td>ClickHouse</td>
+<td>~2.0 GB</td>
+<td>comfortable working set at low volume</td>
+</tr>
+<tr>
+<td>Redpanda</td>
+<td>~1.0 GB</td>
+<td><code>--memory=1G</code></td>
+</tr>
+<tr>
+<td>processor ×3</td>
+<td>~0.75 GB</td>
+<td>Python workers</td>
+</tr>
+<tr>
+<td>gateway + identity + summarizer</td>
+<td>~0.6 GB</td>
+<td>three more Python roles</td>
+</tr>
+<tr>
+<td>vault-db + redis</td>
+<td>~0.3 GB</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>~8.0 GB</strong></td>
+<td>before the Docker VM and macOS take their share</td>
+</tr>
+</tbody>
+</table>
+<p>On an 8 GB host the Docker VM and the OS need 2–3 GB before a single container starts, so the stack does not fit. It <em>can</em> be squeezed — Neo4j down to 512 M heap, one processor instead of three, ClickHouse capped — to about 3.5 GB, which fits, and that squeeze is fine for the <strong>correctness</strong> proofs in build steps 1–4 (C-1, C-3, C-6, the mastery join all hold at any volume).</p>
+<p>But <strong>step 5 is the whole point of this MVP</strong>: drive ingest from 200 to 1,000 statements/sec and show the graph write rate stays flat (<a href="../lrs-design-v1/#4-capacity-model">design §4.1</a>). On a memory-saturated box a flat line is ambiguous — it could mean the architecture decouples graph writes from ingest, or it could mean <code>loadgen</code> never managed to push 1,000/sec because the machine was swapping. The burst test only means something with headroom to spare. That needs a bigger host.</p>
+<hr />
+<h2 id="2-what-the-host-actually-needs">2. What the host actually needs<a class="headerlink" href="#2-what-the-host-actually-needs" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>RAM</th>
+<th>vCPU</th>
+<th>Disk</th>
+<th>Good for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Minimum</strong></td>
+<td>8 GB</td>
+<td>4</td>
+<td>40 GB</td>
+<td>Steps 1–4 only (correctness). A <em>dedicated</em> 8 GB box works where the laptop can't, because nothing else is running on it.</td>
+</tr>
+<tr>
+<td><strong>Recommended</strong></td>
+<td>16 GB</td>
+<td>8</td>
+<td>80–100 GB</td>
+<td>The full MVP including the step-5 burst, with room for ClickHouse and Redpanda to absorb 1,000/sec without contention.</td>
+</tr>
+<tr>
+<td><strong>Generous</strong></td>
+<td>32 GB</td>
+<td>8</td>
+<td>100 GB</td>
+<td>Zero worry; lets you push past 1,000/sec if you want a wider burst ratio.</td>
+</tr>
+</tbody>
+</table>
+<p>Two details that affect whether the burst number is <em>trustworthy</em>:</p>
+<ul>
+<li><strong>Local NVMe, not network block storage.</strong> <a href="../hardware-requirements/">Hardware §8.2</a> makes the point that Kafka and ClickHouse are on the write-hot-path and "network-attached block storage (e.g., standard EBS gp3) adds latency that compounds under burst." For a faithful step-5 measurement, pick a host with <strong>local NVMe</strong>. Most VPS providers (Hetzner, DigitalOcean) attach local NVMe by default; on AWS, the default <code>gp3</code> EBS volume is network-attached, so prefer an instance with local instance-store (the <code>i</code>-family or <code>d</code>-family) if you run the burst there — otherwise you may be measuring EBS, not the design.</li>
+<li><strong>Disk is not the binding constraint.</strong> Images total ~5 GB (ClickHouse ~1 GB, Neo4j ~0.6 GB, Redpanda ~0.7 GB, Postgres/Redis small, the <code>lrs</code> image ~0.25 GB, plus build cache). A few hours of 1,000/sec ingest adds only a couple of GB to the ClickHouse and Redpanda volumes. 40 GB is enough for correctness; 80–100 GB gives the burst comfortable headroom.</li>
+</ul>
+<hr />
+<h2 id="3-choose-a-host">3. Choose a host<a class="headerlink" href="#3-choose-a-host" title="Permanent link">&para;</a></h2>
+<p><strong>If you already own a workstation with 16 GB+ of RAM</strong> (a bigger Mac, a Windows desktop, a Linux tower) — use it, and skip to <a href="#4b-docker-desktop-on-a-mac-or-windows-workstation">§4b</a>. Docker Desktop (your chosen runtime) runs there directly, and you avoid all cloud cost and setup.</p>
+<p><strong>Otherwise, rent a cloud box by the hour.</strong> The burst test runs for minutes, so you can provision, prove the architecture, and destroy the box the same afternoon for the price of a coffee. Three concrete options, cheapest first:</p>
+<table>
+<thead>
+<tr>
+<th>Provider</th>
+<th>Instance</th>
+<th>Specs</th>
+<th>~Hourly</th>
+<th>~Monthly</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Hetzner Cloud</strong> (Rec.)</td>
+<td>CPX41</td>
+<td>8 vCPU, 16 GB, 240 GB NVMe</td>
+<td>~€0.06</td>
+<td>~€28</td>
+<td>Local NVMe, best value. US (Ashburn/Hillsboro) and EU regions.</td>
+</tr>
+<tr>
+<td><strong>DigitalOcean</strong></td>
+<td>Basic 16 GB</td>
+<td>8 vCPU, 16 GB, 100 GB NVMe</td>
+<td>~$0.24</td>
+<td>~$96</td>
+<td>Simplest UI; one-click Docker droplet image.</td>
+</tr>
+<tr>
+<td><strong>AWS EC2</strong></td>
+<td><code>m6i.2xlarge</code></td>
+<td>8 vCPU, 32 GB</td>
+<td>~$0.38</td>
+<td>on-demand</td>
+<td>Use if you already have an account. <strong>Watch the EBS caveat above</strong> — add instance-store or expect network-disk latency in the burst. Spot pricing roughly halves it.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation: a Hetzner CPX41 (or any provider's 16 GB / 8 vCPU / local-NVMe box), created for the burst and destroyed afterward.</strong> A full step-5 session — provision, <code>make up</code>, seed, run the 200 and 1,000/sec passes, read the numbers — is well under an hour, so ~€0.20 of compute. If you want the box to persist for daily development, ~€28/month is still an order of magnitude under the <a href="../hardware-requirements/#8-lower-cost-alternative-single-server-at-1000-statementssec">hardware §8 pilot tier</a>.</p>
+<hr />
+<h2 id="4a-provision-a-linux-cloud-host-ubuntu-2404-docker-engine">4a. Provision a Linux cloud host (Ubuntu 24.04 + Docker Engine)<a class="headerlink" href="#4a-provision-a-linux-cloud-host-ubuntu-2404-docker-engine" title="Permanent link">&para;</a></h2>
+<p>On a headless Linux server you install <strong>Docker Engine</strong>, not Docker Desktop — it is the same <code>docker</code> and <code>docker compose</code> CLI without the GUI, and the <code>deploy/docker-compose.yml</code> in this repo is byte-identical either way. (Docker Desktop is for the Mac/Windows path in §4b.)</p>
+<p><strong>Step 1 — create the server</strong> with your provider's console or CLI: Ubuntu 24.04 LTS, the size from §3, your SSH key added. Note its IP.</p>
+<p><strong>Step 2 — first login, create a non-root user, lock down SSH:</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ssh<span class="w"> </span>root@YOUR_SERVER_IP
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>adduser<span class="w"> </span>lrs<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>usermod<span class="w"> </span>-aG<span class="w"> </span>sudo<span class="w"> </span>lrs
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>rsync<span class="w"> </span>--archive<span class="w"> </span>--chown<span class="o">=</span>lrs:lrs<span class="w"> </span>~/.ssh<span class="w"> </span>/home/lrs<span class="w">   </span><span class="c1"># copy your key to the new user</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># then reconnect as: ssh lrs@YOUR_SERVER_IP</span>
+</span></code></pre></div>
+<p><strong>Step 3 — install Docker Engine</strong> (official apt repository):</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>sudo<span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ca-certificates<span class="w"> </span>curl
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>sudo<span class="w"> </span>install<span class="w"> </span>-m<span class="w"> </span><span class="m">0755</span><span class="w"> </span>-d<span class="w"> </span>/etc/apt/keyrings
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>sudo<span class="w"> </span>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://download.docker.com/linux/ubuntu/gpg<span class="w"> </span>-o<span class="w"> </span>/etc/apt/keyrings/docker.asc
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>sudo<span class="w"> </span>chmod<span class="w"> </span>a+r<span class="w"> </span>/etc/apt/keyrings/docker.asc
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;deb [arch=</span><span class="k">$(</span>dpkg<span class="w"> </span>--print-architecture<span class="k">)</span><span class="s2"> signed-by=/etc/apt/keyrings/docker.asc] \</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="s2">  https://download.docker.com/linux/ubuntu </span><span class="k">$(</span>.<span class="w"> </span>/etc/os-release<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$VERSION_CODENAME</span><span class="k">)</span><span class="s2"> stable&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/etc/apt/sources.list.d/docker.list<span class="w"> </span>&gt;<span class="w"> </span>/dev/null
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>sudo<span class="w"> </span>apt-get<span class="w"> </span>update
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>docker-ce<span class="w"> </span>docker-ce-cli<span class="w"> </span>containerd.io<span class="w"> </span>docker-buildx-plugin<span class="w"> </span>docker-compose-plugin
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>sudo<span class="w"> </span>usermod<span class="w"> </span>-aG<span class="w"> </span>docker<span class="w"> </span><span class="nv">$USER</span><span class="w">    </span><span class="c1"># log out and back in so this takes effect</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>docker<span class="w"> </span>compose<span class="w"> </span>version<span class="w">           </span><span class="c1"># confirm the plugin is present</span>
+</span></code></pre></div>
+<p><strong>Step 4 — firewall: expose SSH only</strong> (the LRS ports are reached through an SSH tunnel, never the public internet — see <a href="#6-security">§6</a>):</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </span>OpenSSH
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>sudo<span class="w"> </span>ufw<span class="w"> </span>--force<span class="w"> </span><span class="nb">enable</span>
+</span></code></pre></div>
+<p><strong>Step 5 — get the code and bring up the backing services.</strong> The application image cannot build yet — it needs <code>uv.lock</code> and the <code>lrs</code> CLI, which are written in build steps 1–2 — but the <strong>backing services need no image</strong>, and standing them up is exactly the <a href="../lrs-design-v1/#63-neo4j-structure">day-1 infrastructure validation the build plan front-loads</a>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/dmccreary/learning-record-store.git
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nb">cd</span><span class="w"> </span>learning-record-store
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>cp<span class="w"> </span>.env.example<span class="w"> </span>.env<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>nano<span class="w"> </span>.env<span class="w">          </span><span class="c1"># change every password</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>deploy/docker-compose.yml<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>redpanda<span class="w"> </span>clickhouse<span class="w"> </span>neo4j<span class="w"> </span>vault-db<span class="w"> </span>redis
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>deploy/docker-compose.yml<span class="w"> </span>ps<span class="w">   </span><span class="c1"># do all five reach &quot;healthy&quot;?</span>
+</span></code></pre></div>
+<p>Then prove the two assumptions the whole architecture rests on, before a line of Python exists:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># (a) Do the healthchecks actually pass on the pinned image tags?</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="c1">#     If clickhouse/neo4j hang in &quot;starting&quot; forever, the wget-based checks the</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="c1">#     design shipped are the culprit — this compose already swaps them for</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1">#     clickhouse-client / cypher-shell, so they should go healthy.</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="c1"># (b) Does composite IS UNIQUE work on neo4j:5.26-community? This constraint IS</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="c1">#     the enforcement mechanism for spec C-1. If it needs Enterprise, we learn</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="c1">#     it now, not in month 6.</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="nb">source</span><span class="w"> </span>.env
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>deploy/docker-compose.yml<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>neo4j<span class="w"> </span>cypher-shell<span class="w"> </span>-u<span class="w"> </span>neo4j<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NEO4J_PASSWORD</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">  </span><span class="s2">&quot;CREATE CONSTRAINT mastery_grain IF NOT EXISTS</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="s2">   FOR (m:ConceptMastery) REQUIRE (m.student_key, m.concept_id) IS UNIQUE;&quot;</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>deploy/docker-compose.yml<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>neo4j<span class="w"> </span>cypher-shell<span class="w"> </span>-u<span class="w"> </span>neo4j<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NEO4J_PASSWORD</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">  </span><span class="s2">&quot;SHOW CONSTRAINTS;&quot;</span>
+</span></code></pre></div>
+<p>Once the <code>lrs</code> CLI and <code>uv.lock</code> exist (build step 1–2), <code>make up</code> builds the image and runs the full stack; <code>make smoke</code>, <code>make perf</code>, and <code>make burst</code> follow.</p>
+<h2 id="4b-docker-desktop-on-a-mac-or-windows-workstation">4b. Docker Desktop on a Mac or Windows workstation<a class="headerlink" href="#4b-docker-desktop-on-a-mac-or-windows-workstation" title="Permanent link">&para;</a></h2>
+<p>If the larger host is a machine you own:</p>
+<ol>
+<li>Install <strong>Docker Desktop</strong> (your chosen runtime) from docker.com.</li>
+<li><strong>Raise its resource limits</strong> — this is the step that matters, and the one an 8 GB machine can't satisfy. Settings → Resources → set Memory to at least <strong>12 GB</strong> (of a 16 GB machine) and CPUs to 6–8. Docker Desktop caps container memory at whatever you set here regardless of physical RAM, so a fresh install often defaults low.</li>
+<li><code>git clone</code>, <code>cp .env.example .env</code>, edit passwords, then <code>make up</code>.</li>
+</ol>
+<p>The compose file, Makefile, and smoke script are identical to the Linux path.</p>
+<hr />
+<h2 id="5-developing-against-a-remote-host">5. Developing against a remote host<a class="headerlink" href="#5-developing-against-a-remote-host" title="Permanent link">&para;</a></h2>
+<p>You keep editing on your laptop; the containers run on the big box. Three ways, best first:</p>
+<p><strong>A — VS Code (or Cursor) Remote-SSH (recommended).</strong> Install the "Remote - SSH" extension, add <code>lrs@YOUR_SERVER_IP</code> as a host, and open the cloned repo folder <em>on the server</em>. Your editor is local; the files, the integrated terminal, and <code>make up</code> all run remotely. This is the smoothest loop — edit a Python file, <code>make up</code> in the built-in terminal, <code>make smoke</code> — with no sync step. Port-forwarding is automatic: VS Code tunnels <code>localhost:8080</code>, <code>:7474</code>, <code>:7687</code> back to your laptop so the gateway and the Neo4j browser open locally.</p>
+<p><strong>B — Docker context over SSH (keeps Docker Desktop as the client).</strong> This honors the Docker-Desktop choice literally: the CLI and GUI stay on your Mac, but the <em>engine</em> runs on the remote host.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>docker<span class="w"> </span>context<span class="w"> </span>create<span class="w"> </span>lrs-remote<span class="w"> </span>--docker<span class="w"> </span><span class="s2">&quot;host=ssh://lrs@YOUR_SERVER_IP&quot;</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>docker<span class="w"> </span>context<span class="w"> </span>use<span class="w"> </span>lrs-remote
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>make<span class="w"> </span>up<span class="w">          </span><span class="c1"># builds and runs on the remote engine</span>
+</span></code></pre></div>
+<p>One caveat: containers publish their ports on the <strong>remote</strong> host, so <code>scripts/smoke.sh</code> — which posts to <code>http://localhost:8080</code> — must either run <em>on</em> the server, or you open a tunnel first:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>ssh<span class="w"> </span>-N<span class="w"> </span>-L<span class="w"> </span><span class="m">8080</span>:localhost:8080<span class="w"> </span>-L<span class="w"> </span><span class="m">7474</span>:localhost:7474<span class="w"> </span>-L<span class="w"> </span><span class="m">7687</span>:localhost:7687<span class="w"> </span>lrs@YOUR_SERVER_IP<span class="w"> </span><span class="p">&amp;</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>./scripts/smoke.sh<span class="w"> </span>--tier<span class="o">=</span>ingest
+</span></code></pre></div>
+<p><strong>C — plain git + SSH.</strong> Commit and push from the laptop, <code>git pull</code> on the server, run there in an SSH session. No editor integration, but nothing to install and it always works.</p>
+<hr />
+<h2 id="6-security">6. Security<a class="headerlink" href="#6-security" title="Permanent link">&para;</a></h2>
+<p>The stack has no authentication in front of Neo4j, ClickHouse, or the gateway in dev, and the data is student-shaped even while it is synthetic. Treat the boundary as real now so it is already habit when real telemetry arrives (the point the <a href="../hardware-requirements/#8-lower-cost-alternative-single-server-at-1000-statementssec">pilot tier makes about the vault</a> — it is a compliance boundary regardless of scale).</p>
+<ul>
+<li><strong>Never publish the service ports.</strong> The firewall in §4a exposes only SSH. Do not add <code>ufw allow 8080</code> (or 7474/8123/9092). Reach every service through the SSH tunnel or VS Code's automatic forwarding. An open Neo4j browser or ClickHouse HTTP port on a public IP is found by scanners within minutes.</li>
+<li><strong>Change every value in <code>.env</code>.</strong> The <code>.env.example</code> ships <code>change-me-*</code> placeholders; a real password on each. <code>.env</code> is git-ignored (this repo fixed that — it was not, originally).</li>
+<li><strong>The <code>vault-net</code> isolation carries over.</strong> The compose file puts <code>vault-db</code> on an <code>internal</code> network with no host port; keep it that way. Only the <code>identity</code> role should reach it.</li>
+<li><strong>Destroy, don't hoard.</strong> A short-lived burst-test box that no longer exists cannot leak.</li>
+</ul>
+<hr />
+<h2 id="7-cost-control-and-teardown">7. Cost control and teardown<a class="headerlink" href="#7-cost-control-and-teardown" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>By the hour:</strong> the burst proof is minutes of work. Provision, prove, destroy — a few cents.</li>
+<li><strong>Persisting for daily dev:</strong> stop the box when idle if your provider bills only for running compute (AWS does; Hetzner/DO bill for the allocated server whether on or off, so for those, <em>destroy</em> rather than stop and re-create from a snapshot). A snapshot is a few GB and pennies per month.</li>
+<li><strong>Clean teardown:</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>deploy/docker-compose.yml<span class="w"> </span>down<span class="w"> </span>-v<span class="w">   </span><span class="c1"># stop and drop all volumes</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="c1"># then destroy the server in the provider console, or:</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="c1"># hcloud server delete lrs   /   doctl compute droplet delete lrs   /   aws ec2 terminate-instances ...</span>
+</span></code></pre></div>
+<hr />
+<h2 id="8-how-this-maps-to-the-build-steps">8. How this maps to the build steps<a class="headerlink" href="#8-how-this-maps-to-the-build-steps" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Build step (from the plan)</th>
+<th>Host needed</th>
+<th>What runs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 — foundation, bootstrap, infra validation</td>
+<td>Minimum (8 GB dedicated)</td>
+<td>backing services only; no image build needed for the two day-1 checks</td>
+</tr>
+<tr>
+<td>2 — ingest path (gateway → processor → ClickHouse)</td>
+<td>Minimum</td>
+<td>full stack, low volume</td>
+</tr>
+<tr>
+<td>3 — <code>loadgen</code> at the contract shape</td>
+<td>Minimum → Recommended</td>
+<td>200/sec baseline</td>
+</tr>
+<tr>
+<td>4 — compression + graph + mastery</td>
+<td>Minimum</td>
+<td>correctness proofs, any volume</td>
+</tr>
+<tr>
+<td><strong>5 — the burst proof (200 → 1,000/sec)</strong></td>
+<td><strong>Recommended (16 GB, local NVMe)</strong></td>
+<td>the measurement the MVP exists to produce</td>
+</tr>
+</tbody>
+</table>
+<p>The correctness of the architecture (steps 1–4) can be shown on a modest box. The <em>claim</em> that makes the architecture worth building — graph writes flat under a 5× ingest burst — needs the Recommended tier to measure honestly.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Dan McCreary. Licensed under <a href="license/">CC BY-NC-SA 4.0</a> for non-commercial use.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="../../js/katex.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>
