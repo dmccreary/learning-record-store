@@ -108,9 +108,15 @@ sudo ufw --force enable
 git clone https://github.com/dmccreary/learning-record-store.git
 cd learning-record-store
 cp .env.example .env && nano .env          # change every password
-docker compose -f deploy/docker-compose.yml up -d redpanda clickhouse neo4j vault-db redis
-docker compose -f deploy/docker-compose.yml ps   # do all five reach "healthy"?
+make stores                                # backing services only; no image build
 ```
+
+`make stores` brings up exactly the five backing services and prints their health.
+It needs no application image, so it works today, before any Python exists. Run it
+from the **repo root** — the Makefile passes `--env-file .env` explicitly, because
+Compose otherwise resolves its project directory to `deploy/` and can silently
+interpolate every `${VAR}` to empty (which would start Neo4j with a blank
+password rather than failing).
 
 Then prove the two assumptions the whole architecture rests on, before a line of Python exists:
 
@@ -124,11 +130,11 @@ Then prove the two assumptions the whole architecture rests on, before a line of
 #     the enforcement mechanism for spec C-1. If it needs Enterprise, we learn
 #     it now, not in month 6.
 source .env
-docker compose -f deploy/docker-compose.yml exec neo4j cypher-shell -u neo4j -p "$NEO4J_PASSWORD" \
+CY='docker compose --env-file .env -f deploy/docker-compose.yml exec neo4j cypher-shell'
+$CY -u neo4j -p "$NEO4J_PASSWORD" \
   "CREATE CONSTRAINT mastery_grain IF NOT EXISTS
    FOR (m:ConceptMastery) REQUIRE (m.student_key, m.concept_id) IS UNIQUE;"
-docker compose -f deploy/docker-compose.yml exec neo4j cypher-shell -u neo4j -p "$NEO4J_PASSWORD" \
-  "SHOW CONSTRAINTS;"
+$CY -u neo4j -p "$NEO4J_PASSWORD" "SHOW CONSTRAINTS;"
 ```
 
 Once the `lrs` CLI and `uv.lock` exist (build step 1–2), `make up` builds the image and runs the full stack; `make smoke`, `make perf`, and `make burst` follow.

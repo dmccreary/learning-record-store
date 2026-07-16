@@ -2,12 +2,27 @@
 # Changes: compose lives in deploy/, smoke is tiered, and `up` no longer
 # runs `up` twice.
 
-COMPOSE := docker compose -f deploy/docker-compose.yml
+# --env-file is explicit and load-bearing. Compose resolves its project
+# directory from the first -f file, i.e. deploy/ — so a bare
+# `docker compose -f deploy/docker-compose.yml` may look for deploy/.env and
+# silently interpolate every ${VAR} to empty when it finds nothing. That does
+# not fail loudly; it starts Neo4j with `NEO4J_AUTH: neo4j/` and an empty
+# password. Naming the root .env explicitly is correct regardless of which
+# lookup rule the local Compose version uses.
+#
+# Do NOT add --project-directory here: the build `context: ..` in the compose
+# file resolves against the project directory, so changing it would push the
+# build context above the repo root.
+COMPOSE := docker compose --env-file .env -f deploy/docker-compose.yml
 
-.PHONY: help up down clean logs seed smoke smoke-graph smoke-mastery perf burst rebuild test lint
+.PHONY: help stores up down clean logs seed smoke smoke-graph smoke-mastery perf burst rebuild test lint
 
 help:          ## Show this help
 	@grep -E '^[a-z-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-14s\033[0m %s\n", $$1, $$2}'
+
+stores:        ## Start ONLY the backing services — no image build, works before any Python exists
+	$(COMPOSE) up -d redpanda clickhouse neo4j vault-db redis
+	$(COMPOSE) ps
 
 up:            ## Start the core stack (bootstrap runs first, then 3 processors)
 	$(COMPOSE) up -d --build --scale processor=3

@@ -58,7 +58,10 @@ set -a; . ./.env; set +a
 : "${NEO4J_PASSWORD:?not set in .env}"
 : "${LRS_DEV_INGEST_TOKEN:?not set in .env}"
 
-COMPOSE="docker compose -f deploy/docker-compose.yml"
+# --env-file is explicit: Compose resolves its project directory from the -f
+# file (deploy/), so a bare invocation may look for deploy/.env, find nothing,
+# and interpolate every ${VAR} to empty rather than failing. See the Makefile.
+COMPOSE="docker compose --env-file .env -f deploy/docker-compose.yml"
 
 ch() {
   $COMPOSE exec -T clickhouse clickhouse-client \

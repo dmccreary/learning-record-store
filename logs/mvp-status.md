@@ -47,11 +47,30 @@ All committed to `main` and pushed as of this doc.
 | [`src/lrs/ddl/neo4j.cypher`](../src/lrs/ddl/neo4j.cypher) | done | Constraints = C-1's enforcement mechanism. Community-edition caveat flagged inline. |
 | `.env.example`, `.dockerignore`, `.gitignore` | done | Committed alongside this doc — they were stranded uncommitted. |
 
+## 3b. Does a fresh clone work? (tested 2026-07-16)
+
+A real `git clone` of `main` into a clean directory was inspected. Result:
+
+| Action | Works? |
+|---|---|
+| `git clone` → all docs, config, DDL, Makefile, smoke.sh present | **Yes.** `smoke.sh` keeps its executable bit; `.env` is ignored. |
+| `cp .env.example .env` | **Yes** (it was stranded uncommitted until `bccbe6a`). |
+| **`make stores`** — the five backing services, no image build | **Yes.** This is the day-1 path. |
+| `make up` — full stack | **No.** The image build fails: `uv.lock` and `src/lrs/cli.py` don't exist. |
+| `make smoke` | **No.** There is no gateway to post to. |
+
+Two bugs the clone test caught, both now fixed:
+
+- **`README.md` didn't exist**, but the Dockerfile does `COPY README.md ./` and `pyproject.toml` declares `readme = "README.md"` — the build would have failed on those lines. A README now exists.
+- **`.env` lookup was ambiguous.** Compose resolves its project directory from the first `-f` file (`deploy/`), so a bare `docker compose -f deploy/docker-compose.yml` may look for `deploy/.env`, find nothing, and interpolate every `${VAR}` to **empty** — starting Neo4j with `NEO4J_AUTH: neo4j/` (blank password) instead of failing loudly. The Makefile and `smoke.sh` now pass `--env-file .env` explicitly, which is correct under either lookup rule. (Do **not** add `--project-directory` — the build `context: ..` resolves against it.)
+
 ## 4. What does NOT exist yet
 
 **No Python at all.** This is the gap. Nothing can build or run until it's written:
 
 ```
+uv.lock                   # `uv lock` — the Dockerfile's `uv sync --frozen` needs it
+src/lrs/__init__.py       # the package itself
 src/lrs/cli.py            # Typer app; dispatches 10 roles (ADR-005: one image, many roles)
 src/lrs/config.py         # Pydantic Settings; crash on boot if a var is missing
 src/lrs/bootstrap.py      # --create-topics --apply-ddl --apply-constraints --verify
@@ -130,8 +149,7 @@ git log --oneline -3          # expect the handoff commit on top of 2421a9a
 2. **Run the two code-free infrastructure checks** (`dev-environment-setup.md` §4a step 5). These need **no Python** and de-risk the two assumptions everything rests on:
    ```bash
    cp .env.example .env && $EDITOR .env      # change every password
-   docker compose -f deploy/docker-compose.yml up -d redpanda clickhouse neo4j vault-db redis
-   docker compose -f deploy/docker-compose.yml ps    # do all five reach "healthy"?
+   make stores                               # backing services only; prints health
    ```
    Then: **does composite `IS UNIQUE` work on `neo4j:5.26-community`?** It sits adjacent to `IS NODE KEY`, which *is* Enterprise-only, and design line 571 says these constraints **are** C-1's enforcement mechanism. If it needs Enterprise, C-1 is unenforced in dev *and* in the pilot tier — a finding worth having in minute 10 rather than month 6.
    ```bash
