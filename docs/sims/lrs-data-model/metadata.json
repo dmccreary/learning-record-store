@@ -1,45 +1,67 @@
 {
   "title": "LRS Graph Data Model Explorer",
   "creator": "Dan McCreary",
-  "subject": "High School Geometry",
-  "description": "Interactive MicroSim for lrs graph data model explorer",
+  "subject": "Learning Analytics / Data Engineering",
+  "description": "Interactive vis-network diagram of the Learning Record Store graph data model. Every node label and relationship from the specification appears in the graph. Shows why the model has no per-statement vertex: statements live in the event store and are compressed into one summary vertex per analytical grain.",
   "date": "2026-07-15",
   "educational": {
     "gradeLevel": [
-      "9",
-      "10",
-      "11",
-      "12"
+      "undergraduate",
+      "graduate",
+      "professional"
     ],
-    "subjectArea": "Mathematics",
-    "topic": "LRS Graph Data Model Explorer",
+    "subjectArea": "Computer Science",
+    "topic": "Graph data modeling for high-volume learning analytics",
     "learningObjectives": [
-      "TODO: Add learning objectives"
+      "Analyze how the entities of a learning-analytics graph relate to one another",
+      "Identify the properties and controlled vocabularies each entity and relationship carries",
+      "Explain why per-statement vertices are prohibited at 10,000 statements/sec, using the arithmetic",
+      "Describe the grain of each summary vertex and what determines its compression ratio",
+      "Trace how evidence is attributed to a textbook version without storing individual statements in the graph"
     ],
-    "bloomsTaxonomy": "Analyze",
-    "duration": "10-15 minutes",
-    "prerequisites": [],
+    "bloomsTaxonomy": "Analyze, Evaluate",
+    "duration": "15-20 minutes",
+    "prerequisites": [
+      "The xAPI Actor-Verb-Object statement model",
+      "Labeled property graphs (nodes, edges, properties)"
+    ],
     "standards": []
   },
   "technical": {
     "framework": "vis-network",
-    "version": "1.0",
+    "version": "2.0",
     "canvasDimensions": {
       "width": "responsive",
-      "height": 450
+      "height": 640
     },
     "responsive": true,
-    "dependencies": [],
+    "dependencies": [
+      "vis-network@9.1.9"
+    ],
     "accessibility": {
       "hasAltText": false,
       "keyboardNavigable": false
     }
   },
   "pedagogical": {
-    "teachingStrategy": "Interactive exploration",
-    "keyQuestions": [],
-    "commonMisconceptions": [],
-    "assessmentOpportunities": []
+    "teachingStrategy": "Interactive exploration built around a quantitative discrepancy — the learner computes the cost of the naive one-vertex-per-event model and discovers why the specification forbids it",
+    "keyQuestions": [
+      "Why is there no Statement vertex in this model?",
+      "Where do the raw xAPI statements actually live, and are they lost?",
+      "A student views a page 50 times. How many PageEngagement vertices exist afterward?",
+      "Why does SectionRollup compress ~3,000:1 while QuestionResponse compresses only ~3:1?"
+    ],
+    "commonMisconceptions": [
+      "That a graph database should store every event as a vertex — the natural first model, and the one this MicroSim exists to correct",
+      "That compression discards data — it does not; the full statements stay queryable in the event store, and compression decides only what is materialized in the graph",
+      "That the compression ratio is a fixed property of the system — it is a property of the grain, which is why it ranges from ~3:1 to ~3,000:1 across the six summary vertices",
+      "That the dashed red cylinder is a graph vertex — it is drawn to show where statements live, precisely because they are not in the graph"
+    ],
+    "assessmentOpportunities": [
+      "Compute the daily vertex count and write rate implied by one-vertex-per-statement at the specified ingest rate",
+      "Name the six summary vertices and the grain each is keyed on",
+      "Explain what statements_compressed records and why every summary carries it"
+    ]
   },
   "chapter": ""
 }

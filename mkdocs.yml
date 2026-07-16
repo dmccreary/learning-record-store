@@ -38,6 +38,7 @@ nav:
 
   - Specifications:
       - LRS Specification (v1): specs/lrs-spec-v1.md
+      - LRS Design & Deployment (v1): specs/lrs-design-v1.md
 
   - Chapters:
       - List of Chapters: chapters/index.md
@@ -55,7 +56,10 @@ nav:
 
   - MicroSims:
       - List of MicroSims: sims/index.md
+      - LRS Graph Data Model Explorer: sims/lrs-data-model/index.md
+      - Sine Wave: sims/sine-wave/index.md
 
+  - Glossary: glossary.md
   - License: license.md
   - Contact: contact.md
 
@@ -124,16 +128,24 @@ markdown_extensions:
       pygments_lang_class: true
   - pymdownx.inlinehilite
   - pymdownx.snippets
+  # Enable KaTeX LaTeX equation rendering
+  # Using \(...\) for inline math to avoid conflicts with currency $
+  # Block math uses $$ or \[...\]
   - pymdownx.arithmatex:
       generic: true
+      inline_syntax: ['round']
+      block_syntax: ['dollar', 'square']
 
 # Custom CSS — file is created by init-textbook
 extra_css:
   - css/extra.css
+  - https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css
 
-# Custom JavaScript — uncomment once a corresponding file exists
-# extra_javascript:
-#   - js/extra.js
+# Custom JavaScript
+extra_javascript:
+  - js/katex.js
+  - https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js
+  - https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js
 
 # Exclude prompt scratch files and TODOs from build/search/sitemap
 exclude_docs: |
