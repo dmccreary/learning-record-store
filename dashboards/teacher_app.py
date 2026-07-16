@@ -19,8 +19,7 @@ Run: `python teacher_app.py` from dashboards/. Port 8052.
 from __future__ import annotations
 
 import plotly.graph_objects as go
-from dash import Dash, Input, Output, State, dash_table, dcc, html
-
+from dash import Dash, Input, Output, State, dcc, html
 from lrsdash import queries_common as qc
 from lrsdash import queries_teacher as qt
 from lrsdash.db import health
@@ -97,19 +96,24 @@ app.layout = html.Div(
                 html.Div(
                     [
                         html.Div(
-                            dcc.Tabs(id="class-tabs", value=CLASS_TABS[0][0], vertical=True,
-                                     children=[dcc.Tab(label=lbl, value=k) for k, lbl in CLASS_TABS]),
-                            id="class-rail", style=VISIBLE,
-                        ),
-                        html.Div(
                             [
+                                # Only R-201 (heatmap) reads this, but it needs to live
+                                # somewhere visible in class mode regardless of which
+                                # class-tab is selected — it was originally nested inside
+                                # student-rail, which meant it silently drove the heatmap
+                                # from a value the user had no visible control to change.
                                 dcc.Dropdown(
                                     id="chapter-filter", placeholder="Chapter…",
                                     style={"margin": "8px 12px"},
                                 ),
-                                dcc.Tabs(id="student-tabs", value=STUDENT_TABS[0][0], vertical=True,
-                                         children=[dcc.Tab(label=lbl, value=k) for k, lbl in STUDENT_TABS]),
+                                dcc.Tabs(id="class-tabs", value=CLASS_TABS[0][0], vertical=True,
+                                         children=[dcc.Tab(label=lbl, value=k) for k, lbl in CLASS_TABS]),
                             ],
+                            id="class-rail", style=VISIBLE,
+                        ),
+                        html.Div(
+                            dcc.Tabs(id="student-tabs", value=STUDENT_TABS[0][0], vertical=True,
+                                     children=[dcc.Tab(label=lbl, value=k) for k, lbl in STUDENT_TABS]),
                             id="student-rail", style=HIDDEN,
                         ),
                     ],
@@ -333,7 +337,7 @@ def render_timeline(student_key, section_id):
         return html.Div("No page-engagement evidence yet.", className="lrs-empty")
     df = df.sort_values("chapter_order")
     fig = go.Figure(layout=base_layout())
-    for i, row in enumerate(df.itertuples()):
+    for row in df.itertuples():
         fig.add_trace(go.Scatter(
             x=[row.start, row.end], y=[row.page, row.page], mode="lines",
             line=dict(color=CATEGORICAL[0], width=8), showlegend=False,

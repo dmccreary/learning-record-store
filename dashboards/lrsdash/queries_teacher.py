@@ -24,8 +24,6 @@ SCOPE NOTES (each is a real gap, not an oversight — see the function it affect
 
 from __future__ import annotations
 
-from datetime import timedelta
-
 import pandas as pd
 
 from lrsdash.db import q

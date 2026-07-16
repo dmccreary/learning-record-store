@@ -10,10 +10,8 @@ port 8051 so all three apps can run side by side without colliding.
 
 from __future__ import annotations
 
-import plotly.express as px
 import plotly.graph_objects as go
 from dash import Dash, Input, Output, dcc, html
-
 from lrsdash import queries_admin as qa
 from lrsdash.db import health
 from lrsdash.theme import (
@@ -234,7 +232,7 @@ def render_licensing(district_id: str | None):
     return html.Div(
         [
             card(row["district"], fig, subtitle=f"{row['active_seats']:,} / {row['licensed_seats']:,} seats")
-            for row, fig in zip(df.to_dict("records"), figs)
+            for row, fig in zip(df.to_dict("records"), figs, strict=True)
         ],
         className="lrs-grid",
     )

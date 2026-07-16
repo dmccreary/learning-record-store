@@ -64,9 +64,6 @@ import logging
 import random
 from dataclasses import dataclass
 from datetime import UTC, datetime, timedelta
-from pathlib import Path
-
-from neo4j import GraphDatabase
 
 from lrsdash.db import driver, q
 

@@ -6,3 +6,6 @@ plotly==5.24.1
 pandas==2.2.3
 neo4j==5.26.0
 python-dotenv==1.0.1
+# Experiments readout (§8.3) needs a real Welch's t-test and normal CDF for CIs — using
+# scipy.stats rather than hand-rolling erf-based p-values.
+scipy==1.14.1

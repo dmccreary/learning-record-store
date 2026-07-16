@@ -35,36 +35,36 @@ glossary, sims under `docs/sims/`):
 ### Mascot File Index
 
 The canonical files for the textbook mascot. When editing any of these, update
-the related files in the same turn so Trace stays consistent.
+the related files in the same turn so Rowan stays consistent.
 
 | File | Purpose |
 |---|---|
 | `docs/img/mascot/character-sheet.md` | Canonical identity, appearance, and voice. |
 | `docs/img/mascot/image-prompts.md` | Full self-contained prompt pack for regenerating the mascot poses as PNGs. |
-| `docs/img/mascot/neutral.svg` | Default general-purpose pose and active site logo. |
-| `docs/img/mascot/welcome.svg` | Chapter-opening pose. |
-| `docs/img/mascot/thinking.svg` | Key-concept pose. |
-| `docs/img/mascot/tip.svg` | Helpful-guidance pose. |
-| `docs/img/mascot/warning.svg` | Common-pitfall pose. |
-| `docs/img/mascot/encouraging.svg` | Difficult-content pose. |
-| `docs/img/mascot/celebration.svg` | End-of-section celebration pose. |
+| `docs/img/mascot/neutral.png` | Default general-purpose pose and active site logo. |
+| `docs/img/mascot/welcome.png` | Chapter-opening pose. |
+| `docs/img/mascot/thinking.png` | Key-concept pose. |
+| `docs/img/mascot/tip.png` | Helpful-guidance pose. |
+| `docs/img/mascot/warning.png` | Common-pitfall pose. |
+| `docs/img/mascot/encouraging.png` | Difficult-content pose. |
+| `docs/img/mascot/celebration.png` | End-of-section celebration pose. |
 | `docs/css/mascot.css` | Custom admonition styles for mascot callouts. |
 | `docs/learning-graph/mascot-test.md` | Rendering test page for all mascot variants. |
 
 ### Character Overview
 
-- **Name:** Trace
-- **Species:** Firefly
+- **Name:** Rowan
+- **Species:** Red panda
 - **Personality:** curious, patient, encouraging, precise
-- **Catchphrase:** "Let's trace what happened."
-- **Visual:** indigo firefly with an amber lantern glow, rounded glasses, a node-and-edge scarf, and a compact satchel
+- **Catchphrase:** "Let's follow the record."
+- **Visual:** cinnamon-and-cream red panda with teal glasses and neckerchief, plus a compact learning-record satchel
 
 ### Voice Characteristics
 
 - Explains the plain-language story before the system detail
-- Talks about traces, signals, clues, and flows rather than generic "data"
+- Talks about records, evidence, connections, and flows rather than generic "data"
 - Keeps the tone warm and steady, especially during debugging or architecture-heavy sections
-- Signature phrases: "Let's trace what happened.", "Follow the signal.", "Every statement leaves a clue."
+- Signature phrases: "Let's follow the record.", "What does the evidence show?", "One event at a time."
 
 ### Mascot Admonition Format
 
@@ -72,7 +72,7 @@ Always place mascot images in the admonition body, not the title bar:
 
 ```md
 !!! mascot-welcome "Title Here"
-    ![Trace welcome pose](../../img/mascot/welcome.svg){ class="mascot-admonition-img" }
+    ![Rowan welcome pose](../../img/mascot/welcome.png){ class="mascot-admonition-img" }
     Admonition text goes here after the image.
 ```
 
@@ -90,12 +90,12 @@ Always place mascot images in the admonition body, not the title bar:
 
 ### Do and Don't
 
-- Do keep Trace's dialogue brief and purposeful.
+- Do keep Rowan's dialogue brief and purposeful.
 - Do match the pose to the instructional moment.
-- Do use Trace to lower anxiety around technical material.
+- Do use Rowan to lower anxiety around technical material.
 - Don't stack mascot admonitions back-to-back.
-- Don't use Trace as decoration without instructional value.
-- Don't change Trace's name, palette, or voice without updating the character sheet and prompt pack.
+- Don't use Rowan as decoration without instructional value.
+- Don't change Rowan's name, palette, or voice without updating the character sheet and prompt pack.
 
 ## External data resources
 

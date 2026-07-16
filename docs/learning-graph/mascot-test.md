@@ -1,52 +1,47 @@
 # Mascot Style Guide
 
-This page previews the mascot styles installed for the textbook. The current
-starter asset set uses lightweight SVG poses so the site can use the mascot
-immediately, while `docs/img/mascot/image-prompts.md` stores the full prompt
-pack for future PNG regeneration.
+This page previews Rowan's seven raster-image poses and their intended teaching
+contexts. Rowan is generated artwork—not SVG—and should be used purposefully,
+no more than five or six times in a chapter.
 
 ## Character Summary
 
-- **Name:** Trace
-- **Species:** Firefly
-- **Role:** Help readers trace statements, flows, and graph relationships
-- **Catchphrase:** "Let's trace what happened."
+- **Name:** Rowan
+- **Species:** Red panda
+- **Role:** A warm learning-record librarian who helps readers connect events, evidence, and meaning
+- **Catchphrase:** "Let's follow the record."
 
-!!! mascot-neutral "A Note from Trace"
-    <img alt="Trace neutral pose" class="mascot-admonition-img" src="../../img/mascot/neutral.svg" />
-    Trace works best for short sidebars that frame a concept before the jargon
-    arrives. Use this tone when the book needs calm orientation more than hype.
+!!! mascot-neutral "A Note from Rowan"
+    ![Rowan neutral pose](../img/mascot/neutral.png){ class="mascot-admonition-img" }
+    Use this calm pose for short sidebars that orient readers before introducing
+    unfamiliar terminology.
 
-!!! mascot-welcome "Welcome to the Signal Path"
-    <img alt="Trace welcome pose" class="mascot-admonition-img" src="../../img/mascot/welcome.svg" />
-    Learning Record Stores are easier to understand when you follow one event
-    from producer to storage to query. Trace opens a chapter by telling readers
-    what signal they are about to follow.
+!!! mascot-welcome "Welcome to the Record Trail"
+    ![Rowan waving welcome](../img/mascot/welcome.png){ class="mascot-admonition-img" }
+    Follow one learning event from producer to LRS to query, and the larger
+    architecture becomes much easier to understand.
 
 !!! mascot-thinking "Key Insight"
-    <img alt="Trace thinking pose" class="mascot-admonition-img" src="../../img/mascot/thinking.svg" />
-    An xAPI statement is most useful when it keeps actor, verb, and object
-    intact as a single event. If we split those clues apart too early, later
-    graph reasoning becomes harder.
+    ![Rowan thinking](../img/mascot/thinking.png){ class="mascot-admonition-img" }
+    An xAPI statement preserves actor, verb, and object as one meaningful event.
+    Keeping those clues together supports trustworthy analysis later.
 
-!!! mascot-tip "Trace's Tip"
-    <img alt="Trace tip pose" class="mascot-admonition-img" src="../../img/mascot/tip.svg" />
-    When you document a data pipeline, sketch the failure points too. Readers
-    learn faster when they can see where retries, validation, and dead-letter
-    handling belong.
+!!! mascot-tip "Rowan's Tip"
+    ![Rowan giving a tip](../img/mascot/tip.png){ class="mascot-admonition-img" }
+    When documenting a data pipeline, include validation, retry, and failure paths.
+    The unhappy path often teaches more than the ideal flow.
 
 !!! mascot-warning "Common Pitfall"
-    <img alt="Trace warning pose" class="mascot-admonition-img" src="../../img/mascot/warning.svg" />
-    Avoid treating the LRS as "just another log sink." The important part is
-    preserving the semantics that make downstream learning analytics trustworthy.
+    ![Rowan giving a friendly warning](../img/mascot/warning.png){ class="mascot-admonition-img" }
+    An LRS is more than a log sink. Preserve the semantics that make learning
+    records interoperable and useful.
 
 !!! mascot-encourage "You Can Debug This"
-    <img alt="Trace encouraging pose" class="mascot-admonition-img" src="../../img/mascot/encouraging.svg" />
-    Event systems feel abstract until you walk one concrete statement through
-    the architecture. Once readers do that a few times, the patterns start to
-    stick.
+    ![Rowan encouraging the reader](../img/mascot/encouraging.png){ class="mascot-admonition-img" }
+    Walk one concrete statement through the system. Once each handoff is visible,
+    an abstract event architecture becomes a sequence you can reason about.
 
-!!! mascot-celebration "Signal Found"
-    <img alt="Trace celebration pose" class="mascot-admonition-img" src="../../img/mascot/celebration.svg" />
-    By the end of a chapter, Trace should help readers feel that they can
-    inspect an event, explain why it matters, and predict where it flows next.
+!!! mascot-celebration "Record Connected"
+    ![Rowan celebrating](../img/mascot/celebration.png){ class="mascot-admonition-img" }
+    You can now inspect a learning event, explain why it matters, and predict
+    where it flows next.

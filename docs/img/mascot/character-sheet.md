@@ -1,60 +1,55 @@
-# Character Sheet: Trace the Firefly
+# Character Sheet: Rowan the Red Panda
 
-The canonical identity document for Trace, the pedagogical mascot for the
-**Learning Record Store** textbook. Every pose prompt and every piece of
-AI-generated content involving this character must re-anchor to the
-description below so the mascot stays visually and verbally consistent.
+The canonical identity document for Rowan, the pedagogical mascot for the
+**Learning Record Store** textbook. Every future pose and passage involving
+Rowan must re-anchor to this description.
 
 ## Identity
 
-- **Name:** Trace
-- **Species:** Firefly
-- **Subject:** Learning Record Stores, xAPI, and event-driven learning data systems
-- **Catchphrase:** "Let's trace what happened."
+- **Name:** Rowan
+- **Species:** Red panda
+- **Subject:** Learning Record Stores, xAPI, and event-driven learning data
+- **Catchphrase:** "Let's follow the record."
 
 ## Visual Description
 
-- **Body color:** Indigo navy shell and thorax - hex `#3949AB`
-- **Accent color:** Amber-orange glow and scarf details - hex `#FB8C00`
-- **Clothing / accessories:** Rounded glasses, a slim node-and-edge scarf, and a small satchel with a graph-node clasp
-- **Expression:** Bright, curious eyes with a calm, encouraging smile
-- **Size proportion:** Small and compact, sized for sidebar callouts and chapter annotations
-- **Art style:** Friendly flat-vector cartoon with crisp outlines and soft glow accents
+- **Body color:** cinnamon orange (`#c65d16`) with cream face and belly markings
+- **Accent color:** deep teal (`#006d77`) with warm gold details (`#d99a2b`)
+- **Clothing / accessories:** round teal glasses, deep teal neckerchief, compact brown cross-body satchel with a small gold connected-dots emblem
+- **Expression:** large kind brown eyes and a gentle, reassuring smile
+- **Size proportion:** small, rounded, full-body character with a clear silhouette
+- **Art style:** premium hand-painted 3D storybook character illustration with warm amber rim lighting and a subtle charcoal-to-amber vignette
 
 ## Personality
 
-- Curious about how learning events connect
-- Patient when systems feel abstract or technical
-- Encouraging when readers are debugging difficult flows
-- Precise without sounding stiff
+- Warm and welcoming
+- Patient and reassuring
+- Curious and evidence-minded
+- Precise without sounding rigid
 
 ## Voice
 
-- Explains technical ideas in plain language before using jargon
-- Frames logs, graphs, and statements as clues in a story
-- Celebrates incremental progress and careful observation
-- Signature phrases: "Let's trace what happened.", "Follow the signal.", "Every statement leaves a clue."
+- Uses short, plain-language explanations before technical vocabulary
+- Frames systems as trails of evidence that readers can follow
+- Normalizes debugging and revision as part of learning
+- Signature phrases: "Let's follow the record.", "What does the evidence show?", "One event at a time."
 
 ## Pose Set
 
 | Pose | Filename | Use |
-|------|----------|-----|
-| Neutral | `neutral.svg` | General-purpose / sidebars |
-| Welcome | `welcome.svg` | Chapter openings |
-| Thinking | `thinking.svg` | Key concepts |
-| Tip | `tip.svg` | Hints and helpful guidance |
-| Warning | `warning.svg` | Common mistakes / pitfalls |
-| Encouraging | `encouraging.svg` | Difficult content / struggle |
-| Celebration | `celebration.svg` | End of chapter / achievements |
+|---|---|---|
+| Neutral | `neutral.png` | General-purpose sidebars |
+| Welcome | `welcome.png` | Chapter openings |
+| Thinking | `thinking.png` | Key concepts |
+| Tip | `tip.png` | Helpful guidance |
+| Warning | `warning.png` | Common mistakes |
+| Encouraging | `encouraging.png` | Difficult content |
+| Celebration | `celebration.png` | Achievements |
 
-See `docs/img/mascot/image-prompts.md` for the full text of each pose prompt.
-Each prompt repeats the full base description so future regeneration does not
-drift.
+See [`image-prompts.md`](image-prompts.md) for the prompt record.
 
 ## Why This Mascot
 
-Trace was chosen because this book is about reconstructing learning activity
-from emitted events, and a firefly naturally evokes small signals lighting up
-in sequence. The indigo-and-amber palette matches the existing site theme
-while giving the character a memorable "event beacon" look that feels warm
-rather than overly corporate.
+Red pandas are memorable, approachable, and visually warm without feeling
+childish. Rowan's librarian satchel and connected-dots emblem quietly reinforce
+the book's focus on preserving, connecting, and interpreting learning records.

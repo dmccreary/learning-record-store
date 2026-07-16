@@ -16,6 +16,7 @@ import pandas as pd
 
 from lrsdash.db import q
 
+
 # Spec §4.1 has no `licensed_seats` property on District — no such concept exists in the
 # graph yet (identity/billing is unbuilt, per cli.py). R-407 needs a capacity to compare
 # against, so this is a presentation-layer assumption (never written back to Neo4j).
