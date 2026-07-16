@@ -41,11 +41,14 @@ nav:
       - LRS Design & Deployment (v1): specs/lrs-design-v1.md
       - xAPI Producer Contract (v1): specs/xapi-producer-contract-v1.md
       - Hardware Requirements & Cost Estimate: specs/hardware-requirements.md
-
+      - Dev Environment Setup: specs/dev-environment-setup.md
+      - MVP Plan: specs/mvp-plan.md
+  
   - Chapters:
       - List of Chapters: chapters/index.md
-      # Add chapter entries here as content is generated, e.g.:
-      # - 1. Introduction: chapters/01-introduction/index.md
+      - 1. What is an Intelligent Textbook LRS?:
+          - Content: chapters/01-what-is-an-ibook-lrs/index.md
+          - Quiz: chapters/01-what-is-an-ibook-lrs/quiz.md
 
   - Learning Graph:
       - Introduction: learning-graph/index.md
@@ -60,6 +63,7 @@ nav:
       - List of MicroSims: sims/index.md
       - LRS Graph Data Model Explorer: sims/lrs-data-model/index.md
       - Sine Wave: sims/sine-wave/index.md
+      - Bouncing Ball: sims/bouncing-ball/index.md
 
   - Glossary: glossary.md
   - License: license.md
@@ -146,6 +150,10 @@ extra_css:
 # Custom JavaScript
 extra_javascript:
   - js/katex.js
+  # Makes chapter quiz options answerable and emits one xAPI `answered` statement per
+  # question — see docs/specs/xapi-producer-contract-v1.md. Loads site-wide and no-ops on
+  # any page without a quiz.
+  - js/quiz-xapi.js
   - https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js
   - https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js
 

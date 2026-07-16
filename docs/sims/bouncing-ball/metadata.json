@@ -1,0 +1,79 @@
+{
+  "title": "Bouncing Ball",
+  "description": "Interactive simulation demonstrating motion, velocity, and collision detection, with a Start/Pause control that emits a single xAPI `experienced` statement carrying the elapsed run time. Serves as the reference emitter for the Start/Pause dwell pattern in the xAPI Producer Contract v1.",
+  "creator": "Dan McCreary",
+  "date": "2026-07-16",
+  "subject": [
+    "Physics",
+    "Motion",
+    "Velocity",
+    "Collision Detection",
+    "Kinematics"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en-US",
+  "rights": "CC BY-NC-SA 4.0",
+  "contributor": [
+    "ChatGPT",
+    "Claude Code"
+  ],
+  "identifier": "https://dmccreary.github.io/learning-record-store/sims/bouncing-ball/",
+  "publisher": "MicroSims Educational Platform",
+  "educationalLevel": "Middle School, High School",
+  "learningResourceType": "simulation",
+  "audience": "Students, Educators",
+  "version": "1.0.0",
+  "bloomLevel": [
+    "Understand",
+    "Apply"
+  ],
+  "concepts": [
+    "Motion",
+    "Velocity",
+    "Collision",
+    "Boundary Detection",
+    "Interactive Controls",
+    "xAPI"
+  ],
+  "prerequisites": [
+    "Basic understanding of motion",
+    "Coordinate systems"
+  ],
+  "library": "p5.js",
+  "visualizationType": [
+    "animation",
+    "interactive-demo"
+  ],
+  "learningObjectives": [
+    "Observe how speed affects the motion of a bouncing ball",
+    "Predict where the ball will travel after a collision with a boundary",
+    "Explain why a Start/Pause interval is the natural unit of engagement evidence for a simulation"
+  ],
+  "pedagogical": {
+    "pattern": "exploration",
+    "bloomAlignment": [
+      "understand",
+      "apply"
+    ],
+    "bloomVerbs": [
+      "observe",
+      "predict",
+      "explain",
+      "experiment"
+    ],
+    "pacing": "self-paced",
+    "supportsPrediction": true,
+    "dataVisibility": "high",
+    "feedbackType": [
+      "immediate"
+    ],
+    "interactionStyle": "manipulate",
+    "keyQuestions": [
+      "Why does pressing Start emit no xAPI statement at all?",
+      "A student starts the simulation and closes the tab without pausing. What is emitted, and why?",
+      "Why does the speed slider produce a different object_type than the Start/Pause button?",
+      "Why is the ball paused when the page loads instead of already moving?"
+    ]
+  }
+}

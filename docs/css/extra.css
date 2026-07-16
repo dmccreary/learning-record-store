@@ -99,3 +99,94 @@
 .md-status--scaffold:hover:after { background-color: #b71c1c; }
 .md-status--built:hover:after    { background-color: #ef6c00; }
 .md-status--approved:hover:after { background-color: #1b5e20; }
+
+/* ---------------------------------------------------------------------------
+   Interactive quiz (docs/js/quiz-xapi.js).
+
+   The .upper-alpha rule above renders the <ol> markers as A/B/C/D. The script
+   moves each option's text into a <label> containing a real radio, so the
+   marker still identifies the option and the radio is the control.
+
+   Colours key off Material's theme variables so they follow dark mode.
+   --------------------------------------------------------------------------- */
+
+.quiz-intro {
+  font-size: 0.75rem;
+  color: var(--md-default-fg-color--light);
+  border-left: 3px solid var(--md-accent-fg-color);
+  padding-left: 0.7em;
+}
+
+.upper-alpha li.quiz-option { margin-bottom: 0.15em; }
+
+/* The whole row is the label, so clicking anywhere on the option selects it. */
+.quiz-choice {
+  display: flex;
+  align-items: baseline;
+  gap: 0.55em;
+  cursor: pointer;
+  padding: 3px 6px;
+  border-radius: 4px;
+  transition: background-color 0.15s ease;
+}
+.quiz-choice input[type="radio"] {
+  flex: none;
+  margin: 0;
+  accent-color: var(--md-accent-fg-color);
+  cursor: pointer;
+}
+li:not(.quiz-locked) .quiz-choice:hover {
+  background-color: var(--md-accent-fg-color--transparent);
+}
+li.quiz-locked .quiz-choice,
+li.quiz-locked .quiz-choice input[type="radio"] { cursor: default; }
+
+/* Marks the right answer on every question once locked, so a student who chose
+   wrong still learns the answer. */
+.upper-alpha li.quiz-correct > .quiz-choice {
+  background-color: rgba(46, 125, 50, 0.16);
+  font-weight: 600;
+}
+.upper-alpha li.quiz-wrong > .quiz-choice {
+  background-color: rgba(183, 28, 28, 0.16);
+  text-decoration: line-through;
+}
+.upper-alpha li.quiz-chosen > .quiz-choice {
+  box-shadow: inset 3px 0 0 var(--md-accent-fg-color);
+}
+
+/* Plain-language statement of what was answered and whether it was recorded. */
+.quiz-verdict {
+  font-size: 0.75rem;
+  margin: 0.4em 0 0 0;
+  padding: 0.45em 0.7em;
+  border-radius: 4px;
+  border-left: 3px solid;
+}
+.quiz-verdict--right  { border-color: #2e7d32; background: rgba(46, 125, 50, 0.10); }
+.quiz-verdict--wrong  { border-color: #b71c1c; background: rgba(183, 28, 28, 0.10); }
+.quiz-verdict--peeked { border-color: #e6a700; background: rgba(230, 167, 0, 0.10); }
+
+.xapi-panel {
+  margin: 24px 0 0 0;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 6px;
+  padding: 10px 12px;
+  box-sizing: border-box;
+}
+.xapi-panel-header { font-size: 14px; margin-bottom: 6px; }
+.xapi-header-note { color: var(--md-default-fg-color--light); font-weight: normal; }
+.xapi-log {
+  max-height: 180px;
+  overflow-y: auto;
+  background: #1e1e1e;
+  color: #b5f4b5;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 11px;
+  line-height: 1.5;
+  padding: 8px;
+  border-radius: 4px;
+}
+.xapi-log-line { white-space: nowrap; overflow-x: auto; }
+.xapi-log-raw { color: #6f8f6f; }
+.xapi-log-note { color: #e6c07b; white-space: normal; }

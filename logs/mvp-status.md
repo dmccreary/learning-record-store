@@ -138,6 +138,35 @@ from hardware into a config file. Raised to `24576` (**23.43 GiB** to containers
 - Measured idle footprint of the five backing services: **1.6 GiB** (ClickHouse 734 MiB, Neo4j 512 MiB,
   Redpanda 327 MiB, vault-db 25 MiB, Redis 10 MiB). The docs' ~8 GB figure is loaded-state, not idle.
 
+### `mkdocs serve` live-reload was silently dead — FIXED 2026-07-16
+
+Full writeup: [`logs/watcher-fix.md`](watcher-fix.md).
+
+**`mkdocs serve` was watching nothing** — it served its startup build forever, with no error and no
+warning. Root cause, bisected: **`click` 8.3.x breaks `mkdocs` 1.6.1's `livereload` default**, so
+`livereload` arrived `False`, every `server.watch(...)` call behind that one gate was skipped, and the
+observer never started. `watchdog` was innocent.
+
+**Fixed:** `click` upgraded to **8.4.2** (`pip check` clean). Verified end to end: an edit now
+propagates to the server in ~6s.
+
+**The broken range is exactly `8.3.*`** — click **8.4.0 fixed it upstream**. So the fix is to move
+*forward*. Do **not** pin `click<8.3`: mkdocs 1.6.1 is the newest mkdocs release, so no future mkdocs
+upgrade would ever release such a pin, and this env would sit on click 8.2.1 indefinitely to avoid a
+bug that no longer exists. If a constraint is ever written down, write `click>=8.4` (or
+`click!=8.3.*`). With 8.4.2 installed, `pip install -U` is safe — the risk now is anything resolving
+click *backwards* into 8.3.x.
+
+**If it ever returns, the tell is one line.** A healthy `mkdocs serve` prints
+`Watching paths for changes: 'docs', 'mkdocs.yml'` at INFO, between "Documentation built" and "Serving
+on". **Absent = watcher not armed = nothing you edit will ever appear.** Grep for it before debugging
+anything else.
+
+> **Why this matters beyond dev comfort.** A `mkdocs serve` serving a stale build is a trap for every
+> future MicroSim: the sim's JS 404s, and the obvious conclusion is that the instrumentation is
+> broken. It is not — the server never rebuilt. It cost real time today; a live emitter looked broken
+> when the page simply predated it.
+
 ---
 
 ## 7. Open question — needs a decision before step 4
@@ -228,7 +257,117 @@ git log --oneline -3          # expect the handoff commit on top of 2421a9a
      emitting `#q2` while `smoke.sh:105` names `keyQuestions[2]` zero-based. If you meant one-based,
      `smoke.sh` has an off-by-one and both change together.
 
+3b. **Contract v1 amended the same day, and the first real emitter exists.** Three decisions were taken
+   (all confirmed, none silent):
+
+   - **`interacted` is now a third verb**, widening `mvp-plan.md:82`'s "2 verbs" scope. Forced by
+     reality: `sine-wave.js` already emits it and its `index.md` argues for it at length. A slider drag
+     is neither an answer nor dwell. `interacted` still carries `concept_id`, so it feeds
+     `statements_compressed` — the C-6 signal — at `attempts = 0`.
+   - **`object_type` gained `Control`** for sub-page elements (sliders, buttons). Needed because
+     `mv_student_page_rollup` GROUPs BY `object_id` and control IRIs are fragment-qualified — a
+     `MicroSim`-typed slider would become its own PageEngagement vertex. Free: the column is a
+     `LowCardinality(String)`, not an `ENUM`, so no migration.
+   - **`mv_student_page_rollup` widened to `object_type IN ('Page','MicroSim')`.** MicroSim dwell was
+     being stored and then silently dropped at the rollup.
+
+   **`docs/sims/bouncing-ball/`** is new — the reference emitter for contract §7's Start/Pause dwell
+   pattern: Start records the clock and emits **nothing**; Pause emits **one** `experienced` carrying
+   `result.duration`; a tab-hide flushes the open interval; a sub-250ms run is dropped as a mis-click.
+
+   **This was verified by running it, not by reading it:**
+
+   - Driven in a real browser. One Start→Pause cycle emitted exactly **one** statement, `PT26.12S`,
+     object = the page IRI, typed `MicroSim`. The slider emitted a *different* shape — `interacted`,
+     `#speed-slider`, typed `Control`, page as `parent`.
+   - **The DDL was applied to live ClickHouse for the first time ever** — all 9 objects create cleanly,
+     including the `SimpleAggregateFunction` fix and the `minmax` skip index.
+   - Those *actual emitted statements* were mapped per contract §11 and pushed through the real DDL:
+     `student_page_rollup` → 1 vertex, 26120ms dwell, Control excluded; `student_concept_rollup` →
+     **2 statements → 1 `motion` vertex**, `attempts = 0`. C-6 compression, in miniature, measured.
+
+   **"Fix the broken URI" was not one line.** `sine-wave.js` had **six** wrong URLs, not the one
+   `mvp-plan.md:84` names. The instructive one: `grouping[0]` held *this sim's own page URL* where the
+   textbook **version IRI** belongs — the wrong *kind* of thing, not just the wrong host. A
+   search-and-replace on the hostname would have left `textbook_id`/`version_id` unparseable while
+   looking fixed.
+
+   > **Method note, earned three times today.** Every probe that reported a verdict it hadn't earned
+   > did so the same way: treating *absence of an error* as *proof of a negative*. The C-1 probe
+   > printed "NOT enforced" when the command never ran; a browser probe reported `runStartedAtSet:true`
+   > by testing `undefined !== null`. **Assert on state, and make the probe prove itself alive before
+   > it may report a negative.** The citation verifier is the same idea applied to prose — it caught
+   > two claims that *my own edits* invalidated within the hour (`sine-wave.js:29` after I fixed it,
+   > `clickhouse.sql:20` after I added `Control`). Line-number citations in a doc that lives beside the
+   > code it cites go stale immediately; assert on content, not position.
+
+3c. **The mastery path now has a real emitter — the biggest gap is closed.** An audit found that
+   **no emitter in the repo produced `answered`**, and the only `result` field any of them emitted was
+   `duration`. That left three things structurally dark: `mv_student_question_rollup` had never seen a
+   real statement; the concept rollup's `attempts`/`successes` were **structurally zero** for every
+   producer; and `lrs.concept_mastery` — BKT's P(L), F-7, the product's central number — had **no input
+   path at all**. Step 4's mastery join was a fix for a null-forever bug that would still have joined
+   against nothing.
+
+   New: **`docs/chapters/01-what-is-an-ibook-lrs/`** (chapter, 1,850 words) + a 10-question `quiz.md`
+   generated by the quiz-generator skill, made answerable by **`docs/js/quiz-xapi.js`** (site-wide,
+   no-ops off quiz pages).
+
+   - **The answer key is not duplicated in JS.** It is parsed out of the rendered
+     `<details class="question">` that mkdocs-material generates from `??? question "Show Answer"`, so
+     `quiz.md` stays the single source of truth. A quiz whose emitted `success` disagreed with its own
+     displayed answer would be worse than no telemetry.
+   - **The options are native radio buttons**, with a plain-language verdict under each question
+     ("You answered B — incorrect. The correct answer is A.") and the chosen radio left checked. See
+     the UI note below for why this was not the first attempt.
+   - **Verified by driving it in a browser, then through the DDL.** Answering q1 right and q2 wrong
+     emitted `success: true/scaled: 1` and `success: false/scaled: 0`. Mapped per contract §11 into
+     live ClickHouse: question rollup → 2 questions, **2 attempts, 1 success**; concept rollup →
+     **attempts = 2**, the first non-zero any producer has generated; page rollup → empty, correctly.
+   - **The §1 local-serve rule works.** Served from `127.0.0.1:8899`, the emitted object IRI was still
+     `https://dmccreary.github.io/learning-record-store/chapters/01-what-is-an-ibook-lrs/quiz/#q1` —
+     the *published* IRI, as §1 requires. The script reconstructs it from the path rather than reading
+     `window.location.origin`.
+   - **Peeked answers emit nothing.** Reveal the explanation before choosing and no statement is sent,
+     even if the choice is correct. Emitting `success: true` there would teach BKT precisely the false
+     mastery it exists to detect. Same instinct as the bouncing ball's sub-250ms mis-click filter: not
+     all interaction is evidence.
+
+   **§2 is resolved: `#q{N}` is ONE-based**, one rule for every source (your call). The zero-based pin
+   was an inference from `smoke.sh` — and the inference was reading a **latent off-by-one**, not an
+   intent: the fragment was written as a zero-based array index while the question *name* beside it was
+   chosen by counting the way a human does. Those two conventions were already in conflict *inside a
+   single statement*; nothing had noticed because nothing consumed it. `smoke.sh` now emits `#q3`.
+
+   > **Why the second emitter mattered more than more thinking.** A 4-question sim can hide an
+   > off-by-one indefinitely. A quiz that prints "1." through "10." next to its own emitted IRIs
+   > cannot. The bug was found by building a differently-shaped emitter, not by re-reading the first.
+
+   > **A bug I introduced and caught.** Documenting the `#q3` fix, I put `#` comment lines *inside*
+   > `smoke.sh`'s `<<JSON` heredoc — where they are not comments but payload, producing malformed JSON.
+   > `bash -n` does not look inside heredocs, and `--tier=ingest` is *expected* to be red until step 2,
+   > so this would have hidden for weeks and then looked like a gateway bug. Comments about a heredoc
+   > payload go **above** the heredoc. The payload is now extracted and parsed as JSON as a check.
+
+   > **UI note — verifying the mechanism is not verifying the feature.** The first version made the
+   > `<li>` elements clickable. It worked, and it was useless: a plain list gives a reader **no signal
+   > that it is answerable at all**, and the only affordance was `cursor: pointer`, which is invisible
+   > until you happen to hover. Dan opened the page and could not tell how to answer or what had been
+   > recorded — the emitter was live and would have collected nothing, because nobody would have known
+   > to use it. **The verification gap was mine:** I tested by calling `.click()` from JavaScript and
+   > screenshotting the page *after* clicking. I never looked at the resting state and asked whether a
+   > person would know what to do. Same failure as the probes that reported unearned positives —
+   > confirming the thing I was looking for instead of the thing that mattered. When a change has a
+   > human in the loop, the resting state is the test. Now: native radios (which also bring real
+   > keyboard and screen-reader semantics that the `role="button"` version only approximated), an
+   > instruction line, and a written verdict per question.
+
 4. **Then build step 2**: `uv lock`, `src/lrs/cli.py`, gateway, processor. Exit criterion: `make smoke` green — *and provably red when the processor is broken*.
+
+   Three things `smoke.sh` does **not** yet cover, all introduced today: `interacted`, the §7 dwell
+   pattern, and the quiz's `answered` path. Its single statement is one `answered` against
+   `lrs-data-model`. A harness that has never failed has never been tested — and these paths have never
+   been asserted at all.
 
 **To rehydrate a Claude session**, point it at this file plus `docs/specs/mvp-plan.md`. Note that the session memory from the original machine (`~/.claude/projects/.../memory/`) is **local and does not travel with the repo** — these two docs are the durable handoff.
 

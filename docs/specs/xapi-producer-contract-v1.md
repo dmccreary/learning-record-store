@@ -2,14 +2,14 @@
 
 **Status:** normative for the MVP. **Version:** 1.0.0. **Last updated:** 2026-07-16.
 
-This pins the statement shape that emitters produce and the LRS consumes. It is the authority for
-three things that currently have no authority: the **canonical activity IRI**, the **verb set**, and
-the **`object.definition.type` → `object_type` mapping** that `clickhouse.sql`'s materialized views
-filter on.
+This pins the statement shape that emitters produce and the LRS consumes. It is the authority for four
+things that previously had no authority: the **canonical activity IRI**, the **verb set**, the
+**`object.definition.type` → `object_type` mapping** that `clickhouse.sql`'s materialized views filter
+on, and the **Start/Pause dwell pattern** every MicroSim needs (§7).
 
 It exists because [`lrs-design-v1.md`](lrs-design-v1.md) §1.3 explicitly defers the producer side, so
 the DDL consumes fields nothing is contracted to send.
-[`scripts/smoke.sh:89`](https://github.com/dmccreary/learning-record-store/blob/main/scripts/smoke.sh#L89)
+[`scripts/smoke.sh`](https://github.com/dmccreary/learning-record-store/blob/main/scripts/smoke.sh)
 already cites "`xapi-producer-contract-v1.md §3`" — the harness was written against this document
 before it existed. Where this contract and the harness agree, the agreement is now deliberate.
 
@@ -29,7 +29,7 @@ evidence · **[NEW]** the design was silent; this decides it · **[OPEN]** needs
 ### The rule
 
 > **`object.id` for a page is `{site_url}` + the page's nav path, with a trailing slash.**
-> `site_url` is [`mkdocs.yml`](https://github.com/dmccreary/learning-record-store/blob/main/mkdocs.yml#L9)'s
+> `site_url` is [`mkdocs.yml`](https://github.com/dmccreary/learning-record-store/blob/main/mkdocs.yml)'s
 > `site_url` — `https://dmccreary.github.io/learning-record-store/`.
 > It is never `main.html`, never another site, never a bare path.
 
@@ -47,11 +47,11 @@ conflict; a contract governs the rule, not which page emits. The real defects ar
 
 | Source | Value | Verdict |
 |---|---|---|
-| [`mkdocs.yml:9`](https://github.com/dmccreary/learning-record-store/blob/main/mkdocs.yml#L9) `site_url` | `https://dmccreary.github.io/learning-record-store/` | **Authoritative.** It defines what is actually served. |
-| [`scripts/smoke.sh:81`](https://github.com/dmccreary/learning-record-store/blob/main/scripts/smoke.sh#L81) | `…/learning-record-store/sims/lrs-data-model/` | **Correct.** Conforms. Names a different page than sine-wave — not a conflict. |
+| [`mkdocs.yml`](https://github.com/dmccreary/learning-record-store/blob/main/mkdocs.yml) `site_url` | `https://dmccreary.github.io/learning-record-store/` | **Authoritative.** It defines what is actually served. |
+| [`scripts/smoke.sh`](https://github.com/dmccreary/learning-record-store/blob/main/scripts/smoke.sh) | `…/learning-record-store/sims/lrs-data-model/` | **Correct.** Conforms. Names a different page than sine-wave — not a conflict. |
 | [`lrs-design-v1.md:1190`](lrs-design-v1.md) | `…/learning-record-store/sims/lrs-data-model/` | **Correct**, and identical to `smoke.sh`. |
 | [`lrs-design-v1.md:1194`](lrs-design-v1.md) (`grouping`) | `https://example.edu/textbook/lrs/v1.0.0` | **Placeholder.** Rejected — see §4. |
-| [`sine-wave.js:29`](https://github.com/dmccreary/learning-record-store/blob/main/docs/sims/sine-wave/sine-wave.js#L29) `ACTIVITY_BASE_ID` | `https://dmccreary.github.io/microsims/sims/sine-wave/main.html` | **Wrong twice.** See below. |
+| [`sine-wave.js`](https://github.com/dmccreary/learning-record-store/blob/main/docs/sims/sine-wave/sine-wave.js) `ACTIVITY_BASE_ID` | *was* `https://dmccreary.github.io/microsims/sims/sine-wave/main.html` | **Was wrong twice.** **Fixed 2026-07-16** — see below. |
 
 So: one genuinely malformed emitter, one placeholder. Not a three-way split.
 
@@ -70,10 +70,34 @@ So: one genuinely malformed emitter, one placeholder. Not a three-way split.
    `PageEngagement` vertex for a page the student visited once. The C-6 assertion in
    `smoke.sh --tier=graph` would be measuring a number corrupted at the producer.
 
-**Action required before `sine-wave` emits anything:** `sine-wave.js:29` must become
-`https://dmccreary.github.io/learning-record-store/sims/sine-wave/`. Not fixed here — the plan defers
-instrumenting real emitters, and `loadgen` is the MVP's only producer (§9). Nothing durable is at risk
-until it emits.
+### Fixed 2026-07-16 — and it was never one line
+
+`ACTIVITY_BASE_ID` is now `https://dmccreary.github.io/learning-record-store/sims/sine-wave/`.
+
+Worth recording *why this took more than a one-line edit*, because the original note in
+`mvp-plan.md:84` described it as a single bad IRI. Fixing it surfaced **five more wrong URLs in the
+same file**, none of which that note mentions:
+
+| What | Was | Now |
+|---|---|---|
+| `ACTIVITY_BASE_ID` | `…/microsims/sims/sine-wave/main.html` | `…/learning-record-store/sims/sine-wave/` |
+| `actor.account.homePage` | `https://dmccreary.github.io/microsims/` | `https://demo.example.edu` (§10) — it names an account namespace, not a website |
+| `result.extensions` ×2 | `…/microsims/xapi/ext/value`, `…/previous-value` | `https://w3id.org/lrs/ext/…` (§6) |
+| **`grouping[0]`** | `…/microsims/sims/sine-wave/` — *a page URL* | the textbook **version IRI** (§4) |
+| `metadata.json` `identifier` | `…/microsims/sims/sine-wave/` | `…/learning-record-store/sims/sine-wave/` |
+
+The `grouping[0]` one is the interesting failure: it was not merely pointing at the wrong host, it was
+holding **the wrong kind of thing entirely** — this sim's own page URL where the textbook version
+belongs. `parent` is where a page URL goes. A host-only search-and-replace would have "fixed" the URL
+and left `textbook_id`/`version_id` unparseable, which is worse than the original, because it looks
+correct.
+
+The statement also gained `parent[0]` and the `concept_id` extension it needs to reach
+`mv_student_concept_rollup` at all.
+
+sine-wave never POSTs — the statements render in a log panel. But it is the artifact students read to
+learn what an xAPI statement *is*, so a shape the gateway would reject is a teaching bug, not a
+harmless one.
 
 ### Rules
 
@@ -87,50 +111,80 @@ until it emits.
 
 ---
 
-## 2. Question IRIs — the fragment scheme  **[OPEN]**
+## 2. Question IRIs — the fragment scheme  **[RESOLVED 2026-07-16]**
 
-> **A question's `object.id` is its page IRI + `#q{N}`**, where `N` indexes
-> `metadata.json`'s `pedagogical.keyQuestions`.
+> **A question's `object.id` is its page IRI + `#q{N}`, where `N` is the question's ONE-BASED ordinal
+> as presented to the student.** `#q1` is the first question. This holds for every source — a
+> MicroSim's `keyQuestions` array and a chapter quiz's numbered list alike.
 
 ```
-https://dmccreary.github.io/learning-record-store/sims/lrs-data-model/#q2
+https://dmccreary.github.io/learning-record-store/sims/lrs-data-model/#q3
+https://dmccreary.github.io/learning-record-store/chapters/01-what-is-an-ibook-lrs/quiz/#q1
 ```
 
-**`N` is zero-based — but confirm this is what you meant.** The evidence is indirect and worth stating
-plainly, because the contract cannot be the authority on a fact it guessed:
+**One rule, not two.** The tempting alternative was to let the fragment follow each source's own
+natural indexing — a zero-based array index for `keyQuestions` (it *is* an array), a one-based ordinal
+for a chapter quiz (it *is* a displayed number). That was rejected: it would give one field two
+meanings, and every reader of a statement would have to know which kind of source produced it before
+they could interpret the IRI.
 
-- `smoke.sh:103` emits `${OBJECT_ID}#q2`.
-- `smoke.sh:105` names that question *"How many PageEngagement vertices exist?"*.
-- In `lrs-data-model/metadata.json`, `keyQuestions[2]` (zero-based) is *"A student views a page 50
-  times. How many PageEngagement vertices exist afterward?"* — a match.
-- One-based `q2` would be *"Where do the raw xAPI statements actually live…"* — not a match.
+**Why one-based.** The fragment should mean what the student and a debugger both see on the page.
+`#q0` denoting "Question 1" is a permanent footgun — every future reader has to remember the offset,
+and a chapter quiz that visibly numbers itself 1–10 would emit IRIs disagreeing with its own headings.
 
-So the only self-consistent reading of the existing harness is zero-based, and this contract pins
-zero-based to match it. **If you intended `#q1` to mean the first question, then `smoke.sh:103`/`:105`
-carry an off-by-one and both must change together with this section.** Pinning it either way is fine;
-pinning it differently in two places is what produces a rollup keyed on a question nobody asked.
+### The off-by-one this exposed, and how it was found
+
+The first draft of this contract pinned **zero-based**, inferred from the only evidence available:
+
+- `smoke.sh` emitted `${OBJECT_ID}#q2` while naming that question *"How many PageEngagement vertices
+  exist?"* — which is `keyQuestions[2]` **zero-based**, i.e. the **third** question. A one-based `q2`
+  would have been *"Where do the raw xAPI statements actually live…"*, which does not match the name.
+
+So the harness was self-consistent only under a zero-based reading, and the contract followed it. That
+inference was flagged as needing confirmation rather than presented as fact — correctly, because it
+was wrong. What the evidence actually showed was a **latent off-by-one**: the fragment was being
+written as a zero-based array index while the name beside it was chosen by counting questions the way
+a human does. The two conventions were already in conflict inside a single statement; nobody had
+noticed because nothing consumed it.
+
+**Fixed:** `smoke.sh` now emits `#q3` for that question, matching its name and this rule.
+
+> **Method note.** Building the first chapter quiz is what forced this. A four-question sim can hide an
+> off-by-one; a quiz that prints "1." through "10." beside its own emitted IRIs cannot. A second,
+> differently-shaped emitter is worth more than more reasoning about the first one.
 
 ---
 
 ## 3. Verbs  **[RESOLVED]**
 
-Exactly two verbs are valid in v1. A statement with any other verb is rejected at the gateway.
+Exactly three verbs are valid in v1. A statement with any other verb is rejected at the gateway.
 
 | Verb IRI | Emitted for | Required `result` |
 |---|---|---|
 | `http://adlnet.gov/expapi/verbs/answered` | A question attempt | `success` (bool). `score.scaled` when scored. |
-| `http://adlnet.gov/expapi/verbs/experienced` | Page or MicroSim engagement | `duration` (ISO-8601) |
+| `http://adlnet.gov/expapi/verbs/experienced` | Page or MicroSim engagement | `duration` (ISO-8601). See §7. |
+| `http://adlnet.gov/expapi/verbs/interacted` | A control being manipulated — a slider, a button | none required; `result.extensions` carry the value |
+
+**`interacted` was added 2026-07-16**, widening `mvp-plan.md:82`'s "2 verbs" scope. The reason is that
+the plan's two verbs could not express what this repo's own MicroSims already do: `sine-wave.js`
+emits `interacted` and `docs/sims/sine-wave/index.md` discusses it at length in the emission-strategy
+trade-off. A slider drag is neither an answer (no `success`) nor dwell (no interval), so forcing it
+into `answered` or `experienced` would make the verb carry a meaning it does not have. `interacted`
+statements are still real evidence: they carry `concept_id`, so they feed
+`mv_student_concept_rollup`'s `statements_compressed` — which *is* the C-6 compression signal — even
+though they contribute `attempts = 0`.
 
 **`completed` is not in v1.** It is the only verb appearing anywhere in the design
-(`lrs-design-v1.md:1187`), and it is not one of these two. The design's `smoke.sh` used it; the
-rewritten `scripts/smoke.sh:100` uses `answered`. That rewrite was correct and this ratifies it —
+(`lrs-design-v1.md:1187`), and it is none of these three. The design's `smoke.sh` used it; the
+rewritten `scripts/smoke.sh` uses `answered`. That rewrite was correct and this ratifies it —
 `completed` carries no `success`, so it cannot feed
 `mv_student_concept_rollup`'s `countIf(result_success IS NOT NULL)`, and a rollup fed by `completed`
 reports `attempts = 0` for every student. Adding `completed` later means deciding what it means for
 mastery first.
 
-**Why `answered` and not `interacted`:** already argued at `smoke.sh:86-88`. `answered` carries the
-`result.success` and `result.score.scaled` the concept rollup needs to produce `attempts > 0`.
+**Why `answered` and not `interacted` for a question:** already argued at `smoke.sh`. `answered`
+carries the `result.success` and `result.score.scaled` the concept rollup needs to produce
+`attempts > 0`. The two verbs coexist; they are not alternatives.
 
 ---
 
@@ -143,7 +197,7 @@ https://dmccreary.github.io/learning-record-store/textbook/lrs/v1.0.0
    → textbook_id = "lrs"   version_id = "v1.0.0"
 ```
 
-This is `smoke.sh:82`'s form and it is correct. `lrs-design-v1.md:1194`'s
+This is `smoke.sh`'s form and it is correct. `lrs-design-v1.md:1194`'s
 `https://example.edu/textbook/lrs/v1.0.0` is a placeholder from the design's worked example —
 `example.edu` is not a real host and must not reach a durable statement.
 
@@ -152,14 +206,14 @@ This is `smoke.sh:82`'s form and it is correct. `lrs-design-v1.md:1194`'s
 statement that cannot be attributed to a textbook version cannot be replayed against the version of
 the content it describes (C-2).
 
-`parent[0]`, when present, is the page IRI a question belongs to (`smoke.sh:109`). Required for
+`parent[0]`, when present, is the page IRI a question belongs to (`smoke.sh`). Required for
 `answered`, meaningless for `experienced` (a page is not its own parent).
 
 ---
 
 ## 5. `object.definition.type` → `object_type`  **[NEW]**
 
-`lrs.statements.object_type` is `Page | MicroSim | Question | Concept` (`clickhouse.sql:20`), and two
+`lrs.statements.object_type` is `Page | MicroSim | Question | Concept` (`clickhouse.sql`), and two
 materialized views filter on it — `mv_student_page_rollup` on `'Page'`, `mv_student_question_rollup`
 on `'Question'`. **The design never says how the processor derives it.** Without this mapping both
 rollups are empty and C-6 has nothing to measure. This table decides it:
@@ -167,18 +221,41 @@ rollups are empty and C-6 has nothing to measure. This table decides it:
 | `object.definition.type` | → `object_type` | Notes |
 |---|---|---|
 | `http://adlnet.gov/expapi/activities/lesson` | `Page` | A prose/textbook page. |
-| `http://adlnet.gov/expapi/activities/simulation` | `MicroSim` | An interactive sim page. |
-| `http://adlnet.gov/expapi/activities/cmi.interaction` | `Question` | **Ratified** — `smoke.sh:104` already emits this. |
+| `http://adlnet.gov/expapi/activities/simulation` | `MicroSim` | An interactive sim **page**. Object is the page IRI, no fragment. |
+| `http://adlnet.gov/expapi/activities/cmi.interaction` | `Question` | **Ratified** — `smoke.sh` already emits this. |
+| `http://adlnet.gov/expapi/activities/interaction` | `Control` | A slider or button **within** a page. Object IRI is fragment-qualified. |
 | *(anything else)* | — | **Reject at the gateway.** |
 
-`Concept` is in the DDL enum but **no producer emits it.** Concepts attach via the extension in §6,
-never as an object. It stays in the enum for the enrichment path.
+Note `cmi.interaction` (Question) and `interaction` (Control) differ by four characters and mean
+entirely different things. That is an unfortunate inheritance from the ADL vocabulary, not a choice
+made here — but it is exactly the sort of thing a gateway validator should be strict about.
 
-> **Note for step 4.** `mv_student_page_rollup` filters `object_type = 'Page'`, so a **MicroSim
-> engagement does not reach the page rollup** under this mapping. That is a real consequence: if you
-> want `sine-wave` dwell time in `PageEngagement`, either emit `lesson` for sim pages or widen the MV
-> to `object_type IN ('Page','MicroSim')`. Flagging rather than deciding — it changes the DDL, and the
-> MVP's only producer is `loadgen`.
+`Concept` is in the enum but **no producer emits it.** Concepts attach via the extension in §6, never
+as an object. It stays for the enrichment path.
+
+### Why `Control` exists, and why it is not `MicroSim`  **[RESOLVED 2026-07-16]**
+
+`mv_student_page_rollup` is `GROUP BY (district_id, student_key, object_id)`. A control's IRI is
+fragment-qualified (`…/sims/bouncing-ball/#speed-slider`). So if a slider were typed `MicroSim`,
+**every control on a page would become its own `PageEngagement` vertex** for a page the student visited
+once — the same defect as naming `main.html` in §1, arriving by a different road. Controls are
+therefore excluded from the page rollup by type, and land in the concept rollup instead, which is where
+their evidence belongs.
+
+`object_type` is a `LowCardinality(String)`, not an `ENUM`, so adding `Control` needed no migration.
+
+### The MicroSim rollup gap — closed
+
+The first draft of this contract flagged that `mv_student_page_rollup` filtered `object_type = 'Page'`,
+so a MicroSim's dwell was stored in `lrs.statements` and then **silently dropped** at the rollup —
+PageEngagement would report zero dwell for every sim in the textbook while the evidence sat in the log.
+The bouncing ball made this concrete rather than theoretical: dwell is its *entire* output.
+
+**Resolved:** `clickhouse.sql`'s `mv_student_page_rollup` now filters
+`object_type IN ('Page', 'MicroSim')`. Verified against a live ClickHouse with the statements the
+bouncing ball actually emitted — the MicroSim's `PT26.12S` reaches `dwell_ms_total` as `26120`, exactly
+one rollup row is produced, and the `#speed-slider` Control does not leak in. Changed while nothing is
+durable; the same change against a populated rollup would need a backfill.
 
 ---
 
@@ -189,7 +266,7 @@ never as an object. It stays in the enum for the enrichment path.
 - `lrs-design-v1.md:309` (§5.3 step 3, "Enrich"): the processor attaches `section_id`, `version_id`,
   and **"the `concept_ids` the object covers, from the cached structural graph."** Producers send
   nothing; the LRS knows which concepts a page covers.
-- `scripts/smoke.sh:111`: the producer sends
+- `scripts/smoke.sh`: the producer sends
   `context.extensions["https://w3id.org/lrs/ext/concept_id"] = "compression-ratio"`.
 
 These are different architectures. Enrichment scales to unlabeled content and keeps the concept map
@@ -207,7 +284,7 @@ concept taxonomy.
 **Why:** no structural graph is seeded in the MVP, so enrichment has nothing to read. If the extension
 weren't authoritative, `concept_ids` would be empty for every statement, `mv_student_concept_rollup`
 would stay empty, and step 4's mastery join would have nothing to join — the exact null-forever failure
-the mastery fix (`clickhouse.sql:72-83`) exists to prevent.
+the mastery fix (`clickhouse.sql`) exists to prevent.
 
 **Note the singular/plural mismatch:** the extension is `concept_id` (one string); the column is
 `concept_ids Array(String)`. **The processor wraps it: `concept_ids = [value]`.** Statements covering
@@ -219,7 +296,44 @@ than silently written down.
 
 ---
 
-## 7. What producers never send
+## 7. Start/Pause: the dwell pattern  **[NEW 2026-07-16]**
+
+Nearly every MicroSim has a Start/Pause control, and it is the interaction the verb set could not
+express until this section existed. The reference implementation is
+[`docs/sims/bouncing-ball/`](../sims/bouncing-ball/index.md).
+
+> **A Start/Pause pair is ONE run interval, and a run interval is ONE `experienced` statement,
+> emitted on Pause, carrying the elapsed time as `result.duration`.**
+
+| Event | Emit | Why |
+|---|---|---|
+| **Start** | **Nothing.** Record the wall clock. | A student who starts a sim and walks away has produced no evidence. A `started` with no matching `paused` is an unclosed interval nothing can score, and it would inflate `statements_compressed` with rows that carry no duration. |
+| **Pause** | **One** `experienced`, `result.duration` = elapsed. | The interval *is* the evidence. `result.duration` is the only field feeding `dwell_ms_total`, and one statement carries it as well as two do. |
+| **Tab hidden while running** | The same `experienced`, flushed. | Start-it-and-close-the-tab is the **common** case, not the edge case. Without a flush the modal student emits nothing at all. Use `visibilitychange`, not `beforeunload` — it is the only one that fires reliably on mobile Safari. |
+| **Run < 250 ms** | **Nothing.** | A mis-click is not engagement. Emitting it puts `PT0S` rows into `dwell_ms_total` and pollutes the C-6 ratio with noise. |
+
+**The object is the page, not the button.** `object.id` is the sim's page IRI with no fragment, typed
+`simulation` → `MicroSim` (§5). The Start/Pause button is *not* its own activity: what is being
+measured is engagement with the simulation, and the button is merely how the student expressed it. A
+button-fragment IRI here would land the dwell in a `PageEngagement` vertex named after a button.
+
+**Why not two statements.** The literal instrumentation — `started` on Start, `paused` on Pause — is
+more xAPI-idiomatic and is what most LRS integrations do. It is rejected here because it doubles
+statement volume for zero additional information, requires the reader to reconstruct duration by
+pair-joining statements at read time (ordering under at-least-once delivery makes that unreliable), and
+produces unclosed intervals whenever a student never pauses. The pattern above degrades gracefully:
+the worst case is a *missing* interval, never a *wrong* one.
+
+**Paused-by-default is load-bearing.** The MicroSim standard requires every sim to load paused. That
+is primarily pedagogical — a sim animating as a student scrolls past is a distraction. But it is also a
+data rule here: an auto-running sim would emit dwell the student never chose to spend, and every
+downstream engagement number would be inflated by however long the page happened to sit in a viewport.
+
+**Repeated cycles are repeated statements.** Start→Pause→Start→Pause emits two `experienced`
+statements, and `mv_student_page_rollup` sums them into one `PageEngagement` row via
+`sum(duration_ms)`. That is the intended compression: N intervals → 1 vertex.
+
+## 8. What producers never send
 
 | Field | Who sets it | Why not the producer |
 |---|---|---|
@@ -232,12 +346,12 @@ than silently written down.
 
 `actor.account.name` **is PII by design and that is correct** — it is the only place real identity
 enters, and the processor rewrites the actor block before the `raw` column is stored
-(`clickhouse.sql:34-54`). Producers must not pre-hash it: the salt is per-district and lives in the
+(`clickhouse.sql`). Producers must not pre-hash it: the salt is per-district and lives in the
 vault.
 
 ---
 
-## 8. Transport  **[RATIFIED]**
+## 9. Transport  **[RATIFIED]**
 
 ```http
 POST /xapi/statements
@@ -246,10 +360,10 @@ X-Experience-API-Version: 1.0.3
 Authorization: Bearer <token>
 ```
 
-- **Body is always a JSON array**, even for one statement (`smoke.sh:95`).
+- **Body is always a JSON array**, even for one statement (`smoke.sh`).
 - **All-or-nothing per batch**, per xAPI conformance and `mvp-plan.md:90`. One invalid statement
   rejects the batch; there is no partial success.
-- **`id` is optional.** When the producer supplies one it is preserved verbatim — `smoke.sh:96` sends
+- **`id` is optional.** When the producer supplies one it is preserved verbatim — `smoke.sh` sends
   `id` and then queries `WHERE statement_id = '${STATEMENT_ID}'`, so round-tripping it is load-bearing
   for the harness. When absent the gateway assigns a UUIDv7 (`mvp-plan.md:90`).
 - **`timestamp`** is ISO-8601 UTC, producer-supplied, event time.
@@ -262,9 +376,9 @@ Authorization: Bearer <token>
 
 ---
 
-## 9. The reference statement
+## 10. The reference statement
 
-This is `scripts/smoke.sh:95-113` verbatim in shape, and it is the shape `lrs loadgen` must emit
+This is `scripts/smoke.sh` verbatim in shape, and it is the shape `lrs loadgen` must emit
 (`mvp-plan.md:94`: "same shape in, nothing downstream changes").
 
 ```json
@@ -302,13 +416,13 @@ This is `scripts/smoke.sh:95-113` verbatim in shape, and it is the shape `lrs lo
 Unlike `example.edu` in `grouping` (§4), it identifies the account namespace rather than a content
 version, and real districts supply their own.
 
-## 10. Field → column map
+## 11. Field → column map
 
 Everything the DDL reads, and where it comes from. If a row here is wrong, a rollup is wrong.
 
 | Statement path | Column | Notes |
 |---|---|---|
-| `id` | `statement_id` UUID | Or gateway UUIDv7 — §8. |
+| `id` | `statement_id` UUID | Or gateway UUIDv7 — §9. |
 | `actor.account.name` | → `student_key` | HMAC'd. Never stored raw. |
 | `verb.id` | `verb_id` | §3. Exactly two values. |
 | `object.definition.type` | → `object_type` | §5. Both page/question MVs filter on this. |
@@ -319,19 +433,46 @@ Everything the DDL reads, and where it comes from. If a row here is wrong, a rol
 | `result.duration` | `duration_ms` Nullable(UInt32) | ISO-8601 → ms. Feeds `dwell_ms_total`. |
 | `ext/concept_id` | → `concept_ids` Array(String) | §6. Wrapped to a 1-element array. |
 | `timestamp` | `timestamp` DateTime64(3) | Event time. Partition key + rollup min/max. |
-| *(whole statement)* | `raw` | Actor block pseudonymized first — `clickhouse.sql:34-54`. |
+| *(whole statement)* | `raw` | Actor block pseudonymized first — `clickhouse.sql`. |
 
 ---
 
-## 11. Open items
+## 12. Open items
 
-1. **§2 — is `#q{N}` zero-based?** Pinned zero-based from `smoke.sh`'s own text. Confirm, or fix
-   `smoke.sh:103`/`:105` and this section together.
-2. **§6 — extension vs. enrichment.** v1 makes the producer authoritative. This contradicts design
+**Still open:**
+
+1. **§6 — extension vs. enrichment.** v1 makes the producer authoritative. This contradicts design
    §5.3 step 3 and should be reflected there, or reversed here.
-3. **§5 — MicroSim engagement doesn't reach `student_page_rollup`.** Decide before step 4.
-4. **§8 — `id` becomes required if gateway dedup lands** (`mvp-status.md` §7 candidate (a)).
-5. **`sine-wave.js:29` still emits a malformed IRI.** Harmless while `loadgen` is the only producer;
-   must be fixed before that page is instrumented.
-6. **The design doc is not yet amended.** §§1, 3, 4, 5, 6 each correct or fill something in
+2. **§9 — `id` becomes required if gateway dedup lands** (`mvp-status.md` §7 candidate (a)).
+3. **The design doc is not yet amended.** §§1, 3, 4, 5, 6, 7 each correct or fill something in
    `lrs-design-v1.md`. Tracked in the plan's "Amend the docs as we go".
+4. **`smoke.sh` does not yet exercise `interacted` or the §7 dwell pattern.** Its one statement is an
+   `answered`. Neither new path has a tier asserting it.
+5. **Multi-concept statements are not expressible** (§6). `concept_id` is one string. If a page covers
+   three concepts, v1 cannot say so.
+6. **Repeat attempts are not modelled.** `quiz-xapi.js` emits at most one `answered` per question per
+   page load, and never for an answer chosen after the explanation was revealed. That is the right
+   *default* — a peeked answer is not evidence of knowledge, and emitting `success: true` for one would
+   teach BKT exactly the false mastery it exists to detect. But BKT's value comes from a *sequence* of
+   attempts, and nothing currently produces one. Retry-after-failure needs a decision before F-7 can be
+   demonstrated on real data.
+7. **Every emitter hardcodes `demo-student`.** One actor means the §8 pseudonymization boundary has
+   never been exercised by a producer. That is `loadgen`'s job, not a sim's.
+
+**Closed 2026-07-16:**
+
+- ~~**§2 — is `#q{N}` zero-based?**~~ **Resolved: ONE-based**, one rule for every source. The
+  zero-based pin was an inference from `smoke.sh` that turned out to be reading a **latent off-by-one**
+  rather than an intent. `smoke.sh` now emits `#q3` for the question it names. See §2.
+
+**Closed 2026-07-16:**
+
+- ~~**§5 — MicroSim engagement doesn't reach `student_page_rollup`.**~~ **Fixed.** MV widened to
+  `object_type IN ('Page','MicroSim')`, verified against live ClickHouse with real emitted statements.
+- ~~**`sine-wave.js` emits a malformed IRI.**~~ **Fixed**, along with five *other* wrong URLs in the
+  same file that the original note missed — `actor.account.homePage`, two `result.extensions`
+  namespaces, `grouping[0]` (which held a page URL where the version IRI belongs), and
+  `metadata.json`'s `identifier`. The lesson generalizes: the malformed IRI was never one line, and
+  "fix the URI" was not a one-line job.
+- ~~**Start/Pause has no contracted representation.**~~ Now §7, with
+  [`bouncing-ball`](../sims/bouncing-ball/index.md) as the reference emitter.

@@ -17,7 +17,16 @@ CREATE TABLE IF NOT EXISTS lrs.statements
     statement_id    UUID,
     student_key     String,
     verb_id         LowCardinality(String),
-    object_type     LowCardinality(String),   -- Page | MicroSim | Question | Concept
+    -- Page | MicroSim | Question | Control | Concept
+    -- `Control` added 2026-07-16 (xapi-producer-contract-v1 §5): a sub-page
+    -- interactive element — a slider, a Start/Pause button. It is NOT a typo for
+    -- MicroSim. A control's object_id carries a fragment (`…/sims/x/#speed-slider`)
+    -- and mv_student_page_rollup GROUPs BY object_id, so if a control were typed
+    -- Page or MicroSim every slider would become its own PageEngagement row for a
+    -- page the student visited once. Controls feed the concept rollup (compression
+    -- evidence) and are deliberately absent from the page rollup.
+    -- This column is a String, not an ENUM, so adding a value needs no migration.
+    object_type     LowCardinality(String),
     object_id       String,
     textbook_id     LowCardinality(String),
     version_id      LowCardinality(String),
@@ -161,7 +170,7 @@ FROM lrs.statements
 WHERE voided_by IS NULL AND notEmpty(concept_ids)
 GROUP BY district_id, student_key, concept_id;
 
--- One row per (student, page) → one PageEngagement vertex.
+-- One row per (student, page-or-sim) → one PageEngagement vertex.
 CREATE TABLE IF NOT EXISTS lrs.student_page_rollup
 (
     district_id           LowCardinality(String),
@@ -189,7 +198,17 @@ SELECT
     min(timestamp)                             AS first_seen,
     max(timestamp)                             AS last_seen
 FROM lrs.statements
-WHERE object_type = 'Page' AND voided_by IS NULL
+-- CHANGED 2026-07-16: was `object_type = 'Page'`. A MicroSim's entire engagement
+-- signal is dwell time — the bouncing-ball sim emits one `experienced` carrying
+-- result.duration when the student pauses (xapi-producer-contract-v1 §7). Under the
+-- old filter that duration was faithfully stored in lrs.statements and then silently
+-- dropped here, so PageEngagement reported zero dwell for every sim in the textbook
+-- while the evidence sat in the log. Widened before anything is durable; the same
+-- change against a populated rollup would need a backfill.
+--
+-- Controls (sliders, buttons) are excluded on purpose — see the object_type comment
+-- above. Their object_id is fragment-qualified and would split this GROUP BY.
+WHERE object_type IN ('Page', 'MicroSim') AND voided_by IS NULL
 GROUP BY district_id, student_key, object_id;
 
 -- One row per (student, question) → one QuestionResponse vertex.

@@ -26,7 +26,18 @@ const SLIDER_META = {
   period: { min: 1, max: 100, default: 50, label: 'Period Slider', round: 0 },
   phase: { min: -Math.PI * 100, max: Math.PI * 100, default: 0, label: 'Phase Slider', round: 2 }
 };
-const ACTIVITY_BASE_ID = 'https://dmccreary.github.io/microsims/sims/sine-wave/main.html';
+// The canonical published page IRI — see docs/specs/xapi-producer-contract-v1.md §1.
+// It is mkdocs.yml's site_url + this sim's nav path, with the trailing slash.
+//
+// This was previously 'https://dmccreary.github.io/microsims/sims/sine-wave/main.html',
+// which was wrong twice: it named a different repo's Pages site, and it named
+// main.html — the iframe payload — rather than the page. main.html is the load-bearing
+// half: MkDocs serves index.md at /sims/sine-wave/ and copies main.html beside it, so
+// citing main.html mints a SECOND IRI for one activity. student_page_rollup is
+// ORDER BY (district_id, student_key, object_id), so two IRIs put one student's
+// engagement in two rows that never merge — under-reporting the C-6 compression ratio
+// at the producer, before any server-side code runs.
+const ACTIVITY_BASE_ID = 'https://dmccreary.github.io/learning-record-store/sims/sine-wave/';
 const MAX_STORED_EVENTS = 400;
 const MAX_LOG_LINES_RENDERED = 150;
 
@@ -283,31 +294,53 @@ function emitXapiStatement(key, value, previousValue) {
   const meta = SLIDER_META[key];
   const now = new Date();
 
+  // Conforms to docs/specs/xapi-producer-contract-v1.md. This sim never POSTs — the
+  // statements are rendered in the log panel below — but it is the shape students read
+  // to learn what an xAPI statement looks like, so it has to be a shape the gateway
+  // would actually accept.
   const statement = {
     id: generateUuid(),
     actor: {
       objectType: 'Agent',
       name: 'demo-student',
-      account: { homePage: 'https://dmccreary.github.io/microsims/', name: 'demo-student' }
+      // The demo tenant (contract §10). Was 'https://dmccreary.github.io/microsims/',
+      // which named a website rather than an account namespace.
+      account: { homePage: 'https://demo.example.edu', name: 'demo-student' }
     },
+    // `interacted` — contract §3. A slider drag is neither an answer nor dwell.
     verb: { id: 'http://adlnet.gov/expapi/verbs/interacted', display: { 'en-US': 'interacted' } },
     object: {
+      // Page IRI + control fragment. ACTIVITY_BASE_ID ends in '/', so this reads
+      // …/sims/sine-wave/#amplitude-slider — one page, one control.
       id: ACTIVITY_BASE_ID + '#' + key + '-slider',
       objectType: 'Activity',
       definition: {
         name: { 'en-US': meta.label },
+        // → object_type 'Control' (contract §5). Deliberately NOT MicroSim: this IRI
+        // carries a fragment, and mv_student_page_rollup GROUPs BY object_id, so a
+        // MicroSim-typed slider would become its own PageEngagement row.
         type: 'http://adlnet.gov/expapi/activities/interaction'
       }
     },
     result: {
       extensions: {
-        'https://dmccreary.github.io/microsims/xapi/ext/value': roundForDisplay(key, value),
-        'https://dmccreary.github.io/microsims/xapi/ext/previous-value':
+        // The LRS extension namespace (contract §6), not a per-site one.
+        'https://w3id.org/lrs/ext/value': roundForDisplay(key, value),
+        'https://w3id.org/lrs/ext/previous-value':
           previousValue === null ? null : roundForDisplay(key, previousValue)
       }
     },
     context: {
-      contextActivities: { grouping: [{ id: 'https://dmccreary.github.io/microsims/sims/sine-wave/' }] }
+      contextActivities: {
+        // grouping[0] is the TEXTBOOK VERSION IRI (contract §4) — not the page URL.
+        // It previously held this sim's own page URL, which is what `parent` is for.
+        grouping: [{ id: 'https://dmccreary.github.io/learning-record-store/textbook/lrs/v1.0.0' }],
+        // The page this control belongs to.
+        parent: [{ id: ACTIVITY_BASE_ID }]
+      },
+      // Without this, concept_ids is empty and mv_student_concept_rollup skips the
+      // statement entirely via its own WHERE notEmpty(concept_ids).
+      extensions: { 'https://w3id.org/lrs/ext/concept_id': key }
     },
     timestamp: now.toISOString()
   };

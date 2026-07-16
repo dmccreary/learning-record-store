@@ -87,6 +87,16 @@ info "posting ${STATEMENT_ID}"
 # result.score.scaled, which is what mv_student_concept_rollup's
 # countIfState(result_success IS NOT NULL) needs to produce attempts > 0.
 # See docs/specs/xapi-producer-contract-v1.md §3.
+#
+# The object below is `#q3`, not `#q2` — changed 2026-07-16 when contract §2 was pinned
+# ONE-based. The name is lrs-data-model's THIRD keyQuestion ("A student views a page 50
+# times. How many PageEngagement vertices exist afterward?"). It previously read `#q2`
+# because the fragment was written as a zero-based array index while the name was chosen
+# by counting questions the way a human does. §2 now pins the ordinal the student sees.
+#
+# NOTE: everything between <<JSON and the closing JSON is the request body. A `#` line in
+# there is NOT a comment — it is transmitted, and the gateway gets malformed JSON. Comments
+# about the payload belong here, above the heredoc.
 if ! curl -sf -X POST http://localhost:8080/xapi/statements \
      -H 'Content-Type: application/json' \
      -H 'X-Experience-API-Version: 1.0.3' \
@@ -100,7 +110,7 @@ if ! curl -sf -X POST http://localhost:8080/xapi/statements \
   "verb":   {"id": "http://adlnet.gov/expapi/verbs/answered",
              "display": {"en-US": "answered"}},
   "object": {"objectType": "Activity",
-             "id": "${OBJECT_ID}#q2",
+             "id": "${OBJECT_ID}#q3",
              "definition": {"type": "http://adlnet.gov/expapi/activities/cmi.interaction",
                             "name": {"en-US": "How many PageEngagement vertices exist?"}}},
   "result": {"score": {"scaled": 0.9}, "success": true, "duration": "PT4M12S"},
