@@ -153,6 +153,33 @@ noticed because nothing consumed it.
 > off-by-one; a quiz that prints "1." through "10." beside its own emitted IRIs cannot. A second,
 > differently-shaped emitter is worth more than more reasoning about the first one.
 
+### Fragments for sub-activities that are not questions  **[NEW 2026-07-16]**
+
+`#q{N}` covers questions. A page can also contain **named** sub-activities — a slider, a node in a
+diagram — and those need a fragment too.
+
+> **A named sub-activity's fragment is its stable local name, slugified**, not its position.
+
+```
+…/sims/bouncing-ball/#speed-slider
+…/sims/scientific-method/#hypothesis
+```
+
+**Why names here and ordinals for questions — this is one rule, not two.** The fragment always names
+the sub-activity by **its most stable local identifier**, and what that is depends on what the thing
+*is*:
+
+- A quiz question's identity **is** its position in a numbered list. The student sees "3."; the text
+  may be reworded without becoming a different question. Ordinal is stable, prose is not.
+- A diagram node's identity **is** its name. `Formulate Hypothesis` stays that step even if the
+  diagram is reordered or a branch is inserted above it. An ordinal would silently re-point the IRI at
+  a different concept the moment the layout changed — the same class of failure as §1's `main.html`:
+  one activity quietly acquiring a second identity, or two acquiring one.
+
+The test for any fragment scheme is the same: **would an edit that does not change what the thing
+*is* change its IRI?** If yes, the scheme is wrong, because `student_page_rollup` and
+`student_concept_rollup` both key on `object_id` and will split or merge silently.
+
 ---
 
 ## 3. Verbs  **[RESOLVED]**
@@ -458,6 +485,23 @@ Everything the DDL reads, and where it comes from. If a row here is wrong, a rol
    demonstrated on real data.
 7. **Every emitter hardcodes `demo-student`.** One actor means the §8 pseudonymization boundary has
    never been exercised by a producer. That is `loadgen`'s job, not a sim's.
+8. **The same activity in two textbooks is indistinguishable in every rollup.** `object.id` is the
+   canonical URL (§1), so a shared MicroSim — `sims/scientific-method/` is embedded by physics and
+   chemistry as well as this book — carries the **same IRI** everywhere; only `grouping[0]` differs.
+   But every rollup is keyed `(district_id, student_key, {concept_id|object_id})` with **no
+   `textbook_id`**, so exposures across books **merge into one vertex** with dwell summed.
+   `lrs.statements` retains `textbook_id`/`version_id`, so the question is answerable from the log —
+   never from `ConceptMastery`. **This is the two-store split working**, not a defect, but it has a
+   sharp consequence: *a student skimming because they already met the material in physics looks
+   identical to a student who did not engage.* Low engagement is not evidence of low mastery. If a
+   report ever wants to distinguish "this book taught them" from "they arrived knowing it", that
+   requires either a textbook-keyed rollup or a log query — decide which before a dashboard implies
+   the former.
+9. **Per-node dwell reaches no rollup.** `interacted`/`Control` statements carry `result.duration`
+   (scientific-method emits per-step dwell), but `mv_student_page_rollup` sums `duration_ms` while
+   excluding `Control`, and `mv_student_concept_rollup` ignores duration entirely. So "which step did
+   the student labour over?" lives only in `lrs.statements`. Deliberate for now — the log is the
+   system of record, so a rollup can be added later without re-collecting anything.
 
 **Closed 2026-07-16:**
 

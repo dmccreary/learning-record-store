@@ -183,6 +183,14 @@ Env: `/Users/dan/miniconda3/envs/mkdocs`, Python 3.11, macOS.
 2. **A downgrade is the real risk now, not an upgrade.** With 8.4.2 installed, `pip install -U` is
    safe — the danger is anything that resolves click *backwards* into 8.3.x. That is a plausible
    accident: some other package requiring `click<8.4` would silently reintroduce this.
+
+   **The structural fix is a lockfile, and it is now a decided direction.** This env
+   (`~/miniconda3/envs/mkdocs`) is conda + pip with **no requirements file and no lock of any kind** —
+   nothing records what is installed or why, which is exactly how click 8.3.1 arrived unnoticed. The
+   project's standing decision (`mvp-status.md` §2) is that **all Python tooling moves to `uv`**, and
+   this env is the outlier. Under `uv` with a committed `uv.lock`, click's version would be pinned by
+   construction, `uv sync --frozen` would refuse to drift, and the constraint would live in a file
+   rather than in a warning in this document that someone has to remember to read.
 3. **Upstream.** This is a genuine mkdocs↔click incompatibility affecting **current mkdocs on current
    click at the time it was hit** — mkdocs 1.6.1 was released well before click 8.3 existed, and
    mkdocs has not shipped since. Anyone landing on mkdocs 1.6.1 + click 8.3.x gets a dev server that
