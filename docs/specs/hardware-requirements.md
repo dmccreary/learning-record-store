@@ -1,6 +1,6 @@
 ---
 title: Hardware Requirements & Cost Estimate — 10k Statements/Sec
-description: Server and cloud-infrastructure sizing for the LRS at the specification's peak-sustained ingest target, with a component-by-component monthly cost estimate.
+description: Server and cloud-infrastructure sizing for the LRS at the specification's peak-sustained ingest target and at a lower-cost single-server tier, with component-by-component monthly cost estimates.
 image: ../img/cover.png
 status: scaffold
 ---
@@ -9,7 +9,7 @@ status: scaffold
 
 **Companion to:** [LRS Specification v1](./lrs-spec-v1.md) · [LRS Design & Deployment v1](./lrs-design-v1.md)
 **Status:** Draft for review · 2026-07-15
-**Scope:** What physical/cloud hardware the [§5.5 backpressure-and-scale](./lrs-spec-v1.md#55-backpressure-and-scale) target actually requires, and what it costs per month to run.
+**Scope:** What physical/cloud hardware the [§5.5 backpressure-and-scale](./lrs-spec-v1.md#55-backpressure-and-scale) target actually requires, and what it costs per month to run. [§8](#8-lower-cost-alternative-single-server-at-1000-statementssec) covers a lower-cost, single-server tier at 1,000 statements/sec for smaller deployments.
 
 ---
 
@@ -127,3 +127,67 @@ Two ways this line item could disappear rather than needing to be budgeted:
 - Sizing here assumes the design doc's default 60 s summarizer sync cadence and 7-day Kafka retention; both are configurable and don't change hardware, only latency and replay-window trade-offs (design doc [§4.1](./lrs-design-v1.md#41-the-compression-math)).
 - The five *new estimate* rows in §3 (reconciler, identity, analytics API, admin API, dashboards) are this document's own sizing, not carried from the design doc, and should be revisited once real request-volume data exists for those services.
 - This estimate excludes one-time costs (initial data migration, load testing per design doc [§8.11](./lrs-design-v1.md#811-production-sizing-at-10k-statementssec)'s `lrs loadgen --rate 10000`, security review) and non-infrastructure costs (engineering time, support contracts).
+
+---
+
+## 8. Lower-Cost Alternative: Single Server at 1,000 Statements/Sec
+
+At 1/10th the ingest rate — 1,000 statements/sec sustained — the whole system fits on one physical server. This section derives that tier's capacity model the same way design doc [§4](./lrs-design-v1.md#4-capacity-model) derives the 10k tier, then sizes a single-host deployment against it.
+
+**Why this tier matters beyond cost.** A single-server deployment isn't just a cheaper placeholder for the eventual production system — it's a legitimate pilot vehicle. It runs the same image and the same data model as the 10k tier (design doc [§8.1](./lrs-design-v1.md#81-philosophy-one-image-many-roles), "one image, many roles"), so it validates the capacity-model assumptions this whole document rests on — duty cycle, statement size, compression ratios (design doc [§4](./lrs-design-v1.md#4-capacity-model)) — against real school telemetry rather than the estimates used here. Just as importantly, it puts the actual reports and dashboards (spec [§7](./lrs-spec-v1.md#7-reports-and-analytical-tools), [§9](./lrs-spec-v1.md#9-dashboard-specifications-dash-plotly-model)) in front of real teachers and administrators early, so their feedback can shape what gets built out before infrastructure spend scales to match.
+
+**Population assumption.** 1,000 stmt/sec ÷ ~0.1 stmt/sec/student implies ~10,000 concurrent active students at peak (design doc [§4.1](./lrs-design-v1.md#41-the-compression-math)'s ratio) — roughly one large district or a handful of mid-size ones, not the multi-district fleet the 10k tier is sized for. The figures below assume total registered population, content catalog, and Neo4j structural-node count scale down with it; this is a smaller deployment, not the same fleet with less traffic, and should be revisited if that assumption doesn't hold for the actual customer.
+
+### 8.1 Capacity model at 1,000 stmt/sec
+
+| Quantity | Value | Derivation |
+|----------|-------|------------|
+| Peak sustained ingest | 1,000 stmt/sec | 1/10 of spec [§5.5](./lrs-spec-v1.md#55-backpressure-and-scale) |
+| Burst (same 5× ratio) | 5,000 stmt/sec | |
+| Statements/day | ~14.4 M | 1,000 × 0.40 × 36,000 s |
+| Raw JSON/day | ~21.6 GB | 14.4 M × 1.5 KB |
+| Kafka disk @ 7-day retention | ~113 GB | Same zstd/RF=3 math as design doc §4, ÷10 |
+| ClickHouse @ 13-month hot window | ~1 TB | ~22 GB/day ÷10, ×395 days |
+| ClickHouse @ 7-year retention | ~2.8 TB | |
+| HTTP requests/sec at peak | ~10–40 | 1,000 ÷ batch size 25–100 |
+| Graph upserts/sec (60 s cadence) | ~250 | Design doc [§4.1](./lrs-design-v1.md#41-the-compression-math) ratio, ÷10 |
+| Network ingress, sustained / burst | 12 Mbps / 60 Mbps | 1,000×1.5 KB and 5,000×1.5 KB |
+
+Every number that mattered for hardware selection at the 10k tier is comfortably inside single-node territory here: sub-2 TB of hot storage, low hundreds of Mbps of network, and a graph write rate (~250/sec) an order of magnitude below what a single unclustered Neo4j instance handles without strain.
+
+### 8.2 Yes — this runs as VMs on one server
+
+Design doc [§8.9](./lrs-design-v1.md#89-profiles-and-laptop-sizing) already runs the *entire* stack — every store plus all seven app roles — in ~8 GB of RAM via `docker compose up` on a laptop, just at negligible dev-scale load. The 1,000 stmt/sec tier is that same shape, resourced for real production traffic instead of a laptop, split across a small number of VMs on one physical host rather than one VM per microservice.
+
+**Why VMs at all, if it's one box:** spec [§12.2](./lrs-spec-v1.md#122-security) requires the PII vault (`vault-db`) to be a separate instance with its own network policy — that's a compliance boundary, not a scale-driven one, and it holds regardless of deployment size. A hypervisor (Proxmox, KVM, ESXi) gives that isolation on a single machine without needing Kubernetes.
+
+| VM | Contents | vCPU / RAM | Notes |
+|----|----------|------------|-------|
+| `app` | gateway, processor, summarizer, reconciler, identity, analytics-api, admin-api, dashboards — same image, `docker compose`, design doc [§8.1–8.3](./lrs-design-v1.md#81-philosophy-one-image-many-roles) | 16 vCPU / 20 GB | 2 gateway + 2 processor replicas for rolling deploys; rest single-replica |
+| `streaming-analytics` | Redpanda (single broker), ClickHouse (single node) | 8 vCPU / 28 GB | NVMe-backed; ClickHouse needs the ~1 TB hot window + headroom |
+| `graph-cache` | Neo4j **Community**, single instance; Redis | 6 vCPU / 20 GB | ~250 upserts/sec doesn't need a causal cluster — Community suffices, no Enterprise/Aura license needed at this tier |
+| `vault` | `vault-db` (PostgreSQL) only, minimal egress | 2 vCPU / 4 GB | The spec §12.2 isolation boundary — kept as its own VM even here |
+| `meta-objects` | `meta-db` (PostgreSQL), MinIO/object store | 3 vCPU / 6 GB | |
+| **Total** | | **~35 vCPU / ~78 GB** | |
+
+**Single-server hardware spec:** a dual-socket server with 32–48 physical cores (64–96 threads), 128 GB RAM, and 2–4 TB NVMe in a RAID1/10 mirror (no cluster replication factor here, so disk-level redundancy replaces it) covers this with real headroom. This is a standard mid-range rack server (Dell/HPE/Supermicro) or an equivalent single large cloud/bare-metal instance — not exotic hardware.
+
+### 8.3 The trade-off: no high availability
+
+This deliberately gives up the multi-AZ, 3-node-quorum topology in design doc [§8.10](./lrs-design-v1.md#810-production-topology):
+
+- **Single point of failure.** Every store (Kafka, ClickHouse, Neo4j) is unclustered — a host fault, OS patch reboot, or VM crash takes the whole system down until it restarts. There is no replica to fail over to.
+- **Kafka RF=1 in practice**, not RF=3 — durability rests on the RAID array, not on cross-broker replication. ClickHouse remains the true system of record; Kafka's 7-day retention is still just a replay buffer (design doc §4), so this mainly affects how much lag is survivable during a restart.
+- **Mitigations, if some availability matters:** nightly/hourly backups to off-box object storage, RAID for disk-level redundancy (already assumed above), and — far cheaper than a second full 3-AZ cluster — a warm standby second server built from backups/async replication for a manual failover path.
+
+### 8.4 Cost estimate
+
+| Option | Configuration | Est. cost |
+|--------|---------------|-----------|
+| Rent — large cloud VM/bare-metal instance | ~64 vCPU / 128–256 GB / local NVMe (e.g., AWS `i3en`/`m6i` class) | ~$1,000–2,500/month on-demand |
+| Rent — dedicated/bare-metal hosting (flat monthly fee, not hourly cloud billing) | Comparable dual-socket spec | ~$300–800/month, approximate — get a current quote |
+| Buy — owned hardware, 3-year amortization | Dual-socket server, 32–48 cores, 128 GB RAM, NVMe RAID | ~$8,000–15,000 upfront ≈ $220–420/month amortized, **+** ~$150–400/month colocation/power/bandwidth if not run in-house |
+
+All three options land **roughly 10–20× cheaper** than the [§4 cost estimate](#4-monthly-cost-estimate) for the 10k tier (~$10,300/month on-demand), for two compounding reasons: the infrastructure itself is 1/10th the size, and there's no multi-AZ/multi-node redundancy tax. It also **removes the Neo4j licensing open question from [§5](#5-the-open-cost-variable-neo4j-licensing) entirely** — Community edition is sufficient without clustering, so that line item drops to $0 rather than needing a vendor quote.
+
+**When this tier stops fitting:** if sustained ingest approaches ~3,000–5,000 stmt/sec, or the no-HA trade-off in §8.3 becomes unacceptable (this is a production system of record for student data), it's time to move toward the distributed topology in [§3](#3-hardware-requirements-by-component) rather than scaling the single box further.

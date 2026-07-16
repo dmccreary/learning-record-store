@@ -1,0 +1,263 @@
+# Lifted from lrs-design-v1.md §8.4 (design lines 768-1075), scoped to the
+# architecture-proof MVP and with the fixes named in the plan.
+#
+# Scoped out (deferred, not forgotten): meta-db, minio, keycloak, the obs
+# profile, and the analytics-api / admin-api / dashboards roles. See the plan's
+# "Deferred, explicitly". Their env vars stay commented in .env.example so the
+# shape does not change when they return.
+#
+# Run from the repo root:  docker compose -f deploy/docker-compose.yml up -d
+# or just:                 make up
+
+name: lrs
+
+x-lrs-image: &lrs-image
+  image: ${LRS_IMAGE:-lrs:dev}
+  build:
+    # Context is the repo root; this file lives in deploy/.
+    context: ..
+    dockerfile: Dockerfile
+    target: runtime
+    args:
+      PYTHON_VERSION: "3.12"
+
+x-lrs-env: &lrs-env
+  LRS_ENV: dev
+  LRS_LOG_LEVEL: ${LRS_LOG_LEVEL:-INFO}
+  KAFKA_BOOTSTRAP: redpanda:29092
+  CLICKHOUSE_URL: http://lrs:${CLICKHOUSE_PASSWORD}@clickhouse:8123/lrs
+  NEO4J_URI: bolt://neo4j:7687
+  NEO4J_USER: neo4j
+  NEO4J_PASSWORD: ${NEO4J_PASSWORD}
+  REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379/0
+  IDENTITY_URL: http://identity:8086
+  # Spec §5.6 — compression cadence. Lower = fresher graph, more upserts (§4.1).
+  SUMMARIZER_CADENCE_SECONDS: "60"
+  # Spec §5.6 C-7 — "A deployment may materialize fewer grains than §4.3
+  # defines, but never a finer one." Three grains, not five: microsim_engagement
+  # needs the §13.7 soft-correctness mapping that nobody owns yet, and
+  # section_rollup needs a roster. Both are deferred, and C-7 makes that legal.
+  SUMMARIZER_GRAINS: "concept_mastery,page_engagement,question_response"
+
+x-lrs-depends: &lrs-depends
+  redpanda:   {condition: service_healthy}
+  clickhouse: {condition: service_healthy}
+  neo4j:      {condition: service_healthy}
+  redis:      {condition: service_healthy}
+
+networks:
+  lrs-net:
+    driver: bridge
+  # Spec §12.2 / hardware §8.2: the vault is a compliance boundary, not a
+  # scale-driven one, "and it holds regardless of deployment size". The
+  # original compose declared no networks at all, so every service could
+  # reach vault-db on one flat bridge. Only `identity` joins this network.
+  vault-net:
+    driver: bridge
+    internal: true
+
+services:
+
+  # ============ Backing services ============
+
+  redpanda:
+    image: redpandadata/redpanda:v24.3.6
+    command:
+      - redpanda
+      - start
+      - --smp=1
+      - --memory=1G
+      - --reserve-memory=0M
+      - --overprovisioned
+      - --node-id=0
+      - --check=false
+      - --kafka-addr=INTERNAL://0.0.0.0:29092,EXTERNAL://0.0.0.0:9092
+      - --advertise-kafka-addr=INTERNAL://redpanda:29092,EXTERNAL://localhost:9092
+      - --rpc-addr=0.0.0.0:33145
+      - --advertise-rpc-addr=redpanda:33145
+    ports: ["9092:9092"]
+    volumes: ["redpanda-data:/var/lib/redpanda/data"]
+    networks: [lrs-net]
+    healthcheck:
+      test: ["CMD-SHELL", "rpk cluster health | grep -q 'Healthy:.*true'"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  clickhouse:
+    image: clickhouse/clickhouse-server:24.8
+    environment:
+      CLICKHOUSE_DB: lrs
+      CLICKHOUSE_USER: lrs
+      CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD}
+      CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: "1"
+    ports: ["8123:8123", "9000:9000"]
+    volumes: ["clickhouse-data:/var/lib/clickhouse"]
+    networks: [lrs-net]
+    ulimits:
+      nofile: {soft: 262144, hard: 262144}
+    healthcheck:
+      # The design used `wget -qO- http://localhost:8123/ping`, but wget is not
+      # guaranteed in this image and a healthcheck that can never pass
+      # deadlocks every `depends_on: service_healthy` behind it.
+      # clickhouse-client ships with the server by definition.
+      test: ["CMD-SHELL", "clickhouse-client --user lrs --password \"$$CLICKHOUSE_PASSWORD\" --query 'SELECT 1' || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  neo4j:
+    image: neo4j:5.26-community
+    environment:
+      NEO4J_AUTH: neo4j/${NEO4J_PASSWORD}
+      NEO4J_PLUGINS: '["apoc"]'
+      NEO4J_server_memory_heap_max__size: 2G
+      NEO4J_server_memory_pagecache_size: 1G
+    ports: ["7474:7474", "7687:7687"]
+    volumes: ["neo4j-data:/data", "neo4j-logs:/logs"]
+    networks: [lrs-net]
+    healthcheck:
+      # Same reasoning as clickhouse: wget is not guaranteed, cypher-shell is.
+      # The password is interpolated by compose at parse time rather than read
+      # from the container env, because the neo4j image maps NEO4J_<x> env vars
+      # onto neo4j.conf settings and a bare NEO4J_PASSWORD is not a setting.
+      test: ["CMD-SHELL", "cypher-shell -u neo4j -p \"${NEO4J_PASSWORD}\" 'RETURN 1' || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 15
+
+  # Isolated per spec §12.2 — separate instance, separate credentials, and now
+  # a separate network. The design published 5433:5432 to the host, which put
+  # the PII vault one `psql -h localhost -p 5433` away from any process on the
+  # laptop. No host port: nothing outside vault-net needs to reach it.
+  vault-db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: vault
+      POSTGRES_USER: lrs
+      POSTGRES_PASSWORD: ${VAULT_DB_PASSWORD}
+    volumes: ["vault-db-data:/var/lib/postgresql/data"]
+    networks: [vault-net]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lrs -d vault"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes", "--requirepass", "${REDIS_PASSWORD}"]
+    ports: ["6379:6379"]
+    volumes: ["redis-data:/data"]
+    networks: [lrs-net]
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli -a $$REDIS_PASSWORD ping | grep -q PONG"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  # ============ Bootstrap (run-once, idempotent) ============
+
+  bootstrap:
+    <<: *lrs-image
+    command: ["bootstrap", "--create-topics", "--apply-ddl", "--apply-constraints", "--verify"]
+    environment:
+      <<: *lrs-env
+      LRS_ROLE: bootstrap
+      VAULT_DB_DSN: postgresql://lrs:${VAULT_DB_PASSWORD}@vault-db:5432/vault
+    depends_on:
+      # The design's bootstrap depended only on *lrs-depends (redpanda,
+      # clickhouse, neo4j, redis) — but §8.7 has it run Alembic against the
+      # vault, so it raced its own dependency. vault-db added.
+      <<: *lrs-depends
+      vault-db: {condition: service_healthy}
+    networks: [lrs-net, vault-net]
+    restart: "no"
+
+  # ============ Application roles — all the same image ============
+
+  identity:
+    <<: *lrs-image
+    command: ["identity", "--host", "0.0.0.0", "--port", "8086"]
+    environment:
+      <<: *lrs-env
+      LRS_ROLE: identity
+      VAULT_DB_DSN: postgresql://lrs:${VAULT_DB_PASSWORD}@vault-db:5432/vault
+    depends_on:
+      vault-db: {condition: service_healthy}
+      bootstrap: {condition: service_completed_successfully}
+    # The only service on both networks. Everything else reaches the vault
+    # through this API or not at all.
+    networks: [lrs-net, vault-net]
+    restart: unless-stopped
+
+  gateway:
+    <<: *lrs-image
+    command: ["gateway", "--host", "0.0.0.0", "--port", "8080"]
+    environment:
+      <<: *lrs-env
+      LRS_ROLE: gateway
+      LRS_DEV_INGEST_TOKEN: ${LRS_DEV_INGEST_TOKEN}
+    ports: ["8080:8080"]
+    networks: [lrs-net]
+    # ---------------------------------------------------------------------
+    # THE SINGLE MOST IMPORTANT LINE IN THIS FILE (design §8.4).
+    # The gateway depends on redpanda and NOTHING ELSE. If you add clickhouse
+    # or neo4j here "for consistency", you have made the analytics store an
+    # ingestion dependency and broken spec §5.4. A classroom then loses a
+    # lesson's worth of telemetry every time ClickHouse restarts.
+    # ---------------------------------------------------------------------
+    depends_on:
+      redpanda: {condition: service_healthy}
+    restart: unless-stopped
+
+  processor:
+    <<: *lrs-image
+    command: ["processor"]
+    environment:
+      <<: *lrs-env
+      LRS_ROLE: processor
+    depends_on:
+      <<: *lrs-depends
+      identity: {condition: service_started}
+      bootstrap: {condition: service_completed_successfully}
+    networks: [lrs-net]
+    restart: unless-stopped
+
+  summarizer:
+    <<: *lrs-image
+    command: ["summarizer"]
+    environment:
+      <<: *lrs-env
+      LRS_ROLE: summarizer
+    depends_on:
+      <<: *lrs-depends
+      bootstrap: {condition: service_completed_successfully}
+    networks: [lrs-net]
+    restart: unless-stopped
+
+  # ============ perf profile — the whole point of this MVP ============
+
+  loadgen:
+    <<: *lrs-image
+    profiles: ["perf"]
+    command: ["loadgen", "--rate", "200", "--duration", "300"]
+    environment:
+      <<: *lrs-env
+      LRS_ROLE: loadgen
+      GATEWAY_URL: http://gateway:8080
+      LRS_DEV_INGEST_TOKEN: ${LRS_DEV_INGEST_TOKEN}
+    depends_on:
+      gateway: {condition: service_healthy}
+    networks: [lrs-net]
+    restart: "no"
+
+volumes:
+  redpanda-data:
+  clickhouse-data:
+  neo4j-data:
+  neo4j-logs:
+  vault-db-data:
+  redis-data:
