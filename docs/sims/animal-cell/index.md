@@ -4,9 +4,72 @@ hide:
 ---
 # Animal Cell MicroSim
 
-<iframe src="main.html" height="700px" width="100%" scrolling="no"></iframe>
+<iframe src="main.html" height="960px" width="100%" scrolling="no"></iframe>
 
 [View the Animal Cell MicroSim Fullscreen](main.html)
+
+---
+
+## What this MicroSim emits
+
+Every statement conforms to the [xAPI Producer Contract v1](../../specs/xapi-producer-contract-v1.md).
+Nothing is sent to a server — statements render in the panel below the diagram so you can read the
+wire format directly. This sim is the reference emitter for three things nothing else in the textbook
+does.
+
+### Two verb families from one artifact
+
+The same six hotspots are **two different sets of activities**, depending on what the student is
+being asked to do with them:
+
+| Mode | The student's act | `object.id` | Verb | Type |
+|---|---|---|---|---|
+| Explore | inspect the nucleus | `…/sims/animal-cell/#nucleus` | `interacted` | `Control` |
+| Quiz | answer "where is the nucleus?" | `…/sims/animal-cell/#q-nucleus` | `answered` | `Question` |
+
+They are **not** one object whose type changes with the mode. Inspecting a structure and being asked
+to find it are different acts — an inspection has no `success` to report, and an answer must have one
+— so they get different IRIs. They re-converge where relatedness belongs: both carry
+`concept_id: cell-nucleus`, and the concept rollup applies no type filter, so both count as evidence
+about the nucleus in one `ConceptMastery` vertex.
+
+### The quiz produces a *sequence*, and that is the point
+
+A wrong click does not end the question — the sim says "Not quite, try again" and the student
+retries. So one question emits `success: false, false, true` against a single IRI, which the rollup
+reads as `attempts = 3, successes = 1`.
+
+Emitting the failures is the honest choice rather than the noisy one. With six hotspots a student can
+brute-force the answer by clicking every marker. If only the success were emitted, that student would
+be **indistinguishable from one who knew it instantly** — both would read `attempts = 1,
+successes = 1`, and the graph would report mastery that the interaction plainly disproves. The full
+sequence reports `attempts = 6, successes = 1`, which is exactly what a guessing model is for. For a
+click-to-identify quiz, the sequence *is* the signal.
+
+### Why hover and click count as one act here
+
+Explore mode emits one statement per inspection, whether the student hovered or clicked, gated at
+0.6s of dwell. The gate matters: without it, a mouse crossing the label list would emit six
+statements for one meaningless movement. Sweeping all twelve targets in 40ms emits **nothing**; a
+deliberate 0.7s pause emits **one**.
+
+Both paths carry `concept_id`, and that is a deliberate departure from how
+[Scientific Method Workflow](../scientific-method/index.md) treats hover. There, clicking *pins* the
+infobox — a separate, stronger act, so weighting it differently is defensible. Here `diagram.js`
+wires hover and click to the same function: there is no pin, and **click is simply what hover is
+called on a touchscreen**. Discounting hover would not filter weak evidence; it would count tablet
+users and discard laptop users for the identical act — device-correlated bias, which in schools
+correlates with funding.
+
+The generalisable rule: **weight hover against click only where clicking is a separate designed act.
+Where click is the touch fallback for hover, they are one act and must be counted once.**
+
+### What it cannot tell you
+
+Explore mode cannot measure understanding. Only `answered` carries `result.success`, so every
+`interacted` statement contributes `attempts = 0`, forever, by design. Quiz mode is where this
+diagram earns a mastery signal. Per-hotspot dwell is recorded but reaches no rollup — it lives in
+`lrs.statements` only (contract §12 item 9).
 
 ---
 

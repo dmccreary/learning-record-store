@@ -211,6 +211,30 @@ services:
     # ---------------------------------------------------------------------
     depends_on:
       redpanda: {condition: service_healthy}
+    # `loadgen` waits on `gateway: {condition: service_healthy}`, and until now the gateway
+    # declared no healthcheck at all — so the perf profile, which the file itself calls "the
+    # whole point of this MVP", could never have started. It would have bitten at exactly the
+    # moment the MVP tries to prove its central claim.
+    #
+    # Uses python, not curl/wget: the plan already caught that trap on the ClickHouse and
+    # Neo4j healthchecks ("wget, which neither image reliably ships"). Python is the one
+    # binary this image is guaranteed to have.
+    #
+    # /health is liveness only, deliberately — see the endpoint's docstring. A healthcheck
+    # that probed Kafka would take the gateway out of rotation precisely when its local queue
+    # is doing the buffering §5.5 asks of it.
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - |
+          import sys, urllib.request
+          sys.exit(0 if urllib.request.urlopen("http://127.0.0.1:8080/health", timeout=2).status == 200 else 1)
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
     restart: unless-stopped
 
   processor:

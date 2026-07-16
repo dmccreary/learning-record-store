@@ -238,27 +238,11 @@ footer {
    collapses to its padding — the panel must live inside the row. */
 .main-content { flex-wrap: wrap; }
 
+/* The panel's APPEARANCE now comes from css/lrs-xapi.css, linked from main.html. Only
+   its PLACEMENT is local, because placement is a property of this sim's layout and
+   nothing else's: `.main-content` is a flex row, so without `flex: 1 0 100%` the panel
+   becomes a narrow clipped third column instead of claiming its own full-width row. */
 .xapi-panel {
   flex: 1 0 100%;
   margin: 16px 0 0 0;
-  border: 1px solid silver;
-  border-radius: 6px;
-  background: white;
-  padding: 10px 12px;
-  box-sizing: border-box;
 }
-.xapi-panel-header { font-size: 14px; margin-bottom: 6px; color: #222; }
-.xapi-header-note { color: #666; font-weight: normal; }
-.xapi-log {
-  max-height: 170px;
-  overflow-y: auto;
-  background: #1e1e1e;
-  color: #b5f4b5;
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 11px;
-  line-height: 1.5;
-  padding: 8px;
-  border-radius: 4px;
-}
-.xapi-log-line { white-space: nowrap; overflow-x: auto; }
-.xapi-log-raw { color: #6f8f6f; }

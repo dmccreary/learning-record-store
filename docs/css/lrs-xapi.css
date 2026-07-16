@@ -1,0 +1,64 @@
+/* ---------------------------------------------------------------------------
+   lrs-xapi.css — the xAPI statement log panel.
+
+   ONE FILE, INCLUDED TWICE. This is deliberate and the duplication it replaces
+   was not:
+
+     * site pages   — mkdocs.yml `extra_css`, alongside css/extra.css
+     * sim iframes  — <link> in each sim's main.html
+
+   An iframe payload does NOT inherit the site's stylesheets, so the panel
+   styling genuinely has to load in both places. Until now that meant two
+   hand-maintained copies (docs/css/extra.css and
+   docs/sims/scientific-method/style.css) which had already drifted apart in
+   border colour, background, and max-height.
+
+   Both contexts are served by keying off Material's theme variables WITH
+   FALLBACKS. Inside the site the `--md-*` variables resolve and the panel
+   follows dark mode; inside a bare iframe they do not exist and the fallback
+   applies. `var(--x, fallback)` is what makes one file cover both — no @import,
+   no build step, no second copy.
+
+   What is NOT here: where the panel sits. Placement is a property of each sim's
+   own layout (scientific-method needs `flex: 1 0 100%` to claim a row in its
+   flex container; animal-cell does not). That stays in the sim's stylesheet.
+   This file decides what the panel LOOKS like; the sim decides where it goes.
+   --------------------------------------------------------------------------- */
+
+.xapi-panel {
+  margin: 24px 0 0 0;
+  border: 1px solid var(--md-default-fg-color--lightest, silver);
+  border-radius: 6px;
+  background: var(--md-default-bg-color, white);
+  padding: 10px 12px;
+  box-sizing: border-box;
+}
+
+.xapi-panel-header {
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: var(--md-default-fg-color, #222);
+}
+
+.xapi-header-note {
+  color: var(--md-default-fg-color--light, #666);
+  font-weight: normal;
+}
+
+/* The log itself is deliberately dark in both themes. It is a console, and it
+   reads as one — this is the raw statement wire format, not site content. */
+.xapi-log {
+  max-height: 180px;
+  overflow-y: auto;
+  background: #1e1e1e;
+  color: #b5f4b5;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 11px;
+  line-height: 1.5;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.xapi-log-line { white-space: nowrap; overflow-x: auto; }
+.xapi-log-raw  { color: #6f8f6f; }
+.xapi-log-note { color: #e6c07b; white-space: normal; }

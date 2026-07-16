@@ -1,0 +1,8 @@
+# LRS analytics dashboards (spec §7, §9). Kept OUT of the root pyproject on purpose:
+# the `lrs` image (ADR-005) ships ingestion/compression roles, not a web BI stack, so
+# Dash/Plotly are a separate, optional install with their own venv here.
+dash==2.18.2
+plotly==5.24.1
+pandas==2.2.3
+neo4j==5.26.0
+python-dotenv==1.0.1

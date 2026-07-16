@@ -167,26 +167,7 @@ li.quiz-locked .quiz-choice input[type="radio"] { cursor: default; }
 .quiz-verdict--wrong  { border-color: #b71c1c; background: rgba(183, 28, 28, 0.10); }
 .quiz-verdict--peeked { border-color: #e6a700; background: rgba(230, 167, 0, 0.10); }
 
-.xapi-panel {
-  margin: 24px 0 0 0;
-  border: 1px solid var(--md-default-fg-color--lightest);
-  border-radius: 6px;
-  padding: 10px 12px;
-  box-sizing: border-box;
-}
-.xapi-panel-header { font-size: 14px; margin-bottom: 6px; }
-.xapi-header-note { color: var(--md-default-fg-color--light); font-weight: normal; }
-.xapi-log {
-  max-height: 180px;
-  overflow-y: auto;
-  background: #1e1e1e;
-  color: #b5f4b5;
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 11px;
-  line-height: 1.5;
-  padding: 8px;
-  border-radius: 4px;
-}
-.xapi-log-line { white-space: nowrap; overflow-x: auto; }
-.xapi-log-raw { color: #6f8f6f; }
-.xapi-log-note { color: #e6c07b; white-space: normal; }
+/* The xAPI log panel lives in css/lrs-xapi.css, not here. It moved because sim iframes
+   must <link> it directly — an iframe payload does not inherit the site's stylesheets —
+   and maintaining a second copy here had already let the two drift apart in border
+   colour, background, and max-height. mkdocs.yml loads both files for site pages. */

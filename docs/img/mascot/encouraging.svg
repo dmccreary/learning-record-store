@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" role="img" aria-labelledby="title desc">
+  <title id="title">Trace the Firefly encouraging pose</title>
+  <desc id="desc">Trace gives a confident thumbs-up.</desc>
+  <defs>
+    <linearGradient id="wing" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#eef2ff" stop-opacity="0.96"/>
+      <stop offset="100%" stop-color="#cad6ff" stop-opacity="0.78"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffe38d"/>
+      <stop offset="100%" stop-color="#fb8c00"/>
+    </radialGradient>
+  </defs>
+  <ellipse cx="70" cy="101" rx="29" ry="40" fill="url(#wing)" stroke="#93a5e8" stroke-width="3"/>
+  <ellipse cx="150" cy="99" rx="29" ry="40" fill="url(#wing)" stroke="#93a5e8" stroke-width="3"/>
+  <ellipse cx="110" cy="118" rx="56" ry="62" fill="#3949ab"/>
+  <ellipse cx="110" cy="149" rx="42" ry="37" fill="url(#glow)"/>
+  <circle cx="110" cy="68" r="33" fill="#3949ab"/>
+  <circle cx="97" cy="65" r="15" fill="#fff"/>
+  <circle cx="123" cy="65" r="15" fill="#fff"/>
+  <circle cx="97" cy="66" r="7" fill="#1d2a66"/>
+  <circle cx="123" cy="66" r="7" fill="#1d2a66"/>
+  <circle cx="97" cy="66" r="2.5" fill="#fff"/>
+  <circle cx="123" cy="66" r="2.5" fill="#fff"/>
+  <path d="M94 84c7 9 25 9 32 0" fill="none" stroke="#1d2a66" stroke-linecap="round" stroke-width="4"/>
+  <circle cx="97" cy="65" r="18" fill="none" stroke="#f5f7ff" stroke-width="4"/>
+  <circle cx="123" cy="65" r="18" fill="none" stroke="#f5f7ff" stroke-width="4"/>
+  <line x1="115" y1="65" x2="105" y2="65" stroke="#f5f7ff" stroke-width="4"/>
+  <path d="M96 40c-8-16-19-19-27-17" fill="none" stroke="#3949ab" stroke-linecap="round" stroke-width="4"/>
+  <path d="M124 40c8-16 19-19 27-17" fill="none" stroke="#3949ab" stroke-linecap="round" stroke-width="4"/>
+  <circle cx="68" cy="23" r="5" fill="#fb8c00"/>
+  <circle cx="152" cy="23" r="5" fill="#fb8c00"/>
+  <path d="M72 104c-13 10-18 23-19 33" fill="none" stroke="#3949ab" stroke-linecap="round" stroke-width="8"/>
+  <path d="M145 106c16 4 26 0 33-14" fill="none" stroke="#3949ab" stroke-linecap="round" stroke-width="8"/>
+  <path d="M92 103c-9 16-11 31-10 44" fill="none" stroke="#3949ab" stroke-linecap="round" stroke-width="8"/>
+  <path d="M128 101c9 16 11 31 10 44" fill="none" stroke="#3949ab" stroke-linecap="round" stroke-width="8"/>
+  <path d="M82 92c17 10 41 10 58 0" fill="none" stroke="#fb8c00" stroke-width="8"/>
+  <circle cx="94" cy="92" r="3.5" fill="#eef2ff"/>
+  <circle cx="110" cy="92" r="3.5" fill="#eef2ff"/>
+  <circle cx="126" cy="92" r="3.5" fill="#eef2ff"/>
+  <path d="M136 114l20 6-8 26-22-7z" fill="#5c6bc0" stroke="#1d2a66" stroke-width="3"/>
+  <circle cx="147" cy="129" r="5" fill="#fb8c00"/>
+  <path d="M174 90c-4-6-8-2-8 3v8c0 3 3 6 7 6 3 0 6-2 7-5l2-7c1-3-3-6-6-5l-2 0z" fill="#3949ab"/>
+</svg>

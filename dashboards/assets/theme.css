@@ -1,0 +1,108 @@
+/* Shared chrome for all three LRS dashboards. Light theme only — see lrsdash/theme.py. */
+
+:root {
+  --surface: #fcfcfb;
+  --page: #f9f9f7;
+  --ink: #0b0b0b;
+  --ink-secondary: #52514e;
+  --ink-muted: #898781;
+  --gridline: #e1e0d9;
+  --baseline: #c3c2b7;
+  --border: rgba(11, 11, 11, 0.10);
+  --good: #0ca30c;
+  --warning: #fab219;
+  --serious: #ec835a;
+  --critical: #d03b3b;
+  --font: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--font);
+}
+
+.lrs-shell { display: flex; flex-direction: column; min-height: 100vh; }
+
+/* --- Header: breadcrumb + filters (spec §9.1) --- */
+.lrs-header {
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 12px;
+  padding: 14px 24px; background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 10;
+}
+.lrs-breadcrumb { font-size: 15px; font-weight: 600; color: var(--ink); }
+.lrs-filters { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.lrs-filters .Select, .lrs-filters .dash-dropdown { min-width: 180px; }
+
+/* --- Left rail + main canvas --- */
+.lrs-body { display: flex; flex: 1; }
+.lrs-rail {
+  width: 220px; flex-shrink: 0; background: var(--surface);
+  border-right: 1px solid var(--border); padding: 16px 0;
+}
+.lrs-main { flex: 1; padding: 20px 24px; min-width: 0; }
+
+/* Tabs used as the left-rail report menu (dcc.Tabs, vertical) */
+.lrs-rail .tab {
+  padding: 10px 20px !important; border: none !important;
+  color: var(--ink-secondary) !important; font-size: 13px !important;
+  background: transparent !important;
+}
+.lrs-rail .tab--selected {
+  color: var(--ink) !important; font-weight: 600 !important;
+  background: var(--page) !important;
+  box-shadow: inset 3px 0 0 #2a78d6;
+}
+
+/* --- KPI tiles --- */
+.lrs-kpi-row { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
+.lrs-kpi-tile {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+  padding: 14px 18px; min-width: 160px; flex: 1;
+}
+.lrs-kpi-label {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em;
+  color: var(--ink-muted); margin-bottom: 6px;
+}
+.lrs-kpi-value { font-size: 28px; font-weight: 600; color: var(--ink); line-height: 1.1; }
+.lrs-kpi-delta { font-size: 13px; font-weight: 600; }
+
+/* --- Cards (one figure/table each) --- */
+.lrs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 16px; }
+.lrs-grid.full { grid-template-columns: 1fr; }
+.lrs-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+  padding: 16px 18px; min-width: 0;
+}
+.lrs-card-head { margin-bottom: 8px; }
+.lrs-card-title { font-size: 14px; font-weight: 600; color: var(--ink); }
+.lrs-card-subtitle { font-size: 12px; color: var(--ink-muted); margin-top: 2px; }
+.lrs-evidence-note { font-size: 11px; color: var(--ink-muted); margin-top: 8px; font-style: italic; }
+
+/* --- Footer --- */
+.lrs-footer {
+  display: flex; gap: 20px; flex-wrap: wrap;
+  padding: 10px 24px; background: var(--surface);
+  border-top: 1px solid var(--border);
+  font-size: 12px; color: var(--ink-muted);
+}
+
+/* --- Alert / status chips --- */
+.lrs-chip { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 600; }
+.lrs-chip.critical { background: rgba(208,59,59,0.12); color: var(--critical); }
+.lrs-chip.serious  { background: rgba(236,131,90,0.15); color: #a8481f; }
+.lrs-chip.warning  { background: rgba(250,178,25,0.20); color: #8a5d00; }
+.lrs-chip.good     { background: rgba(12,163,12,0.12); color: var(--good); }
+
+.lrs-banner {
+  margin: 16px 24px; padding: 12px 16px; border-radius: 8px;
+  background: rgba(208,59,59,0.08); border: 1px solid rgba(208,59,59,0.25);
+  color: #8a1f1e; font-size: 13px;
+}
+
+.lrs-empty { color: var(--ink-muted); font-size: 13px; padding: 24px; text-align: center; }

@@ -180,6 +180,48 @@ The test for any fragment scheme is the same: **would an edit that does not chan
 *is* change its IRI?** If yes, the scheme is wrong, because `student_page_rollup` and
 `student_concept_rollup` both key on `object_id` and will split or merge silently.
 
+### The ordinal rule only holds when the order is stable  **[RESOLVED 2026-07-16]**
+
+> **`#q{N}` requires a STABLE presentation order. When a quiz randomizes its question order, the
+> ordinal is not an identity and MUST NOT be used — name the question by what it asks about,
+> using the named-sub-activity rule above.**
+
+```
+…/sims/animal-cell/#q-nucleus          ✔ randomized order — named
+…/chapters/01-what-is-an-ibook-lrs/quiz/#q1   ✔ fixed order — ordinal
+```
+
+**This was found by building `sims/animal-cell`, and it is a real defect in the rule as first
+written, not a local preference.** That sim's quiz does:
+
+```js
+initQuiz() { this.quizQueue = [...this.data.callouts].sort(() => Math.random() - 0.5); }
+```
+
+The order is reshuffled **on every load**. So `#q1` is "identify the nucleus" for one student and
+"identify the cytoplasm" for the next. `mv_student_question_rollup` is
+`GROUP BY (district_id, student_key, object_id)`, so answers about six different structures would
+merge into six rows keyed by position — each one an average across whichever questions happened to
+land in that slot. **That is worse than collecting nothing, because it looks like data.**
+
+This is **§2's own test failing**: "would an edit that does not change what the thing *is* change its
+IRI?" Here not even an edit is required — *a page reload* does it. So the ordinal was never this
+question's stable identity; what it asks about is. That is exactly the named-sub-activity rule above,
+and this is therefore **still one rule, not a third one**: the fragment always names the
+sub-activity by its most stable local identifier. For a fixed-order quiz that is the number the
+student sees. For a shuffled one it cannot be.
+
+**Why `#q-{name}` and not bare `#{name}`.** The `q-` prefix keeps questions visibly in the `#q…`
+family, and — load-bearing — it keeps a question's IRI **distinct from the hotspot of the same name**
+on the same page. `animal-cell` emits both `#nucleus` (a Control the student inspected) and
+`#q-nucleus` (a Question they answered). Those are different activities that share a pixel; see §5's
+new "one object, one type" note.
+
+**How to tell which you have:** if you can reword a question without it becoming a different
+question, its identity is positional → ordinal. If you can *reorder* it without it becoming a
+different question, its identity is its subject → name. A shuffled quiz answers yes to the second,
+so it must be named.
+
 ---
 
 ## 3. Verbs  **[RESOLVED]**
@@ -270,6 +312,41 @@ therefore excluded from the page rollup by type, and land in the concept rollup 
 their evidence belongs.
 
 `object_type` is a `LowCardinality(String)`, not an `ENUM`, so adding `Control` needed no migration.
+
+### One object, one type — the mode does not change it  **[RESOLVED 2026-07-16]**
+
+> **`object_type` is a property of the OBJECT, never of the UI mode the student was in.** An artifact
+> with two modes emits two *objects*, not one object with two types.
+
+`TODO.md` raised this as an open contract question against the interactive-poster shape: *does a
+hotspot's `object_type` depend on the mode it is clicked in?* `sims/animal-cell` is that artifact —
+it has an explore mode and a quiz mode over the same six hotspots — and the answer is **no**.
+
+| Mode | The student's act | `object.id` | Type |
+|---|---|---|---|
+| explore | inspect the nucleus | `…/sims/animal-cell/#nucleus` | `Control` |
+| quiz | answer "where is the nucleus?" | `…/sims/animal-cell/#q-nucleus` | `Question` |
+
+**Why not one IRI with a mode-dependent type.** It is the same defect §1 rejects for `main.html`,
+arriving from the opposite direction. §1 forbids *one activity with two identities*; this would
+create *two activities with one identity*. Every reader of a statement would have to know the
+emitter's UI state before they could interpret its IRI, and `mv_student_question_rollup` — which
+filters `object_type = 'Question'` and groups by `object_id` — would key a question row on an IRI
+that also denotes a hotspot. The type filter happens to keep the two apart in *today's* views, which
+is precisely what makes it dangerous: it is correct by accident of the current DDL, not by
+construction, and the first view that groups by `object_id` without a type filter merges them.
+
+**Inspecting a thing and being asked to find it are different activities.** They are related, and
+they *should* re-converge — but at the **concept**, which is where relatedness belongs.
+`mv_student_concept_rollup` applies no type filter, so `#nucleus` and `#q-nucleus` both carry
+`concept_id: cell-nucleus` and both land in one `ConceptMastery` vertex. **Splitting the IRI
+therefore costs nothing and buys type sanity**: the explore statements contribute
+`statements_compressed` at `attempts = 0`, the quiz statements contribute real `attempts`/`successes`,
+and the rollup adds them up correctly without either pretending to be the other.
+
+The general rule: **if two acts would need different `result` fields to be honest, they are different
+objects.** An inspection has no `success` to report; an answer must have one (§3). That difference is
+the tell.
 
 ### The MicroSim rollup gap — closed
 
@@ -477,12 +554,33 @@ Everything the DDL reads, and where it comes from. If a row here is wrong, a rol
    `answered`. Neither new path has a tier asserting it.
 5. **Multi-concept statements are not expressible** (§6). `concept_id` is one string. If a page covers
    three concepts, v1 cannot say so.
-6. **Repeat attempts are not modelled.** `quiz-xapi.js` emits at most one `answered` per question per
-   page load, and never for an answer chosen after the explanation was revealed. That is the right
-   *default* — a peeked answer is not evidence of knowledge, and emitting `success: true` for one would
-   teach BKT exactly the false mastery it exists to detect. But BKT's value comes from a *sequence* of
-   attempts, and nothing currently produces one. Retry-after-failure needs a decision before F-7 can be
-   demonstrated on real data.
+6. **Repeat attempts — a producer now exists; the *policy* is still open.** `quiz-xapi.js` emits at
+   most one `answered` per question per page load, and never for an answer chosen after the
+   explanation was revealed. That is the right *default* for a reveal-the-answer quiz — a peeked
+   answer is not evidence of knowledge.
+
+   **What changed 2026-07-16:** `sims/animal-cell`'s quiz mode **does** produce a sequence, and it is
+   the first thing in the repo that does. It never reveals the answer, and `handleAnswer()` locks only
+   on a *correct* click, so a wrong click leaves the question live and the student retries. Verified
+   in-browser: three clicks at one question emitted three `answered` statements against the single IRI
+   `…/#q-mitochondria` with `success: false, false, true` — which
+   `mv_student_question_rollup` aggregates to `attempts = 3, successes = 1`.
+
+   **Emitting the failures is the honest choice, not the noisy one.** With six hotspots a student can
+   brute-force: click every marker and the last is necessarily right. Emitting only the success would
+   render that student identical to one who knew it instantly (`attempts = 1, successes = 1`) — the
+   rollup would report mastery the interaction plainly disproves. The full sequence yields
+   `attempts = 6, successes = 1`, which is what BKT's guess parameter exists to read. **For a
+   click-to-identify quiz the sequence is not noise around the signal; it *is* the signal.**
+
+   Note this is consistent with the peek rule rather than an exception to it: both follow from *do not
+   report success the interaction does not support.*
+
+   **Still open:** whether a *reveal-style* quiz should offer retry at all (that is the UX decision
+   the original item named), and whether BKT should treat within-question retries as one opportunity
+   or several. A guess-then-correct sequence is not the same evidence as two attempts a week apart,
+   and `mv_student_concept_rollup` currently cannot tell them apart — it counts both as `attempts`.
+   That distinction needs deciding before F-7 is read as a mastery number.
 7. **Every emitter hardcodes `demo-student`.** One actor means the §8 pseudonymization boundary has
    never been exercised by a producer. That is `loadgen`'s job, not a sim's.
 8. **The same activity in two textbooks is indistinguishable in every rollup.** `object.id` is the
@@ -502,6 +600,32 @@ Everything the DDL reads, and where it comes from. If a row here is wrong, a rol
    excluding `Control`, and `mv_student_concept_rollup` ignores duration entirely. So "which step did
    the student labour over?" lives only in `lrs.statements`. Deliberate for now — the log is the
    system of record, so a rollup can be added later without re-collecting anything.
+
+10. **Every emitter still renders; none POSTs, and the shape has never been validated by a
+    consumer.** `docs/js/lrs-xapi.js` now enforces the rules this document states — it rejects
+    non-v1 verbs and types outright, and warns on a `main.html` IRI, a fragment-qualified
+    `MicroSim`/`Page`, an `answered` with no `success`, and a local origin. That is a real
+    improvement over five hand-written copies, but **it is the producer marking its own homework**.
+    Until the gateway exists, "conforms to the contract" means "conforms to one JS file's reading of
+    it."
+
+**Closed 2026-07-16:**
+
+- ~~**Does a hotspot's `object_type` depend on the mode it is clicked in?**~~ **Resolved: no.**
+  `object_type` is a property of the object; two modes emit two objects (`#nucleus` Control,
+  `#q-nucleus` Question) which re-converge at the concept rollup. See §5's "one object, one type".
+  Settled against a real artifact — `sims/animal-cell` — as `TODO.md` insisted it should be.
+- ~~**§2's ordinal rule is universal.**~~ **Amended: it requires a stable presentation order.**
+  `sims/animal-cell` shuffles its quiz on every load, so `#q{N}` would have merged six different
+  questions into six position-keyed rows. Named fragments (`#q-nucleus`) apply. See §2.
+- ~~**Five emitters, five implementations of the contract.**~~ **Extracted** to
+  `docs/js/lrs-xapi.js`; `animal-cell` is the first consumer. The derive-vs-hardcode split is
+  resolved in favour of **derive**, which required a rule the previous derive-based copy did not
+  have: strip the `main.html`/`index.html` payload filename, not just the site base path. Verified
+  in-browser — from a localhost iframe at `/learning-record-store/sims/animal-cell/main.html` the
+  module derives `https://dmccreary.github.io/learning-record-store/sims/animal-cell/`. §1 is now
+  satisfied **by construction** rather than by luck. The four older emitters have **not** been
+  migrated yet.
 
 **Closed 2026-07-16:**
 

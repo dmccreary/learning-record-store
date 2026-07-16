@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scientific Method - Interactive Workflow Diagram</title>
+    <!-- An iframe payload does not inherit the site's stylesheets, so the xAPI panel's
+         styling is linked directly. Loaded BEFORE style.css so this sim's local
+         placement override (flex: 1 0 100%) wins at equal specificity. -->
+    <link rel="stylesheet" href="../../css/lrs-xapi.css">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 </head>

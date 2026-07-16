@@ -6,6 +6,9 @@
   <title>Animal Cell — Interactive Diagram</title>
   <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
   <link rel="stylesheet" href="../shared-libs/style.css">
+  <!-- An iframe payload does not inherit the site's stylesheets, so the xAPI panel's
+       styling has to be linked directly. Same file mkdocs.yml loads for site pages. -->
+  <link rel="stylesheet" href="../../css/lrs-xapi.css">
 </head>
 <body>
 
@@ -52,5 +55,10 @@
 </div>
 
 <script src="../shared-libs/diagram.js"></script>
+<!-- Loads AFTER diagram.js: xapi.js wraps `sim`'s methods, so `sim` must already be
+     bound. Both are classic scripts, so this ordering is synchronous and there is no
+     race with sim.init(), which runs later on DOMContentLoaded. -->
+<script src="../../js/lrs-xapi.js"></script>
+<script src="xapi.js"></script>
 </body>
 </html>
