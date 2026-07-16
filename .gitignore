@@ -4,10 +4,17 @@ __pycache__/
 *$py.class
 *.egg-info/
 .Python
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
 
 # MkDocs
 site/
 .cache/
+
+# Secrets — .env.example says ".env is git-ignored", which was not true
+# until this line existed. Never commit a filled-in .env.
+.env
 
 # Environments
 .venv/

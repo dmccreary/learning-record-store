@@ -1,0 +1,23 @@
+# The build context is the repo root, which is also an MkDocs textbook.
+# None of the prose belongs in the image, and site/ alone is 5.4 MB.
+docs/
+site/
+plugins/
+mkdocs.yml
+*.code-workspace
+
+.git/
+.github/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+
+# Secrets never enter the image — production config comes from the
+# environment, not a file (design §8.13).
+.env
+
+.DS_Store
