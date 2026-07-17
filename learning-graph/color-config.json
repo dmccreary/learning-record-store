@@ -1,0 +1,17 @@
+{
+  "STD": "SteelBlue",
+  "GRAPH": "DarkSlateBlue",
+  "INGST": "DarkGreen",
+  "TECH": "LimeGreen",
+  "ARCH": "Gold",
+  "STORE": "DarkGoldenrod",
+  "DASH": "Teal",
+  "DEPL": "DodgerBlue",
+  "OPS": "Crimson",
+  "INFRA": "DarkRed",
+  "ROLE": "MediumPurple",
+  "ADMIN": "Indigo",
+  "RPT": "DarkOrchid",
+  "EXP": "Orange",
+  "PROD": "SaddleBrown"
+}

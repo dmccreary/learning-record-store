@@ -1,0 +1,150 @@
+/* ============================================
+   Learning Mascot: Rowan the Red Panda
+   Pedagogical agent for Learning Record Stores
+   ============================================ */
+
+:root {
+  --mascot-primary: #006d77;
+  --mascot-secondary: #b45309;
+  --mascot-bg: #edf8f7;
+  --mascot-border: #d97706;
+  --mascot-size: 92px;
+}
+
+.md-typeset .admonition.mascot-welcome,
+.md-typeset .admonition.mascot-thinking,
+.md-typeset .admonition.mascot-tip,
+.md-typeset .admonition.mascot-warning,
+.md-typeset .admonition.mascot-celebration,
+.md-typeset .admonition.mascot-encourage,
+.md-typeset .admonition.mascot-neutral,
+.md-typeset details.mascot-welcome,
+.md-typeset details.mascot-thinking,
+.md-typeset details.mascot-tip,
+.md-typeset details.mascot-warning,
+.md-typeset details.mascot-celebration,
+.md-typeset details.mascot-encourage,
+.md-typeset details.mascot-neutral {
+  font-size: inherit;
+}
+
+.md-typeset .admonition.mascot-welcome,
+.md-typeset details.mascot-welcome {
+  border-color: var(--mascot-primary);
+  background-color: var(--mascot-bg);
+}
+
+.md-typeset .mascot-welcome > .admonition-title,
+.md-typeset .mascot-welcome > summary {
+  background-color: var(--mascot-primary);
+  color: #fff;
+}
+
+.md-typeset .admonition.mascot-thinking,
+.md-typeset details.mascot-thinking {
+  border-color: var(--mascot-secondary);
+  background-color: #fff3e0;
+}
+
+.md-typeset .mascot-thinking > .admonition-title,
+.md-typeset .mascot-thinking > summary {
+  background-color: var(--mascot-secondary);
+  color: #fff;
+}
+
+.md-typeset .admonition.mascot-tip,
+.md-typeset details.mascot-tip {
+  border-color: #00897b;
+  background-color: #e0f2f1;
+}
+
+.md-typeset .mascot-tip > .admonition-title,
+.md-typeset .mascot-tip > summary {
+  background-color: #00897b;
+  color: #fff;
+}
+
+.md-typeset .admonition.mascot-warning,
+.md-typeset details.mascot-warning {
+  border-color: #c62828;
+  background-color: #ffebee;
+}
+
+.md-typeset .mascot-warning > .admonition-title,
+.md-typeset .mascot-warning > summary {
+  background-color: #c62828;
+  color: #fff;
+}
+
+.md-typeset .admonition.mascot-celebration,
+.md-typeset details.mascot-celebration {
+  border-color: #4a148c;
+  background-color: #311b4f;
+  color: #f3e5f5;
+}
+
+.md-typeset .mascot-celebration > .admonition-title,
+.md-typeset .mascot-celebration > summary {
+  background-color: #4a148c;
+  color: #fff;
+}
+
+.md-typeset .admonition.mascot-encourage,
+.md-typeset details.mascot-encourage {
+  border-color: #0277bd;
+  background-color: #e1f5fe;
+}
+
+.md-typeset .mascot-encourage > .admonition-title,
+.md-typeset .mascot-encourage > summary {
+  background-color: #0277bd;
+  color: #fff;
+}
+
+.md-typeset .admonition.mascot-neutral,
+.md-typeset details.mascot-neutral {
+  border-color: #546e7a;
+  background-color: #eceff1;
+}
+
+.md-typeset .mascot-neutral > .admonition-title,
+.md-typeset .mascot-neutral > summary {
+  background-color: #546e7a;
+  color: #fff;
+}
+
+.md-typeset [class*="mascot-"] > .admonition-title,
+.md-typeset [class*="mascot-"] > summary {
+  text-align: left;
+  padding-left: 0.8rem;
+}
+
+.md-typeset [class*="mascot-"] > .admonition-title::before,
+.md-typeset [class*="mascot-"] > summary::before {
+  display: none;
+}
+
+.mascot-admonition-img {
+  float: left;
+  width: var(--mascot-size);
+  height: var(--mascot-size);
+  margin: 0 0.6rem 0.2rem 0;
+  object-fit: contain;
+  pointer-events: none;
+  border-radius: 12px;
+  filter: drop-shadow(0 3px 6px rgba(65, 38, 20, 0.22));
+}
+
+.md-typeset [class*="mascot-"]::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+@media (max-width: 720px) {
+  .mascot-admonition-img {
+    float: none;
+    display: block;
+    margin: 0 auto 0.8rem;
+  }
+}

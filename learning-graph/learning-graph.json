@@ -1,0 +1,6502 @@
+{
+  "metadata": {
+    "title": "Learning Record Store: IEEE Standards, Architecture, and Practice",
+    "description": "A three-part intelligent textbook: why every intelligent educational system needs a Learning Record Store (IEEE 9274/xAPI standards, IEEE LTSC, I2IDL, TLA), this project's own graph-database-backed LRS architecture and design, and how a district administrator, a teacher, and a textbook author each use it day-to-day.",
+    "creator": "Dan McCreary",
+    "date": "2026-07-17",
+    "version": "1.0",
+    "format": "Learning Graph JSON v1.0",
+    "schema": "https://raw.githubusercontent.com/dmccreary/learning-graphs/refs/heads/main/src/schema/learning-graph-schema.json",
+    "license": "CC BY-NC-SA 4.0 DEED"
+  },
+  "groups": {
+    "STD": {
+      "classifierName": "Standards & Governance",
+      "color": "SteelBlue",
+      "font": {
+        "color": "white"
+      }
+    },
+    "GRAPH": {
+      "classifierName": "Graph Data Model",
+      "color": "DarkSlateBlue",
+      "font": {
+        "color": "white"
+      }
+    },
+    "INGST": {
+      "classifierName": "Ingestion & Compression Pipeline",
+      "color": "DarkGreen",
+      "font": {
+        "color": "white"
+      }
+    },
+    "TECH": {
+      "classifierName": "Technology Stack",
+      "color": "LimeGreen",
+      "font": {
+        "color": "black"
+      }
+    },
+    "ARCH": {
+      "classifierName": "Architecture & Capacity Model",
+      "color": "Gold",
+      "font": {
+        "color": "black"
+      }
+    },
+    "STORE": {
+      "classifierName": "Storage Engineering",
+      "color": "DarkGoldenrod",
+      "font": {
+        "color": "white"
+      }
+    },
+    "DASH": {
+      "classifierName": "Privacy & Dashboard Mechanics",
+      "color": "Teal",
+      "font": {
+        "color": "white"
+      }
+    },
+    "DEPL": {
+      "classifierName": "Deployment & DevOps",
+      "color": "DodgerBlue",
+      "font": {
+        "color": "white"
+      }
+    },
+    "OPS": {
+      "classifierName": "Operations, Testing & Roadmap",
+      "color": "Crimson",
+      "font": {
+        "color": "white"
+      }
+    },
+    "INFRA": {
+      "classifierName": "Infrastructure & Cost",
+      "color": "DarkRed",
+      "font": {
+        "color": "white"
+      }
+    },
+    "ROLE": {
+      "classifierName": "Personas & Roles",
+      "color": "MediumPurple",
+      "font": {
+        "color": "white"
+      }
+    },
+    "ADMIN": {
+      "classifierName": "Admin UIs & Compliance",
+      "color": "Indigo",
+      "font": {
+        "color": "white"
+      }
+    },
+    "RPT": {
+      "classifierName": "Reports & Analytics Catalog",
+      "color": "DarkOrchid",
+      "font": {
+        "color": "white"
+      }
+    },
+    "EXP": {
+      "classifierName": "Experimentation Subsystem",
+      "color": "Orange",
+      "font": {
+        "color": "black"
+      }
+    },
+    "PROD": {
+      "classifierName": "Producer Contract & Cross-Persona",
+      "color": "SaddleBrown",
+      "font": {
+        "color": "white"
+      }
+    }
+  },
+  "nodes": [
+    {
+      "id": 1,
+      "label": "Learning Management System",
+      "group": "STD",
+      "shape": "box"
+    },
+    {
+      "id": 2,
+      "label": "SCORM",
+      "group": "STD"
+    },
+    {
+      "id": 3,
+      "label": "AICC",
+      "group": "STD"
+    },
+    {
+      "id": 4,
+      "label": "Content Packaging",
+      "group": "STD"
+    },
+    {
+      "id": 5,
+      "label": "Sharable Content Object",
+      "group": "STD"
+    },
+    {
+      "id": 6,
+      "label": "Experience API",
+      "group": "STD"
+    },
+    {
+      "id": 7,
+      "label": "Learning Record Store",
+      "group": "STD"
+    },
+    {
+      "id": 8,
+      "label": "Learning Record Provider",
+      "group": "STD"
+    },
+    {
+      "id": 9,
+      "label": "Actor",
+      "group": "STD"
+    },
+    {
+      "id": 10,
+      "label": "Verb",
+      "group": "STD"
+    },
+    {
+      "id": 11,
+      "label": "Object Activity",
+      "group": "STD"
+    },
+    {
+      "id": 12,
+      "label": "Activity Type",
+      "group": "STD"
+    },
+    {
+      "id": 13,
+      "label": "Result",
+      "group": "STD"
+    },
+    {
+      "id": 14,
+      "label": "Context",
+      "group": "STD"
+    },
+    {
+      "id": 15,
+      "label": "Statement",
+      "group": "STD"
+    },
+    {
+      "id": 16,
+      "label": "Sub-Statement",
+      "group": "STD"
+    },
+    {
+      "id": 17,
+      "label": "Attachment",
+      "group": "STD"
+    },
+    {
+      "id": 18,
+      "label": "Extensions",
+      "group": "STD"
+    },
+    {
+      "id": 19,
+      "label": "Statement Immutability",
+      "group": "STD"
+    },
+    {
+      "id": 20,
+      "label": "Voided Statement",
+      "group": "STD"
+    },
+    {
+      "id": 21,
+      "label": "Registration",
+      "group": "STD"
+    },
+    {
+      "id": 22,
+      "label": "Actor Account",
+      "group": "STD"
+    },
+    {
+      "id": 23,
+      "label": "Inverse Functional Identifier",
+      "group": "STD"
+    },
+    {
+      "id": 24,
+      "label": "Statement ID",
+      "group": "STD"
+    },
+    {
+      "id": 25,
+      "label": "RESTful API",
+      "group": "STD",
+      "shape": "box"
+    },
+    {
+      "id": 26,
+      "label": "HTTP Verb",
+      "group": "STD"
+    },
+    {
+      "id": 27,
+      "label": "xAPI Endpoint",
+      "group": "STD"
+    },
+    {
+      "id": 28,
+      "label": "Statement Query Parameter",
+      "group": "STD"
+    },
+    {
+      "id": 29,
+      "label": "OAuth Authentication",
+      "group": "STD"
+    },
+    {
+      "id": 30,
+      "label": "Basic Authentication",
+      "group": "STD"
+    },
+    {
+      "id": 31,
+      "label": "IEEE LTSC",
+      "group": "STD"
+    },
+    {
+      "id": 32,
+      "label": "IEEE 9274.1.1-2023",
+      "group": "STD"
+    },
+    {
+      "id": 33,
+      "label": "IEEE 9274.2.1",
+      "group": "STD"
+    },
+    {
+      "id": 34,
+      "label": "xAPI Profile Standard",
+      "group": "STD"
+    },
+    {
+      "id": 35,
+      "label": "JSON-LD",
+      "group": "STD"
+    },
+    {
+      "id": 36,
+      "label": "Application Profile",
+      "group": "STD"
+    },
+    {
+      "id": 37,
+      "label": "Determining Property",
+      "group": "STD"
+    },
+    {
+      "id": 38,
+      "label": "cmi5",
+      "group": "STD"
+    },
+    {
+      "id": 39,
+      "label": "cmi5 Assignable Unit",
+      "group": "STD"
+    },
+    {
+      "id": 40,
+      "label": "cmi5 Launch Method",
+      "group": "STD"
+    },
+    {
+      "id": 41,
+      "label": "Total Learning Architecture",
+      "group": "STD"
+    },
+    {
+      "id": 42,
+      "label": "ADL Initiative",
+      "group": "STD"
+    },
+    {
+      "id": 43,
+      "label": "I2IDL",
+      "group": "STD"
+    },
+    {
+      "id": 44,
+      "label": "xAPI Conformance Suite",
+      "group": "STD"
+    },
+    {
+      "id": 45,
+      "label": "xAPI Profile Server",
+      "group": "STD"
+    },
+    {
+      "id": 46,
+      "label": "TLA Reference Implementation",
+      "group": "STD"
+    },
+    {
+      "id": 47,
+      "label": "Standards Governance",
+      "group": "STD"
+    },
+    {
+      "id": 48,
+      "label": "Stewardship Transition",
+      "group": "STD"
+    },
+    {
+      "id": 49,
+      "label": "Open Source Infrastructure",
+      "group": "STD"
+    },
+    {
+      "id": 50,
+      "label": "1EdTech Consortium",
+      "group": "STD"
+    },
+    {
+      "id": 51,
+      "label": "Caliper Analytics",
+      "group": "STD"
+    },
+    {
+      "id": 52,
+      "label": "Learning Object Metadata",
+      "group": "STD"
+    },
+    {
+      "id": 53,
+      "label": "Competency Framework",
+      "group": "STD"
+    },
+    {
+      "id": 54,
+      "label": "Learning Ecosystem",
+      "group": "STD"
+    },
+    {
+      "id": 55,
+      "label": "Data Verifiability",
+      "group": "STD"
+    },
+    {
+      "id": 56,
+      "label": "Data Transparency",
+      "group": "STD"
+    },
+    {
+      "id": 57,
+      "label": "Learner Data Portability",
+      "group": "STD"
+    },
+    {
+      "id": 58,
+      "label": "Vendor Interoperability",
+      "group": "STD"
+    },
+    {
+      "id": 59,
+      "label": "Statement Timestamp",
+      "group": "STD"
+    },
+    {
+      "id": 60,
+      "label": "Activity Definition",
+      "group": "STD"
+    },
+    {
+      "id": 61,
+      "label": "System Context Diagram",
+      "group": "GRAPH"
+    },
+    {
+      "id": 62,
+      "label": "Ingestion Plane",
+      "group": "GRAPH"
+    },
+    {
+      "id": 63,
+      "label": "Processing Plane",
+      "group": "GRAPH"
+    },
+    {
+      "id": 64,
+      "label": "Storage Plane",
+      "group": "GRAPH"
+    },
+    {
+      "id": 65,
+      "label": "Analytics Plane",
+      "group": "GRAPH"
+    },
+    {
+      "id": 66,
+      "label": "Presentation Plane",
+      "group": "GRAPH"
+    },
+    {
+      "id": 67,
+      "label": "Ingestion Gateway",
+      "group": "GRAPH"
+    },
+    {
+      "id": 68,
+      "label": "Durable Event Queue",
+      "group": "GRAPH"
+    },
+    {
+      "id": 69,
+      "label": "Event Store",
+      "group": "GRAPH"
+    },
+    {
+      "id": 70,
+      "label": "Stream Processor",
+      "group": "GRAPH"
+    },
+    {
+      "id": 71,
+      "label": "Analytics API",
+      "group": "GRAPH"
+    },
+    {
+      "id": 72,
+      "label": "Admin API",
+      "group": "GRAPH"
+    },
+    {
+      "id": 73,
+      "label": "Experiment API",
+      "group": "GRAPH"
+    },
+    {
+      "id": 74,
+      "label": "Roster API",
+      "group": "GRAPH"
+    },
+    {
+      "id": 75,
+      "label": "Export API",
+      "group": "GRAPH"
+    },
+    {
+      "id": 76,
+      "label": "Tenant",
+      "group": "GRAPH"
+    },
+    {
+      "id": 77,
+      "label": "District",
+      "group": "GRAPH"
+    },
+    {
+      "id": 78,
+      "label": "School",
+      "group": "GRAPH"
+    },
+    {
+      "id": 79,
+      "label": "Course",
+      "group": "GRAPH"
+    },
+    {
+      "id": 80,
+      "label": "Section",
+      "group": "GRAPH"
+    },
+    {
+      "id": 81,
+      "label": "Enrollment",
+      "group": "GRAPH"
+    },
+    {
+      "id": 82,
+      "label": "Tenancy Hierarchy",
+      "group": "GRAPH"
+    },
+    {
+      "id": 83,
+      "label": "Hard Isolation",
+      "group": "GRAPH"
+    },
+    {
+      "id": 84,
+      "label": "Soft Isolation",
+      "group": "GRAPH"
+    },
+    {
+      "id": 85,
+      "label": "OneRoster",
+      "group": "GRAPH"
+    },
+    {
+      "id": 86,
+      "label": "Student Information System",
+      "group": "GRAPH"
+    },
+    {
+      "id": 87,
+      "label": "Student",
+      "group": "GRAPH"
+    },
+    {
+      "id": 88,
+      "label": "Pseudonymous Account",
+      "group": "GRAPH"
+    },
+    {
+      "id": 89,
+      "label": "Student Key",
+      "group": "GRAPH"
+    },
+    {
+      "id": 90,
+      "label": "PII Vault",
+      "group": "GRAPH"
+    },
+    {
+      "id": 91,
+      "label": "Labeled Property Graph",
+      "group": "GRAPH"
+    },
+    {
+      "id": 92,
+      "label": "Node Label",
+      "group": "GRAPH"
+    },
+    {
+      "id": 93,
+      "label": "Relationship Type",
+      "group": "GRAPH"
+    },
+    {
+      "id": 94,
+      "label": "Textbook",
+      "group": "GRAPH"
+    },
+    {
+      "id": 95,
+      "label": "Textbook Version",
+      "group": "GRAPH"
+    },
+    {
+      "id": 96,
+      "label": "Chapter",
+      "group": "GRAPH"
+    },
+    {
+      "id": 97,
+      "label": "Page",
+      "group": "GRAPH"
+    },
+    {
+      "id": 98,
+      "label": "MicroSim",
+      "group": "GRAPH"
+    },
+    {
+      "id": 99,
+      "label": "MicroSim Version",
+      "group": "GRAPH"
+    },
+    {
+      "id": 100,
+      "label": "Quiz",
+      "group": "GRAPH"
+    },
+    {
+      "id": 101,
+      "label": "Question",
+      "group": "GRAPH"
+    },
+    {
+      "id": 102,
+      "label": "Concept",
+      "group": "GRAPH"
+    },
+    {
+      "id": 103,
+      "label": "Learning Graph DAG",
+      "group": "GRAPH"
+    },
+    {
+      "id": 104,
+      "label": "Depends On Relationship",
+      "group": "GRAPH"
+    },
+    {
+      "id": 105,
+      "label": "Covers Relationship",
+      "group": "GRAPH"
+    },
+    {
+      "id": 106,
+      "label": "Has Mastery Relationship",
+      "group": "GRAPH"
+    },
+    {
+      "id": 107,
+      "label": "Of Concept Relationship",
+      "group": "GRAPH"
+    },
+    {
+      "id": 108,
+      "label": "Touched Relationship",
+      "group": "GRAPH"
+    },
+    {
+      "id": 109,
+      "label": "Verb Controlled Vocabulary",
+      "group": "GRAPH"
+    },
+    {
+      "id": 110,
+      "label": "Experiment Node",
+      "group": "GRAPH"
+    },
+    {
+      "id": 111,
+      "label": "Variant Node",
+      "group": "GRAPH"
+    },
+    {
+      "id": 112,
+      "label": "Summary Vertex",
+      "group": "GRAPH"
+    },
+    {
+      "id": 113,
+      "label": "Analytical Grain",
+      "group": "GRAPH"
+    },
+    {
+      "id": 114,
+      "label": "Concept Mastery Vertex",
+      "group": "GRAPH"
+    },
+    {
+      "id": 115,
+      "label": "Page Engagement Vertex",
+      "group": "GRAPH"
+    },
+    {
+      "id": 116,
+      "label": "MicroSim Engagement Vertex",
+      "group": "GRAPH"
+    },
+    {
+      "id": 117,
+      "label": "Question Response Vertex",
+      "group": "GRAPH"
+    },
+    {
+      "id": 118,
+      "label": "Learning Session Vertex",
+      "group": "GRAPH"
+    },
+    {
+      "id": 119,
+      "label": "Section Rollup Vertex",
+      "group": "GRAPH"
+    },
+    {
+      "id": 120,
+      "label": "Statements Compressed",
+      "group": "GRAPH"
+    },
+    {
+      "id": 121,
+      "label": "xAPI Statement Resource",
+      "group": "INGST"
+    },
+    {
+      "id": 122,
+      "label": "Structural Validation",
+      "group": "INGST"
+    },
+    {
+      "id": 123,
+      "label": "Semantic Validation",
+      "group": "INGST"
+    },
+    {
+      "id": 124,
+      "label": "Schema On Read",
+      "group": "INGST"
+    },
+    {
+      "id": 125,
+      "label": "Non-Blocking Ingestion",
+      "group": "INGST"
+    },
+    {
+      "id": 126,
+      "label": "Accept-First Ingestion",
+      "group": "INGST"
+    },
+    {
+      "id": 127,
+      "label": "Provisional Node",
+      "group": "INGST"
+    },
+    {
+      "id": 128,
+      "label": "Reconciliation Worker",
+      "group": "INGST"
+    },
+    {
+      "id": 129,
+      "label": "Idempotent Delivery",
+      "group": "INGST"
+    },
+    {
+      "id": 130,
+      "label": "At-Least-Once Delivery",
+      "group": "INGST"
+    },
+    {
+      "id": 131,
+      "label": "Backpressure",
+      "group": "INGST"
+    },
+    {
+      "id": 132,
+      "label": "Statement Compression Ratio",
+      "group": "INGST"
+    },
+    {
+      "id": 133,
+      "label": "Change-Driven Materialization",
+      "group": "INGST"
+    },
+    {
+      "id": 134,
+      "label": "Absolute Value Write",
+      "group": "INGST"
+    },
+    {
+      "id": 135,
+      "label": "Statement Storage Function",
+      "group": "INGST"
+    },
+    {
+      "id": 136,
+      "label": "Statement Retrieval Function",
+      "group": "INGST"
+    },
+    {
+      "id": 137,
+      "label": "Voiding Function",
+      "group": "INGST"
+    },
+    {
+      "id": 138,
+      "label": "Actor Pseudonymization Function",
+      "group": "INGST"
+    },
+    {
+      "id": 139,
+      "label": "Activity Resolution Function",
+      "group": "INGST"
+    },
+    {
+      "id": 140,
+      "label": "Concept Mapping Function",
+      "group": "INGST"
+    },
+    {
+      "id": 141,
+      "label": "Mastery Computation Function",
+      "group": "INGST"
+    },
+    {
+      "id": 142,
+      "label": "Progress Projection Function",
+      "group": "INGST"
+    },
+    {
+      "id": 143,
+      "label": "Experiment Assignment Function",
+      "group": "INGST"
+    },
+    {
+      "id": 144,
+      "label": "Reconciliation Function",
+      "group": "INGST"
+    },
+    {
+      "id": 145,
+      "label": "Export Function",
+      "group": "INGST"
+    },
+    {
+      "id": 146,
+      "label": "Retention Purge Function",
+      "group": "INGST"
+    },
+    {
+      "id": 147,
+      "label": "FastAPI",
+      "group": "TECH"
+    },
+    {
+      "id": 148,
+      "label": "Uvicorn",
+      "group": "TECH"
+    },
+    {
+      "id": 149,
+      "label": "Redpanda",
+      "group": "TECH"
+    },
+    {
+      "id": 150,
+      "label": "Apache Kafka",
+      "group": "TECH"
+    },
+    {
+      "id": 151,
+      "label": "Confluent-Kafka Library",
+      "group": "TECH"
+    },
+    {
+      "id": 152,
+      "label": "ClickHouse",
+      "group": "TECH"
+    },
+    {
+      "id": 153,
+      "label": "Neo4j 5 Community",
+      "group": "TECH"
+    },
+    {
+      "id": 154,
+      "label": "PostgreSQL 16",
+      "group": "TECH"
+    },
+    {
+      "id": 155,
+      "label": "Redis 7",
+      "group": "TECH"
+    },
+    {
+      "id": 156,
+      "label": "MinIO",
+      "group": "TECH"
+    },
+    {
+      "id": 157,
+      "label": "Amazon S3",
+      "group": "TECH"
+    },
+    {
+      "id": 158,
+      "label": "GraphQL",
+      "group": "TECH"
+    },
+    {
+      "id": 159,
+      "label": "Keycloak",
+      "group": "TECH"
+    },
+    {
+      "id": 160,
+      "label": "OpenTelemetry",
+      "group": "TECH"
+    },
+    {
+      "id": 161,
+      "label": "Jaeger",
+      "group": "TECH"
+    },
+    {
+      "id": 162,
+      "label": "Prometheus",
+      "group": "TECH"
+    },
+    {
+      "id": 163,
+      "label": "Grafana",
+      "group": "TECH"
+    },
+    {
+      "id": 164,
+      "label": "ADR Event Store Decision",
+      "group": "ARCH"
+    },
+    {
+      "id": 165,
+      "label": "ADR Compression Sync Decision",
+      "group": "ARCH"
+    },
+    {
+      "id": 166,
+      "label": "ADR Graph Not Hot Path",
+      "group": "ARCH"
+    },
+    {
+      "id": 167,
+      "label": "ADR Partition Key Decision",
+      "group": "ARCH"
+    },
+    {
+      "id": 168,
+      "label": "ADR One Image Many Roles",
+      "group": "ARCH"
+    },
+    {
+      "id": 169,
+      "label": "ADR BKT Mastery Decision",
+      "group": "ARCH"
+    },
+    {
+      "id": 170,
+      "label": "ADR Python Gateway Decision",
+      "group": "ARCH"
+    },
+    {
+      "id": 171,
+      "label": "Memgraph Alternative",
+      "group": "ARCH"
+    },
+    {
+      "id": 172,
+      "label": "Peak Sustained Ingest",
+      "group": "ARCH"
+    },
+    {
+      "id": 173,
+      "label": "Burst Ingest Rate",
+      "group": "ARCH"
+    },
+    {
+      "id": 174,
+      "label": "Mean Statement Size",
+      "group": "ARCH"
+    },
+    {
+      "id": 175,
+      "label": "Active Ingestion Window",
+      "group": "ARCH"
+    },
+    {
+      "id": 176,
+      "label": "Duty Cycle",
+      "group": "ARCH"
+    },
+    {
+      "id": 177,
+      "label": "Statements Per Day",
+      "group": "ARCH"
+    },
+    {
+      "id": 178,
+      "label": "Kafka Disk Sizing",
+      "group": "ARCH"
+    },
+    {
+      "id": 179,
+      "label": "ClickHouse Disk Sizing",
+      "group": "ARCH"
+    },
+    {
+      "id": 180,
+      "label": "HTTP Request Rate",
+      "group": "ARCH"
+    },
+    {
+      "id": 181,
+      "label": "Graph Write Rate Naive",
+      "group": "ARCH"
+    },
+    {
+      "id": 182,
+      "label": "Neo4j Structural Node Count",
+      "group": "ARCH"
+    },
+    {
+      "id": 183,
+      "label": "Storage Compression Ratio",
+      "group": "ARCH"
+    },
+    {
+      "id": 184,
+      "label": "Write-Rate Compression",
+      "group": "ARCH"
+    },
+    {
+      "id": 185,
+      "label": "Sync Cadence Tradeoff",
+      "group": "ARCH"
+    },
+    {
+      "id": 186,
+      "label": "Distinct Active Grains",
+      "group": "ARCH"
+    },
+    {
+      "id": 187,
+      "label": "Bayesian Knowledge Tracing",
+      "group": "ARCH"
+    },
+    {
+      "id": 188,
+      "label": "Prior Mastery Probability",
+      "group": "ARCH"
+    },
+    {
+      "id": 189,
+      "label": "Slip Parameter",
+      "group": "ARCH"
+    },
+    {
+      "id": 190,
+      "label": "Guess Parameter",
+      "group": "ARCH"
+    },
+    {
+      "id": 191,
+      "label": "Transit Parameter",
+      "group": "ARCH"
+    },
+    {
+      "id": 192,
+      "label": "Evidence Conditioning Step",
+      "group": "ARCH"
+    },
+    {
+      "id": 193,
+      "label": "Learning Transition Step",
+      "group": "ARCH"
+    },
+    {
+      "id": 194,
+      "label": "Soft Correctness Mapping",
+      "group": "ARCH"
+    },
+    {
+      "id": 195,
+      "label": "AuthN Token Cache",
+      "group": "INGST"
+    },
+    {
+      "id": 196,
+      "label": "UUIDv7 Statement ID",
+      "group": "INGST"
+    },
+    {
+      "id": 197,
+      "label": "Kafka Producer Acks All",
+      "group": "INGST"
+    },
+    {
+      "id": 198,
+      "label": "Gateway Backpressure Queue",
+      "group": "INGST"
+    },
+    {
+      "id": 199,
+      "label": "HMAC-SHA256 Pseudonymization",
+      "group": "INGST"
+    },
+    {
+      "id": 200,
+      "label": "Per-District Salt",
+      "group": "INGST"
+    },
+    {
+      "id": 201,
+      "label": "Mutual TLS Salt Fetch",
+      "group": "INGST"
+    },
+    {
+      "id": 202,
+      "label": "Kafka Consumer Batch Window",
+      "group": "INGST"
+    },
+    {
+      "id": 203,
+      "label": "ReplacingMergeTree Dedup",
+      "group": "INGST"
+    },
+    {
+      "id": 204,
+      "label": "BKT Streaming Update",
+      "group": "INGST"
+    },
+    {
+      "id": 205,
+      "label": "Compacted State Checkpoint",
+      "group": "INGST"
+    },
+    {
+      "id": 206,
+      "label": "Late Arrival Detector",
+      "group": "INGST"
+    },
+    {
+      "id": 207,
+      "label": "Targeted Replay Command",
+      "group": "INGST"
+    },
+    {
+      "id": 208,
+      "label": "xxhash64 Bucketing",
+      "group": "INGST"
+    },
+    {
+      "id": 209,
+      "label": "Bucket To Variant Map",
+      "group": "INGST"
+    },
+    {
+      "id": 210,
+      "label": "Ramping Allocation Rule",
+      "group": "INGST"
+    },
+    {
+      "id": 211,
+      "label": "Report ID Endpoint Pattern",
+      "group": "INGST"
+    },
+    {
+      "id": 212,
+      "label": "Analytics Cache Key",
+      "group": "INGST"
+    },
+    {
+      "id": 213,
+      "label": "Data Version Invalidation",
+      "group": "INGST"
+    },
+    {
+      "id": 214,
+      "label": "Privacy Filter Choke Point",
+      "group": "INGST"
+    },
+    {
+      "id": 215,
+      "label": "P95 Latency Budget",
+      "group": "INGST"
+    },
+    {
+      "id": 216,
+      "label": "Dash Background Callback",
+      "group": "INGST"
+    },
+    {
+      "id": 217,
+      "label": "Redis Celery Queue",
+      "group": "INGST"
+    },
+    {
+      "id": 218,
+      "label": "Multi-Page Dash App",
+      "group": "INGST"
+    },
+    {
+      "id": 219,
+      "label": "Filter State Store",
+      "group": "INGST"
+    },
+    {
+      "id": 220,
+      "label": "Raw Statements Topic",
+      "group": "INGST"
+    },
+    {
+      "id": 221,
+      "label": "Bulk Statements Topic",
+      "group": "INGST"
+    },
+    {
+      "id": 222,
+      "label": "Dead Letter Topic",
+      "group": "INGST"
+    },
+    {
+      "id": 223,
+      "label": "Reconcile Task Topic",
+      "group": "INGST"
+    },
+    {
+      "id": 224,
+      "label": "Mastery State Topic",
+      "group": "INGST"
+    },
+    {
+      "id": 225,
+      "label": "Audit Feed Topic",
+      "group": "INGST"
+    },
+    {
+      "id": 226,
+      "label": "Lrs Statements Table",
+      "group": "STORE"
+    },
+    {
+      "id": 227,
+      "label": "Lrs Concept Mastery Table",
+      "group": "STORE"
+    },
+    {
+      "id": 228,
+      "label": "Section Concept Daily MV",
+      "group": "STORE"
+    },
+    {
+      "id": 229,
+      "label": "Student Concept Rollup MV",
+      "group": "STORE"
+    },
+    {
+      "id": 230,
+      "label": "Student Page Rollup MV",
+      "group": "STORE"
+    },
+    {
+      "id": 231,
+      "label": "ReplacingMergeTree Engine",
+      "group": "STORE"
+    },
+    {
+      "id": 232,
+      "label": "AggregatingMergeTree Engine",
+      "group": "STORE"
+    },
+    {
+      "id": 233,
+      "label": "LowCardinality Type",
+      "group": "STORE"
+    },
+    {
+      "id": 234,
+      "label": "ZSTD Compression Codec",
+      "group": "STORE"
+    },
+    {
+      "id": 235,
+      "label": "Partition By Month",
+      "group": "STORE"
+    },
+    {
+      "id": 236,
+      "label": "Grain Uniqueness Constraint",
+      "group": "STORE"
+    },
+    {
+      "id": 237,
+      "label": "Statement Label Prohibition",
+      "group": "STORE"
+    },
+    {
+      "id": 238,
+      "label": "Concept DAG Acyclicity Check",
+      "group": "STORE"
+    },
+    {
+      "id": 239,
+      "label": "Vault-Db Instance",
+      "group": "STORE"
+    },
+    {
+      "id": 240,
+      "label": "Meta-Db Instance",
+      "group": "STORE"
+    },
+    {
+      "id": 241,
+      "label": "Network Credential Boundary",
+      "group": "STORE"
+    },
+    {
+      "id": 242,
+      "label": "Tenant Context Injection",
+      "group": "DASH"
+    },
+    {
+      "id": 243,
+      "label": "Threshold Suppression",
+      "group": "DASH"
+    },
+    {
+      "id": 244,
+      "label": "Complementary Suppression",
+      "group": "DASH"
+    },
+    {
+      "id": 245,
+      "label": "Privacy Audit Write",
+      "group": "DASH"
+    },
+    {
+      "id": 246,
+      "label": "Trace ID Propagation",
+      "group": "DASH"
+    },
+    {
+      "id": 247,
+      "label": "Paged Metric Threshold",
+      "group": "DASH"
+    },
+    {
+      "id": 248,
+      "label": "Idempotency By Statement ID",
+      "group": "DASH"
+    },
+    {
+      "id": 249,
+      "label": "Replay Command",
+      "group": "DASH"
+    },
+    {
+      "id": 250,
+      "label": "Rebuild Graph Command",
+      "group": "DASH"
+    },
+    {
+      "id": 251,
+      "label": "Shadow Table Swap",
+      "group": "DASH"
+    },
+    {
+      "id": 252,
+      "label": "Common Dashboard Anatomy",
+      "group": "DASH"
+    },
+    {
+      "id": 253,
+      "label": "KPI Tile Component",
+      "group": "DASH"
+    },
+    {
+      "id": 254,
+      "label": "Heatmap Component",
+      "group": "DASH"
+    },
+    {
+      "id": 255,
+      "label": "Funnel Chart Component",
+      "group": "DASH"
+    },
+    {
+      "id": 256,
+      "label": "Radar Chart Component",
+      "group": "DASH"
+    },
+    {
+      "id": 257,
+      "label": "Sankey Chart Component",
+      "group": "DASH"
+    },
+    {
+      "id": 258,
+      "label": "Time Series Component",
+      "group": "DASH"
+    },
+    {
+      "id": 259,
+      "label": "Data Table Component",
+      "group": "DASH"
+    },
+    {
+      "id": 260,
+      "label": "Graph Explorer Component",
+      "group": "DASH"
+    },
+    {
+      "id": 261,
+      "label": "Server-Side Aggregation",
+      "group": "DASH"
+    },
+    {
+      "id": 262,
+      "label": "Cross-Filtering Interaction",
+      "group": "DASH"
+    },
+    {
+      "id": 263,
+      "label": "Drill-Down Interaction",
+      "group": "DASH"
+    },
+    {
+      "id": 264,
+      "label": "Dashboard Export",
+      "group": "DASH"
+    },
+    {
+      "id": 265,
+      "label": "One Image Many Roles Philosophy",
+      "group": "DEPL"
+    },
+    {
+      "id": 266,
+      "label": "Dockerfile Multi-Stage Build",
+      "group": "DEPL"
+    },
+    {
+      "id": 267,
+      "label": "Base Build Stage",
+      "group": "DEPL"
+    },
+    {
+      "id": 268,
+      "label": "Builder Build Stage",
+      "group": "DEPL"
+    },
+    {
+      "id": 269,
+      "label": "Runtime Build Stage",
+      "group": "DEPL"
+    },
+    {
+      "id": 270,
+      "label": "Non-Root Container User",
+      "group": "DEPL"
+    },
+    {
+      "id": 271,
+      "label": "uv Sync Command",
+      "group": "DEPL"
+    },
+    {
+      "id": 272,
+      "label": "Docker Build Cache Mount",
+      "group": "DEPL"
+    },
+    {
+      "id": 273,
+      "label": "Frozen Lockfile",
+      "group": "DEPL"
+    },
+    {
+      "id": 274,
+      "label": "Healthcheck Directive",
+      "group": "DEPL"
+    },
+    {
+      "id": 275,
+      "label": "PID 1 Signal Handling",
+      "group": "DEPL"
+    },
+    {
+      "id": 276,
+      "label": "Role Dispatcher CLI",
+      "group": "DEPL"
+    },
+    {
+      "id": 277,
+      "label": "Bootstrap CLI Role",
+      "group": "DEPL"
+    },
+    {
+      "id": 278,
+      "label": "Seed Demo Command",
+      "group": "DEPL"
+    },
+    {
+      "id": 279,
+      "label": "Loadgen Command",
+      "group": "DEPL"
+    },
+    {
+      "id": 280,
+      "label": "Replay CLI Command",
+      "group": "DEPL"
+    },
+    {
+      "id": 281,
+      "label": "Healthcheck CLI Command",
+      "group": "DEPL"
+    },
+    {
+      "id": 282,
+      "label": "Identity CLI Role",
+      "group": "DEPL"
+    },
+    {
+      "id": 283,
+      "label": "Analytics API CLI Role",
+      "group": "DEPL"
+    },
+    {
+      "id": 284,
+      "label": "Admin API CLI Role",
+      "group": "DEPL"
+    },
+    {
+      "id": 285,
+      "label": "Dashboards CLI Role",
+      "group": "DEPL"
+    },
+    {
+      "id": 286,
+      "label": "Docker Compose Stack",
+      "group": "DEPL"
+    },
+    {
+      "id": 287,
+      "label": "YAML Anchor Reuse",
+      "group": "DEPL"
+    },
+    {
+      "id": 288,
+      "label": "Compose Healthcheck Gate",
+      "group": "DEPL"
+    },
+    {
+      "id": 289,
+      "label": "Compose Profile",
+      "group": "DEPL"
+    },
+    {
+      "id": 290,
+      "label": "Redpanda Console",
+      "group": "DEPL"
+    },
+    {
+      "id": 291,
+      "label": "OTel Collector Service",
+      "group": "DEPL"
+    },
+    {
+      "id": 292,
+      "label": "Loadgen Profile Service",
+      "group": "DEPL"
+    },
+    {
+      "id": 293,
+      "label": "Full Profile Keycloak",
+      "group": "DEPL"
+    },
+    {
+      "id": 294,
+      "label": "Make Up Target",
+      "group": "DEPL"
+    },
+    {
+      "id": 295,
+      "label": "Make Down Target",
+      "group": "DEPL"
+    },
+    {
+      "id": 296,
+      "label": "Make Clean Target",
+      "group": "DEPL"
+    },
+    {
+      "id": 297,
+      "label": "Make Logs Target",
+      "group": "DEPL"
+    },
+    {
+      "id": 298,
+      "label": "Make Seed Target",
+      "group": "DEPL"
+    },
+    {
+      "id": 299,
+      "label": "Make Smoke Target",
+      "group": "DEPL"
+    },
+    {
+      "id": 300,
+      "label": "Make Perf Target",
+      "group": "DEPL"
+    },
+    {
+      "id": 301,
+      "label": "Make Obs Target",
+      "group": "DEPL"
+    },
+    {
+      "id": 302,
+      "label": "Make Rebuild Target",
+      "group": "DEPL"
+    },
+    {
+      "id": 303,
+      "label": "Make Test Target",
+      "group": "DEPL"
+    },
+    {
+      "id": 304,
+      "label": "GitHub Actions Release Workflow",
+      "group": "DEPL"
+    },
+    {
+      "id": 305,
+      "label": "Docker Buildx",
+      "group": "DEPL"
+    },
+    {
+      "id": 306,
+      "label": "Multi-Arch Image Build",
+      "group": "DEPL"
+    },
+    {
+      "id": 307,
+      "label": "GHA Layer Cache",
+      "group": "DEPL"
+    },
+    {
+      "id": 308,
+      "label": "Provenance Attestation",
+      "group": "DEPL"
+    },
+    {
+      "id": 309,
+      "label": "SBOM Generation",
+      "group": "DEPL"
+    },
+    {
+      "id": 310,
+      "label": "Trivy Vulnerability Scan",
+      "group": "DEPL"
+    },
+    {
+      "id": 311,
+      "label": "Cosign Image Signing",
+      "group": "DEPL"
+    },
+    {
+      "id": 312,
+      "label": "Immutable Digest Reference",
+      "group": "DEPL"
+    },
+    {
+      "id": 313,
+      "label": "Pydantic Settings Validation",
+      "group": "OPS"
+    },
+    {
+      "id": 314,
+      "label": "Environment Variable Config",
+      "group": "OPS"
+    },
+    {
+      "id": 315,
+      "label": "AWS Secrets Manager",
+      "group": "OPS"
+    },
+    {
+      "id": 316,
+      "label": "External Secrets Operator",
+      "group": "OPS"
+    },
+    {
+      "id": 317,
+      "label": "Kubernetes Secret",
+      "group": "OPS"
+    },
+    {
+      "id": 318,
+      "label": "Ingest Key Rotation",
+      "group": "OPS"
+    },
+    {
+      "id": 319,
+      "label": "Ingest Key Hashing",
+      "group": "OPS"
+    },
+    {
+      "id": 320,
+      "label": "Additive Column Migration",
+      "group": "OPS"
+    },
+    {
+      "id": 321,
+      "label": "Rebuild And Swap Migration",
+      "group": "OPS"
+    },
+    {
+      "id": 322,
+      "label": "Expand Contract Migration",
+      "group": "OPS"
+    },
+    {
+      "id": 323,
+      "label": "Kafka Partition Increase Caveat",
+      "group": "OPS"
+    },
+    {
+      "id": 324,
+      "label": "Recovery Point Objective",
+      "group": "OPS"
+    },
+    {
+      "id": 325,
+      "label": "Recovery Time Objective",
+      "group": "OPS"
+    },
+    {
+      "id": 326,
+      "label": "Write-Ahead Log Archiving",
+      "group": "OPS"
+    },
+    {
+      "id": 327,
+      "label": "Point-In-Time Recovery",
+      "group": "OPS"
+    },
+    {
+      "id": 328,
+      "label": "Nightly Backup Snapshot",
+      "group": "OPS"
+    },
+    {
+      "id": 329,
+      "label": "Quarterly Restore Drill",
+      "group": "OPS"
+    },
+    {
+      "id": 330,
+      "label": "Rolling Update Strategy",
+      "group": "OPS"
+    },
+    {
+      "id": 331,
+      "label": "Termination Grace Period",
+      "group": "OPS"
+    },
+    {
+      "id": 332,
+      "label": "Gateway-First Deploy Order",
+      "group": "OPS"
+    },
+    {
+      "id": 333,
+      "label": "Expand-Contract Rollback",
+      "group": "OPS"
+    },
+    {
+      "id": 334,
+      "label": "Kafka Unavailable Failure",
+      "group": "OPS"
+    },
+    {
+      "id": 335,
+      "label": "ClickHouse Unavailable Failure",
+      "group": "OPS"
+    },
+    {
+      "id": 336,
+      "label": "Neo4j Unavailable Failure",
+      "group": "OPS"
+    },
+    {
+      "id": 337,
+      "label": "Summarizer Stopped Failure",
+      "group": "OPS"
+    },
+    {
+      "id": 338,
+      "label": "Summarizer Split Brain",
+      "group": "OPS"
+    },
+    {
+      "id": 339,
+      "label": "Identity Service Unavailable",
+      "group": "OPS"
+    },
+    {
+      "id": 340,
+      "label": "Redis Unavailable Failure",
+      "group": "OPS"
+    },
+    {
+      "id": 341,
+      "label": "Experiment Service Error",
+      "group": "OPS"
+    },
+    {
+      "id": 342,
+      "label": "Reconciliation Backlog Growth",
+      "group": "OPS"
+    },
+    {
+      "id": 343,
+      "label": "Poison Message Handling",
+      "group": "OPS"
+    },
+    {
+      "id": 344,
+      "label": "District Queue Flood",
+      "group": "OPS"
+    },
+    {
+      "id": 345,
+      "label": "Clock Skew Handling",
+      "group": "OPS"
+    },
+    {
+      "id": 346,
+      "label": "Unit Test Layer",
+      "group": "OPS"
+    },
+    {
+      "id": 347,
+      "label": "Compression Test Suite",
+      "group": "OPS"
+    },
+    {
+      "id": 348,
+      "label": "ADL Conformance Test Suite",
+      "group": "OPS"
+    },
+    {
+      "id": 349,
+      "label": "Testcontainers Integration Test",
+      "group": "OPS"
+    },
+    {
+      "id": 350,
+      "label": "Privacy Adversarial Suite",
+      "group": "OPS"
+    },
+    {
+      "id": 351,
+      "label": "Load Test Loadgen",
+      "group": "OPS"
+    },
+    {
+      "id": 352,
+      "label": "Replay Nightly Test",
+      "group": "OPS"
+    },
+    {
+      "id": 353,
+      "label": "Chaos Kill Test",
+      "group": "OPS"
+    },
+    {
+      "id": 354,
+      "label": "D-3 Partition Key Deviation",
+      "group": "OPS"
+    },
+    {
+      "id": 355,
+      "label": "D-4 Privacy Threshold Deviation",
+      "group": "OPS"
+    },
+    {
+      "id": 356,
+      "label": "D-5 Complementary Suppression",
+      "group": "OPS"
+    },
+    {
+      "id": 357,
+      "label": "M0 Walking Skeleton",
+      "group": "OPS"
+    },
+    {
+      "id": 358,
+      "label": "M1 Ingestion Complete",
+      "group": "OPS"
+    },
+    {
+      "id": 359,
+      "label": "M2 Compression Graph Mastery",
+      "group": "OPS"
+    },
+    {
+      "id": 360,
+      "label": "M3 Analytics Dashboards",
+      "group": "OPS"
+    },
+    {
+      "id": 361,
+      "label": "M4 Admin Experiments",
+      "group": "OPS"
+    },
+    {
+      "id": 362,
+      "label": "M5 Scale Production",
+      "group": "OPS"
+    },
+    {
+      "id": 363,
+      "label": "Neo4j Licensing Question",
+      "group": "OPS"
+    },
+    {
+      "id": 364,
+      "label": "ClickHouse Cloud Vs Self-Hosted",
+      "group": "OPS"
+    },
+    {
+      "id": 365,
+      "label": "Gateway Language Trigger",
+      "group": "OPS"
+    },
+    {
+      "id": 366,
+      "label": "BKT Parameter Fitting",
+      "group": "OPS"
+    },
+    {
+      "id": 367,
+      "label": "Retention Vs Research Value",
+      "group": "OPS"
+    },
+    {
+      "id": 368,
+      "label": "Multi-Region Question",
+      "group": "OPS"
+    },
+    {
+      "id": 369,
+      "label": "MicroSim BKT Mapping Gap",
+      "group": "OPS"
+    },
+    {
+      "id": 370,
+      "label": "Compute Plane Sizing",
+      "group": "INFRA"
+    },
+    {
+      "id": 371,
+      "label": "Monthly Cost Estimate",
+      "group": "INFRA"
+    },
+    {
+      "id": 372,
+      "label": "Reserved Instance Pricing",
+      "group": "INFRA"
+    },
+    {
+      "id": 373,
+      "label": "Neo4j Licensing Cost",
+      "group": "INFRA"
+    },
+    {
+      "id": 374,
+      "label": "Cost Sensitivity Driver",
+      "group": "INFRA"
+    },
+    {
+      "id": 375,
+      "label": "Single-Server Pilot Tier",
+      "group": "INFRA"
+    },
+    {
+      "id": 376,
+      "label": "VM Hypervisor Isolation",
+      "group": "INFRA"
+    },
+    {
+      "id": 377,
+      "label": "Bare-Metal Hosting",
+      "group": "INFRA"
+    },
+    {
+      "id": 378,
+      "label": "NVMe Local Storage",
+      "group": "INFRA"
+    },
+    {
+      "id": 379,
+      "label": "Network Ingress Sizing",
+      "group": "INFRA"
+    },
+    {
+      "id": 380,
+      "label": "Docker Desktop",
+      "group": "INFRA"
+    },
+    {
+      "id": 381,
+      "label": "Docker Engine",
+      "group": "INFRA"
+    },
+    {
+      "id": 382,
+      "label": "Remote SSH Development",
+      "group": "INFRA"
+    },
+    {
+      "id": 383,
+      "label": "Docker Context Over SSH",
+      "group": "INFRA"
+    },
+    {
+      "id": 384,
+      "label": "SSH Tunnel Port Forward",
+      "group": "INFRA"
+    },
+    {
+      "id": 385,
+      "label": "Hetzner Cloud Host",
+      "group": "INFRA"
+    },
+    {
+      "id": 386,
+      "label": "DigitalOcean Droplet",
+      "group": "INFRA"
+    },
+    {
+      "id": 387,
+      "label": "AWS EC2 Instance",
+      "group": "INFRA"
+    },
+    {
+      "id": 388,
+      "label": "UFW Firewall Rule",
+      "group": "INFRA"
+    },
+    {
+      "id": 389,
+      "label": "MVP Architecture Proof",
+      "group": "OPS"
+    },
+    {
+      "id": 390,
+      "label": "Burst Insensitivity Claim",
+      "group": "OPS"
+    },
+    {
+      "id": 391,
+      "label": "Smoke Harness Decorative Check",
+      "group": "OPS"
+    },
+    {
+      "id": 392,
+      "label": "Mastery Path Disconnection",
+      "group": "OPS"
+    },
+    {
+      "id": 393,
+      "label": "Lift Vs Rewrite Decision",
+      "group": "OPS"
+    },
+    {
+      "id": 394,
+      "label": "Raw Column PII Hole",
+      "group": "OPS"
+    },
+    {
+      "id": 395,
+      "label": "Last Seen Type Fix",
+      "group": "OPS"
+    },
+    {
+      "id": 396,
+      "label": "Mastery Join Fix",
+      "group": "OPS"
+    },
+    {
+      "id": 397,
+      "label": "MVP Step 1 Foundation",
+      "group": "OPS"
+    },
+    {
+      "id": 398,
+      "label": "MVP Step 2 Ingest Path",
+      "group": "OPS"
+    },
+    {
+      "id": 399,
+      "label": "MVP Step 3 Loadgen Contract",
+      "group": "OPS"
+    },
+    {
+      "id": 400,
+      "label": "MVP Step 4 Compression Graph",
+      "group": "OPS"
+    },
+    {
+      "id": 401,
+      "label": "MVP Step 5 Burst Proof",
+      "group": "OPS"
+    },
+    {
+      "id": 402,
+      "label": "Vault Net Isolation",
+      "group": "OPS"
+    },
+    {
+      "id": 403,
+      "label": "MVP Deferred Scope",
+      "group": "OPS"
+    },
+    {
+      "id": 404,
+      "label": "Kubernetes",
+      "group": "INFRA"
+    },
+    {
+      "id": 405,
+      "label": "Helm Chart",
+      "group": "INFRA"
+    },
+    {
+      "id": 406,
+      "label": "KEDA Autoscaler",
+      "group": "INFRA"
+    },
+    {
+      "id": 407,
+      "label": "Horizontal Pod Autoscaler",
+      "group": "INFRA"
+    },
+    {
+      "id": 408,
+      "label": "Availability Zone",
+      "group": "INFRA"
+    },
+    {
+      "id": 409,
+      "label": "Managed Streaming Kafka",
+      "group": "INFRA"
+    },
+    {
+      "id": 410,
+      "label": "Continuous Integration Pipeline",
+      "group": "INFRA"
+    },
+    {
+      "id": 411,
+      "label": "Total Cost Of Ownership",
+      "group": "INFRA"
+    },
+    {
+      "id": 412,
+      "label": "EM Parameter Fitting",
+      "group": "INFRA"
+    },
+    {
+      "id": 413,
+      "label": "Application Load Balancer",
+      "group": "INFRA"
+    },
+    {
+      "id": 414,
+      "label": "ClickHouse Cloud",
+      "group": "INFRA"
+    },
+    {
+      "id": 415,
+      "label": "Neo4j AuraDB",
+      "group": "INFRA"
+    },
+    {
+      "id": 416,
+      "label": "Neo4j Enterprise Edition",
+      "group": "INFRA"
+    },
+    {
+      "id": 417,
+      "label": "Causal Cluster Topology",
+      "group": "INFRA"
+    },
+    {
+      "id": 418,
+      "label": "RDS Multi-AZ Postgres",
+      "group": "INFRA"
+    },
+    {
+      "id": 419,
+      "label": "ElastiCache Redis",
+      "group": "INFRA"
+    },
+    {
+      "id": 420,
+      "label": "Dead Letter Queue Concept",
+      "group": "INFRA"
+    },
+    {
+      "id": 421,
+      "label": "Ingress Controller",
+      "group": "INFRA"
+    },
+    {
+      "id": 422,
+      "label": "High Availability Requirement",
+      "group": "INFRA"
+    },
+    {
+      "id": 423,
+      "label": "LRU Fallback Cache",
+      "group": "INFRA"
+    },
+    {
+      "id": 424,
+      "label": "Cache TTL Expiry",
+      "group": "INFRA"
+    },
+    {
+      "id": 425,
+      "label": "Managed Identity Provider",
+      "group": "INFRA"
+    },
+    {
+      "id": 426,
+      "label": "Step-Up Authentication",
+      "group": "INFRA"
+    },
+    {
+      "id": 427,
+      "label": "Client Credentials Grant",
+      "group": "INFRA"
+    },
+    {
+      "id": 428,
+      "label": "District Administrator",
+      "group": "ROLE",
+      "shape": "box"
+    },
+    {
+      "id": 429,
+      "label": "Teacher",
+      "group": "ROLE",
+      "shape": "box"
+    },
+    {
+      "id": 430,
+      "label": "Textbook Author",
+      "group": "ROLE",
+      "shape": "box"
+    },
+    {
+      "id": 431,
+      "label": "System Administrator",
+      "group": "ROLE"
+    },
+    {
+      "id": 432,
+      "label": "School Administrator",
+      "group": "ROLE"
+    },
+    {
+      "id": 433,
+      "label": "Auditor Role",
+      "group": "ROLE"
+    },
+    {
+      "id": 434,
+      "label": "District Management UI",
+      "group": "ADMIN"
+    },
+    {
+      "id": 435,
+      "label": "School Course Section UI",
+      "group": "ADMIN"
+    },
+    {
+      "id": 436,
+      "label": "Textbook Deployment UI",
+      "group": "ADMIN"
+    },
+    {
+      "id": 437,
+      "label": "xAPI Credentials UI",
+      "group": "ADMIN"
+    },
+    {
+      "id": 438,
+      "label": "Experiment Administration UI",
+      "group": "ADMIN"
+    },
+    {
+      "id": 439,
+      "label": "User Access Management UI",
+      "group": "ADMIN"
+    },
+    {
+      "id": 440,
+      "label": "Privacy Compliance UI",
+      "group": "ADMIN"
+    },
+    {
+      "id": 441,
+      "label": "Audit Monitoring UI",
+      "group": "ADMIN"
+    },
+    {
+      "id": 442,
+      "label": "System Configuration UI",
+      "group": "ADMIN"
+    },
+    {
+      "id": 443,
+      "label": "Roster Source Configuration",
+      "group": "ADMIN"
+    },
+    {
+      "id": 444,
+      "label": "Data Residency Policy",
+      "group": "ADMIN"
+    },
+    {
+      "id": 445,
+      "label": "Retention Policy",
+      "group": "ADMIN"
+    },
+    {
+      "id": 446,
+      "label": "Legal Hold Toggle",
+      "group": "ADMIN"
+    },
+    {
+      "id": 447,
+      "label": "Enrollment Editor",
+      "group": "ADMIN"
+    },
+    {
+      "id": 448,
+      "label": "Instructor Assignment Tool",
+      "group": "ADMIN"
+    },
+    {
+      "id": 449,
+      "label": "Term Academic Year Rollover",
+      "group": "ADMIN"
+    },
+    {
+      "id": 450,
+      "label": "Deployment Editor",
+      "group": "ADMIN"
+    },
+    {
+      "id": 451,
+      "label": "Provisional Reconcile Queue",
+      "group": "ADMIN"
+    },
+    {
+      "id": 452,
+      "label": "MicroSim Registry View",
+      "group": "ADMIN"
+    },
+    {
+      "id": 453,
+      "label": "Endpoint Key Rotation",
+      "group": "ADMIN"
+    },
+    {
+      "id": 454,
+      "label": "Verb Vocabulary Browser",
+      "group": "ADMIN"
+    },
+    {
+      "id": 455,
+      "label": "Dead-Letter Inspector",
+      "group": "ADMIN"
+    },
+    {
+      "id": 456,
+      "label": "Experiment List View",
+      "group": "ADMIN"
+    },
+    {
+      "id": 457,
+      "label": "Experiment Lifecycle Controls",
+      "group": "ADMIN"
+    },
+    {
+      "id": 458,
+      "label": "User CRUD Management",
+      "group": "ADMIN"
+    },
+    {
+      "id": 459,
+      "label": "Role Assignment Scope",
+      "group": "ADMIN"
+    },
+    {
+      "id": 460,
+      "label": "Access Review Workflow",
+      "group": "ADMIN"
+    },
+    {
+      "id": 461,
+      "label": "Impersonation Audit",
+      "group": "ADMIN"
+    },
+    {
+      "id": 462,
+      "label": "Policy Profile Preset",
+      "group": "ADMIN"
+    },
+    {
+      "id": 463,
+      "label": "Data Subject Request",
+      "group": "ADMIN"
+    },
+    {
+      "id": 464,
+      "label": "Consent Status",
+      "group": "ADMIN"
+    },
+    {
+      "id": 465,
+      "label": "Aggregation Threshold",
+      "group": "ADMIN"
+    },
+    {
+      "id": 466,
+      "label": "Audit Log Browser",
+      "group": "ADMIN"
+    },
+    {
+      "id": 467,
+      "label": "Alerting Configuration",
+      "group": "ADMIN"
+    },
+    {
+      "id": 468,
+      "label": "Retention Defaults Config",
+      "group": "ADMIN"
+    },
+    {
+      "id": 469,
+      "label": "Feature Flag Config",
+      "group": "ADMIN"
+    },
+    {
+      "id": 470,
+      "label": "Rate Limit Config",
+      "group": "ADMIN"
+    },
+    {
+      "id": 471,
+      "label": "FERPA Compliance",
+      "group": "ADMIN"
+    },
+    {
+      "id": 472,
+      "label": "COPPA Compliance",
+      "group": "ADMIN"
+    },
+    {
+      "id": 473,
+      "label": "GDPR Compliance",
+      "group": "ADMIN"
+    },
+    {
+      "id": 474,
+      "label": "Right To Erasure",
+      "group": "ADMIN"
+    },
+    {
+      "id": 475,
+      "label": "Role-Based Access Control",
+      "group": "ADMIN"
+    },
+    {
+      "id": 476,
+      "label": "Single Sign-On",
+      "group": "ADMIN"
+    },
+    {
+      "id": 477,
+      "label": "SAML Protocol",
+      "group": "ADMIN"
+    },
+    {
+      "id": 478,
+      "label": "OIDC Protocol",
+      "group": "ADMIN"
+    },
+    {
+      "id": 479,
+      "label": "District Adoption Dashboard",
+      "group": "RPT"
+    },
+    {
+      "id": 480,
+      "label": "School Comparison Report",
+      "group": "RPT"
+    },
+    {
+      "id": 481,
+      "label": "Course Rollup Report",
+      "group": "RPT"
+    },
+    {
+      "id": 482,
+      "label": "Deployment Inventory Report",
+      "group": "RPT"
+    },
+    {
+      "id": 483,
+      "label": "Data Quality Monitor",
+      "group": "RPT"
+    },
+    {
+      "id": 484,
+      "label": "Ingestion Health Report",
+      "group": "RPT"
+    },
+    {
+      "id": 485,
+      "label": "License Seat Utilization",
+      "group": "RPT"
+    },
+    {
+      "id": 486,
+      "label": "Privacy Access Audit",
+      "group": "RPT"
+    },
+    {
+      "id": 487,
+      "label": "District Overview Dashboard",
+      "group": "RPT"
+    },
+    {
+      "id": 488,
+      "label": "System Health Dashboard",
+      "group": "RPT"
+    },
+    {
+      "id": 489,
+      "label": "District Rollout Plan",
+      "group": "RPT"
+    },
+    {
+      "id": 490,
+      "label": "My Classes Dashboard",
+      "group": "RPT"
+    },
+    {
+      "id": 491,
+      "label": "Student Detail Dashboard",
+      "group": "RPT"
+    },
+    {
+      "id": 492,
+      "label": "Student Progress Overview",
+      "group": "RPT"
+    },
+    {
+      "id": 493,
+      "label": "Concept Mastery Radar",
+      "group": "RPT"
+    },
+    {
+      "id": 494,
+      "label": "Time-On-Task Timeline",
+      "group": "RPT"
+    },
+    {
+      "id": 495,
+      "label": "Struggle Detector",
+      "group": "RPT"
+    },
+    {
+      "id": 496,
+      "label": "Prerequisite Gap Analysis",
+      "group": "RPT"
+    },
+    {
+      "id": 497,
+      "label": "Quiz Item Analysis",
+      "group": "RPT"
+    },
+    {
+      "id": 498,
+      "label": "Idle Disengagement Alert",
+      "group": "RPT"
+    },
+    {
+      "id": 499,
+      "label": "Learning Velocity Report",
+      "group": "RPT"
+    },
+    {
+      "id": 500,
+      "label": "Reading Vs Doing Balance",
+      "group": "RPT"
+    },
+    {
+      "id": 501,
+      "label": "Class Mastery Heatmap",
+      "group": "RPT"
+    },
+    {
+      "id": 502,
+      "label": "Concept Difficulty Ranking",
+      "group": "RPT"
+    },
+    {
+      "id": 503,
+      "label": "Completion Funnel",
+      "group": "RPT"
+    },
+    {
+      "id": 504,
+      "label": "Pace Distribution",
+      "group": "RPT"
+    },
+    {
+      "id": 505,
+      "label": "Class Engagement Calendar",
+      "group": "RPT"
+    },
+    {
+      "id": 506,
+      "label": "Question Discrimination",
+      "group": "RPT"
+    },
+    {
+      "id": 507,
+      "label": "MicroSim Utilization Report",
+      "group": "RPT"
+    },
+    {
+      "id": 508,
+      "label": "Cohort Comparison Report",
+      "group": "RPT"
+    },
+    {
+      "id": 509,
+      "label": "At-Risk Roster",
+      "group": "RPT"
+    },
+    {
+      "id": 510,
+      "label": "Standards Coverage Report",
+      "group": "RPT"
+    },
+    {
+      "id": 511,
+      "label": "Ad-Hoc Cohort Builder",
+      "group": "RPT"
+    },
+    {
+      "id": 512,
+      "label": "Learning Graph Explorer",
+      "group": "RPT"
+    },
+    {
+      "id": 513,
+      "label": "Statement Query Console",
+      "group": "RPT"
+    },
+    {
+      "id": 514,
+      "label": "Funnel Builder",
+      "group": "RPT"
+    },
+    {
+      "id": 515,
+      "label": "Alert Rule Builder",
+      "group": "RPT"
+    },
+    {
+      "id": 516,
+      "label": "Report Scheduler",
+      "group": "RPT"
+    },
+    {
+      "id": 517,
+      "label": "Section Enrollment",
+      "group": "RPT"
+    },
+    {
+      "id": 518,
+      "label": "Co-Teacher Assignment",
+      "group": "RPT"
+    },
+    {
+      "id": 519,
+      "label": "Content Insights Dashboard",
+      "group": "RPT"
+    },
+    {
+      "id": 520,
+      "label": "Experiments Dashboard",
+      "group": "RPT"
+    },
+    {
+      "id": 521,
+      "label": "Page Effectiveness Report",
+      "group": "RPT"
+    },
+    {
+      "id": 522,
+      "label": "MicroSim Impact Report",
+      "group": "RPT"
+    },
+    {
+      "id": 523,
+      "label": "Confusing-Content Finder",
+      "group": "RPT"
+    },
+    {
+      "id": 524,
+      "label": "Drop-Off Map",
+      "group": "RPT"
+    },
+    {
+      "id": 525,
+      "label": "Concept-Coverage Gaps",
+      "group": "RPT"
+    },
+    {
+      "id": 526,
+      "label": "Question Health Report",
+      "group": "RPT"
+    },
+    {
+      "id": 527,
+      "label": "Version Comparison Report",
+      "group": "RPT"
+    },
+    {
+      "id": 528,
+      "label": "Cross-District Benchmark",
+      "group": "RPT"
+    },
+    {
+      "id": 529,
+      "label": "Correlation Explorer",
+      "group": "RPT"
+    },
+    {
+      "id": 530,
+      "label": "Experiment Designer",
+      "group": "RPT"
+    },
+    {
+      "id": 531,
+      "label": "Experiment Definition",
+      "group": "EXP"
+    },
+    {
+      "id": 532,
+      "label": "Experiment Hypothesis",
+      "group": "EXP"
+    },
+    {
+      "id": 533,
+      "label": "Primary Outcome Metric",
+      "group": "EXP"
+    },
+    {
+      "id": 534,
+      "label": "Unit Of Randomization",
+      "group": "EXP"
+    },
+    {
+      "id": 535,
+      "label": "Experiment Variant",
+      "group": "EXP"
+    },
+    {
+      "id": 536,
+      "label": "Allocation Weight",
+      "group": "EXP"
+    },
+    {
+      "id": 537,
+      "label": "Guardrail Metric",
+      "group": "EXP"
+    },
+    {
+      "id": 538,
+      "label": "Eligibility Predicate",
+      "group": "EXP"
+    },
+    {
+      "id": 539,
+      "label": "Deterministic Sticky Assignment",
+      "group": "EXP"
+    },
+    {
+      "id": 540,
+      "label": "Sample-Ratio Mismatch",
+      "group": "EXP"
+    },
+    {
+      "id": 541,
+      "label": "Effect Size",
+      "group": "EXP"
+    },
+    {
+      "id": 542,
+      "label": "Cohens D",
+      "group": "EXP"
+    },
+    {
+      "id": 543,
+      "label": "Confidence Interval",
+      "group": "EXP"
+    },
+    {
+      "id": 544,
+      "label": "Two-Sided Significance Test",
+      "group": "EXP"
+    },
+    {
+      "id": 545,
+      "label": "Sequential Testing Correction",
+      "group": "EXP"
+    },
+    {
+      "id": 546,
+      "label": "Segmentation Analysis",
+      "group": "EXP"
+    },
+    {
+      "id": 547,
+      "label": "Guardrail Regression Flag",
+      "group": "EXP"
+    },
+    {
+      "id": 548,
+      "label": "Experiment Readout Dashboard",
+      "group": "EXP"
+    },
+    {
+      "id": 549,
+      "label": "Textbook Registry",
+      "group": "EXP"
+    },
+    {
+      "id": 550,
+      "label": "MicroSim Registry",
+      "group": "EXP"
+    },
+    {
+      "id": 551,
+      "label": "Content Effectiveness Loop",
+      "group": "EXP"
+    },
+    {
+      "id": 552,
+      "label": "AB Test Lifecycle",
+      "group": "EXP"
+    },
+    {
+      "id": 553,
+      "label": "Cross-Persona Workflow",
+      "group": "PROD"
+    },
+    {
+      "id": 554,
+      "label": "Shared Statement Log",
+      "group": "PROD"
+    },
+    {
+      "id": 555,
+      "label": "Persona-Facing Report",
+      "group": "PROD"
+    },
+    {
+      "id": 556,
+      "label": "Canonical Activity IRI",
+      "group": "PROD"
+    },
+    {
+      "id": 557,
+      "label": "Trailing Slash Rule",
+      "group": "PROD"
+    },
+    {
+      "id": 558,
+      "label": "Question IRI Fragment",
+      "group": "PROD"
+    },
+    {
+      "id": 559,
+      "label": "Named Sub-Activity Fragment",
+      "group": "PROD"
+    },
+    {
+      "id": 560,
+      "label": "Randomized Order Naming Rule",
+      "group": "PROD"
+    },
+    {
+      "id": 561,
+      "label": "Answered Verb",
+      "group": "PROD"
+    },
+    {
+      "id": 562,
+      "label": "Experienced Verb",
+      "group": "PROD"
+    },
+    {
+      "id": 563,
+      "label": "Interacted Verb",
+      "group": "PROD"
+    },
+    {
+      "id": 564,
+      "label": "Textbook Version Grouping IRI",
+      "group": "PROD"
+    },
+    {
+      "id": 565,
+      "label": "Object Definition Type Map",
+      "group": "PROD"
+    },
+    {
+      "id": 566,
+      "label": "Control Object Type",
+      "group": "PROD"
+    },
+    {
+      "id": 567,
+      "label": "Concept Extension Field",
+      "group": "PROD"
+    },
+    {
+      "id": 568,
+      "label": "Concept Enrichment Path",
+      "group": "PROD"
+    },
+    {
+      "id": 569,
+      "label": "Start Pause Dwell Pattern",
+      "group": "PROD"
+    },
+    {
+      "id": 570,
+      "label": "Visibility Change Flush",
+      "group": "PROD"
+    },
+    {
+      "id": 571,
+      "label": "Producer Excluded Field",
+      "group": "PROD"
+    },
+    {
+      "id": 572,
+      "label": "xAPI Transport Header",
+      "group": "PROD"
+    },
+    {
+      "id": 573,
+      "label": "District ID Server-Assigned",
+      "group": "PROD"
+    },
+    {
+      "id": 574,
+      "label": "Student Key Server-Derived",
+      "group": "PROD"
+    },
+    {
+      "id": 575,
+      "label": "Stored At Gateway Timestamp",
+      "group": "PROD"
+    },
+    {
+      "id": 576,
+      "label": "API Version Header",
+      "group": "PROD"
+    },
+    {
+      "id": 577,
+      "label": "Reference Statement Example",
+      "group": "PROD"
+    },
+    {
+      "id": 578,
+      "label": "Field To Column Map",
+      "group": "PROD"
+    }
+  ],
+  "edges": [
+    {
+      "from": 2,
+      "to": 1
+    },
+    {
+      "from": 3,
+      "to": 1
+    },
+    {
+      "from": 4,
+      "to": 2
+    },
+    {
+      "from": 5,
+      "to": 2
+    },
+    {
+      "from": 5,
+      "to": 4
+    },
+    {
+      "from": 6,
+      "to": 1
+    },
+    {
+      "from": 6,
+      "to": 2
+    },
+    {
+      "from": 7,
+      "to": 6
+    },
+    {
+      "from": 8,
+      "to": 6
+    },
+    {
+      "from": 8,
+      "to": 7
+    },
+    {
+      "from": 9,
+      "to": 6
+    },
+    {
+      "from": 10,
+      "to": 6
+    },
+    {
+      "from": 11,
+      "to": 6
+    },
+    {
+      "from": 12,
+      "to": 11
+    },
+    {
+      "from": 13,
+      "to": 6
+    },
+    {
+      "from": 14,
+      "to": 6
+    },
+    {
+      "from": 15,
+      "to": 9
+    },
+    {
+      "from": 15,
+      "to": 10
+    },
+    {
+      "from": 15,
+      "to": 11
+    },
+    {
+      "from": 16,
+      "to": 15
+    },
+    {
+      "from": 17,
+      "to": 15
+    },
+    {
+      "from": 18,
+      "to": 13
+    },
+    {
+      "from": 18,
+      "to": 14
+    },
+    {
+      "from": 19,
+      "to": 15
+    },
+    {
+      "from": 20,
+      "to": 19
+    },
+    {
+      "from": 21,
+      "to": 14
+    },
+    {
+      "from": 21,
+      "to": 15
+    },
+    {
+      "from": 22,
+      "to": 9
+    },
+    {
+      "from": 23,
+      "to": 22
+    },
+    {
+      "from": 24,
+      "to": 15
+    },
+    {
+      "from": 26,
+      "to": 25
+    },
+    {
+      "from": 27,
+      "to": 25
+    },
+    {
+      "from": 27,
+      "to": 7
+    },
+    {
+      "from": 28,
+      "to": 27
+    },
+    {
+      "from": 29,
+      "to": 27
+    },
+    {
+      "from": 30,
+      "to": 27
+    },
+    {
+      "from": 31,
+      "to": 7
+    },
+    {
+      "from": 32,
+      "to": 15
+    },
+    {
+      "from": 32,
+      "to": 7
+    },
+    {
+      "from": 32,
+      "to": 31
+    },
+    {
+      "from": 33,
+      "to": 32
+    },
+    {
+      "from": 34,
+      "to": 33
+    },
+    {
+      "from": 35,
+      "to": 34
+    },
+    {
+      "from": 36,
+      "to": 34
+    },
+    {
+      "from": 36,
+      "to": 35
+    },
+    {
+      "from": 37,
+      "to": 36
+    },
+    {
+      "from": 38,
+      "to": 36
+    },
+    {
+      "from": 39,
+      "to": 38
+    },
+    {
+      "from": 40,
+      "to": 38
+    },
+    {
+      "from": 41,
+      "to": 7
+    },
+    {
+      "from": 41,
+      "to": 31
+    },
+    {
+      "from": 42,
+      "to": 6
+    },
+    {
+      "from": 43,
+      "to": 31
+    },
+    {
+      "from": 43,
+      "to": 42
+    },
+    {
+      "from": 44,
+      "to": 43
+    },
+    {
+      "from": 44,
+      "to": 32
+    },
+    {
+      "from": 45,
+      "to": 43
+    },
+    {
+      "from": 45,
+      "to": 36
+    },
+    {
+      "from": 46,
+      "to": 43
+    },
+    {
+      "from": 46,
+      "to": 41
+    },
+    {
+      "from": 47,
+      "to": 31
+    },
+    {
+      "from": 47,
+      "to": 42
+    },
+    {
+      "from": 47,
+      "to": 43
+    },
+    {
+      "from": 48,
+      "to": 42
+    },
+    {
+      "from": 48,
+      "to": 31
+    },
+    {
+      "from": 49,
+      "to": 43
+    },
+    {
+      "from": 50,
+      "to": 31
+    },
+    {
+      "from": 51,
+      "to": 50
+    },
+    {
+      "from": 52,
+      "to": 50
+    },
+    {
+      "from": 53,
+      "to": 41
+    },
+    {
+      "from": 54,
+      "to": 41
+    },
+    {
+      "from": 54,
+      "to": 53
+    },
+    {
+      "from": 55,
+      "to": 19
+    },
+    {
+      "from": 55,
+      "to": 32
+    },
+    {
+      "from": 56,
+      "to": 55
+    },
+    {
+      "from": 57,
+      "to": 32
+    },
+    {
+      "from": 57,
+      "to": 7
+    },
+    {
+      "from": 58,
+      "to": 32
+    },
+    {
+      "from": 58,
+      "to": 44
+    },
+    {
+      "from": 59,
+      "to": 15
+    },
+    {
+      "from": 60,
+      "to": 11
+    },
+    {
+      "from": 60,
+      "to": 12
+    },
+    {
+      "from": 61,
+      "to": 7
+    },
+    {
+      "from": 62,
+      "to": 61
+    },
+    {
+      "from": 63,
+      "to": 61
+    },
+    {
+      "from": 64,
+      "to": 61
+    },
+    {
+      "from": 65,
+      "to": 61
+    },
+    {
+      "from": 66,
+      "to": 61
+    },
+    {
+      "from": 67,
+      "to": 62
+    },
+    {
+      "from": 68,
+      "to": 62
+    },
+    {
+      "from": 68,
+      "to": 67
+    },
+    {
+      "from": 69,
+      "to": 64
+    },
+    {
+      "from": 70,
+      "to": 63
+    },
+    {
+      "from": 70,
+      "to": 68
+    },
+    {
+      "from": 71,
+      "to": 65
+    },
+    {
+      "from": 72,
+      "to": 65
+    },
+    {
+      "from": 73,
+      "to": 65
+    },
+    {
+      "from": 74,
+      "to": 61
+    },
+    {
+      "from": 74,
+      "to": 65
+    },
+    {
+      "from": 75,
+      "to": 64
+    },
+    {
+      "from": 75,
+      "to": 65
+    },
+    {
+      "from": 76,
+      "to": 61
+    },
+    {
+      "from": 77,
+      "to": 76
+    },
+    {
+      "from": 78,
+      "to": 77
+    },
+    {
+      "from": 79,
+      "to": 78
+    },
+    {
+      "from": 80,
+      "to": 79
+    },
+    {
+      "from": 81,
+      "to": 80
+    },
+    {
+      "from": 82,
+      "to": 77
+    },
+    {
+      "from": 82,
+      "to": 78
+    },
+    {
+      "from": 82,
+      "to": 79
+    },
+    {
+      "from": 82,
+      "to": 80
+    },
+    {
+      "from": 83,
+      "to": 77
+    },
+    {
+      "from": 83,
+      "to": 82
+    },
+    {
+      "from": 84,
+      "to": 78
+    },
+    {
+      "from": 84,
+      "to": 82
+    },
+    {
+      "from": 85,
+      "to": 74
+    },
+    {
+      "from": 85,
+      "to": 81
+    },
+    {
+      "from": 86,
+      "to": 85
+    },
+    {
+      "from": 87,
+      "to": 80
+    },
+    {
+      "from": 88,
+      "to": 87
+    },
+    {
+      "from": 88,
+      "to": 22
+    },
+    {
+      "from": 89,
+      "to": 88
+    },
+    {
+      "from": 90,
+      "to": 89
+    },
+    {
+      "from": 91,
+      "to": 64
+    },
+    {
+      "from": 92,
+      "to": 91
+    },
+    {
+      "from": 93,
+      "to": 91
+    },
+    {
+      "from": 94,
+      "to": 92
+    },
+    {
+      "from": 95,
+      "to": 94
+    },
+    {
+      "from": 96,
+      "to": 94
+    },
+    {
+      "from": 96,
+      "to": 92
+    },
+    {
+      "from": 97,
+      "to": 96
+    },
+    {
+      "from": 98,
+      "to": 96
+    },
+    {
+      "from": 99,
+      "to": 98
+    },
+    {
+      "from": 100,
+      "to": 97
+    },
+    {
+      "from": 101,
+      "to": 100
+    },
+    {
+      "from": 102,
+      "to": 92
+    },
+    {
+      "from": 103,
+      "to": 102
+    },
+    {
+      "from": 103,
+      "to": 93
+    },
+    {
+      "from": 104,
+      "to": 103
+    },
+    {
+      "from": 104,
+      "to": 93
+    },
+    {
+      "from": 105,
+      "to": 93
+    },
+    {
+      "from": 105,
+      "to": 97
+    },
+    {
+      "from": 105,
+      "to": 98
+    },
+    {
+      "from": 105,
+      "to": 101
+    },
+    {
+      "from": 105,
+      "to": 102
+    },
+    {
+      "from": 106,
+      "to": 93
+    },
+    {
+      "from": 106,
+      "to": 87
+    },
+    {
+      "from": 107,
+      "to": 93
+    },
+    {
+      "from": 107,
+      "to": 102
+    },
+    {
+      "from": 108,
+      "to": 93
+    },
+    {
+      "from": 108,
+      "to": 97
+    },
+    {
+      "from": 108,
+      "to": 98
+    },
+    {
+      "from": 108,
+      "to": 101
+    },
+    {
+      "from": 109,
+      "to": 93
+    },
+    {
+      "from": 109,
+      "to": 10
+    },
+    {
+      "from": 110,
+      "to": 93
+    },
+    {
+      "from": 111,
+      "to": 110
+    },
+    {
+      "from": 111,
+      "to": 93
+    },
+    {
+      "from": 112,
+      "to": 91
+    },
+    {
+      "from": 113,
+      "to": 112
+    },
+    {
+      "from": 114,
+      "to": 113
+    },
+    {
+      "from": 114,
+      "to": 106
+    },
+    {
+      "from": 114,
+      "to": 102
+    },
+    {
+      "from": 115,
+      "to": 113
+    },
+    {
+      "from": 115,
+      "to": 97
+    },
+    {
+      "from": 116,
+      "to": 113
+    },
+    {
+      "from": 116,
+      "to": 98
+    },
+    {
+      "from": 117,
+      "to": 113
+    },
+    {
+      "from": 117,
+      "to": 101
+    },
+    {
+      "from": 118,
+      "to": 113
+    },
+    {
+      "from": 118,
+      "to": 108
+    },
+    {
+      "from": 119,
+      "to": 113
+    },
+    {
+      "from": 119,
+      "to": 80
+    },
+    {
+      "from": 119,
+      "to": 114
+    },
+    {
+      "from": 120,
+      "to": 112
+    },
+    {
+      "from": 121,
+      "to": 27
+    },
+    {
+      "from": 121,
+      "to": 15
+    },
+    {
+      "from": 122,
+      "to": 121
+    },
+    {
+      "from": 123,
+      "to": 121
+    },
+    {
+      "from": 123,
+      "to": 60
+    },
+    {
+      "from": 124,
+      "to": 123
+    },
+    {
+      "from": 125,
+      "to": 67
+    },
+    {
+      "from": 125,
+      "to": 124
+    },
+    {
+      "from": 126,
+      "to": 125
+    },
+    {
+      "from": 127,
+      "to": 126
+    },
+    {
+      "from": 127,
+      "to": 92
+    },
+    {
+      "from": 128,
+      "to": 127
+    },
+    {
+      "from": 129,
+      "to": 67
+    },
+    {
+      "from": 129,
+      "to": 24
+    },
+    {
+      "from": 130,
+      "to": 68
+    },
+    {
+      "from": 130,
+      "to": 129
+    },
+    {
+      "from": 131,
+      "to": 68
+    },
+    {
+      "from": 131,
+      "to": 125
+    },
+    {
+      "from": 132,
+      "to": 112
+    },
+    {
+      "from": 132,
+      "to": 120
+    },
+    {
+      "from": 133,
+      "to": 112
+    },
+    {
+      "from": 133,
+      "to": 70
+    },
+    {
+      "from": 134,
+      "to": 133
+    },
+    {
+      "from": 135,
+      "to": 69
+    },
+    {
+      "from": 135,
+      "to": 121
+    },
+    {
+      "from": 136,
+      "to": 121
+    },
+    {
+      "from": 136,
+      "to": 28
+    },
+    {
+      "from": 137,
+      "to": 20
+    },
+    {
+      "from": 137,
+      "to": 135
+    },
+    {
+      "from": 138,
+      "to": 88
+    },
+    {
+      "from": 139,
+      "to": 127
+    },
+    {
+      "from": 140,
+      "to": 105
+    },
+    {
+      "from": 140,
+      "to": 102
+    },
+    {
+      "from": 141,
+      "to": 114
+    },
+    {
+      "from": 142,
+      "to": 114
+    },
+    {
+      "from": 142,
+      "to": 119
+    },
+    {
+      "from": 143,
+      "to": 110
+    },
+    {
+      "from": 143,
+      "to": 111
+    },
+    {
+      "from": 144,
+      "to": 128
+    },
+    {
+      "from": 145,
+      "to": 75
+    },
+    {
+      "from": 145,
+      "to": 69
+    },
+    {
+      "from": 146,
+      "to": 90
+    },
+    {
+      "from": 146,
+      "to": 69
+    },
+    {
+      "from": 147,
+      "to": 67
+    },
+    {
+      "from": 148,
+      "to": 147
+    },
+    {
+      "from": 149,
+      "to": 68
+    },
+    {
+      "from": 150,
+      "to": 149
+    },
+    {
+      "from": 151,
+      "to": 150
+    },
+    {
+      "from": 151,
+      "to": 70
+    },
+    {
+      "from": 152,
+      "to": 69
+    },
+    {
+      "from": 153,
+      "to": 91
+    },
+    {
+      "from": 154,
+      "to": 90
+    },
+    {
+      "from": 155,
+      "to": 64
+    },
+    {
+      "from": 156,
+      "to": 75
+    },
+    {
+      "from": 157,
+      "to": 156
+    },
+    {
+      "from": 158,
+      "to": 71
+    },
+    {
+      "from": 159,
+      "to": 72
+    },
+    {
+      "from": 160,
+      "to": 61
+    },
+    {
+      "from": 161,
+      "to": 160
+    },
+    {
+      "from": 162,
+      "to": 160
+    },
+    {
+      "from": 163,
+      "to": 162
+    },
+    {
+      "from": 164,
+      "to": 69
+    },
+    {
+      "from": 164,
+      "to": 91
+    },
+    {
+      "from": 165,
+      "to": 133
+    },
+    {
+      "from": 165,
+      "to": 134
+    },
+    {
+      "from": 166,
+      "to": 114
+    },
+    {
+      "from": 166,
+      "to": 155
+    },
+    {
+      "from": 167,
+      "to": 68
+    },
+    {
+      "from": 167,
+      "to": 87
+    },
+    {
+      "from": 168,
+      "to": 67
+    },
+    {
+      "from": 168,
+      "to": 70
+    },
+    {
+      "from": 169,
+      "to": 141
+    },
+    {
+      "from": 170,
+      "to": 147
+    },
+    {
+      "from": 170,
+      "to": 67
+    },
+    {
+      "from": 171,
+      "to": 153
+    },
+    {
+      "from": 172,
+      "to": 67
+    },
+    {
+      "from": 173,
+      "to": 172
+    },
+    {
+      "from": 174,
+      "to": 121
+    },
+    {
+      "from": 175,
+      "to": 172
+    },
+    {
+      "from": 176,
+      "to": 175
+    },
+    {
+      "from": 177,
+      "to": 173
+    },
+    {
+      "from": 177,
+      "to": 176
+    },
+    {
+      "from": 178,
+      "to": 150
+    },
+    {
+      "from": 178,
+      "to": 177
+    },
+    {
+      "from": 179,
+      "to": 152
+    },
+    {
+      "from": 179,
+      "to": 177
+    },
+    {
+      "from": 180,
+      "to": 174
+    },
+    {
+      "from": 180,
+      "to": 172
+    },
+    {
+      "from": 181,
+      "to": 112
+    },
+    {
+      "from": 181,
+      "to": 173
+    },
+    {
+      "from": 182,
+      "to": 153
+    },
+    {
+      "from": 182,
+      "to": 82
+    },
+    {
+      "from": 183,
+      "to": 132
+    },
+    {
+      "from": 183,
+      "to": 177
+    },
+    {
+      "from": 184,
+      "to": 133
+    },
+    {
+      "from": 184,
+      "to": 181
+    },
+    {
+      "from": 185,
+      "to": 184
+    },
+    {
+      "from": 186,
+      "to": 113
+    },
+    {
+      "from": 186,
+      "to": 185
+    },
+    {
+      "from": 187,
+      "to": 141
+    },
+    {
+      "from": 188,
+      "to": 187
+    },
+    {
+      "from": 189,
+      "to": 187
+    },
+    {
+      "from": 190,
+      "to": 187
+    },
+    {
+      "from": 191,
+      "to": 187
+    },
+    {
+      "from": 192,
+      "to": 188
+    },
+    {
+      "from": 192,
+      "to": 189
+    },
+    {
+      "from": 192,
+      "to": 190
+    },
+    {
+      "from": 193,
+      "to": 192
+    },
+    {
+      "from": 193,
+      "to": 191
+    },
+    {
+      "from": 194,
+      "to": 187
+    },
+    {
+      "from": 194,
+      "to": 116
+    },
+    {
+      "from": 195,
+      "to": 67
+    },
+    {
+      "from": 195,
+      "to": 155
+    },
+    {
+      "from": 196,
+      "to": 121
+    },
+    {
+      "from": 197,
+      "to": 150
+    },
+    {
+      "from": 197,
+      "to": 67
+    },
+    {
+      "from": 198,
+      "to": 131
+    },
+    {
+      "from": 198,
+      "to": 67
+    },
+    {
+      "from": 199,
+      "to": 138
+    },
+    {
+      "from": 200,
+      "to": 199
+    },
+    {
+      "from": 200,
+      "to": 77
+    },
+    {
+      "from": 201,
+      "to": 200
+    },
+    {
+      "from": 201,
+      "to": 70
+    },
+    {
+      "from": 202,
+      "to": 150
+    },
+    {
+      "from": 202,
+      "to": 70
+    },
+    {
+      "from": 203,
+      "to": 152
+    },
+    {
+      "from": 203,
+      "to": 129
+    },
+    {
+      "from": 204,
+      "to": 193
+    },
+    {
+      "from": 204,
+      "to": 70
+    },
+    {
+      "from": 205,
+      "to": 204
+    },
+    {
+      "from": 206,
+      "to": 130
+    },
+    {
+      "from": 206,
+      "to": 204
+    },
+    {
+      "from": 207,
+      "to": 206
+    },
+    {
+      "from": 208,
+      "to": 143
+    },
+    {
+      "from": 209,
+      "to": 208
+    },
+    {
+      "from": 209,
+      "to": 111
+    },
+    {
+      "from": 210,
+      "to": 209
+    },
+    {
+      "from": 211,
+      "to": 71
+    },
+    {
+      "from": 212,
+      "to": 155
+    },
+    {
+      "from": 212,
+      "to": 211
+    },
+    {
+      "from": 213,
+      "to": 212
+    },
+    {
+      "from": 213,
+      "to": 133
+    },
+    {
+      "from": 214,
+      "to": 71
+    },
+    {
+      "from": 214,
+      "to": 90
+    },
+    {
+      "from": 215,
+      "to": 71
+    },
+    {
+      "from": 216,
+      "to": 155
+    },
+    {
+      "from": 217,
+      "to": 155
+    },
+    {
+      "from": 217,
+      "to": 216
+    },
+    {
+      "from": 218,
+      "to": 216
+    },
+    {
+      "from": 219,
+      "to": 218
+    },
+    {
+      "from": 220,
+      "to": 150
+    },
+    {
+      "from": 220,
+      "to": 80
+    },
+    {
+      "from": 221,
+      "to": 150
+    },
+    {
+      "from": 221,
+      "to": 220
+    },
+    {
+      "from": 222,
+      "to": 150
+    },
+    {
+      "from": 222,
+      "to": 122
+    },
+    {
+      "from": 223,
+      "to": 150
+    },
+    {
+      "from": 223,
+      "to": 128
+    },
+    {
+      "from": 224,
+      "to": 150
+    },
+    {
+      "from": 224,
+      "to": 204
+    },
+    {
+      "from": 225,
+      "to": 150
+    },
+    {
+      "from": 225,
+      "to": 77
+    },
+    {
+      "from": 226,
+      "to": 152
+    },
+    {
+      "from": 226,
+      "to": 121
+    },
+    {
+      "from": 227,
+      "to": 152
+    },
+    {
+      "from": 227,
+      "to": 114
+    },
+    {
+      "from": 228,
+      "to": 226
+    },
+    {
+      "from": 228,
+      "to": 80
+    },
+    {
+      "from": 229,
+      "to": 226
+    },
+    {
+      "from": 229,
+      "to": 102
+    },
+    {
+      "from": 230,
+      "to": 226
+    },
+    {
+      "from": 230,
+      "to": 97
+    },
+    {
+      "from": 231,
+      "to": 152
+    },
+    {
+      "from": 232,
+      "to": 152
+    },
+    {
+      "from": 233,
+      "to": 152
+    },
+    {
+      "from": 234,
+      "to": 152
+    },
+    {
+      "from": 235,
+      "to": 226
+    },
+    {
+      "from": 236,
+      "to": 153
+    },
+    {
+      "from": 236,
+      "to": 113
+    },
+    {
+      "from": 237,
+      "to": 153
+    },
+    {
+      "from": 237,
+      "to": 132
+    },
+    {
+      "from": 238,
+      "to": 103
+    },
+    {
+      "from": 239,
+      "to": 154
+    },
+    {
+      "from": 239,
+      "to": 90
+    },
+    {
+      "from": 240,
+      "to": 154
+    },
+    {
+      "from": 240,
+      "to": 72
+    },
+    {
+      "from": 241,
+      "to": 239
+    },
+    {
+      "from": 241,
+      "to": 240
+    },
+    {
+      "from": 242,
+      "to": 76
+    },
+    {
+      "from": 243,
+      "to": 214
+    },
+    {
+      "from": 244,
+      "to": 243
+    },
+    {
+      "from": 245,
+      "to": 214
+    },
+    {
+      "from": 245,
+      "to": 90
+    },
+    {
+      "from": 246,
+      "to": 67
+    },
+    {
+      "from": 246,
+      "to": 160
+    },
+    {
+      "from": 247,
+      "to": 246
+    },
+    {
+      "from": 248,
+      "to": 129
+    },
+    {
+      "from": 248,
+      "to": 24
+    },
+    {
+      "from": 249,
+      "to": 69
+    },
+    {
+      "from": 249,
+      "to": 133
+    },
+    {
+      "from": 250,
+      "to": 249
+    },
+    {
+      "from": 251,
+      "to": 249
+    },
+    {
+      "from": 252,
+      "to": 65
+    },
+    {
+      "from": 253,
+      "to": 252
+    },
+    {
+      "from": 254,
+      "to": 252
+    },
+    {
+      "from": 255,
+      "to": 252
+    },
+    {
+      "from": 256,
+      "to": 252
+    },
+    {
+      "from": 257,
+      "to": 252
+    },
+    {
+      "from": 258,
+      "to": 252
+    },
+    {
+      "from": 259,
+      "to": 252
+    },
+    {
+      "from": 260,
+      "to": 252
+    },
+    {
+      "from": 260,
+      "to": 103
+    },
+    {
+      "from": 261,
+      "to": 65
+    },
+    {
+      "from": 261,
+      "to": 71
+    },
+    {
+      "from": 262,
+      "to": 252
+    },
+    {
+      "from": 263,
+      "to": 252
+    },
+    {
+      "from": 264,
+      "to": 252
+    },
+    {
+      "from": 265,
+      "to": 67
+    },
+    {
+      "from": 265,
+      "to": 70
+    },
+    {
+      "from": 266,
+      "to": 265
+    },
+    {
+      "from": 267,
+      "to": 266
+    },
+    {
+      "from": 268,
+      "to": 267
+    },
+    {
+      "from": 269,
+      "to": 268
+    },
+    {
+      "from": 270,
+      "to": 269
+    },
+    {
+      "from": 271,
+      "to": 268
+    },
+    {
+      "from": 272,
+      "to": 271
+    },
+    {
+      "from": 273,
+      "to": 271
+    },
+    {
+      "from": 274,
+      "to": 269
+    },
+    {
+      "from": 275,
+      "to": 270
+    },
+    {
+      "from": 276,
+      "to": 265
+    },
+    {
+      "from": 277,
+      "to": 276
+    },
+    {
+      "from": 278,
+      "to": 277
+    },
+    {
+      "from": 279,
+      "to": 277
+    },
+    {
+      "from": 279,
+      "to": 172
+    },
+    {
+      "from": 280,
+      "to": 277
+    },
+    {
+      "from": 280,
+      "to": 249
+    },
+    {
+      "from": 281,
+      "to": 277
+    },
+    {
+      "from": 281,
+      "to": 274
+    },
+    {
+      "from": 282,
+      "to": 276
+    },
+    {
+      "from": 282,
+      "to": 138
+    },
+    {
+      "from": 283,
+      "to": 276
+    },
+    {
+      "from": 283,
+      "to": 71
+    },
+    {
+      "from": 284,
+      "to": 276
+    },
+    {
+      "from": 284,
+      "to": 72
+    },
+    {
+      "from": 285,
+      "to": 276
+    },
+    {
+      "from": 285,
+      "to": 218
+    },
+    {
+      "from": 286,
+      "to": 265
+    },
+    {
+      "from": 287,
+      "to": 286
+    },
+    {
+      "from": 288,
+      "to": 286
+    },
+    {
+      "from": 288,
+      "to": 274
+    },
+    {
+      "from": 289,
+      "to": 286
+    },
+    {
+      "from": 290,
+      "to": 289
+    },
+    {
+      "from": 290,
+      "to": 149
+    },
+    {
+      "from": 291,
+      "to": 289
+    },
+    {
+      "from": 291,
+      "to": 160
+    },
+    {
+      "from": 292,
+      "to": 289
+    },
+    {
+      "from": 292,
+      "to": 279
+    },
+    {
+      "from": 293,
+      "to": 289
+    },
+    {
+      "from": 293,
+      "to": 159
+    },
+    {
+      "from": 294,
+      "to": 286
+    },
+    {
+      "from": 295,
+      "to": 294
+    },
+    {
+      "from": 296,
+      "to": 294
+    },
+    {
+      "from": 297,
+      "to": 294
+    },
+    {
+      "from": 298,
+      "to": 294
+    },
+    {
+      "from": 298,
+      "to": 278
+    },
+    {
+      "from": 299,
+      "to": 294
+    },
+    {
+      "from": 300,
+      "to": 292
+    },
+    {
+      "from": 301,
+      "to": 291
+    },
+    {
+      "from": 302,
+      "to": 280
+    },
+    {
+      "from": 303,
+      "to": 294
+    },
+    {
+      "from": 304,
+      "to": 266
+    },
+    {
+      "from": 305,
+      "to": 304
+    },
+    {
+      "from": 306,
+      "to": 305
+    },
+    {
+      "from": 307,
+      "to": 304
+    },
+    {
+      "from": 308,
+      "to": 304
+    },
+    {
+      "from": 309,
+      "to": 304
+    },
+    {
+      "from": 310,
+      "to": 304
+    },
+    {
+      "from": 311,
+      "to": 304
+    },
+    {
+      "from": 312,
+      "to": 304
+    },
+    {
+      "from": 312,
+      "to": 311
+    },
+    {
+      "from": 313,
+      "to": 147
+    },
+    {
+      "from": 314,
+      "to": 313
+    },
+    {
+      "from": 315,
+      "to": 314
+    },
+    {
+      "from": 316,
+      "to": 315
+    },
+    {
+      "from": 317,
+      "to": 316
+    },
+    {
+      "from": 318,
+      "to": 314
+    },
+    {
+      "from": 319,
+      "to": 318
+    },
+    {
+      "from": 320,
+      "to": 226
+    },
+    {
+      "from": 321,
+      "to": 249
+    },
+    {
+      "from": 322,
+      "to": 154
+    },
+    {
+      "from": 323,
+      "to": 178
+    },
+    {
+      "from": 324,
+      "to": 69
+    },
+    {
+      "from": 325,
+      "to": 69
+    },
+    {
+      "from": 326,
+      "to": 239
+    },
+    {
+      "from": 327,
+      "to": 326
+    },
+    {
+      "from": 328,
+      "to": 324
+    },
+    {
+      "from": 329,
+      "to": 328
+    },
+    {
+      "from": 330,
+      "to": 269
+    },
+    {
+      "from": 331,
+      "to": 70
+    },
+    {
+      "from": 331,
+      "to": 330
+    },
+    {
+      "from": 332,
+      "to": 67
+    },
+    {
+      "from": 332,
+      "to": 330
+    },
+    {
+      "from": 333,
+      "to": 322
+    },
+    {
+      "from": 334,
+      "to": 149
+    },
+    {
+      "from": 335,
+      "to": 152
+    },
+    {
+      "from": 336,
+      "to": 153
+    },
+    {
+      "from": 337,
+      "to": 133
+    },
+    {
+      "from": 338,
+      "to": 134
+    },
+    {
+      "from": 339,
+      "to": 282
+    },
+    {
+      "from": 340,
+      "to": 155
+    },
+    {
+      "from": 341,
+      "to": 143
+    },
+    {
+      "from": 342,
+      "to": 128
+    },
+    {
+      "from": 343,
+      "to": 222
+    },
+    {
+      "from": 344,
+      "to": 77
+    },
+    {
+      "from": 344,
+      "to": 131
+    },
+    {
+      "from": 345,
+      "to": 123
+    },
+    {
+      "from": 346,
+      "to": 187
+    },
+    {
+      "from": 346,
+      "to": 243
+    },
+    {
+      "from": 347,
+      "to": 132
+    },
+    {
+      "from": 347,
+      "to": 134
+    },
+    {
+      "from": 348,
+      "to": 121
+    },
+    {
+      "from": 349,
+      "to": 286
+    },
+    {
+      "from": 350,
+      "to": 243
+    },
+    {
+      "from": 351,
+      "to": 279
+    },
+    {
+      "from": 352,
+      "to": 249
+    },
+    {
+      "from": 353,
+      "to": 334
+    },
+    {
+      "from": 353,
+      "to": 335
+    },
+    {
+      "from": 353,
+      "to": 336
+    },
+    {
+      "from": 354,
+      "to": 167
+    },
+    {
+      "from": 355,
+      "to": 243
+    },
+    {
+      "from": 356,
+      "to": 244
+    },
+    {
+      "from": 357,
+      "to": 286
+    },
+    {
+      "from": 358,
+      "to": 357
+    },
+    {
+      "from": 358,
+      "to": 126
+    },
+    {
+      "from": 359,
+      "to": 358
+    },
+    {
+      "from": 359,
+      "to": 187
+    },
+    {
+      "from": 360,
+      "to": 359
+    },
+    {
+      "from": 360,
+      "to": 252
+    },
+    {
+      "from": 361,
+      "to": 360
+    },
+    {
+      "from": 361,
+      "to": 143
+    },
+    {
+      "from": 362,
+      "to": 361
+    },
+    {
+      "from": 363,
+      "to": 153
+    },
+    {
+      "from": 364,
+      "to": 152
+    },
+    {
+      "from": 365,
+      "to": 170
+    },
+    {
+      "from": 366,
+      "to": 187
+    },
+    {
+      "from": 367,
+      "to": 146
+    },
+    {
+      "from": 368,
+      "to": 77
+    },
+    {
+      "from": 369,
+      "to": 194
+    },
+    {
+      "from": 370,
+      "to": 67
+    },
+    {
+      "from": 370,
+      "to": 70
+    },
+    {
+      "from": 371,
+      "to": 370
+    },
+    {
+      "from": 372,
+      "to": 371
+    },
+    {
+      "from": 373,
+      "to": 363
+    },
+    {
+      "from": 373,
+      "to": 371
+    },
+    {
+      "from": 374,
+      "to": 371
+    },
+    {
+      "from": 375,
+      "to": 370
+    },
+    {
+      "from": 376,
+      "to": 375
+    },
+    {
+      "from": 377,
+      "to": 375
+    },
+    {
+      "from": 378,
+      "to": 152
+    },
+    {
+      "from": 378,
+      "to": 149
+    },
+    {
+      "from": 379,
+      "to": 172
+    },
+    {
+      "from": 380,
+      "to": 286
+    },
+    {
+      "from": 381,
+      "to": 286
+    },
+    {
+      "from": 382,
+      "to": 381
+    },
+    {
+      "from": 383,
+      "to": 381
+    },
+    {
+      "from": 384,
+      "to": 383
+    },
+    {
+      "from": 385,
+      "to": 378
+    },
+    {
+      "from": 386,
+      "to": 378
+    },
+    {
+      "from": 387,
+      "to": 157
+    },
+    {
+      "from": 388,
+      "to": 385
+    },
+    {
+      "from": 389,
+      "to": 184
+    },
+    {
+      "from": 390,
+      "to": 389
+    },
+    {
+      "from": 390,
+      "to": 184
+    },
+    {
+      "from": 391,
+      "to": 389
+    },
+    {
+      "from": 392,
+      "to": 141
+    },
+    {
+      "from": 392,
+      "to": 187
+    },
+    {
+      "from": 393,
+      "to": 389
+    },
+    {
+      "from": 394,
+      "to": 226
+    },
+    {
+      "from": 394,
+      "to": 90
+    },
+    {
+      "from": 395,
+      "to": 204
+    },
+    {
+      "from": 396,
+      "to": 227
+    },
+    {
+      "from": 396,
+      "to": 141
+    },
+    {
+      "from": 397,
+      "to": 393
+    },
+    {
+      "from": 398,
+      "to": 397
+    },
+    {
+      "from": 398,
+      "to": 122
+    },
+    {
+      "from": 399,
+      "to": 398
+    },
+    {
+      "from": 399,
+      "to": 279
+    },
+    {
+      "from": 400,
+      "to": 399
+    },
+    {
+      "from": 400,
+      "to": 133
+    },
+    {
+      "from": 401,
+      "to": 400
+    },
+    {
+      "from": 401,
+      "to": 390
+    },
+    {
+      "from": 402,
+      "to": 239
+    },
+    {
+      "from": 403,
+      "to": 401
+    },
+    {
+      "from": 404,
+      "to": 265
+    },
+    {
+      "from": 405,
+      "to": 404
+    },
+    {
+      "from": 406,
+      "to": 404
+    },
+    {
+      "from": 406,
+      "to": 70
+    },
+    {
+      "from": 407,
+      "to": 404
+    },
+    {
+      "from": 407,
+      "to": 67
+    },
+    {
+      "from": 408,
+      "to": 404
+    },
+    {
+      "from": 409,
+      "to": 150
+    },
+    {
+      "from": 409,
+      "to": 408
+    },
+    {
+      "from": 410,
+      "to": 304
+    },
+    {
+      "from": 411,
+      "to": 371
+    },
+    {
+      "from": 412,
+      "to": 187
+    },
+    {
+      "from": 412,
+      "to": 366
+    },
+    {
+      "from": 413,
+      "to": 67
+    },
+    {
+      "from": 413,
+      "to": 408
+    },
+    {
+      "from": 414,
+      "to": 152
+    },
+    {
+      "from": 414,
+      "to": 364
+    },
+    {
+      "from": 415,
+      "to": 153
+    },
+    {
+      "from": 415,
+      "to": 363
+    },
+    {
+      "from": 416,
+      "to": 153
+    },
+    {
+      "from": 416,
+      "to": 363
+    },
+    {
+      "from": 417,
+      "to": 415
+    },
+    {
+      "from": 417,
+      "to": 416
+    },
+    {
+      "from": 418,
+      "to": 154
+    },
+    {
+      "from": 418,
+      "to": 408
+    },
+    {
+      "from": 419,
+      "to": 155
+    },
+    {
+      "from": 419,
+      "to": 408
+    },
+    {
+      "from": 420,
+      "to": 222
+    },
+    {
+      "from": 421,
+      "to": 413
+    },
+    {
+      "from": 422,
+      "to": 417
+    },
+    {
+      "from": 422,
+      "to": 363
+    },
+    {
+      "from": 423,
+      "to": 195
+    },
+    {
+      "from": 424,
+      "to": 195
+    },
+    {
+      "from": 425,
+      "to": 159
+    },
+    {
+      "from": 426,
+      "to": 72
+    },
+    {
+      "from": 426,
+      "to": 159
+    },
+    {
+      "from": 427,
+      "to": 29
+    },
+    {
+      "from": 431,
+      "to": 61
+    },
+    {
+      "from": 432,
+      "to": 78
+    },
+    {
+      "from": 433,
+      "to": 245
+    },
+    {
+      "from": 434,
+      "to": 428
+    },
+    {
+      "from": 434,
+      "to": 72
+    },
+    {
+      "from": 435,
+      "to": 434
+    },
+    {
+      "from": 435,
+      "to": 78
+    },
+    {
+      "from": 435,
+      "to": 79
+    },
+    {
+      "from": 435,
+      "to": 80
+    },
+    {
+      "from": 436,
+      "to": 434
+    },
+    {
+      "from": 436,
+      "to": 95
+    },
+    {
+      "from": 437,
+      "to": 434
+    },
+    {
+      "from": 437,
+      "to": 121
+    },
+    {
+      "from": 438,
+      "to": 434
+    },
+    {
+      "from": 438,
+      "to": 110
+    },
+    {
+      "from": 439,
+      "to": 434
+    },
+    {
+      "from": 440,
+      "to": 434
+    },
+    {
+      "from": 440,
+      "to": 90
+    },
+    {
+      "from": 441,
+      "to": 434
+    },
+    {
+      "from": 441,
+      "to": 245
+    },
+    {
+      "from": 442,
+      "to": 434
+    },
+    {
+      "from": 443,
+      "to": 434
+    },
+    {
+      "from": 443,
+      "to": 85
+    },
+    {
+      "from": 444,
+      "to": 434
+    },
+    {
+      "from": 444,
+      "to": 77
+    },
+    {
+      "from": 445,
+      "to": 434
+    },
+    {
+      "from": 445,
+      "to": 146
+    },
+    {
+      "from": 446,
+      "to": 445
+    },
+    {
+      "from": 447,
+      "to": 435
+    },
+    {
+      "from": 447,
+      "to": 81
+    },
+    {
+      "from": 448,
+      "to": 435
+    },
+    {
+      "from": 448,
+      "to": 429
+    },
+    {
+      "from": 449,
+      "to": 435
+    },
+    {
+      "from": 450,
+      "to": 436
+    },
+    {
+      "from": 450,
+      "to": 95
+    },
+    {
+      "from": 451,
+      "to": 436
+    },
+    {
+      "from": 451,
+      "to": 127
+    },
+    {
+      "from": 452,
+      "to": 436
+    },
+    {
+      "from": 452,
+      "to": 98
+    },
+    {
+      "from": 453,
+      "to": 437
+    },
+    {
+      "from": 453,
+      "to": 318
+    },
+    {
+      "from": 454,
+      "to": 437
+    },
+    {
+      "from": 454,
+      "to": 109
+    },
+    {
+      "from": 455,
+      "to": 437
+    },
+    {
+      "from": 455,
+      "to": 222
+    },
+    {
+      "from": 456,
+      "to": 438
+    },
+    {
+      "from": 456,
+      "to": 110
+    },
+    {
+      "from": 457,
+      "to": 438
+    },
+    {
+      "from": 457,
+      "to": 456
+    },
+    {
+      "from": 458,
+      "to": 439
+    },
+    {
+      "from": 459,
+      "to": 439
+    },
+    {
+      "from": 459,
+      "to": 458
+    },
+    {
+      "from": 460,
+      "to": 459
+    },
+    {
+      "from": 461,
+      "to": 439
+    },
+    {
+      "from": 461,
+      "to": 245
+    },
+    {
+      "from": 462,
+      "to": 440
+    },
+    {
+      "from": 463,
+      "to": 440
+    },
+    {
+      "from": 463,
+      "to": 90
+    },
+    {
+      "from": 464,
+      "to": 440
+    },
+    {
+      "from": 464,
+      "to": 463
+    },
+    {
+      "from": 465,
+      "to": 440
+    },
+    {
+      "from": 465,
+      "to": 243
+    },
+    {
+      "from": 466,
+      "to": 441
+    },
+    {
+      "from": 466,
+      "to": 245
+    },
+    {
+      "from": 467,
+      "to": 442
+    },
+    {
+      "from": 467,
+      "to": 247
+    },
+    {
+      "from": 468,
+      "to": 442
+    },
+    {
+      "from": 468,
+      "to": 445
+    },
+    {
+      "from": 469,
+      "to": 442
+    },
+    {
+      "from": 470,
+      "to": 442
+    },
+    {
+      "from": 471,
+      "to": 440
+    },
+    {
+      "from": 471,
+      "to": 445
+    },
+    {
+      "from": 472,
+      "to": 440
+    },
+    {
+      "from": 472,
+      "to": 464
+    },
+    {
+      "from": 473,
+      "to": 440
+    },
+    {
+      "from": 473,
+      "to": 463
+    },
+    {
+      "from": 474,
+      "to": 473
+    },
+    {
+      "from": 474,
+      "to": 463
+    },
+    {
+      "from": 475,
+      "to": 439
+    },
+    {
+      "from": 476,
+      "to": 159
+    },
+    {
+      "from": 476,
+      "to": 475
+    },
+    {
+      "from": 477,
+      "to": 476
+    },
+    {
+      "from": 478,
+      "to": 476
+    },
+    {
+      "from": 479,
+      "to": 428
+    },
+    {
+      "from": 479,
+      "to": 177
+    },
+    {
+      "from": 480,
+      "to": 428
+    },
+    {
+      "from": 480,
+      "to": 78
+    },
+    {
+      "from": 481,
+      "to": 428
+    },
+    {
+      "from": 481,
+      "to": 79
+    },
+    {
+      "from": 482,
+      "to": 428
+    },
+    {
+      "from": 482,
+      "to": 450
+    },
+    {
+      "from": 483,
+      "to": 428
+    },
+    {
+      "from": 483,
+      "to": 342
+    },
+    {
+      "from": 484,
+      "to": 428
+    },
+    {
+      "from": 484,
+      "to": 180
+    },
+    {
+      "from": 485,
+      "to": 428
+    },
+    {
+      "from": 485,
+      "to": 81
+    },
+    {
+      "from": 486,
+      "to": 428
+    },
+    {
+      "from": 486,
+      "to": 245
+    },
+    {
+      "from": 487,
+      "to": 479
+    },
+    {
+      "from": 487,
+      "to": 480
+    },
+    {
+      "from": 487,
+      "to": 481
+    },
+    {
+      "from": 488,
+      "to": 484
+    },
+    {
+      "from": 488,
+      "to": 483
+    },
+    {
+      "from": 489,
+      "to": 479
+    },
+    {
+      "from": 489,
+      "to": 482
+    },
+    {
+      "from": 489,
+      "to": 443
+    },
+    {
+      "from": 490,
+      "to": 429
+    },
+    {
+      "from": 490,
+      "to": 71
+    },
+    {
+      "from": 491,
+      "to": 429
+    },
+    {
+      "from": 491,
+      "to": 114
+    },
+    {
+      "from": 492,
+      "to": 491
+    },
+    {
+      "from": 492,
+      "to": 114
+    },
+    {
+      "from": 492,
+      "to": 102
+    },
+    {
+      "from": 493,
+      "to": 491
+    },
+    {
+      "from": 493,
+      "to": 114
+    },
+    {
+      "from": 494,
+      "to": 491
+    },
+    {
+      "from": 494,
+      "to": 118
+    },
+    {
+      "from": 495,
+      "to": 491
+    },
+    {
+      "from": 495,
+      "to": 117
+    },
+    {
+      "from": 495,
+      "to": 104
+    },
+    {
+      "from": 496,
+      "to": 495
+    },
+    {
+      "from": 496,
+      "to": 104
+    },
+    {
+      "from": 497,
+      "to": 491
+    },
+    {
+      "from": 497,
+      "to": 117
+    },
+    {
+      "from": 498,
+      "to": 491
+    },
+    {
+      "from": 498,
+      "to": 131
+    },
+    {
+      "from": 499,
+      "to": 491
+    },
+    {
+      "from": 499,
+      "to": 114
+    },
+    {
+      "from": 500,
+      "to": 491
+    },
+    {
+      "from": 500,
+      "to": 10
+    },
+    {
+      "from": 501,
+      "to": 490
+    },
+    {
+      "from": 501,
+      "to": 119
+    },
+    {
+      "from": 502,
+      "to": 490
+    },
+    {
+      "from": 502,
+      "to": 119
+    },
+    {
+      "from": 503,
+      "to": 490
+    },
+    {
+      "from": 503,
+      "to": 255
+    },
+    {
+      "from": 504,
+      "to": 490
+    },
+    {
+      "from": 504,
+      "to": 96
+    },
+    {
+      "from": 505,
+      "to": 490
+    },
+    {
+      "from": 505,
+      "to": 131
+    },
+    {
+      "from": 506,
+      "to": 490
+    },
+    {
+      "from": 506,
+      "to": 117
+    },
+    {
+      "from": 507,
+      "to": 490
+    },
+    {
+      "from": 507,
+      "to": 116
+    },
+    {
+      "from": 508,
+      "to": 490
+    },
+    {
+      "from": 508,
+      "to": 80
+    },
+    {
+      "from": 509,
+      "to": 495
+    },
+    {
+      "from": 509,
+      "to": 498
+    },
+    {
+      "from": 509,
+      "to": 496
+    },
+    {
+      "from": 510,
+      "to": 490
+    },
+    {
+      "from": 510,
+      "to": 105
+    },
+    {
+      "from": 511,
+      "to": 490
+    },
+    {
+      "from": 512,
+      "to": 490
+    },
+    {
+      "from": 512,
+      "to": 103
+    },
+    {
+      "from": 513,
+      "to": 490
+    },
+    {
+      "from": 513,
+      "to": 69
+    },
+    {
+      "from": 514,
+      "to": 503
+    },
+    {
+      "from": 515,
+      "to": 498
+    },
+    {
+      "from": 516,
+      "to": 490
+    },
+    {
+      "from": 517,
+      "to": 429
+    },
+    {
+      "from": 517,
+      "to": 81
+    },
+    {
+      "from": 518,
+      "to": 429
+    },
+    {
+      "from": 519,
+      "to": 430
+    },
+    {
+      "from": 519,
+      "to": 71
+    },
+    {
+      "from": 520,
+      "to": 430
+    },
+    {
+      "from": 520,
+      "to": 110
+    },
+    {
+      "from": 521,
+      "to": 519
+    },
+    {
+      "from": 521,
+      "to": 115
+    },
+    {
+      "from": 521,
+      "to": 114
+    },
+    {
+      "from": 522,
+      "to": 519
+    },
+    {
+      "from": 522,
+      "to": 116
+    },
+    {
+      "from": 523,
+      "to": 519
+    },
+    {
+      "from": 523,
+      "to": 115
+    },
+    {
+      "from": 524,
+      "to": 519
+    },
+    {
+      "from": 524,
+      "to": 97
+    },
+    {
+      "from": 525,
+      "to": 519
+    },
+    {
+      "from": 525,
+      "to": 105
+    },
+    {
+      "from": 525,
+      "to": 103
+    },
+    {
+      "from": 526,
+      "to": 519
+    },
+    {
+      "from": 526,
+      "to": 117
+    },
+    {
+      "from": 527,
+      "to": 519
+    },
+    {
+      "from": 527,
+      "to": 95
+    },
+    {
+      "from": 528,
+      "to": 519
+    },
+    {
+      "from": 528,
+      "to": 77
+    },
+    {
+      "from": 529,
+      "to": 519
+    },
+    {
+      "from": 530,
+      "to": 520
+    },
+    {
+      "from": 530,
+      "to": 110
+    },
+    {
+      "from": 531,
+      "to": 520
+    },
+    {
+      "from": 531,
+      "to": 110
+    },
+    {
+      "from": 532,
+      "to": 531
+    },
+    {
+      "from": 533,
+      "to": 531
+    },
+    {
+      "from": 534,
+      "to": 531
+    },
+    {
+      "from": 535,
+      "to": 531
+    },
+    {
+      "from": 535,
+      "to": 111
+    },
+    {
+      "from": 536,
+      "to": 535
+    },
+    {
+      "from": 537,
+      "to": 531
+    },
+    {
+      "from": 538,
+      "to": 531
+    },
+    {
+      "from": 539,
+      "to": 535
+    },
+    {
+      "from": 539,
+      "to": 143
+    },
+    {
+      "from": 540,
+      "to": 539
+    },
+    {
+      "from": 541,
+      "to": 533
+    },
+    {
+      "from": 542,
+      "to": 541
+    },
+    {
+      "from": 543,
+      "to": 541
+    },
+    {
+      "from": 544,
+      "to": 543
+    },
+    {
+      "from": 545,
+      "to": 544
+    },
+    {
+      "from": 546,
+      "to": 533
+    },
+    {
+      "from": 547,
+      "to": 537
+    },
+    {
+      "from": 548,
+      "to": 520
+    },
+    {
+      "from": 548,
+      "to": 541
+    },
+    {
+      "from": 548,
+      "to": 543
+    },
+    {
+      "from": 549,
+      "to": 430
+    },
+    {
+      "from": 549,
+      "to": 94
+    },
+    {
+      "from": 550,
+      "to": 430
+    },
+    {
+      "from": 550,
+      "to": 98
+    },
+    {
+      "from": 551,
+      "to": 519
+    },
+    {
+      "from": 551,
+      "to": 530
+    },
+    {
+      "from": 552,
+      "to": 531
+    },
+    {
+      "from": 552,
+      "to": 539
+    },
+    {
+      "from": 553,
+      "to": 428
+    },
+    {
+      "from": 553,
+      "to": 429
+    },
+    {
+      "from": 553,
+      "to": 430
+    },
+    {
+      "from": 554,
+      "to": 69
+    },
+    {
+      "from": 554,
+      "to": 553
+    },
+    {
+      "from": 555,
+      "to": 553
+    },
+    {
+      "from": 556,
+      "to": 97
+    },
+    {
+      "from": 556,
+      "to": 11
+    },
+    {
+      "from": 557,
+      "to": 556
+    },
+    {
+      "from": 558,
+      "to": 556
+    },
+    {
+      "from": 558,
+      "to": 101
+    },
+    {
+      "from": 559,
+      "to": 556
+    },
+    {
+      "from": 560,
+      "to": 558
+    },
+    {
+      "from": 560,
+      "to": 559
+    },
+    {
+      "from": 561,
+      "to": 109
+    },
+    {
+      "from": 561,
+      "to": 101
+    },
+    {
+      "from": 562,
+      "to": 109
+    },
+    {
+      "from": 562,
+      "to": 97
+    },
+    {
+      "from": 563,
+      "to": 109
+    },
+    {
+      "from": 563,
+      "to": 98
+    },
+    {
+      "from": 564,
+      "to": 95
+    },
+    {
+      "from": 564,
+      "to": 556
+    },
+    {
+      "from": 565,
+      "to": 556
+    },
+    {
+      "from": 565,
+      "to": 98
+    },
+    {
+      "from": 566,
+      "to": 565
+    },
+    {
+      "from": 566,
+      "to": 559
+    },
+    {
+      "from": 567,
+      "to": 102
+    },
+    {
+      "from": 567,
+      "to": 556
+    },
+    {
+      "from": 568,
+      "to": 140
+    },
+    {
+      "from": 568,
+      "to": 567
+    },
+    {
+      "from": 569,
+      "to": 562
+    },
+    {
+      "from": 569,
+      "to": 115
+    },
+    {
+      "from": 570,
+      "to": 569
+    },
+    {
+      "from": 571,
+      "to": 77
+    },
+    {
+      "from": 571,
+      "to": 89
+    },
+    {
+      "from": 572,
+      "to": 121
+    },
+    {
+      "from": 573,
+      "to": 77
+    },
+    {
+      "from": 573,
+      "to": 571
+    },
+    {
+      "from": 574,
+      "to": 89
+    },
+    {
+      "from": 574,
+      "to": 571
+    },
+    {
+      "from": 575,
+      "to": 59
+    },
+    {
+      "from": 575,
+      "to": 67
+    },
+    {
+      "from": 576,
+      "to": 572
+    },
+    {
+      "from": 577,
+      "to": 556
+    },
+    {
+      "from": 577,
+      "to": 561
+    },
+    {
+      "from": 578,
+      "to": 226
+    },
+    {
+      "from": 578,
+      "to": 556
+    }
+  ]
+}

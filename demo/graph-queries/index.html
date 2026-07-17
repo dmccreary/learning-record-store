@@ -1,0 +1,1552 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A seven-query walkthrough of the seeded LRS graph in Neo4j Browser — 54 real intelligent textbooks, 15,362 concepts, 4,050 synthetic learners — from the learning graph to root-cause prerequisite analysis.">
+      
+      
+        <meta name="author" content="Dan McCreary">
+      
+      
+        <link rel="canonical" href="https://dmccreary.github.io/learning-record-store/demo/graph-queries/">
+      
+      
+        <link rel="prev" href="../../specs/mvp-plan/">
+      
+      
+        <link rel="next" href="../../chapters/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Live Graph Demo — Questions a Spreadsheet Cannot Answer - Learning Record Store</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/extra.css">
+    
+      <link rel="stylesheet" href="../../css/mascot.css">
+    
+      <link rel="stylesheet" href="../../css/lrs-xapi.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    <meta property="og:image" content="https://dmccreary.github.io/learning-record-store/../img/cover.png">
+  <meta name="twitter:image" content="https://dmccreary.github.io/learning-record-store/../img/cover.png">
+</head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#live-graph-demo" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Learning Record Store" class="md-header__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  <img src="../../img/mascot/neutral.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Learning Record Store
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Live Graph Demo — Questions a Spreadsheet Cannot Answer
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Learning Record Store" class="md-nav__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  <img src="../../img/mascot/neutral.png" alt="logo">
+
+    </a>
+    Learning Record Store
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../course-description/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course Description
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Specifications
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Demo
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Demo
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Live Graph Demo
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Live Graph Demo
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setup
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-whats-in-here" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. What's in here?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-textbooks-have-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Textbooks have structure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-what-is-my-class-struggling-with" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. "What is my class struggling with?"
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-where-did-it-actually-break" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Where did it actually break?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-prerequisites-are-load-bearing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Prerequisites are load-bearing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-which-microsim-should-i-build-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Which MicroSim should I build next?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-why-this-is-affordable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Why this is affordable
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-this-dataset-does-not-show" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What this dataset does not show
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../chapters/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapters
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../learning-graph/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning Graph
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../sims/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MicroSims
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    License
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contact/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contact
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setup
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-whats-in-here" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. What's in here?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-textbooks-have-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Textbooks have structure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-what-is-my-class-struggling-with" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. "What is my class struggling with?"
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-where-did-it-actually-break" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Where did it actually break?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-prerequisites-are-load-bearing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Prerequisites are load-bearing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-which-microsim-should-i-build-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Which MicroSim should I build next?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-why-this-is-affordable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Why this is affordable
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-this-dataset-does-not-show" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What this dataset does not show
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="./" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Demo
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/demo/graph-queries.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="live-graph-demo">Live Graph Demo<a class="headerlink" href="#live-graph-demo" title="Permanent link">&para;</a></h1>
+<p><strong>Companion to:</strong> <a href="../../specs/lrs-spec-v1/#4-graph-data-model">LRS Specification §4</a> · <a href="../../specs/lrs-design-v1/">Design §8.7</a>
+<strong>Audience:</strong> teachers, curriculum staff, and anyone who has been shown a MicroSim and asked "so what?"
+<strong>Runs on:</strong> a laptop, on free software, in under three minutes.</p>
+<p>A MicroSim shows that a page can be interactive. This shows what happens when thousands
+of learners <em>use</em> those pages across a whole catalogue of textbooks and the evidence
+lands in a graph — which is where the interesting questions start.</p>
+<p>The learning graphs here are <strong>real</strong>: every concept, prerequisite edge, and chapter is
+imported from the <code>docs/learning-graph/</code> committed to each textbook repo. Nothing about
+the course content was invented for this demo.</p>
+<hr />
+<h2 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>deploy/docker-compose.yml<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>neo4j
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-i<span class="w"> </span>lrs-neo4j-1<span class="w"> </span>cypher-shell<span class="w"> </span>-u<span class="w"> </span>neo4j<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NEO4J_PASSWORD</span><span class="s2">&quot;</span><span class="w"> </span>&lt;<span class="w"> </span>src/lrs/ddl/neo4j.cypher
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>uv<span class="w"> </span>run<span class="w"> </span>lrs<span class="w"> </span>seed<span class="w"> </span>--showcase<span class="w">          </span><span class="c1"># reads ../ for textbook repos; LRS_TEXTBOOK_ROOT overrides</span>
+</span></code></pre></div>
+<p>Then open <strong><a href="http://localhost:7474">http://localhost:7474</a></strong>, connect as <code>neo4j</code> with the
+<code>NEO4J_PASSWORD</code> from your <code>.env</code>, and paste the queries below into the command bar.</p>
+<p>Seeding takes about <strong>2m24s</strong> and produces <strong>1,049,861 nodes and 3,074,472 relationships</strong>:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Textbooks</td>
+<td><strong>54</strong> — every repo with a committed learning graph</td>
+</tr>
+<tr>
+<td>Concepts</td>
+<td><strong>15,362</strong> real, with <strong>24,991</strong> real prerequisite edges</td>
+</tr>
+<tr>
+<td>Chapters</td>
+<td><strong>726</strong> — the real taxonomy categories from each book</td>
+</tr>
+<tr>
+<td>MicroSims</td>
+<td><strong>1,363</strong> real, by title</td>
+</tr>
+<tr>
+<td>Districts / schools / sections</td>
+<td>8 / 40 / 162</td>
+</tr>
+<tr>
+<td>Learners</td>
+<td><strong>4,050</strong> pseudonymous, ~75 per textbook</td>
+</tr>
+<tr>
+<td>Summary vertices</td>
+<td><strong>1,012,101</strong>, representing <strong>22,265,132 xAPI statements</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">What is real and what is synthetic</p>
+<p><strong>Real:</strong> concepts, prerequisite edges, taxonomy categories, chapter names, textbook
+titles, MicroSim titles — all imported from the textbook repos.</p>
+<p><strong>Synthetic:</strong> every learner, district, school, section, page, quiz, and mastery
+score. No real student, teacher, or district appears here, and spec §4.1 keeps
+<code>Student</code> pseudonymous by design — there is no PII anywhere in the graph.</p>
+<p>Every node carries <code>seeded: true</code>. <code>uv run lrs seed --clear</code> removes all of it.</p>
+</div>
+<hr />
+<h2 id="1-whats-in-here">1. What's in here?<a class="headerlink" href="#1-whats-in-here" title="Permanent link">&para;</a></h2>
+<div class="language-cypher highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">MATCH</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="k">UNWIND</span><span class="w"> </span><span class="n">labels</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">label</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">RETURN</span><span class="w"> </span><span class="n">label</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">(*)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="k">DESC</span>
+</span></code></pre></div>
+<p>The three biggest labels — <code>ConceptMastery</code> (647,676), <code>PageEngagement</code> (332,025), and
+<code>QuestionResponse</code> (32,400) — are <em>summaries</em>, not events. That distinction is the whole
+architecture, and query 7 returns to it.</p>
+<div class="language-cypher highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">// the catalogue itself</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">MATCH</span><span class="w"> </span><span class="p">(</span><span class="n">t</span><span class="p">:</span><span class="n">Textbook</span><span class="p">)</span><span class="w"> </span><span class="k">RETURN</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">title</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">title</span>
+</span></code></pre></div>
+<hr />
+<h2 id="2-textbooks-have-structure">2. Textbooks have structure<a class="headerlink" href="#2-textbooks-have-structure" title="Permanent link">&para;</a></h2>
+<p>The moment that reframes what a textbook is.</p>
+<div class="language-cypher highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">MATCH</span><span class="w"> </span><span class="p">(:</span><span class="n">Textbook</span><span class="w"> </span><span class="p">{</span><span class="n">textbook_id</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;tb-biology&#39;</span><span class="p">})</span><span class="o">-[</span><span class="p">:</span><span class="n">CONTAINS</span><span class="o">]-&gt;</span><span class="p">(:</span><span class="n">Chapter</span><span class="p">)</span><span class="o">-[</span><span class="p">:</span><span class="n">CONTAINS</span><span class="o">]-&gt;</span><span class="p">(:</span><span class="n">Page</span><span class="p">)</span><span class="o">-[</span><span class="p">:</span><span class="n">COVERS</span><span class="o">]-&gt;</span><span class="p">(</span><span class="n">c</span><span class="p">:</span><span class="n">Concept</span><span class="p">)</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">MATCH</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="o">-[</span><span class="p">:</span><span class="n">DEPENDS_ON</span><span class="o">]-&gt;</span><span class="p">(:</span><span class="n">Concept</span><span class="p">)</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">RETURN</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="m">150</span>
+</span></code></pre></div>
+<p>Not a list of chapters — a <strong>dependency graph</strong>, and one your own learning-graph
+generator produced. Click any node to see its <code>taxonomy_category</code> ("Cellular
+Energetics", "Heredity and Genetics").</p>
+<hr />
+<h2 id="3-what-is-my-class-struggling-with">3. "What is my class struggling with?"<a class="headerlink" href="#3-what-is-my-class-struggling-with" title="Permanent link">&para;</a></h2>
+<p>The question every teacher actually asks.</p>
+<div class="language-cypher highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">MATCH</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="p">:</span><span class="n">Instructor</span><span class="w"> </span><span class="p">{</span><span class="n">instructor_key</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;inst-0001&#39;</span><span class="p">})</span><span class="o">-[</span><span class="p">:</span><span class="n">TEACHES</span><span class="o">]-&gt;</span><span class="p">(:</span><span class="n">Section</span><span class="p">)</span><span class="o">&lt;-[</span><span class="p">:</span><span class="n">ENROLLED_IN</span><span class="o">]-</span><span class="p">(</span><span class="n">s</span><span class="p">:</span><span class="n">Student</span><span class="p">)</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">MATCH</span><span class="w"> </span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">-[</span><span class="p">:</span><span class="n">HAS_MASTERY</span><span class="o">]-&gt;</span><span class="p">(</span><span class="n">m</span><span class="p">:</span><span class="n">ConceptMastery</span><span class="p">)</span><span class="o">-[</span><span class="p">:</span><span class="n">OF_CONCEPT</span><span class="o">]-&gt;</span><span class="p">(</span><span class="n">c</span><span class="p">:</span><span class="n">Concept</span><span class="p">)</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="k">RETURN</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="n">label</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">concept</span><span class="p">,</span><span class="w"> </span><span class="n">round</span><span class="p">(</span><span class="n">avg</span><span class="p">(</span><span class="n">m</span><span class="p">.</span><span class="n">mastery_score</span><span class="p">),</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">class_mean</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">learners</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">class_mean</span><span class="w"> </span><span class="k">ASC</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="m">8</span>
+</span></code></pre></div>
+<p>A gradebook can do this much. The next query is the one it can't.</p>
+<hr />
+<h2 id="4-where-did-it-actually-break">4. Where did it actually break?<a class="headerlink" href="#4-where-did-it-actually-break" title="Permanent link">&para;</a></h2>
+<p>A low class average is a <em>symptom</em>. The graph finds the <strong>cause</strong>: a concept the learner
+failed <em>whose own prerequisites were fine</em>. That's the frontier — the first thing that
+broke. Everything downstream is collateral damage.</p>
+<div class="language-cypher highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">MATCH</span><span class="w"> </span><span class="p">(:</span><span class="n">Textbook</span><span class="w"> </span><span class="p">{</span><span class="n">textbook_id</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;tb-biology&#39;</span><span class="p">})</span><span class="o">-[</span><span class="p">:</span><span class="n">CONTAINS</span><span class="o">]-&gt;</span><span class="p">(:</span><span class="n">Chapter</span><span class="p">)</span><span class="o">-[</span><span class="p">:</span><span class="n">CONTAINS</span><span class="o">]-&gt;</span><span class="p">(:</span><span class="n">Page</span><span class="p">)</span><span class="o">-[</span><span class="p">:</span><span class="n">COVERS</span><span class="o">]-&gt;</span><span class="p">(</span><span class="n">root</span><span class="p">:</span><span class="n">Concept</span><span class="p">)</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">MATCH</span><span class="w"> </span><span class="p">(</span><span class="n">s</span><span class="p">:</span><span class="n">Student</span><span class="p">)</span><span class="o">-[</span><span class="p">:</span><span class="n">HAS_MASTERY</span><span class="o">]-&gt;</span><span class="p">(</span><span class="n">m</span><span class="p">:</span><span class="n">ConceptMastery</span><span class="p">)</span><span class="o">-[</span><span class="p">:</span><span class="n">OF_CONCEPT</span><span class="o">]-&gt;</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">mastery_score</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="m">0</span><span class="p">.</span><span class="m">35</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="n">AND</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="n">EXISTS</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="k">MATCH</span><span class="w"> </span><span class="p">(</span><span class="n">root</span><span class="p">)</span><span class="o">-[</span><span class="p">:</span><span class="n">DEPENDS_ON</span><span class="o">]-&gt;</span><span class="p">(</span><span class="n">pre</span><span class="p">:</span><span class="n">Concept</span><span class="p">)</span><span class="o">&lt;-[</span><span class="p">:</span><span class="n">OF_CONCEPT</span><span class="o">]-</span><span class="p">(</span><span class="n">pm</span><span class="p">:</span><span class="n">ConceptMastery</span><span class="p">)</span><span class="o">&lt;-[</span><span class="p">:</span><span class="n">HAS_MASTERY</span><span class="o">]-</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">pm</span><span class="p">.</span><span class="n">mastery_score</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="m">0</span><span class="p">.</span><span class="m">35</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="k">RETURN</span><span class="w"> </span><span class="n">root</span><span class="p">.</span><span class="n">label</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">root_cause</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">(</span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">learners_blocked</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">learners_blocked</span><span class="w"> </span><span class="k">DESC</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="m">8</span>
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>root_cause</th>
+<th>learners_blocked</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Eukaryotic Cells</td>
+<td>13</td>
+</tr>
+<tr>
+<td>Exergonic Reactions</td>
+<td>13</td>
+</tr>
+<tr>
+<td>Elements of Life</td>
+<td>10</td>
+</tr>
+<tr>
+<td>Second Law of Thermodynamics</td>
+<td>10</td>
+</tr>
+<tr>
+<td>Prokaryotic Cells</td>
+<td>10</td>
+</tr>
+</tbody>
+</table>
+<p>Thirteen of the 75 biology learners — about <strong>one in six</strong> — are stuck at <em>Eukaryotic
+Cells</em>, and their later scores are downstream of that, not of the chapter where the low
+marks appear. Reteaching the last chapter would help them not at all.</p>
+<div class="admonition tip">
+<p class="admonition-title">Scope to one textbook</p>
+<p>Every query here filters by <code>textbook_id</code>. Unscoped across all 54 books this takes
+~19 seconds; scoped it returns in under 2. Worth knowing before you run it live.</p>
+</div>
+<hr />
+<h2 id="5-prerequisites-are-load-bearing">5. Prerequisites are load-bearing<a class="headerlink" href="#5-prerequisites-are-load-bearing" title="Permanent link">&para;</a></h2>
+<p>The claim behind query 4, checked against all 629,047 mastery records that have a
+prerequisite to compare against:</p>
+<div class="language-cypher highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">MATCH</span><span class="w"> </span><span class="p">(</span><span class="n">s</span><span class="p">:</span><span class="n">Student</span><span class="p">)</span><span class="o">-[</span><span class="p">:</span><span class="n">HAS_MASTERY</span><span class="o">]-&gt;</span><span class="p">(</span><span class="n">m</span><span class="p">:</span><span class="n">ConceptMastery</span><span class="p">)</span><span class="o">-[</span><span class="p">:</span><span class="n">OF_CONCEPT</span><span class="o">]-&gt;</span><span class="p">(</span><span class="n">c</span><span class="p">:</span><span class="n">Concept</span><span class="p">)</span><span class="o">-[</span><span class="p">:</span><span class="n">DEPENDS_ON</span><span class="o">]-&gt;</span><span class="p">(</span><span class="n">pre</span><span class="p">:</span><span class="n">Concept</span><span class="p">)</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="k">MATCH</span><span class="w"> </span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">-[</span><span class="p">:</span><span class="n">HAS_MASTERY</span><span class="o">]-&gt;</span><span class="p">(</span><span class="n">pm</span><span class="p">:</span><span class="n">ConceptMastery</span><span class="p">)</span><span class="o">-[</span><span class="p">:</span><span class="n">OF_CONCEPT</span><span class="o">]-&gt;</span><span class="p">(</span><span class="n">pre</span><span class="p">)</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="k">WITH</span><span class="w"> </span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="n">avg</span><span class="p">(</span><span class="n">pm</span><span class="p">.</span><span class="n">mastery_score</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">prereq_mastery</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="k">WITH</span><span class="w"> </span><span class="n">round</span><span class="p">(</span><span class="n">prereq_mastery</span><span class="w"> </span><span class="p">*</span><span class="w"> </span><span class="m">5</span><span class="p">)</span><span class="w"> </span><span class="err">/</span><span class="w"> </span><span class="m">5</span><span class="p">.</span><span class="m">0</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">prereq_bucket</span><span class="p">,</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">     </span><span class="n">avg</span><span class="p">(</span><span class="n">m</span><span class="p">.</span><span class="n">mastery_score</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">dependent</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">(*)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">records</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="k">RETURN</span><span class="w"> </span><span class="n">prereq_bucket</span><span class="p">,</span><span class="w"> </span><span class="n">round</span><span class="p">(</span><span class="n">dependent</span><span class="p">,</span><span class="w"> </span><span class="m">3</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">mean_dependent_mastery</span><span class="p">,</span><span class="w"> </span><span class="n">records</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">prereq_bucket</span>
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>prereq_bucket</th>
+<th>mean_dependent_mastery</th>
+<th>records</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.0</td>
+<td>0.141</td>
+<td>8,903</td>
+</tr>
+<tr>
+<td>0.2</td>
+<td>0.232</td>
+<td>99,889</td>
+</tr>
+<tr>
+<td>0.4</td>
+<td>0.387</td>
+<td>193,654</td>
+</tr>
+<tr>
+<td>0.6</td>
+<td>0.559</td>
+<td>175,234</td>
+</tr>
+<tr>
+<td>0.8</td>
+<td>0.752</td>
+<td>124,502</td>
+</tr>
+<tr>
+<td>1.0</td>
+<td>0.899</td>
+<td>26,865</td>
+</tr>
+</tbody>
+</table>
+<p>Monotonic. Master the prerequisites, master what builds on them.</p>
+<div class="admonition note">
+<p class="admonition-title">This relationship is built in, not discovered</p>
+<p>The seeder generates <code>mastery_score</code> by propagating each learner's ability <em>down</em>
+the real <code>DEPENDS_ON</code> edges, so this correlation is there by construction. It is
+shown to prove the query <strong>finds</strong> the structure — which is what you would run
+against real learners. Against real data this table is a hypothesis to test, not a
+result to quote.</p>
+</div>
+<hr />
+<h2 id="6-which-microsim-should-i-build-next">6. Which MicroSim should I build next?<a class="headerlink" href="#6-which-microsim-should-i-build-next" title="Permanent link">&para;</a></h2>
+<p>Concepts that are hard, widely taken, have things depending on them, and have <strong>no
+MicroSim covering them</strong>:</p>
+<div class="language-cypher highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">MATCH</span><span class="w"> </span><span class="p">(:</span><span class="n">Textbook</span><span class="w"> </span><span class="p">{</span><span class="n">textbook_id</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;tb-biology&#39;</span><span class="p">})</span><span class="o">-[</span><span class="p">:</span><span class="n">CONTAINS</span><span class="o">]-&gt;</span><span class="p">(:</span><span class="n">Chapter</span><span class="p">)</span><span class="o">-[</span><span class="p">:</span><span class="n">CONTAINS</span><span class="o">]-&gt;</span><span class="p">(:</span><span class="n">Page</span><span class="p">)</span><span class="o">-[</span><span class="p">:</span><span class="n">COVERS</span><span class="o">]-&gt;</span><span class="p">(</span><span class="n">c</span><span class="p">:</span><span class="n">Concept</span><span class="p">)</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="k">WHERE</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="n">EXISTS</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">MATCH</span><span class="w"> </span><span class="p">(:</span><span class="n">MicroSim</span><span class="p">)</span><span class="o">-[</span><span class="p">:</span><span class="n">COVERS</span><span class="o">]-&gt;</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="k">MATCH</span><span class="w"> </span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="o">&lt;-[</span><span class="p">:</span><span class="n">OF_CONCEPT</span><span class="o">]-</span><span class="p">(</span><span class="n">m</span><span class="p">:</span><span class="n">ConceptMastery</span><span class="p">)</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="k">WITH</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">avg</span><span class="p">(</span><span class="n">m</span><span class="p">.</span><span class="n">mastery_score</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">mean_mastery</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">learners</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="k">MATCH</span><span class="w"> </span><span class="p">(</span><span class="n">down</span><span class="p">:</span><span class="n">Concept</span><span class="p">)</span><span class="o">-[</span><span class="p">:</span><span class="n">DEPENDS_ON</span><span class="o">]-&gt;</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="k">RETURN</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="n">label</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">uncovered_concept</span><span class="p">,</span><span class="w"> </span><span class="n">round</span><span class="p">(</span><span class="n">mean_mastery</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">mean_mastery</span><span class="p">,</span><span class="w"> </span><span class="n">learners</span><span class="p">,</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">       </span><span class="n">count</span><span class="p">(</span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">down</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">depends_on_it</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">depends_on_it</span><span class="w"> </span><span class="k">DESC</span><span class="p">,</span><span class="w"> </span><span class="n">mean_mastery</span><span class="w"> </span><span class="k">ASC</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="m">8</span>
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>uncovered_concept</th>
+<th>mean_mastery</th>
+<th>learners</th>
+<th>depends_on_it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Eukaryotic Cells</td>
+<td>0.60</td>
+<td>75</td>
+<td>23</td>
+</tr>
+<tr>
+<td>Enzymes</td>
+<td>0.48</td>
+<td>75</td>
+<td>16</td>
+</tr>
+<tr>
+<td>Proteins</td>
+<td>0.46</td>
+<td>75</td>
+<td>11</td>
+</tr>
+<tr>
+<td>Plasma Membrane</td>
+<td>0.48</td>
+<td>75</td>
+<td>11</td>
+</tr>
+</tbody>
+</table>
+<p>A build queue ranked by blast radius, derived from evidence rather than opinion.</p>
+<div class="admonition danger">
+<p class="admonition-title">Read this before trusting the list</p>
+<p><strong>"Uncovered" here means "no MicroSim whose title matched a concept label" — not
+"no MicroSim exists."</strong> The sim <code>metadata.json</code> files carry no concept ids (only 3
+of 76 biology sims have a <code>concepts</code> field), so the importer infers <code>COVERS</code> by
+matching sim titles against concept labels, conservatively. <strong>1,056 of 2,419 sims
+matched nothing and were dropped rather than guessed at.</strong></p>
+<p>That is why <em>Eukaryotic Cells</em> appears above even though biology ships an <strong>Animal
+Cell</strong> sim — the titles do not share a word. The query is sound; the coverage data
+feeding it is approximate.</p>
+<p><strong>The fix is upstream:</strong> add a <code>concepts: [ids]</code> field to each sim's
+<code>metadata.json</code>, and this query becomes exact.</p>
+</div>
+<hr />
+<h2 id="7-why-this-is-affordable">7. Why this is affordable<a class="headerlink" href="#7-why-this-is-affordable" title="Permanent link">&para;</a></h2>
+<div class="language-cypher highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">MATCH</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">n</span><span class="p">.</span><span class="n">statements_compressed</span><span class="w"> </span><span class="n">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="k">RETURN</span><span class="w"> </span><span class="n">count</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">summary_vertices</span><span class="p">,</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">       </span><span class="n">sum</span><span class="p">(</span><span class="n">n</span><span class="p">.</span><span class="n">statements_compressed</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">statements_represented</span><span class="p">,</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">       </span><span class="n">round</span><span class="p">(</span><span class="m">1</span><span class="p">.</span><span class="m">0</span><span class="w"> </span><span class="p">*</span><span class="w"> </span><span class="n">sum</span><span class="p">(</span><span class="n">n</span><span class="p">.</span><span class="n">statements_compressed</span><span class="p">)</span><span class="w"> </span><span class="err">/</span><span class="w"> </span><span class="n">count</span><span class="p">(</span><span class="n">n</span><span class="p">),</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">compression_ratio</span>
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>summary_vertices</th>
+<th>statements_represented</th>
+<th>compression_ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1,012,101</td>
+<td>22,265,132</td>
+<td>22.0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>22.3 million xAPI statements, represented by a million vertices, on a laptop.</strong> The
+graph never stores a statement: spec §5.6 C-1 forbids per-statement vertices, and the
+composite uniqueness constraints in <code>neo4j.cypher</code> enforce it physically — a write that
+tried to create a second vertex for the same (learner, concept) grain fails at the first
+attempt rather than growing the graph by a billion nodes a month.</p>
+<p>Raw events belong in the event store. The graph holds structure and summaries. That
+split is why the hardware bill is a laptop and not a cluster.</p>
+<hr />
+<h2 id="what-this-dataset-does-not-show">What this dataset does <em>not</em> show<a class="headerlink" href="#what-this-dataset-does-not-show" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><strong>No A/B result.</strong> Districts alternate between textbook v1.4.0 and v2.0.0 and
+  <code>IN_CONTEXT_OF</code> attributes every summary to a version, so the query runs — but it
+  returns no difference, because the seeder does not model a version effect. The
+  capability is real; the finding is null by construction.</p>
+</li>
+<li>
+<p><strong>No live pipeline.</strong> These summaries are written straight to Neo4j by the seeder. The
+  designed path — xAPI in, Kafka, ClickHouse, summarizer, graph — is not built
+  (<code>processor</code> and <code>summarizer</code> are unimplemented). Nothing here proves ingestion works
+  at rate; it demonstrates the graph model and the questions it answers.</p>
+</li>
+<li>
+<p><strong>No grade placement.</strong> Every school is a high school and books are dealt round-robin,
+  because the source learning graphs carry no book-level grade metadata. A district
+  teaching both <em>Reading for Kindergarten</em> and <em>Semiconductor Physics</em> is an artefact of
+  that, not a claim.</p>
+</li>
+<li>
+<p><strong>Thin cohorts.</strong> 4,050 learners across 54 books is ~75 each, so counts are small —
+  read them as shares ("1 in 6"), not as populations.</p>
+</li>
+<li>
+<p><strong>No <code>MicroSimEngagement</code>, <code>SectionRollup</code>, or <code>LearningSession</code>.</strong> Spec C-7 permits
+  materialising fewer grains than §4.3 defines, and this deployment deliberately does.
+  Their constraints exist; the vertices do not.</p>
+</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../../specs/mvp-plan/" class="md-footer__link md-footer__link--prev" aria-label="Previous: MVP Plan">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                MVP Plan
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../chapters/" class="md-footer__link md-footer__link--next" aria-label="Next: List of Chapters">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                List of Chapters
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Dan McCreary. Licensed under <a href="license/">CC BY-NC-SA 4.0</a> for non-commercial use.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="../../js/katex.js"></script>
+      
+        <script src="../../js/quiz-xapi.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

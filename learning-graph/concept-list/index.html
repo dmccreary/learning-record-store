@@ -1,0 +1,1835 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="An intelligent textbook on Learning Record Stores: what they are, how xAPI statements work, and how to design, deploy, and query an LRS.">
+      
+      
+        <meta name="author" content="Dan McCreary">
+      
+      
+        <link rel="canonical" href="https://dmccreary.github.io/learning-record-store/learning-graph/concept-list/">
+      
+      
+        <link rel="prev" href="../course-description-assessment/">
+      
+      
+        <link rel="next" href="../concept-taxonomy/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Concept Enumeration - Learning Record Store</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/extra.css">
+    
+      <link rel="stylesheet" href="../../css/mascot.css">
+    
+      <link rel="stylesheet" href="../../css/lrs-xapi.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#concept-list" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Learning Record Store" class="md-header__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  <img src="../../img/mascot/neutral.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Learning Record Store
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Concept Enumeration
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Learning Record Store" class="md-nav__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  <img src="../../img/mascot/neutral.png" alt="logo">
+
+    </a>
+    Learning Record Store
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../course-description/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course Description
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Specifications
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../demo/graph-queries/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Demo
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../chapters/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapters
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning Graph
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Learning Graph
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mascot-test/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mascot Style Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../course-description-assessment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course Description Assessment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concept Enumeration
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concept Enumeration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#part-1-foundations-160" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 1 — Foundations (1–60)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-2-this-projects-specification-design-61427" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 2 — This Project's Specification &amp; Design (61–427)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-3-personas-the-full-reporttool-catalog-428578" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 3 — Personas &amp; the Full Report/Tool Catalog (428–578)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../concept-taxonomy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concept Taxonomy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quality-metrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graph Quality Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../taxonomy-distribution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Taxonomy Distribution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../sims/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MicroSims
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    License
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contact/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contact
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#part-1-foundations-160" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 1 — Foundations (1–60)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-2-this-projects-specification-design-61427" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 2 — This Project's Specification &amp; Design (61–427)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-3-personas-the-full-reporttool-catalog-428578" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 3 — Personas &amp; the Full Report/Tool Catalog (428–578)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Learning Graph
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/learning-graph/concept-list.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="concept-list">Concept List<a class="headerlink" href="#concept-list" title="Permanent link">&para;</a></h1>
+<p>578 concepts for <strong>Learning Record Store: IEEE Standards, Architecture, and Practice</strong>. Part 1 (Foundations, standards) is unchanged. Parts 2 and 3 cover, exhaustively, everything named in this project's own specification and design documents — every ADR, technology choice, Kafka topic, ClickHouse table, Neo4j node/relationship/constraint, report ID, admin UI, failure mode, test layer, deployment artifact, hardware tier, and producer-contract rule — plus every software tool, package, and library named anywhere in <code>docs/specs/</code>.</p>
+<p>A report-coverage audit (cross-checking all 35 report IDs and 8 tool IDs in spec §7 against this list) found 14 gaps, now fixed: the <code>Student</code> and <code>Concept</code> graph nodes were missing entirely despite being the Unit/target of most reports; five architectural components (<code>Ingestion Gateway</code>, <code>Durable Event Queue</code>, <code>Event Store</code>, <code>Stream Processor</code>, and the four report-serving APIs) had been dropped in the rebuild from 224 to 564 concepts; and three relationship types named directly in report backing queries (<code>HAS_MASTERY</code>, <code>OF_CONCEPT</code>, <code>TOUCHED</code>) were missing alongside the two that already existed.</p>
+<table>
+<thead>
+<tr>
+<th>Part</th>
+<th>IDs</th>
+<th>Count</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1 — Foundations</strong></td>
+<td>1–60</td>
+<td>60</td>
+<td>Standards &amp; governance (unchanged)</td>
+</tr>
+<tr>
+<td><strong>2 — This project's specification &amp; design</strong></td>
+<td>61–427</td>
+<td>367</td>
+<td><code>lrs-spec-v1.md</code>, <code>lrs-design-v1.md</code>, <code>hardware-requirements.md</code>, <code>dev-environment-setup.md</code>, <code>mvp-plan.md</code></td>
+</tr>
+<tr>
+<td><strong>3 — Personas &amp; the full report/tool catalog</strong></td>
+<td>428–578</td>
+<td>151</td>
+<td>Spec §7 (all 35 reports + 8 tools, by ID), §10 (all 9 admin UIs), §8 (experimentation), <code>xapi-producer-contract-v1.md</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="part-1-foundations-160">Part 1 — Foundations (1–60)<a class="headerlink" href="#part-1-foundations-160" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Learning Management System</li>
+<li>SCORM</li>
+<li>AICC</li>
+<li>Content Packaging</li>
+<li>Sharable Content Object</li>
+<li>Experience API</li>
+<li>Learning Record Store</li>
+<li>Learning Record Provider</li>
+<li>Actor</li>
+<li>Verb</li>
+<li>Object Activity</li>
+<li>Activity Type</li>
+<li>Result</li>
+<li>Context</li>
+<li>Statement</li>
+<li>Sub-Statement</li>
+<li>Attachment</li>
+<li>Extensions</li>
+<li>Statement Immutability</li>
+<li>Voided Statement</li>
+<li>Registration</li>
+<li>Actor Account</li>
+<li>Inverse Functional Identifier</li>
+<li>Statement ID</li>
+<li>RESTful API</li>
+<li>HTTP Verb</li>
+<li>xAPI Endpoint</li>
+<li>Statement Query Parameter</li>
+<li>OAuth Authentication</li>
+<li>Basic Authentication</li>
+<li>IEEE LTSC</li>
+<li>IEEE 9274.1.1-2023</li>
+<li>IEEE 9274.2.1</li>
+<li>xAPI Profile Standard</li>
+<li>JSON-LD</li>
+<li>Application Profile</li>
+<li>Determining Property</li>
+<li>cmi5</li>
+<li>cmi5 Assignable Unit</li>
+<li>cmi5 Launch Method</li>
+<li>Total Learning Architecture</li>
+<li>ADL Initiative</li>
+<li>I2IDL</li>
+<li>xAPI Conformance Suite</li>
+<li>xAPI Profile Server</li>
+<li>TLA Reference Implementation</li>
+<li>Standards Governance</li>
+<li>Stewardship Transition</li>
+<li>Open Source Infrastructure</li>
+<li>1EdTech Consortium</li>
+<li>Caliper Analytics</li>
+<li>Learning Object Metadata</li>
+<li>Competency Framework</li>
+<li>Learning Ecosystem</li>
+<li>Data Verifiability</li>
+<li>Data Transparency</li>
+<li>Learner Data Portability</li>
+<li>Vendor Interoperability</li>
+<li>Statement Timestamp</li>
+<li>Activity Definition</li>
+</ol>
+<h2 id="part-2-this-projects-specification-design-61427">Part 2 — This Project's Specification &amp; Design (61–427)<a class="headerlink" href="#part-2-this-projects-specification-design-61427" title="Permanent link">&para;</a></h2>
+<ol>
+<li>System Context Diagram</li>
+<li>Ingestion Plane</li>
+<li>Processing Plane</li>
+<li>Storage Plane</li>
+<li>Analytics Plane</li>
+<li>Presentation Plane</li>
+<li>Ingestion Gateway</li>
+<li>Durable Event Queue</li>
+<li>Event Store</li>
+<li>Stream Processor</li>
+<li>Analytics API</li>
+<li>Admin API</li>
+<li>Experiment API</li>
+<li>Roster API</li>
+<li>Export API</li>
+<li>Tenant</li>
+<li>District</li>
+<li>School</li>
+<li>Course</li>
+<li>Section</li>
+<li>Enrollment</li>
+<li>Tenancy Hierarchy</li>
+<li>Hard Isolation</li>
+<li>Soft Isolation</li>
+<li>OneRoster</li>
+<li>Student Information System</li>
+<li>Student</li>
+<li>Pseudonymous Account</li>
+<li>Student Key</li>
+<li>PII Vault</li>
+<li>Labeled Property Graph</li>
+<li>Node Label</li>
+<li>Relationship Type</li>
+<li>Textbook</li>
+<li>Textbook Version</li>
+<li>Chapter</li>
+<li>Page</li>
+<li>MicroSim</li>
+<li>MicroSim Version</li>
+<li>Quiz</li>
+<li>Question</li>
+<li>Concept</li>
+<li>Learning Graph DAG</li>
+<li>Depends On Relationship</li>
+<li>Covers Relationship</li>
+<li>Has Mastery Relationship</li>
+<li>Of Concept Relationship</li>
+<li>Touched Relationship</li>
+<li>Verb Controlled Vocabulary</li>
+<li>Experiment Node</li>
+<li>Variant Node</li>
+<li>Summary Vertex</li>
+<li>Analytical Grain</li>
+<li>Concept Mastery Vertex</li>
+<li>Page Engagement Vertex</li>
+<li>MicroSim Engagement Vertex</li>
+<li>Question Response Vertex</li>
+<li>Learning Session Vertex</li>
+<li>Section Rollup Vertex</li>
+<li>Statements Compressed</li>
+<li>xAPI Statement Resource</li>
+<li>Structural Validation</li>
+<li>Semantic Validation</li>
+<li>Schema On Read</li>
+<li>Non-Blocking Ingestion</li>
+<li>Accept-First Ingestion</li>
+<li>Provisional Node</li>
+<li>Reconciliation Worker</li>
+<li>Idempotent Delivery</li>
+<li>At-Least-Once Delivery</li>
+<li>Backpressure</li>
+<li>Statement Compression Ratio</li>
+<li>Change-Driven Materialization</li>
+<li>Absolute Value Write</li>
+<li>Statement Storage Function</li>
+<li>Statement Retrieval Function</li>
+<li>Voiding Function</li>
+<li>Actor Pseudonymization Function</li>
+<li>Activity Resolution Function</li>
+<li>Concept Mapping Function</li>
+<li>Mastery Computation Function</li>
+<li>Progress Projection Function</li>
+<li>Experiment Assignment Function</li>
+<li>Reconciliation Function</li>
+<li>Export Function</li>
+<li>Retention Purge Function</li>
+<li>FastAPI</li>
+<li>Uvicorn</li>
+<li>Redpanda</li>
+<li>Apache Kafka</li>
+<li>Confluent-Kafka Library</li>
+<li>ClickHouse</li>
+<li>Neo4j 5 Community</li>
+<li>PostgreSQL 16</li>
+<li>Redis 7</li>
+<li>MinIO</li>
+<li>Amazon S3</li>
+<li>GraphQL</li>
+<li>Keycloak</li>
+<li>OpenTelemetry</li>
+<li>Jaeger</li>
+<li>Prometheus</li>
+<li>Grafana</li>
+<li>ADR Event Store Decision</li>
+<li>ADR Compression Sync Decision</li>
+<li>ADR Graph Not Hot Path</li>
+<li>ADR Partition Key Decision</li>
+<li>ADR One Image Many Roles</li>
+<li>ADR BKT Mastery Decision</li>
+<li>ADR Python Gateway Decision</li>
+<li>Memgraph Alternative</li>
+<li>Peak Sustained Ingest</li>
+<li>Burst Ingest Rate</li>
+<li>Mean Statement Size</li>
+<li>Active Ingestion Window</li>
+<li>Duty Cycle</li>
+<li>Statements Per Day</li>
+<li>Kafka Disk Sizing</li>
+<li>ClickHouse Disk Sizing</li>
+<li>HTTP Request Rate</li>
+<li>Graph Write Rate Naive</li>
+<li>Neo4j Structural Node Count</li>
+<li>Storage Compression Ratio</li>
+<li>Write-Rate Compression</li>
+<li>Sync Cadence Tradeoff</li>
+<li>Distinct Active Grains</li>
+<li>Bayesian Knowledge Tracing</li>
+<li>Prior Mastery Probability</li>
+<li>Slip Parameter</li>
+<li>Guess Parameter</li>
+<li>Transit Parameter</li>
+<li>Evidence Conditioning Step</li>
+<li>Learning Transition Step</li>
+<li>Soft Correctness Mapping</li>
+<li>AuthN Token Cache</li>
+<li>UUIDv7 Statement ID</li>
+<li>Kafka Producer Acks All</li>
+<li>Gateway Backpressure Queue</li>
+<li>HMAC-SHA256 Pseudonymization</li>
+<li>Per-District Salt</li>
+<li>Mutual TLS Salt Fetch</li>
+<li>Kafka Consumer Batch Window</li>
+<li>ReplacingMergeTree Dedup</li>
+<li>BKT Streaming Update</li>
+<li>Compacted State Checkpoint</li>
+<li>Late Arrival Detector</li>
+<li>Targeted Replay Command</li>
+<li>xxhash64 Bucketing</li>
+<li>Bucket To Variant Map</li>
+<li>Ramping Allocation Rule</li>
+<li>Report ID Endpoint Pattern</li>
+<li>Analytics Cache Key</li>
+<li>Data Version Invalidation</li>
+<li>Privacy Filter Choke Point</li>
+<li>P95 Latency Budget</li>
+<li>Dash Background Callback</li>
+<li>Redis Celery Queue</li>
+<li>Multi-Page Dash App</li>
+<li>Filter State Store</li>
+<li>Raw Statements Topic</li>
+<li>Bulk Statements Topic</li>
+<li>Dead Letter Topic</li>
+<li>Reconcile Task Topic</li>
+<li>Mastery State Topic</li>
+<li>Audit Feed Topic</li>
+<li>Lrs Statements Table</li>
+<li>Lrs Concept Mastery Table</li>
+<li>Section Concept Daily MV</li>
+<li>Student Concept Rollup MV</li>
+<li>Student Page Rollup MV</li>
+<li>ReplacingMergeTree Engine</li>
+<li>AggregatingMergeTree Engine</li>
+<li>LowCardinality Type</li>
+<li>ZSTD Compression Codec</li>
+<li>Partition By Month</li>
+<li>Grain Uniqueness Constraint</li>
+<li>Statement Label Prohibition</li>
+<li>Concept DAG Acyclicity Check</li>
+<li>Vault-Db Instance</li>
+<li>Meta-Db Instance</li>
+<li>Network Credential Boundary</li>
+<li>Tenant Context Injection</li>
+<li>Threshold Suppression</li>
+<li>Complementary Suppression</li>
+<li>Privacy Audit Write</li>
+<li>Trace ID Propagation</li>
+<li>Paged Metric Threshold</li>
+<li>Idempotency By Statement ID</li>
+<li>Replay Command</li>
+<li>Rebuild Graph Command</li>
+<li>Shadow Table Swap</li>
+<li>Common Dashboard Anatomy</li>
+<li>KPI Tile Component</li>
+<li>Heatmap Component</li>
+<li>Funnel Chart Component</li>
+<li>Radar Chart Component</li>
+<li>Sankey Chart Component</li>
+<li>Time Series Component</li>
+<li>Data Table Component</li>
+<li>Graph Explorer Component</li>
+<li>Server-Side Aggregation</li>
+<li>Cross-Filtering Interaction</li>
+<li>Drill-Down Interaction</li>
+<li>Dashboard Export</li>
+<li>One Image Many Roles Philosophy</li>
+<li>Dockerfile Multi-Stage Build</li>
+<li>Base Build Stage</li>
+<li>Builder Build Stage</li>
+<li>Runtime Build Stage</li>
+<li>Non-Root Container User</li>
+<li>uv Sync Command</li>
+<li>Docker Build Cache Mount</li>
+<li>Frozen Lockfile</li>
+<li>Healthcheck Directive</li>
+<li>PID 1 Signal Handling</li>
+<li>Role Dispatcher CLI</li>
+<li>Bootstrap CLI Role</li>
+<li>Seed Demo Command</li>
+<li>Loadgen Command</li>
+<li>Replay CLI Command</li>
+<li>Healthcheck CLI Command</li>
+<li>Identity CLI Role</li>
+<li>Analytics API CLI Role</li>
+<li>Admin API CLI Role</li>
+<li>Dashboards CLI Role</li>
+<li>Docker Compose Stack</li>
+<li>YAML Anchor Reuse</li>
+<li>Compose Healthcheck Gate</li>
+<li>Compose Profile</li>
+<li>Redpanda Console</li>
+<li>OTel Collector Service</li>
+<li>Loadgen Profile Service</li>
+<li>Full Profile Keycloak</li>
+<li>Make Up Target</li>
+<li>Make Down Target</li>
+<li>Make Clean Target</li>
+<li>Make Logs Target</li>
+<li>Make Seed Target</li>
+<li>Make Smoke Target</li>
+<li>Make Perf Target</li>
+<li>Make Obs Target</li>
+<li>Make Rebuild Target</li>
+<li>Make Test Target</li>
+<li>GitHub Actions Release Workflow</li>
+<li>Docker Buildx</li>
+<li>Multi-Arch Image Build</li>
+<li>GHA Layer Cache</li>
+<li>Provenance Attestation</li>
+<li>SBOM Generation</li>
+<li>Trivy Vulnerability Scan</li>
+<li>Cosign Image Signing</li>
+<li>Immutable Digest Reference</li>
+<li>Pydantic Settings Validation</li>
+<li>Environment Variable Config</li>
+<li>AWS Secrets Manager</li>
+<li>External Secrets Operator</li>
+<li>Kubernetes Secret</li>
+<li>Ingest Key Rotation</li>
+<li>Ingest Key Hashing</li>
+<li>Additive Column Migration</li>
+<li>Rebuild And Swap Migration</li>
+<li>Expand Contract Migration</li>
+<li>Kafka Partition Increase Caveat</li>
+<li>Recovery Point Objective</li>
+<li>Recovery Time Objective</li>
+<li>Write-Ahead Log Archiving</li>
+<li>Point-In-Time Recovery</li>
+<li>Nightly Backup Snapshot</li>
+<li>Quarterly Restore Drill</li>
+<li>Rolling Update Strategy</li>
+<li>Termination Grace Period</li>
+<li>Gateway-First Deploy Order</li>
+<li>Expand-Contract Rollback</li>
+<li>Kafka Unavailable Failure</li>
+<li>ClickHouse Unavailable Failure</li>
+<li>Neo4j Unavailable Failure</li>
+<li>Summarizer Stopped Failure</li>
+<li>Summarizer Split Brain</li>
+<li>Identity Service Unavailable</li>
+<li>Redis Unavailable Failure</li>
+<li>Experiment Service Error</li>
+<li>Reconciliation Backlog Growth</li>
+<li>Poison Message Handling</li>
+<li>District Queue Flood</li>
+<li>Clock Skew Handling</li>
+<li>Unit Test Layer</li>
+<li>Compression Test Suite</li>
+<li>ADL Conformance Test Suite</li>
+<li>Testcontainers Integration Test</li>
+<li>Privacy Adversarial Suite</li>
+<li>Load Test Loadgen</li>
+<li>Replay Nightly Test</li>
+<li>Chaos Kill Test</li>
+<li>D-3 Partition Key Deviation</li>
+<li>D-4 Privacy Threshold Deviation</li>
+<li>D-5 Complementary Suppression</li>
+<li>M0 Walking Skeleton</li>
+<li>M1 Ingestion Complete</li>
+<li>M2 Compression Graph Mastery</li>
+<li>M3 Analytics Dashboards</li>
+<li>M4 Admin Experiments</li>
+<li>M5 Scale Production</li>
+<li>Neo4j Licensing Question</li>
+<li>ClickHouse Cloud Vs Self-Hosted</li>
+<li>Gateway Language Trigger</li>
+<li>BKT Parameter Fitting</li>
+<li>Retention Vs Research Value</li>
+<li>Multi-Region Question</li>
+<li>MicroSim BKT Mapping Gap</li>
+<li>Compute Plane Sizing</li>
+<li>Monthly Cost Estimate</li>
+<li>Reserved Instance Pricing</li>
+<li>Neo4j Licensing Cost</li>
+<li>Cost Sensitivity Driver</li>
+<li>Single-Server Pilot Tier</li>
+<li>VM Hypervisor Isolation</li>
+<li>Bare-Metal Hosting</li>
+<li>NVMe Local Storage</li>
+<li>Network Ingress Sizing</li>
+<li>Docker Desktop</li>
+<li>Docker Engine</li>
+<li>Remote SSH Development</li>
+<li>Docker Context Over SSH</li>
+<li>SSH Tunnel Port Forward</li>
+<li>Hetzner Cloud Host</li>
+<li>DigitalOcean Droplet</li>
+<li>AWS EC2 Instance</li>
+<li>UFW Firewall Rule</li>
+<li>MVP Architecture Proof</li>
+<li>Burst Insensitivity Claim</li>
+<li>Smoke Harness Decorative Check</li>
+<li>Mastery Path Disconnection</li>
+<li>Lift Vs Rewrite Decision</li>
+<li>Raw Column PII Hole</li>
+<li>Last Seen Type Fix</li>
+<li>Mastery Join Fix</li>
+<li>MVP Step 1 Foundation</li>
+<li>MVP Step 2 Ingest Path</li>
+<li>MVP Step 3 Loadgen Contract</li>
+<li>MVP Step 4 Compression Graph</li>
+<li>MVP Step 5 Burst Proof</li>
+<li>Vault Net Isolation</li>
+<li>MVP Deferred Scope</li>
+<li>Kubernetes</li>
+<li>Helm Chart</li>
+<li>KEDA Autoscaler</li>
+<li>Horizontal Pod Autoscaler</li>
+<li>Availability Zone</li>
+<li>Managed Streaming Kafka</li>
+<li>Continuous Integration Pipeline</li>
+<li>Total Cost Of Ownership</li>
+<li>EM Parameter Fitting</li>
+<li>Application Load Balancer</li>
+<li>ClickHouse Cloud</li>
+<li>Neo4j AuraDB</li>
+<li>Neo4j Enterprise Edition</li>
+<li>Causal Cluster Topology</li>
+<li>RDS Multi-AZ Postgres</li>
+<li>ElastiCache Redis</li>
+<li>Dead Letter Queue Concept</li>
+<li>Ingress Controller</li>
+<li>High Availability Requirement</li>
+<li>LRU Fallback Cache</li>
+<li>Cache TTL Expiry</li>
+<li>Managed Identity Provider</li>
+<li>Step-Up Authentication</li>
+<li>Client Credentials Grant</li>
+</ol>
+<h2 id="part-3-personas-the-full-reporttool-catalog-428578">Part 3 — Personas &amp; the Full Report/Tool Catalog (428–578)<a class="headerlink" href="#part-3-personas-the-full-reporttool-catalog-428578" title="Permanent link">&para;</a></h2>
+<ol>
+<li>District Administrator</li>
+<li>Teacher</li>
+<li>Textbook Author</li>
+<li>System Administrator</li>
+<li>School Administrator</li>
+<li>Auditor Role</li>
+<li>District Management UI</li>
+<li>School Course Section UI</li>
+<li>Textbook Deployment UI</li>
+<li>xAPI Credentials UI</li>
+<li>Experiment Administration UI</li>
+<li>User Access Management UI</li>
+<li>Privacy Compliance UI</li>
+<li>Audit Monitoring UI</li>
+<li>System Configuration UI</li>
+<li>Roster Source Configuration</li>
+<li>Data Residency Policy</li>
+<li>Retention Policy</li>
+<li>Legal Hold Toggle</li>
+<li>Enrollment Editor</li>
+<li>Instructor Assignment Tool</li>
+<li>Term Academic Year Rollover</li>
+<li>Deployment Editor</li>
+<li>Provisional Reconcile Queue</li>
+<li>MicroSim Registry View</li>
+<li>Endpoint Key Rotation</li>
+<li>Verb Vocabulary Browser</li>
+<li>Dead-Letter Inspector</li>
+<li>Experiment List View</li>
+<li>Experiment Lifecycle Controls</li>
+<li>User CRUD Management</li>
+<li>Role Assignment Scope</li>
+<li>Access Review Workflow</li>
+<li>Impersonation Audit</li>
+<li>Policy Profile Preset</li>
+<li>Data Subject Request</li>
+<li>Consent Status</li>
+<li>Aggregation Threshold</li>
+<li>Audit Log Browser</li>
+<li>Alerting Configuration</li>
+<li>Retention Defaults Config</li>
+<li>Feature Flag Config</li>
+<li>Rate Limit Config</li>
+<li>FERPA Compliance</li>
+<li>COPPA Compliance</li>
+<li>GDPR Compliance</li>
+<li>Right To Erasure</li>
+<li>Role-Based Access Control</li>
+<li>Single Sign-On</li>
+<li>SAML Protocol</li>
+<li>OIDC Protocol</li>
+<li>District Adoption Dashboard</li>
+<li>School Comparison Report</li>
+<li>Course Rollup Report</li>
+<li>Deployment Inventory Report</li>
+<li>Data Quality Monitor</li>
+<li>Ingestion Health Report</li>
+<li>License Seat Utilization</li>
+<li>Privacy Access Audit</li>
+<li>District Overview Dashboard</li>
+<li>System Health Dashboard</li>
+<li>District Rollout Plan</li>
+<li>My Classes Dashboard</li>
+<li>Student Detail Dashboard</li>
+<li>Student Progress Overview</li>
+<li>Concept Mastery Radar</li>
+<li>Time-On-Task Timeline</li>
+<li>Struggle Detector</li>
+<li>Prerequisite Gap Analysis</li>
+<li>Quiz Item Analysis</li>
+<li>Idle Disengagement Alert</li>
+<li>Learning Velocity Report</li>
+<li>Reading Vs Doing Balance</li>
+<li>Class Mastery Heatmap</li>
+<li>Concept Difficulty Ranking</li>
+<li>Completion Funnel</li>
+<li>Pace Distribution</li>
+<li>Class Engagement Calendar</li>
+<li>Question Discrimination</li>
+<li>MicroSim Utilization Report</li>
+<li>Cohort Comparison Report</li>
+<li>At-Risk Roster</li>
+<li>Standards Coverage Report</li>
+<li>Ad-Hoc Cohort Builder</li>
+<li>Learning Graph Explorer</li>
+<li>Statement Query Console</li>
+<li>Funnel Builder</li>
+<li>Alert Rule Builder</li>
+<li>Report Scheduler</li>
+<li>Section Enrollment</li>
+<li>Co-Teacher Assignment</li>
+<li>Content Insights Dashboard</li>
+<li>Experiments Dashboard</li>
+<li>Page Effectiveness Report</li>
+<li>MicroSim Impact Report</li>
+<li>Confusing-Content Finder</li>
+<li>Drop-Off Map</li>
+<li>Concept-Coverage Gaps</li>
+<li>Question Health Report</li>
+<li>Version Comparison Report</li>
+<li>Cross-District Benchmark</li>
+<li>Correlation Explorer</li>
+<li>Experiment Designer</li>
+<li>Experiment Definition</li>
+<li>Experiment Hypothesis</li>
+<li>Primary Outcome Metric</li>
+<li>Unit Of Randomization</li>
+<li>Experiment Variant</li>
+<li>Allocation Weight</li>
+<li>Guardrail Metric</li>
+<li>Eligibility Predicate</li>
+<li>Deterministic Sticky Assignment</li>
+<li>Sample-Ratio Mismatch</li>
+<li>Effect Size</li>
+<li>Cohens D</li>
+<li>Confidence Interval</li>
+<li>Two-Sided Significance Test</li>
+<li>Sequential Testing Correction</li>
+<li>Segmentation Analysis</li>
+<li>Guardrail Regression Flag</li>
+<li>Experiment Readout Dashboard</li>
+<li>Textbook Registry</li>
+<li>MicroSim Registry</li>
+<li>Content Effectiveness Loop</li>
+<li>AB Test Lifecycle</li>
+<li>Cross-Persona Workflow</li>
+<li>Shared Statement Log</li>
+<li>Persona-Facing Report</li>
+<li>Canonical Activity IRI</li>
+<li>Trailing Slash Rule</li>
+<li>Question IRI Fragment</li>
+<li>Named Sub-Activity Fragment</li>
+<li>Randomized Order Naming Rule</li>
+<li>Answered Verb</li>
+<li>Experienced Verb</li>
+<li>Interacted Verb</li>
+<li>Textbook Version Grouping IRI</li>
+<li>Object Definition Type Map</li>
+<li>Control Object Type</li>
+<li>Concept Extension Field</li>
+<li>Concept Enrichment Path</li>
+<li>Start Pause Dwell Pattern</li>
+<li>Visibility Change Flush</li>
+<li>Producer Excluded Field</li>
+<li>xAPI Transport Header</li>
+<li>District ID Server-Assigned</li>
+<li>Student Key Server-Derived</li>
+<li>Stored At Gateway Timestamp</li>
+<li>API Version Header</li>
+<li>Reference Statement Example</li>
+<li>Field To Column Map</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../course-description-assessment/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Course Description Assessment">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Course Description Assessment
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../concept-taxonomy/" class="md-footer__link md-footer__link--next" aria-label="Next: Concept Taxonomy">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Concept Taxonomy
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Dan McCreary. Licensed under <a href="license/">CC BY-NC-SA 4.0</a> for non-commercial use.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="../../js/katex.js"></script>
+      
+        <script src="../../js/quiz-xapi.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>
