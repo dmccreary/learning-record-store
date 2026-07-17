@@ -36,17 +36,6 @@ nav:
   - About: about.md
   - Course Description: course-description.md
 
-  - Specifications:
-      - LRS Specification (v1): specs/lrs-spec-v1.md
-      - LRS Design & Deployment (v1): specs/lrs-design-v1.md
-      - xAPI Producer Contract (v1): specs/xapi-producer-contract-v1.md
-      - Hardware Requirements & Cost Estimate: specs/hardware-requirements.md
-      - Dev Environment Setup: specs/dev-environment-setup.md
-      - MVP Plan: specs/mvp-plan.md
-  
-  - Demo:
-      - Live Graph Demo: demo/graph-queries.md
-
   - Chapters:
       - List of Chapters: chapters/index.md
       - 1. From Learning Management Systems to the Experience API: chapters/01-lms-to-experience-api/index.md
@@ -99,6 +88,18 @@ nav:
       - Bouncing Ball: sims/bouncing-ball/index.md
       - Scientific Method Workflow: sims/scientific-method/index.md
       - Animal Cell: sims/animal-cell/index.md
+      
+  - Specifications:
+      - LRS Specification (v1): specs/lrs-spec-v1.md
+      - LRS Design & Deployment (v1): specs/lrs-design-v1.md
+      - xAPI Producer Contract (v1): specs/xapi-producer-contract-v1.md
+      - Hardware Requirements & Cost Estimate: specs/hardware-requirements.md
+      - Dev Environment Setup: specs/dev-environment-setup.md
+      - MVP Plan: specs/mvp-plan.md
+  
+  - Demo:
+      - Live Graph Demo: demo/graph-queries.md
+
 
   - Glossary: glossary.md
   - License: license.md
