@@ -49,9 +49,38 @@ nav:
 
   - Chapters:
       - List of Chapters: chapters/index.md
-      - 1. What is an Intelligent Textbook LRS?:
-          - Content: chapters/01-what-is-an-ibook-lrs/index.md
-          - Quiz: chapters/01-what-is-an-ibook-lrs/quiz.md
+      - 1. From Learning Management Systems to the Experience API: chapters/01-lms-to-experience-api/index.md
+      - 2. The Anatomy of an xAPI Statement: chapters/02-anatomy-of-xapi-statement/index.md
+      - 3. IEEE Standardization of xAPI and cmi5: chapters/03-ieee-standardization-xapi-cmi5/index.md
+      - 4. Standards Governance and the Wider Interoperability Ecosystem: chapters/04-standards-governance-ecosystem/index.md
+      - 5. System Context and the Five Architectural Planes: chapters/05-system-context-architectural-planes/index.md
+      - 6. Multi-Tenancy, Rosters, and Pseudonymous Identity: chapters/06-multi-tenancy-rosters-identity/index.md
+      - 7. The Property Graph Data Model: chapters/07-property-graph-data-model/index.md
+      - 8. Summary Vertices and Statement Ingestion Mechanics: chapters/08-summary-vertices-ingestion/index.md
+      - 9. The Twelve Core LRS Functions: chapters/09-twelve-core-lrs-functions/index.md
+      - 10. Choosing the Technology Stack: chapters/10-choosing-technology-stack/index.md
+      - 11. Architecture Decision Records and the Capacity Model: chapters/11-adrs-and-capacity-model/index.md
+      - 12. Bayesian Knowledge Tracing for Mastery: chapters/12-bayesian-knowledge-tracing/index.md
+      - 13. Component Design in Depth: chapters/13-component-design-in-depth/index.md
+      - 14. Kafka Topics, ClickHouse Schema, and Graph Constraints: chapters/14-kafka-clickhouse-graph-schema/index.md
+      - 15. Privacy Enforcement and Dashboard Mechanics: chapters/15-privacy-and-dashboard-mechanics/index.md
+      - 16. The Container Image and the Role Dispatcher CLI: chapters/16-container-image-and-cli/index.md
+      - 17. Docker Compose, the Makefile, and the Image Supply Chain: chapters/17-compose-makefile-supply-chain/index.md
+      - 18. Configuration, Migration, Backup, and Rollout: chapters/18-config-migration-backup-rollout/index.md
+      - 19. Failure Modes and Verification: chapters/19-failure-modes-and-verification/index.md
+      - 20. Spec Deviations, the Delivery Roadmap, and Open Questions: chapters/20-deviations-roadmap-open-questions/index.md
+      - 21. Hardware Sizing, Cost, and the Development Environment: chapters/21-hardware-cost-dev-environment/index.md
+      - 22. Proving the Architecture - the MVP Plan: chapters/22-proving-the-architecture-mvp/index.md
+      - 23. Production Infrastructure and Cloud Services: chapters/23-production-infrastructure-cloud/index.md
+      - 24. Meet the Three Personas and the Admin UI Surface: chapters/24-three-personas-and-admin-uis/index.md
+      - 25. District Administrator - Rosters, Deployments, and Registries: chapters/25-district-admin-rosters-deployments/index.md
+      - 26. District Administrator - Access Control and System Configuration: chapters/26-district-admin-access-control/index.md
+      - 27. Compliance, Privacy Law, and District-Level Reporting: chapters/27-compliance-and-district-reporting/index.md
+      - 28. Teacher Dashboards and Student-Level Reports: chapters/28-teacher-dashboards-student-reports/index.md
+      - 29. Class-Level Reports and Teacher Tools: chapters/29-class-level-reports-and-tools/index.md
+      - 30. Textbook Author Dashboards and Content Reports: chapters/30-author-dashboards-content-reports/index.md
+      - 31. Designing and Reading A/B Experiments: chapters/31-designing-ab-experiments/index.md
+      - 32. The Producer Contract - Writing Conformant Statements: chapters/32-producer-contract-conformant-statements/index.md
 
   - Learning Graph:
       - Introduction: learning-graph/index.md

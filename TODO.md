@@ -1,5 +1,28 @@
 # TODO
 
+## Learning graph — quality follow-up
+
+- **Tighten the terminal-node rate in `docs/learning-graph/learning-graph.csv`.**
+  `quality-metrics.md` (2026-07-17, 578 concepts / 871 edges) reports **49.8%
+  terminal nodes** — concepts nothing depends on — against the analyzer's
+  healthy 5–40% band. Everything else checks out clean: valid DAG, 0 cycles,
+  0 orphaned nodes, 1 connected component, 5 foundational roots, average 1.52
+  deps/concept. Overall assessed quality: **~83/100**.
+  - **Why it's high:** Part 2 (the spec/design concepts, IDs 61–427) contains
+    hundreds of granular implementation facts — individual Makefile targets,
+    named failure modes, deployment-supply-chain steps — that are genuine
+    leaves. Nothing in the source spec builds *on top of* "GHA Layer Cache"
+    or "Chaos Kill Test," so this isn't a construction error.
+  - **Proposed fix:** thread ~40–60 additional cross-links from those Part 2
+    leaves into the testing/failure-mode/roadmap clusters (IDs 320–369) and
+    into Part 3's report concepts (IDs 479–530), which should pull the rate
+    down toward the healthy range without changing what's covered or
+    renumbering anything (dependencies only ever need to reference existing,
+    lower-numbered IDs).
+  - **Status:** deferred at the user's request — they wanted to see the
+    rendered graph viewer first before approving more cross-links. Revisit
+    once reviewed.
+
 ## Open specification work
 
 - **Retrofit specification for existing intelligent textbooks.** Write a new
