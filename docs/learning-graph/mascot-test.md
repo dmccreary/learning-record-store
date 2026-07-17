@@ -1,8 +1,9 @@
 # Mascot Style Guide
 
-This page previews Rowan's seven raster-image poses and their intended teaching
-contexts. Rowan is generated artwork—not SVG—and should be used purposefully,
-no more than five or six times in a chapter.
+This page previews Rowan's seven RGBA raster-image poses and their intended
+teaching contexts. Every pose has a fully transparent background so Rowan
+integrates with both light and dark themes. Rowan is generated artwork—not SVG—
+and should be used purposefully, no more than five or six times in a chapter.
 
 ## Character Summary
 

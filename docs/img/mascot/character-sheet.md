@@ -18,7 +18,7 @@ Rowan must re-anchor to this description.
 - **Clothing / accessories:** round teal glasses, deep teal neckerchief, compact brown cross-body satchel with a small gold connected-dots emblem
 - **Expression:** large kind brown eyes and a gentle, reassuring smile
 - **Size proportion:** small, rounded, full-body character with a clear silhouette
-- **Art style:** premium hand-painted 3D storybook character illustration with warm amber rim lighting and a subtle charcoal-to-amber vignette
+- **Art style:** premium hand-painted 3D storybook character illustration with warm studio lighting on a fully transparent alpha background, designed for both light and dark themes
 
 ## Personality
 

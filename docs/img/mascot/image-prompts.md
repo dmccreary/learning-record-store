@@ -10,9 +10,11 @@ cinnamon-orange fur, cream facial markings and belly, dark chocolate paws and
 ears, large kind brown eyes, round teal glasses, a deep teal neckerchief, and a
 compact brown cross-body satchel bearing a small gold connected-dots emblem.
 Use a premium hand-painted 3D storybook character style, crisp expressive
-silhouette, warm amber rim light, soft studio key light, and an uncluttered warm
-charcoal-to-amber vignette. Center the full body on a square canvas. Exactly one
-character; no text, letters, watermark, border, UI, SVG, or flat vector art.
+silhouette, and warm studio lighting. Center the full body on a square canvas.
+Generate against a perfectly uniform solid `#FF00FF` chroma background with no
+shadow, floor, glow, gradient, texture, or reflection; remove that background
+locally to produce a real RGBA PNG. Exactly one character; no text, letters,
+watermark, border, UI, SVG, or flat vector art.
 
 ## Pose directions
 
