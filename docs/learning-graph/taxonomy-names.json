@@ -1,0 +1,17 @@
+{
+  "STD": "Standards & Governance",
+  "GRAPH": "Graph Data Model",
+  "INGST": "Ingestion & Compression Pipeline",
+  "TECH": "Technology Stack",
+  "ARCH": "Architecture & Capacity Model",
+  "STORE": "Storage Engineering",
+  "DASH": "Privacy & Dashboard Mechanics",
+  "DEPL": "Deployment & DevOps",
+  "OPS": "Operations, Testing & Roadmap",
+  "INFRA": "Infrastructure & Cost",
+  "ROLE": "Personas & Roles",
+  "ADMIN": "Admin UIs & Compliance",
+  "RPT": "Reports & Analytics Catalog",
+  "EXP": "Experimentation Subsystem",
+  "PROD": "Producer Contract & Cross-Persona"
+}

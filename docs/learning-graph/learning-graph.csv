@@ -1,0 +1,579 @@
+ConceptID,ConceptLabel,Dependencies,TaxonomyID
+1,Learning Management System,,STD
+2,SCORM,1,STD
+3,AICC,1,STD
+4,Content Packaging,2,STD
+5,Sharable Content Object,2|4,STD
+6,Experience API,1|2,STD
+7,Learning Record Store,6,STD
+8,Learning Record Provider,6|7,STD
+9,Actor,6,STD
+10,Verb,6,STD
+11,Object Activity,6,STD
+12,Activity Type,11,STD
+13,Result,6,STD
+14,Context,6,STD
+15,Statement,9|10|11,STD
+16,Sub-Statement,15,STD
+17,Attachment,15,STD
+18,Extensions,13|14,STD
+19,Statement Immutability,15,STD
+20,Voided Statement,19,STD
+21,Registration,14|15,STD
+22,Actor Account,9,STD
+23,Inverse Functional Identifier,22,STD
+24,Statement ID,15,STD
+25,RESTful API,,STD
+26,HTTP Verb,25,STD
+27,xAPI Endpoint,25|7,STD
+28,Statement Query Parameter,27,STD
+29,OAuth Authentication,27,STD
+30,Basic Authentication,27,STD
+31,IEEE LTSC,7,STD
+32,IEEE 9274.1.1-2023,15|7|31,STD
+33,IEEE 9274.2.1,32,STD
+34,xAPI Profile Standard,33,STD
+35,JSON-LD,34,STD
+36,Application Profile,34|35,STD
+37,Determining Property,36,STD
+38,cmi5,36,STD
+39,cmi5 Assignable Unit,38,STD
+40,cmi5 Launch Method,38,STD
+41,Total Learning Architecture,7|31,STD
+42,ADL Initiative,6,STD
+43,I2IDL,31|42,STD
+44,xAPI Conformance Suite,43|32,STD
+45,xAPI Profile Server,43|36,STD
+46,TLA Reference Implementation,43|41,STD
+47,Standards Governance,31|42|43,STD
+48,Stewardship Transition,42|31,STD
+49,Open Source Infrastructure,43,STD
+50,1EdTech Consortium,31,STD
+51,Caliper Analytics,50,STD
+52,Learning Object Metadata,50,STD
+53,Competency Framework,41,STD
+54,Learning Ecosystem,41|53,STD
+55,Data Verifiability,19|32,STD
+56,Data Transparency,55,STD
+57,Learner Data Portability,32|7,STD
+58,Vendor Interoperability,32|44,STD
+59,Statement Timestamp,15,STD
+60,Activity Definition,11|12,STD
+61,System Context Diagram,7,GRAPH
+62,Ingestion Plane,61,GRAPH
+63,Processing Plane,61,GRAPH
+64,Storage Plane,61,GRAPH
+65,Analytics Plane,61,GRAPH
+66,Presentation Plane,61,GRAPH
+67,Ingestion Gateway,62,GRAPH
+68,Durable Event Queue,62|67,GRAPH
+69,Event Store,64,GRAPH
+70,Stream Processor,63|68,GRAPH
+71,Analytics API,65,GRAPH
+72,Admin API,65,GRAPH
+73,Experiment API,65,GRAPH
+74,Roster API,61|65,GRAPH
+75,Export API,64|65,GRAPH
+76,Tenant,61,GRAPH
+77,District,76,GRAPH
+78,School,77,GRAPH
+79,Course,78,GRAPH
+80,Section,79,GRAPH
+81,Enrollment,80,GRAPH
+82,Tenancy Hierarchy,77|78|79|80,GRAPH
+83,Hard Isolation,77|82,GRAPH
+84,Soft Isolation,78|82,GRAPH
+85,OneRoster,74|81,GRAPH
+86,Student Information System,85,GRAPH
+87,Student,80,GRAPH
+88,Pseudonymous Account,87|22,GRAPH
+89,Student Key,88,GRAPH
+90,PII Vault,89,GRAPH
+91,Labeled Property Graph,64,GRAPH
+92,Node Label,91,GRAPH
+93,Relationship Type,91,GRAPH
+94,Textbook,92,GRAPH
+95,Textbook Version,94,GRAPH
+96,Chapter,94|92,GRAPH
+97,Page,96,GRAPH
+98,MicroSim,96,GRAPH
+99,MicroSim Version,98,GRAPH
+100,Quiz,97,GRAPH
+101,Question,100,GRAPH
+102,Concept,92,GRAPH
+103,Learning Graph DAG,102|93,GRAPH
+104,Depends On Relationship,103|93,GRAPH
+105,Covers Relationship,93|97|98|101|102,GRAPH
+106,Has Mastery Relationship,93|87,GRAPH
+107,Of Concept Relationship,93|102,GRAPH
+108,Touched Relationship,93|97|98|101,GRAPH
+109,Verb Controlled Vocabulary,93|10,GRAPH
+110,Experiment Node,93,GRAPH
+111,Variant Node,110|93,GRAPH
+112,Summary Vertex,91,GRAPH
+113,Analytical Grain,112,GRAPH
+114,Concept Mastery Vertex,113|106|102,GRAPH
+115,Page Engagement Vertex,113|97,GRAPH
+116,MicroSim Engagement Vertex,113|98,GRAPH
+117,Question Response Vertex,113|101,GRAPH
+118,Learning Session Vertex,113|108,GRAPH
+119,Section Rollup Vertex,113|80|114,GRAPH
+120,Statements Compressed,112,GRAPH
+121,xAPI Statement Resource,27|15,INGST
+122,Structural Validation,121,INGST
+123,Semantic Validation,121|60,INGST
+124,Schema On Read,123,INGST
+125,Non-Blocking Ingestion,67|124,INGST
+126,Accept-First Ingestion,125,INGST
+127,Provisional Node,126|92,INGST
+128,Reconciliation Worker,127,INGST
+129,Idempotent Delivery,67|24,INGST
+130,At-Least-Once Delivery,68|129,INGST
+131,Backpressure,68|125,INGST
+132,Statement Compression Ratio,112|120,INGST
+133,Change-Driven Materialization,112|70,INGST
+134,Absolute Value Write,133,INGST
+135,Statement Storage Function,69|121,INGST
+136,Statement Retrieval Function,121|28,INGST
+137,Voiding Function,20|135,INGST
+138,Actor Pseudonymization Function,88,INGST
+139,Activity Resolution Function,127,INGST
+140,Concept Mapping Function,105|102,INGST
+141,Mastery Computation Function,114,INGST
+142,Progress Projection Function,114|119,INGST
+143,Experiment Assignment Function,110|111,INGST
+144,Reconciliation Function,128,INGST
+145,Export Function,75|69,INGST
+146,Retention Purge Function,90|69,INGST
+147,FastAPI,67,TECH
+148,Uvicorn,147,TECH
+149,Redpanda,68,TECH
+150,Apache Kafka,149,TECH
+151,Confluent-Kafka Library,150|70,TECH
+152,ClickHouse,69,TECH
+153,Neo4j 5 Community,91,TECH
+154,PostgreSQL 16,90,TECH
+155,Redis 7,64,TECH
+156,MinIO,75,TECH
+157,Amazon S3,156,TECH
+158,GraphQL,71,TECH
+159,Keycloak,72,TECH
+160,OpenTelemetry,61,TECH
+161,Jaeger,160,TECH
+162,Prometheus,160,TECH
+163,Grafana,162,TECH
+164,ADR Event Store Decision,69|91,ARCH
+165,ADR Compression Sync Decision,133|134,ARCH
+166,ADR Graph Not Hot Path,114|155,ARCH
+167,ADR Partition Key Decision,68|87,ARCH
+168,ADR One Image Many Roles,67|70,ARCH
+169,ADR BKT Mastery Decision,141,ARCH
+170,ADR Python Gateway Decision,147|67,ARCH
+171,Memgraph Alternative,153,ARCH
+172,Peak Sustained Ingest,67,ARCH
+173,Burst Ingest Rate,172,ARCH
+174,Mean Statement Size,121,ARCH
+175,Active Ingestion Window,172,ARCH
+176,Duty Cycle,175,ARCH
+177,Statements Per Day,173|176,ARCH
+178,Kafka Disk Sizing,150|177,ARCH
+179,ClickHouse Disk Sizing,152|177,ARCH
+180,HTTP Request Rate,174|172,ARCH
+181,Graph Write Rate Naive,112|173,ARCH
+182,Neo4j Structural Node Count,153|82,ARCH
+183,Storage Compression Ratio,132|177,ARCH
+184,Write-Rate Compression,133|181,ARCH
+185,Sync Cadence Tradeoff,184,ARCH
+186,Distinct Active Grains,113|185,ARCH
+187,Bayesian Knowledge Tracing,141,ARCH
+188,Prior Mastery Probability,187,ARCH
+189,Slip Parameter,187,ARCH
+190,Guess Parameter,187,ARCH
+191,Transit Parameter,187,ARCH
+192,Evidence Conditioning Step,188|189|190,ARCH
+193,Learning Transition Step,192|191,ARCH
+194,Soft Correctness Mapping,187|116,ARCH
+195,AuthN Token Cache,67|155,INGST
+196,UUIDv7 Statement ID,121,INGST
+197,Kafka Producer Acks All,150|67,INGST
+198,Gateway Backpressure Queue,131|67,INGST
+199,HMAC-SHA256 Pseudonymization,138,INGST
+200,Per-District Salt,199|77,INGST
+201,Mutual TLS Salt Fetch,200|70,INGST
+202,Kafka Consumer Batch Window,150|70,INGST
+203,ReplacingMergeTree Dedup,152|129,INGST
+204,BKT Streaming Update,193|70,INGST
+205,Compacted State Checkpoint,204,INGST
+206,Late Arrival Detector,130|204,INGST
+207,Targeted Replay Command,206,INGST
+208,xxhash64 Bucketing,143,INGST
+209,Bucket To Variant Map,208|111,INGST
+210,Ramping Allocation Rule,209,INGST
+211,Report ID Endpoint Pattern,71,INGST
+212,Analytics Cache Key,155|211,INGST
+213,Data Version Invalidation,212|133,INGST
+214,Privacy Filter Choke Point,71|90,INGST
+215,P95 Latency Budget,71,INGST
+216,Dash Background Callback,155,INGST
+217,Redis Celery Queue,155|216,INGST
+218,Multi-Page Dash App,216,INGST
+219,Filter State Store,218,INGST
+220,Raw Statements Topic,150|80,INGST
+221,Bulk Statements Topic,150|220,INGST
+222,Dead Letter Topic,150|122,INGST
+223,Reconcile Task Topic,150|128,INGST
+224,Mastery State Topic,150|204,INGST
+225,Audit Feed Topic,150|77,INGST
+226,Lrs Statements Table,152|121,STORE
+227,Lrs Concept Mastery Table,152|114,STORE
+228,Section Concept Daily MV,226|80,STORE
+229,Student Concept Rollup MV,226|102,STORE
+230,Student Page Rollup MV,226|97,STORE
+231,ReplacingMergeTree Engine,152,STORE
+232,AggregatingMergeTree Engine,152,STORE
+233,LowCardinality Type,152,STORE
+234,ZSTD Compression Codec,152,STORE
+235,Partition By Month,226,STORE
+236,Grain Uniqueness Constraint,153|113,STORE
+237,Statement Label Prohibition,153|132,STORE
+238,Concept DAG Acyclicity Check,103,STORE
+239,Vault-Db Instance,154|90,STORE
+240,Meta-Db Instance,154|72,STORE
+241,Network Credential Boundary,239|240,STORE
+242,Tenant Context Injection,76,DASH
+243,Threshold Suppression,214,DASH
+244,Complementary Suppression,243,DASH
+245,Privacy Audit Write,214|90,DASH
+246,Trace ID Propagation,67|160,DASH
+247,Paged Metric Threshold,246,DASH
+248,Idempotency By Statement ID,129|24,DASH
+249,Replay Command,69|133,DASH
+250,Rebuild Graph Command,249,DASH
+251,Shadow Table Swap,249,DASH
+252,Common Dashboard Anatomy,65,DASH
+253,KPI Tile Component,252,DASH
+254,Heatmap Component,252,DASH
+255,Funnel Chart Component,252,DASH
+256,Radar Chart Component,252,DASH
+257,Sankey Chart Component,252,DASH
+258,Time Series Component,252,DASH
+259,Data Table Component,252,DASH
+260,Graph Explorer Component,252|103,DASH
+261,Server-Side Aggregation,65|71,DASH
+262,Cross-Filtering Interaction,252,DASH
+263,Drill-Down Interaction,252,DASH
+264,Dashboard Export,252,DASH
+265,One Image Many Roles Philosophy,67|70,DEPL
+266,Dockerfile Multi-Stage Build,265,DEPL
+267,Base Build Stage,266,DEPL
+268,Builder Build Stage,267,DEPL
+269,Runtime Build Stage,268,DEPL
+270,Non-Root Container User,269,DEPL
+271,uv Sync Command,268,DEPL
+272,Docker Build Cache Mount,271,DEPL
+273,Frozen Lockfile,271,DEPL
+274,Healthcheck Directive,269,DEPL
+275,PID 1 Signal Handling,270,DEPL
+276,Role Dispatcher CLI,265,DEPL
+277,Bootstrap CLI Role,276,DEPL
+278,Seed Demo Command,277,DEPL
+279,Loadgen Command,277|172,DEPL
+280,Replay CLI Command,277|249,DEPL
+281,Healthcheck CLI Command,277|274,DEPL
+282,Identity CLI Role,276|138,DEPL
+283,Analytics API CLI Role,276|71,DEPL
+284,Admin API CLI Role,276|72,DEPL
+285,Dashboards CLI Role,276|218,DEPL
+286,Docker Compose Stack,265,DEPL
+287,YAML Anchor Reuse,286,DEPL
+288,Compose Healthcheck Gate,286|274,DEPL
+289,Compose Profile,286,DEPL
+290,Redpanda Console,289|149,DEPL
+291,OTel Collector Service,289|160,DEPL
+292,Loadgen Profile Service,289|279,DEPL
+293,Full Profile Keycloak,289|159,DEPL
+294,Make Up Target,286,DEPL
+295,Make Down Target,294,DEPL
+296,Make Clean Target,294,DEPL
+297,Make Logs Target,294,DEPL
+298,Make Seed Target,294|278,DEPL
+299,Make Smoke Target,294,DEPL
+300,Make Perf Target,292,DEPL
+301,Make Obs Target,291,DEPL
+302,Make Rebuild Target,280,DEPL
+303,Make Test Target,294,DEPL
+304,GitHub Actions Release Workflow,266,DEPL
+305,Docker Buildx,304,DEPL
+306,Multi-Arch Image Build,305,DEPL
+307,GHA Layer Cache,304,DEPL
+308,Provenance Attestation,304,DEPL
+309,SBOM Generation,304,DEPL
+310,Trivy Vulnerability Scan,304,DEPL
+311,Cosign Image Signing,304,DEPL
+312,Immutable Digest Reference,304|311,DEPL
+313,Pydantic Settings Validation,147,OPS
+314,Environment Variable Config,313,OPS
+315,AWS Secrets Manager,314,OPS
+316,External Secrets Operator,315,OPS
+317,Kubernetes Secret,316,OPS
+318,Ingest Key Rotation,314,OPS
+319,Ingest Key Hashing,318,OPS
+320,Additive Column Migration,226,OPS
+321,Rebuild And Swap Migration,249,OPS
+322,Expand Contract Migration,154,OPS
+323,Kafka Partition Increase Caveat,178,OPS
+324,Recovery Point Objective,69,OPS
+325,Recovery Time Objective,69,OPS
+326,Write-Ahead Log Archiving,239,OPS
+327,Point-In-Time Recovery,326,OPS
+328,Nightly Backup Snapshot,324,OPS
+329,Quarterly Restore Drill,328,OPS
+330,Rolling Update Strategy,269,OPS
+331,Termination Grace Period,70|330,OPS
+332,Gateway-First Deploy Order,67|330,OPS
+333,Expand-Contract Rollback,322,OPS
+334,Kafka Unavailable Failure,149,OPS
+335,ClickHouse Unavailable Failure,152,OPS
+336,Neo4j Unavailable Failure,153,OPS
+337,Summarizer Stopped Failure,133,OPS
+338,Summarizer Split Brain,134,OPS
+339,Identity Service Unavailable,282,OPS
+340,Redis Unavailable Failure,155,OPS
+341,Experiment Service Error,143,OPS
+342,Reconciliation Backlog Growth,128,OPS
+343,Poison Message Handling,222,OPS
+344,District Queue Flood,77|131,OPS
+345,Clock Skew Handling,123,OPS
+346,Unit Test Layer,187|243,OPS
+347,Compression Test Suite,132|134,OPS
+348,ADL Conformance Test Suite,121,OPS
+349,Testcontainers Integration Test,286,OPS
+350,Privacy Adversarial Suite,243,OPS
+351,Load Test Loadgen,279,OPS
+352,Replay Nightly Test,249,OPS
+353,Chaos Kill Test,334|335|336,OPS
+354,D-3 Partition Key Deviation,167,OPS
+355,D-4 Privacy Threshold Deviation,243,OPS
+356,D-5 Complementary Suppression,244,OPS
+357,M0 Walking Skeleton,286,OPS
+358,M1 Ingestion Complete,357|126,OPS
+359,M2 Compression Graph Mastery,358|187,OPS
+360,M3 Analytics Dashboards,359|252,OPS
+361,M4 Admin Experiments,360|143,OPS
+362,M5 Scale Production,361,OPS
+363,Neo4j Licensing Question,153,OPS
+364,ClickHouse Cloud Vs Self-Hosted,152,OPS
+365,Gateway Language Trigger,170,OPS
+366,BKT Parameter Fitting,187,OPS
+367,Retention Vs Research Value,146,OPS
+368,Multi-Region Question,77,OPS
+369,MicroSim BKT Mapping Gap,194,OPS
+370,Compute Plane Sizing,67|70,INFRA
+371,Monthly Cost Estimate,370,INFRA
+372,Reserved Instance Pricing,371,INFRA
+373,Neo4j Licensing Cost,363|371,INFRA
+374,Cost Sensitivity Driver,371,INFRA
+375,Single-Server Pilot Tier,370,INFRA
+376,VM Hypervisor Isolation,375,INFRA
+377,Bare-Metal Hosting,375,INFRA
+378,NVMe Local Storage,152|149,INFRA
+379,Network Ingress Sizing,172,INFRA
+380,Docker Desktop,286,INFRA
+381,Docker Engine,286,INFRA
+382,Remote SSH Development,381,INFRA
+383,Docker Context Over SSH,381,INFRA
+384,SSH Tunnel Port Forward,383,INFRA
+385,Hetzner Cloud Host,378,INFRA
+386,DigitalOcean Droplet,378,INFRA
+387,AWS EC2 Instance,157,INFRA
+388,UFW Firewall Rule,385,INFRA
+389,MVP Architecture Proof,184,OPS
+390,Burst Insensitivity Claim,389|184,OPS
+391,Smoke Harness Decorative Check,389,OPS
+392,Mastery Path Disconnection,141|187,OPS
+393,Lift Vs Rewrite Decision,389,OPS
+394,Raw Column PII Hole,226|90,OPS
+395,Last Seen Type Fix,204,OPS
+396,Mastery Join Fix,227|141,OPS
+397,MVP Step 1 Foundation,393,OPS
+398,MVP Step 2 Ingest Path,397|122,OPS
+399,MVP Step 3 Loadgen Contract,398|279,OPS
+400,MVP Step 4 Compression Graph,399|133,OPS
+401,MVP Step 5 Burst Proof,400|390,OPS
+402,Vault Net Isolation,239,OPS
+403,MVP Deferred Scope,401,OPS
+404,Kubernetes,265,INFRA
+405,Helm Chart,404,INFRA
+406,KEDA Autoscaler,404|70,INFRA
+407,Horizontal Pod Autoscaler,404|67,INFRA
+408,Availability Zone,404,INFRA
+409,Managed Streaming Kafka,150|408,INFRA
+410,Continuous Integration Pipeline,304,INFRA
+411,Total Cost Of Ownership,371,INFRA
+412,EM Parameter Fitting,187|366,INFRA
+413,Application Load Balancer,67|408,INFRA
+414,ClickHouse Cloud,152|364,INFRA
+415,Neo4j AuraDB,153|363,INFRA
+416,Neo4j Enterprise Edition,153|363,INFRA
+417,Causal Cluster Topology,415|416,INFRA
+418,RDS Multi-AZ Postgres,154|408,INFRA
+419,ElastiCache Redis,155|408,INFRA
+420,Dead Letter Queue Concept,222,INFRA
+421,Ingress Controller,413,INFRA
+422,High Availability Requirement,417|363,INFRA
+423,LRU Fallback Cache,195,INFRA
+424,Cache TTL Expiry,195,INFRA
+425,Managed Identity Provider,159,INFRA
+426,Step-Up Authentication,72|159,INFRA
+427,Client Credentials Grant,29,INFRA
+428,District Administrator,,ROLE
+429,Teacher,,ROLE
+430,Textbook Author,,ROLE
+431,System Administrator,61,ROLE
+432,School Administrator,78,ROLE
+433,Auditor Role,245,ROLE
+434,District Management UI,428|72,ADMIN
+435,School Course Section UI,434|78|79|80,ADMIN
+436,Textbook Deployment UI,434|95,ADMIN
+437,xAPI Credentials UI,434|121,ADMIN
+438,Experiment Administration UI,434|110,ADMIN
+439,User Access Management UI,434,ADMIN
+440,Privacy Compliance UI,434|90,ADMIN
+441,Audit Monitoring UI,434|245,ADMIN
+442,System Configuration UI,434,ADMIN
+443,Roster Source Configuration,434|85,ADMIN
+444,Data Residency Policy,434|77,ADMIN
+445,Retention Policy,434|146,ADMIN
+446,Legal Hold Toggle,445,ADMIN
+447,Enrollment Editor,435|81,ADMIN
+448,Instructor Assignment Tool,435|429,ADMIN
+449,Term Academic Year Rollover,435,ADMIN
+450,Deployment Editor,436|95,ADMIN
+451,Provisional Reconcile Queue,436|127,ADMIN
+452,MicroSim Registry View,436|98,ADMIN
+453,Endpoint Key Rotation,437|318,ADMIN
+454,Verb Vocabulary Browser,437|109,ADMIN
+455,Dead-Letter Inspector,437|222,ADMIN
+456,Experiment List View,438|110,ADMIN
+457,Experiment Lifecycle Controls,438|456,ADMIN
+458,User CRUD Management,439,ADMIN
+459,Role Assignment Scope,439|458,ADMIN
+460,Access Review Workflow,459,ADMIN
+461,Impersonation Audit,439|245,ADMIN
+462,Policy Profile Preset,440,ADMIN
+463,Data Subject Request,440|90,ADMIN
+464,Consent Status,440|463,ADMIN
+465,Aggregation Threshold,440|243,ADMIN
+466,Audit Log Browser,441|245,ADMIN
+467,Alerting Configuration,442|247,ADMIN
+468,Retention Defaults Config,442|445,ADMIN
+469,Feature Flag Config,442,ADMIN
+470,Rate Limit Config,442,ADMIN
+471,FERPA Compliance,440|445,ADMIN
+472,COPPA Compliance,440|464,ADMIN
+473,GDPR Compliance,440|463,ADMIN
+474,Right To Erasure,473|463,ADMIN
+475,Role-Based Access Control,439,ADMIN
+476,Single Sign-On,159|475,ADMIN
+477,SAML Protocol,476,ADMIN
+478,OIDC Protocol,476,ADMIN
+479,District Adoption Dashboard,428|177,RPT
+480,School Comparison Report,428|78,RPT
+481,Course Rollup Report,428|79,RPT
+482,Deployment Inventory Report,428|450,RPT
+483,Data Quality Monitor,428|342,RPT
+484,Ingestion Health Report,428|180,RPT
+485,License Seat Utilization,428|81,RPT
+486,Privacy Access Audit,428|245,RPT
+487,District Overview Dashboard,479|480|481,RPT
+488,System Health Dashboard,484|483,RPT
+489,District Rollout Plan,479|482|443,RPT
+490,My Classes Dashboard,429|71,RPT
+491,Student Detail Dashboard,429|114,RPT
+492,Student Progress Overview,491|114|102,RPT
+493,Concept Mastery Radar,491|114,RPT
+494,Time-On-Task Timeline,491|118,RPT
+495,Struggle Detector,491|117|104,RPT
+496,Prerequisite Gap Analysis,495|104,RPT
+497,Quiz Item Analysis,491|117,RPT
+498,Idle Disengagement Alert,491|131,RPT
+499,Learning Velocity Report,491|114,RPT
+500,Reading Vs Doing Balance,491|10,RPT
+501,Class Mastery Heatmap,490|119,RPT
+502,Concept Difficulty Ranking,490|119,RPT
+503,Completion Funnel,490|255,RPT
+504,Pace Distribution,490|96,RPT
+505,Class Engagement Calendar,490|131,RPT
+506,Question Discrimination,490|117,RPT
+507,MicroSim Utilization Report,490|116,RPT
+508,Cohort Comparison Report,490|80,RPT
+509,At-Risk Roster,495|498|496,RPT
+510,Standards Coverage Report,490|105,RPT
+511,Ad-Hoc Cohort Builder,490,RPT
+512,Learning Graph Explorer,490|103,RPT
+513,Statement Query Console,490|69,RPT
+514,Funnel Builder,503,RPT
+515,Alert Rule Builder,498,RPT
+516,Report Scheduler,490,RPT
+517,Section Enrollment,429|81,RPT
+518,Co-Teacher Assignment,429,RPT
+519,Content Insights Dashboard,430|71,RPT
+520,Experiments Dashboard,430|110,RPT
+521,Page Effectiveness Report,519|115|114,RPT
+522,MicroSim Impact Report,519|116,RPT
+523,Confusing-Content Finder,519|115,RPT
+524,Drop-Off Map,519|97,RPT
+525,Concept-Coverage Gaps,519|105|103,RPT
+526,Question Health Report,519|117,RPT
+527,Version Comparison Report,519|95,RPT
+528,Cross-District Benchmark,519|77,RPT
+529,Correlation Explorer,519,RPT
+530,Experiment Designer,520|110,RPT
+531,Experiment Definition,520|110,EXP
+532,Experiment Hypothesis,531,EXP
+533,Primary Outcome Metric,531,EXP
+534,Unit Of Randomization,531,EXP
+535,Experiment Variant,531|111,EXP
+536,Allocation Weight,535,EXP
+537,Guardrail Metric,531,EXP
+538,Eligibility Predicate,531,EXP
+539,Deterministic Sticky Assignment,535|143,EXP
+540,Sample-Ratio Mismatch,539,EXP
+541,Effect Size,533,EXP
+542,Cohens D,541,EXP
+543,Confidence Interval,541,EXP
+544,Two-Sided Significance Test,543,EXP
+545,Sequential Testing Correction,544,EXP
+546,Segmentation Analysis,533,EXP
+547,Guardrail Regression Flag,537,EXP
+548,Experiment Readout Dashboard,520|541|543,EXP
+549,Textbook Registry,430|94,EXP
+550,MicroSim Registry,430|98,EXP
+551,Content Effectiveness Loop,519|530,EXP
+552,AB Test Lifecycle,531|539,EXP
+553,Cross-Persona Workflow,428|429|430,PROD
+554,Shared Statement Log,69|553,PROD
+555,Persona-Facing Report,553,PROD
+556,Canonical Activity IRI,97|11,PROD
+557,Trailing Slash Rule,556,PROD
+558,Question IRI Fragment,556|101,PROD
+559,Named Sub-Activity Fragment,556,PROD
+560,Randomized Order Naming Rule,558|559,PROD
+561,Answered Verb,109|101,PROD
+562,Experienced Verb,109|97,PROD
+563,Interacted Verb,109|98,PROD
+564,Textbook Version Grouping IRI,95|556,PROD
+565,Object Definition Type Map,556|98,PROD
+566,Control Object Type,565|559,PROD
+567,Concept Extension Field,102|556,PROD
+568,Concept Enrichment Path,140|567,PROD
+569,Start Pause Dwell Pattern,562|115,PROD
+570,Visibility Change Flush,569,PROD
+571,Producer Excluded Field,77|89,PROD
+572,xAPI Transport Header,121,PROD
+573,District ID Server-Assigned,77|571,PROD
+574,Student Key Server-Derived,89|571,PROD
+575,Stored At Gateway Timestamp,59|67,PROD
+576,API Version Header,572,PROD
+577,Reference Statement Example,556|561,PROD
+578,Field To Column Map,226|556,PROD

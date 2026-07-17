@@ -1,0 +1,10 @@
+{
+  "title": "Learning Record Store: IEEE Standards, Architecture, and Practice",
+  "description": "A three-part intelligent textbook: why every intelligent educational system needs a Learning Record Store (IEEE 9274/xAPI standards, IEEE LTSC, I2IDL, TLA), this project's own graph-database-backed LRS architecture and design, and how a district administrator, a teacher, and a textbook author each use it day-to-day.",
+  "creator": "Dan McCreary",
+  "date": "2026-07-17",
+  "version": "1.0",
+  "format": "Learning Graph JSON v1.0",
+  "schema": "https://raw.githubusercontent.com/dmccreary/learning-graphs/refs/heads/main/src/schema/learning-graph-schema.json",
+  "license": "CC BY-NC-SA 4.0 DEED"
+}
