@@ -15,9 +15,10 @@
   "library": "p5.js",
   "bloomLevel": "Apply (L3)",
   "bloomVerb": "apply, sequence",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 18,
   "chapter_title": "Configuration, Migration, Backup, and Rollout",
   "chapter_dir": "18-config-migration-backup-rollout",
-  "chapter_rel_dir": "chapters/18-config-migration-backup-rollout"
+  "chapter_rel_dir": "chapters/18-config-migration-backup-rollout",
+  "canvasHeight": 470
 }

@@ -1,5 +1,5 @@
 {
-  "title": "PID 1 Signal Handling — Exec Form versus Shell Form",
+  "title": "PID 1 Signal Handling \u2014 Exec Form versus Shell Form",
   "description": "Given a simulated SIGTERM, compare how the signal propagates under exec-form versus shell-form ENTRYPOINT, and predict whether in-flight work finishes cleanly or is killed.",
   "creator": "Learning Record Store",
   "author": "Dan McCreary",
@@ -15,9 +15,10 @@
   "library": "p5.js",
   "bloomLevel": "Analyze (L4)",
   "bloomVerb": "compare, differentiate",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 16,
   "chapter_title": "The Container Image and the Role Dispatcher CLI",
   "chapter_dir": "16-container-image-and-cli",
-  "chapter_rel_dir": "chapters/16-container-image-and-cli"
+  "chapter_rel_dir": "chapters/16-container-image-and-cli",
+  "canvasHeight": 460
 }

@@ -1,7 +1,7 @@
 ---
 title: The Role Dispatcher Command Explorer
 description: Given a deployment scenario, select the correct lrs subcommand and identify whether it is a long-running server role or a one-shot operational command.
-status: scaffold
+status: implemented
 library: p5.js
 bloom_level: Apply (L3)
 ---
@@ -10,7 +10,7 @@ bloom_level: Apply (L3)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="472"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

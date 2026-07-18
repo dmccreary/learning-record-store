@@ -1,7 +1,7 @@
 ---
 title: The Nine Admin UIs at a Glance
 description: Identify each of the nine admin UIs, its one-line purpose, and which of the six roles from this chapter can open it, as a quick-reference survey before Chapters 25 through 27 cover several of them in depth.
-status: scaffold
+status: implemented
 library: p5.js
 bloom_level: Remember (L1)
 ---
@@ -10,7 +10,7 @@ bloom_level: Remember (L1)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="502"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

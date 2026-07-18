@@ -1,6 +1,6 @@
 {
   "title": "District Management UI Mock Dashboard",
-  "description": "Operate a realistic mock-up of the District Management UI, locating each of the four fields this section explains — Roster Source Configuration, Data Residency Policy, Retention Policy, and Legal Hold Toggle — within a plausible screen layout rather than a bulleted description.",
+  "description": "Operate a realistic mock-up of the District Management UI, locating each of the four fields this section explains \u2014 Roster Source Configuration, Data Residency Policy, Retention Policy, and Legal Hold Toggle \u2014 within a plausible screen layout rather than a bulleted description.",
   "creator": "Learning Record Store",
   "author": "Dan McCreary",
   "date": "2026-07-17",
@@ -15,9 +15,10 @@
   "library": "p5.js",
   "bloomLevel": "Apply (L3)",
   "bloomVerb": "operate, demonstrate",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 25,
   "chapter_title": "District Administrator: Rosters, Deployments, and Registries",
   "chapter_dir": "25-district-admin-rosters-deployments",
-  "chapter_rel_dir": "chapters/25-district-admin-rosters-deployments"
+  "chapter_rel_dir": "chapters/25-district-admin-rosters-deployments",
+  "canvasHeight": 500
 }
