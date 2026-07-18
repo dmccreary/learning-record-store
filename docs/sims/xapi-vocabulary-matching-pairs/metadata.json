@@ -15,9 +15,10 @@
   "library": "p5.js",
   "bloomLevel": "Remember (L1)",
   "bloomVerb": "recall, identify, match",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 1,
   "chapter_title": "From Learning Management Systems to the Experience API",
   "chapter_dir": "01-lms-to-experience-api",
-  "chapter_rel_dir": "chapters/01-lms-to-experience-api"
+  "chapter_rel_dir": "chapters/01-lms-to-experience-api",
+  "canvasHeight": 440
 }

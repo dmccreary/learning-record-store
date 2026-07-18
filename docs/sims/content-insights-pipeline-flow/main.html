@@ -3,108 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
     <title>How Eight Content Reports Read Four Summary Vertices</title>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/p5.js"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
+        body { margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; }
+        main { display: block; }
     </style>
+    <script src="content-insights-pipeline-flow.js"></script>
 </head>
 <body>
-    <div id="container">
-        <h1>How Eight Content Reports Read Four Summary Vertices</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
-        </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> content-insights-pipeline-flow</p>
-            <p><strong>Library:</strong> p5.js</p>
-            <p><strong>Bloom Level:</strong> Understand (L2)</p>
-            <p><strong>Learning Objective:</strong> Explain how the four summary vertices already introduced in this book (PageEngagement, MicroSimEngagement, QuestionResponse, ConceptMastery) feed into the eight Content Insights reports, so the reports read as different views of the same evidence rather than eight separate data sources.</p>
-        </div>
-    </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: workflow
-    **sim-id:** content-insights-pipeline-flow<br/>
-    **Library:** p5.js<br/>
-    **Status:** Specified
-    **Template:** https://github.com/dmccreary/organizational-analytics/tree/main/docs/sims/end-to-end-pipeline<br/>
-    
-    Bloom Taxonomy: Understand (L2)
-    Bloom Taxonomy Verb: explain, trace
-    
-    Learning objective: Explain how the four summary vertices already introduced in this book (PageEngagement, MicroSimEngagement, QuestionResponse, ConceptMastery) feed into the eight Content Insights reports, so the reports read as different views of the same evidence rather than eight separate data sources.
-    
-    Purpose: A horizontal pipeline diagram with four labeled source boxes on the left (PageEngagement, MicroSimEngagement, QuestionResponse, ConceptMastery), fanning through a central "Content Insights Dashboard" hub, out to eight report boxes on the right (Page Effectiveness, MicroSim Impact, Confusing-Content Finder, Drop-off Map, Concept-Coverage Gaps, Question Health, Version Comparison, Cross-District Benchmark). Each report box has a thin connecting line back to only the source boxes it actually reads, so a learner can see, for example, that Question Health connects only to QuestionResponse while Page Effectiveness connects to both PageEngagement and ConceptMastery.
-    
-    Interactive features: Clicking any of the four source boxes opens an infobox recapping that vertex's grain and key properties from Chapter 8. Clicking any of the eight report boxes highlights its incoming connections and opens an infobox with that report's one-sentence purpose, matching the definition given in this chapter's prose. A "Reset" button clears all highlighting.
-    
-    Color coding: The four source vertices in the book's teal accent color to mark "already covered evidence"; the eight report boxes in a warm amber to mark "new in this chapter"; highlighted connection lines thicken and darken on click.
-    
-    Responsive design: Canvas width tracks the containing element's width. On narrow viewports the source boxes stack above the hub and the report boxes stack below it, rather than all three columns competing for horizontal space.
-    -->
+    <main></main>
 </body>
 </html>

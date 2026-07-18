@@ -3,113 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
     <title>District Management UI Mock Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/p5.js"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
+        body { margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; }
+        main { display: block; }
     </style>
+    <script src="district-management-ui-mockup.js"></script>
 </head>
 <body>
-    <div id="container">
-        <h1>District Management UI Mock Dashboard</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
-        </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> district-management-ui-mockup</p>
-            <p><strong>Library:</strong> p5.js</p>
-            <p><strong>Bloom Level:</strong> Apply (L3)</p>
-            <p><strong>Learning Objective:</strong> Operate a realistic mock-up of the District Management UI, locating each of the four fields this section explains — Roster Source Configuration, Data Residency Policy, Retention Policy, and Legal Hold Toggle — within a plausible screen layout rather than a bulleted description.</p>
-        </div>
-    </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: infographic
-    **sim-id:** district-management-ui-mockup<br/>
-    **Library:** p5.js<br/>
-    **Status:** Specified
-    
-    Bloom Taxonomy: Apply (L3)
-    Bloom Taxonomy Verb: operate, demonstrate
-    
-    Learning objective: Operate a realistic mock-up of the District Management UI, locating each of the four fields this section explains — Roster Source Configuration, Data Residency Policy, Retention Policy, and Legal Hold Toggle — within a plausible screen layout rather than a bulleted description.
-    
-    Canvas layout: A mock admin-screen rendered as a bordered browser-window frame with a left navigation rail (showing "Districts > Riverbend Unified" as breadcrumb) and a main panel divided into four labeled cards: "Roster Source," "Data Residency," "Retention Policy," and "Legal Hold."
-    
-    Visual elements: The "Roster Source" card shows a masked credential field ("SIS Connector Key: ••••••••••42a1"), a sync-schedule dropdown reading "Nightly, 02:00 local," and a "Last sync: Success, 6 hours ago" status chip in green. A "Preview Roster Diff" button sits below it. The "Data Residency" card shows a region selector reading "US-East" with a note "district data stored and processed in-region." The "Retention Policy" card shows a slider reading "Retention window: 5 years" and a "Next purge: 2027-01-15" readout. The "Legal Hold" card shows a toggle switch, currently off, with the label "No active holds" in gray; clicking it flips the toggle to "1 record set on hold" in amber.
-    
-    Interactive controls: A p5.js button labeled "Preview Roster Diff" opens a slide-out panel listing three mock diff rows (two additions in green, one removal in red) with an "Approve" and "Discard" button, directly demonstrating the four-step dry-run sequence from this chapter's prose. Clicking the Legal Hold toggle demonstrates that flipping it does not alter the Retention Policy card's numbers, reinforcing that a legal hold suspends rather than replaces the retention schedule. Hovering any card header shows a tooltip with that field's one-sentence definition from this chapter's prose.
-    
-    Default state: All four cards collapsed to their summary view; Legal Hold off; no diff panel open.
-    
-    Behavior: Clicking "Preview Roster Diff" expands the diff panel with a smooth slide-in transition; clicking "Approve" updates the "Last sync" chip to "Success, just now"; clicking "Discard" closes the panel with no change to sync status.
-    
-    Implementation notes: Use p5.js `createButton()` for "Preview Roster Diff," "Approve," and "Discard," and a custom toggle drawn with `rect()` and mouse-press detection for Legal Hold, per this project's convention of using p5.js's built-in controls wherever a native equivalent exists.
-    
-    Responsive design: The four-card grid collapses from a 2x2 layout to a single stacked column on narrow viewports; the diff slide-out panel becomes a full-width overlay instead of a side panel below 600px width.
-    -->
+    <main></main>
 </body>
 </html>

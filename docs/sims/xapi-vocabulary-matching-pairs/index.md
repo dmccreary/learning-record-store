@@ -1,7 +1,7 @@
 ---
 title: xAPI Vocabulary Matching Pairs
 description: Reinforce recall of the six terms introduced in this chapter's statement-anatomy section (Actor, Verb, Object Activity, Activity Type, Result, Context) by matching each term to its one-sentence definition.
-status: scaffold
+status: implemented
 library: p5.js
 bloom_level: Remember (L1)
 ---
@@ -10,7 +10,7 @@ bloom_level: Remember (L1)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="442"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

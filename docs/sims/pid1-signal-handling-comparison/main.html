@@ -3,111 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
     <title>PID 1 Signal Handling — Exec Form versus Shell Form</title>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/p5.js"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
+        body { margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; }
+        main { display: block; }
     </style>
+    <script src="pid1-signal-handling-comparison.js"></script>
 </head>
 <body>
-    <div id="container">
-        <h1>PID 1 Signal Handling — Exec Form versus Shell Form</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
-        </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> pid1-signal-handling-comparison</p>
-            <p><strong>Library:</strong> p5.js</p>
-            <p><strong>Bloom Level:</strong> Analyze (L4)</p>
-            <p><strong>Learning Objective:</strong> Given a simulated SIGTERM, compare how the signal propagates under exec-form versus shell-form ENTRYPOINT, and predict whether in-flight work finishes cleanly or is killed.</p>
-        </div>
-    </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: microsim
-    **sim-id:** pid1-signal-handling-comparison<br/>
-    **Library:** p5.js<br/>
-    **Status:** Specified
-    
-    Bloom Taxonomy: Analyze (L4)
-    Bloom Taxonomy Verb: compare, differentiate
-    
-    Learning objective: Given a simulated SIGTERM, compare how the signal propagates under exec-form versus shell-form ENTRYPOINT, and predict whether in-flight work finishes cleanly or is killed.
-    
-    Canvas layout: Two side-by-side process-tree panels, left "Exec form: ENTRYPOINT [\"lrs\"]" (one box, "PID 1: lrs process"), right "Shell form: ENTRYPOINT lrs" (two stacked boxes, "PID 1: /bin/sh -c lrs" above "PID 2 (child): lrs process"). A control strip above: "Send SIGTERM" button and a "Grace period" slider (1-10s, default 5). A countdown and status readout below each panel.
-    
-    Visual elements: Before SIGTERM, both panels show calm teal boxes with a pulsing "in-flight request" icon. On click, a signal icon travels from a "container runtime" icon down to PID 1 in each panel. Left panel: signal reaches `lrs` directly; box turns amber ("draining"), the request completes and fades, box turns gray ("exited") before the grace period ends. Right panel: signal reaches the shell, which turns amber, but no arrow continues to the child box, which stays teal ("unaware") until the countdown hits zero, then turns red ("SIGKILL -- work lost").
-    
-    Interactive controls: "Send SIGTERM" button starts both panels' animation together; "Grace period" slider adjusts the countdown; "Reset" restores the pre-signal state.
-    
-    Interactive features: Clicking either process box opens an infobox stating its PID, whether it received SIGTERM directly, and — for the child box — that Docker and Kubernetes send SIGTERM only to PID 1 by default.
-    
-    Color coding: Teal running, amber draining, gray clean exit, red unclean SIGKILL.
-    
-    Responsive design: Panels stack vertically on narrow viewports; the control strip stays fixed above both.
-    -->
+    <main></main>
 </body>
 </html>

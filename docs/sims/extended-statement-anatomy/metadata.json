@@ -15,9 +15,10 @@
   "library": "p5.js",
   "bloomLevel": "Understand (L2)",
   "bloomVerb": "classify, differentiate",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 2,
   "chapter_title": "The Anatomy of an xAPI Statement",
   "chapter_dir": "02-anatomy-of-xapi-statement",
-  "chapter_rel_dir": "chapters/02-anatomy-of-xapi-statement"
+  "chapter_rel_dir": "chapters/02-anatomy-of-xapi-statement",
+  "canvasHeight": 460
 }

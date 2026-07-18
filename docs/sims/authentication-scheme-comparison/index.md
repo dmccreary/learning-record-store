@@ -1,7 +1,7 @@
 ---
 title: Authentication Scheme Comparison
 description: Let the learner evaluate which authentication scheme fits a given Learning Record Provider scenario, justifying the choice against criteria introduced in the prose above.
-status: scaffold
+status: implemented
 library: p5.js
 bloom_level: Evaluate (L5)
 ---
@@ -10,7 +10,7 @@ bloom_level: Evaluate (L5)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="462"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

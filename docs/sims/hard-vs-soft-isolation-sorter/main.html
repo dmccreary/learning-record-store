@@ -3,123 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
     <title>Sort Each Level into Hard or Soft Isolation</title>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/p5.js"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
+        body { margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; }
+        main { display: block; }
     </style>
+    <script src="hard-vs-soft-isolation-sorter.js"></script>
 </head>
 <body>
-    <div id="container">
-        <h1>Sort Each Level into Hard or Soft Isolation</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
-        </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> hard-vs-soft-isolation-sorter</p>
-            <p><strong>Library:</strong> p5.js</p>
-            <p><strong>Bloom Level:</strong> Apply (L3)</p>
-            <p><strong>Learning Objective:</strong> Let the learner apply the definitions of Hard Isolation and Soft Isolation by sorting the four Tenancy Hierarchy levels (District, School, Course, Section) into the correct isolation-guarantee bucket.</p>
-        </div>
-    </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: microsim
-    **sim-id:** hard-vs-soft-isolation-sorter<br/>
-    **Library:** p5.js<br/>
-    **Status:** Specified
-    
-    Bloom Taxonomy: Apply (L3)
-    Bloom Taxonomy Verb: classify, sort
-    
-    Learning objective: Let the learner apply the definitions of Hard Isolation and Soft Isolation by sorting the four Tenancy Hierarchy levels (District, School, Course, Section) into the correct isolation-guarantee bucket.
-    
-    Canvas layout:
-    
-    - Top strip: four shuffled draggable tiles, one per level name — "District", "School", "Course", "Section"
-    - Middle: two labeled drop zones side by side — "Hard Isolation" (left, darkest teal) and "Soft Isolation" (right, lighter teal)
-    - Bottom strip: score readout ("Sorted: 0 / 4") and a "Check All" button
-    
-    Visual elements:
-    
-    - Tiles in a neutral cream color with the level name printed on them
-    - A tile dropped in its correct zone locks in place with a green outline and a brief checkmark animation
-    - A tile dropped in the wrong zone bounces back to the top strip with a half-second red flash
-    
-    Interactive controls:
-    
-    - Drag-and-drop: drag any tile onto either isolation zone
-    - Button: "Check All" — validates every placed tile and reveals a one-sentence explanation for any incorrect placement, matching this chapter's prose
-    - Button: "Reset" — returns all tiles to the top strip
-    
-    Default parameters: all four tiles unplaced at start, shuffled via a seeded index so the layout is reproducible within a session.
-    
-    Behavior: on a correct drop, increment "Sorted" and lock the tile; when all four are sorted correctly, display "All four levels sorted — District is the only hard boundary." Clicking any locked tile re-opens an infobox with that level's isolation guarantee and enforcement mechanism, matching the table above.
-    
-    Implementation notes: p5.js mouse-press/mouse-release drag-and-drop, matching the pattern used in this book's other sorting MicroSims. Responsive design: canvas width tracks the containing element's width; the two drop zones stack vertically at narrow (mobile) widths.
-    -->
+    <main></main>
 </body>
 </html>

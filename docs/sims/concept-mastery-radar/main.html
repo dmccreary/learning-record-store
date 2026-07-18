@@ -3,110 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
     <title>Concept Mastery Radar for One Student</title>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/p5.js"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
+        body { margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; }
+        main { display: block; }
     </style>
+    <script src="concept-mastery-radar.js"></script>
 </head>
 <body>
-    <div id="container">
-        <h1>Concept Mastery Radar for One Student</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
-        </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> concept-mastery-radar</p>
-            <p><strong>Library:</strong> p5.js</p>
-            <p><strong>Bloom Level:</strong> Understand (L2)</p>
-            <p><strong>Learning Objective:</strong> Let the learner interpret a radar chart of one student's Bayesian Knowledge Tracing mastery scores grouped by taxonomy category, identifying the category where that student is weakest.</p>
-        </div>
-    </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: chart
-    **sim-id:** concept-mastery-radar<br/>
-    **Library:** p5.js<br/>
-    **Status:** Specified
-    **Template:** https://github.com/dmccreary/blockchain/tree/main/docs/sims/quality-attribute-radar<br/>
-    
-    Bloom Taxonomy: Understand (L2)
-    Bloom Taxonomy Verb: interpret, compare
-    
-    Learning objective: Let the learner interpret a radar chart of one student's Bayesian Knowledge Tracing mastery scores grouped by taxonomy category, identifying the category where that student is weakest.
-    
-    Purpose: A radar/spider chart with five to seven spokes, one per taxonomy category (e.g., Vocabulary, Procedures, Analysis, Application, Synthesis), each spoke scaled 0 to 1 to match the BKT mastery-score range.
-    
-    Data: A sample student's per-category average mastery scores plotted as a filled polygon; a faint dashed reference polygon at 0.75 mastery marks the textbook's default "likely mastered" line so the learner can see at a glance which spokes fall short of it.
-    
-    Interactive features: Clicking any spoke's label opens an infobox naming that taxonomy category and listing the two or three concepts within it that pull the average down the most. A slider (p5.js `createSlider()`) lets the learner switch between three sample students to see how the same chart shape changes with a different mastery profile.
-    
-    Color coding: The filled mastery polygon in the book's teal accent color; the 0.75 reference line in a neutral dashed gray so it reads as a threshold, not a second data series.
-    
-    Implementation: p5.js canvas rendering a polar/radar plot from an array of category-score pairs, adapted from the referenced template's radar-chart structure. Responsive width tracking the containing element; spoke labels rotate to remain horizontal and legible at narrow widths.
-    -->
+    <main></main>
 </body>
 </html>

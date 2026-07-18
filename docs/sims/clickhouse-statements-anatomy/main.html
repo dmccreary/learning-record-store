@@ -3,116 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
     <title>ClickHouse `lrs.statements` Table Anatomy</title>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/p5.js"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
+        body { margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; }
+        main { display: block; }
     </style>
+    <script src="clickhouse-statements-anatomy.js"></script>
 </head>
 <body>
-    <div id="container">
-        <h1>ClickHouse `lrs.statements` Table Anatomy</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
-        </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> clickhouse-statements-anatomy</p>
-            <p><strong>Library:</strong> p5.js</p>
-            <p><strong>Bloom Level:</strong> Analyze (L4)</p>
-            <p><strong>Learning Objective:</strong> Let the learner click through each column group of the lrs.statements table and explain why the ORDER BY key leads with district_id and student_key rather than timestamp alone.</p>
-        </div>
-    </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: infographic
-    **sim-id:** clickhouse-statements-anatomy<br/>
-    **Library:** p5.js<br/>
-    **Status:** Specified
-    
-    Bloom Taxonomy: Analyze (L4)
-    Bloom Taxonomy Verb: differentiate, justify
-    
-    Learning objective: Let the learner click through each column group of the lrs.statements table and explain why the ORDER BY key leads with district_id and student_key rather than timestamp alone.
-    
-    Canvas layout:
-    
-    - A vertical table diagram listing all eighteen columns in DDL order, grouped visually into four bands: "Identity & Tenancy" (district_id, statement_id, student_key), "Statement Content" (verb_id, object_type, object_id, textbook_id, version_id, section_id, concept_ids, result_score, result_success, duration_ms), "Lifecycle Flags" (voided_by, provisional), and "Timing & Raw Payload" (timestamp, stored_at, raw)
-    - A highlighted sidebar showing the ORDER BY tuple as four connected boxes: district_id -> student_key -> timestamp -> statement_id, with an arrow showing "prune, then sort" order
-    
-    Interactive controls:
-    
-    - Clicking any column name opens an infobox with its type, a one-sentence purpose, and whether it participates in the ORDER BY key
-    - A button "Highlight ORDER BY key" dims every column not in the primary key and traces the four-box sidebar sequence
-    - A button "Highlight compression" isolates the LowCardinality and ZSTD-coded columns and shows a small annotation explaining what each does to storage size
-    
-    Behavior: Default view shows all four bands at equal visual weight; clicking either highlight button re-renders with the relevant columns emphasized and the rest at reduced opacity.
-    
-    Color coding: The four column bands each get a distinct muted hue; the ORDER BY sidebar and any column inside it render in the book's teal accent color regardless of which band it belongs to, so the primary key reads as one visual thread through the whole table.
-    
-    Responsive design: Column bands stack in a single vertical scrolling list on narrow viewports; the ORDER BY sidebar collapses to a horizontal strip above the column list rather than sitting beside it.
-    -->
+    <main></main>
 </body>
 </html>

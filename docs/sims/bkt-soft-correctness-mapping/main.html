@@ -3,112 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
     <title>From Raw Evidence to Soft Correctness</title>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/p5.js"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
+        body { margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; }
+        main { display: block; }
     </style>
+    <script src="bkt-soft-correctness-mapping.js"></script>
 </head>
 <body>
-    <div id="container">
-        <h1>From Raw Evidence to Soft Correctness</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
-        </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> bkt-soft-correctness-mapping</p>
-            <p><strong>Library:</strong> p5.js</p>
-            <p><strong>Bloom Level:</strong> Analyze (L4)</p>
-            <p><strong>Learning Objective:</strong> Let the learner evaluate how different raw evidence signals (a graded quiz answer, dwell time on a page, MicroSim interaction depth) map to a soft correctness value and a blending weight, and differentiate why non-binary evidence should count for less than a graded response.</p>
-        </div>
-    </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: chart
-    **sim-id:** bkt-soft-correctness-mapping<br/>
-    **Library:** p5.js<br/>
-    **Status:** Specified
-    **Template:** https://github.com/dmccreary/theory-of-knowledge/tree/main/docs/sims/evidence-strength-hierarchy<br/>
-    
-    Bloom Taxonomy: Analyze (L4)
-    Bloom Taxonomy Verb: evaluate, differentiate
-    
-    Learning objective: Let the learner evaluate how different raw evidence signals (a graded quiz answer, dwell time on a page, MicroSim interaction depth) map to a soft correctness value and a blending weight, and differentiate why non-binary evidence should count for less than a graded response.
-    
-    Purpose: Show, as an interactive bar chart, how three evidence types convert into a soft correctness value in [0,1] plus a separate evidence weight, so the learner sees both numbers move together as the underlying signal changes.
-    
-    Controls: A toggle selecting evidence type — "Graded quiz response" (binary), "Page dwell time" (slider, 0–300 seconds), "MicroSim interaction depth" (slider, 0–20 interactions) — plus a "Compare to a graded response" checkbox that overlays a fixed reference bar at weight 1.0.
-    
-    Visual elements: Two side-by-side bars per selection, "Soft Correctness" (0–1) and "Evidence Weight" (0–1), updating live as the slider moves. A graded response fixes Evidence Weight at 1.0; dwell time and interaction depth both show Soft Correctness rising smoothly with the slider but Evidence Weight capped well below 1.0 (illustrative default: 0.3), reinforcing that this evidence counts for less.
-    
-    Interactive features: Moving a slider recomputes both bars immediately. Hovering a bar shows its exact value and a one-sentence explanation matching this chapter's prose. An "Open question" info icon notes that the specification leaves the owning component for this mapping undecided.
-    
-    Color scheme: Soft Correctness bars in the book's teal accent color; Evidence Weight bars in muted gray; the reference graded-response bar in amber when enabled.
-    
-    Responsive design: Chart resizes to its container; below tablet width the bars stack vertically and the toggle becomes a dropdown.
-    -->
+    <main></main>
 </body>
 </html>

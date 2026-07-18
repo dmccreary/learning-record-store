@@ -15,9 +15,10 @@
   "library": "p5.js",
   "bloomLevel": "Apply (L3)",
   "bloomVerb": "classify, sort",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 6,
   "chapter_title": "Multi-Tenancy, Rosters, and Pseudonymous Identity",
   "chapter_dir": "06-multi-tenancy-rosters-identity",
-  "chapter_rel_dir": "chapters/06-multi-tenancy-rosters-identity"
+  "chapter_rel_dir": "chapters/06-multi-tenancy-rosters-identity",
+  "canvasHeight": 440
 }

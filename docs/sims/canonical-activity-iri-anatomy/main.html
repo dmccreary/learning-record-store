@@ -3,110 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
     <title>Canonical Activity IRI Anatomy</title>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/p5.js"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
+        body { margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; }
+        main { display: block; }
     </style>
+    <script src="canonical-activity-iri-anatomy.js"></script>
 </head>
 <body>
-    <div id="container">
-        <h1>Canonical Activity IRI Anatomy</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
-        </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> canonical-activity-iri-anatomy</p>
-            <p><strong>Library:</strong> p5.js</p>
-            <p><strong>Bloom Level:</strong> Understand (L2)</p>
-            <p><strong>Learning Objective:</strong> Let the learner classify a candidate object.id string as canonical or malformed by clicking through three worked examples and seeing which rule each one satisfies or breaks.</p>
-        </div>
-    </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: infographic
-    **sim-id:** canonical-activity-iri-anatomy<br/>
-    **Library:** p5.js<br/>
-    **Status:** Specified
-    **Template:** https://github.com/dmccreary/xapi-course/tree/main/docs/sims/activity-naming-and-occurrence-fields<br/>
-    
-    Bloom Taxonomy: Understand (L2)
-    Bloom Taxonomy Verb: classify, distinguish
-    
-    Learning objective: Let the learner classify a candidate object.id string as canonical or malformed by clicking through three worked examples and seeing which rule each one satisfies or breaks.
-    
-    Purpose: Three clickable IRI cards: (1) canonical `https://dmccreary.github.io/learning-record-store/sims/sine-wave/`, (2) missing-slash `…/sims/sine-wave`, (3) wrong-page `…/sims/sine-wave/main.html`.
-    
-    Layout: A horizontal row of three cards above a shared verdict panel, each showing the raw string with the differing segment highlighted.
-    
-    Interactive features: Clicking card 1 shows "Canonical — absolute HTTPS, trailing slash present." Card 2 shows "Violates the Trailing Slash Rule — a different ORDER BY string, splitting one page's engagement into two rows." Card 3 shows "Violates the Canonical Activity IRI rule — main.html is the iframe payload, not the page; mints a second identity." A "why it matters" toggle reveals a mock two-row ClickHouse split caused by cards 2 and 3.
-    
-    Color coding: Card 1 in the book's teal accent color; cards 2 and 3 in amber with the broken segment underlined in red.
-    
-    Implementation: p5.js canvas adapted from the referenced template's click-to-reveal pattern, narrowed to the three cards above. Responsive: canvas width tracks its container; cards stack vertically below tablet width.
-    -->
+    <main></main>
 </body>
 </html>

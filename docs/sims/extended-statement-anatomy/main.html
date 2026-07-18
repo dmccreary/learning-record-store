@@ -3,115 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
     <title>Anatomy of an Extended Statement</title>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/p5.js"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
+        body { margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; }
+        main { display: block; }
     </style>
+    <script src="extended-statement-anatomy.js"></script>
 </head>
 <body>
-    <div id="container">
-        <h1>Anatomy of an Extended Statement</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
-        </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> extended-statement-anatomy</p>
-            <p><strong>Library:</strong> p5.js</p>
-            <p><strong>Bloom Level:</strong> Understand (L2)</p>
-            <p><strong>Learning Objective:</strong> Let the learner classify each of the four optional Statement pieces (Sub-Statement, Attachment, Extensions, Registration) by clicking on it and seeing what problem it solves, reinforcing the JSON example above with a visual, exploratory layout.</p>
-        </div>
-    </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: infographic
-    **sim-id:** extended-statement-anatomy<br/>
-    **Library:** p5.js<br/>
-    **Status:** Specified
-    **Template:** https://github.com/dmccreary/xapi-course/tree/main/docs/sims/xapi-statement-builder<br/>
-    
-    Bloom Taxonomy: Understand (L2)
-    Bloom Taxonomy Verb: classify, differentiate
-    
-    Learning objective: Let the learner classify each of the four optional Statement pieces (Sub-Statement, Attachment, Extensions, Registration) by clicking on it and seeing what problem it solves, reinforcing the JSON example above with a visual, exploratory layout.
-    
-    Layout: A central "core Statement" box (Actor/Verb/Object, dimmed to signal "already learned in Chapter 1") surrounded by four labeled satellite boxes: "Sub-Statement" (attached to the Object), "Attachment" (attached to the Statement as a whole), "Extensions" (attached to Context or Result), and "Registration" (attached to Context).
-    
-    Data Visibility Requirements:
-    Stage 1: Show the dimmed core Statement (Actor, Verb, Object) with a caption "You already know this part."
-    Stage 2: On click of "Sub-Statement," highlight the connection to Object and show the nested Actor-Verb-Object nesting from the worked example (Ms. Alvarez recommended Maya's practice).
-    Stage 3: On click of "Attachment," show the SHA-2 hash reference and contentType from the worked example, with a note that the actual file bytes travel separately.
-    Stage 4: On click of "Extensions," show the `hintsUsed` key-value example and emphasize the IRI-as-key pattern that prevents naming collisions.
-    Stage 5: On click of "Registration," show two example Statements sharing one registration UUID versus two Statements with different UUIDs, to make the grouping concrete.
-    
-    Interactive features: Each of the four satellite boxes is clickable, revealing its Stage content in a side panel without navigating away from the diagram. A "Reset" button collapses all panels back to Stage 1.
-    
-    Instructional Rationale: A click-to-reveal exploratory layout is appropriate for this Understand-level, classify/differentiate objective because the four pieces are independent of one another — a linear step-through would falsely imply an order or dependency between them that the specification does not require.
-    
-    Implementation: p5.js canvas with clickable regions, following the interaction pattern of the referenced template MicroSim.
-    -->
+    <main></main>
 </body>
 </html>

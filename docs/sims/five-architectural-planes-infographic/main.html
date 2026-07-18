@@ -3,123 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
     <title>Sort the Component into Its Plane</title>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/p5.js"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
+        body { margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; }
+        main { display: block; }
     </style>
+    <script src="five-architectural-planes-infographic.js"></script>
 </head>
 <body>
-    <div id="container">
-        <h1>Sort the Component into Its Plane</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
-        </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> five-architectural-planes-infographic</p>
-            <p><strong>Library:</strong> p5.js</p>
-            <p><strong>Bloom Level:</strong> Apply (L3)</p>
-            <p><strong>Learning Objective:</strong> Let the learner apply their understanding of the five architectural planes by sorting eight named components (Ingestion Gateway, Durable Event Queue, Stream Processor, Event Store, Analytics API, Admin API, Experiment API, Roster API, Export API, Dash/Plotly Dashboards) into the correct one of five labeled plane buckets.</p>
-        </div>
-    </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: infographic
-    **sim-id:** five-architectural-planes-infographic<br/>
-    **Library:** p5.js<br/>
-    **Status:** Specified
-    
-    Bloom Taxonomy: Apply (L3)
-    Bloom Taxonomy Verb: classify, sort
-    
-    Learning objective: Let the learner apply their understanding of the five architectural planes by sorting eight named components (Ingestion Gateway, Durable Event Queue, Stream Processor, Event Store, Analytics API, Admin API, Experiment API, Roster API, Export API, Dash/Plotly Dashboards) into the correct one of five labeled plane buckets.
-    
-    Canvas layout:
-    
-    - Top strip: a shuffled row of small draggable tiles, one per component name
-    - Middle: five labeled drop zones arranged left to right in pipeline order — "Ingestion Plane", "Processing Plane", "Storage Plane", "Analytics Plane", "Presentation Plane" — each drawn as a wide colored band matching the diagram above
-    - Bottom strip: score readout ("Sorted: 0 / 10") and a "Check All" button
-    
-    Visual elements:
-    
-    - Component tiles in a neutral cream color with the component name printed on them
-    - Each plane band tinted with the same left-to-right teal gradient used in the System Context Diagram, so the two visuals reinforce the same color language
-    - A tile dropped in its correct band locks in place with a green outline; a tile dropped in the wrong band bounces back to the top strip with a brief red flash
-    
-    Interactive controls:
-    
-    - Drag-and-drop: drag any tile onto any plane band
-    - Button: "Check All" — validates every placed tile at once and reveals a one-sentence explanation for any incorrect placement
-    - Button: "Reset" — returns all tiles to the top strip
-    
-    Default parameters: all ten tiles unplaced at start, shuffled in random left-to-right order using a seeded index so layout is reproducible within a session.
-    
-    Behavior: on a correct drop, increment "Sorted" and lock the tile; when all ten are correctly sorted, display "All ten components placed correctly — you know the five planes."; clicking any locked tile re-opens an infobox with that component's one-sentence role, matching the definition given earlier in this chapter.
-    
-    Implementation notes: p5.js mouse-press/mouse-release drag-and-drop, same pattern as other chapter sorting MicroSims in this book. Responsive design: canvas width tracks the containing element's width, and the five bands stack into two rows at narrow (mobile) widths rather than compressing unreadably.
-    -->
+    <main></main>
 </body>
 </html>

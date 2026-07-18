@@ -3,118 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
     <title>Deterministic Bucketing and the Ramping Rule</title>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/p5.js"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
+        body { margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; }
+        main { display: block; }
     </style>
+    <script src="experiment-bucketing-ramp.js"></script>
 </head>
 <body>
-    <div id="container">
-        <h1>Deterministic Bucketing and the Ramping Rule</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
-        </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> experiment-bucketing-ramp</p>
-            <p><strong>Library:</strong> p5.js</p>
-            <p><strong>Bloom Level:</strong> Apply (L3)</p>
-            <p><strong>Learning Objective:</strong> Let the learner manipulate an experiment's allocation percentage and observe that xxhash64 Bucketing keeps every student's bucket number fixed while only the Bucket To Variant Map's boundary moves, and that the Ramping Allocation Rule prevents the boundary from ever moving backward.</p>
-        </div>
-    </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: infographic
-    **sim-id:** experiment-bucketing-ramp<br/>
-    **Library:** p5.js<br/>
-    **Status:** Specified
-    
-    Bloom Taxonomy: Apply (L3)
-    Bloom Taxonomy Verb: demonstrate, predict
-    
-    Learning objective: Let the learner manipulate an experiment's allocation percentage and observe that xxhash64 Bucketing keeps every student's bucket number fixed while only the Bucket To Variant Map's boundary moves, and that the Ramping Allocation Rule prevents the boundary from ever moving backward.
-    
-    Canvas layout:
-    
-    - A horizontal strip of 10,000 small tick marks representing bucket numbers 0-9,999, compressed to roughly 200 visible segments
-    - A vertical boundary line separating "treatment" (left, teal) from "control" (right, neutral gray)
-    - A slider labeled "Treatment allocation %" ranging from 0 to 100
-    - A row of five labeled student dots at fixed bucket positions, each showing its current variant
-    
-    Interactive controls:
-    
-    - Slider: "Treatment allocation %" — moving it right attempts to move the boundary right (more treatment)
-    - Checkbox: "Enforce Ramping Allocation Rule" — checked blocks any leftward boundary move with a red flash; unchecked lets the boundary move freely and flags in red any student dot that flips from treatment back to control, labeled "This is the bug the rule prevents"
-    - Button: "Reset"
-    
-    Behavior: Each student dot's bucket position is fixed for the session, computed once from a seeded hash so the layout is reproducible; only the boundary moves in response to the slider.
-    
-    Color coding: Treatment region and its student dots in the book's teal accent color; control region and its dots in neutral gray; the "bug" highlight in red, shown only when the rule checkbox is unchecked.
-    
-    Responsive design: Canvas width tracks its containing element; the tick strip and slider stack vertically below the student-dot row on narrow viewports.
-    -->
+    <main></main>
 </body>
 </html>
