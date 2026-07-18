@@ -1,3 +1,7 @@
+---
+title: Learning Graph Viewer
+description: An interactive vis-network viewer for the course's concept dependency graph, with search, category filtering, zoom, and live node/edge counts.
+---
 # Learning Graph Viewer
 
 This interactive viewer allows you to explore the learning graph for this course.

@@ -1,4 +1,6 @@
 ---
+title: Animal Cell
+description: A labeled, interactive diagram of an animal cell and its organelles for exploring cell structure.
 hide:
     toc
 ---
