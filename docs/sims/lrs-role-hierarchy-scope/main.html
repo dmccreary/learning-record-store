@@ -3,109 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
-    <title>Role Hierarchy and Scope</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
-    </style>
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>LRS Role Hierarchy &amp; Scope</title>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="container">
-        <h1>Role Hierarchy and Scope</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
+    <div class="container">
+        <div class="graph-panel">
+            <div id="network"></div>
+            <div class="title">Roles: Nested Authority vs Scope-Bound</div>
         </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> lrs-role-hierarchy-scope</p>
-            <p><strong>Library:</strong> vis-network</p>
-            <p><strong>Bloom Level:</strong> Analyze (L4)</p>
-            <p><strong>Learning Objective:</strong> Differentiate the three nested administrative roles (System Administrator, District Administrator, School Administrator) from the three scope-bound roles (Teacher, Textbook Author, Auditor Role) by tracing each role's scope boundary in a single graph.</p>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a role to see details</p></div>
         </div>
     </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: graph-model
-    **sim-id:** lrs-role-hierarchy-scope<br/>
-    **Library:** vis-network<br/>
-    **Status:** Specified
-    
-    Bloom Taxonomy: Analyze (L4)
-    Bloom Taxonomy Verb: compare, differentiate
-    
-    Learning objective: Differentiate the three nested administrative roles (System Administrator, District Administrator, School Administrator) from the three scope-bound roles (Teacher, Textbook Author, Auditor Role) by tracing each role's scope boundary in a single graph.
-    
-    Purpose: A vis-network graph with two visually distinct clusters sharing one root, so the learner can see the nested-authority chain and the scope-bound roles as structurally different shapes rather than read them off a flat list.
-    
-    Nodes: One root node "LRS Access Control." Three nested-authority nodes in a vertical chain below the root: "System Administrator" (global) -> "District Administrator" (one district) -> "School Administrator" (one school), each connected by a "contains" edge pointing from the broader role to the narrower one. Three scope-bound nodes attached directly to the root, drawn off to one side rather than in the vertical chain: "Teacher" (own sections only), "Textbook Author" (content and experiments, no student identity), "Auditor Role" (read-only, audit log only).
-    
-    Interactive features: Clicking any role node opens an infobox with that role's scope and capabilities, matching the table above. Clicking a "contains" edge opens an infobox explaining that a broader role's authority is a superset — a District Administrator can do everything a School Administrator in their district can do, plus more, but the reverse never holds. Hovering any scope-bound node (Teacher, Textbook Author, Auditor Role) highlights that its edge to the root is a single, non-nested scope line, visually distinguishing it from the vertical chain.
-    
-    Color coding: The nested-authority chain (System Administrator, District Administrator, School Administrator) shaded in graduated teal, darkest at System Administrator; the three scope-bound roles (Teacher, Textbook Author, Auditor Role) each in a distinct accent color to signal they are not ranked relative to one another.
-    
-    Responsive design: Graph re-centers and node spacing adjusts on window resize using vis-network's built-in physics layout; on narrow viewports, the nested chain renders vertically and the scope-bound roles collapse into a horizontal row beneath it.
-    -->
+    <script>
+        const ROOT = { background: '#37474f', border: '#1c2529' };
+        const T1 = { background: '#0f5c53', border: '#0a3f39' };
+        const T2 = { background: '#1a7f72', border: '#12695f' };
+        const T3 = { background: '#2a9d8f', border: '#1f7a6f' };
+        window.GRAPH = {
+            layout: 'physics',
+            nodes: [
+                { id: 'Root', label: 'LRS Access Control', color: ROOT, borderWidth: 3 },
+                { id: 'Sys', label: 'System Administrator (global)', color: T1 },
+                { id: 'Dist', label: 'District Administrator (one district)', color: T2 },
+                { id: 'School', label: 'School Administrator (one school)', color: T3 },
+                { id: 'Teacher', label: 'Teacher (own sections only)', color: { background: '#7b6cc4', border: '#544a91' } },
+                { id: 'Author', label: 'Textbook Author (content & experiments, no student identity)', color: { background: '#c9822b', border: '#8a5a1c' } },
+                { id: 'Auditor', label: 'Auditor Role (read-only, audit log only)', color: { background: '#5aa0c4', border: '#3a7091' } }
+            ],
+            edges: [
+                { from: 'Sys', to: 'Dist', label: 'contains' },
+                { from: 'Dist', to: 'School', label: 'contains' },
+                { from: 'Root', to: 'Sys' },
+                { from: 'Root', to: 'Teacher', dashes: true },
+                { from: 'Root', to: 'Author', dashes: true },
+                { from: 'Root', to: 'Auditor', dashes: true }
+            ],
+            nodeInfo: {
+                'Root': { title: 'LRS Access Control', description: 'The root. Below it are two structurally different shapes: a nested-authority chain (a vertical superset ladder) and scope-bound roles (single, non-nested scope lines).' },
+                'Sys': { title: 'System Administrator', description: 'Global scope &mdash; the broadest nested-authority role. It can do everything a District Admin can, in every district, plus system-level operations.' },
+                'Dist': { title: 'District Administrator', description: 'Scoped to ONE district. Its authority is a superset of every School Admin in that district &mdash; but it can never reach another district.' },
+                'School': { title: 'School Administrator', description: 'Scoped to ONE school. The narrowest link in the nested chain. A broader role (District, System) contains all of its capabilities; the reverse never holds.' },
+                'Teacher': { title: 'Teacher (scope-bound)', description: 'Not part of the nested chain. Bounded to their OWN sections only &mdash; a single, non-nested scope line to the root. It is not &ldquo;below&rdquo; School Admin; it is a different kind of role.' },
+                'Author': { title: 'Textbook Author (scope-bound)', description: 'Bounded to content and experiments, with NO access to student identity. A distinct scope-bound role, not ranked against Teacher or Auditor.' },
+                'Auditor': { title: 'Auditor Role (scope-bound)', description: 'Read-only access to the audit log ONLY. A separate scope-bound role &mdash; powerful for oversight, but unable to change anything.' }
+            }
+        };
+    </script>
+    <script src="vis-app.js"></script>
 </body>
 </html>

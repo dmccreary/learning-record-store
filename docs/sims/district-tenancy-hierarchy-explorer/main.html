@@ -3,110 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
     <title>District Tenancy Hierarchy Explorer</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
-    </style>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="container">
-        <h1>District Tenancy Hierarchy Explorer</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
+    <div class="container">
+        <div class="graph-panel">
+            <div id="network"></div>
+            <div class="title">District Tenancy Hierarchy</div>
         </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> district-tenancy-hierarchy-explorer</p>
-            <p><strong>Library:</strong> vis-network</p>
-            <p><strong>Bloom Level:</strong> Understand (L2)</p>
-            <p><strong>Learning Objective:</strong> Identify the nested tenancy hierarchy a District Administrator operates within — District, School, Course, Section, Enrollment — and distinguish the hard isolation boundary at the district level from the soft, role-scoped boundaries below it.</p>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a node to see details</p></div>
         </div>
     </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: graph-model
-    **sim-id:** district-tenancy-hierarchy-explorer<br/>
-    **Library:** vis-network<br/>
-    **Status:** Specified
-    **Template:** https://github.com/dmccreary/search-microsims/tree/main/docs/sims/subject-taxonomy-explorer<br/>
-    
-    Bloom Taxonomy: Understand (L2)
-    Bloom Taxonomy Verb: identify, describe
-    
-    Learning objective: Identify the nested tenancy hierarchy a District Administrator operates within — District, School, Course, Section, Enrollment — and distinguish the hard isolation boundary at the district level from the soft, role-scoped boundaries below it.
-    
-    Purpose: A vis-network hierarchical graph rooted at one District node, branching down through School, Course, Section, to Enrollment, with a separate branch showing a Textbook Version deployed onto a Section.
-    
-    Nodes: One root "District" node. Two child "School" nodes. Each School has two child "Course" nodes. Each Course has two child "Section" nodes. Each Section has three child "Enrollment" nodes (representing students) and one dashed edge labeled "DEPLOYS" to a shared "Textbook Version" node drawn off to the side.
-    
-    Interactive features: Clicking the District node opens an infobox stating the hard isolation guarantee — no cross-district query without explicit, de-identified system-admin benchmarking. Clicking any School, Course, or Section node opens an infobox naming that node's key properties from the graph data model (school_id/name/grade_band; course_id/title/subject; section_id/period/term/academic_year) and noting the boundary here is soft, enforced by role scope. Clicking an Enrollment node opens an infobox defining enrollment as the student-to-section relationship. Clicking the Textbook Version node or the DEPLOYS edge opens an infobox previewing the Textbook Deployment UI section later in this chapter.
-    
-    Color coding: The District node in a saturated teal to mark the hard boundary; School, Course, Section, and Enrollment nodes in graduated lighter shades of the same hue to show they nest inside it; the Textbook Version node and DEPLOYS edge in amber to visually separate "who a student is" from "what content they see."
-    
-    Responsive design: Hierarchical layout re-centers on window resize using vis-network's built-in layout engine; on narrow viewports the tree renders top-to-bottom rather than left-to-right and remains pannable.
-    -->
+    <script>
+        const D = { background: '#0f5c53', border: '#0a3f39' };
+        const S = { background: '#1a7f72', border: '#12695f' };
+        const C = { background: '#2a9d8f', border: '#1f7a6f' };
+        const SEC = { background: '#5cbcb0', border: '#3bab9d' };
+        const EN = { background: '#a7ddd5', border: '#5cbcb0' };
+        const AMBER = { background: '#e9a23b', border: '#b8791f' };
+        const dark = { color: '#08312c' };
+        window.GRAPH = {
+            layout: 'hierarchical', direction: 'UD',
+            nodes: [
+                { id: 'District', label: 'District (hard isolation)', color: D, borderWidth: 4 },
+                { id: 'Sch1', label: 'School A', color: S },
+                { id: 'Sch2', label: 'School B', color: S },
+                { id: 'Co1', label: 'Course: Biology', color: C },
+                { id: 'Co2', label: 'Course: Algebra', color: C },
+                { id: 'Se1', label: 'Section: Bio P3', color: SEC, font: dark },
+                { id: 'Se2', label: 'Section: Alg P5', color: SEC, font: dark },
+                { id: 'En1', label: 'Enrollment (student)', color: EN, font: dark },
+                { id: 'En2', label: 'Enrollment (student)', color: EN, font: dark },
+                { id: 'En3', label: 'Enrollment (student)', color: EN, font: dark },
+                { id: 'TV', label: 'Textbook Version', color: AMBER, font: { color: '#222' } }
+            ],
+            edges: [
+                { from: 'District', to: 'Sch1' }, { from: 'District', to: 'Sch2' },
+                { from: 'Sch1', to: 'Co1' }, { from: 'Sch2', to: 'Co2' },
+                { from: 'Co1', to: 'Se1' }, { from: 'Co2', to: 'Se2' },
+                { from: 'Se1', to: 'En1' }, { from: 'Se1', to: 'En2' }, { from: 'Se2', to: 'En3' },
+                { from: 'Se1', to: 'TV', label: 'DEPLOYS', dashes: true }
+            ],
+            nodeInfo: {
+                'District': { title: 'District (hard boundary)', description: 'The tenant and the HARD isolation boundary. No cross-district query is possible without explicit, de-identified system-admin benchmarking. Everything below nests inside it.' },
+                'Sch1': { title: 'School', description: 'A school within the district. Boundary here is SOFT &mdash; enforced by role scope, not hard isolation. Key properties: school_id, name, grade_band.' },
+                'Sch2': { title: 'School', description: 'Another school in the same district. Soft, role-scoped boundary. Key properties: school_id, name, grade_band.' },
+                'Co1': { title: 'Course', description: 'A course offered by a school. Soft boundary. Key properties: course_id, title, subject.' },
+                'Co2': { title: 'Course', description: 'Another course. Key properties: course_id, title, subject.' },
+                'Se1': { title: 'Section', description: 'A class period / cohort. Soft boundary. Key properties: section_id, period, term, academic_year.' },
+                'Se2': { title: 'Section', description: 'Another section. Key properties: section_id, period, term, academic_year.' },
+                'En1': { title: 'Enrollment', description: 'The student-to-section relationship &mdash; how a pseudonymous student attaches to a section. Not a level, a relationship.' },
+                'En2': { title: 'Enrollment', description: 'Another student&rsquo;s enrollment in the same section.' },
+                'En3': { title: 'Enrollment', description: 'A student enrolled in the Algebra section.' },
+                'TV': { title: 'Textbook Version (DEPLOYS)', description: 'A Textbook Version deployed onto a Section via the DEPLOYS edge. Shown in amber to separate &ldquo;who a student is&rdquo; from &ldquo;what content they see.&rdquo; Previews the Textbook Deployment UI later in this chapter.' }
+            }
+        };
+    </script>
+    <script src="vis-app.js"></script>
 </body>
 </html>

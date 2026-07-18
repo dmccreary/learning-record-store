@@ -1,6 +1,6 @@
 {
   "title": "District Tenancy Hierarchy Explorer",
-  "description": "Identify the nested tenancy hierarchy a District Administrator operates within — District, School, Course, Section, Enrollment — and distinguish the hard isolation boundary at the district level from the soft, role-scoped boundaries below it.",
+  "description": "Identify the nested tenancy hierarchy a District Administrator operates within \u2014 District, School, Course, Section, Enrollment \u2014 and distinguish the hard isolation boundary at the district level from the soft, role-scoped boundaries below it.",
   "creator": "Learning Record Store",
   "author": "Dan McCreary",
   "date": "2026-07-17",
@@ -15,9 +15,10 @@
   "library": "vis-network",
   "bloomLevel": "Understand (L2)",
   "bloomVerb": "identify, describe",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 25,
   "chapter_title": "District Administrator: Rosters, Deployments, and Registries",
   "chapter_dir": "25-district-admin-rosters-deployments",
-  "chapter_rel_dir": "chapters/25-district-admin-rosters-deployments"
+  "chapter_rel_dir": "chapters/25-district-admin-rosters-deployments",
+  "canvasHeight": 620
 }

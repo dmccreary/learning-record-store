@@ -3,111 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
-    <title>Role Assignment Scope Explorer</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
-    </style>
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Role vs Scope Explorer</title>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="container">
-        <h1>Role Assignment Scope Explorer</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
+    <div class="container">
+        <div class="graph-panel">
+            <div id="network"></div>
+            <div class="title">Same Role, Different Scope</div>
         </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> role-assignment-scope-explorer</p>
-            <p><strong>Library:</strong> vis-network</p>
-            <p><strong>Bloom Level:</strong> Understand (L2)</p>
-            <p><strong>Learning Objective:</strong> Distinguish a role (a fixed set of capabilities) from a scope (the specific district, school, or section that role applies to for one account), and see how two accounts sharing a role can still be authorized for different data.</p>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a node to see details</p></div>
         </div>
     </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: graph-model
-    **sim-id:** role-assignment-scope-explorer<br/>
-    **Library:** vis-network<br/>
-    **Status:** Specified
-    
-    Bloom Taxonomy: Understand (L2)
-    Bloom Taxonomy Verb: distinguish, classify
-    
-    Learning objective: Distinguish a role (a fixed set of capabilities) from a scope (the specific district, school, or section that role applies to for one account), and see how two accounts sharing a role can still be authorized for different data.
-    
-    Purpose: A vis-network graph showing five example User accounts, each connected to one role node and one scope node, so a learner can trace that the role stays constant while the scope varies.
-    
-    Nodes: Five "User Account" nodes (Ada, Ben, Chi, Dev, Eli). Three "Role" nodes: "District Administrator," "School Administrator," "Instructor." Five "Scope" nodes from Chapter 25's tenancy hierarchy: "Riverbend Unified (District)," "Lincoln Middle School," "Cedar Heights Middle School," "Section: Biology 101, Period 3," "Section: Algebra I, Period 5."
-    
-    Edges: Ada -> District Administrator -> Riverbend Unified. Ben -> School Administrator -> Lincoln Middle School. Eli -> School Administrator -> Cedar Heights Middle School (same role as Ben, different scope). Chi -> Instructor -> Section: Biology 101, Period 3. Dev -> Instructor -> Section: Algebra I, Period 5.
-    
-    Interactive features: Clicking any User Account node opens an infobox reading "This account's role is [role] and its scope is [scope]." Clicking a Role node opens an infobox with that role's fixed capability description, matching Chapter 24's role table. Clicking a Scope node opens an infobox naming that scope's place in the tenancy hierarchy and, for the two School Administrator scope nodes, a note explicitly stating "same role, different scope — Ben cannot see Cedar Heights, and Eli cannot see Lincoln Middle School."
-    
-    Color coding: User Account nodes in cream, Role nodes in the book's teal accent color, Scope nodes in amber, so a learner can visually separate "who," "what they can do," and "where they can do it" at a glance.
-    
-    Responsive design: Force-directed layout re-stabilizes on window resize; on narrow viewports the graph switches to a vertically stacked layout with pan-and-zoom enabled so all thirteen nodes remain reachable.
-    -->
+    <script>
+        const USER = { background: '#efe7d2', border: '#c9bb93' };
+        const ROLE = { background: '#2a9d8f', border: '#1f7a6f' };
+        const SCOPE = { background: '#e9a23b', border: '#b8791f' };
+        const dark = { color: '#3a2c10' };
+        window.GRAPH = {
+            layout: 'physics',
+            nodes: [
+                { id: 'Ada', label: 'Ada', color: USER, font: dark },
+                { id: 'Ben', label: 'Ben', color: USER, font: dark },
+                { id: 'Chi', label: 'Chi', color: USER, font: dark },
+                { id: 'Dev', label: 'Dev', color: USER, font: dark },
+                { id: 'Eli', label: 'Eli', color: USER, font: dark },
+                { id: 'DA', label: 'District Administrator', color: ROLE },
+                { id: 'SA', label: 'School Administrator', color: ROLE },
+                { id: 'IN', label: 'Instructor', color: ROLE },
+                { id: 'Riverbend', label: 'Riverbend Unified (District)', color: SCOPE, font: { color: '#222' } },
+                { id: 'Lincoln', label: 'Lincoln Middle School', color: SCOPE, font: { color: '#222' } },
+                { id: 'Cedar', label: 'Cedar Heights Middle School', color: SCOPE, font: { color: '#222' } },
+                { id: 'Bio', label: 'Section: Biology 101, P3', color: SCOPE, font: { color: '#222' } },
+                { id: 'Alg', label: 'Section: Algebra I, P5', color: SCOPE, font: { color: '#222' } }
+            ],
+            edges: [
+                { from: 'Ada', to: 'DA' }, { from: 'DA', to: 'Riverbend' },
+                { from: 'Ben', to: 'SA' }, { from: 'SA', to: 'Lincoln' },
+                { from: 'Eli', to: 'SA' }, { from: 'SA', to: 'Cedar' },
+                { from: 'Chi', to: 'IN' }, { from: 'IN', to: 'Bio' },
+                { from: 'Dev', to: 'IN' }, { from: 'IN', to: 'Alg' }
+            ],
+            nodeInfo: {
+                'Ada': { title: 'Ada', description: "This account's role is District Administrator and its scope is Riverbend Unified." },
+                'Ben': { title: 'Ben', description: "This account's role is School Administrator and its scope is Lincoln Middle School. Same role as Eli, different scope." },
+                'Chi': { title: 'Chi', description: "This account's role is Instructor and its scope is Section: Biology 101, Period 3." },
+                'Dev': { title: 'Dev', description: "This account's role is Instructor and its scope is Section: Algebra I, Period 5." },
+                'Eli': { title: 'Eli', description: "This account's role is School Administrator and its scope is Cedar Heights Middle School. Same role as Ben, different scope." },
+                'DA': { title: 'District Administrator (role)', description: 'A fixed set of capabilities: manage schools, courses, sections, rosters, and reports within one district. The role is the same for anyone who holds it &mdash; the scope decides which district.' },
+                'SA': { title: 'School Administrator (role)', description: 'A fixed capability set scoped to one school. Ben and Eli both hold this SAME role, but their scopes differ &mdash; so they are authorized for different data.' },
+                'IN': { title: 'Instructor (role)', description: 'A fixed capability set: view and manage one&rsquo;s own sections. Chi and Dev share this role but see different sections.' },
+                'Riverbend': { title: 'Riverbend Unified (scope)', description: 'A district-level scope in the tenancy hierarchy. Ada&rsquo;s District Administrator role applies here.' },
+                'Lincoln': { title: 'Lincoln Middle School (scope)', description: "A school-level scope. Ben's School Administrator role applies here. Same role, different scope: Ben cannot see Cedar Heights, and Eli cannot see Lincoln." },
+                'Cedar': { title: 'Cedar Heights Middle School (scope)', description: "A school-level scope. Eli's School Administrator role applies here. Same role, different scope: Eli cannot see Lincoln, and Ben cannot see Cedar Heights." },
+                'Bio': { title: 'Section: Biology 101 (scope)', description: 'A section-level scope in the tenancy hierarchy. Chi&rsquo;s Instructor role applies to just this section.' },
+                'Alg': { title: 'Section: Algebra I (scope)', description: 'A section-level scope. Dev&rsquo;s Instructor role applies to just this section.' }
+            }
+        };
+    </script>
+    <script src="vis-app.js"></script>
 </body>
 </html>

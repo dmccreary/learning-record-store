@@ -15,9 +15,10 @@
   "library": "vis-network",
   "bloomLevel": "Understand (L2)",
   "bloomVerb": "distinguish, contrast",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 10,
   "chapter_title": "Choosing the Technology Stack",
   "chapter_dir": "10-choosing-technology-stack",
-  "chapter_rel_dir": "chapters/10-choosing-technology-stack"
+  "chapter_rel_dir": "chapters/10-choosing-technology-stack",
+  "canvasHeight": 600
 }

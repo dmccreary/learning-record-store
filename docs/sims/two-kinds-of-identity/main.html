@@ -3,109 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
-    <title>Two Kinds of Identity in This Learning Record Store</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
-    </style>
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Two Kinds of Identity</title>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="container">
-        <h1>Two Kinds of Identity in This Learning Record Store</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
+    <div class="container">
+        <div class="graph-panel">
+            <div id="network"></div>
+            <div class="title">Two Kinds of &ldquo;Identity&rdquo;</div>
         </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> two-kinds-of-identity</p>
-            <p><strong>Library:</strong> vis-network</p>
-            <p><strong>Bloom Level:</strong> Understand (L2)</p>
-            <p><strong>Learning Objective:</strong> Let the learner distinguish the Chapter 6 pseudonymization identity service from Keycloak's human single-sign-on role, so the two systems that both use the word "identity" are never conflated.</p>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a node to see details</p></div>
         </div>
     </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: infographic
-    **sim-id:** two-kinds-of-identity<br/>
-    **Library:** vis-network<br/>
-    **Status:** Specified
-    
-    Bloom Taxonomy: Understand (L2)
-    Bloom Taxonomy Verb: distinguish, contrast
-    
-    Learning objective: Let the learner distinguish the Chapter 6 pseudonymization identity service from Keycloak's human single-sign-on role, so the two systems that both use the word "identity" are never conflated.
-    
-    Purpose: Show a two-branch vis-network graph contrasting "Learner Identity (Chapter 6)" against "Human Identity (this chapter)" side by side.
-    
-    Nodes: Root splits into two branches. Branch 1, "Learner Identity": "Raw actor in an xAPI statement" leads to "identity service — per-district HMAC salt" leads to "student_key (pseudonymous)" leads to "Used by: Stream Processor, analytics stores. Never a login.". Branch 2, "Human Identity": "District admin / teacher / author logs in" leads to "Keycloak (dev) / customer identity provider (prod) — OpenID Connect" leads to "Signed token carrying a role" leads to "Used by: Admin API, Analytics API, Dash dashboards. Enforces RBAC.".
-    
-    Interactive features: Clicking any node opens an infobox with that node's one-sentence role. Clicking either branch's header opens an infobox contrasting it directly against the other branch, quoting this chapter's "keep the two apart" framing. A toggle labeled "Show what a breach would expose" annotates each branch's leaf node with the consequence of that specific system being compromised, reinforcing why the separation matters for privacy.
-    
-    Color coding: Learner Identity branch in the book's teal accent color, matching Chapter 6's existing identity-service diagrams; Human Identity branch in a distinct violet, signaling this is a different system entirely.
-    
-    Responsive design: Branches stack vertically on narrow viewports; vis-network physics layout recalculates on window resize.
-    -->
+    <script>
+        const TEAL = { background: '#2a9d8f', border: '#1f7a6f' };
+        const VIOLET = { background: '#7b6cc4', border: '#544a91' };
+        window.GRAPH = {
+            layout: 'hierarchical', direction: 'UD',
+            nodes: [
+                { id: 'Root', label: 'Two systems that both say "identity"', color: { background: '#37474f', border: '#1c2529' } },
+                { id: 'L0', label: 'Learner Identity (Chapter 6)', color: TEAL, borderWidth: 4 },
+                { id: 'L1', label: 'Raw actor in an xAPI statement', color: TEAL },
+                { id: 'L2', label: 'identity service (per-district HMAC salt)', color: TEAL },
+                { id: 'L3', label: 'student_key (pseudonymous)', color: TEAL },
+                { id: 'L4', label: 'Used by: Stream Processor, analytics stores. Never a login.', color: TEAL },
+                { id: 'H0', label: 'Human Identity (this chapter)', color: VIOLET, borderWidth: 4 },
+                { id: 'H1', label: 'District admin / teacher / author logs in', color: VIOLET },
+                { id: 'H2', label: 'Keycloak (dev) / customer IdP (prod), OpenID Connect', color: VIOLET },
+                { id: 'H3', label: 'Signed token carrying a role', color: VIOLET },
+                { id: 'H4', label: 'Used by: Admin API, Analytics API, Dash. Enforces RBAC.', color: VIOLET }
+            ],
+            edges: [
+                { from: 'Root', to: 'L0' }, { from: 'L0', to: 'L1' }, { from: 'L1', to: 'L2' }, { from: 'L2', to: 'L3' }, { from: 'L3', to: 'L4' },
+                { from: 'Root', to: 'H0' }, { from: 'H0', to: 'H1' }, { from: 'H1', to: 'H2' }, { from: 'H2', to: 'H3' }, { from: 'H3', to: 'H4' }
+            ],
+            nodeInfo: {
+                'Root': { title: 'Two "identities"', description: 'Two entirely separate systems both use the word &ldquo;identity.&rdquo; Keeping them apart is essential: one is about pseudonymizing learners, the other about logging in humans.' },
+                'L0': { title: 'Learner Identity', description: 'The Chapter 6 pseudonymization system. It answers &ldquo;which learner is this statement about?&rdquo; without ever storing a login. Contrast with Human Identity, which is about who is signed in.' },
+                'L1': { title: 'Raw actor', description: 'The directly-identifying actor (homePage + name) inside an incoming statement &mdash; the only place raw learner identity exists.' },
+                'L2': { title: 'identity service', description: 'Applies a per-district HMAC salt to pseudonymize the actor. This service is NOT a login system.' },
+                'L3': { title: 'student_key', description: 'The irreversible pseudonymous key. Everything downstream uses this &mdash; it can never be used to log in.' },
+                'L4': { title: 'Consumers', description: 'Used by the Stream Processor and analytics stores. Breach exposure: the pseudonymous keys and their analytics &mdash; but not names, and not login credentials.' },
+                'H0': { title: 'Human Identity', description: 'This chapter&rsquo;s human SSO system. It answers &ldquo;who is logged in, and what may they do?&rdquo; &mdash; a completely different concern from pseudonymizing learners.' },
+                'H1': { title: 'Human logs in', description: 'A district admin, teacher, or author signs in &mdash; a real person with credentials.' },
+                'H2': { title: 'Keycloak / IdP', description: 'Keycloak in dev, a customer identity provider in prod, using OpenID Connect. This IS a login system.' },
+                'H3': { title: 'Signed token', description: 'On success the IdP issues a signed token carrying the user&rsquo;s role.' },
+                'H4': { title: 'Consumers', description: 'Used by the Admin API, Analytics API, and Dash dashboards to enforce RBAC. Breach exposure: an attacker could impersonate a logged-in human &mdash; a different risk than the learner-key system, which is why they are kept apart.' }
+            }
+        };
+    </script>
+    <script src="vis-app.js"></script>
 </body>
 </html>

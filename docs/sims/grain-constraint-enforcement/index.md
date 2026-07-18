@@ -1,7 +1,7 @@
 ---
 title: Grain Constraints and the Statement Label Prohibition
 description: Let the learner simulate a summarizer write attempt against a Grain Uniqueness Constraint and observe why a second write for the same grain upserts rather than duplicates, then contrast that outcome with a hypothetical write carrying a forbidden :Statement label.
-status: scaffold
+status: implemented
 library: vis-network
 bloom_level: Evaluate (L5)
 ---
@@ -10,7 +10,7 @@ bloom_level: Evaluate (L5)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="522"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

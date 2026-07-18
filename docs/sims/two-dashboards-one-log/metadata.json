@@ -1,5 +1,5 @@
 {
-  "title": "District Overview vs. System Health — Two Lenses on One Log",
+  "title": "District Overview vs. System Health \u2014 Two Lenses on One Log",
   "description": "Let the learner classify each of the eight reports under the dashboard it belongs to, and see that both dashboards read from the same underlying statement log rather than separate data sources.",
   "creator": "Learning Record Store",
   "author": "Dan McCreary",
@@ -15,9 +15,10 @@
   "library": "vis-network",
   "bloomLevel": "Understand (L2)",
   "bloomVerb": "classify, contrast",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 27,
   "chapter_title": "Compliance, Privacy Law, and District-Level Reporting",
   "chapter_dir": "27-compliance-and-district-reporting",
-  "chapter_rel_dir": "chapters/27-compliance-and-district-reporting"
+  "chapter_rel_dir": "chapters/27-compliance-and-district-reporting",
+  "canvasHeight": 560
 }

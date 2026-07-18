@@ -3,98 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
-    <title>Prerequisite Gap Analysis — Walking Upstream From a Weak Concept</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
-    </style>
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Concept Dependencies &mdash; Prerequisite Tracer</title>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="container">
-        <h1>Prerequisite Gap Analysis — Walking Upstream From a Weak Concept</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
+    <div class="container">
+        <div class="graph-panel">
+            <div id="network"></div>
+            <div class="title">Concept Dependencies &mdash; walk DEPENDS_ON upstream</div>
         </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> concept-dependencies</p>
-            <p><strong>Library:</strong> vis-network</p>
-            <p><strong>Bloom Level:</strong> TBD</p>
-            <p><strong>Learning Objective:</strong> TBD</p>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click the weak concept, then its prerequisites</p></div>
         </div>
     </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: graph-model
-    **sim-id:** concept-dependencies<br/>
-    **Library:** vis-network<br/>
-    **Status:** Reused<br/>
-    **Source:** https://dmccreary.github.io/automating-instructional-design/sims/concept-dependencies/<br/>
-    **Source Repo:** https://github.com/dmccreary/automating-instructional-design/tree/main/docs/sims/concept-dependencies
-    
-    Reused from the MicroSim catalog (WHAT match score 0.7919). Learning objective: let the learner trace upstream prerequisite concepts from a student's flagged weak concept, distinguishing already-mastered ancestors from unmastered ones that are the likely root cause of the struggle. The reused sim's existing REQUIRES/SUPPORTS dependency-edge model and click-to-highlight-upstream-and-downstream interaction map directly onto this report's "walk `DEPENDS_ON` upstream and flag unmastered prerequisites" behavior — a weak concept plays the role of the clicked node, and its unmastered ancestors are the highlighted upstream set.
-    -->
+    <script>
+        const MASTERED = { background: '#2a9d8f', border: '#1f7a6f' };   // already mastered
+        const UNMASTERED = { background: '#e05a5a', border: '#b23b3b' }; // unmastered prerequisite (root cause)
+        const WEAK = { background: '#e9a23b', border: '#b8791f' };       // the flagged weak concept
+        window.GRAPH = {
+            layout: 'hierarchical', direction: 'LR',
+            nodes: [
+                { id: 'Arithmetic', label: 'Arithmetic', color: MASTERED },
+                { id: 'Fractions', label: 'Fractions', color: MASTERED },
+                { id: 'Ratios', label: 'Ratios (unmastered)', color: UNMASTERED, font: { color: '#fff' } },
+                { id: 'Variables', label: 'Variables', color: MASTERED },
+                { id: 'Proportions', label: 'Proportions (unmastered)', color: UNMASTERED, font: { color: '#fff' } },
+                { id: 'LinearEq', label: 'Linear Equations', color: MASTERED },
+                { id: 'Slope', label: 'Slope (WEAK - flagged)', color: WEAK, borderWidth: 4, font: { color: '#222' } }
+            ],
+            edges: [
+                { from: 'Fractions', to: 'Arithmetic', label: 'DEPENDS_ON' },
+                { from: 'Ratios', to: 'Fractions', label: 'DEPENDS_ON' },
+                { from: 'Proportions', to: 'Ratios', label: 'DEPENDS_ON' },
+                { from: 'LinearEq', to: 'Variables', label: 'DEPENDS_ON' },
+                { from: 'Slope', to: 'Proportions', label: 'DEPENDS_ON' },
+                { from: 'Slope', to: 'LinearEq', label: 'DEPENDS_ON' }
+            ],
+            nodeInfo: {
+                'Slope': { title: 'Slope (the flagged weak concept)', description: 'The student was flagged weak here. Walking DEPENDS_ON upstream finds its prerequisites: Proportions and Linear Equations. Linear Equations is mastered; Proportions is NOT &mdash; a likely root cause.' },
+                'Proportions': { title: 'Proportions (unmastered root cause)', description: 'An UNMASTERED direct prerequisite of Slope. Because Slope depends on it, weakness here plausibly explains the Slope struggle. Its own prerequisite, Ratios, is also unmastered &mdash; the gap goes deeper.' },
+                'Ratios': { title: 'Ratios (unmastered)', description: 'An unmastered ANCESTOR two hops up from Slope. Ratios feeds Proportions feeds Slope &mdash; this is where the prerequisite chain first breaks down.' },
+                'LinearEq': { title: 'Linear Equations (mastered)', description: 'A direct prerequisite of Slope that IS mastered. So it is not the cause of the Slope struggle &mdash; the trail leads to the Proportions/Ratios branch instead.' },
+                'Variables': { title: 'Variables (mastered)', description: 'An upstream, already-mastered ancestor. Distinguishing mastered ancestors from unmastered ones is the whole point &mdash; only the unmastered ones are candidate root causes.' },
+                'Fractions': { title: 'Fractions (mastered)', description: 'A mastered ancestor further up the Ratios branch. Mastered, so not the root cause.' },
+                'Arithmetic': { title: 'Arithmetic (mastered)', description: 'A foundational, mastered concept at the base of the chain. Solid foundation &mdash; the problem is higher up, at Ratios/Proportions.' }
+            }
+        };
+    </script>
+    <script src="vis-app.js"></script>
 </body>
 </html>

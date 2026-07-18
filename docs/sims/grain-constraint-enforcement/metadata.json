@@ -15,9 +15,10 @@
   "library": "vis-network",
   "bloomLevel": "Evaluate (L5)",
   "bloomVerb": "justify, critique",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 14,
   "chapter_title": "Kafka Topics, ClickHouse Schema, and Graph Constraints",
   "chapter_dir": "14-kafka-clickhouse-graph-schema",
-  "chapter_rel_dir": "chapters/14-kafka-clickhouse-graph-schema"
+  "chapter_rel_dir": "chapters/14-kafka-clickhouse-graph-schema",
+  "canvasHeight": 520
 }

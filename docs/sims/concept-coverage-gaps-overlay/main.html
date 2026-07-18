@@ -3,108 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
-    <title>Concept-Coverage Gaps Overlaid on the Learning Graph</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
-    </style>
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Concept Coverage Gaps Overlay</title>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="container">
-        <h1>Concept-Coverage Gaps Overlaid on the Learning Graph</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
+    <div class="container">
+        <div class="graph-panel">
+            <div id="network"></div>
+            <div class="title">Coverage Gaps &mdash; shaded by evidence count</div>
         </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> concept-coverage-gaps-overlay</p>
-            <p><strong>Library:</strong> vis-network</p>
-            <p><strong>Bloom Level:</strong> Analyze (L4)</p>
-            <p><strong>Learning Objective:</strong> Let the learner identify which concepts in a dependency graph have little or no engagement evidence behind them, and distinguish a coverage gap (no content or no engagement) from a mastery gap (content exists but students are not learning it).</p>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a concept to see its evidence count</p></div>
         </div>
     </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: graph-model
-    **sim-id:** concept-coverage-gaps-overlay<br/>
-    **Library:** vis-network<br/>
-    **Status:** Specified
-    **Template:** https://github.com/dmccreary/signal-processing/tree/main/docs/sims/graph-viewer<br/>
-    
-    Bloom Taxonomy: Analyze (L4)
-    Bloom Taxonomy Verb: identify, differentiate
-    
-    Learning objective: Let the learner identify which concepts in a dependency graph have little or no engagement evidence behind them, and distinguish a coverage gap (no content or no engagement) from a mastery gap (content exists but students are not learning it).
-    
-    Purpose: An interactive node-link rendering of a concept dependency graph (reusing the DEPENDS_ON structure Chapter 7 introduced), where each concept node is shaded by an evidence-count scale rather than a mastery scale: well-covered concepts in a solid teal fill, low-evidence concepts in a pale outline-only fill, and zero-evidence concepts marked with a dashed red outline.
-    
-    Interactive features: Clicking any concept node opens an infobox showing its evidence count (how many PageEngagement, MicroSimEngagement, and QuestionResponse vertices reference it through a COVERS edge) and its position in the prerequisite chain. A search box lets the learner jump to a named concept. A toggle switches the overlay between "coverage" (evidence count) and "mastery" (the ConceptMastery-based shading used elsewhere in this book), making the distinction between the two kinds of gap visible on the same underlying graph.
-    
-    Color coding: Solid teal for well-covered concepts, pale outline for low evidence, dashed red outline for zero evidence — a shape-and-fill distinction rather than a pure color distinction, so it remains legible for color-vision-deficient readers.
-    
-    Responsive design: The graph canvas resizes to the containing element's width and re-runs its force layout on resize rather than clipping nodes off-screen; on narrow viewports the search box and toggle stack above the canvas instead of beside it.
-    -->
+    <script>
+        // Well-covered: solid teal. Low-evidence: pale outline. Zero-evidence: dashed red outline.
+        const WELL = { background: '#2a9d8f', border: '#1f7a6f' };
+        const LOW = { background: '#eaf6f4', border: '#5cbcb0' };
+        const ZERO = { background: '#fdeaea', border: '#e05a5a' };
+        const darkLow = { color: '#0c2f2b' };
+        const darkZero = { color: '#7a2b2b' };
+        window.GRAPH = {
+            layout: 'hierarchical', direction: 'LR',
+            nodes: [
+                { id: 'Cells', label: 'Cells (evidence 420)', color: WELL },
+                { id: 'Membrane', label: 'Cell Membrane (evidence 310)', color: WELL },
+                { id: 'Transport', label: 'Transport (evidence 24)', color: LOW, font: darkLow },
+                { id: 'Osmosis', label: 'Osmosis (evidence 3)', color: LOW, font: darkLow },
+                { id: 'ActiveT', label: 'Active Transport (evidence 0)', color: ZERO, font: darkZero, shapeProperties: { borderDashes: [6, 4] }, borderWidth: 3 },
+                { id: 'Respiration', label: 'Cellular Respiration (evidence 260)', color: WELL },
+                { id: 'ATP', label: 'ATP Synthesis (evidence 0)', color: ZERO, font: darkZero, shapeProperties: { borderDashes: [6, 4] }, borderWidth: 3 }
+            ],
+            edges: [
+                { from: 'Membrane', to: 'Cells', label: 'DEPENDS_ON' },
+                { from: 'Transport', to: 'Membrane', label: 'DEPENDS_ON' },
+                { from: 'Osmosis', to: 'Transport', label: 'DEPENDS_ON' },
+                { from: 'ActiveT', to: 'Transport', label: 'DEPENDS_ON' },
+                { from: 'Respiration', to: 'Cells', label: 'DEPENDS_ON' },
+                { from: 'ATP', to: 'Respiration', label: 'DEPENDS_ON' }
+            ],
+            nodeInfo: {
+                'Cells': { title: 'Cells &mdash; well covered', description: 'Evidence count 420 (PageEngagement + MicroSimEngagement + QuestionResponse vertices via COVERS edges). Solid teal fill = plenty of evidence. This is NOT a coverage gap.' },
+                'Membrane': { title: 'Cell Membrane &mdash; well covered', description: 'Evidence 310. Well-covered. A mastery gap could still exist here (students struggling despite content) &mdash; that is a DIFFERENT gap, shown by the mastery overlay.' },
+                'Transport': { title: 'Transport &mdash; low evidence', description: 'Evidence 24 &mdash; pale outline. Some content and engagement exist, but thin. Worth watching, not yet a hole.' },
+                'Osmosis': { title: 'Osmosis &mdash; low evidence', description: 'Evidence 3 &mdash; nearly a gap. Almost no engagement flows through this prerequisite.' },
+                'ActiveT': { title: 'Active Transport &mdash; ZERO evidence (coverage gap)', description: 'Evidence 0 &mdash; dashed red outline. A true COVERAGE gap: no content or no engagement references this concept at all. Distinct from a mastery gap, where content exists but students are not learning it.' },
+                'Respiration': { title: 'Cellular Respiration &mdash; well covered', description: 'Evidence 260. Well-covered. Its downstream ATP Synthesis, however, is a gap.' },
+                'ATP': { title: 'ATP Synthesis &mdash; ZERO evidence (coverage gap)', description: 'Evidence 0 &mdash; dashed red outline. A coverage gap sitting downstream of a well-covered prerequisite: the content exists to reach it, but nothing covers ATP Synthesis itself.' }
+            }
+        };
+    </script>
+    <script src="vis-app.js"></script>
 </body>
 </html>

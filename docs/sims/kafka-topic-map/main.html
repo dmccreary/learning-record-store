@@ -3,109 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
-    <title>Kafka Topic Map for the LRS Event Backbone</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
-    </style>
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Kafka Topic Map</title>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="container">
-        <h1>Kafka Topic Map for the LRS Event Backbone</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
+    <div class="container">
+        <div class="graph-panel">
+            <div id="network"></div>
+            <div class="title">Kafka / Redpanda &mdash; Topic Inventory</div>
         </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> kafka-topic-map</p>
-            <p><strong>Library:</strong> vis-network</p>
-            <p><strong>Bloom Level:</strong> Understand (L2)</p>
-            <p><strong>Learning Objective:</strong> Let the learner classify each of the six Kafka topics by its key format, partition count, and retention policy, and explain why the compacted mastery-state topic differs structurally from the other five.</p>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a topic to see details</p></div>
         </div>
     </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: infographic
-    **sim-id:** kafka-topic-map<br/>
-    **Library:** vis-network<br/>
-    **Status:** Specified
-    
-    Bloom Taxonomy: Understand (L2)
-    Bloom Taxonomy Verb: explain, classify
-    
-    Learning objective: Let the learner classify each of the six Kafka topics by its key format, partition count, and retention policy, and explain why the compacted mastery-state topic differs structurally from the other five.
-    
-    Purpose: Show all six topics as nodes arranged around a central "Kafka / Redpanda Broker" hub node, so the learner can see the whole topic inventory at a glance before drilling into any one topic.
-    
-    Nodes: One central hub node "Kafka / Redpanda Broker". Six satellite nodes, one per topic, each labeled with its exact topic string: "xapi.statements.raw", "xapi.statements.bulk", "xapi.statements.dlq", "lrs.reconcile", "lrs.mastery.state", "lrs.audit". Each satellite node's size scales with its partition count (48-partition topics render larger than 12-partition topics) so partition count is visible without clicking.
-    
-    Interactive features: Clicking any satellite topic node opens an infobox showing that topic's key format, partition count, retention policy, and one-sentence purpose, matching the table already presented in this chapter. A toggle labeled "Group by retention family" re-colors nodes into three clusters — short-lived (7 days), long-lived (30-400 days), and compacted — so the learner can see the retention pattern structurally rather than by reading text.
-    
-    Color coding: The compacted mastery-state topic in the book's teal accent color to visually flag it as the one structural outlier; the other five topics in a shared neutral blue-gray, differentiated only by node size (partition count).
-    
-    Responsive design: Network graph resizes to the width of its containing element and re-centers on resize; on narrow viewports satellite nodes arrange in two rows instead of a full circle around the hub.
-    -->
+    <script>
+        const HUB = { background: '#37474f', border: '#1c2529' };
+        const NEUTRAL = { background: '#5f7182', border: '#3f4a59' };
+        const TEAL = { background: '#2a9d8f', border: '#1f7a6f' };
+        window.GRAPH = {
+            layout: 'physics',
+            nodes: [
+                { id: 'Broker', label: 'Kafka / Redpanda Broker', color: HUB, borderWidth: 3, size: 30 },
+                { id: 'raw', label: 'xapi.statements.raw', color: NEUTRAL, value: 48 },
+                { id: 'bulk', label: 'xapi.statements.bulk', color: NEUTRAL, value: 24 },
+                { id: 'dlq', label: 'xapi.statements.dlq', color: NEUTRAL, value: 12 },
+                { id: 'reconcile', label: 'lrs.reconcile', color: NEUTRAL, value: 12 },
+                { id: 'state', label: 'lrs.mastery.state', color: TEAL, borderWidth: 4, value: 24 },
+                { id: 'audit', label: 'lrs.audit', color: NEUTRAL, value: 12 }
+            ],
+            edges: [
+                { from: 'Broker', to: 'raw' }, { from: 'Broker', to: 'bulk' }, { from: 'Broker', to: 'dlq' },
+                { from: 'Broker', to: 'reconcile' }, { from: 'Broker', to: 'state' }, { from: 'Broker', to: 'audit' }
+            ],
+            nodeInfo: {
+                'Broker': { title: 'Kafka / Redpanda Broker', description: 'The event backbone. Six topics live on it; node SIZE here scales with partition count, so 48-partition topics render largest.' },
+                'raw': { title: 'xapi.statements.raw', description: 'Key: district:student. Partitions: 48 (largest). Retention: 7 days (short-lived). Purpose: the main ingest stream of validated statements.' },
+                'bulk': { title: 'xapi.statements.bulk', description: 'Key: district:student. Partitions: 24. Retention: 7 days. Purpose: bulk-submitted statement batches.' },
+                'dlq': { title: 'xapi.statements.dlq', description: 'Key: statement id. Partitions: 12. Retention: 30 days. Purpose: the dead-letter queue for poison messages that failed three attempts.' },
+                'reconcile': { title: 'lrs.reconcile', description: 'Key: stub id. Partitions: 12. Retention: 30 days. Purpose: provisional-node reconciliation work items.' },
+                'state': { title: 'lrs.mastery.state (the outlier)', description: 'Key: student:concept. Partitions: 24. Retention: COMPACTED &mdash; not time-based. This is the structural outlier: log compaction keeps only the latest value per key, so it acts as a durable checkpoint of mastery state rather than an event stream.' },
+                'audit': { title: 'lrs.audit', description: 'Key: actor. Partitions: 12. Retention: 400 days (long-lived, for compliance). Purpose: the immutable audit trail.' }
+            }
+        };
+    </script>
+    <script src="vis-app.js"></script>
 </body>
 </html>

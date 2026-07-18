@@ -1,7 +1,7 @@
 ---
 title: Prerequisite Gap Analysis — Walking Upstream From a Weak Concept
 description: Prerequisite Gap Analysis — Walking Upstream From a Weak Concept
-status: scaffold
+status: implemented
 library: vis-network
 bloom_level: TBD
 ---
@@ -10,7 +10,7 @@ bloom_level: TBD
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="522"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

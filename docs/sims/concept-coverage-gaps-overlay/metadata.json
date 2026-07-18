@@ -15,9 +15,10 @@
   "library": "vis-network",
   "bloomLevel": "Analyze (L4)",
   "bloomVerb": "identify, differentiate",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 30,
   "chapter_title": "Textbook Author Dashboards and Content Reports",
   "chapter_dir": "30-author-dashboards-content-reports",
-  "chapter_rel_dir": "chapters/30-author-dashboards-content-reports"
+  "chapter_rel_dir": "chapters/30-author-dashboards-content-reports",
+  "canvasHeight": 520
 }
