@@ -1,0 +1,15 @@
+{
+  "sim_id": "term-rollover-timeline",
+  "diagram_name": "Term Rollover Timeline",
+  "chapter_number": 25,
+  "chapter_title": "District Administrator: Rosters, Deployments, and Registries",
+  "chapter_dir": "25-district-admin-rosters-deployments",
+  "chapter_rel_dir": "chapters/25-district-admin-rosters-deployments",
+  "library": "vis-timeline",
+  "bloom_level": "Understand (L2)",
+  "bloom_verb": "sequence, summarize",
+  "learning_objective": "Sequence the steps of a Term / Academic-Year Rollover, from archiving the outgoing term through rolling section templates forward into the new one, and see where the Enrollment Editor and Instructor Assignment Tool fit into that sequence.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: timeline\n**sim-id:** term-rollover-timeline<br/>\n**Library:** vis-timeline<br/>\n**Status:** Specified\n\nBloom Taxonomy: Understand (L2)\nBloom Taxonomy Verb: sequence, summarize\n\nLearning objective: Sequence the steps of a Term / Academic-Year Rollover, from archiving the outgoing term through rolling section templates forward into the new one, and see where the Enrollment Editor and Instructor Assignment Tool fit into that sequence.\n\nTime period: One academic year cycle, late May through early September\n\nOrientation: Horizontal, left to right\n\nEvents:\n\n- Late May: Spring term's sections marked for archival; historical enrollment and rollup data frozen and preserved\n- Early June: Prior-term sections archived; read-only from this point forward\n- Mid-June: Section templates for the upcoming term generated from the archived shapes (same course, same period structure)\n- July: New roster sync populates the upcoming term's Enrollment Editor with incoming students\n- Mid-August: Instructor Assignment Tool used to confirm or reassign `TEACHES` edges for the new term, including any co-teacher pairings\n- Early September: New term goes live; sections begin accepting Textbook Deployment bindings and ingesting statements\n\nInteractive features: Clicking any milestone opens an infobox describing what changed at that step and which tool (Enrollment Editor, Instructor Assignment Tool, or the rollover mechanism itself) is responsible for it, plus a note on which prior-term data remains queryable afterward.\n\nVisual style: Archived-term milestones shown in a muted gray; new-term milestones shown in the book's teal accent color, so a learner can see at a glance which side of the rollover each event falls on.\n\nResponsive design: Timeline resizes to its containing element's width and remains readable at tablet width, collapsing event labels to abbreviated form below 600px."
+}

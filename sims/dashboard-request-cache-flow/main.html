@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Dashboard Request Cache Flow</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'default', flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' } });
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="diagram-panel">
+            <div class="mermaid">
+flowchart TB
+    Req["Dash callback: GET /v1/reports/R-201?...<br/><small>Report ID Endpoint Pattern</small>"]:::start
+    Key["Build Analytics Cache Key<br/><small>report_id + tenant + params + data_version</small>"]:::start
+    Hit["Cache hit"]:::hit
+    Miss["Cache miss, or Data Version Invalidation triggered"]:::miss
+    Query["Query pre-aggregated ClickHouse view /<br/>Redis mastery vector"]:::miss
+    Choke["Privacy Filter Choke Point<br/><small>threshold + complementary suppression, ALWAYS applied</small>"]:::choke
+    Resp["Response returned<br/><small>within P95 Latency Budget</small>"]:::start
+    Req --> Key
+    Key --> Hit
+    Key --> Miss
+    Hit --> Choke
+    Miss --> Query --> Choke
+    Choke --> Resp
+
+    classDef start fill:#37474f,stroke:#1c2529,color:#fff,font-size:13px
+    classDef hit fill:#2a9d8f,stroke:#1f7a6f,color:#fff,font-size:13px
+    classDef miss fill:#8fd3c9,stroke:#3bab9d,color:#0c2f2b,font-size:13px
+    classDef choke fill:#e9a23b,stroke:#b8791f,color:#222,font-size:13px
+    linkStyle default stroke:#999,stroke-width:2px
+            </div>
+        </div>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a node to see details</p></div>
+        </div>
+    </div>
+    <script>
+        const nodeInfo = {
+            'Req': { title: 'Dashboard request', description: 'A Dash callback issues <code>GET /v1/reports/R-201?...</code> &mdash; the Report ID Endpoint Pattern. Every report is addressed by a stable report id plus query parameters.' },
+            'Key': { title: 'Analytics Cache Key', description: 'The cache key is built from four parts: <strong>report_id + tenant + params + data_version</strong>. Including <code>data_version</code> means a new data version yields a new key, so stale results are never served.' },
+            'Hit': { title: 'Cache hit', description: 'The key already exists in cache. The pre-computed result is reused &mdash; but it still flows through the Privacy Filter Choke Point before returning.' },
+            'Miss': { title: 'Cache miss / invalidation', description: 'Either the key is absent, or Data Version Invalidation fired. Watermark-driven invalidation bumps <code>data_version</code> when new data lands, rather than relying on a fixed TTL to expire.' },
+            'Query': { title: 'Recompute', description: 'On a miss, the query hits the pre-aggregated ClickHouse view or the Redis mastery vector to rebuild the result set.' },
+            'Choke': { title: 'Privacy Filter Choke Point', description: 'Both the hit and miss paths converge here. Threshold and complementary suppression are <strong>always</strong> applied, so no response &mdash; cached or fresh &mdash; can bypass the privacy filter.' },
+            'Resp': { title: 'Response', description: 'The filtered response is returned within the P95 Latency Budget &mdash; the cache exists so the common case meets that budget.' }
+        };
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

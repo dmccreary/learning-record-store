@@ -1,0 +1,24 @@
+{
+  "title": "Deterministic Sticky Assignment and District Opt-Out",
+  "description": "Let the learner trace a single student's request through the eligibility check, the hash-based assignment formula, and the non-blocking fallback path, applying the deterministic sticky assignment rule to a concrete decision.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "sticky-assignment-and-opt-out",
+  "library": "Mermaid",
+  "bloomLevel": "Apply (L3)",
+  "bloomVerb": "trace, apply",
+  "completion_status": "implemented",
+  "chapter_number": 31,
+  "chapter_title": "Designing and Reading A/B Experiments",
+  "chapter_dir": "31-designing-ab-experiments",
+  "chapter_rel_dir": "chapters/31-designing-ab-experiments",
+  "canvasHeight": 640
+}

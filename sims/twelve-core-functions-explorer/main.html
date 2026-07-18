@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Twelve Core LRS Functions Explorer</title>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="graph-panel">
+            <div id="network"></div>
+            <div class="title">Twelve Core Functions, by Plane</div>
+        </div>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a plane or function to see details</p></div>
+        </div>
+    </div>
+    <script>
+        const ING = { background: '#0f5c53', border: '#0a3f39' };
+        const PROC = { background: '#1a7f72', border: '#12695f' };
+        const STOR = { background: '#2a9d8f', border: '#1f7a6f' };
+        const ANA = { background: '#5cbcb0', border: '#3bab9d' };
+        const FN = { background: '#8fd3c9', border: '#3bab9d' };
+        const AMBER = { background: '#e9a23b', border: '#b8791f' };
+        const dark = { color: '#08312c' };
+        window.GRAPH = {
+            layout: 'physics',
+            nodes: [
+                { id: 'ING', label: 'Ingestion Plane', color: ING, borderWidth: 3 },
+                { id: 'PROC', label: 'Processing Plane', color: PROC, borderWidth: 3 },
+                { id: 'STOR', label: 'Storage Plane', color: STOR, borderWidth: 3 },
+                { id: 'ANA', label: 'Analytics Plane', color: ANA, borderWidth: 3, font: dark },
+                { id: 'F1', label: 'F-1 Statement Storage', color: FN, font: dark },
+                { id: 'F2', label: 'F-2 Statement Retrieval', color: FN, font: dark },
+                { id: 'F3', label: 'F-3 Voiding', color: FN, font: dark },
+                { id: 'F4', label: 'F-4 Actor Pseudonymization', color: FN, font: dark },
+                { id: 'F5', label: 'F-5 Activity Resolution', color: FN, font: dark },
+                { id: 'F6', label: 'F-6 Concept Mapping', color: FN, font: dark },
+                { id: 'F7', label: 'F-7 Mastery Computation', color: FN, font: dark },
+                { id: 'F8', label: 'F-8 Progress Projection', color: FN, font: dark },
+                { id: 'F10', label: 'F-10 Reconciliation', color: FN, font: dark },
+                { id: 'F9', label: 'F-9 Experiment Assignment', color: FN, font: dark },
+                { id: 'F11', label: 'F-11 Export', color: FN, font: dark },
+                { id: 'F12', label: 'F-12 Retention Purge', color: AMBER, font: { color: '#222' } }
+            ],
+            edges: [
+                { from: 'STOR', to: 'F1' }, { from: 'STOR', to: 'F2' }, { from: 'STOR', to: 'F3' },
+                { from: 'PROC', to: 'F4' }, { from: 'PROC', to: 'F5' }, { from: 'PROC', to: 'F6' },
+                { from: 'PROC', to: 'F7' }, { from: 'PROC', to: 'F8' }, { from: 'PROC', to: 'F10' },
+                { from: 'ANA', to: 'F9' }, { from: 'ANA', to: 'F11' },
+                { from: 'F12', to: 'STOR', dashes: true }, { from: 'F12', to: 'ANA', dashes: true }
+            ],
+            nodeInfo: {
+                'ING': { title: 'Ingestion Plane', description: 'Accepts and validates statements, then durably queues them (Chapter 5). No core function in this catalog is implemented purely here &mdash; the gateway feeds the others.' },
+                'PROC': { title: 'Processing Plane', description: 'The busiest cluster: it enriches statements and computes derived state. Implements F-4 through F-8 and F-10.' },
+                'STOR': { title: 'Storage Plane', description: 'The durable log and graph. Implements the statement-level functions F-1, F-2, F-3.' },
+                'ANA': { title: 'Analytics Plane', description: 'Serves and administers. Implements F-9 (assignment) and F-11 (export), and administers F-12.' },
+                'F1': { title: 'F-1 Statement Storage', description: 'Appends new statements to the Event Store. Storage Plane, Event Store.' },
+                'F2': { title: 'F-2 Statement Retrieval', description: 'Returns matching statements, read-only. Storage Plane.' },
+                'F3': { title: 'F-3 Voiding', description: 'Sets a statement&rsquo;s voided_by marker. Storage Plane.' },
+                'F4': { title: 'F-4 Actor Pseudonymization', description: 'HMAC-derives student_key. Processing Plane, Stream Processor.' },
+                'F5': { title: 'F-5 Activity Resolution', description: 'Resolves the referenced activity/content. Processing Plane, Stream Processor.' },
+                'F6': { title: 'F-6 Concept Mapping', description: 'Attaches concept_ids. Processing Plane, Stream Processor.' },
+                'F7': { title: 'F-7 Mastery Computation', description: 'Computes ConceptMastery via BKT. Processing Plane, mastery-scoring step.' },
+                'F8': { title: 'F-8 Progress Projection', description: 'Projects the five progress grains. Processing Plane / Compression Pipeline.' },
+                'F10': { title: 'F-10 Reconciliation', description: 'Matches and promotes provisional nodes. Processing Plane, Reconciliation Worker.' },
+                'F9': { title: 'F-9 Experiment Assignment', description: 'Sticky variant assignment. Analytics Plane, Experiment Service.' },
+                'F11': { title: 'F-11 Export', description: 'Async bulk export with signed URL. Analytics Plane, Export API.' },
+                'F12': { title: 'F-12 Retention Purge (cross-cutting)', description: 'Acts on STORED data but is administered through the Analytics Plane&rsquo;s Admin API &mdash; so it connects to both clusters by a dashed edge. A compliance-adjacent, cross-cutting function.' }
+            }
+        };
+    </script>
+    <script src="vis-app.js"></script>
+</body>
+</html>

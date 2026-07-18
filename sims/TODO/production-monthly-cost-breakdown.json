@@ -1,0 +1,15 @@
+{
+  "sim_id": "production-monthly-cost-breakdown",
+  "diagram_name": "Production Monthly Cost Breakdown",
+  "chapter_number": 21,
+  "chapter_title": "Hardware Sizing, Cost, and the Development Environment",
+  "chapter_dir": "21-hardware-cost-dev-environment",
+  "chapter_rel_dir": "chapters/21-hardware-cost-dev-environment",
+  "library": "Chart.js",
+  "bloom_level": "Analyze (L4)",
+  "bloom_verb": "compare, break down",
+  "learning_objective": "Break down the production system's monthly cost into its component line items, and compare the on-demand total against the reserved-pricing total to see which line items are fixed and which shrink under a multi-year commitment.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: chart\n**sim-id:** production-monthly-cost-breakdown<br/>\n**Library:** Chart.js<br/>\n**Status:** Specified\n\nBloom Taxonomy: Analyze (L4)\nBloom Taxonomy Verb: compare, break down\n\nLearning objective: Break down the production system's monthly cost into its component line items, and compare the on-demand total against the reserved-pricing total to see which line items are fixed and which shrink under a multi-year commitment.\n\nChart type: Horizontal stacked bar chart, one bar per pricing mode, segments colored by line item (Kubernetes, Kafka, ClickHouse hot + cold tier, Neo4j infrastructure, Neo4j license, Redis, PostgreSQL, other).\n\nDefault state: \"On-Demand\" (~$10,300, Neo4j license as a hatched \"unresolved\" segment at the $3,000–8,000 placeholder midpoint) beside \"Reserved (1–3 yr)\" (~$7,000, segments scaled down 30–50% except the S3 cold tier and the Neo4j license, which don't discount).\n\nToggle — \"Show Memgraph alternative\": zeroes the Neo4j license segment on both bars, relabeling it \"Memgraph (Apache-2.0, no license cost),\" and shrinks each bar's total accordingly.\n\nInteractive features: Hovering any segment shows its line item name, configuration, and dollar figure. Clicking the Neo4j license segment opens an infobox on why it's the largest source of uncertainty in the estimate.\n\nColor scheme: Each line item a distinct palette hue; the unresolved Neo4j license segment hatched rather than solid to flag it as an estimate.\n\nResponsive design: Bars and legend stack vertically on narrow viewports; hover targets stay tap-sized."
+}

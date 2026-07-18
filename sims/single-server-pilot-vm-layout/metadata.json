@@ -1,0 +1,24 @@
+{
+  "title": "Single-Server Pilot Tier VM Layout",
+  "description": "Explain how five virtual machines on one physical server separate workload roles and compliance boundaries, and identify which VM exists for a scale reason versus a compliance reason.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "single-server-pilot-vm-layout",
+  "library": "p5.js",
+  "bloomLevel": "Understand (L2)",
+  "bloomVerb": "explain, classify",
+  "completion_status": "implemented",
+  "chapter_number": 21,
+  "chapter_title": "Hardware Sizing, Cost, and the Development Environment",
+  "chapter_dir": "21-hardware-cost-dev-environment",
+  "chapter_rel_dir": "chapters/21-hardware-cost-dev-environment",
+  "canvasHeight": 460
+}

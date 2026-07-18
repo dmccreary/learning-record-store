@@ -1,0 +1,24 @@
+{
+  "title": "Delivery Roadmap Timeline",
+  "description": "Sequence the six delivery milestones by duration and cumulative week number, and recall each milestone's headline deliverable and exit criterion.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "delivery-roadmap-m0-to-m5-timeline",
+  "library": "vis-timeline",
+  "bloomLevel": "Understand (L2)",
+  "bloomVerb": "sequence, summarize",
+  "completion_status": "implemented",
+  "chapter_number": 20,
+  "chapter_title": "Spec Deviations, the Delivery Roadmap, and Open Questions",
+  "chapter_dir": "20-deviations-roadmap-open-questions",
+  "chapter_rel_dir": "chapters/20-deviations-roadmap-open-questions",
+  "canvasHeight": 420
+}

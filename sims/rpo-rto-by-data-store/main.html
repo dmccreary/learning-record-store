@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>RPO / RTO by Data Store</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * { box-sizing: border-box; }
+        html, body { margin: 0; font-family: Arial, Helvetica, sans-serif; background: #fff; color: #222; }
+        .wrap { padding: 8px 12px; }
+        h2 { font-size: 16px; color: #1a3a5c; text-align: center; margin: 4px 0 8px; }
+        .chart-box { position: relative; height: 320px; }
+        .controls { text-align: center; margin: 8px 0; }
+        label { font-size: 13px; color: #444; }
+        .caption { font-size: 13px; color: #555; text-align: center; max-width: 700px; margin: 6px auto; line-height: 1.4; }
+        .flag { color: #b23b3b; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <h2>Recovery Point / Recovery Time Objective by Store</h2>
+        <div class="chart-box"><canvas id="c"></canvas></div>
+        <div class="controls"><label><input type="checkbox" id="irrep"> Show irreplaceable stores only (vault-db, meta-db)</label></div>
+        <p class="caption"><span class="flag">vault-db is the one true worst case:</span> tightest RPO (5 min) because it is irreplaceable &mdash; unlike Neo4j (RPO 1440 min), which is rebuildable from the ClickHouse log.</p>
+    </div>
+    <script>
+        const allStores = ['ClickHouse', 'Neo4j', 'vault-db', 'meta-db'];
+        const rpoAll = [60, 1440, 5, 5];
+        const rtoAll = [240, 60, 60, 60];
+        const tips = {
+            'ClickHouse': 'System of record for statements. RPO 60 min (hourly snapshots), RTO 240 min (large restore). Losing it loses data, but it is the source others rebuild from.',
+            'Neo4j': 'Rebuildable projection. RPO can be loose (1440 min) because it is regenerated from the log; RTO 60 min to replay.',
+            'vault-db': 'The PII vault &mdash; irreplaceable. RPO 5 min via continuous WAL archiving; RTO 60 min. If lost, learner identity cannot be reconstructed.',
+            'meta-db': 'Admin config, RBAC, audit, experiments &mdash; irreplaceable. RPO 5 min WAL archiving; RTO 60 min.'
+        };
+        let chart;
+        function build(stores) {
+            const idx = stores.map(function (s) { return allStores.indexOf(s); });
+            if (chart) chart.destroy();
+            chart = new Chart(document.getElementById('c'), {
+                type: 'bar',
+                data: { labels: stores, datasets: [
+                    { label: 'RPO (min)', data: idx.map(function (i) { return rpoAll[i]; }), backgroundColor: '#2a9d8f' },
+                    { label: 'RTO (min)', data: idx.map(function (i) { return rtoAll[i]; }), backgroundColor: '#e9a23b' }
+                ] },
+                options: {
+                    indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+                    plugins: { tooltip: { callbacks: { afterBody: function (items) { return '\n' + tips[items[0].label]; } } } },
+                    scales: { x: { type: 'logarithmic', title: { display: true, text: 'Minutes (log scale)' } } }
+                }
+            });
+        }
+        build(allStores);
+        document.getElementById('irrep').onchange = function () { build(this.checked ? ['vault-db', 'meta-db'] : allStores); };
+    </script>
+</body>
+</html>

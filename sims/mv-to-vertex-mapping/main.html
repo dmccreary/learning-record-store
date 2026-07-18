@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Materialized View to Vertex Mapping</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'default', flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' } });
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="diagram-panel">
+            <div class="mermaid">
+flowchart TD
+    Src["lrs.statements<br/><small>one row per statement</small>"]:::src
+    MV1["mv_section_concept_daily<br/><small>grain: section + concept + day</small>"]:::p1
+    MV2["mv_student_concept_rollup<br/><small>grain: student + concept</small>"]:::p2
+    MV3["mv_student_page_rollup<br/><small>grain: student + page</small>"]:::p3
+    Sum["Summarizer<br/><small>reads changed rows via last_seen watermark</small>"]:::src
+    V1["SectionRollup vertex"]:::p1
+    V2["ConceptMastery vertex"]:::p2
+    V3["PageEngagement vertex"]:::p3
+    Src --> MV1 --> Sum
+    Src --> MV2 --> Sum
+    Src --> MV3 --> Sum
+    Sum --> V1
+    Sum --> V2
+    Sum --> V3
+
+    classDef src fill:#5f6e82,stroke:#3f4a59,color:#fff,font-size:13px
+    classDef p1 fill:#0f5c53,stroke:#0a3f39,color:#fff,font-size:13px
+    classDef p2 fill:#2a9d8f,stroke:#1f7a6f,color:#fff,font-size:13px
+    classDef p3 fill:#8fd3c9,stroke:#3bab9d,color:#0c2f2b,font-size:13px
+    linkStyle default stroke:#999,stroke-width:2px
+            </div>
+        </div>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a node to see details</p></div>
+        </div>
+    </div>
+    <script>
+        const nodeInfo = {
+            'Src': { title: 'lrs.statements', description: 'The raw statement log &mdash; one row per statement. All three aggregation paths read from this single source; they differ only in how they group it.' },
+            'MV1': { title: 'mv_section_concept_daily', description: 'AggregatingMergeTree. ORDER BY (section, concept, day). Computes per-day counts and mastery aggregates for a whole section on a concept &mdash; the coarsest grain, so the highest compression (e.g. ~600K statements &rarr; ~150K grains).' },
+            'MV2': { title: 'mv_student_concept_rollup', description: 'AggregatingMergeTree. ORDER BY (student, concept). Rolls each student&rsquo;s evidence per concept into one grain &mdash; the input to a student&rsquo;s ConceptMastery estimate.' },
+            'MV3': { title: 'mv_student_page_rollup', description: 'AggregatingMergeTree. ORDER BY (student, page). Aggregates each student&rsquo;s engagement per page &mdash; event counts and dwell time.' },
+            'Sum': { title: 'Summarizer', description: 'Reads only rows changed since the last run, tracked by a <code>last_seen</code> watermark, and upserts each grain into its Neo4j vertex &mdash; a convergence point shared by all three paths.' },
+            'V1': { title: 'SectionRollup vertex', description: 'The Neo4j summary vertex fed by mv_section_concept_daily &mdash; one vertex per section+concept, holding class-level rollups.' },
+            'V2': { title: 'ConceptMastery vertex', description: 'The Neo4j summary vertex fed by mv_student_concept_rollup &mdash; one vertex per student+concept, holding the mastery estimate.' },
+            'V3': { title: 'PageEngagement vertex', description: 'The Neo4j summary vertex fed by mv_student_page_rollup &mdash; one vertex per student+page, holding engagement measures.' }
+        };
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

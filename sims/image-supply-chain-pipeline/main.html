@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Image Supply Chain Pipeline</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'default', flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' } });
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="diagram-panel">
+            <div class="mermaid">
+flowchart TB
+    S1["Push to release tag"]:::build
+    S2["Docker Buildx<br/><small>multi-arch: amd64 + arm64</small>"]:::build
+    S3["GHA Layer Cache"]:::build
+    S4["Build image, attach<br/>Provenance Attestation + SBOM"]:::build
+    S5["Trivy Vulnerability Scan<br/><small>CRITICAL/HIGH = block</small>"]:::gate
+    Blocked["Release blocked, exit 1"]:::blocked
+    S6["Cosign Image Signing"]:::gate
+    S7["Push ghcr.io/dmccreary/lrs@sha256:...<br/><small>Immutable Digest Reference</small>"]:::deploy
+    S8["Deployment pulls by digest, never by tag"]:::deploy
+    S1 --> S2 --> S3 --> S4 --> S5
+    S5 -->|Vulnerabilities found| Blocked
+    S5 -->|Clean scan| S6 --> S7 --> S8
+
+    classDef build fill:#2a9d8f,stroke:#1f7a6f,color:#fff,font-size:13px
+    classDef gate fill:#e9a23b,stroke:#b8791f,color:#222,font-size:13px
+    classDef blocked fill:#e05a5a,stroke:#b23b3b,color:#fff,font-size:13px
+    classDef deploy fill:#4c956c,stroke:#2f6b48,color:#fff,font-size:13px
+    linkStyle default stroke:#999,stroke-width:2px
+            </div>
+        </div>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a step to see details</p></div>
+        </div>
+    </div>
+    <script>
+        const nodeInfo = {
+            'S1': { title: 'Push a release tag', description: 'A push to a release tag triggers the image build workflow &mdash; releases are cut from tags, not arbitrary commits.' },
+            'S2': { title: 'Docker Buildx', description: 'Buildx builds a multi-architecture image for both amd64 and arm64 from one workflow, so the same release runs on either CPU.' },
+            'S3': { title: 'GHA Layer Cache', description: 'GitHub Actions layer caching reuses unchanged layers between builds, cutting build time without changing the output.' },
+            'S4': { title: 'Provenance + SBOM', description: 'The build attaches a Provenance Attestation (how/where it was built) and a Software Bill of Materials (what is inside), so the image is auditable.' },
+            'S5': { title: 'Trivy scan (gate)', description: 'Trivy scans the image for known vulnerabilities. Any CRITICAL or HIGH finding fails the job with a non-zero exit code &mdash; severity-based, exit-code gating that blocks the release.' },
+            'Blocked': { title: 'Release blocked', description: 'If vulnerabilities are found the workflow exits 1 and nothing is signed or pushed &mdash; a vulnerable image never reaches the registry.' },
+            'S6': { title: 'Cosign signing', description: 'A clean scan proceeds to Cosign, which cryptographically signs the image so consumers can verify it was produced by this pipeline and not tampered with.' },
+            'S7': { title: 'Immutable Digest Reference', description: 'The signed image is pushed and addressed by its content digest, <code>@sha256:...</code>. A digest is immutable &mdash; it always names exactly these bytes.' },
+            'S8': { title: 'Deploy by digest', description: 'Deployments reference the digest, never a mutable tag like <code>:latest</code>. A tag can be moved to point at different bytes later; a digest cannot, so deploying by digest guarantees you run exactly the scanned, signed image.' }
+        };
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

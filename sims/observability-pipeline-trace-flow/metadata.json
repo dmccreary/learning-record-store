@@ -1,0 +1,24 @@
+{
+  "title": "The Observability Pipeline, From Statement to Screen",
+  "description": "Let the learner trace how a single trace ID and a separate metrics stream flow through OpenTelemetry, Jaeger, Prometheus, and Grafana, from statement receipt to a screen a system administrator actually watches.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "observability-pipeline-trace-flow",
+  "library": "Mermaid",
+  "bloomLevel": "Understand (L2)",
+  "bloomVerb": "trace, explain",
+  "completion_status": "implemented",
+  "chapter_number": 10,
+  "chapter_title": "Choosing the Technology Stack",
+  "chapter_dir": "10-choosing-technology-stack",
+  "chapter_rel_dir": "chapters/10-choosing-technology-stack",
+  "canvasHeight": 470
+}

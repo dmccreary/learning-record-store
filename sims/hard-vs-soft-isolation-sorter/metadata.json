@@ -1,0 +1,24 @@
+{
+  "title": "Sort Each Level into Hard or Soft Isolation",
+  "description": "Let the learner apply the definitions of Hard Isolation and Soft Isolation by sorting the four Tenancy Hierarchy levels (District, School, Course, Section) into the correct isolation-guarantee bucket.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "hard-vs-soft-isolation-sorter",
+  "library": "p5.js",
+  "bloomLevel": "Apply (L3)",
+  "bloomVerb": "classify, sort",
+  "completion_status": "implemented",
+  "chapter_number": 6,
+  "chapter_title": "Multi-Tenancy, Rosters, and Pseudonymous Identity",
+  "chapter_dir": "06-multi-tenancy-rosters-identity",
+  "chapter_rel_dir": "chapters/06-multi-tenancy-rosters-identity",
+  "canvasHeight": 440
+}

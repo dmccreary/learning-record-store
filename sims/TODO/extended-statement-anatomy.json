@@ -1,0 +1,15 @@
+{
+  "sim_id": "extended-statement-anatomy",
+  "diagram_name": "Anatomy of an Extended Statement",
+  "chapter_number": 2,
+  "chapter_title": "The Anatomy of an xAPI Statement",
+  "chapter_dir": "02-anatomy-of-xapi-statement",
+  "chapter_rel_dir": "chapters/02-anatomy-of-xapi-statement",
+  "library": "p5.js",
+  "bloom_level": "Understand (L2)",
+  "bloom_verb": "classify, differentiate",
+  "learning_objective": "Let the learner classify each of the four optional Statement pieces (Sub-Statement, Attachment, Extensions, Registration) by clicking on it and seeing what problem it solves, reinforcing the JSON example above with a visual, exploratory layout.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: infographic\n**sim-id:** extended-statement-anatomy<br/>\n**Library:** p5.js<br/>\n**Status:** Specified\n**Template:** https://github.com/dmccreary/xapi-course/tree/main/docs/sims/xapi-statement-builder<br/>\n\nBloom Taxonomy: Understand (L2)\nBloom Taxonomy Verb: classify, differentiate\n\nLearning objective: Let the learner classify each of the four optional Statement pieces (Sub-Statement, Attachment, Extensions, Registration) by clicking on it and seeing what problem it solves, reinforcing the JSON example above with a visual, exploratory layout.\n\nLayout: A central \"core Statement\" box (Actor/Verb/Object, dimmed to signal \"already learned in Chapter 1\") surrounded by four labeled satellite boxes: \"Sub-Statement\" (attached to the Object), \"Attachment\" (attached to the Statement as a whole), \"Extensions\" (attached to Context or Result), and \"Registration\" (attached to Context).\n\nData Visibility Requirements:\nStage 1: Show the dimmed core Statement (Actor, Verb, Object) with a caption \"You already know this part.\"\nStage 2: On click of \"Sub-Statement,\" highlight the connection to Object and show the nested Actor-Verb-Object nesting from the worked example (Ms. Alvarez recommended Maya's practice).\nStage 3: On click of \"Attachment,\" show the SHA-2 hash reference and contentType from the worked example, with a note that the actual file bytes travel separately.\nStage 4: On click of \"Extensions,\" show the `hintsUsed` key-value example and emphasize the IRI-as-key pattern that prevents naming collisions.\nStage 5: On click of \"Registration,\" show two example Statements sharing one registration UUID versus two Statements with different UUIDs, to make the grouping concrete.\n\nInteractive features: Each of the four satellite boxes is clickable, revealing its Stage content in a side panel without navigating away from the diagram. A \"Reset\" button collapses all panels back to Stage 1.\n\nInstructional Rationale: A click-to-reveal exploratory layout is appropriate for this Understand-level, classify/differentiate objective because the four pieces are independent of one another — a linear step-through would falsely imply an order or dependency between them that the specification does not require.\n\nImplementation: p5.js canvas with clickable regions, following the interaction pattern of the referenced template MicroSim."
+}

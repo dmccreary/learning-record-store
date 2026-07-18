@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Write Rate vs Sync Cadence</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * { box-sizing: border-box; }
+        html, body { margin: 0; font-family: Arial, Helvetica, sans-serif; background: #fff; color: #222; }
+        .wrap { padding: 8px 12px; }
+        h2 { font-size: 16px; color: #1a3a5c; text-align: center; margin: 4px 0 8px; }
+        .chart-box { position: relative; height: 340px; }
+        .controls { text-align: center; margin: 8px 0; }
+        button { font-size: 13px; padding: 6px 12px; border: 1px solid #2a9d8f; background: #fff; color: #1f7a6f; border-radius: 5px; cursor: pointer; margin: 0 4px; }
+        button.active { background: #2a9d8f; color: #fff; }
+        .caption { font-size: 13px; color: #555; text-align: center; max-width: 680px; margin: 6px auto; line-height: 1.4; }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <h2>Sync Cadence: Write Rate vs Graph Lag</h2>
+        <div class="chart-box"><canvas id="c"></canvas></div>
+        <div class="controls"><button id="burstBtn">Simulate 5&times; ingest burst</button></div>
+        <p class="caption" id="cap">Faster cadence cuts graph lag but raises upserts/sec; slower cadence coalesces more. The 60&nbsp;s default balances both &mdash; and holds nearly steady under a burst.</p>
+    </div>
+    <script>
+        const upserts = [10000, 2500, 1000];
+        const lag = [5, 60, 300];
+        const coalesced = ['~50K statements -> ~45K grains -> 10,000 upserts/sec', '~600K statements coalesced into ~150K distinct active grains -> ~2,500 upserts/sec', '~3M statements -> ~180K grains -> ~1,000 upserts/sec'];
+        const coalescedBurst = ['~250K statements -> ~48K grains -> ~10,500 upserts/sec', '~3M statements coalesced into ~155K distinct active grains -> ~2,600 upserts/sec', '~15M statements -> ~185K grains -> ~1,050 upserts/sec'];
+        let burst = false;
+        const chart = new Chart(document.getElementById('c'), {
+            data: {
+                labels: ['5 s', '60 s (default)', '300 s'],
+                datasets: [
+                    { type: 'bar', label: 'Graph upserts/sec', data: upserts, backgroundColor: ['#5cbcb0', '#12695f', '#a7ddd5'], borderColor: '#1f7a6f', borderWidth: [1, 3, 1], yAxisID: 'y' },
+                    { type: 'line', label: 'Graph lag (s)', data: lag, borderColor: '#e9a23b', borderDash: [6, 4], backgroundColor: '#e9a23b', yAxisID: 'y2', tension: 0.2 }
+                ]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { tooltip: { callbacks: { afterBody: function (items) { return '\n' + (burst ? coalescedBurst : coalesced)[items[0].dataIndex]; } } } },
+                scales: {
+                    y: { position: 'left', title: { display: true, text: 'Graph upserts/sec' }, beginAtZero: true },
+                    y2: { position: 'right', type: 'logarithmic', title: { display: true, text: 'Graph lag (s, log)' }, grid: { drawOnChartArea: false } }
+                }
+            }
+        });
+        document.getElementById('burstBtn').onclick = function () {
+            burst = !burst;
+            this.classList.toggle('active', burst);
+            this.textContent = burst ? 'Burst active (5×)' : 'Simulate 5× ingest burst';
+            document.getElementById('cap').textContent = burst
+                ? 'Under a 5x ingest burst the upsert bars barely move: compression coalesces the extra statements into the same set of active grains. That insensitivity is the whole point.'
+                : 'Faster cadence cuts graph lag but raises upserts/sec; slower cadence coalesces more. The 60 s default balances both.';
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Mastery vs Progress Rollup</title>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="graph-panel">
+            <div id="network"></div>
+            <div class="title">Mastery (F-7) vs Progress (F-8) &mdash; Grains</div>
+        </div>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a node to see details</p></div>
+        </div>
+    </div>
+    <script>
+        const ROOT = { background: '#37474f', border: '#1c2529' };
+        const TEAL = { background: '#2a9d8f', border: '#1f7a6f' };
+        const AMBER = { background: '#e9a23b', border: '#b8791f' };
+        window.GRAPH = {
+            layout: 'hierarchical', direction: 'UD',
+            nodes: [
+                { id: 'Root', label: 'Enriched Statement (concept_ids attached)', color: ROOT },
+                { id: 'F7', label: 'Mastery Computation Function (F-7)', color: TEAL, borderWidth: 4 },
+                { id: 'F8', label: 'Progress Projection Function (F-8)', color: AMBER, borderWidth: 4, font: { color: '#222' } },
+                { id: 'CM', label: 'ConceptMastery (student, concept)', color: TEAL },
+                { id: 'PE', label: 'PageEngagement (student, page)', color: AMBER, font: { color: '#222' } },
+                { id: 'ME', label: 'MicroSimEngagement (student, microsim)', color: AMBER, font: { color: '#222' } },
+                { id: 'QR', label: 'QuestionResponse (student, question)', color: AMBER, font: { color: '#222' } },
+                { id: 'LS', label: 'LearningSession (student, session)', color: AMBER, font: { color: '#222' } },
+                { id: 'SR', label: 'SectionRollup (section, concept)', color: AMBER, font: { color: '#222' } }
+            ],
+            edges: [
+                { from: 'Root', to: 'F7' }, { from: 'Root', to: 'F8' },
+                { from: 'F7', to: 'CM' },
+                { from: 'F8', to: 'PE' }, { from: 'F8', to: 'ME' }, { from: 'F8', to: 'QR' },
+                { from: 'F8', to: 'LS' }, { from: 'F8', to: 'SR' }
+            ],
+            nodeInfo: {
+                'Root': { title: 'Enriched Statement', description: 'The shared input: a statement after enrichment, with <code>concept_ids</code> attached. It fans into two functions that produce different summary vertices.' },
+                'F7': { title: 'Mastery Computation Function (F-7)', description: 'Computes a learner&rsquo;s mastery. It produces exactly ONE grain: ConceptMastery. Single-grain, because mastery is defined per (student, concept).' },
+                'F8': { title: 'Progress Projection Function (F-8)', description: 'Projects engagement and progress. It produces FIVE grains &mdash; the difference from F-7 is that progress is measured across many dimensions, not one.' },
+                'CM': { title: 'ConceptMastery', description: 'Grain: (student, concept). The single mastery estimate per concept. ~100:1 compression from raw statements.' },
+                'PE': { title: 'PageEngagement', description: 'Grain: (student, page). Engagement measures per page &mdash; an F-8 progress grain.' },
+                'ME': { title: 'MicroSimEngagement', description: 'Grain: (student, microsim). Dwell and interaction per sim &mdash; an F-8 progress grain.' },
+                'QR': { title: 'QuestionResponse', description: 'Grain: (student, question). Per-question responses &mdash; an F-8 progress grain.' },
+                'LS': { title: 'LearningSession', description: 'Grain: (student, session). One sitting&rsquo;s activity &mdash; an F-8 progress grain.' },
+                'SR': { title: 'SectionRollup', description: 'Grain: (section, concept). Class-level rollup &mdash; the coarsest F-8 grain, ~3,000:1 compression.' }
+            }
+        };
+    </script>
+    <script src="vis-app.js"></script>
+</body>
+</html>

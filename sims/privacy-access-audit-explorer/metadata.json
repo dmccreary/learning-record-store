@@ -1,0 +1,24 @@
+{
+  "title": "Privacy Access Audit Explorer",
+  "description": "Let the learner analyze a sample Privacy Access Audit table by clicking a row to reveal the actor's role, the RBAC rule that granted the access, and whether the access was routine or elevated (e.g., a data-subject erasure request).",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "privacy-access-audit-explorer",
+  "library": "p5.js",
+  "bloomLevel": "Analyze (L4)",
+  "bloomVerb": "examine, distinguish",
+  "completion_status": "implemented",
+  "chapter_number": 27,
+  "chapter_title": "Compliance, Privacy Law, and District-Level Reporting",
+  "chapter_dir": "27-compliance-and-district-reporting",
+  "chapter_rel_dir": "chapters/27-compliance-and-district-reporting",
+  "canvasHeight": 470
+}

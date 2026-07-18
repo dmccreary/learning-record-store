@@ -1,0 +1,24 @@
+{
+  "title": "How Eight Content Reports Read Four Summary Vertices",
+  "description": "Explain how the four summary vertices already introduced in this book (PageEngagement, MicroSimEngagement, QuestionResponse, ConceptMastery) feed into the eight Content Insights reports, so the reports read as different views of the same evidence rather than eight separate data sources.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "content-insights-pipeline-flow",
+  "library": "p5.js",
+  "bloomLevel": "Understand (L2)",
+  "bloomVerb": "explain, trace",
+  "completion_status": "implemented",
+  "chapter_number": 30,
+  "chapter_title": "Textbook Author Dashboards and Content Reports",
+  "chapter_dir": "30-author-dashboards-content-reports",
+  "chapter_rel_dir": "chapters/30-author-dashboards-content-reports",
+  "canvasHeight": 500
+}

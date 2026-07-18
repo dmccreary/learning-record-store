@@ -1,0 +1,2097 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="An intelligent textbook on Learning Record Stores: what they are, how xAPI statements work, and how to design, deploy, and query an LRS.">
+      
+      
+        <meta name="author" content="Dan McCreary">
+      
+      
+        <link rel="canonical" href="https://dmccreary.github.io/learning-record-store/specs/security-audit-findings/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
+    
+    
+      
+        <title>LRS Security Audit — 2026-07-18 - Learning Record Store</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/extra.css">
+    
+      <link rel="stylesheet" href="../../css/mascot.css">
+    
+      <link rel="stylesheet" href="../../css/lrs-xapi.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lrs-security-audit-2026-07-18" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Learning Record Store" class="md-header__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  <img src="../../img/mascot/neutral.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Learning Record Store
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              LRS Security Audit — 2026-07-18
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Learning Record Store" class="md-nav__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  <img src="../../img/mascot/neutral.png" alt="logo">
+
+    </a>
+    Learning Record Store
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../course-description/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Course Description
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../stories/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Stories
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../chapters/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Chapters
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../learning-graph/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Learning Graph
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../sims/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    MicroSims
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../stories/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Stories
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../lrs-spec-v1/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../demo/graph-queries/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Demo
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../case-studies/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Case Studies
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Glossary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../license/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contact/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contact
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-scope-method-and-deployment-assumption" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Scope, method, and deployment assumption
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-findings-triage-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Findings triage table
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-findings-detailed" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Findings (detailed)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Findings (detailed)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#h-1-high-dashboards-werkzeug-debugger-shipped-enabled-cwe-489" class="md-nav__link">
+    <span class="md-ellipsis">
+      H-1 · High · Dashboards · Werkzeug debugger shipped enabled · CWE-489
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#h-2-high-deploy-datastores-on-0000-with-weak-default-creds-cwe-1188cwe-798" class="md-nav__link">
+    <span class="md-ellipsis">
+      H-2 · High · Deploy · Datastores on 0.0.0.0 with weak default creds · CWE-1188/CWE-798
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m-1-medium-gateway-unbounded-request-body-dos-cwe-400cwe-770" class="md-nav__link">
+    <span class="md-ellipsis">
+      M-1 · Medium · Gateway · Unbounded request body → DoS · CWE-400/CWE-770
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m-2-medium-config-guessable-default-credentials-cwe-1392" class="md-nav__link">
+    <span class="md-ellipsis">
+      M-2 · Medium · Config · Guessable default credentials · CWE-1392
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#l-1-low-tenancy-cross-district-statement-claim-not-flagged-cwe-284-seam" class="md-nav__link">
+    <span class="md-ellipsis">
+      L-1 · Low · Tenancy · Cross-district statement claim not flagged · CWE-284 (seam)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#l-2-low-gateway-unescaped-attacker-input-in-logs-cwe-117" class="md-nav__link">
+    <span class="md-ellipsis">
+      L-2 · Low · Gateway · Unescaped attacker input in logs · CWE-117
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#l-3-low-deploy-secrets-in-urls-argv-cwe-214cwe-532" class="md-nav__link">
+    <span class="md-ellipsis">
+      L-3 · Low · Deploy · Secrets in URLs / argv · CWE-214/CWE-532
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#l-4-low-deploy-mutable-image-tags-runtime-plugin-fetch-cwe-1104" class="md-nav__link">
+    <span class="md-ellipsis">
+      L-4 · Low · Deploy · Mutable image tags + runtime plugin fetch · CWE-1104
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#i-1-info-gateway-non-constant-time-token-compare" class="md-nav__link">
+    <span class="md-ellipsis">
+      I-1 · Info · Gateway · Non-constant-time token compare
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#i-2-info-gateway-health-leaks-queue_depth" class="md-nav__link">
+    <span class="md-ellipsis">
+      I-2 · Info · Gateway · /health leaks queue_depth
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#i-3-info-catalog-unbounded-untrusted-file-parse" class="md-nav__link">
+    <span class="md-ellipsis">
+      I-3 · Info · Catalog · Unbounded untrusted-file parse
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-property-assessment" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Property assessment
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-seam-review-deferred-controls-do-they-have-a-safe-landing-spot" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Seam review (deferred controls — do they have a safe landing spot?)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-accepted-risk-appendix-known-not-findings" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Accepted-risk appendix (known, not findings)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-prioritized-remediation" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Prioritized remediation
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/specs/security-audit-findings.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="lrs-security-audit-2026-07-18">LRS Security Audit — 2026-07-18<a class="headerlink" href="#lrs-security-audit-2026-07-18" title="Permanent link">&para;</a></h1>
+<h2 id="1-scope-method-and-deployment-assumption">1. Scope, method, and deployment assumption<a class="headerlink" href="#1-scope-method-and-deployment-assumption" title="Permanent link">&para;</a></h2>
+<p><strong>Read-only</strong> static audit of the implemented MVP surfaces: gateway (<code>src/lrs/gateway/*</code>),
+config, seeder, catalog, CLI/bootstrap, the three Dash dashboards (<code>dashboards/</code>), and the
+deploy artifacts (<code>deploy/docker-compose.yml</code>, <code>Dockerfile</code>, <code>.env.example</code>, <code>scripts/smoke.sh</code>).
+Judged against the authoritative trust model in design §5.2 / §7.1–§7.2 and spec §12.2–§12.3.</p>
+<p><strong>Deployment judged against:</strong> the intended MVP target — a single-node <strong>laptop / loopback demo</strong>.
+Findings are rated for that target and annotated with the deployment change that would escalate
+them. Nothing here was executed; every finding cites <code>file:line</code>.</p>
+<p>Deferred-by-design components (identity service, per-district HMAC vault, processor, summarizer,
+RBAC/OIDC/TenantContext, threshold suppression) are <strong>not</strong> filed as findings — see §6. The seam
+question for each is answered in §5.</p>
+<h2 id="2-findings-triage-table">2. Findings triage table<a class="headerlink" href="#2-findings-triage-table" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Severity</th>
+<th>Component</th>
+<th>Title</th>
+<th>file:line</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>H-1</td>
+<td>High</td>
+<td>Dashboards</td>
+<td>Werkzeug debugger shipped enabled (<code>debug=True</code>) → source/RCE exposure</td>
+<td><code>dashboards/teacher_app.py:458</code></td>
+</tr>
+<tr>
+<td>H-2</td>
+<td>High</td>
+<td>Deploy</td>
+<td>Datastores published on <code>0.0.0.0</code> with weak default creds → LAN-reachable PII &amp; event log</td>
+<td><code>deploy/docker-compose.yml:116</code></td>
+</tr>
+<tr>
+<td>M-1</td>
+<td>Medium</td>
+<td>Gateway</td>
+<td>Unbounded request body / batch size → memory &amp; CPU DoS</td>
+<td><code>src/lrs/gateway/app.py:133</code></td>
+</tr>
+<tr>
+<td>M-2</td>
+<td>Medium</td>
+<td>Config</td>
+<td>Guessable default credentials in code fallbacks (<code>neo4j</code>/<code>neo4j</code>)</td>
+<td><code>src/lrs/config.py:47</code></td>
+</tr>
+<tr>
+<td>L-1</td>
+<td>Low</td>
+<td>Gateway/Tenancy</td>
+<td>Cross-district statement claim never flagged (processor seam)</td>
+<td><code>src/lrs/gateway/app.py:173</code></td>
+</tr>
+<tr>
+<td>L-2</td>
+<td>Low</td>
+<td>Gateway</td>
+<td>Attacker-controlled strings logged unescaped (log injection)</td>
+<td><code>src/lrs/gateway/app.py:145</code></td>
+</tr>
+<tr>
+<td>L-3</td>
+<td>Low</td>
+<td>Deploy</td>
+<td>Secrets in env URLs / Redis <code>--requirepass</code> argv → process-list &amp; log exposure</td>
+<td><code>deploy/docker-compose.yml:28</code></td>
+</tr>
+<tr>
+<td>L-4</td>
+<td>Low</td>
+<td>Deploy</td>
+<td>Mutable image tags + runtime APOC plugin fetch → supply-chain drift</td>
+<td><code>deploy/docker-compose.yml:113</code></td>
+</tr>
+<tr>
+<td>I-1</td>
+<td>Info</td>
+<td>Gateway</td>
+<td>Non-constant-time dev-token comparison (prod seam)</td>
+<td><code>src/lrs/gateway/app.py:67</code></td>
+</tr>
+<tr>
+<td>I-2</td>
+<td>Info</td>
+<td>Gateway</td>
+<td><code>/health</code> discloses producer <code>queue_depth</code> unauthenticated</td>
+<td><code>src/lrs/gateway/app.py:106</code></td>
+</tr>
+<tr>
+<td>I-3</td>
+<td>Info</td>
+<td>Catalog</td>
+<td>Unbounded parse of untrusted sibling-repo CSV/JSON</td>
+<td><code>src/lrs/catalog.py:236</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-findings-detailed">3. Findings (detailed)<a class="headerlink" href="#3-findings-detailed" title="Permanent link">&para;</a></h2>
+<h3 id="h-1-high-dashboards-werkzeug-debugger-shipped-enabled-cwe-489">H-1 · High · Dashboards · Werkzeug debugger shipped enabled · CWE-489<a class="headerlink" href="#h-1-high-dashboards-werkzeug-debugger-shipped-enabled-cwe-489" title="Permanent link">&para;</a></h3>
+<p><strong>Evidence</strong> — all three dashboards:
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">dashboards</span><span class="o">/</span><span class="n">teacher_app</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">458</span>  <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">8052</span><span class="p">)</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">dashboards</span><span class="o">/</span><span class="n">admin_app</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">264</span>    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">8051</span><span class="p">)</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">dashboards</span><span class="o">/</span><span class="n">author_app</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">382</span>   <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">8053</span><span class="p">)</span>
+</span></code></pre></div>
+<strong>Impact</strong> (PII protection, property 2). <code>debug=True</code> enables the Werkzeug interactive debugger
+and renders full tracebacks — including local variables and Cypher — to the browser. These
+dashboards connect with full Neo4j credentials and return per-student rows (<code>student_key</code>, names,
+mastery) with no auth layer, so any traceback is a PII/creds disclosure. If the debugger console
+is reachable and its PIN is derivable/disabled, it is remote code execution.
+<strong>Exploit sketch.</strong> On the intended loopback deploy: local user or any process opens
+<code>http://127.0.0.1:8052</code>, triggers an exception (malformed picker state), reads source + data from
+the traceback. If an operator sets <code>host="0.0.0.0"</code> (common for "let me view it from my phone"),
+the debugger is LAN-exposed → RCE via the console.
+<strong>Fix.</strong> <code>debug=False</code> in all three <code>app.run(...)</code>; gate any debug on an env flag that defaults
+off. This is shipped misconfiguration, <strong>not</strong> part of the deferred auth work.
+<strong>Confidence.</strong> Confirmed.</p>
+<h3 id="h-2-high-deploy-datastores-on-0000-with-weak-default-creds-cwe-1188cwe-798">H-2 · High · Deploy · Datastores on <code>0.0.0.0</code> with weak default creds · CWE-1188/CWE-798<a class="headerlink" href="#h-2-high-deploy-datastores-on-0000-with-weak-default-creds-cwe-1188cwe-798" title="Permanent link">&para;</a></h3>
+<p><strong>Evidence.</strong>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">deploy/docker-compose.yml:116  ports</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;7474:7474&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;7687:7687&quot;</span><span class="p p-Indicator">]</span><span class="w">   </span><span class="c1"># neo4j (also 8123/9000 CH, 6379 redis, 9092 redpanda)</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="l l-Scalar l-Scalar-Plain">.env.example:8                 NEO4J_PASSWORD=change-me-neo4j</span>
+</span></code></pre></div>
+<strong>Impact</strong> (property 2 &amp; 4). Docker <code>ports:</code> with no host IP binds to <code>0.0.0.0</code>, so Neo4j (student
+PII graph), ClickHouse (raw event log), and Redis are reachable from the LAN. Paired with the
+<code>change-me-*</code> example values and the code fallbacks in M-2, an operator who copies <code>.env.example</code>
+verbatim or forgets to fill it exposes the full learner dataset to anyone on the network.
+<strong>Exploit sketch.</strong> <code>cypher-shell -a bolt://&lt;laptop-ip&gt;:7687 -u neo4j -p change-me-neo4j</code> from the
+same coffee-shop Wi-Fi dumps every <code>Student</code>/<code>ConceptMastery</code> node.
+<strong>Fix.</strong> Bind published ports to loopback (<code>"127.0.0.1:7687:7687"</code>, etc.) for the demo profile;
+require non-default secrets (fail fast if a password still equals its <code>change-me-*</code> value).
+The vault-db does this correctly (no host port) — apply the same posture to the analytics stores.
+<strong>Confidence.</strong> Confirmed (static); LAN reachability assumes default Docker publishing.</p>
+<h3 id="m-1-medium-gateway-unbounded-request-body-dos-cwe-400cwe-770">M-1 · Medium · Gateway · Unbounded request body → DoS · CWE-400/CWE-770<a class="headerlink" href="#m-1-medium-gateway-unbounded-request-body-dos-cwe-400cwe-770" title="Permanent link">&para;</a></h3>
+<p><strong>Evidence.</strong>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">src</span><span class="o">/</span><span class="n">lrs</span><span class="o">/</span><span class="n">gateway</span><span class="o">/</span><span class="n">app</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">133</span>  <span class="n">raw</span> <span class="o">=</span> <span class="k">await</span> <span class="n">request</span><span class="o">.</span><span class="n">body</span><span class="p">()</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">src</span><span class="o">/</span><span class="n">lrs</span><span class="o">/</span><span class="n">gateway</span><span class="o">/</span><span class="n">app</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">135</span>  <span class="n">body</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
+</span></code></pre></div>
+<strong>Impact</strong> (property 3, availability — spec targets 99.95% ingest). No <code>Content-Length</code> cap and no
+max batch length: the whole body is buffered into memory then fully parsed and every statement is
+validated into an in-memory <code>violations</code> list. A single large or deeply-nested POST can OOM or
+CPU-starve the gateway, dropping a classroom's telemetry.
+<strong>Exploit sketch.</strong> Authenticated holder of any ingest token POSTs a multi-hundred-MB JSON array
+(or a deeply nested object) → gateway RSS spikes / event loop stalls. In prod, ingest tokens are
+distributed to every textbook, widening the attacker set (→ High there).
+<strong>Fix.</strong> Enforce a max body size (reverse proxy limit + explicit <code>Content-Length</code> check) and a max
+statements-per-batch before <code>json.loads</code>; reject oversize with 413.
+<strong>Confidence.</strong> Confirmed (no limit present in code or compose).</p>
+<h3 id="m-2-medium-config-guessable-default-credentials-cwe-1392">M-2 · Medium · Config · Guessable default credentials · CWE-1392<a class="headerlink" href="#m-2-medium-config-guessable-default-credentials-cwe-1392" title="Permanent link">&para;</a></h3>
+<p><strong>Evidence.</strong>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">src</span><span class="o">/</span><span class="n">lrs</span><span class="o">/</span><span class="n">config</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">47</span>              <span class="n">neo4j_password</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;neo4j&quot;</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">dashboards</span><span class="o">/</span><span class="n">lrsdash</span><span class="o">/</span><span class="n">db</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">45</span><span class="o">-</span><span class="mi">46</span>    <span class="n">password</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;NEO4J_PASSWORD&quot;</span><span class="p">,</span> <span class="s2">&quot;neo4j&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<strong>Impact</strong> (property 4). When the env/<code>.env</code> is absent or partial, the stack and dashboards
+silently run with <code>neo4j</code>/<code>neo4j</code> — the enabler for H-2. <strong>Positive contrast:</strong> the ingest token
+<code>dev_ingest_token</code> defaults to <code>None</code> (<code>config.py:38</code>), so auth fails <em>closed</em> — replicate that
+pattern here.
+<strong>Fix.</strong> Default secret-bearing fields to <code>None</code> and fail fast with a clear message when unset;
+never embed a working password as a default.
+<strong>Confidence.</strong> Confirmed.</p>
+<h3 id="l-1-low-tenancy-cross-district-statement-claim-not-flagged-cwe-284-seam">L-1 · Low · Tenancy · Cross-district statement claim not flagged · CWE-284 (seam)<a class="headerlink" href="#l-1-low-tenancy-cross-district-statement-claim-not-flagged-cwe-284-seam" title="Permanent link">&para;</a></h3>
+<p><strong>Evidence.</strong> The gateway keys and envelopes on the token's district only; the statement body is
+stored verbatim and never checked for a conflicting district/actor claim:
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">src</span><span class="o">/</span><span class="n">lrs</span><span class="o">/</span><span class="n">gateway</span><span class="o">/</span><span class="n">app</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">173</span>  <span class="n">actor_identity</span> <span class="o">=</span> <span class="n">raw_actor_identity</span><span class="p">(</span><span class="n">statement</span><span class="p">[</span><span class="s2">&quot;actor&quot;</span><span class="p">])</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">src</span><span class="o">/</span><span class="n">lrs</span><span class="o">/</span><span class="n">gateway</span><span class="o">/</span><span class="n">app</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">176</span>  <span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">key</span><span class="p">,</span> <span class="n">Envelope</span><span class="p">(</span><span class="n">district_id</span><span class="p">,</span> <span class="n">stored_at</span><span class="p">,</span> <span class="n">statement</span><span class="p">)</span><span class="o">.</span><span class="n">to_json</span><span class="p">()))</span>
+</span></code></pre></div>
+<strong>Impact</strong> (property 1). Benign <em>today</em> — <code>district_id</code> is authoritative from the token
+(<code>envelope.py:33-35</code>, body cannot override it) and no consumer reads the actor's claimed domain
+yet. Design §7.1 nonetheless requires a mismatching claim be "rewritten to the token's district
+and flagged." Risk is at the <strong>processor seam</strong> (§5): pseudonymization must derive <code>student_key</code>
+from the <em>token's</em> district salt, never from <code>actor.account.homePage</code>, or a producer can smuggle a
+foreign district's namespace into the log.
+<strong>Fix.</strong> When the processor lands, assert token-district == any claimed district (flag + rewrite);
+add a gateway-side flag now if cheap.
+<strong>Confidence.</strong> Confirmed (no such check exists); impact is seam-conditional.</p>
+<h3 id="l-2-low-gateway-unescaped-attacker-input-in-logs-cwe-117">L-2 · Low · Gateway · Unescaped attacker input in logs · CWE-117<a class="headerlink" href="#l-2-low-gateway-unescaped-attacker-input-in-logs-cwe-117" title="Permanent link">&para;</a></h3>
+<p><strong>Evidence.</strong> Validation messages embed caller-supplied <code>iri</code>/<code>gid</code>/<code>id</code> (e.g.
+<code>validation.py:131-135</code>, <code>:343</code>) and are logged / returned:
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">src</span><span class="o">/</span><span class="n">lrs</span><span class="o">/</span><span class="n">gateway</span><span class="o">/</span><span class="n">app</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">145</span>  <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;rejected batch of </span><span class="si">%d</span><span class="s2">: </span><span class="si">%d</span><span class="s2"> violations&quot;</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">violations</span><span class="p">))</span>
+</span></code></pre></div>
+Plus <code>log.exception("produce failed")</code> on paths carrying request-derived context. The <strong>JSON
+response</strong> is safe (JSONResponse escapes; values are <code>!r</code>-quoted), but log sinks receive
+raw/<code>repr</code>'d attacker strings → forged or newline-injected log lines.
+<strong>Impact.</strong> Low: log forgery / monitoring confusion; no direct data exposure.
+<strong>Fix.</strong> Log via structured fields, not interpolation of raw values; strip control chars.
+<strong>Confidence.</strong> Confirmed.</p>
+<h3 id="l-3-low-deploy-secrets-in-urls-argv-cwe-214cwe-532">L-3 · Low · Deploy · Secrets in URLs / argv · CWE-214/CWE-532<a class="headerlink" href="#l-3-low-deploy-secrets-in-urls-argv-cwe-214cwe-532" title="Permanent link">&para;</a></h3>
+<p><strong>Evidence.</strong>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nt">deploy/docker-compose.yml:28   CLICKHOUSE_URL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://lrs:${CLICKHOUSE_PASSWORD}@clickhouse:8123/lrs</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nt">deploy/docker-compose.yml:149  command</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;redis-server&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">...</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;--requirepass&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;${REDIS_PASSWORD}&quot;</span><span class="p p-Indicator">]</span>
+</span></code></pre></div>
+Also <code>VAULT_DB_DSN</code> (<code>:169</code>, <code>:187</code>). Passwords in connection URLs and on the command line are
+visible via <code>docker inspect</code>, <code>ps</code>, and frequently land in tracebacks/logs.
+<strong>Fix.</strong> Prefer file/secret-mounted credentials; for Redis use <code>requirepass</code> via a config file or
+<code>REDISCLI_AUTH</code>-style env consumed at runtime, not argv.
+<strong>Confidence.</strong> Confirmed.</p>
+<h3 id="l-4-low-deploy-mutable-image-tags-runtime-plugin-fetch-cwe-1104">L-4 · Low · Deploy · Mutable image tags + runtime plugin fetch · CWE-1104<a class="headerlink" href="#l-4-low-deploy-mutable-image-tags-runtime-plugin-fetch-cwe-1104" title="Permanent link">&para;</a></h3>
+<p><strong>Evidence.</strong>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nt">deploy/docker-compose.yml:113  NEO4J_PLUGINS</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;[&quot;apoc&quot;]&#39;</span><span class="w">          </span><span class="c1"># runtime download</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nt">deploy/docker-compose.yml:88   image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">clickhouse/clickhouse-server:24.8</span><span class="w">   </span><span class="c1"># also redis:7-alpine, neo4j:5.26-community, redpanda:v24.3.6</span>
+</span></code></pre></div>
+<code>Dockerfile:33</code> also pulls <code>ghcr.io/astral-sh/uv:0.5</code> (mutable minor). Tags are mutable → image
+drift; APOC is fetched over the network at start → integrity + availability dependency.
+<strong>Fix.</strong> Pin images by digest (<code>@sha256:…</code>); bake APOC into the image or vendor+checksum it.
+<strong>Confidence.</strong> Confirmed.</p>
+<h3 id="i-1-info-gateway-non-constant-time-token-compare">I-1 · Info · Gateway · Non-constant-time token compare<a class="headerlink" href="#i-1-info-gateway-non-constant-time-token-compare" title="Permanent link">&para;</a></h3>
+<p><code>src/lrs/gateway/app.py:67  if token == cfg.dev_ingest_token:</code> — plaintext <code>==</code>. Negligible for a
+single laptop dev token; the prod seam (HMAC verify) <strong>must</strong> use <code>hmac.compare_digest</code>. Seam note.</p>
+<h3 id="i-2-info-gateway-health-leaks-queue_depth">I-2 · Info · Gateway · <code>/health</code> leaks <code>queue_depth</code><a class="headerlink" href="#i-2-info-gateway-health-leaks-queue_depth" title="Permanent link">&para;</a></h3>
+<p><code>src/lrs/gateway/app.py:106</code> returns <code>queue_depth</code> unauthenticated — minor backpressure-state leak.
+Acceptable for liveness; drop the field or gate it if the endpoint is ever exposed.</p>
+<h3 id="i-3-info-catalog-unbounded-untrusted-file-parse">I-3 · Info · Catalog · Unbounded untrusted-file parse<a class="headerlink" href="#i-3-info-catalog-unbounded-untrusted-file-parse" title="Permanent link">&para;</a></h3>
+<p><code>src/lrs/catalog.py:236</code> (<code>csv.DictReader</code>) and <code>:203/:262/:270</code> (<code>json.loads</code>) read sibling-repo
+files into memory with no size bound. Operator-controlled, offline seeder → low likelihood; note
+for hardening if <code>LRS_TEXTBOOK_ROOT</code> ever points at untrusted content.</p>
+<p><strong>Checked, no issue:</strong>
+- <strong>Cypher injection (dashboards):</strong> every user/pick value is passed as <code>$param</code> via <code>db.q(**params)</code>;
+  the lone f-string query <code>queries_common.schools():20</code> interpolates a <em>constant</em> <code>WHERE</code> fragment
+  with the value still parameterized (<code>$district_id</code>) — not injectable. <code>queries_author.py:271</code> f-strings
+  are display text, not Cypher. Full <code>q(...)</code> sweep across admin/author/teacher confirmed parameterized.
+- <strong>Cypher injection (seeder):</strong> <code>seed.py</code> <code>_WRITES</code>/<code>_COVERS</code> are static label strings; rows passed as
+  <code>execute_query(cypher, rows=…)</code> (<code>:944/:949</code>). <code>clear()</code> scoped to <code>{seeded: true}</code> (<code>:896</code>).
+- <strong>Tenancy binding:</strong> <code>district_id</code> comes only from the token; body cannot set it (<code>envelope.py:33-35</code>).
+- <strong>Ingest fails closed:</strong> <code>dev_ingest_token</code> defaults <code>None</code>; gateway depends on Redpanda only.
+- <strong>Vault isolation (compose):</strong> <code>vault-net</code> <code>internal: true</code>, <code>vault-db</code> has no host port, <code>identity</code>
+  is the only dual-network service — all as designed.
+- <strong>Container:</strong> <code>Dockerfile</code> runs non-root (uid 10001), multi-stage, no secrets/build-tooling in runtime.
+- <strong>Dangerous sinks:</strong> no <code>eval/exec/pickle/yaml.load/shell=True/subprocess/os.system/verify=False/md5</code>
+  anywhere in <code>src</code>, <code>dashboards</code>, <code>scripts</code>.
+- <strong>Secrets in git:</strong> <code>.env</code> git-ignored (<code>.gitignore:17</code>) and not tracked; <code>smoke.sh</code> sources <code>.env</code>,
+  embeds no secret.
+- <strong>Bootstrap stubs:</strong> <code>--apply-ddl</code>/<code>--apply-constraints</code> raise <code>typer.Exit(2)</code> — inert, not privileged.</p>
+<h2 id="4-property-assessment">4. Property assessment<a class="headerlink" href="#4-property-assessment" title="Permanent link">&para;</a></h2>
+<p><strong>District isolation — adequate for MVP, seam-fragile.</strong> Tenancy is bound from the token, not the
+body (good). The one gap (L-1) is inert until the processor exists, but the processor <strong>must</strong> key
+pseudonymization on the token's district. Top risk: a future processor trusting <code>actor.homePage</code>.</p>
+<p><strong>PII protection — weakest area.</strong> In the MVP, learner PII lives in Neo4j (<code>student_key</code> + names) and
+is served by three unauthenticated dashboards, one traceback (H-1) or one exposed port (H-2) away
+from disclosure. The pseudonymization boundary (§5.2) that would protect it is deferred. <strong>Safe only
+on loopback with non-default creds — and nothing enforces that.</strong> Top risk: H-1 + H-2 together.</p>
+<p><strong>Ingestion integrity &amp; availability — solid, one hole.</strong> All-or-nothing Tier-1 validation is strict
+and well-reasoned; <code>acks=all</code> + idempotence preserve ordering. The gap is M-1 (no body/batch cap):
+availability is a single large POST away from degradation.</p>
+<p><strong>Secret hygiene — mixed.</strong> Ingest token fails closed (good); datastore passwords fail <em>open</em> to
+<code>neo4j</code>/<code>neo4j</code> (M-2) and travel in URLs/argv (L-3). No secret is committed to git (good).</p>
+<h2 id="5-seam-review-deferred-controls-do-they-have-a-safe-landing-spot">5. Seam review (deferred controls — do they have a safe landing spot?)<a class="headerlink" href="#5-seam-review-deferred-controls-do-they-have-a-safe-landing-spot" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Deferred control</th>
+<th>Safe seam?</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Identity service / HMAC vault</td>
+<td><strong>Yes</strong></td>
+<td><code>resolve_district()</code> is isolated and documented; must adopt constant-time verify (I-1) and Redis+LRU fallback so auth can't become an ingest dependency.</td>
+</tr>
+<tr>
+<td>Processor pseudonymization</td>
+<td><strong>Conditional</strong></td>
+<td>Must derive <code>student_key</code> from the <strong>token</strong> district, not the claimed actor domain (L-1). Envelope already carries the authoritative <code>district_id</code>.</td>
+</tr>
+<tr>
+<td>RBAC / OIDC / TenantContext</td>
+<td><strong>Yes, but not started</strong></td>
+<td>Dashboards query Neo4j directly today; the query layer (<code>db.q</code>) is a natural chokepoint to inject a tenant predicate later, but nothing forces it yet.</td>
+</tr>
+<tr>
+<td>Threshold / complementary suppression</td>
+<td><strong>Yes</strong></td>
+<td>A single filter over <code>db.q</code> results is the intended spot; absent today (see appendix).</td>
+</tr>
+<tr>
+<td>Bootstrap DDL/constraints</td>
+<td><strong>Yes</strong></td>
+<td>Stubs fail loudly (<code>Exit(2)</code>), so <code>--verify</code> can't report green for unapplied work. Note: this makes the compose <code>bootstrap</code> service exit non-zero, so <code>depends_on: service_completed_successfully</code> gates identity/processor/summarizer — irrelevant while those are deferred, but a startup blocker to remember.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="6-accepted-risk-appendix-known-not-findings">6. Accepted-risk appendix (known, not findings)<a class="headerlink" href="#6-accepted-risk-appendix-known-not-findings" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Deferral</th>
+<th>Promotes to a finding when…</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No RBAC/OIDC/auth on dashboards</td>
+<td>the dashboards are bound to anything but loopback, or <code>debug=True</code> (H-1) is left on off-loopback. <strong>Do not deploy dashboards off <code>127.0.0.1</code> until RBAC + threshold suppression land.</strong></td>
+</tr>
+<tr>
+<td>No threshold/complementary suppression (spec §12.3, ≥10)</td>
+<td>any dashboard serves a user without a legitimate roster relationship (cross-district/benchmark views).</td>
+</tr>
+<tr>
+<td>Identity service / vault / per-district salt unbuilt</td>
+<td>a real (non-dev) token scheme ships without HMAC storage + constant-time verify.</td>
+</tr>
+<tr>
+<td>Processor &amp; summarizer unbuilt; summaries seeded with <code>seeded:true</code></td>
+<td>live ingestion is wired to graph writes without re-checking L-1.</td>
+</tr>
+<tr>
+<td>MVP partition/grain reductions</td>
+<td>promoted to prod scale without restoring the §6.1 partition count.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="7-prioritized-remediation">7. Prioritized remediation<a class="headerlink" href="#7-prioritized-remediation" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Set <code>debug=False</code></strong> in all three <code>dashboards/*_app.py</code> <code>app.run(...)</code> (H-1).</li>
+<li><strong>Bind published datastore ports to <code>127.0.0.1</code></strong> and fail startup if any password still equals its
+   <code>change-me-*</code> default (H-2).</li>
+<li><strong>Cap request body + batch length</strong> at the gateway (proxy limit + explicit check → 413) (M-1).</li>
+<li><strong>Default secret fields to <code>None</code>, fail fast when unset</strong>; remove <code>neo4j</code>/<code>neo4j</code> fallbacks (M-2).</li>
+<li><strong>Add token-district vs. claimed-district assertion</strong> before the processor is wired (L-1).</li>
+<li><strong>Move secrets out of URLs/argv</strong>; pin images by digest and vendor APOC (L-3, L-4).</li>
+<li><strong>Structure logs / strip control chars</strong> on caller-supplied fields; drop <code>queue_depth</code> from <code>/health</code> (L-2, I-2).</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Dan McCreary. Licensed under <a href="license/">CC BY-NC-SA 4.0</a> for non-commercial use.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../js/katex.js"></script>
+      
+        <script src="../../js/quiz-xapi.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

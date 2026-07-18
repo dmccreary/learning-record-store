@@ -1,0 +1,15 @@
+{
+  "sim_id": "clickhouse-statements-anatomy",
+  "diagram_name": "ClickHouse `lrs.statements` Table Anatomy",
+  "chapter_number": 14,
+  "chapter_title": "Kafka Topics, ClickHouse Schema, and Graph Constraints",
+  "chapter_dir": "14-kafka-clickhouse-graph-schema",
+  "chapter_rel_dir": "chapters/14-kafka-clickhouse-graph-schema",
+  "library": "p5.js",
+  "bloom_level": "Analyze (L4)",
+  "bloom_verb": "differentiate, justify",
+  "learning_objective": "Let the learner click through each column group of the lrs.statements table and explain why the ORDER BY key leads with district_id and student_key rather than timestamp alone.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: infographic\n**sim-id:** clickhouse-statements-anatomy<br/>\n**Library:** p5.js<br/>\n**Status:** Specified\n\nBloom Taxonomy: Analyze (L4)\nBloom Taxonomy Verb: differentiate, justify\n\nLearning objective: Let the learner click through each column group of the lrs.statements table and explain why the ORDER BY key leads with district_id and student_key rather than timestamp alone.\n\nCanvas layout:\n\n- A vertical table diagram listing all eighteen columns in DDL order, grouped visually into four bands: \"Identity & Tenancy\" (district_id, statement_id, student_key), \"Statement Content\" (verb_id, object_type, object_id, textbook_id, version_id, section_id, concept_ids, result_score, result_success, duration_ms), \"Lifecycle Flags\" (voided_by, provisional), and \"Timing & Raw Payload\" (timestamp, stored_at, raw)\n- A highlighted sidebar showing the ORDER BY tuple as four connected boxes: district_id -> student_key -> timestamp -> statement_id, with an arrow showing \"prune, then sort\" order\n\nInteractive controls:\n\n- Clicking any column name opens an infobox with its type, a one-sentence purpose, and whether it participates in the ORDER BY key\n- A button \"Highlight ORDER BY key\" dims every column not in the primary key and traces the four-box sidebar sequence\n- A button \"Highlight compression\" isolates the LowCardinality and ZSTD-coded columns and shows a small annotation explaining what each does to storage size\n\nBehavior: Default view shows all four bands at equal visual weight; clicking either highlight button re-renders with the relevant columns emphasized and the rest at reduced opacity.\n\nColor coding: The four column bands each get a distinct muted hue; the ORDER BY sidebar and any column inside it render in the book's teal accent color regardless of which band it belongs to, so the primary key reads as one visual thread through the whole table.\n\nResponsive design: Column bands stack in a single vertical scrolling list on narrow viewports; the ORDER BY sidebar collapses to a horizontal strip above the column list rather than sitting beside it."
+}

@@ -1,0 +1,15 @@
+{
+  "sim_id": "time-on-task-timeline",
+  "diagram_name": "One Student's Time-on-Task Timeline",
+  "chapter_number": 28,
+  "chapter_title": "Teacher Dashboards and Student-Level Reports",
+  "chapter_dir": "28-teacher-dashboards-student-reports",
+  "chapter_rel_dir": "chapters/28-teacher-dashboards-student-reports",
+  "library": "vis-timeline",
+  "bloom_level": "Understand (L2)",
+  "bloom_verb": "interpret, distinguish",
+  "learning_objective": "Let the learner interpret a Gantt-style timeline of one student's learning sessions across a week, distinguishing a steady engagement pattern from a single last-minute cram session.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: timeline\n**sim-id:** time-on-task-timeline<br/>\n**Library:** vis-timeline<br/>\n**Status:** Specified\n**Template:** https://github.com/dmccreary/learning-graphs/tree/main/docs/sims/goal-horizon-timeline<br/>\n\nBloom Taxonomy: Understand (L2)\nBloom Taxonomy Verb: interpret, distinguish\n\nLearning objective: Let the learner interpret a Gantt-style timeline of one student's learning sessions across a week, distinguishing a steady engagement pattern from a single last-minute cram session.\n\nTime period: One sample week, Monday through Sunday\n\nOrientation: Horizontal, left to right, one row per day\n\nEvents: Six to eight session bars of varying length and time of day placed across the week, including one deliberately long bar the night before a sample \"quiz due\" marker to illustrate a cram pattern, and several short, evenly spaced bars earlier in the week to illustrate steady engagement for comparison.\n\nInteractive features: Clicking any session bar opens an infobox listing the concepts touched during that session (drawn from that session's `TOUCHED` edges) and a link labeled \"view individual statements,\" representing the drill-down into the event store. A toggle switches between two sample students — one steady, one cram-pattern — so the learner can compare timeline shapes directly.\n\nVisual style: Session bars colored by duration (short sessions in a lighter shade, long sessions in a darker shade of the book's teal accent color) so a cram session visually stands out without needing to read the bar's length precisely.\n\nResponsive design: Timeline resizes to the width of its containing element; on narrow viewports the day labels abbreviate and bars remain tap-sized for the click-to-infobox interaction."
+}

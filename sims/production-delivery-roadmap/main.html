@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Production Delivery Roadmap</title>
+    <script src="https://unpkg.com/vis-timeline@7.7.3/standalone/umd/vis-timeline-graph2d.min.js"></script>
+    <link href="https://unpkg.com/vis-timeline@7.7.3/styles/vis-timeline-graph2d.min.css" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        html, body { margin: 0; font-family: Arial, Helvetica, sans-serif; background: #fff; color: #222; }
+        .wrap { padding: 8px 12px; }
+        h2 { font-size: 16px; color: #1a3a5c; text-align: center; margin: 4px 0 6px; }
+        .controls { text-align: center; margin-bottom: 6px; }
+        button { font-size: 13px; padding: 6px 12px; border: 1px solid #2a9d8f; background: #fff; color: #1f7a6f; border-radius: 5px; cursor: pointer; }
+        button.active { background: #2a9d8f; color: #fff; }
+        #timeline { border: 1px solid #dee2e6; }
+        .info { margin-top: 8px; padding: 10px; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 6px; min-height: 82px; font-size: 13.5px; line-height: 1.45; }
+        .info b { color: #1f7a6f; }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <h2>Production Delivery Roadmap (M0&ndash;M5)</h2>
+        <div class="controls"><button id="svcBtn">Highlight this chapter's managed services (M5)</button></div>
+        <div id="timeline"></div>
+        <div class="info" id="info">M2 carries the Neo4j licensing decision deadline; M5 introduces this chapter's managed services. Click a milestone for details.</div>
+    </div>
+    <script>
+        const info = {
+            M0: '<b>M0 Walking skeleton</b><br>Compose stack, image, CLI, bootstrap, gateway -> Kafka -> ClickHouse, smoke test.',
+            M1: '<b>M1 Ingestion complete</b><br>Pseudonymization, vault, accept-first provisioning, reconciler, DLQ, replay.',
+            M2: '<b>M2 Compression + graph + mastery</b><br>Neo4j structure, ClickHouse rollup views, summarizer, BKT engine. <b>Neo4j licensing decision due here.</b>',
+            M3: '<b>M3 Analytics + first dashboards</b><br>Analytics API, privacy filter, first report set.',
+            M4: '<b>M4 Admin + experiments</b><br>Admin API and UI, RBAC, audit, experiment service.',
+            M5: '<b>M5 Scale + production</b><br>Helm, KEDA, and the managed stores from this chapter: Managed Streaming Kafka, ClickHouse Cloud, Neo4j AuraDB/Enterprise, RDS Multi-AZ Postgres, ElastiCache Redis; plus DR drill and full report catalog.'
+        };
+        const teal = 'background-color:#2a9d8f;color:#fff;border-color:#1f7a6f;';
+        const amber = 'background-color:#e9a23b;color:#222;border-color:#b8791f;';
+        const flag = 'background-color:#5cbcb0;color:#08312c;border-color:#3bab9d;';
+        const items = new vis.DataSet([
+            { id: 'M0', content: 'M0 Walking skeleton', start: '2026-01-01', end: '2026-01-22', style: teal },
+            { id: 'M1', content: 'M1 Ingestion', start: '2026-01-22', end: '2026-02-19', style: teal },
+            { id: 'M2', content: 'M2 Compression + graph *', start: '2026-02-19', end: '2026-03-26', style: teal },
+            { id: 'M3', content: 'M3 Analytics + dashboards', start: '2026-03-26', end: '2026-04-30', style: teal },
+            { id: 'M4', content: 'M4 Admin + experiments', start: '2026-04-30', end: '2026-06-04', style: teal },
+            { id: 'M5', content: 'M5 Scale + production', start: '2026-06-04', end: '2026-07-02', style: amber }
+        ]);
+        const timeline = new vis.Timeline(document.getElementById('timeline'), items, { showCurrentTime: false, stack: false, margin: { item: 10 }, zoomable: true });
+        window.__tl = timeline;
+        timeline.on('select', function (p) { const id = p.items[0]; document.getElementById('info').innerHTML = id ? info[id] : "Click a milestone for its deliverables."; });
+        let hi = false;
+        document.getElementById('svcBtn').onclick = function () {
+            hi = !hi; this.classList.toggle('active', hi);
+            items.update({ id: 'M5', style: hi ? 'background-color:#c0392b;color:#fff;border-color:#8a2a20;' : amber });
+            items.update({ id: 'M2', style: hi ? flag : teal });
+            document.getElementById('info').innerHTML = hi
+                ? "Highlighted: <b>M5</b> introduces every managed service from this chapter; <b>M2</b> (flagged) is where the Neo4j licensing decision is due."
+                : "Click a milestone for its deliverables.";
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "title": "The Start/Pause Dwell Pattern",
+  "description": "Let the learner trace a MicroSim's Start/Pause lifecycle through four branches \u2014 normal Pause, tab hidden while running, sub-250ms run, walk-away-with-no-pause \u2014 and predict which emits an Experienced Verb statement.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "start-pause-dwell-pattern-workflow",
+  "library": "Mermaid",
+  "bloomLevel": "Apply (L3)",
+  "bloomVerb": "trace, predict",
+  "completion_status": "implemented",
+  "chapter_number": 32,
+  "chapter_title": "The Producer Contract: Writing Conformant Statements",
+  "chapter_dir": "32-producer-contract-conformant-statements",
+  "chapter_rel_dir": "chapters/32-producer-contract-conformant-statements",
+  "canvasHeight": 560
+}

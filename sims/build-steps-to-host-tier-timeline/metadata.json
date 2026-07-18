@@ -1,0 +1,24 @@
+{
+  "title": "Build Steps to Development Host Tier",
+  "description": "Match each of the five MVP build steps to the minimum development host tier that can prove it, and recognize that only the final step \u2014 the burst-throughput proof \u2014 requires the Recommended tier.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "build-steps-to-host-tier-timeline",
+  "library": "vis-timeline",
+  "bloomLevel": "Understand (L2)",
+  "bloomVerb": "sequence, match",
+  "completion_status": "implemented",
+  "chapter_number": 21,
+  "chapter_title": "Hardware Sizing, Cost, and the Development Environment",
+  "chapter_dir": "21-hardware-cost-dev-environment",
+  "chapter_rel_dir": "chapters/21-hardware-cost-dev-environment",
+  "canvasHeight": 400
+}

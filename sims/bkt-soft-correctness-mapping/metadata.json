@@ -1,0 +1,24 @@
+{
+  "title": "From Raw Evidence to Soft Correctness",
+  "description": "Let the learner evaluate how different raw evidence signals (a graded quiz answer, dwell time on a page, MicroSim interaction depth) map to a soft correctness value and a blending weight, and differentiate why non-binary evidence should count for less than a graded response.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "bkt-soft-correctness-mapping",
+  "library": "p5.js",
+  "bloomLevel": "Analyze (L4)",
+  "bloomVerb": "evaluate, differentiate",
+  "completion_status": "implemented",
+  "chapter_number": 12,
+  "chapter_title": "Bayesian Knowledge Tracing for Mastery",
+  "chapter_dir": "12-bayesian-knowledge-tracing",
+  "chapter_rel_dir": "chapters/12-bayesian-knowledge-tracing",
+  "canvasHeight": 460
+}

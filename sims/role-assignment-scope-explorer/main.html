@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Role vs Scope Explorer</title>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="graph-panel">
+            <div id="network"></div>
+            <div class="title">Same Role, Different Scope</div>
+        </div>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a node to see details</p></div>
+        </div>
+    </div>
+    <script>
+        const USER = { background: '#efe7d2', border: '#c9bb93' };
+        const ROLE = { background: '#2a9d8f', border: '#1f7a6f' };
+        const SCOPE = { background: '#e9a23b', border: '#b8791f' };
+        const dark = { color: '#3a2c10' };
+        window.GRAPH = {
+            layout: 'physics',
+            nodes: [
+                { id: 'Ada', label: 'Ada', color: USER, font: dark },
+                { id: 'Ben', label: 'Ben', color: USER, font: dark },
+                { id: 'Chi', label: 'Chi', color: USER, font: dark },
+                { id: 'Dev', label: 'Dev', color: USER, font: dark },
+                { id: 'Eli', label: 'Eli', color: USER, font: dark },
+                { id: 'DA', label: 'District Administrator', color: ROLE },
+                { id: 'SA', label: 'School Administrator', color: ROLE },
+                { id: 'IN', label: 'Instructor', color: ROLE },
+                { id: 'Riverbend', label: 'Riverbend Unified (District)', color: SCOPE, font: { color: '#222' } },
+                { id: 'Lincoln', label: 'Lincoln Middle School', color: SCOPE, font: { color: '#222' } },
+                { id: 'Cedar', label: 'Cedar Heights Middle School', color: SCOPE, font: { color: '#222' } },
+                { id: 'Bio', label: 'Section: Biology 101, P3', color: SCOPE, font: { color: '#222' } },
+                { id: 'Alg', label: 'Section: Algebra I, P5', color: SCOPE, font: { color: '#222' } }
+            ],
+            edges: [
+                { from: 'Ada', to: 'DA' }, { from: 'DA', to: 'Riverbend' },
+                { from: 'Ben', to: 'SA' }, { from: 'SA', to: 'Lincoln' },
+                { from: 'Eli', to: 'SA' }, { from: 'SA', to: 'Cedar' },
+                { from: 'Chi', to: 'IN' }, { from: 'IN', to: 'Bio' },
+                { from: 'Dev', to: 'IN' }, { from: 'IN', to: 'Alg' }
+            ],
+            nodeInfo: {
+                'Ada': { title: 'Ada', description: "This account's role is District Administrator and its scope is Riverbend Unified." },
+                'Ben': { title: 'Ben', description: "This account's role is School Administrator and its scope is Lincoln Middle School. Same role as Eli, different scope." },
+                'Chi': { title: 'Chi', description: "This account's role is Instructor and its scope is Section: Biology 101, Period 3." },
+                'Dev': { title: 'Dev', description: "This account's role is Instructor and its scope is Section: Algebra I, Period 5." },
+                'Eli': { title: 'Eli', description: "This account's role is School Administrator and its scope is Cedar Heights Middle School. Same role as Ben, different scope." },
+                'DA': { title: 'District Administrator (role)', description: 'A fixed set of capabilities: manage schools, courses, sections, rosters, and reports within one district. The role is the same for anyone who holds it &mdash; the scope decides which district.' },
+                'SA': { title: 'School Administrator (role)', description: 'A fixed capability set scoped to one school. Ben and Eli both hold this SAME role, but their scopes differ &mdash; so they are authorized for different data.' },
+                'IN': { title: 'Instructor (role)', description: 'A fixed capability set: view and manage one&rsquo;s own sections. Chi and Dev share this role but see different sections.' },
+                'Riverbend': { title: 'Riverbend Unified (scope)', description: 'A district-level scope in the tenancy hierarchy. Ada&rsquo;s District Administrator role applies here.' },
+                'Lincoln': { title: 'Lincoln Middle School (scope)', description: "A school-level scope. Ben's School Administrator role applies here. Same role, different scope: Ben cannot see Cedar Heights, and Eli cannot see Lincoln." },
+                'Cedar': { title: 'Cedar Heights Middle School (scope)', description: "A school-level scope. Eli's School Administrator role applies here. Same role, different scope: Eli cannot see Lincoln, and Ben cannot see Cedar Heights." },
+                'Bio': { title: 'Section: Biology 101 (scope)', description: 'A section-level scope in the tenancy hierarchy. Chi&rsquo;s Instructor role applies to just this section.' },
+                'Alg': { title: 'Section: Algebra I (scope)', description: 'A section-level scope. Dev&rsquo;s Instructor role applies to just this section.' }
+            }
+        };
+    </script>
+    <script src="vis-app.js"></script>
+</body>
+</html>

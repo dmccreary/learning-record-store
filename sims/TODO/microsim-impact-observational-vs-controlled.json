@@ -1,0 +1,15 @@
+{
+  "sim_id": "microsim-impact-observational-vs-controlled",
+  "diagram_name": "MicroSim Impact — Observational Delta vs. a Controlled Effect",
+  "chapter_number": 30,
+  "chapter_title": "Textbook Author Dashboards and Content Reports",
+  "chapter_dir": "30-author-dashboards-content-reports",
+  "chapter_rel_dir": "chapters/30-author-dashboards-content-reports",
+  "library": "p5.js",
+  "bloom_level": "Evaluate (L5)",
+  "bloom_verb": "judge, justify",
+  "learning_objective": "Let the learner evaluate why an observational mastery delta between MicroSim users and non-users can be confounded by a hidden third factor, and justify why only a controlled experiment can support a causal claim about the MicroSim's effect.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: chart\n**sim-id:** microsim-impact-observational-vs-controlled<br/>\n**Library:** p5.js<br/>\n**Status:** Specified\n**Template:** https://github.com/dmccreary/theory-of-knowledge/tree/main/docs/sims/correlation-causation<br/>\n\nBloom Taxonomy: Evaluate (L5)\nBloom Taxonomy Verb: judge, justify\n\nLearning objective: Let the learner evaluate why an observational mastery delta between MicroSim users and non-users can be confounded by a hidden third factor, and justify why only a controlled experiment can support a causal claim about the MicroSim's effect.\n\nCanvas layout: Two side-by-side panels. The left panel shows a simple bar comparison — \"Used the MicroSim\" versus \"Skipped the MicroSim\" — each bar's height set by mean mastery score, with a visible gap between them labeled \"Observed Delta.\" The right panel shows the same two groups after a third variable, \"Prior Mastery Band,\" is revealed as a `createSlider()`-controlled toggle: when toggled on, both groups split into low/medium/high prior-mastery sub-bars, and the gap in the left panel visibly shrinks or reverses within each sub-band.\n\nInteractive features: A \"Reveal confound\" button animates the transition from the left panel's simple comparison to the right panel's stratified view. Hovering any bar shows the exact mean mastery score and student count behind it. A caption below the chart updates dynamically: before the reveal, \"Naive comparison: MicroSim users score higher\"; after the reveal, \"Within each prior-mastery band, the gap shrinks — the naive comparison was partly measuring who was already stronger, not what the MicroSim taught.\"\n\nColor coding: Both groups shaded in neutral gray-blue before the reveal; after the reveal, prior-mastery sub-bands shaded on a light-to-dark scale to visually separate the confound from the outcome measure.\n\nResponsive design: The two panels stack vertically on narrow viewports instead of appearing side by side, with the \"Reveal confound\" button remaining full-width and easy to tap."
+}

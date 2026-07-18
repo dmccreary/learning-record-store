@@ -1,0 +1,24 @@
+{
+  "title": "The AB Test Lifecycle",
+  "description": "Let the learner sequence the states an experiment moves through \u2014 draft, running, paused, concluded, archived \u2014 and identify which transitions are reversible versus terminal.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "ab-test-lifecycle-states",
+  "library": "Mermaid",
+  "bloomLevel": "Understand (L2)",
+  "bloomVerb": "sequence, summarize",
+  "completion_status": "implemented",
+  "chapter_number": 31,
+  "chapter_title": "Designing and Reading A/B Experiments",
+  "chapter_dir": "31-designing-ab-experiments",
+  "chapter_rel_dir": "chapters/31-designing-ab-experiments",
+  "canvasHeight": 560
+}

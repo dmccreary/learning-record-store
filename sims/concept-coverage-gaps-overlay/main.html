@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Concept Coverage Gaps Overlay</title>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="graph-panel">
+            <div id="network"></div>
+            <div class="title">Coverage Gaps &mdash; shaded by evidence count</div>
+        </div>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a concept to see its evidence count</p></div>
+        </div>
+    </div>
+    <script>
+        // Well-covered: solid teal. Low-evidence: pale outline. Zero-evidence: dashed red outline.
+        const WELL = { background: '#2a9d8f', border: '#1f7a6f' };
+        const LOW = { background: '#eaf6f4', border: '#5cbcb0' };
+        const ZERO = { background: '#fdeaea', border: '#e05a5a' };
+        const darkLow = { color: '#0c2f2b' };
+        const darkZero = { color: '#7a2b2b' };
+        window.GRAPH = {
+            layout: 'hierarchical', direction: 'LR',
+            nodes: [
+                { id: 'Cells', label: 'Cells (evidence 420)', color: WELL },
+                { id: 'Membrane', label: 'Cell Membrane (evidence 310)', color: WELL },
+                { id: 'Transport', label: 'Transport (evidence 24)', color: LOW, font: darkLow },
+                { id: 'Osmosis', label: 'Osmosis (evidence 3)', color: LOW, font: darkLow },
+                { id: 'ActiveT', label: 'Active Transport (evidence 0)', color: ZERO, font: darkZero, shapeProperties: { borderDashes: [6, 4] }, borderWidth: 3 },
+                { id: 'Respiration', label: 'Cellular Respiration (evidence 260)', color: WELL },
+                { id: 'ATP', label: 'ATP Synthesis (evidence 0)', color: ZERO, font: darkZero, shapeProperties: { borderDashes: [6, 4] }, borderWidth: 3 }
+            ],
+            edges: [
+                { from: 'Membrane', to: 'Cells', label: 'DEPENDS_ON' },
+                { from: 'Transport', to: 'Membrane', label: 'DEPENDS_ON' },
+                { from: 'Osmosis', to: 'Transport', label: 'DEPENDS_ON' },
+                { from: 'ActiveT', to: 'Transport', label: 'DEPENDS_ON' },
+                { from: 'Respiration', to: 'Cells', label: 'DEPENDS_ON' },
+                { from: 'ATP', to: 'Respiration', label: 'DEPENDS_ON' }
+            ],
+            nodeInfo: {
+                'Cells': { title: 'Cells &mdash; well covered', description: 'Evidence count 420 (PageEngagement + MicroSimEngagement + QuestionResponse vertices via COVERS edges). Solid teal fill = plenty of evidence. This is NOT a coverage gap.' },
+                'Membrane': { title: 'Cell Membrane &mdash; well covered', description: 'Evidence 310. Well-covered. A mastery gap could still exist here (students struggling despite content) &mdash; that is a DIFFERENT gap, shown by the mastery overlay.' },
+                'Transport': { title: 'Transport &mdash; low evidence', description: 'Evidence 24 &mdash; pale outline. Some content and engagement exist, but thin. Worth watching, not yet a hole.' },
+                'Osmosis': { title: 'Osmosis &mdash; low evidence', description: 'Evidence 3 &mdash; nearly a gap. Almost no engagement flows through this prerequisite.' },
+                'ActiveT': { title: 'Active Transport &mdash; ZERO evidence (coverage gap)', description: 'Evidence 0 &mdash; dashed red outline. A true COVERAGE gap: no content or no engagement references this concept at all. Distinct from a mastery gap, where content exists but students are not learning it.' },
+                'Respiration': { title: 'Cellular Respiration &mdash; well covered', description: 'Evidence 260. Well-covered. Its downstream ATP Synthesis, however, is a gap.' },
+                'ATP': { title: 'ATP Synthesis &mdash; ZERO evidence (coverage gap)', description: 'Evidence 0 &mdash; dashed red outline. A coverage gap sitting downstream of a well-covered prerequisite: the content exists to reach it, but nothing covers ATP Synthesis itself.' }
+            }
+        };
+    </script>
+    <script src="vis-app.js"></script>
+</body>
+</html>

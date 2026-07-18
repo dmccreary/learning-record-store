@@ -1,0 +1,15 @@
+{
+  "sim_id": "build-steps-to-host-tier-timeline",
+  "diagram_name": "Build Steps to Development Host Tier",
+  "chapter_number": 21,
+  "chapter_title": "Hardware Sizing, Cost, and the Development Environment",
+  "chapter_dir": "21-hardware-cost-dev-environment",
+  "chapter_rel_dir": "chapters/21-hardware-cost-dev-environment",
+  "library": "vis-timeline",
+  "bloom_level": "Understand (L2)",
+  "bloom_verb": "sequence, match",
+  "learning_objective": "Match each of the five MVP build steps to the minimum development host tier that can prove it, and recognize that only the final step — the burst-throughput proof — requires the Recommended tier.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: timeline\n**sim-id:** build-steps-to-host-tier-timeline<br/>\n**Library:** vis-timeline<br/>\n**Status:** Specified\n\nBloom Taxonomy: Understand (L2)\nBloom Taxonomy Verb: sequence, match\n\nLearning objective: Match each of the five MVP build steps to the minimum development host tier that can prove it, and recognize that only the final step — the burst-throughput proof — requires the Recommended tier.\n\nTime period: Not calendar time — five sequential build steps, rendered as five contiguous blocks in build order.\n\nOrientation: Horizontal, left to right, each block labeled with its step number and headline task.\n\nEvents:\n\n- Step 1: Foundation, bootstrap, infrastructure validation — host tier: Minimum; backing services only, no image needed yet\n- Step 2: Ingest path (gateway to processor to ClickHouse) — host tier: Minimum; full stack, low volume\n- Step 3: Load generator at the contract shape — host tier: Minimum to Recommended; 200 statements/sec baseline\n- Step 4: Compression, graph, and mastery correctness — host tier: Minimum; correctness proofs hold at any volume\n- Step 5: The burst-throughput proof (200 to 1,000 statements/sec) — host tier: Recommended (16 GB, local NVMe); the measurement this stack exists to produce\n\nInteractive features: Clicking a step block opens an infobox with its full description and required tier. A \"Minimum vs. Recommended\" toggle recolors all five blocks to show that four of five steps fit on the smallest host and only the last needs the larger one.\n\nVisual style: Blocks 1–4 shaded calm teal (\"fits on Minimum\"); block 5 shaded amber to flag its stricter requirement.\n\nResponsive design: The timeline resizes to its container's width; on narrow viewports, labels abbreviate to step number and expand on tap."
+}

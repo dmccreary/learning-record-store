@@ -1,0 +1,15 @@
+{
+  "sim_id": "build-cache-rebuild-times",
+  "diagram_name": "Rebuild Time by Scenario and Cache State",
+  "chapter_number": 16,
+  "chapter_title": "The Container Image and the Role Dispatcher CLI",
+  "chapter_dir": "16-container-image-and-cli",
+  "chapter_rel_dir": "chapters/16-container-image-and-cli",
+  "library": "Chart.js",
+  "bloom_level": "Evaluate (L5)",
+  "bloom_verb": "determine, justify",
+  "learning_objective": "Given three rebuild scenarios, determine which of ordinary layer caching versus the build cache mount is responsible for the time saved in each case.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: chart\n**sim-id:** build-cache-rebuild-times<br/>\n**Library:** Chart.js<br/>\n**Status:** Specified\n\nBloom Taxonomy: Evaluate (L5)\nBloom Taxonomy Verb: determine, justify\n\nLearning objective: Given three rebuild scenarios, determine which of ordinary layer caching versus the build cache mount is responsible for the time saved in each case.\n\nPurpose: A grouped bar chart comparing simulated rebuild wall-clock time across three scenarios, each with and without the uv cache mount, isolating the mount's effect from ordinary layer-skipping.\n\nData (illustrative, labeled as representative, not measured): Scenario 1 \"Code only changed (layer skip applies)\" -- with mount 8s, without 9s (dependency layer is skipped entirely either way). Scenario 2 \"uv.lock changed (dependency layer reruns)\" -- with mount 12s, without 65s (mount reuses already-downloaded packages). Scenario 3 \"Cold machine, no prior cache\" -- with mount 70s, without 70s (nothing cached yet to reuse).\n\nControls: Toggle \"Absolute seconds / Multiple of fastest\"; dropdown to highlight one scenario's bars while the others dim to 40% opacity.\n\nInteractive features: Hovering or clicking a bar opens a tooltip explaining, in one sentence, why that bar has its value. Scenario 3's tooltip notes a cache mount cannot help a build with nothing cached yet.\n\nColor coding: \"With cache mount\" bars in the book's teal accent color; \"without\" bars in muted gray, so Scenario 2's size difference reads immediately as the mount's payoff.\n\nResponsive design: Legend moves below the plot on narrow viewports; bar labels rotate rather than overlap."
+}

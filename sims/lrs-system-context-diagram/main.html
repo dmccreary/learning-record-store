@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>LRS System Context Diagram</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' }
+        });
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="diagram-panel">
+            <div class="mermaid">
+flowchart TB
+    Textbooks["Intelligent Textbooks<br/><small>thousands, concurrent</small>"]:::ext
+    subgraph LRS["Learning Record Store"]
+        direction TB
+        Ingestion["Ingestion Plane"]:::p1
+        Processing["Processing Plane"]:::p2
+        Storage["Storage Plane"]:::p3
+        Analytics["Analytics Plane"]:::p4
+        Presentation["Presentation Plane"]:::p5
+        Ingestion -->|durably queued statements| Processing
+        Processing -->|validated + enriched events| Storage
+        Storage -->|aggregated queries| Analytics
+        Analytics -->|rendered reports| Presentation
+    end
+    Instructors["Instructors"]:::ext
+    Admins["District &amp; System Admins"]:::ext
+    Textbooks -->|xAPI statements| Ingestion
+    Presentation -->|dashboards| Instructors
+    Presentation -->|admin UIs| Admins
+
+    classDef ext fill:#9aa7b4,stroke:#5f6e82,color:#fff,font-size:15px
+    classDef p1 fill:#0f5c53,stroke:#0a3f39,color:#fff,font-size:15px
+    classDef p2 fill:#1a7f72,stroke:#12695f,color:#fff,font-size:15px
+    classDef p3 fill:#2a9d8f,stroke:#1f7a6f,color:#fff,font-size:15px
+    classDef p4 fill:#5cbcb0,stroke:#3bab9d,color:#08312c,font-size:15px
+    classDef p5 fill:#a7ddd5,stroke:#5cbcb0,color:#08312c,font-size:15px
+    linkStyle default stroke:#999,stroke-width:2px
+            </div>
+        </div>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display">
+                <p class="info-placeholder">Click an actor or plane to see details</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const nodeInfo = {
+            'Textbooks': { title: 'Intelligent Textbooks (external)', description: 'The Learning Record Providers. Thousands of textbook instances run concurrently, each POSTing xAPI statements across the system boundary into the Ingestion Plane.' },
+            'Instructors': { title: 'Instructors (external)', description: 'Dashboard viewers. They receive rendered dashboards from the Presentation Plane &mdash; class rosters, mastery views, at-risk flags.' },
+            'Admins': { title: 'District &amp; System Admins (external)', description: 'Administrators. They receive admin UIs and reports from the Presentation Plane for roster management, privacy controls, and system health.' },
+            'Ingestion': { title: 'Ingestion Plane', description: 'The front door. Accepts and validates xAPI statements, then durably queues them. Components: Ingestion Gateway, Durable Event Queue. What crosses the boundary inward: xAPI statements.' },
+            'Processing': { title: 'Processing Plane', description: 'Turns raw statements into enriched events. Components: Stream Processor, enrichment/pseudonymization. It resolves learners and attaches section and concept context.' },
+            'Storage': { title: 'Storage Plane', description: 'The durable, queryable home of the log. Components: Event Store (ClickHouse) and the compressed summary graph (Neo4j).' },
+            'Analytics': { title: 'Analytics Plane', description: 'Answers questions over the stored events. Components: the five APIs (including the Roster API) and aggregation/query services that produce mastery and progress rollups.' },
+            'Presentation': { title: 'Presentation Plane', description: 'Renders results for people. Components: dashboards and admin UIs. What crosses the boundary outward: dashboards to instructors and admin UIs to administrators.' }
+        };
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "title": "Threshold and Complementary Suppression Simulator",
+  "description": "Given a small table of per-mastery-band student counts and a row total, let the learner determine which cells Threshold Suppression hides and which additional cell Complementary Suppression must hide to prevent the first suppression from being recovered by subtraction.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "threshold-complementary-suppression-simulator",
+  "library": "p5.js",
+  "bloomLevel": "Evaluate (L5)",
+  "bloomVerb": "determine, justify",
+  "completion_status": "implemented",
+  "chapter_number": 15,
+  "chapter_title": "Privacy Enforcement and Dashboard Mechanics",
+  "chapter_dir": "15-privacy-and-dashboard-mechanics",
+  "chapter_rel_dir": "chapters/15-privacy-and-dashboard-mechanics",
+  "canvasHeight": 470
+}

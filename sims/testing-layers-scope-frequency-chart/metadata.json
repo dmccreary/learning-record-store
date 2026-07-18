@@ -1,0 +1,24 @@
+{
+  "title": "Testing Layers by Scope and Run Frequency",
+  "description": "Compare the eight testing layers by how much of the system each exercises and how often each runs, and justify why the widest-scope layer is also the least frequent.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "testing-layers-scope-frequency-chart",
+  "library": "Chart.js",
+  "bloomLevel": "Evaluate (L5)",
+  "bloomVerb": "compare, justify",
+  "completion_status": "implemented",
+  "chapter_number": 19,
+  "chapter_title": "Failure Modes and Verification",
+  "chapter_dir": "19-failure-modes-and-verification",
+  "chapter_rel_dir": "chapters/19-failure-modes-and-verification",
+  "canvasHeight": 450
+}

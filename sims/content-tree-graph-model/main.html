@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Content Tree Graph Model</title>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="graph-panel">
+            <div id="network"></div>
+            <div class="title">Content Tree &mdash; Graph Data Model (spec &sect;4.1&ndash;4.2)</div>
+        </div>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a node to see details</p></div>
+        </div>
+    </div>
+    <script>
+        const A = { background: '#3d5a80', border: '#293f5c' };   // Textbook family
+        const B = { background: '#5aa0c4', border: '#3a7091' };   // Chapter/Page
+        const C = { background: '#7b6cc4', border: '#544a91' };   // MicroSim/Quiz/Question
+        const T = { background: '#2a9d8f', border: '#1f7a6f' };   // Concept (bridge)
+        window.GRAPH = {
+            layout: 'hierarchical', direction: 'UD',
+            nodes: [
+                { id: 'Textbook', label: 'Textbook', color: A },
+                { id: 'TextbookVersion', label: 'TextbookVersion', color: A },
+                { id: 'Chapter', label: 'Chapter', color: B },
+                { id: 'Page', label: 'Page', color: B },
+                { id: 'MicroSim', label: 'MicroSim', color: C },
+                { id: 'MicroSimVersion', label: 'MicroSimVersion', color: C },
+                { id: 'Quiz', label: 'Quiz', color: C },
+                { id: 'Question', label: 'Question', color: C },
+                { id: 'Concept', label: 'Concept', color: T, borderWidth: 4 }
+            ],
+            edges: [
+                { from: 'TextbookVersion', to: 'Textbook', label: 'VERSION_OF' },
+                { from: 'Textbook', to: 'Chapter', label: 'CONTAINS' },
+                { from: 'Chapter', to: 'Page', label: 'CONTAINS' },
+                { from: 'Page', to: 'MicroSim', label: 'EMBEDS' },
+                { from: 'Page', to: 'Quiz', label: 'EMBEDS' },
+                { from: 'MicroSim', to: 'MicroSimVersion', label: 'HAS_VERSION' },
+                { from: 'Quiz', to: 'Question', label: 'CONTAINS' },
+                { from: 'Page', to: 'Concept', label: 'COVERS' },
+                { from: 'MicroSim', to: 'Concept', label: 'COVERS' },
+                { from: 'Question', to: 'Concept', label: 'COVERS' }
+            ],
+            nodeInfo: {
+                'Textbook': { title: 'Textbook', description: 'The top of the content tree. Key properties: <code>textbook_id</code>, <code>title</code>. A Textbook has many TextbookVersions and CONTAINS Chapters.' },
+                'TextbookVersion': { title: 'TextbookVersion', description: 'A specific published version. <code>VERSION_OF</code> &rarr; Textbook. Key properties: <code>version_id</code>, <code>git_sha</code>, <code>published_at</code>.' },
+                'Chapter': { title: 'Chapter', description: 'A chapter within the textbook. <code>CONTAINS</code> Pages. Key properties: <code>chapter_id</code>, <code>number</code>, <code>title</code>.' },
+                'Page': { title: 'Page', description: 'A page within a chapter. It EMBEDS MicroSims and Quizzes and COVERS Concepts. Key properties: <code>page_id</code>, <code>slug</code>.' },
+                'MicroSim': { title: 'MicroSim', description: 'An interactive sim embedded on a Page. HAS_VERSION MicroSimVersions and COVERS Concepts. Key properties: <code>microsim_id</code>, <code>type</code>.' },
+                'MicroSimVersion': { title: 'MicroSimVersion', description: 'A specific version of a MicroSim. <code>HAS_VERSION</code> from MicroSim. Key properties: <code>version_id</code>, <code>git_sha</code>.' },
+                'Quiz': { title: 'Quiz', description: 'A quiz embedded on a Page. CONTAINS Questions. Key properties: <code>quiz_id</code>.' },
+                'Question': { title: 'Question', description: 'A question within a Quiz. COVERS Concepts. Key properties: <code>question_id</code>, <code>stem</code>, <code>bloom_level</code>.' },
+                'Concept': { title: 'Concept (the bridge)', description: 'The bridge into the learning graph proper. Pages, MicroSims, and Questions all COVER Concepts, tying content to the DEPENDS_ON concept DAG. Key properties: <code>concept_id</code>, <code>label</code>, <code>taxonomy_id</code>.' }
+            }
+        };
+    </script>
+    <script src="vis-app.js"></script>
+</body>
+</html>

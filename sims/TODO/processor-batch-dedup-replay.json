@@ -1,0 +1,15 @@
+{
+  "sim_id": "processor-batch-dedup-replay",
+  "diagram_name": "Processor Batch Loop — Dedup, Score, and Replay",
+  "chapter_number": 13,
+  "chapter_title": "Component Design in Depth",
+  "chapter_dir": "13-component-design-in-depth",
+  "chapter_rel_dir": "chapters/13-component-design-in-depth",
+  "library": "Mermaid",
+  "bloom_level": "Analyze (L4)",
+  "bloom_verb": "trace, differentiate",
+  "learning_objective": "Let the learner trace a batch of statements through the processor's Kafka Consumer Batch Window, ReplacingMergeTree Dedup, and BKT Streaming Update, then differentiate the ordinary redelivery path from the late-arrival path that triggers a Targeted Replay Command.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: workflow\n**sim-id:** processor-batch-dedup-replay<br/>\n**Library:** Mermaid<br/>\n**Status:** Specified\n\nBloom Taxonomy: Analyze (L4)\nBloom Taxonomy Verb: trace, differentiate\n\nLearning objective: Let the learner trace a batch of statements through the processor's Kafka Consumer Batch Window, ReplacingMergeTree Dedup, and BKT Streaming Update, then differentiate the ordinary redelivery path from the late-arrival path that triggers a Targeted Replay Command.\n\nPurpose: Show a Mermaid flowchart with a main loop and one branch for the late-arrival exception.\n\nNodes: \"Consume batch: up to 1,000 statements or 200ms (Kafka Consumer Batch Window)\" leads to \"Pseudonymize + resolve + enrich\" leads to \"BKT Streaming Update per (student, concept), in partition order\" leads to \"Write batch to ClickHouse; ReplacingMergeTree Dedup absorbs any redelivered rows\" leads to \"Checkpoint mastery state to Compacted State Checkpoint topic\" leads to \"Commit Kafka offset\". A separate branch from \"Consume batch\": \"Late Arrival Detector flags a statement far behind the watermark\" leads to \"Enqueue Targeted Replay Command scoped to (student, concept)\" leads to \"Recompute mastery trajectory in order, directly from the ClickHouse log\" leads back into \"Checkpoint mastery state\".\n\nInteractive features: Every node has a Mermaid click directive opening a definition infobox, with the dedup and BKT nodes' infoboxes explicitly contrasting idempotent-by-construction against order-sensitive. A toggle labeled \"Show why order matters\" highlights the BKT node and the late-arrival branch in a shared color, dimming the rest of the diagram.\n\nColor coding: The main loop in the book's teal accent color; the late-arrival branch in amber to flag it as the exception path; the Compacted State Checkpoint node in a distinct violet since it is a durability mechanism rather than a processing step.\n\nResponsive design: Flowchart resizes to the width of its containing element; the late-arrival branch collapses beneath the main loop on narrow viewports rather than sitting beside it."
+}

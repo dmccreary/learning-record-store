@@ -1,0 +1,3810 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="An intelligent textbook on Learning Record Stores: what they are, how xAPI statements work, and how to design, deploy, and query an LRS.">
+      
+      
+        <meta name="author" content="Dan McCreary">
+      
+      
+        <link rel="canonical" href="https://dmccreary.github.io/learning-record-store/stories/story-ideas-antigravity/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../story-ideas-chatgpt/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
+    
+    
+      
+        <title>LRS Graphic Novel Story Ideas - Learning Record Store</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/extra.css">
+    
+      <link rel="stylesheet" href="../../css/mascot.css">
+    
+      <link rel="stylesheet" href="../../css/lrs-xapi.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#learning-record-store-graphic-novel-story-ideas" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Learning Record Store" class="md-header__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  <img src="../../img/mascot/neutral.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Learning Record Store
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              LRS Graphic Novel Story Ideas
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Learning Record Store" class="md-nav__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  <img src="../../img/mascot/neutral.png" alt="logo">
+
+    </a>
+    Learning Record Store
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../course-description/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Course Description
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Stories
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../chapters/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Chapters
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../learning-graph/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Learning Graph
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../sims/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    MicroSims
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Stories
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_8" id="__nav_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Stories
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../story-ideas-claude/index.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LRS Graphic Novel Stories Claude
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    LRS Graphic Novel Story Ideas
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    LRS Graphic Novel Story Ideas
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#part-1-the-school-district-district-level-benefits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 1: The School District (District-Level Benefits)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 1: The School District (District-Level Benefits)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#story-1-redirection-of-resources-equity-funding" class="md-nav__link">
+    <span class="md-ellipsis">
+      Story 1: Redirection of Resources (Equity &amp; Funding)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Story 1: Redirection of Resources (Equity & Funding)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#panel-1-the-alert" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 1: The Alert
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-2-deploying-the-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 2: Deploying the Support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-3-the-turnaround" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 3: The Turnaround
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#story-2-curriculum-selection-audit-ab-testing-at-scale" class="md-nav__link">
+    <span class="md-ellipsis">
+      Story 2: Curriculum Selection Audit (A/B Testing at Scale)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Story 2: Curriculum Selection Audit (A/B Testing at Scale)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#panel-1-the-board-debate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 1: The Board Debate
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-2-the-data-verdict" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 2: The Data Verdict
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-3-the-confident-purchase" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 3: The Confident Purchase
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#story-3-early-warning-system-dropout-prevention" class="md-nav__link">
+    <span class="md-ellipsis">
+      Story 3: Early Warning System (Dropout Prevention)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Story 3: Early Warning System (Dropout Prevention)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#panel-1-predicting-the-fall" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 1: Predicting the Fall
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-2-the-proactive-outreach" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 2: The Proactive Outreach
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-3-success-at-the-stage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 3: Success at the Stage
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-2-the-teacher-classroom-level-benefits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 2: The Teacher (Classroom-Level Benefits)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 2: The Teacher (Classroom-Level Benefits)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#story-4-the-next-mornings-pivot-just-in-time-lesson-planning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Story 4: The Next Morning's Pivot (Just-In-Time Lesson Planning)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Story 4: The Next Morning's Pivot (Just-In-Time Lesson Planning)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#panel-1-the-midnight-heatmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 1: The Midnight Heatmap
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-2-the-classroom-pivot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 2: The Classroom Pivot
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-3-the-lightbulb-moment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 3: The Lightbulb Moment
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#story-5-dynamic-peer-tutoring-differentiated-grouping" class="md-nav__link">
+    <span class="md-ellipsis">
+      Story 5: Dynamic Peer Tutoring (Differentiated Grouping)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Story 5: Dynamic Peer Tutoring (Differentiated Grouping)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#panel-1-mapping-the-masters-and-learners" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 1: Mapping the Masters and Learners
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-2-peer-to-peer-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 2: Peer-to-Peer Learning
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-3-double-success" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 3: Double Success
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#story-6-uncovering-the-quiet-struggle-engagement-vs-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Story 6: Uncovering the Quiet Struggle (Engagement vs. Performance)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Story 6: Uncovering the Quiet Struggle (Engagement vs. Performance)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#panel-1-the-hidden-struggle" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 1: The Hidden Struggle
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-2-the-supportive-chat" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 2: The Supportive Chat
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-3-confidence-regained" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 3: Confidence Regained
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-3-the-intelligent-textbook-designer-content-optimization-benefits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 3: The Intelligent Textbook Designer (Content Optimization Benefits)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 3: The Intelligent Textbook Designer (Content Optimization Benefits)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#story-7-fixing-the-broken-interactive-interactive-microsim-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Story 7: Fixing the Broken Interactive (Interactive MicroSim Optimization)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Story 7: Fixing the Broken Interactive (Interactive MicroSim Optimization)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#panel-1-the-funnel-cliff" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 1: The Funnel Cliff
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-2-the-ui-friction-identified" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 2: The UI Friction Identified
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-3-the-smooth-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 3: The Smooth Flow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#story-8-prerequisite-graph-correction-prerequisite-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Story 8: Prerequisite Graph Correction (Prerequisite Optimization)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Story 8: Prerequisite Graph Correction (Prerequisite Optimization)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#panel-1-the-genetic-block" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 1: The Genetic Block
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-2-the-missing-link" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 2: The Missing Link
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-3-perfect-alignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 3: Perfect Alignment
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#story-9-ab-testing-explanations-explanatory-content-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Story 9: A/B Testing Explanations (Explanatory Content Optimization)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Story 9: A/B Testing Explanations (Explanatory Content Optimization)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#panel-1-the-experiment-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 1: The Experiment Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-2-the-data-stream" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 2: The Data Stream
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-3-publishing-the-winner" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 3: Publishing the Winner
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-4-the-student-personalized-learning-benefits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 4: The Student (Personalized Learning Benefits)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 4: The Student (Personalized Learning Benefits)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#story-10-mapping-the-confused-mind-personalized-learning-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      Story 10: Mapping the Confused Mind (Personalized Learning Graph)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Story 10: Mapping the Confused Mind (Personalized Learning Graph)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#panel-1-the-wall-of-confusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 1: The Wall of Confusion
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-2-the-map-revealed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 2: The Map Revealed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-3-clarity-and-relief" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 3: Clarity and Relief
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#story-11-the-interactive-remediation-loop-real-time-feedback" class="md-nav__link">
+    <span class="md-ellipsis">
+      Story 11: The Interactive Remediation Loop (Real-Time Feedback)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Story 11: The Interactive Remediation Loop (Real-Time Feedback)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#panel-1-the-wrong-balance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 1: The Wrong Balance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-2-the-direct-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 2: The Direct Guide
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-3-in-balance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 3: In Balance
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#story-12-learning-how-to-learn-metacognition-and-spacing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Story 12: Learning How to Learn (Metacognition and Spacing)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Story 12: Learning How to Learn (Metacognition and Spacing)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#panel-1-the-2-am-cram" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 1: The 2 AM Cram
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-2-the-dashboard-insight" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 2: The Dashboard Insight
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-3-spaced-and-ready" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 3: Spaced and Ready
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../story-ideas-chatgpt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LRS Feedback Story Ideas (ChatGPT)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../the-red-node-before-monday/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The Red Node Before Monday
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../the-simulation-everyone-escaped/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The Simulation Everyone Escaped
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../two-paths-through-the-storm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Two Paths Through the Storm
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../the-school-that-faded-from-the-map/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The School That Faded from the Map
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../the-question-with-two-right-answers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The Question with Two Right Answers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../the-case-of-the-missing-tuesday/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The Case of the Missing Tuesday
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../a-new-classroom-the-same-learning-journey/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A New Classroom, the Same Learning Journey
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../the-small-group-behind-the-curtain/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The Small Group Behind the Curtain
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reading-doing-and-the-empty-middle/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reading, Doing, and the Empty Middle
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../the-chapter-with-the-vanishing-ending/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The Chapter with the Vanishing Ending
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../the-three-versions-of-wednesday/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The Three Versions of Wednesday
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../the-evidence-council/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The Evidence Council
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../demo/graph-queries/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Demo
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../case-studies/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Case Studies
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Glossary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../license/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contact/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contact
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#part-1-the-school-district-district-level-benefits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 1: The School District (District-Level Benefits)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 1: The School District (District-Level Benefits)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#story-1-redirection-of-resources-equity-funding" class="md-nav__link">
+    <span class="md-ellipsis">
+      Story 1: Redirection of Resources (Equity &amp; Funding)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Story 1: Redirection of Resources (Equity & Funding)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#panel-1-the-alert" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 1: The Alert
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-2-deploying-the-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 2: Deploying the Support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-3-the-turnaround" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 3: The Turnaround
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#story-2-curriculum-selection-audit-ab-testing-at-scale" class="md-nav__link">
+    <span class="md-ellipsis">
+      Story 2: Curriculum Selection Audit (A/B Testing at Scale)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Story 2: Curriculum Selection Audit (A/B Testing at Scale)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#panel-1-the-board-debate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 1: The Board Debate
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-2-the-data-verdict" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 2: The Data Verdict
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-3-the-confident-purchase" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 3: The Confident Purchase
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#story-3-early-warning-system-dropout-prevention" class="md-nav__link">
+    <span class="md-ellipsis">
+      Story 3: Early Warning System (Dropout Prevention)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Story 3: Early Warning System (Dropout Prevention)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#panel-1-predicting-the-fall" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 1: Predicting the Fall
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-2-the-proactive-outreach" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 2: The Proactive Outreach
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-3-success-at-the-stage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 3: Success at the Stage
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-2-the-teacher-classroom-level-benefits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 2: The Teacher (Classroom-Level Benefits)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 2: The Teacher (Classroom-Level Benefits)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#story-4-the-next-mornings-pivot-just-in-time-lesson-planning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Story 4: The Next Morning's Pivot (Just-In-Time Lesson Planning)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Story 4: The Next Morning's Pivot (Just-In-Time Lesson Planning)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#panel-1-the-midnight-heatmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 1: The Midnight Heatmap
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-2-the-classroom-pivot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 2: The Classroom Pivot
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-3-the-lightbulb-moment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 3: The Lightbulb Moment
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#story-5-dynamic-peer-tutoring-differentiated-grouping" class="md-nav__link">
+    <span class="md-ellipsis">
+      Story 5: Dynamic Peer Tutoring (Differentiated Grouping)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Story 5: Dynamic Peer Tutoring (Differentiated Grouping)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#panel-1-mapping-the-masters-and-learners" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 1: Mapping the Masters and Learners
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-2-peer-to-peer-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 2: Peer-to-Peer Learning
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-3-double-success" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 3: Double Success
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#story-6-uncovering-the-quiet-struggle-engagement-vs-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Story 6: Uncovering the Quiet Struggle (Engagement vs. Performance)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Story 6: Uncovering the Quiet Struggle (Engagement vs. Performance)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#panel-1-the-hidden-struggle" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 1: The Hidden Struggle
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-2-the-supportive-chat" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 2: The Supportive Chat
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-3-confidence-regained" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 3: Confidence Regained
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-3-the-intelligent-textbook-designer-content-optimization-benefits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 3: The Intelligent Textbook Designer (Content Optimization Benefits)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 3: The Intelligent Textbook Designer (Content Optimization Benefits)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#story-7-fixing-the-broken-interactive-interactive-microsim-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Story 7: Fixing the Broken Interactive (Interactive MicroSim Optimization)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Story 7: Fixing the Broken Interactive (Interactive MicroSim Optimization)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#panel-1-the-funnel-cliff" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 1: The Funnel Cliff
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-2-the-ui-friction-identified" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 2: The UI Friction Identified
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-3-the-smooth-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 3: The Smooth Flow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#story-8-prerequisite-graph-correction-prerequisite-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Story 8: Prerequisite Graph Correction (Prerequisite Optimization)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Story 8: Prerequisite Graph Correction (Prerequisite Optimization)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#panel-1-the-genetic-block" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 1: The Genetic Block
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-2-the-missing-link" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 2: The Missing Link
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-3-perfect-alignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 3: Perfect Alignment
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#story-9-ab-testing-explanations-explanatory-content-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Story 9: A/B Testing Explanations (Explanatory Content Optimization)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Story 9: A/B Testing Explanations (Explanatory Content Optimization)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#panel-1-the-experiment-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 1: The Experiment Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-2-the-data-stream" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 2: The Data Stream
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-3-publishing-the-winner" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 3: Publishing the Winner
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-4-the-student-personalized-learning-benefits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part 4: The Student (Personalized Learning Benefits)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 4: The Student (Personalized Learning Benefits)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#story-10-mapping-the-confused-mind-personalized-learning-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      Story 10: Mapping the Confused Mind (Personalized Learning Graph)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Story 10: Mapping the Confused Mind (Personalized Learning Graph)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#panel-1-the-wall-of-confusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 1: The Wall of Confusion
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-2-the-map-revealed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 2: The Map Revealed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-3-clarity-and-relief" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 3: Clarity and Relief
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#story-11-the-interactive-remediation-loop-real-time-feedback" class="md-nav__link">
+    <span class="md-ellipsis">
+      Story 11: The Interactive Remediation Loop (Real-Time Feedback)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Story 11: The Interactive Remediation Loop (Real-Time Feedback)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#panel-1-the-wrong-balance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 1: The Wrong Balance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-2-the-direct-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 2: The Direct Guide
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-3-in-balance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 3: In Balance
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#story-12-learning-how-to-learn-metacognition-and-spacing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Story 12: Learning How to Learn (Metacognition and Spacing)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Story 12: Learning How to Learn (Metacognition and Spacing)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#panel-1-the-2-am-cram" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 1: The 2 AM Cram
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-2-the-dashboard-insight" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 2: The Dashboard Insight
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panel-3-spaced-and-ready" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panel 3: Spaced and Ready
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/stories/story-ideas-antigravity.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="learning-record-store-graphic-novel-story-ideas">Learning Record Store Graphic Novel Story Ideas<a class="headerlink" href="#learning-record-store-graphic-novel-story-ideas" title="Permanent link">&para;</a></h1>
+<p>This document outlines 12 short graphic novel stories demonstrating the impact of a high-quality real-time Learning Record Store (LRS) on different stakeholders in the intelligent textbook ecosystem. </p>
+<p>Each story is divided into three key panels. The visual assets for these panels are designed using the <code>/story-image-generator</code> framework to avoid vertical clipping (the "Safe Zone" method), instructing the image generator to place all critical elements within the central 70% vertical zone of a 1:1 square canvas, which is later cropped to a 16:9 landscape aspect ratio.</p>
+<p>Our learning mascot, <strong>Rowan</strong> (a friendly cinnamon-and-cream red panda wearing round teal glasses, a teal neckerchief, and carrying a compact learning-record satchel), appears throughout the stories to guide characters and highlight data-driven insights.</p>
+<hr />
+<h2 id="part-1-the-school-district-district-level-benefits">Part 1: The School District (District-Level Benefits)<a class="headerlink" href="#part-1-the-school-district-district-level-benefits" title="Permanent link">&para;</a></h2>
+<h3 id="story-1-redirection-of-resources-equity-funding">Story 1: Redirection of Resources (Equity &amp; Funding)<a class="headerlink" href="#story-1-redirection-of-resources-equity-funding" title="Permanent link">&para;</a></h3>
+<p><strong>Overview</strong>: A district superintendent uses aggregated LRS data to identify that an entire middle school is struggling with a foundational math concept, allowing them to redirect coaching resources before the end-of-year exams.</p>
+<ul>
+<li><strong>Stakeholder</strong>: District Administrator (Superintendent Sarah)</li>
+<li><strong>LRS Benefit</strong>: Real-time district-wide performance heatmaps and resource optimization.</li>
+</ul>
+<h4 id="panel-1-the-alert">Panel 1: The Alert<a class="headerlink" href="#panel-1-the-alert" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Narrative Caption</strong>: In the district central office, Superintendent Sarah reviews the weekly LRS dashboard. A bright orange warning highlight shows a sudden drop-off in concept-mastery at Pine Creek Middle School.</li>
+<li><strong>Visual</strong>: Sarah, a professional woman with glasses, looking at a sleek tablet dashboard showing bar graphs and school names. Rowan the red panda stands on the desk, pointing at a highlighted orange node on a visual concept graph.</li>
+<li><strong>Image</strong>: <img alt="Sarah looking at LRS warning dashboard" src="img/story-01/panel-01.png" /></li>
+</ul>
+<details>
+<summary>Image Prompt Metadata</summary>
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+
+A warm, modern digital vector illustration of a school superintendent, a woman with glasses, looking at a sleek tablet dashboard with charts. On the wooden desk next to her, Rowan, a cinnamon-and-cream red panda wearing round teal glasses and a small teal neckerchief, is pointing at an orange highlighted node on a learning graph. The primary characters and actions are centered horizontally and vertically. Clean lines, educational theme.
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+</details>
+
+<h4 id="panel-2-deploying-the-support">Panel 2: Deploying the Support<a class="headerlink" href="#panel-2-deploying-the-support" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Narrative Caption</strong>: Instead of waiting for end-of-year state test results, Sarah coordinates with the curriculum director to deploy specialized math coaches to Pine Creek.</li>
+<li><strong>Visual</strong>: Sarah and a curriculum director stand in front of a white board discussing strategy. Rowan sits on a stool nearby holding a folder labeled "Pine Creek Math Support," looking determined.</li>
+<li><strong>Image</strong>: <img alt="Sarah and curriculum director planning intervention" src="img/story-01/panel-02.png" /></li>
+</ul>
+<details>
+<summary>Image Prompt Metadata</summary>
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+
+A warm, modern digital vector illustration of a professional woman and man standing in front of a whiteboard in an office planning. Rowan, a cinnamon-and-cream red panda wearing round teal glasses and a small teal neckerchief, sits on a stool nearby holding a folder labeled "Pine Creek Math Support". The characters are centered horizontally and vertically. Clean lines.
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+</details>
+
+<h4 id="panel-3-the-turnaround">Panel 3: The Turnaround<a class="headerlink" href="#panel-3-the-turnaround" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Narrative Caption</strong>: Six weeks later, the LRS heatmap shows Pine Creek rising into green mastery status. Student exam readiness spikes, saving the district's math scores.</li>
+<li><strong>Visual</strong>: A split screen showing Pine Creek students in a bright classroom smiling and working on tablets, and Sarah looking at a fully green dashboard on her screen, smiling. Rowan is standing on her desk, giving a thumbs-up.</li>
+<li><strong>Image</strong>: <img alt="Pine Creek students succeeding and Sarah happy" src="img/story-01/panel-03.png" /></li>
+</ul>
+<details>
+<summary>Image Prompt Metadata</summary>
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+
+A warm, modern digital vector illustration showing a happy female superintendent looking at a computer screen showing green charts. Next to her, Rowan, a cinnamon-and-cream red panda wearing round teal glasses and a small teal neckerchief, is standing on the desk giving a thumbs-up. The character and action are centered horizontally and vertically. Clean lines, positive educational theme.
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+</details>
+
+<hr />
+<h3 id="story-2-curriculum-selection-audit-ab-testing-at-scale">Story 2: Curriculum Selection Audit (A/B Testing at Scale)<a class="headerlink" href="#story-2-curriculum-selection-audit-ab-testing-at-scale" title="Permanent link">&para;</a></h3>
+<p><strong>Overview</strong>: A district school board audits two different curriculum paths using LRS flow data, choosing the one that results in 40% less student friction and drop-out rates.</p>
+<ul>
+<li><strong>Stakeholder</strong>: District Administrator (Board Members &amp; Curriculum Director)</li>
+<li><strong>LRS Benefit</strong>: Scientific curriculum path validation and decision support.</li>
+</ul>
+<h4 id="panel-1-the-board-debate">Panel 1: The Board Debate<a class="headerlink" href="#panel-1-the-board-debate" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Narrative Caption</strong>: The school board is divided over which science curriculum to license. Traditional surveys are highly subjective.</li>
+<li><strong>Visual</strong>: A formal school board meeting room with a panel of board members looking confused, holding two different textbooks. Rowan the red panda stands at the front podium next to a projection screen, looking ready to present.</li>
+<li><strong>Image</strong>: <img alt="School board debating textbook licensing" src="img/story-02/panel-01.png" /></li>
+</ul>
+<details>
+<summary>Image Prompt Metadata</summary>
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+
+A warm, modern digital vector illustration of a school board meeting room. Diverse board members sit at a table looking thoughtful. At the front podium, Rowan, a cinnamon-and-cream red panda with round teal glasses and a small teal neckerchief, stands next to a blank projection screen. The primary characters are centered horizontally and vertically.
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+</details>
+
+<h4 id="panel-2-the-data-verdict">Panel 2: The Data Verdict<a class="headerlink" href="#panel-2-the-data-verdict" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Narrative Caption</strong>: Rowan projects the LRS flow analysis. Path A shows a major bottleneck where 40% of students quit, while Path B shows a smooth learning flow.</li>
+<li><strong>Visual</strong>: A projected chart on a screen displaying two node-link graphs: "Path A" has a thick red stop arrow with a bottleneck, and "Path B" has a smooth green flow arrow. Rowan is pointing at Path B with a wooden pointer.</li>
+<li><strong>Image</strong>: <img alt="LRS flow comparison chart projected on screen" src="img/story-02/panel-02.png" /></li>
+</ul>
+<details>
+<summary>Image Prompt Metadata</summary>
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+
+A warm, modern digital vector illustration of a projection screen in a dark conference room. The screen shows a comparison chart between "Path A" (which has red circles and a bottleneck arrow) and "Path B" (which has a smooth green flow). Rowan, a cinnamon-and-cream red panda with round teal glasses and a small teal neckerchief, is standing next to the screen holding a pointer. The projection screen and mascot are centered.
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+</details>
+
+<h4 id="panel-3-the-confident-purchase">Panel 3: The Confident Purchase<a class="headerlink" href="#panel-3-the-confident-purchase" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Narrative Caption</strong>: Backed by clear evidence, the board votes unanimously to purchase Path B, knowing it will protect their students' learning journeys.</li>
+<li><strong>Visual</strong>: The school board members smiling and raising their hands to vote in unison. Rowan stands near the table holding a stamp that says "APPROVED" with a big green checkmark.</li>
+<li><strong>Image</strong>: <img alt="School board voting unanimously to approve" src="img/story-02/panel-03.png" /></li>
+</ul>
+<details>
+<summary>Image Prompt Metadata</summary>
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+
+A warm, modern digital vector illustration of school board members in a conference room raising their hands in unison to vote, smiling. Rowan, a cinnamon-and-cream red panda with round teal glasses and a small teal neckerchief, stands on the table holding a stamp that says "APPROVED" with a green checkmark next to it. All characters are centered.
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+</details>
+
+<hr />
+<h3 id="story-3-early-warning-system-dropout-prevention">Story 3: Early Warning System (Dropout Prevention)<a class="headerlink" href="#story-3-early-warning-system-dropout-prevention" title="Permanent link">&para;</a></h3>
+<p><strong>Overview</strong>: A district-level analyst notices a pattern of micro-behavioral disengagement in high-risk zones, allowing counselors to intervene weeks before student grades slip.</p>
+<ul>
+<li><strong>Stakeholder</strong>: District Administrator (District Counselor &amp; Data Analyst)</li>
+<li><strong>LRS Benefit</strong>: Micro-interaction predictive modeling for dropout prevention.</li>
+</ul>
+<h4 id="panel-1-predicting-the-fall">Panel 1: Predicting the Fall<a class="headerlink" href="#panel-1-predicting-the-fall" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Narrative Caption</strong>: Long before students fail a test, their micro-interaction patterns in the LRS (e.g. erratic reading times, skipped sims) predict drop-out risk.</li>
+<li><strong>Visual</strong>: A close-up of a computer screen showing user navigation patterns and a warning gauge labeled "Risk Level." Rowan the red panda is wearing a detective hat, holding a magnifying glass to the screen.</li>
+<li><strong>Image</strong>: <img alt="LRS predictive modeling screen with Rowan detective" src="img/story-03/panel-01.png" /></li>
+</ul>
+<details>
+<summary>Image Prompt Metadata</summary>
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+
+A warm, modern digital vector illustration focusing on a computer monitor showing a complex student learning path graph and a "Risk Level" gauge. In front of the screen, Rowan, a cinnamon-and-cream red panda with round teal glasses and a small teal neckerchief, is wearing a detective hat and holding a magnifying glass, inspecting the digital data. The monitor and mascot are centered.
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+</details>
+
+<h4 id="panel-2-the-proactive-outreach">Panel 2: The Proactive Outreach<a class="headerlink" href="#panel-2-the-proactive-outreach" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Narrative Caption</strong>: Counselors reach out to students whose interaction signals flagged high risk. They offer support before any exams are failed.</li>
+<li><strong>Visual</strong>: A high school counselor sits with a high school student in a friendly office, offering a warm smile and a cup of water, chatting comfortably. Rowan sits on the windowsill next to them, looking supportive.</li>
+<li><strong>Image</strong>: <img alt="Counselor meeting with student proactively" src="img/story-03/panel-02.png" /></li>
+</ul>
+<details>
+<summary>Image Prompt Metadata</summary>
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+
+A warm, modern digital vector illustration of a high school counselor's office. A friendly counselor is sitting at a round table talking to a teenage student, holding a tablet. Rowan, a cinnamon-and-cream red panda with round teal glasses and a small teal neckerchief, sits on the windowsill next to them, watching supportively. All characters are centered.
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+</details>
+
+<h4 id="panel-3-success-at-the-stage">Panel 3: Success at the Stage<a class="headerlink" href="#panel-3-success-at-the-stage" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Narrative Caption</strong>: The early warning saves their school career. Weeks of micro-adjustments lead the student to successful graduation.</li>
+<li><strong>Visual</strong>: A graduating student in a cap and gown holds their high school diploma proudly, smiling at the camera. Rowan sits on the student's shoulder wearing a tiny graduation cap, looking proud.</li>
+<li><strong>Image</strong>: <img alt="Graduating student smiling with diploma" src="img/story-03/panel-03.png" /></li>
+</ul>
+<details>
+<summary>Image Prompt Metadata</summary>
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+
+A warm, modern digital vector illustration of a young graduate in a navy blue cap and gown holding a diploma rolled in a red ribbon, smiling. On the graduate's shoulder, Rowan, a cinnamon-and-cream red panda with round teal glasses and a small teal neckerchief, is sitting and wearing a tiny matching graduation cap. The characters are centered horizontally and vertically.
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+</details>
+
+<hr />
+<h2 id="part-2-the-teacher-classroom-level-benefits">Part 2: The Teacher (Classroom-Level Benefits)<a class="headerlink" href="#part-2-the-teacher-classroom-level-benefits" title="Permanent link">&para;</a></h2>
+<h3 id="story-4-the-next-mornings-pivot-just-in-time-lesson-planning">Story 4: The Next Morning's Pivot (Just-In-Time Lesson Planning)<a class="headerlink" href="#story-4-the-next-mornings-pivot-just-in-time-lesson-planning" title="Permanent link">&para;</a></h3>
+<p><strong>Overview</strong>: A teacher reviews his class heatmap late at night, notices 70% failed a specific cell biology concept, and pivots his lesson plan for the next morning.</p>
+<ul>
+<li><strong>Stakeholder</strong>: Teacher (Marcus)</li>
+<li><strong>LRS Benefit</strong>: Real-time classroom diagnostics for agile instruction.</li>
+</ul>
+<h4 id="panel-1-the-midnight-heatmap">Panel 1: The Midnight Heatmap<a class="headerlink" href="#panel-1-the-midnight-heatmap" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Narrative Caption</strong>: Late at night, biology teacher Marcus checks his class LRS dashboard. The concept "Mitochondria Electron Transport Chain" is glowing bright red—indicating widespread confusion.</li>
+<li><strong>Visual</strong>: Marcus in a cozy study, looking at his laptop screen. The screen displays a concept graph with a prominent red circle. Rowan the red panda sits on the desk next to the laptop, looking worried and rubbing his chin.</li>
+<li><strong>Image</strong>: <img alt="Marcus checking LRS heatmap at night" src="img/story-04/panel-01.png" /></li>
+</ul>
+<details>
+<summary>Image Prompt Metadata</summary>
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+
+A warm, modern digital vector illustration of a male teacher in a dimly lit home office looking at a glowing laptop screen. The screen displays a red concept node on a learning graph. Next to the laptop, Rowan, a cinnamon-and-cream red panda with round teal glasses and a small teal neckerchief, is sitting on the desk with a thoughtful, worried expression. The characters and laptop are centered.
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+</details>
+
+<h4 id="panel-2-the-classroom-pivot">Panel 2: The Classroom Pivot<a class="headerlink" href="#panel-2-the-classroom-pivot" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Narrative Caption</strong>: The next morning, Marcus tosses his planned lecture. Instead, he draws the electron transport chain on the board, targeting the exact misconception.</li>
+<li><strong>Visual</strong>: Marcus stands at a dry-erase whiteboard in a bright classroom, drawing a colorful diagram of a cell membrane. Rowan stands on the teacher's desk, pointing with a chalk stick to a diagram on a poster.</li>
+<li><strong>Image</strong>: <img alt="Marcus explaining mitochondria on whiteboard" src="img/story-04/panel-02.png" /></li>
+</ul>
+<details>
+<summary>Image Prompt Metadata</summary>
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+
+A warm, modern digital vector illustration of a male teacher standing at a classroom whiteboard, drawing a colorful diagram of a cell membrane. Rowan, a cinnamon-and-cream red panda with round teal glasses and a small teal neckerchief, stands on the desk, holding a pointer to highlight the diagram. The characters and whiteboard are centered.
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+</details>
+
+<h4 id="panel-3-the-lightbulb-moment">Panel 3: The Lightbulb Moment<a class="headerlink" href="#panel-3-the-lightbulb-moment" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Narrative Caption</strong>: The interactive lesson hits the mark. Students smile as the concept finally clicks, and the real-time LRS scores update to green.</li>
+<li><strong>Visual</strong>: A group of diverse students sitting at desks, raising their hands and smiling in understanding. One student holds a tablet displaying a green checkmark. Rowan sits on one of the desks, clapping.</li>
+<li><strong>Image</strong>: <img alt="Students smiling and understanding in class" src="img/story-04/panel-03.png" /></li>
+</ul>
+<details>
+<summary>Image Prompt Metadata</summary>
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+
+A warm, modern digital vector illustration of a bright classroom. Diverse students are sitting at desks, smiling, raising their hands in excitement. One student holds up a tablet showing a green checkmark. Rowan, a cinnamon-and-cream red panda with round teal glasses and a small teal neckerchief, is sitting on a desk clapping happily. All characters are centered.
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+</details>
+
+<hr />
+<h3 id="story-5-dynamic-peer-tutoring-differentiated-grouping">Story 5: Dynamic Peer Tutoring (Differentiated Grouping)<a class="headerlink" href="#story-5-dynamic-peer-tutoring-differentiated-grouping" title="Permanent link">&para;</a></h3>
+<p><strong>Overview</strong>: A teacher leverages LRS mastery data to dynamically pair students who have completed a concept with classmates who are currently struggling.</p>
+<ul>
+<li><strong>Stakeholder</strong>: Teacher (Marcus)</li>
+<li><strong>LRS Benefit</strong>: Dynamic grouping and cooperative learning orchestration.</li>
+</ul>
+<h4 id="panel-1-mapping-the-masters-and-learners">Panel 1: Mapping the Masters and Learners<a class="headerlink" href="#panel-1-mapping-the-masters-and-learners" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Narrative Caption</strong>: Marcus scans his tablet. The LRS divides the class into two distinct groups: those who completed the "Cellular Respiration Quiz" and those still stuck.</li>
+<li><strong>Visual</strong>: Marcus looking at his tablet in the classroom. The screen shows two columns of student list cards, labeled "Masters" (green) and "Learners" (blue). Rowan points to the tablet screen, holding two puzzle pieces that fit together.</li>
+<li><strong>Image</strong>: <img alt="Marcus grouping students using LRS data" src="img/story-05/panel-01.png" /></li>
+</ul>
+<details>
+<summary>Image Prompt Metadata</summary>
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+
+A warm, modern digital vector illustration of a teacher looking at a tablet screen in a classroom. The tablet shows two columns of cards: green and blue. Rowan, a cinnamon-and-cream red panda with round teal glasses and a small teal neckerchief, is standing on the teacher's desk next to the tablet, holding two matching puzzle pieces (one green, one blue). The characters are centered.
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+</details>
+
+<h4 id="panel-2-peer-to-peer-learning">Panel 2: Peer-to-Peer Learning<a class="headerlink" href="#panel-2-peer-to-peer-learning" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Narrative Caption</strong>: Marcus pairs the students up. In small groups, the "masters" explain the concept in student-friendly terms to their peers.</li>
+<li><strong>Visual</strong>: A cozy study group of two students at a desk. One student is explaining something on a paper notebook with a pencil, while the other student nods in understanding. Rowan sits on the table, pointing to the notebook.</li>
+<li><strong>Image</strong>: <img alt="Students tutoring each other in class" src="img/story-05/panel-02.png" /></li>
+</ul>
+<details>
+<summary>Image Prompt Metadata</summary>
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+
+A warm, modern digital vector illustration of a classroom. Two students are sitting at a desk collaborating. One student points at a notebook explanation, and the other student smiles and nods. Rowan, a cinnamon-and-cream red panda with round teal glasses and a small teal neckerchief, is sitting on the desk pointing at the notebook. The group is centered.
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+</details>
+
+<h4 id="panel-3-double-success">Panel 3: Double Success<a class="headerlink" href="#panel-3-double-success" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Narrative Caption</strong>: The learners master the concept, and the tutors solidify their own knowledge. The LRS updates, showing a class of 100% mastery.</li>
+<li><strong>Visual</strong>: The two students high-fiving in the classroom. On a wall-mounted dashboard behind them, a bar chart shows all student bars in bright green. Rowan stands on the table holding a tiny trophy, smiling.</li>
+<li><strong>Image</strong>: <img alt="Students high-fiving with green charts behind them" src="img/story-05/panel-03.png" /></li>
+</ul>
+<details>
+<summary>Image Prompt Metadata</summary>
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+
+A warm, modern digital vector illustration of two high school students high-fiving in a classroom, smiling. In the background, a digital dashboard on the wall shows 100% green graphs. Rowan, a cinnamon-and-cream red panda with round teal glasses and a small teal neckerchief, is standing on the desk holding a tiny gold trophy. The characters are centered.
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+</details>
+
+<hr />
+<h3 id="story-6-uncovering-the-quiet-struggle-engagement-vs-performance">Story 6: Uncovering the Quiet Struggle (Engagement vs. Performance)<a class="headerlink" href="#story-6-uncovering-the-quiet-struggle-engagement-vs-performance" title="Permanent link">&para;</a></h3>
+<p><strong>Overview</strong>: A teacher identifies a student who is passing but struggling silently behind the scenes, wasting hours on repeating feedback loops.</p>
+<ul>
+<li><strong>Stakeholder</strong>: Teacher (Marcus)</li>
+<li><strong>LRS Benefit</strong>: Detection of high cognitive friction and silent frustration.</li>
+</ul>
+<h4 id="panel-1-the-hidden-struggle">Panel 1: The Hidden Struggle<a class="headerlink" href="#panel-1-the-hidden-struggle" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Narrative Caption</strong>: Student Liam turns in his homework on time and gets passing grades, but the LRS logs reveal he takes five times longer than average and loops repeatedly on sims.</li>
+<li><strong>Visual</strong>: Liam, a teenage boy, looking tired and rubbing his eyes in front of a computer screen late at night. Rowan the red panda is looking at the screen with concern, showing a path diagram that circles back repeatedly.</li>
+<li><strong>Image</strong>: <img alt="Liam looking tired at computer screen with Rowan" src="img/story-06/panel-01.png" /></li>
+</ul>
+<details>
+<summary>Image Prompt Metadata</summary>
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+
+A warm, modern digital vector illustration of a tired teenage boy rubbing his eyes in front of a glowing computer screen at home. On the desk, Rowan, a cinnamon-and-cream red panda with round teal glasses and a small teal neckerchief, is looking at the screen which displays a circular, looping flowchart. The boy and mascot are centered.
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+</details>
+
+<h4 id="panel-2-the-supportive-chat">Panel 2: The Supportive Chat<a class="headerlink" href="#panel-2-the-supportive-chat" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Narrative Caption</strong>: Marcus calls Liam over for a quiet chat. Armed with the LRS path, Marcus shows Liam a shortcut concept that makes the math click.</li>
+<li><strong>Visual</strong>: Marcus sitting at a desk with Liam, showing him a diagram on a tablet. Liam looks surprised and relieved. Rowan stands on the table, pointing to a specific formula card on the desk.</li>
+<li><strong>Image</strong>: <img alt="Teacher helping Liam with a tablet diagram" src="img/story-06/panel-02.png" /></li>
+</ul>
+<details>
+<summary>Image Prompt Metadata</summary>
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+
+A warm, modern digital vector illustration of a teacher and a teenage boy sitting at a school desk looking at a tablet together. The boy looks relieved. Rowan, a cinnamon-and-cream red panda with round teal glasses and a small teal neckerchief, stands on the desk pointing at a card with math symbols. The characters are centered.
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+</details>
+
+<h4 id="panel-3-confidence-regained">Panel 3: Confidence Regained<a class="headerlink" href="#panel-3-confidence-regained" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Narrative Caption</strong>: Liam completes the next assignment in record time, smiling as he works. The friction is gone, and he has reclaimed his evening.</li>
+<li><strong>Visual</strong>: Liam sitting at a school desk during the day, smiling, typing quickly on a laptop. Rowan sits on top of his backpack next to the desk, giving an encouraging wave.</li>
+<li><strong>Image</strong>: <img alt="Liam working happily on his laptop" src="img/story-06/panel-03.png" /></li>
+</ul>
+<details>
+<summary>Image Prompt Metadata</summary>
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+
+A warm, modern digital vector illustration of a happy teenage boy working on a laptop at a desk in a classroom, smiling. Rowan, a cinnamon-and-cream red panda with round teal glasses and a small teal neckerchief, is sitting on top of a nearby backpack, waving happily. The boy and mascot are centered.
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+</details>
+
+<hr />
+<h2 id="part-3-the-intelligent-textbook-designer-content-optimization-benefits">Part 3: The Intelligent Textbook Designer (Content Optimization Benefits)<a class="headerlink" href="#part-3-the-intelligent-textbook-designer-content-optimization-benefits" title="Permanent link">&para;</a></h2>
+<h3 id="story-7-fixing-the-broken-interactive-interactive-microsim-optimization">Story 7: Fixing the Broken Interactive (Interactive MicroSim Optimization)<a class="headerlink" href="#story-7-fixing-the-broken-interactive-interactive-microsim-optimization" title="Permanent link">&para;</a></h3>
+<p><strong>Overview</strong>: A textbook designer uses LRS event analysis to locate a usability bug in a cells simulation where students frequently abandon the task.</p>
+<ul>
+<li><strong>Stakeholder</strong>: Textbook Designer (Elena)</li>
+<li><strong>LRS Benefit</strong>: Interactive simulation event logging and UX improvement.</li>
+</ul>
+<h4 id="panel-1-the-funnel-cliff">Panel 1: The Funnel Cliff<a class="headerlink" href="#panel-1-the-funnel-cliff" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Narrative Caption</strong>: Textbook designer Elena checks her content analytics. The user funnel drops off a cliff at the "Mitosis Interactive Lab"—80% of students abandon it.</li>
+<li><strong>Visual</strong>: Elena, a designer, staring at a monitor displaying a funnel graph with a sharp downward drop. Rowan the red panda is wearing a safety vest and holds a miniature caution sign, pointing at the drop-off point.</li>
+<li><strong>Image</strong>: <img alt="Elena looking at a steep funnel chart drop-off" src="img/story-07/panel-01.png" /></li>
+</ul>
+<details>
+<summary>Image Prompt Metadata</summary>
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+
+A warm, modern digital vector illustration of a female designer looking at a large computer screen. The screen shows a business funnel chart dropping sharply. Next to the screen, Rowan, a cinnamon-and-cream red panda with round teal glasses and a small teal neckerchief, is wearing a tiny orange safety vest and holding a small yellow caution sign. The designer and mascot are centered.
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+</details>
+
+<h4 id="panel-2-the-ui-friction-identified">Panel 2: The UI Friction Identified<a class="headerlink" href="#panel-2-the-ui-friction-identified" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Narrative Caption</strong>: Elena tests the sim and reviews the LRS events: students click the "Split Cell" button but nothing happens because they missed a hidden input step.</li>
+<li><strong>Visual</strong>: Elena testing a simulation on a tablet, with code blocks visible on the screen. Rowan points to a button on the screen labeled "Split Cell" with a magnifying glass, showing a red error circle.</li>
+<li><strong>Image</strong>: <img alt="Elena testing simulation and finding bug" src="img/story-07/panel-02.png" /></li>
+</ul>
+<details>
+<summary>Image Prompt Metadata</summary>
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+
+A warm, modern digital vector illustration of a designer testing an interactive app on a tablet. The screen shows a cell division simulation. Rowan, a cinnamon-and-cream red panda with round teal glasses and a small teal neckerchief, is pointing at a button on the screen that has a red outline. The designer and tablet are centered.
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+</details>
+
+<h4 id="panel-3-the-smooth-flow">Panel 3: The Smooth Flow<a class="headerlink" href="#panel-3-the-smooth-flow" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Narrative Caption</strong>: Elena moves the input field to be more prominent. The next day, the LRS logs a 95% completion rate, with student paths flowing smoothly.</li>
+<li><strong>Visual</strong>: Elena smiling and typing on her keyboard. In the background, a flat line funnel graph is shown, stable and green. Rowan sits next to her, throwing confetti in celebration.</li>
+<li><strong>Image</strong>: <img alt="Elena celebrating UI success with Rowan" src="img/story-07/panel-03.png" /></li>
+</ul>
+<details>
+<summary>Image Prompt Metadata</summary>
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+
+A warm, modern digital vector illustration of a happy female designer typing on a keyboard, smiling. On the screen, a graph displays a straight, high green line. Rowan, a cinnamon-and-cream red panda with round teal glasses and a small teal neckerchief, is throwing colorful confetti in the air. The designer and mascot are centered.
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+</details>
+
+<hr />
+<h3 id="story-8-prerequisite-graph-correction-prerequisite-optimization">Story 8: Prerequisite Graph Correction (Prerequisite Optimization)<a class="headerlink" href="#story-8-prerequisite-graph-correction-prerequisite-optimization" title="Permanent link">&para;</a></h3>
+<p><strong>Overview</strong>: A designer discovers that students failing a genetics chapter did not master a molecular biology concept first, leading to a revised textbook dependency graph.</p>
+<ul>
+<li><strong>Stakeholder</strong>: Textbook Designer (Elena)</li>
+<li><strong>LRS Benefit</strong>: Graph dependency validation and automated link reinforcement.</li>
+</ul>
+<h4 id="panel-1-the-genetic-block">Panel 1: The Genetic Block<a class="headerlink" href="#panel-1-the-genetic-block" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Narrative Caption</strong>: Elena notices that students are struggling heavily on the "Punnett Squares" chapter. The LRS correlation engine flags a pattern.</li>
+<li><strong>Visual</strong>: Elena looking at a network graph of nodes representing chapters. A dotted line connects "Meiosis" to "Punnett Squares" showing a red question mark. Rowan the red panda is holding a pencil, tracing the path.</li>
+<li><strong>Image</strong>: <img alt="Elena reviewing chapter network graph" src="img/story-08/panel-01.png" /></li>
+</ul>
+<details>
+<summary>Image Prompt Metadata</summary>
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+
+A warm, modern digital vector illustration of a female designer looking at a network diagram on a wall screen. The diagram has glowing nodes. Rowan, a cinnamon-and-cream red panda with round teal glasses and a small teal neckerchief, is holding a pencil and tracing a dotted red path between two nodes. The screen and characters are centered.
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+</details>
+
+<h4 id="panel-2-the-missing-link">Panel 2: The Missing Link<a class="headerlink" href="#panel-2-the-missing-link" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Narrative Caption</strong>: The data shows students who skipped the "Meiosis" section have a 90% failure rate in genetics. The textbook lacked a hard prerequisite constraint.</li>
+<li><strong>Visual</strong>: Elena drawing a firm, solid green arrow connecting the "Meiosis" node directly to the "Genetics" node on her computer editor. Rowan is standing on the desk, holding a sign that says "PREREQUISITE REQUIRED".</li>
+<li><strong>Image</strong>: <img alt="Elena adding prerequisite link in editor" src="img/story-08/panel-02.png" /></li>
+</ul>
+<details>
+<summary>Image Prompt Metadata</summary>
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+
+A warm, modern digital vector illustration of a designer editing a flowchart on a desktop computer. She is drawing a bold green arrow between two boxes. Rowan, a cinnamon-and-cream red panda with round teal glasses and a small teal neckerchief, stands on the desk holding a small wooden sign that says "REQUIRED". The characters and screen are centered.
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+</details>
+
+<h4 id="panel-3-perfect-alignment">Panel 3: Perfect Alignment<a class="headerlink" href="#panel-3-perfect-alignment" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Narrative Caption</strong>: The new flow forces a review of Meiosis. Subsequent student cohorts breeze through genetics with high comprehension.</li>
+<li><strong>Visual</strong>: A textbook interface showing a popup card: "Concept Check: Meiosis Reviewed!" with a student smiling in the background. Rowan stands next to the popup card, smiling and pointing to a green checkmark.</li>
+<li><strong>Image</strong>: <img alt="Textbook interface displaying concept check card" src="img/story-08/panel-03.png" /></li>
+</ul>
+<details>
+<summary>Image Prompt Metadata</summary>
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+
+A warm, modern digital vector illustration of a tablet displaying a digital textbook interface. A prominent modal popup card reads "Concept Check: Meiosis Reviewed" with a green checkmark. Rowan, a cinnamon-and-cream red panda with round teal glasses and a small teal neckerchief, stands next to the tablet pointing at the checkmark. The tablet is centered.
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+</details>
+
+<hr />
+<h3 id="story-9-ab-testing-explanations-explanatory-content-optimization">Story 9: A/B Testing Explanations (Explanatory Content Optimization)<a class="headerlink" href="#story-9-ab-testing-explanations-explanatory-content-optimization" title="Permanent link">&para;</a></h3>
+<p><strong>Overview</strong>: A textbook designer runs a live A/B test of two explanations for a difficult physics concept, rolling out the one that yields faster mastery.</p>
+<ul>
+<li><strong>Stakeholder</strong>: Textbook Designer (Elena)</li>
+<li><strong>LRS Benefit</strong>: Content A/B test telemetry and real-time comprehension tracking.</li>
+</ul>
+<h4 id="panel-1-the-experiment-setup">Panel 1: The Experiment Setup<a class="headerlink" href="#panel-1-the-experiment-setup" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Narrative Caption</strong>: Elena designs two versions of a physics page on momentum. Group A gets a text explanation; Group B gets an interactive slider.</li>
+<li><strong>Visual</strong>: Elena looking at a screen split into "A" (text lines) and "B" (an interactive slider illustration of colliding balls). Rowan stands on the desk, dividing the scene with a line.</li>
+<li><strong>Image</strong>: <img alt="Elena setting up A/B test on screen" src="img/story-09/panel-01.png" /></li>
+</ul>
+<details>
+<summary>Image Prompt Metadata</summary>
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+
+A warm, modern digital vector illustration of a designer looking at a monitor displaying two screen variations. Version A shows text layout. Version B shows an interactive physics slider with red and blue balls colliding. Rowan, a cinnamon-and-cream red panda with round teal glasses and a small teal neckerchief, stands on the desk looking at the screen. The monitor is centered.
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+</details>
+
+<h4 id="panel-2-the-data-stream">Panel 2: The Data Stream<a class="headerlink" href="#panel-2-the-data-stream" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Narrative Caption</strong>: LRS events flow in. Group B (interactive slider) completes the subsequent quiz in half the time and with higher average scores.</li>
+<li><strong>Visual</strong>: A dashboard showing live charts. Group B's line is high and rising, labeled "Quiz Score +85%," while Group A's line is lower. Rowan wears a scientist coat, taking notes on a clipboard with a smile.</li>
+<li><strong>Image</strong>: <img alt="LRS A/B test results dashboard with Rowan scientist" src="img/story-09/panel-02.png" /></li>
+</ul>
+<details>
+<summary>Image Prompt Metadata</summary>
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+
+A warm, modern digital vector illustration of a computer dashboard displaying line graphs comparing "Group A" and "Group B". Group B's line is significantly higher. Rowan, a cinnamon-and-cream red panda with round teal glasses and a small teal neckerchief, is wearing a white lab coat and writing on a clipboard, looking pleased. The screen and mascot are centered.
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+</details>
+
+<h4 id="panel-3-publishing-the-winner">Panel 3: Publishing the Winner<a class="headerlink" href="#panel-3-publishing-the-winner" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Narrative Caption</strong>: Elena permanently publishes the interactive slider version for all students. The LRS verified the superior pedagogy.</li>
+<li><strong>Visual</strong>: Elena clicking a "Publish to Production" button. A stylized textbook cover is shown, surrounded by green sparkles. Rowan stands next to the book, pointing at it proudly.</li>
+<li><strong>Image</strong>: <img alt="Elena publishing textbook update" src="img/story-09/panel-03.png" /></li>
+</ul>
+<details>
+<summary>Image Prompt Metadata</summary>
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+
+A warm, modern digital vector illustration of a female designer clicking a bright green "Publish" button on her screen. In the background, a digital textbook cover with physics graphics glows with green sparkles. Rowan, a cinnamon-and-cream red panda with round teal glasses and a small teal neckerchief, stands on the desk, pointing at the book. The characters are centered.
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+</details>
+
+<hr />
+<h2 id="part-4-the-student-personalized-learning-benefits">Part 4: The Student (Personalized Learning Benefits)<a class="headerlink" href="#part-4-the-student-personalized-learning-benefits" title="Permanent link">&para;</a></h2>
+<h3 id="story-10-mapping-the-confused-mind-personalized-learning-graph">Story 10: Mapping the Confused Mind (Personalized Learning Graph)<a class="headerlink" href="#story-10-mapping-the-confused-mind-personalized-learning-graph" title="Permanent link">&para;</a></h3>
+<p><strong>Overview</strong>: A student feels overwhelmed by chemistry until their personalized textbook graph shows them exactly which foundational concept they missed.</p>
+<ul>
+<li><strong>Stakeholder</strong>: Student (Maya)</li>
+<li><strong>LRS Benefit</strong>: Self-reflection and automated prerequisite tracking.</li>
+</ul>
+<h4 id="panel-1-the-wall-of-confusion">Panel 1: The Wall of Confusion<a class="headerlink" href="#panel-1-the-wall-of-confusion" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Narrative Caption</strong>: Maya stares at her chemistry screen. The page on "Chemical Equilibrium" makes no sense, and she is tempted to close her laptop in frustration.</li>
+<li><strong>Visual</strong>: Maya, a teenage girl with curly hair, leaning her head on her desk in front of her laptop, looking defeated. Rowan the red panda sits on the edge of the desk, looking empathetic and holding a tissue.</li>
+<li><strong>Image</strong>: <img alt="Maya frustrated with chemistry homework" src="img/story-10/panel-01.png" /></li>
+</ul>
+<details>
+<summary>Image Prompt Metadata</summary>
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+
+A warm, modern digital vector illustration of a teenage girl with curly hair sitting at a desk, leaning her head on her arms in front of a laptop, looking frustrated. Rowan, a cinnamon-and-cream red panda with round teal glasses and a small teal neckerchief, is sitting on the desk next to her with an empathetic expression. The girl and mascot are centered.
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+</details>
+
+<h4 id="panel-2-the-map-revealed">Panel 2: The Map Revealed<a class="headerlink" href="#panel-2-the-map-revealed" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Narrative Caption</strong>: Maya clicks her personal concept map. The LRS highlights that she skipped the "Chemical Equations Balancing" concept two chapters ago.</li>
+<li><strong>Visual</strong>: Maya looking at her tablet screen, which displays a map of circular nodes. One node, "Balancing Equations," is glowing yellow with a label "Review Needed." Rowan is pointing to this node on the screen.</li>
+<li><strong>Image</strong>: <img alt="Maya looking at her concept map on tablet" src="img/story-10/panel-02.png" /></li>
+</ul>
+<details>
+<summary>Image Prompt Metadata</summary>
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+
+A warm, modern digital vector illustration of a teenage girl looking at a tablet screen. The screen displays a node-based concept map with a glowing yellow node labeled "Review". Rowan, a cinnamon-and-cream red panda with round teal glasses and a small teal neckerchief, is sitting on the table, pointing to the glowing node on the tablet screen. The girl and tablet are centered.
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+</details>
+
+<h4 id="panel-3-clarity-and-relief">Panel 3: Clarity and Relief<a class="headerlink" href="#panel-3-clarity-and-relief" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Narrative Caption</strong>: Maya spends ten minutes reviewing the missed concept. Returning to Chemical Equilibrium, the text makes perfect sense and she smiles.</li>
+<li><strong>Visual</strong>: Maya sitting upright, smiling and writing in a notebook next to her laptop. Rowan sits on top of the laptop, holding a miniature green flag, looking triumphant.</li>
+<li><strong>Image</strong>: <img alt="Maya smiling and writing in notebook" src="img/story-10/panel-03.png" /></li>
+</ul>
+<details>
+<summary>Image Prompt Metadata</summary>
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+
+A warm, modern digital vector illustration of a happy teenage girl with curly hair writing in a notebook at her desk, smiling. Next to her, Rowan, a cinnamon-and-cream red panda with round teal glasses and a small teal neckerchief, is sitting on the desk holding a small green flag. The girl and mascot are centered.
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+</details>
+
+<hr />
+<h3 id="story-11-the-interactive-remediation-loop-real-time-feedback">Story 11: The Interactive Remediation Loop (Real-Time Feedback)<a class="headerlink" href="#story-11-the-interactive-remediation-loop-real-time-feedback" title="Permanent link">&para;</a></h3>
+<p><strong>Overview</strong>: A student inputs a wrong answer in a simulation and receives a targeted micromodule dynamically served by the LRS to correct the exact misunderstanding.</p>
+<ul>
+<li><strong>Stakeholder</strong>: Student (Leo)</li>
+<li><strong>LRS Benefit</strong>: Real-time mistake classification and targeted micro-remediation.</li>
+</ul>
+<h4 id="panel-1-the-wrong-balance">Panel 1: The Wrong Balance<a class="headerlink" href="#panel-1-the-wrong-balance" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Narrative Caption</strong>: Student Leo tries to balance a chemical equation in a textbook MicroSim, but gets a red exclamation mark warning.</li>
+<li><strong>Visual</strong>: Leo, a teenage boy with short hair, staring at a computer screen showing a molecular balance scale tilted to one side. Rowan stands next to the screen holding a tiny red flag.</li>
+<li><strong>Image</strong>: <img alt="Leo failing chemistry simulation" src="img/story-11/panel-01.png" /></li>
+</ul>
+<details>
+<summary>Image Prompt Metadata</summary>
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+
+A warm, modern digital vector illustration of a teenage boy looking at a computer monitor. The monitor displays a chemistry balance scale tilted unevenly with a red exclamation point. Rowan, a cinnamon-and-cream red panda with round teal glasses and a small teal neckerchief, is standing on the desk holding a small red flag. The boy and screen are centered.
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+</details>
+
+<h4 id="panel-2-the-direct-guide">Panel 2: The Direct Guide<a class="headerlink" href="#panel-2-the-direct-guide" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Narrative Caption</strong>: Based on Leo's exact error pattern, the LRS serves a 30-second animation clarifying the Law of Conservation of Mass.</li>
+<li><strong>Visual</strong>: The monitor screen transitions to show a simple cartoon explaining molecules dividing. Rowan on the desk holds a mini whiteboard with a drawn chemical reaction, explaining it.</li>
+<li><strong>Image</strong>: <img alt="Rowan explaining chemistry on a whiteboard" src="img/story-11/panel-02.png" /></li>
+</ul>
+<details>
+<summary>Image Prompt Metadata</summary>
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+
+A warm, modern digital vector illustration of Rowan, a cinnamon-and-cream red panda with round teal glasses and a small teal neckerchief, standing on a desk holding a mini whiteboard. On the whiteboard, a simple chemical equation is written: H2 + O2 -> H2O. Rowan is smiling and explaining. The mascot is centered.
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+</details>
+
+<h4 id="panel-3-in-balance">Panel 3: In Balance<a class="headerlink" href="#panel-3-in-balance" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Narrative Caption</strong>: With the concept clear, Leo retries the simulation. The scale balances, glowing green with success.</li>
+<li><strong>Visual</strong>: Leo smiling, sitting at his computer. The screen shows the scale in perfect balance with a green checkmark. Rowan sits on the keyboard, giving a thumbs-up.</li>
+<li><strong>Image</strong>: <img alt="Leo balancing chemistry simulation with green checkmark" src="img/story-11/panel-03.png" /></li>
+</ul>
+<details>
+<summary>Image Prompt Metadata</summary>
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+
+A warm, modern digital vector illustration of a happy teenage boy sitting in front of his computer, smiling. The computer monitor shows a balanced chemistry scale and a large green checkmark. Rowan, a cinnamon-and-cream red panda with round teal glasses and a small teal neckerchief, is sitting on the desk next to the keyboard, giving a thumbs-up. The boy and screen are centered.
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+</details>
+
+<hr />
+<h3 id="story-12-learning-how-to-learn-metacognition-and-spacing">Story 12: Learning How to Learn (Metacognition and Spacing)<a class="headerlink" href="#story-12-learning-how-to-learn-metacognition-and-spacing" title="Permanent link">&para;</a></h3>
+<p><strong>Overview</strong>: A student realizes his late-night study sessions are ineffective after comparing his performance metrics in his LRS study log.</p>
+<ul>
+<li><strong>Stakeholder</strong>: Student (Leo)</li>
+<li><strong>LRS Benefit</strong>: Metacognitive growth through personal learning analytics.</li>
+</ul>
+<h4 id="panel-1-the-2-am-cram">Panel 1: The 2 AM Cram<a class="headerlink" href="#panel-1-the-2-am-cram" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Narrative Caption</strong>: Leo tries to cram history at 2 AM, yawning heavily. The LRS logs show he is reading pages in seconds and failing quizzes.</li>
+<li><strong>Visual</strong>: Leo yawning in a dark room illuminated only by a desk lamp and a laptop screen. Rowan the red panda sits on top of the laptop looking exhausted, leaning his head on his paw.</li>
+<li><strong>Image</strong>: <img alt="Leo yawning late night studying" src="img/story-12/panel-01.png" /></li>
+</ul>
+<details>
+<summary>Image Prompt Metadata</summary>
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+
+A warm, modern digital vector illustration of a teenage boy yawning in a dark bedroom at night, sitting at a desk with a glowing laptop and a desk lamp. Rowan, a cinnamon-and-cream red panda with round teal glasses and a small teal neckerchief, is sitting on the desk next to the laptop, looking very sleepy and leaning his head on his paw. The boy and mascot are centered.
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+</details>
+
+<h4 id="panel-2-the-dashboard-insight">Panel 2: The Dashboard Insight<a class="headerlink" href="#panel-2-the-dashboard-insight" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Narrative Caption</strong>: The next day, Leo reviews his LRS "Study Quality" dashboard. A graph clearly shows his comprehension drops by 80% after 10 PM.</li>
+<li><strong>Visual</strong>: Leo in the daytime, looking at a bar chart on his phone. The chart shows red low bars labeled "Night" and tall green bars labeled "Morning". Rowan stands on the table next to the phone, pointing at the green bars.</li>
+<li><strong>Image</strong>: <img alt="Leo reviewing study dashboard on phone" src="img/story-12/panel-02.png" /></li>
+</ul>
+<details>
+<summary>Image Prompt Metadata</summary>
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+
+A warm, modern digital vector illustration of a teenage boy looking at a mobile phone screen during the day. The phone displays a bar chart comparing "Night" (low red bars) and "Morning" (high green bars). Rowan, a cinnamon-and-cream red panda with round teal glasses and a small teal neckerchief, stands on the table pointing at the green bars. The boy and phone are centered.
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+</details>
+
+<h4 id="panel-3-spaced-and-ready">Panel 3: Spaced and Ready<a class="headerlink" href="#panel-3-spaced-and-ready" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Narrative Caption</strong>: Leo changes his habits, scheduling 20-minute morning study blocks. He feels energetic, and his retention levels soar.</li>
+<li><strong>Visual</strong>: Leo studying in a sunlit room in the morning, holding an apple, looking focused and happy. Rowan sits on the table next to a calendar, marking a date with a green marker.</li>
+<li><strong>Image</strong>: <img alt="Leo studying in sunlit room with Rowan calendar" src="img/story-12/panel-03.png" /></li>
+</ul>
+<details>
+<summary>Image Prompt Metadata</summary>
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+
+A warm, modern digital vector illustration of a teenage boy studying at a wooden desk in a bright sunlit room, holding a green apple and looking happy. Rowan, a cinnamon-and-cream red panda with round teal glasses and a small teal neckerchief, is sitting next to a desk calendar, marking a date with a green marker. The boy and mascot are centered.
+
+**CRITICAL: NO RELEVANT CONTENT, TEXT, OR CHARACTERS IN THE TOP 15% OR BOTTOM 15% of the image. All essential elements must be in the central 70% vertical area. DO NOT PUT WHITE EDGES ON THE LEFT OR RIGHT SIDES.**
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Introduction">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Introduction
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../story-ideas-chatgpt/" class="md-footer__link md-footer__link--next" aria-label="Next: LRS Feedback Story Ideas (ChatGPT)">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                LRS Feedback Story Ideas (ChatGPT)
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Dan McCreary. Licensed under <a href="license/">CC BY-NC-SA 4.0</a> for non-commercial use.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../js/katex.js"></script>
+      
+        <script src="../../js/quiz-xapi.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "title": "Anatomy of an Extended Statement",
+  "description": "Let the learner classify each of the four optional Statement pieces (Sub-Statement, Attachment, Extensions, Registration) by clicking on it and seeing what problem it solves, reinforcing the JSON example above with a visual, exploratory layout.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "extended-statement-anatomy",
+  "library": "p5.js",
+  "bloomLevel": "Understand (L2)",
+  "bloomVerb": "classify, differentiate",
+  "completion_status": "implemented",
+  "chapter_number": 2,
+  "chapter_title": "The Anatomy of an xAPI Statement",
+  "chapter_dir": "02-anatomy-of-xapi-statement",
+  "chapter_rel_dir": "chapters/02-anatomy-of-xapi-statement",
+  "canvasHeight": 460
+}

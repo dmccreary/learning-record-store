@@ -1,0 +1,24 @@
+{
+  "title": "This Project's Tenancy Hierarchy",
+  "description": "Let the learner identify each level of this project's Tenancy Hierarchy, in order, and describe in one sentence what each level represents and which entities live directly beneath it.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "tenancy-hierarchy-tree",
+  "library": "Mermaid",
+  "bloomLevel": "Understand (L2)",
+  "bloomVerb": "identify, describe",
+  "completion_status": "implemented",
+  "chapter_number": 6,
+  "chapter_title": "Multi-Tenancy, Rosters, and Pseudonymous Identity",
+  "chapter_dir": "06-multi-tenancy-rosters-identity",
+  "chapter_rel_dir": "chapters/06-multi-tenancy-rosters-identity",
+  "canvasHeight": 600
+}

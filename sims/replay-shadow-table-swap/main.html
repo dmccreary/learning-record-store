@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Replay: Shadow Table Swap vs Watermark Reset</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'default', flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' } });
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="diagram-panel">
+            <div class="mermaid">
+flowchart TB
+    subgraph LEFT["Replay Command &mdash; lrs replay --from T1 --to T2 --into &lt;table&gt;"]
+        direction TB
+        A1["Read immutable log for district + time window"]:::la
+        A2["Recompute projection, keyed by statement_id"]:::lasafe
+        A3["Write into new shadow table<br/><small>invisible to live queries</small>"]:::la
+        A4["Rebuild complete: atomic swap"]:::la
+        A5["Shadow table becomes the live table"]:::la
+        A1 --> A2 --> A3 --> A4 --> A5
+    end
+    subgraph RIGHT["Rebuild Graph Command &mdash; lrs replay --rebuild-graph"]
+        direction TB
+        B1["Reset summarizer watermark to zero"]:::ra
+        B2["Ordinary 60-second sync loop runs as normal"]:::ra
+        B3["Summarizer reads 'unsynced' rollups<br/><small>which is now all of them</small>"]:::ra
+        B4["MERGE upserts every summary vertex<br/><small>guarded by the Grain Uniqueness Constraint</small>"]:::rasafe
+        B5["Graph fully rebuilt, no dedicated rebuild code path"]:::ra
+        B1 --> B2 --> B3 --> B4 --> B5
+    end
+
+    classDef la fill:#2a9d8f,stroke:#1f7a6f,color:#fff,font-size:13px
+    classDef lasafe fill:#1a7f72,stroke:#0f5c53,color:#fff,font-size:13px
+    classDef ra fill:#8fd3c9,stroke:#3bab9d,color:#0c2f2b,font-size:13px
+    classDef rasafe fill:#5cbcb0,stroke:#3bab9d,color:#08312c,font-size:13px
+    linkStyle default stroke:#999,stroke-width:2px
+            </div>
+        </div>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a node to see details</p></div>
+        </div>
+    </div>
+    <script>
+        const nodeInfo = {
+            'A1': { title: 'Read the immutable log', description: 'Replay reads the immutable statement log for one district and time window &mdash; the source of truth is never mutated.' },
+            'A2': { title: 'Keyed by statement_id', description: 'The projection is recomputed keyed by <code>statement_id</code>. This is the left lane&rsquo;s structural guarantee against duplication: replaying a statement twice targets the same key.' },
+            'A3': { title: 'Write to a shadow table', description: 'Results are written into a new shadow table that live queries cannot see, so users keep reading the old table while the rebuild runs.' },
+            'A4': { title: 'Atomic swap', description: 'When the rebuild is complete, the tables are swapped atomically &mdash; no window where queries see a half-built result.' },
+            'A5': { title: 'Shadow becomes live', description: 'The freshly built shadow table becomes the live table; the old one can be dropped.' },
+            'B1': { title: 'Reset the watermark', description: 'The graph rebuild simply resets the summarizer watermark to zero &mdash; there is no separate rebuild routine.' },
+            'B2': { title: 'Ordinary sync loop', description: 'The normal 60-second sync loop runs unchanged. The rebuild reuses the everyday code path.' },
+            'B3': { title: 'Everything looks unsynced', description: 'With the watermark at zero, every rollup looks &ldquo;unsynced,&rdquo; so the summarizer processes all of them &mdash; a full rebuild falls out of normal operation.' },
+            'B4': { title: 'Grain Uniqueness Constraint', description: 'Each vertex is written with MERGE, guarded by the Grain Uniqueness Constraint. This is the right lane&rsquo;s structural guarantee: one vertex per grain, so re-upserting is safe.' },
+            'B5': { title: 'Rebuilt, no special code', description: 'The graph is fully rebuilt with no dedicated rebuild code path &mdash; both lanes are safe to re-run, each relying on a different structural guarantee against duplication (statement_id keying vs the Grain Uniqueness Constraint).' }
+        };
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Two Dashboards, One Log</title>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="graph-panel">
+            <div id="network"></div>
+            <div class="title">Two Dashboards, One Statement Log</div>
+        </div>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a node to see details</p></div>
+        </div>
+    </div>
+    <script>
+        const LOG = { background: '#37474f', border: '#1c2529' };
+        const TEAL = { background: '#2a9d8f', border: '#1f7a6f' };
+        const TEALL = { background: '#8fd3c9', border: '#3bab9d' };
+        const AMBER = { background: '#e9a23b', border: '#b8791f' };
+        const AMBERL = { background: '#f0cf92', border: '#c9a24f' };
+        const dark = { color: '#222' };
+        window.GRAPH = {
+            layout: 'physics',
+            nodes: [
+                { id: 'Log', label: 'Statement Log', color: LOG, borderWidth: 4 },
+                { id: 'DO', label: 'District Overview Dashboard', color: TEAL, borderWidth: 3 },
+                { id: 'SH', label: 'System Health Dashboard', color: AMBER, borderWidth: 3, font: dark },
+                { id: 'do1', label: 'Adoption & Coverage', color: TEALL, font: { color: '#08312c' } },
+                { id: 'do2', label: 'Compliance Status', color: TEALL, font: { color: '#08312c' } },
+                { id: 'do3', label: 'District Mastery Summary', color: TEALL, font: { color: '#08312c' } },
+                { id: 'do4', label: 'School Comparison', color: TEALL, font: { color: '#08312c' } },
+                { id: 'sh1', label: 'Ingestion Throughput', color: AMBERL, font: dark },
+                { id: 'sh2', label: 'Queue Depth & Lag', color: AMBERL, font: dark },
+                { id: 'sh3', label: 'Data Quality Monitor', color: AMBERL, font: dark },
+                { id: 'sh4', label: 'Error & DLQ Rate', color: AMBERL, font: dark }
+            ],
+            edges: [
+                { from: 'Log', to: 'DO' }, { from: 'Log', to: 'SH' },
+                { from: 'DO', to: 'do1' }, { from: 'DO', to: 'do2' }, { from: 'DO', to: 'do3' }, { from: 'DO', to: 'do4' },
+                { from: 'SH', to: 'sh1' }, { from: 'SH', to: 'sh2' }, { from: 'SH', to: 'sh3' }, { from: 'SH', to: 'sh4' }
+            ],
+            nodeInfo: {
+                'Log': { title: 'Statement Log', description: 'The single underlying source. BOTH dashboards read from this one log &mdash; they are different aggregations and access lenses over the same data, not separate data sources.' },
+                'DO': { title: 'District Overview Dashboard', description: 'The district-administrator view. Its four reports answer coverage, compliance, and mastery questions at district/school grain.' },
+                'SH': { title: 'System Health Dashboard', description: 'The operational view. Its four reports answer &ldquo;is the pipeline healthy?&rdquo; &mdash; throughput, lag, quality, errors.' },
+                'do1': { title: 'Adoption & Coverage', description: 'District Overview: how widely the textbook is used across schools.' },
+                'do2': { title: 'Compliance Status', description: 'District Overview: which schools meet usage/compliance requirements.' },
+                'do3': { title: 'District Mastery Summary', description: 'District Overview: aggregate mastery across the district.' },
+                'do4': { title: 'School Comparison', description: 'District Overview: side-by-side comparison across schools.' },
+                'sh1': { title: 'Ingestion Throughput', description: 'System Health: statements/sec flowing through the gateway.' },
+                'sh2': { title: 'Queue Depth & Lag', description: 'System Health: Kafka consumer lag and backlog.' },
+                'sh3': { title: 'Data Quality Monitor', description: 'System Health: the same metrics a district admin sees for quality, surfaced operationally.' },
+                'sh4': { title: 'Error & DLQ Rate', description: 'System Health: rejection and dead-letter-queue rates.' }
+            }
+        };
+    </script>
+    <script src="vis-app.js"></script>
+</body>
+</html>

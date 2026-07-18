@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Kafka Topic Map</title>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="graph-panel">
+            <div id="network"></div>
+            <div class="title">Kafka / Redpanda &mdash; Topic Inventory</div>
+        </div>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a topic to see details</p></div>
+        </div>
+    </div>
+    <script>
+        const HUB = { background: '#37474f', border: '#1c2529' };
+        const NEUTRAL = { background: '#5f7182', border: '#3f4a59' };
+        const TEAL = { background: '#2a9d8f', border: '#1f7a6f' };
+        window.GRAPH = {
+            layout: 'physics',
+            nodes: [
+                { id: 'Broker', label: 'Kafka / Redpanda Broker', color: HUB, borderWidth: 3, size: 30 },
+                { id: 'raw', label: 'xapi.statements.raw', color: NEUTRAL, value: 48 },
+                { id: 'bulk', label: 'xapi.statements.bulk', color: NEUTRAL, value: 24 },
+                { id: 'dlq', label: 'xapi.statements.dlq', color: NEUTRAL, value: 12 },
+                { id: 'reconcile', label: 'lrs.reconcile', color: NEUTRAL, value: 12 },
+                { id: 'state', label: 'lrs.mastery.state', color: TEAL, borderWidth: 4, value: 24 },
+                { id: 'audit', label: 'lrs.audit', color: NEUTRAL, value: 12 }
+            ],
+            edges: [
+                { from: 'Broker', to: 'raw' }, { from: 'Broker', to: 'bulk' }, { from: 'Broker', to: 'dlq' },
+                { from: 'Broker', to: 'reconcile' }, { from: 'Broker', to: 'state' }, { from: 'Broker', to: 'audit' }
+            ],
+            nodeInfo: {
+                'Broker': { title: 'Kafka / Redpanda Broker', description: 'The event backbone. Six topics live on it; node SIZE here scales with partition count, so 48-partition topics render largest.' },
+                'raw': { title: 'xapi.statements.raw', description: 'Key: district:student. Partitions: 48 (largest). Retention: 7 days (short-lived). Purpose: the main ingest stream of validated statements.' },
+                'bulk': { title: 'xapi.statements.bulk', description: 'Key: district:student. Partitions: 24. Retention: 7 days. Purpose: bulk-submitted statement batches.' },
+                'dlq': { title: 'xapi.statements.dlq', description: 'Key: statement id. Partitions: 12. Retention: 30 days. Purpose: the dead-letter queue for poison messages that failed three attempts.' },
+                'reconcile': { title: 'lrs.reconcile', description: 'Key: stub id. Partitions: 12. Retention: 30 days. Purpose: provisional-node reconciliation work items.' },
+                'state': { title: 'lrs.mastery.state (the outlier)', description: 'Key: student:concept. Partitions: 24. Retention: COMPACTED &mdash; not time-based. This is the structural outlier: log compaction keeps only the latest value per key, so it acts as a durable checkpoint of mastery state rather than an event stream.' },
+                'audit': { title: 'lrs.audit', description: 'Key: actor. Partitions: 12. Retention: 400 days (long-lived, for compliance). Purpose: the immutable audit trail.' }
+            }
+        };
+    </script>
+    <script src="vis-app.js"></script>
+</body>
+</html>

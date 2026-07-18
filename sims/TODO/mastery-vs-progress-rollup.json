@@ -1,0 +1,15 @@
+{
+  "sim_id": "mastery-vs-progress-rollup",
+  "diagram_name": "Two Summary-Building Functions — Mastery and Progress",
+  "chapter_number": 9,
+  "chapter_title": "The Twelve Core LRS Functions",
+  "chapter_dir": "09-twelve-core-lrs-functions",
+  "chapter_rel_dir": "chapters/09-twelve-core-lrs-functions",
+  "library": "vis-network",
+  "bloom_level": "Analyze (L4)",
+  "bloom_verb": "differentiate, classify",
+  "learning_objective": "Let the learner differentiate the Mastery Computation Function's single grain (ConceptMastery) from the Progress Projection Function's five grains (PageEngagement, MicroSimEngagement, QuestionResponse, LearningSession, SectionRollup), classifying each of Chapter 8's six summary-vertex labels under the correct function.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: infographic\n**sim-id:** mastery-vs-progress-rollup<br/>\n**Library:** vis-network<br/>\n**Status:** Specified<br/>\n**Template:** https://github.com/dmccreary/intelligent-textbooks/tree/main/docs/sims/question-color-update<br/>\n\nBloom Taxonomy: Analyze (L4)\nBloom Taxonomy Verb: differentiate, classify\n\nLearning objective: Let the learner differentiate the Mastery Computation Function's single grain (ConceptMastery) from the Progress Projection Function's five grains (PageEngagement, MicroSimEngagement, QuestionResponse, LearningSession, SectionRollup), classifying each of Chapter 8's six summary-vertex labels under the correct function.\n\nPurpose: Show a two-branch vis-network graph rooted at \"Enriched Statement (concept_ids attached)\", splitting into a \"Mastery Computation Function (F-7)\" branch and a \"Progress Projection Function (F-8)\" branch.\n\nNodes: Root: \"Enriched Statement\". Branch F-7: single child node \"ConceptMastery — (student, concept)\". Branch F-8: five child nodes \"PageEngagement — (student, page)\", \"MicroSimEngagement — (student, microsim)\", \"QuestionResponse — (student, question)\", \"LearningSession — (student, session)\", \"SectionRollup — (section, concept)\".\n\nInteractive features: Clicking \"Mastery Computation Function\" or \"Progress Projection Function\" opens an infobox with that function's definition from this chapter's prose and its F-number. Clicking any of the six grain nodes opens an infobox recalling that vertex's key properties from Chapter 8's grain table. A toggle labeled \"Show statement compression ratio\" annotates each leaf node with its approximate compression ratio from Chapter 8 (e.g. ConceptMastery ~100:1, SectionRollup ~3,000:1) when enabled.\n\nColor coding: The F-7 branch in the book's teal accent color; the F-8 branch in a complementary amber, matching the two-function color language established for the \"accept immediately / reconciled later\" split in Chapter 8's Accept-First diagram.\n\nResponsive design: Graph layout recalculates on window resize using vis-network's physics engine; on narrow viewports the two branches stack vertically rather than side by side."
+}

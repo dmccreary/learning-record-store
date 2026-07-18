@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Five MVP Build Steps</title>
+    <script src="https://unpkg.com/vis-timeline@7.7.3/standalone/umd/vis-timeline-graph2d.min.js"></script>
+    <link href="https://unpkg.com/vis-timeline@7.7.3/styles/vis-timeline-graph2d.min.css" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        html, body { margin: 0; font-family: Arial, Helvetica, sans-serif; background: #fff; color: #222; }
+        .wrap { padding: 8px 12px; }
+        h2 { font-size: 16px; color: #1a3a5c; text-align: center; margin: 4px 0 6px; }
+        #timeline { border: 1px solid #dee2e6; }
+        .info { margin-top: 8px; padding: 10px; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 6px; min-height: 78px; font-size: 13.5px; line-height: 1.45; }
+        .info b { color: #1f7a6f; }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <h2>Five MVP Build Steps &mdash; Each Output Feeds the Next</h2>
+        <div id="timeline"></div>
+        <div class="info" id="info">Each step's output is a precondition for the next. Click a step for its exit criterion.</div>
+    </div>
+    <script>
+        const info = {
+            1: '<b>Step 1: Foundation + an honest harness</b><br><b>Exit:</b> clean boot from a cold clone; the smoke check is correctly RED before anything real exists. Feeds Step 2.',
+            2: '<b>Step 2: Ingest path (gateway, stream processor)</b><br><b>Exit:</b> smoke check green for the right reason, provably red when broken. Feeds Step 3.',
+            3: '<b>Step 3: Loadgen at the producer-contract shape</b><br><b>Exit:</b> sustains 200 stmt/sec; store row count matches emitted count exactly. Feeds Step 4.',
+            4: '<b>Step 4: Compression and graph (summarizer, mastery join)</b><br><b>Exit:</b> zero per-statement nodes, identical graph on a second run, ratio asserted, mastery non-null. Feeds Step 5.',
+            5: '<b>Step 5: The burst proof (replay, 5x load, chaos test)</b><br><b>Exit:</b> a chart showing ingest 5x while graph writes stay flat &mdash; the whole MVP exists to reach this.'
+        };
+        const teal = 'background-color:#2a9d8f;color:#fff;border-color:#1f7a6f;';
+        const amber = 'background-color:#e9a23b;color:#222;border-color:#b8791f;';
+        const items = new vis.DataSet([
+            { id: 1, content: '1: Foundation + harness', start: '2026-01-01', end: '2026-01-06', style: teal },
+            { id: 2, content: '2: Ingest path', start: '2026-01-06', end: '2026-01-11', style: teal },
+            { id: 3, content: '3: Loadgen 200/s', start: '2026-01-11', end: '2026-01-16', style: teal },
+            { id: 4, content: '4: Compression + graph', start: '2026-01-16', end: '2026-01-21', style: teal },
+            { id: 5, content: '5: Burst proof', start: '2026-01-21', end: '2026-01-26', style: amber }
+        ]);
+        const timeline = new vis.Timeline(document.getElementById('timeline'), items, { showCurrentTime: false, stack: false, margin: { item: 10 }, zoomable: false });
+        window.__tl = timeline;
+        timeline.on('select', function (p) { const id = p.items[0]; document.getElementById('info').innerHTML = id ? info[id] : "Click a step for its exit criterion."; });
+    </script>
+</body>
+</html>

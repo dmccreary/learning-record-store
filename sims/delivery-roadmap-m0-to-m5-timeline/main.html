@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Delivery Roadmap M0&ndash;M5</title>
+    <script src="https://unpkg.com/vis-timeline@7.7.3/standalone/umd/vis-timeline-graph2d.min.js"></script>
+    <link href="https://unpkg.com/vis-timeline@7.7.3/styles/vis-timeline-graph2d.min.css" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        html, body { margin: 0; font-family: Arial, Helvetica, sans-serif; background: #fff; color: #222; }
+        .wrap { padding: 8px 12px; }
+        h2 { font-size: 16px; color: #1a3a5c; text-align: center; margin: 4px 0 4px; }
+        .readout { text-align: center; font-size: 13px; color: #1f7a6f; min-height: 18px; margin-bottom: 6px; }
+        #timeline { border: 1px solid #dee2e6; }
+        .info { margin-top: 8px; padding: 10px; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 6px; min-height: 88px; font-size: 13.5px; line-height: 1.45; }
+        .info b { color: #1f7a6f; }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <h2>Delivery Roadmap &mdash; M0 to M5 (26 weeks)</h2>
+        <div class="readout" id="readout">Hover a milestone to see its cumulative week; click for details.</div>
+        <div id="timeline"></div>
+        <div class="info" id="info">Six contiguous milestones. Note M3 (dashboards) does not finish until week 17 of 26.</div>
+    </div>
+    <script>
+        const info = {
+            M0: '<b>M0 Walking Skeleton (wk 0-3)</b><br>Compose stack, image, CLI, bootstrap, gateway -> Kafka -> ClickHouse.<br><b>Exit:</b> make up && make smoke passes cold.',
+            M1: '<b>M1 Ingestion Complete (wk 3-7)</b><br>Pseudonymization, vault, accept-first provisioning, reconciler, DLQ, replay.<br><b>Exit:</b> ADL conformance suite passes.',
+            M2: '<b>M2 Compression + Graph + Mastery (wk 7-12)</b><br>Neo4j structure, rollup views, summarizer, BKT engine, roster ingest.<br><b>Exit:</b> replay reproduces mastery bit-for-bit; C-1/C-3/C-4/C-6 pass; graph lag under 90s.',
+            M3: '<b>M3 Analytics Dashboards (wk 12-17)</b><br>Analytics API, privacy filter, R-101/102/104/201/202/209, My Classes + Student Detail.<br><b>Exit:</b> P95 under 2s for a 40-student section.',
+            M4: '<b>M4 Admin + Experiments (wk 17-22)</b><br>Admin API/UI, RBAC, audit, experiment service and readout.<br><b>Exit:</b> assignment stickiness holds; SRM check green.',
+            M5: '<b>M5 Scale + Production (wk 22-26)</b><br>Helm, autoscaling, managed stores, DR drill, full report catalog.<br><b>Exit:</b> loadgen sustains 10k/sec, absorbs 50k burst, restore drill passes.'
+        };
+        const weeks = { M0: '0-3', M1: '3-7', M2: '7-12', M3: '12-17', M4: '17-22', M5: '22-26' };
+        const items = new vis.DataSet([
+            { id: 'M0', content: 'M0 Walking Skeleton', start: '2026-01-01', end: '2026-01-22', style: 'background-color:#0f5c53;color:#fff;border-color:#0a3f39;' },
+            { id: 'M1', content: 'M1 Ingestion', start: '2026-01-22', end: '2026-02-19', style: 'background-color:#1a7f72;color:#fff;border-color:#12695f;' },
+            { id: 'M2', content: 'M2 Compression + Graph', start: '2026-02-19', end: '2026-03-26', style: 'background-color:#2a9d8f;color:#fff;border-color:#1f7a6f;' },
+            { id: 'M3', content: 'M3 Dashboards', start: '2026-03-26', end: '2026-04-30', style: 'background-color:#5cbcb0;color:#08312c;border-color:#3bab9d;' },
+            { id: 'M4', content: 'M4 Admin + Experiments', start: '2026-04-30', end: '2026-06-04', style: 'background-color:#d9a24a;color:#222;border-color:#b8791f;' },
+            { id: 'M5', content: 'M5 Scale + Production', start: '2026-06-04', end: '2026-07-02', style: 'background-color:#e9a23b;color:#222;border-color:#b8791f;' }
+        ]);
+        const timeline = new vis.Timeline(document.getElementById('timeline'), items, { showCurrentTime: false, stack: false, margin: { item: 10 }, zoomable: true });
+        window.__tl = timeline;
+        timeline.on('select', function (p) { const id = p.items[0]; document.getElementById('info').innerHTML = id ? info[id] : 'Click a milestone for its deliverables and exit criterion.'; });
+        timeline.on('itemover', function (p) { document.getElementById('readout').textContent = 'Cumulative weeks: ' + weeks[p.item]; });
+    </script>
+</body>
+</html>

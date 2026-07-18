@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Learning Standards Timeline</title>
+    <script src="https://unpkg.com/vis-timeline@7.7.3/standalone/umd/vis-timeline-graph2d.min.js"></script>
+    <link href="https://unpkg.com/vis-timeline@7.7.3/styles/vis-timeline-graph2d.min.css" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        html, body { margin: 0; font-family: Arial, Helvetica, sans-serif; background: #fff; color: #222; }
+        .wrap { padding: 8px 12px; }
+        h2 { font-size: 16px; color: #1a3a5c; text-align: center; margin: 4px 0 8px; }
+        #timeline { border: 1px solid #dee2e6; }
+        .legend { text-align: center; font-size: 12px; margin: 6px 0; }
+        .chip { display: inline-block; padding: 2px 8px; border-radius: 10px; margin: 0 4px; color: #fff; }
+        .info { margin-top: 8px; padding: 10px; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 6px; min-height: 74px; font-size: 14px; line-height: 1.45; }
+        .info b { color: #1f7a6f; }
+        .vis-item.aicc { background-color: #7b6cc4; border-color: #544a91; color: #fff; }
+        .vis-item.scorm { background-color: #e9a23b; border-color: #b8791f; color: #222; }
+        .vis-item.xapi { background-color: #2a9d8f; border-color: #1f7a6f; color: #fff; }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <h2>Learning Standards Timeline (1988&ndash;present)</h2>
+        <div class="legend">
+            <span class="chip" style="background:#7b6cc4">AICC</span>
+            <span class="chip" style="background:#e9a23b;color:#222">SCORM / ADL</span>
+            <span class="chip" style="background:#2a9d8f">xAPI / IEEE / I2IDL</span>
+        </div>
+        <div id="timeline"></div>
+        <div class="info" id="info">Click a milestone to see what changed and why.</div>
+    </div>
+    <script>
+        const details = {
+            1: '<b>1988 &mdash; AICC formed</b><br>The Aviation Industry CBT Committee forms to standardize aviation computer-based training &mdash; the first widely-used interoperability effort.',
+            2: '<b>1999 &mdash; SCORM 1.0</b><br>ADL releases SCORM 1.0, packaging content so any conformant LMS can launch and track it. Data reported only to the one launching LMS.',
+            3: '<b>2004 &mdash; SCORM 2004</b><br>Adds sequencing and navigation rules, but keeps the single-LMS, browser-launched model and its limits.',
+            4: '<b>2010 &mdash; Project Tin Can</b><br>ADL begins research into SCORM&rsquo;s limitations &mdash; offline learning, mobile, simulations, and the single-LMS bottleneck.',
+            5: '<b>2013 &mdash; xAPI 1.0</b><br>The Experience API is released: statements (Actor/Verb/Object) sent to a Learning Record Store from any experience, not just an LMS.',
+            6: '<b>2019 &mdash; IEEE LTSC stewardship</b><br>Stewardship of xAPI begins transitioning to the IEEE Learning Technology Standards Committee for formal, balloted governance.',
+            7: '<b>2023 &mdash; IEEE 9274.1.1-2023</b><br>The formal xAPI core standard is published &mdash; Statement structure, RESTful API, and conformance requirements.',
+            8: '<b>2025 &mdash; I2IDL established</b><br>The Institute for Infrastructure and Interoperable Data in Learning takes over operational tooling (Conformance Suite, Profile Server, TLA Reference Implementation).'
+        };
+        const items = new vis.DataSet([
+            { id: 1, content: 'AICC formed', start: '1988-01-01', type: 'box', className: 'aicc' },
+            { id: 2, content: 'SCORM 1.0', start: '1999-01-01', type: 'box', className: 'scorm' },
+            { id: 3, content: 'SCORM 2004', start: '2004-01-01', type: 'box', className: 'scorm' },
+            { id: 4, content: 'Project Tin Can', start: '2010-01-01', type: 'box', className: 'scorm' },
+            { id: 5, content: 'xAPI 1.0', start: '2013-01-01', type: 'box', className: 'xapi' },
+            { id: 6, content: 'IEEE LTSC stewardship', start: '2019-01-01', type: 'box', className: 'xapi' },
+            { id: 7, content: 'IEEE 9274.1.1-2023', start: '2023-01-01', type: 'box', className: 'xapi' },
+            { id: 8, content: 'I2IDL established', start: '2025-01-01', type: 'box', className: 'xapi' }
+        ]);
+        const timeline = new vis.Timeline(document.getElementById('timeline'), items, {
+            min: '1985-01-01', max: '2028-01-01', margin: { item: 14 }, showCurrentTime: false, zoomable: true, stack: true
+        });
+        window.__tl = timeline;
+        timeline.on('select', function (props) {
+            const id = props.items[0];
+            document.getElementById('info').innerHTML = id ? details[id] : 'Click a milestone to see what changed and why.';
+        });
+    </script>
+</body>
+</html>

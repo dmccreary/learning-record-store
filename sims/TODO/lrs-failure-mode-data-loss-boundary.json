@@ -1,0 +1,15 @@
+{
+  "sim_id": "lrs-failure-mode-data-loss-boundary",
+  "diagram_name": "The Data-Loss Boundary Across the Compression Pipeline",
+  "chapter_number": 19,
+  "chapter_title": "Failure Modes and Verification",
+  "chapter_dir": "19-failure-modes-and-verification",
+  "chapter_rel_dir": "chapters/19-failure-modes-and-verification",
+  "library": "Mermaid",
+  "bloom_level": "Analyze (L4)",
+  "bloom_verb": "classify, trace",
+  "learning_objective": "Given any one of six failure modes in the compression pipeline, classify it as occurring before or after the Kafka durability boundary and predict whether it can lose data.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: workflow\n**sim-id:** lrs-failure-mode-data-loss-boundary<br/>\n**Library:** Mermaid<br/>\n**Status:** Specified\n\nBloom Taxonomy: Analyze (L4)\nBloom Taxonomy Verb: classify, trace\n\nLearning objective: Given any one of six failure modes in the compression pipeline, classify it as occurring before or after the Kafka durability boundary and predict whether it can lose data.\n\nPurpose: A Mermaid flowchart of the statement's path from a Learning Record Provider through the gateway, Kafka, the processor, ClickHouse, the summarizer, and Neo4j, with a vertical boundary line after Kafka separating \"can lose data\" from \"cannot lose data.\"\n\nNodes in path order: \"Learning Record Provider\" -> \"Ingestion Gateway\" -> \"Kafka (durability boundary)\" -> \"Processor\" -> \"ClickHouse (event log)\" -> \"Summarizer\" -> \"Neo4j (graph projection)\". A separate node \"Redis (mastery cache)\" branches off ClickHouse/Neo4j reads.\n\nVisual boundary: A dashed red vertical line crosses the diagram immediately after the Kafka node, labeled \"Only failures left of this line can lose data.\"\n\nInteractive features: Every node has a Mermaid click directive opening an infobox naming its associated failure mode (Gateway/Kafka: Kafka Unavailable Failure; Processor/ClickHouse: ClickHouse Unavailable Failure; Summarizer: Summarizer Stopped Failure and Summarizer Split Brain; Neo4j: Neo4j Unavailable Failure; Redis: Redis Unavailable Failure) with that failure's detection, behavior, and response. Clicking the boundary line opens an infobox on the \"only the first row loses data\" rule.\n\nColor coding: Nodes left of the boundary shaded warning amber; nodes right of the boundary shaded the book's calm teal to signal \"recoverable.\"\n\nResponsive design: The flowchart reflows to a single column on narrow viewports, preserving the boundary line's position and all click handlers."
+}

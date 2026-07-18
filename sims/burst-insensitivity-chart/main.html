@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Burst Insensitivity Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * { box-sizing: border-box; }
+        html, body { margin: 0; font-family: Arial, Helvetica, sans-serif; background: #fff; color: #222; }
+        .wrap { padding: 8px 12px; }
+        h2 { font-size: 16px; color: #1a3a5c; text-align: center; margin: 4px 0 8px; }
+        .chart-box { position: relative; height: 320px; }
+        .controls { text-align: center; margin: 8px 0; }
+        button { font-size: 12px; padding: 6px 10px; border: 1px solid #2a9d8f; background: #fff; color: #1f7a6f; border-radius: 5px; cursor: pointer; margin: 0 3px; }
+        button.active { background: #2a9d8f; color: #fff; }
+        .caption { font-size: 13px; text-align: center; max-width: 700px; margin: 6px auto; line-height: 1.4; font-weight: bold; }
+        .pass { color: #1f7a6f; } .failc { color: #b8791f; }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <h2>Burst Test: Ingest Rate vs Graph Write Rate</h2>
+        <div class="chart-box"><canvas id="c"></canvas></div>
+        <div class="controls">
+            <button id="passBtn" class="active">Passing result</button>
+            <button id="failBtn">Failing (hypothetical)</button>
+        </div>
+        <p class="caption pass" id="cap">Flat graph writes under 5&times; ingest: the architecture holds.</p>
+    </div>
+    <script>
+        const t = []; for (let s = 0; s <= 600; s += 20) t.push(s);
+        const ingest = t.map(function (s) { return s < 300 ? 200 : 1000; });
+        function jitter(base, s) { return base + ((s / 20) % 3 - 1) * 4; }
+        const graphPass = t.map(function (s) { return jitter(65, s); });
+        const graphFail = t.map(function (s) { return s < 300 ? jitter(65, s) : 65 + (s - 300) * 1.5; });
+        let failing = false;
+        const chart = new Chart(document.getElementById('c'), {
+            type: 'line',
+            data: { labels: t, datasets: [
+                { label: 'Ingest rate (stmts/sec)', data: ingest, borderColor: '#2a9d8f', pointRadius: 0, yAxisID: 'y', stepped: true },
+                { label: 'Graph write rate (upserts/sec)', data: graphPass.slice(), borderColor: '#e07a5f', pointRadius: 0, yAxisID: 'y2', tension: 0.2 }
+            ] },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { tooltip: { callbacks: { title: function (i) { return 't = ' + i[0].label + 's'; } } } },
+                scales: {
+                    y: { position: 'left', min: 0, max: 1200, title: { display: true, text: 'Ingest rate (stmts/sec)' } },
+                    y2: { position: 'right', min: 0, max: 1200, grid: { drawOnChartArea: false }, title: { display: true, text: 'Graph write rate (upserts/sec)' } },
+                    x: { title: { display: true, text: 'Seconds (burst onset at t=300s)' } }
+                }
+            }
+        });
+        function setMode(f) {
+            failing = f;
+            chart.data.datasets[1].data = f ? graphFail.slice() : graphPass.slice();
+            chart.data.datasets[1].borderColor = f ? '#e9a23b' : '#e07a5f';
+            chart.update();
+            const cap = document.getElementById('cap');
+            cap.className = 'caption ' + (f ? 'failc' : 'pass');
+            cap.textContent = f ? 'Climbing graph writes: the architecture does not decouple as designed.' : 'Flat graph writes under 5x ingest: the architecture holds.';
+            document.getElementById('passBtn').classList.toggle('active', !f);
+            document.getElementById('failBtn').classList.toggle('active', f);
+        }
+        document.getElementById('passBtn').onclick = function () { setMode(false); };
+        document.getElementById('failBtn').onclick = function () { setMode(true); };
+    </script>
+</body>
+</html>

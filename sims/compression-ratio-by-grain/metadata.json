@@ -1,0 +1,24 @@
+{
+  "title": "Storage Compression Ratio by Summary-Vertex Grain",
+  "description": "Let the learner compare the storage compression ratio across the five grains that compress within-student evidence (QuestionResponse, PageEngagement, MicroSimEngagement, ConceptMastery, SectionRollup) and evaluate why SectionRollup's ratio is so much larger than the others.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "compression-ratio-by-grain",
+  "library": "Chart.js",
+  "bloomLevel": "Analyze (L4)",
+  "bloomVerb": "compare, evaluate",
+  "completion_status": "implemented",
+  "chapter_number": 8,
+  "chapter_title": "Summary Vertices and Statement Ingestion Mechanics",
+  "chapter_dir": "08-summary-vertices-ingestion",
+  "chapter_rel_dir": "chapters/08-summary-vertices-ingestion",
+  "canvasHeight": 470
+}

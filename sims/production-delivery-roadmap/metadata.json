@@ -1,0 +1,24 @@
+{
+  "title": "From Walking Skeleton to Scaled Production",
+  "description": "Sequence the design document's delivery milestones from a walking skeleton through scaled production, and identify which milestone introduces each managed service covered in this chapter.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "production-delivery-roadmap",
+  "library": "vis-timeline",
+  "bloomLevel": "Understand (L2)",
+  "bloomVerb": "sequence, summarize",
+  "completion_status": "implemented",
+  "chapter_number": 23,
+  "chapter_title": "Production Infrastructure and Cloud Services",
+  "chapter_dir": "23-production-infrastructure-cloud",
+  "chapter_rel_dir": "chapters/23-production-infrastructure-cloud",
+  "canvasHeight": 420
+}

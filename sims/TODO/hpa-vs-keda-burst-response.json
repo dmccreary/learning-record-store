@@ -1,0 +1,15 @@
+{
+  "sim_id": "hpa-vs-keda-burst-response",
+  "diagram_name": "HPA vs. KEDA — Two Autoscalers React to a Burst",
+  "chapter_number": 23,
+  "chapter_title": "Production Infrastructure and Cloud Services",
+  "chapter_dir": "23-production-infrastructure-cloud",
+  "chapter_rel_dir": "chapters/23-production-infrastructure-cloud",
+  "library": "Mermaid",
+  "bloom_level": "Analyze (L4)",
+  "bloom_verb": "differentiate, contrast",
+  "learning_objective": "Differentiate between CPU/RPS-driven autoscaling (HPA on the gateway) and consumer-lag-driven autoscaling (KEDA on the processor), and trace how each responds to the same 5x ingest burst.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: workflow\n**sim-id:** hpa-vs-keda-burst-response<br/>\n**Library:** Mermaid<br/>\n**Status:** Specified\n\nBloom Taxonomy: Analyze (L4)\nBloom Taxonomy Verb: differentiate, contrast\n\nLearning objective: Differentiate between CPU/RPS-driven autoscaling (HPA on the gateway) and consumer-lag-driven autoscaling (KEDA on the processor), and trace how each responds to the same 5x ingest burst.\n\nPurpose: A single Mermaid flowchart with two parallel tracks sharing one \"5x burst begins\" starting node, so the learner can compare the two autoscaling paths side by side rather than read them as separate diagrams.\n\nTop track \"Gateway — Horizontal Pod Autoscaler\": \"5x burst begins\" -> \"Request rate and CPU climb per gateway pod\" -> \"HPA compares live metric to target\" -> \"HPA adds gateway replicas\" -> \"Requests spread across more pods, CPU normalizes.\"\n\nBottom track \"Processor — KEDA Autoscaler\": \"5x burst begins\" -> \"Kafka consumer lag grows on xapi.statements.raw\" -> \"KEDA scaler polls lag metric\" -> \"KEDA adds processor replicas, each claiming idle partitions\" -> \"Replicas drain backlog over the following minute, lag returns to baseline.\"\n\nInteractive features: Every node has a Mermaid click directive. Clicking a Gateway-track node opens an infobox on RPS/CPU-based scaling; clicking a Processor-track node opens an infobox on consumer-lag scaling and why an HPA cannot read that metric natively. Clicking the shared \"5x burst begins\" node opens an infobox recapping Chapter 22's burst insensitivity claim and noting this diagram shows the pod-level mechanism behind it.\n\nColor coding: Gateway track in the book's teal accent color; Processor/KEDA track in a contrasting violet, so the two signal types stay visually distinct even when read quickly.\n\nResponsive design: Tracks stack vertically on narrow viewports with the shared starting node repeated at the top of each; click targets stay tap-sized."
+}

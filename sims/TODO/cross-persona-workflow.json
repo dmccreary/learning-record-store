@@ -1,0 +1,15 @@
+{
+  "sim_id": "cross-persona-workflow",
+  "diagram_name": "Cross-Persona Workflow",
+  "chapter_number": 24,
+  "chapter_title": "Meet the Three Personas and the Admin UI Surface",
+  "chapter_dir": "24-three-personas-and-admin-uis",
+  "chapter_rel_dir": "chapters/24-three-personas-and-admin-uis",
+  "library": "Mermaid",
+  "bloom_level": "Analyze (L4)",
+  "bloom_verb": "trace, analyze",
+  "learning_objective": "Trace one ingested xAPI Statement through three independent, simultaneously-updated aggregations, and analyze why no persona's view requires a separate data pipeline from the others.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: workflow\n**sim-id:** cross-persona-workflow<br/>\n**Library:** Mermaid<br/>\n**Status:** Specified\n\nBloom Taxonomy: Analyze (L4)\nBloom Taxonomy Verb: trace, analyze\n\nLearning objective: Trace one ingested xAPI Statement through three independent, simultaneously-updated aggregations, and analyze why no persona's view requires a separate data pipeline from the others.\n\nPurpose: A single Mermaid flowchart tracing one concrete Statement (a student's correct MicroSim answer on cellular respiration) from ingestion into three parallel, non-interfering outcomes.\n\nFlow: \"Student answers MicroSim question correctly\" -> \"xAPI Statement ingested once (Actor, Verb, Object Activity, Result)\" -> three parallel branches.\n\nBranch A \"Teacher\": -> \"Bayesian Knowledge Tracing update for this student's cellular-respiration mastery\" -> \"At-risk roster re-evaluated for this student.\"\n\nBranch B \"District Administrator\": -> \"Counted toward this section's textbook-usage coverage, no student named\" -> \"District adoption percentage updated.\"\n\nBranch C \"Textbook Author\": -> \"Added to this MicroSim version's running effectiveness estimate, no student named\" -> \"Feeds the Experiment Administration UI's readout if an experiment is running.\"\n\nInteractive features: Every node has a Mermaid click directive. Clicking the shared ingestion node opens an infobox recapping that this is the same non-blocking ingestion path Chapter 8 described. Clicking any Branch A node opens an infobox linking to Chapter 12's Bayesian Knowledge Tracing explanation. Clicking any Branch B node opens an infobox naming the aggregation-threshold rule from Chapter 15 that would suppress this count if the group were smaller than ten. Clicking any Branch C node opens an infobox previewing Chapter 30 and Chapter 31's content-effectiveness and experiment coverage.\n\nColor coding: Shared ingestion node in teal; Teacher branch in violet; District Administrator branch in amber; Textbook Author branch in green — matching the same three persona colors used in the \"Three Personas, One Statement Log\" diagram earlier in this chapter, so a reader recognizes the color scheme as a running convention.\n\nResponsive design: The three branches stack vertically below the shared node on narrow viewports; click targets stay tap-sized."
+}

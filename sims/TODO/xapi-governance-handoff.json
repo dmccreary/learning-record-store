@@ -1,0 +1,15 @@
+{
+  "sim_id": "xapi-governance-handoff",
+  "diagram_name": "Standards Governance Handoff",
+  "chapter_number": 3,
+  "chapter_title": "IEEE Standardization of xAPI and cmi5",
+  "chapter_dir": "03-ieee-standardization-xapi-cmi5",
+  "chapter_rel_dir": "chapters/03-ieee-standardization-xapi-cmi5",
+  "library": "Mermaid",
+  "bloom_level": "Understand (L2)",
+  "bloom_verb": "summarize, sequence",
+  "learning_objective": "Let the learner trace how stewardship of xAPI moved across three organizations over time, and correctly attribute each organization's distinct role rather than treating \"the standard\" as owned by one undifferentiated group.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: workflow\n**sim-id:** xapi-governance-handoff<br/>\n**Library:** Mermaid<br/>\n**Status:** Specified<br/>\n**Template:** https://github.com/dmccreary/xapi-course/tree/main/docs/sims/learning-standards-timeline<br/>\n\nBloom Taxonomy: Understand (L2)\nBloom Taxonomy Verb: summarize, sequence\n\nLearning objective: Let the learner trace how stewardship of xAPI moved across three organizations over time, and correctly attribute each organization's distinct role rather than treating \"the standard\" as owned by one undifferentiated group.\n\nPurpose: Show a left-to-right Mermaid flowchart with four stages, each a labeled node, connected by arrows annotated with the year the handoff occurred.\n\nNodes:\n\n- \"ADL Initiative\" — originates xAPI via Project Tin Can, publishes xAPI 1.0 (2013)\n- \"IEEE LTSC\" — stewardship transition begins (2019), leading to a balloted standard\n- \"IEEE 9274.1.1-2023\" — the published core standard (2023), shown as a document icon\n- \"I2IDL\" — established (2025), takes over operational tooling, branching to three child nodes: \"xAPI Conformance Suite,\" \"xAPI Profile Server,\" \"TLA Reference Implementation\"\n\nInteractive features: Every node has a Mermaid `click` directive. Clicking \"ADL Initiative,\" \"IEEE LTSC,\" or \"I2IDL\" opens an infobox with that organization's one-sentence role definition, matching the chapter's governance table. Clicking \"IEEE 9274.1.1-2023\" opens an infobox explaining what the standard covers (Statement structure, RESTful API, conformance requirements). Clicking any of the three I2IDL child nodes opens an infobox naming what that tool does and linking conceptually to where it is covered later in this chapter.\n\nColor coding: ADL Initiative in amber (legacy/origin), IEEE LTSC and IEEE 9274.1.1-2023 in the book's teal accent color (formal standard), I2IDL and its three child nodes in green (active operational tooling).\n\nImplementation: Mermaid flowchart, left-to-right orientation, full click-to-infobox coverage on every node. Responsive width tracking the containing element."
+}

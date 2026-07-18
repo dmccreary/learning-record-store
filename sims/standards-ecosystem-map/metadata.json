@@ -1,0 +1,24 @@
+{
+  "title": "The Wider Standards Ecosystem Map",
+  "description": "Let the learner analyze how IEEE LTSC, the ADL Initiative, I2IDL, and the 1EdTech Consortium relate to one another and to the specifications each governs, correctly attributing xAPI, cmi5, and the Total Learning Architecture to one governance family and LTI, QTI, Caliper Analytics, and Learning Object Metadata to the other.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "standards-ecosystem-map",
+  "library": "vis-network",
+  "bloomLevel": "Analyze (L4)",
+  "bloomVerb": "analyze, relate",
+  "completion_status": "implemented",
+  "chapter_number": 4,
+  "chapter_title": "Standards Governance and the Wider Interoperability Ecosystem",
+  "chapter_dir": "04-standards-governance-ecosystem",
+  "chapter_rel_dir": "chapters/04-standards-governance-ecosystem",
+  "canvasHeight": 560
+}

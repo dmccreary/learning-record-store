@@ -1,0 +1,24 @@
+{
+  "title": "District-Keyed versus Composite-Keyed Partitioning",
+  "description": "Compare a Kafka queue partitioned by `district_id` alone against one keyed by `{district_id}:{student_key}`, and explain why the composite key avoids a write hotspot while still preserving the per-learner ordering that Bayesian Knowledge Tracing requires.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "district-vs-composite-partition-key",
+  "library": "Mermaid",
+  "bloomLevel": "Analyze (L4)",
+  "bloomVerb": "compare, differentiate",
+  "completion_status": "implemented",
+  "chapter_number": 20,
+  "chapter_title": "Spec Deviations, the Delivery Roadmap, and Open Questions",
+  "chapter_dir": "20-deviations-roadmap-open-questions",
+  "chapter_rel_dir": "chapters/20-deviations-roadmap-open-questions",
+  "canvasHeight": 560
+}

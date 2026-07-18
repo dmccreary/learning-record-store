@@ -1,0 +1,2244 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="An intelligent textbook on Learning Record Stores: what they are, how xAPI statements work, and how to design, deploy, and query an LRS.">
+      
+      
+        <meta name="author" content="Dan McCreary">
+      
+      
+        <link rel="canonical" href="https://dmccreary.github.io/learning-record-store/case-studies/higher-ed-summary/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
+    
+    
+      
+        <title>Learning Record Stores in Production Education Environments - Learning Record Store</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/extra.css">
+    
+      <link rel="stylesheet" href="../../css/mascot.css">
+    
+      <link rel="stylesheet" href="../../css/lrs-xapi.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#learning-record-stores-in-production-education-environments" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Learning Record Store" class="md-header__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  <img src="../../img/mascot/neutral.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Learning Record Store
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Learning Record Stores in Production Education Environments
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Learning Record Store" class="md-nav__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  <img src="../../img/mascot/neutral.png" alt="logo">
+
+    </a>
+    Learning Record Store
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../course-description/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Course Description
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../stories/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Stories
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../chapters/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Chapters
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../learning-graph/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Learning Graph
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../sims/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    MicroSims
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../stories/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Stories
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../demo/graph-queries/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Demo
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Case Studies
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Glossary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../license/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contact/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contact
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#executive-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Executive summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#research-question-and-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      Research question and method
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documented-production-deployments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documented production deployments
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Documented production deployments">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#university-of-wisconsin-madison-united-states" class="md-nav__link">
+    <span class="md-ellipsis">
+      University of Wisconsin-Madison, United States
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#university-of-san-diego-united-states" class="md-nav__link">
+    <span class="md-ellipsis">
+      University of San Diego, United States
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fielding-graduate-university-united-states" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fielding Graduate University, United States
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jisc-learning-analytics-and-participating-universities-united-kingdom" class="md-nav__link">
+    <span class="md-ellipsis">
+      Jisc learning analytics and participating universities, United Kingdom
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#university-of-electro-communications-japan" class="md-nav__link">
+    <span class="md-ellipsis">
+      University of Electro-Communications, Japan
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#university-of-tokyo-japan" class="md-nav__link">
+    <span class="md-ellipsis">
+      University of Tokyo, Japan
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kyoto-university-leaf-and-bookroll-japan" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kyoto University LEAF and BookRoll, Japan
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oklahoma-state-university-libraries-united-states" class="md-nav__link">
+    <span class="md-ellipsis">
+      Oklahoma State University Libraries, United States
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bounded-rollouts-and-large-pilots" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bounded rollouts and large pilots
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bounded rollouts and large pilots">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#university-of-twente-netherlands" class="md-nav__link">
+    <span class="md-ellipsis">
+      University of Twente, Netherlands
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#university-of-notre-dame-united-states" class="md-nav__link">
+    <span class="md-ellipsis">
+      University of Notre Dame, United States
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connected-learning-analytics-toolkit-australia" class="md-nav__link">
+    <span class="md-ellipsis">
+      Connected Learning Analytics Toolkit, Australia
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#european-data-science-academy-european-union" class="md-nav__link">
+    <span class="md-ellipsis">
+      European Data Science Academy, European Union
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#isila-and-the-university-of-leon-spain" class="md-nav__link">
+    <span class="md-ellipsis">
+      ISILA and the University of Leon, Spain
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adjacent-national-and-school-sector-evidence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adjacent national and school-sector evidence
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-higher-education-production-evidence-is-scarce" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why higher-education production evidence is scarce
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Why higher-education production evidence is scarce">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#universities-are-organized-around-courses-and-systems-of-record" class="md-nav__link">
+    <span class="md-ellipsis">
+      Universities are organized around courses and systems of record
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#event-interoperability-does-not-guarantee-semantic-interoperability" class="md-nav__link">
+    <span class="md-ellipsis">
+      Event interoperability does not guarantee semantic interoperability
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#identity-and-context-must-be-reconciled" class="md-nav__link">
+    <span class="md-ellipsis">
+      Identity and context must be reconciled
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#privacy-risk-grows-with-event-detail" class="md-nav__link">
+    <span class="md-ellipsis">
+      Privacy risk grows with event detail
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#an-lrs-is-not-an-analytics-product-by-itself" class="md-nav__link">
+    <span class="md-ellipsis">
+      An LRS is not an analytics product by itself
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-documentation-has-two-opposite-biases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Public documentation has two opposite biases
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implications-for-an-intelligent-textbook-lrs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implications for an intelligent-textbook LRS
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusion
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/case-studies/higher-ed-summary.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="learning-record-stores-in-production-education-environments">Learning Record Stores in Production Education Environments<a class="headerlink" href="#learning-record-stores-in-production-education-environments" title="Permanent link">&para;</a></h1>
+<h2 id="executive-summary">Executive summary<a class="headerlink" href="#executive-summary" title="Permanent link">&para;</a></h2>
+<p>Learning Record Stores (LRSs) are used in real production education environments, including
+colleges and universities in the United States, United Kingdom, the Netherlands, Japan, and
+Australia. Public evidence of these deployments is nevertheless much thinner than evidence from
+the United States Department of Defense and corporate training.</p>
+<p>The evidence supports three conclusions:</p>
+<ol>
+<li><strong>Higher-education LRS adoption is real but usually bounded.</strong> Most documented deployments
+   serve a collection of courses, an online degree, a library, a particular content pipeline, or a
+   student-engagement service. Few are comprehensive, lifelong, institution-wide records of
+   concept or competency mastery.</li>
+<li><strong>The LRS creates value as part of a feedback system, not as an isolated repository.</strong> The
+   strongest deployments connect event collection to dashboards, instructor intervention,
+   personalized messages, course improvement, or attendance and regulatory workflows.</li>
+<li><strong>Many institutions use an LRS-like warehouse without insisting on a strict xAPI-only
+   architecture.</strong> Production learning analytics commonly combines xAPI or Caliper events with
+   student-information-system records, assessment results, attendance, and batch data.</li>
+</ol>
+<p>The closest publicly documented examples to a broad institutional learning-data infrastructure
+are the United Kingdom's Jisc learning analytics service, Kyoto University's LEAF ecosystem, the
+University of Electro-Communications' UEC-LAP, and the University of Tokyo's xAPI/LRS-enabled LMS.
+Even these do not demonstrate the full DoD-style vision of a persistent record organized around
+concepts, competencies, simulations, assessments, and observed real-world performance.</p>
+<h2 id="research-question-and-method">Research question and method<a class="headerlink" href="#research-question-and-method" title="Permanent link">&para;</a></h2>
+<p>This investigation began with the observation that the US DoD has several projects using formal
+LRS infrastructure to record learning and performance in domains such as equipment maintenance,
+while colleges and universities appear to have few comparable production systems.</p>
+<p>The research looked for named deployments in which:</p>
+<ul>
+<li>learners generated records during normal teaching, training, or student-support operations;</li>
+<li>the records were stored in a named LRS or learning-record warehouse;</li>
+<li>the source described an operational use of the records, not merely a proposed architecture;</li>
+<li>the deployment could be connected to a real institution, course, program, or service; and</li>
+<li>public documentation provided enough detail to distinguish implementation from aspiration.</li>
+</ul>
+<p>Institutional documentation and peer-reviewed publications were preferred. Vendor case studies
+were retained when they named the institution, learning context, data flow, and operational use.
+Vendor claims are identified as such because they are useful implementation evidence but are not
+independent evaluations.</p>
+<p>The following labels are used throughout the report:</p>
+<ul>
+<li><strong>Institutional production:</strong> supported infrastructure serving multiple courses, systems, or
+  university functions.</li>
+<li><strong>Bounded production:</strong> a live, recurring deployment within a program, course family, content
+  pipeline, or organizational unit.</li>
+<li><strong>Large pilot or research deployment:</strong> real learners and operational data, but limited evidence
+  of durable service ownership or continued production use.</li>
+<li><strong>Strict xAPI LRS:</strong> a store intended to implement the xAPI LRS interface.</li>
+<li><strong>Learning-record warehouse:</strong> a broader repository that may accept xAPI, Caliper, student
+  records, and non-event data. It performs the central architectural role of an LRS but may not
+  implement every xAPI LRS endpoint.</li>
+</ul>
+<p>This is a review of publicly available evidence, not an exhaustive census. Evidence was reviewed
+through July 18, 2026.</p>
+<h2 id="documented-production-deployments">Documented production deployments<a class="headerlink" href="#documented-production-deployments" title="Permanent link">&para;</a></h2>
+<h3 id="university-of-wisconsin-madison-united-states">University of Wisconsin-Madison, United States<a class="headerlink" href="#university-of-wisconsin-madison-united-states" title="Permanent link">&para;</a></h3>
+<p><strong>Classification:</strong> institutional service with content-by-content adoption<br />
+<strong>Technology:</strong> Learning Locker, xAPI, Storyline, H5P, Pressbooks, WordPress/GrassBlade, Canvas</p>
+<p>UW-Madison provides one of the clearest publicly documented operational LRS services in US higher
+education. Its Learn@UW documentation explains how school, college, and departmental
+instructional technologists obtain Learning Locker accounts and how instructors request activity
+reports for xAPI-enabled Storyline modules. The captured records include module duration and
+fine-grained learner interaction data.</p>
+<p>Related documentation describes the wider authoring pipeline: Storyline or H5P content can be
+delivered through WordPress and Canvas while statements are sent to Learning Locker. Staff can
+export the resulting records and receive assistance interpreting or cleaning them.</p>
+<p>The service has been documented since 2017, and the principal operating guide was updated in
+August 2025. That combination of central account provisioning, help-desk support, instructor
+reporting procedures, and maintained documentation is strong evidence of production operation.
+It does not show that every Canvas course emits xAPI; adoption occurs where instructors use the
+supported content pipeline.</p>
+<p>Sources:</p>
+<ul>
+<li><a href="https://kb.wisc.edu/learning-analytics/76536">Requesting student activity data from Learning Locker</a></li>
+<li><a href="https://kb.wisc.edu/luwmad/page.php?id=79906">Interpreting a standard Learning Locker export</a></li>
+</ul>
+<h3 id="university-of-san-diego-united-states">University of San Diego, United States<a class="headerlink" href="#university-of-san-diego-united-states" title="Permanent link">&para;</a></h3>
+<p><strong>Classification:</strong> bounded production across several courses<br />
+<strong>Technology:</strong> Learning Pool Platform and Learning Pool LRS</p>
+<p>The University of San Diego uses an LRS as part of a social and online learning environment.
+Its first reported use was a Sustainable Supply Chain Management course whose faculty needed to
+curate web pages, news articles, videos, and other learning objects because no suitable textbook
+existed. Students view, comment on, share, and contribute learning objects.</p>
+<p>The LRS gives lecturers engagement analytics, identifies students who may need support, and
+supports a points system and leaderboard visible to learners. Faculty report using the analytics
+to provide personalized feedback. The platform subsequently expanded to Service Management,
+Operations Management, and Sustainability courses, and it supported a MOOC reported to have an
+approximately 50 percent completion rate.</p>
+<p>The case study says the university's relationship with earlier versions of the platform extends
+back more than twelve years. This is credible evidence of durable course-level production, though
+not evidence that the LRS covers all 8,000 students or the entire university. The source is the
+platform vendor and should be read as an implementation account rather than an independent impact
+evaluation.</p>
+<p>Source:</p>
+<ul>
+<li><a href="https://learningpool.com/case-studies/university-of-san-diego">University of San Diego case study</a></li>
+</ul>
+<h3 id="fielding-graduate-university-united-states">Fielding Graduate University, United States<a class="headerlink" href="#fielding-graduate-university-united-states" title="Permanent link">&para;</a></h3>
+<p><strong>Classification:</strong> bounded production in a credit-bearing graduate program<br />
+<strong>Technology:</strong> Learning Pool Platform, Learning Pool Authoring, and Learning Pool LRS</p>
+<p>Fielding Graduate University uses a digital learning ecosystem for its online MA in Organization
+Development and Leadership. Learners work through six masterclasses, interact with subject-matter
+experts and peers, and submit assignments for formal assessment.</p>
+<p>Activity from the learning platform is sent to an LRS. Facilitators use a Social Intelligence
+Dashboard to identify deeply engaged learners and learners who may need help. LRS data can also
+trigger automated, personalized communications and nudges intended to bring learners back into
+the community.</p>
+<p>Because the deployment supports a live, credit-bearing graduate program and connects activity
+records to routine facilitator workflows, it is more than an experimental dashboard. Its scope is
+the program rather than the whole institution. As with the San Diego example, the public source is
+the vendor.</p>
+<p>Source:</p>
+<ul>
+<li><a href="https://learningpool.com/case-studies/fielding-graduate-university">Fielding Graduate University case study</a></li>
+</ul>
+<h3 id="jisc-learning-analytics-and-participating-universities-united-kingdom">Jisc learning analytics and participating universities, United Kingdom<a class="headerlink" href="#jisc-learning-analytics-and-participating-universities-united-kingdom" title="Permanent link">&para;</a></h3>
+<p><strong>Classification:</strong> multi-institution production service<br />
+<strong>Technology:</strong> originally an xAPI-enabled cloud Learning Records Warehouse; current Jisc LA2</p>
+<p>Jisc began co-designing a higher-education learning analytics service in 2015 with pathfinder
+institutions including the University of South Wales, the University of Greenwich, and the
+University of Gloucestershire. The Data Explorer staff dashboard and Study Goal student
+application went live in 2018.</p>
+<p>The documented architecture separated relatively stable student and course records from frequent
+learning events. Virtual learning environment, library, attendance, and similar activities could
+be represented using xAPI and loaded into a cloud Learning Records Warehouse maintained by Jisc
+for each institution. The warehouse combined these events with grades, enrolment, and demographic
+data for analytics.</p>
+<p>University of Greenwich documentation confirms that the service was used to calculate individual
+engagement measures, provide students with Study Goal, give tutors Data Explorer views, and support
+interventions. Its privacy documentation explains that identifiers were encrypted before records
+were transferred to the central warehouse. Current University of South Wales documentation shows
+the successor Jisc LA2 platform in normal operation for attendance and wider engagement monitoring.</p>
+<p>Jisc currently markets the service for retention, wellbeing, attendance, case management, and
+regulatory compliance. Its present public product pages no longer make the underlying xAPI
+contract prominent. The evidence therefore establishes a production service with an xAPI/LRS
+lineage, but it does not prove that every part of the 2026 backend remains a conformant xAPI LRS.</p>
+<p>Sources:</p>
+<ul>
+<li><a href="https://analytics.jiscinvolve.org/wp/2016/12/21/exploring-issues-around-data-for-jiscs-learning-analytics-architecture/">Jisc Learning Records Warehouse and xAPI architecture</a></li>
+<li><a href="https://www.jisc.ac.uk/innovation/projects/enhancing-the-tools-for-uk-universities-to-improve-student-engagement">Jisc platform history and pathfinder institutions</a></li>
+<li><a href="https://www.jisc.ac.uk/learning-analytics">Current Jisc learning analytics service</a></li>
+<li><a href="https://www.gre.ac.uk/articles/planning-and-statistics/student-guide-to-learning-analytics">University of Greenwich student guide</a></li>
+<li><a href="https://www.gre.ac.uk/articles/planning-and-statistics/learning-analytics-at-the-university-of-greenwich">University of Greenwich implementation overview</a></li>
+<li><a href="https://www.southwales.ac.uk/services/it-services/attendance-monitoring/">University of South Wales LA2 attendance service</a></li>
+</ul>
+<h3 id="university-of-electro-communications-japan">University of Electro-Communications, Japan<a class="headerlink" href="#university-of-electro-communications-japan" title="Permanent link">&para;</a></h3>
+<p><strong>Classification:</strong> institutional production with staged faculty adoption<br />
+<strong>Technology:</strong> UEC-LAP, LRS, WebClass, Moodle, Google Classroom, student information system</p>
+<p>The University of Electro-Communications operates UEC-LAP, a Learning Analytics Platform that
+combines learning history with academic results. The institution uses three LMSs: WebClass,
+Moodle, and Google Classroom. UEC-LAP brings records from these systems together with grade data
+from the academic information system.</p>
+<p>Students can see trends in quiz, report, and other scores by class session and compare their
+position with class distributions. Teachers can inspect quiz and report performance, time spent
+viewing PDF learning materials, and relationships between behavior and grades. This produces
+real-time feedback without requiring instructors to assemble the records manually.</p>
+<p>The university loaded five years of historical records into the LRS and began actual production
+operation in spring 2024. The case study explicitly says that not every instructor was using the
+platform yet. It is consequently a strong example of institution-level infrastructure undergoing
+staged adoption, rather than a claim of universal use.</p>
+<p>Source:</p>
+<ul>
+<li><a href="https://www.mitani-edu.jp/solution/campus/campusla/case/186/">UEC-LAP production case study, Japanese</a></li>
+</ul>
+<h3 id="university-of-tokyo-japan">University of Tokyo, Japan<a class="headerlink" href="#university-of-tokyo-japan" title="Permanent link">&para;</a></h3>
+<p><strong>Classification:</strong> institutional production infrastructure; analytics use still developing<br />
+<strong>Technology:</strong> in Campus LMS, xAPI, LRS, LTI, cloud hosting</p>
+<p>The University of Tokyo moved its institutionally developed learning environment to a vendor LMS
+and cloud infrastructure, with the refreshed system entering course operation in April 2019. The
+requirements included stable LMS delivery, integration with the academic system, accumulation of
+data for learning analytics, and LTI-based integration with external tools.</p>
+<p>The university implemented an xAPI/LRS environment to begin storing device interactions, test
+results, report submissions, attendance, and other observable learning activity. The stated goals
+included identifying students who need help, evaluating learning-material quality, improving
+teaching, and eventually allowing students to review their own learning trajectories.</p>
+<p>This is clear evidence that xAPI and an LRS were installed as part of production LMS
+infrastructure. The source is also candid that collection preceded mature analytic use: several
+personalization and instructional-improvement capabilities remained future objectives. It should
+therefore be treated as a production event infrastructure, not proof of a completed university-wide
+concept-mastery system.</p>
+<p>Source:</p>
+<ul>
+<li><a href="https://www.canon-its.co.jp/solution/industry/education/case/education-26">University of Tokyo LMS and LRS case study, Japanese</a></li>
+</ul>
+<h3 id="kyoto-university-leaf-and-bookroll-japan">Kyoto University LEAF and BookRoll, Japan<a class="headerlink" href="#kyoto-university-leaf-and-bookroll-japan" title="Permanent link">&para;</a></h3>
+<p><strong>Classification:</strong> institutional research infrastructure used in routine teaching<br />
+<strong>Technology:</strong> LEAF, Moodle, BookRoll, xAPI LRS, LogPalette</p>
+<p>Kyoto University's Learning and Evidence Analytics Framework, or LEAF, integrates an LMS, the
+BookRoll digital textbook reader, an LRS, and analytics tools such as LogPalette. BookRoll captures
+fine-grained reading activity, including page navigation, annotations, highlighting, and notes.
+The interactions are stored as xAPI records and converted into feedback for learners and teachers.</p>
+<p>LEAF is research-originated, but it has moved beyond a laboratory demonstration. University
+research analyzed BookRoll behavior across 243 courses during emergency remote teaching. Other
+published studies describe daily classroom use in secondary schools. Kyoto's current LEAF site
+provides operational materials, implementation guidance, and case studies, and the framework has
+supported international collaboration with institutions in Taiwan and India.</p>
+<p>LEAF is especially relevant to an intelligent-textbook LRS because it records activity below the
+course-completion level. Its evidence can represent how learners navigate and annotate particular
+materials, and its dashboards return that evidence to teaching and learning workflows. It still
+does not by itself establish durable mastery of a shared cross-course concept graph.</p>
+<p>Sources:</p>
+<ul>
+<li><a href="https://www.let.media.kyoto-u.ac.jp/en/leaf/">Kyoto University LEAF overview</a></li>
+<li><a href="https://www.jstage.jst.go.jp/article/itel/2/1/2_2.1.Inv.p001/_article">LEAF institutional and international implementation paper</a></li>
+<li><a href="https://repository.kulib.kyoto-u.ac.jp/dspace/bitstream/2433/279307/1/s41039-022-00184-0.pdf">Study describing BookRoll records across 243 courses</a></li>
+<li><a href="https://eds.let.media.kyoto-u.ac.jp/leaf/">Current LEAF implementation site, Japanese</a></li>
+</ul>
+<h3 id="oklahoma-state-university-libraries-united-states">Oklahoma State University Libraries, United States<a class="headerlink" href="#oklahoma-state-university-libraries-united-states" title="Permanent link">&para;</a></h3>
+<p><strong>Classification:</strong> bounded production in an institutional library<br />
+<strong>Technology:</strong> GrassBlade xAPI Companion and Learning Record Store, Pressbooks</p>
+<p>Oklahoma State University publicly identifies GrassBlade's xAPI Companion and Learning Record
+Store among the systems used to collect student data associated with library e-learning,
+tutorials, and open educational resources. The university's data inventory explains what is
+collected, why it is collected, where it may be shared, and how vendor retention practices affect
+the records.</p>
+<p>This is a comparatively small deployment, but it is noteworthy because the evidence comes from an
+institutional privacy and data-governance page rather than a promotional case study. It shows an
+LRS functioning as ordinary university service infrastructure in a defined domain.</p>
+<p>Source:</p>
+<ul>
+<li><a href="https://ira.okstate.edu/data/student/library">Oklahoma State University Library Data inventory</a></li>
+</ul>
+<h2 id="bounded-rollouts-and-large-pilots">Bounded rollouts and large pilots<a class="headerlink" href="#bounded-rollouts-and-large-pilots" title="Permanent link">&para;</a></h2>
+<p>The following cases involved real learners and real records, but the available evidence does not
+justify describing them as mature university-wide production services.</p>
+<h3 id="university-of-twente-netherlands">University of Twente, Netherlands<a class="headerlink" href="#university-of-twente-netherlands" title="Permanent link">&para;</a></h3>
+<p>The University of Twente instrumented Canvas, H5P, and dominKnow learning content with xAPI and
+sent the events to a Veracity LRS. Learner and teacher dashboards were built in the LRS and
+embedded in Canvas through LTI. The reported outcome was an early-dropout detection capability
+that gave teachers another intervention tool.</p>
+<p>The case is operational rather than hypothetical, but the source says full deployment across the
+university's educational environment was a subsequent goal. It is best classified as a successful
+bounded rollout. The source is the LRS vendor.</p>
+<p>Source:</p>
+<ul>
+<li><a href="https://lrs.io/home/case-study-university-of-twente/">University of Twente LRS case study</a></li>
+</ul>
+<h3 id="university-of-notre-dame-united-states">University of Notre Dame, United States<a class="headerlink" href="#university-of-notre-dame-united-states" title="Permanent link">&para;</a></h3>
+<p>Notre Dame implemented the Apereo Open Learning Record Warehouse to obtain a combined view of
+student interactions. The warehouse accepted both xAPI and Caliper data, including events from
+Sakai and other learning tools. An early deployment covered a required first-year course with
+approximately 2,000 students and delivered live interaction data for course and performance
+analysis.</p>
+<p>This is substantial production-scale use, but the strongest public documentation dates from 2017
+and 2018. Without recent operating documentation, it is safest to describe it as a large pilot and
+important architecture case rather than assume the same service remains in university-wide
+production in 2026.</p>
+<p>Sources:</p>
+<ul>
+<li><a href="https://er.educause.edu/blogs/2018/1/ngdle-learning-analytics-gaining-a-360-degree-view-of-learning">Notre Dame's learning-record architecture</a></li>
+<li><a href="https://events.educause.edu/annual-conference/2017/agenda/open-learning-analytics-in-the-cloud">Notre Dame 2,000-student deployment</a></li>
+</ul>
+<h3 id="connected-learning-analytics-toolkit-australia">Connected Learning Analytics Toolkit, Australia<a class="headerlink" href="#connected-learning-analytics-toolkit-australia" title="Permanent link">&para;</a></h3>
+<p>Researchers associated with Queensland University of Technology, Monash University, and the
+University of Technology Sydney developed the Connected Learning Analytics Toolkit. It collects
+learning-related activity from systems such as GitHub, Trello, Slack, WordPress, and social media,
+represents the records in xAPI, and stores them in an LRS for learner-facing analysis.</p>
+<p>The toolkit was used with authentic learning activities and produced influential lessons about
+xAPI recipes, vocabularies, privacy, and learner control. Public sources nevertheless describe an
+Australian-government-funded research project rather than a continuing enterprise university
+service.</p>
+<p>Sources:</p>
+<ul>
+<li><a href="https://cic.uts.edu.au/tools/connected-learning-analytics-toolkit/">Connected Learning Analytics Toolkit</a></li>
+<li><a href="https://research.monash.edu/en/publications/recipe-for-success-lessons-learnt-from-using-xapi-within-the-conn/">Lessons learned from the CLA xAPI implementation</a></li>
+</ul>
+<h3 id="european-data-science-academy-european-union">European Data Science Academy, European Union<a class="headerlink" href="#european-data-science-academy-european-union" title="Permanent link">&para;</a></h3>
+<p>The European Data Science Academy represented learner activity using xAPI and stored it in a
+Learning Locker instance. The records supported visualization and process-mining analysis of a
+TU Eindhoven MOOC delivered through Coursera. This was a real cross-institutional learning
+platform, but it was organized as a grant-funded project rather than permanent infrastructure at
+one university.</p>
+<p>Sources:</p>
+<ul>
+<li><a href="https://edsa-project.eu/resources/learning-analytics/">EDSA learning analytics case study</a></li>
+<li><a href="https://www.edsa-project.eu/edsa-data/uploads/2015/02/EDSA-2016-P-D33-FINAL.pdf">EDSA technical report and Learning Locker architecture</a></li>
+</ul>
+<h3 id="isila-and-the-university-of-leon-spain">ISILA and the University of Leon, Spain<a class="headerlink" href="#isila-and-the-university-of-leon-spain" title="Permanent link">&para;</a></h3>
+<p>The ISILA project collected Moodle activity, assignments, Discord interaction, and weekly
+self-regulated-learning surveys. A project tool converted tabular sources into xAPI statements,
+which were uploaded to the University of Leon LRS for central storage, dashboards, and course
+analysis.</p>
+<p>The 2026 report establishes current operational use in a real course, but it remains a
+project-based intervention rather than a mature institutional service.</p>
+<p>Source:</p>
+<ul>
+<li><a href="https://blogs.uef.fi/isila/wp-content/uploads/sites/197/2026/03/4.3.-GlobalReport.docx-1.pdf">ISILA intervention report</a></li>
+</ul>
+<h2 id="adjacent-national-and-school-sector-evidence">Adjacent national and school-sector evidence<a class="headerlink" href="#adjacent-national-and-school-sector-evidence" title="Permanent link">&para;</a></h2>
+<p>Higher education is not the only useful comparison. Taiwan's Ministry of Education documents a
+national Education Cloud LRS called <strong>eduLRS</strong>. It collects standardized learning histories from
+cloud services for analysis at the individual, school, municipality, and ministry levels. Its
+published xAPI specification shows that large public education systems can establish a shared
+event contract and central LRS, although the service is oriented primarily toward the national
+school sector rather than universities.</p>
+<p>Source:</p>
+<ul>
+<li><a href="https://pads.moe.edu.tw/download_file.php?file=%E5%AD%B8%E7%BF%92%E8%B3%87%E6%96%99xAPI%E8%A6%8F%E6%A0%BC_v1.5.pdf&amp;old=upload">Taiwan Ministry of Education learning-data xAPI specification, Chinese</a></li>
+</ul>
+<h2 id="why-higher-education-production-evidence-is-scarce">Why higher-education production evidence is scarce<a class="headerlink" href="#why-higher-education-production-evidence-is-scarce" title="Permanent link">&para;</a></h2>
+<h3 id="universities-are-organized-around-courses-and-systems-of-record">Universities are organized around courses and systems of record<a class="headerlink" href="#universities-are-organized-around-courses-and-systems-of-record" title="Permanent link">&para;</a></h3>
+<p>Military and workforce training can define an operational chain from instruction to simulation,
+qualification, observed task performance, and recertification. A stable LRS event model is
+valuable because evidence arrives from several environments but refers to the same job tasks.</p>
+<p>Universities are generally organized around courses, terms, credits, assignments, grades, and
+degrees. The LMS and student information system already record the events needed for many routine
+decisions. An LRS must provide additional value beyond those systems to justify integration and
+governance costs.</p>
+<h3 id="event-interoperability-does-not-guarantee-semantic-interoperability">Event interoperability does not guarantee semantic interoperability<a class="headerlink" href="#event-interoperability-does-not-guarantee-semantic-interoperability" title="Permanent link">&para;</a></h3>
+<p>xAPI standardizes how statements are transferred and stored, but institutions still have to agree
+on the meaning of actors, verbs, activities, contexts, and extensions. A record that a learner
+"viewed" a resource is straightforward. Consistently describing concept mastery, prerequisite
+knowledge, collaboration, instructor feedback, laboratory performance, and transfer across
+departments is much harder.</p>
+<p>The Connected Learning Analytics work found that early vocabulary and recipe decisions could
+either enable or constrain every later analysis. This is especially relevant to an LRS for
+intelligent textbooks: a consistent concept identifier and evidence model matter more than merely
+producing syntactically valid statements.</p>
+<h3 id="identity-and-context-must-be-reconciled">Identity and context must be reconciled<a class="headerlink" href="#identity-and-context-must-be-reconciled" title="Permanent link">&para;</a></h3>
+<p>An institutional LRS may receive events from an LMS, library, video platform, simulation,
+assessment tool, mobile application, and external provider. These systems can use different
+identifiers for the same person, course, resource, or session. Reliable analytics therefore
+requires identity resolution, roster history, activity namespacing, and contextual links to terms,
+sections, and curricula.</p>
+<h3 id="privacy-risk-grows-with-event-detail">Privacy risk grows with event detail<a class="headerlink" href="#privacy-risk-grows-with-event-detail" title="Permanent link">&para;</a></h3>
+<p>Fine-grained learning records can reveal attendance, reading behavior, study schedules, mistakes,
+social participation, and inferred risk. Production systems need a stated purpose, access rules,
+retention policy, transparency, and safeguards against inappropriate high-stakes use.</p>
+<p>Jisc and Greenwich developed explicit policy and student-facing explanations alongside their
+technical platform. Oklahoma State lists its LRS in a student-data inventory. These governance
+artifacts are part of the production system, not peripheral paperwork.</p>
+<h3 id="an-lrs-is-not-an-analytics-product-by-itself">An LRS is not an analytics product by itself<a class="headerlink" href="#an-lrs-is-not-an-analytics-product-by-itself" title="Permanent link">&para;</a></h3>
+<p>The xAPI query interface can retrieve statements, but meaningful reporting usually requires
+aggregation, feature engineering, models, and purpose-built user interfaces. The successful cases
+connect the LRS to something actionable:</p>
+<iframe src="../sims/learning-record-to-action-workflow/main.html" height="702px" width="100%" scrolling="no"></iframe>
+
+<p><a class="md-button md-button--primary" href="../../sims/learning-record-to-action-workflow/main.html">View the learning-record-to-action workflow fullscreen</a></p>
+<p><em>Select a workflow step to keep its description visible in the panel on the right.</em></p>
+<p>Deployments that stop after statement collection risk creating an expensive archive with no clear
+instructional consumer.</p>
+<h3 id="public-documentation-has-two-opposite-biases">Public documentation has two opposite biases<a class="headerlink" href="#public-documentation-has-two-opposite-biases" title="Permanent link">&para;</a></h3>
+<p>Student-data security and the back-end nature of an LRS discourage universities from publishing
+detailed operating architectures. Public evidence probably understates some adoption. At the same
+time, vendor case studies can describe a successful course or program as a broad institutional
+transformation. Public evidence can therefore overstate deployment scope even while understating
+the number of deployments.</p>
+<h2 id="implications-for-an-intelligent-textbook-lrs">Implications for an intelligent-textbook LRS<a class="headerlink" href="#implications-for-an-intelligent-textbook-lrs" title="Permanent link">&para;</a></h2>
+<p>The case studies suggest several design requirements for an LRS intended to connect learning
+events to textbook concepts:</p>
+<ol>
+<li><strong>Preserve stable concept identifiers.</strong> Activity titles and page names are insufficient for
+   longitudinal analysis. Evidence should identify the concepts, learning objectives, or
+   competencies to which an activity contributes.</li>
+<li><strong>Separate immutable event evidence from derived summaries.</strong> Raw statements should remain
+   replayable while mastery estimates, risk indicators, and graph summaries are treated as
+   projections with model and version metadata.</li>
+<li><strong>Expect heterogeneous producers.</strong> LMSs, MicroSims, quizzes, interactive diagrams, reading
+   tools, and external applications will emit different evidence. A producer contract and shared
+   profiles are necessary to make those records comparable.</li>
+<li><strong>Design for identity and roster changes.</strong> Learners move between sections, institutions, and
+   identifiers. Event identity, institutional identity, and graph identity should not be conflated.</li>
+<li><strong>Return evidence to a decision point.</strong> Teacher reports, learner feedback, author dashboards,
+   content evaluation, and interventions should be first-class consumers of the record store.</li>
+<li><strong>Make governance inspectable.</strong> Purpose, access, retention, consent or other legal basis, and
+   use in high-stakes decisions should be visible in both policy and system behavior.</li>
+<li><strong>Measure deployment scope honestly.</strong> A live course integration is valuable, but it should not
+   be represented as university-wide adoption without evidence of breadth, ownership, and routine
+   operations.</li>
+</ol>
+<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
+<p>Formal LRS technology has reached production higher education, but not primarily as a universal
+lifelong record. Its most successful university uses are pragmatic and bounded: gathering richer
+content interactions, combining engagement data, supporting instructor intervention, feeding
+student dashboards, or enabling focused learning research.</p>
+<p>The evidence does not support the claim that universities have broadly adopted DoD-style records
+of concept and task proficiency. It does support a more precise claim: several institutions have
+operated LRSs or learning-record warehouses successfully when the records feed a clear teaching,
+student-support, or compliance workflow. For an intelligent-textbook LRS, the opportunity is to
+retain that operational focus while adding something most existing deployments lack: stable links
+from evidence to a shared concept graph and replayable, explicitly derived mastery summaries.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Dan McCreary. Licensed under <a href="license/">CC BY-NC-SA 4.0</a> for non-commercial use.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../js/katex.js"></script>
+      
+        <script src="../../js/quiz-xapi.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

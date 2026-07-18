@@ -1,0 +1,15 @@
+{
+  "sim_id": "analytics-plane-api-map",
+  "diagram_name": "Analytics Plane API Map",
+  "chapter_number": 5,
+  "chapter_title": "System Context and the Five Architectural Planes",
+  "chapter_dir": "05-system-context-architectural-planes",
+  "chapter_rel_dir": "chapters/05-system-context-architectural-planes",
+  "library": "vis-network",
+  "bloom_level": "Analyze (L4)",
+  "bloom_verb": "analyze, relate",
+  "learning_objective": "Let the learner analyze how the five Analytics Plane APIs relate to the Analytics Plane as a whole and to their primary audiences, correctly distinguishing the four outbound, report-serving APIs from the Roster API's inbound role.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: graph-model\n**sim-id:** analytics-plane-api-map<br/>\n**Library:** vis-network<br/>\n**Status:** Specified\n\nBloom Taxonomy: Analyze (L4)\nBloom Taxonomy Verb: analyze, relate\n\nLearning objective: Let the learner analyze how the five Analytics Plane APIs relate to the Analytics Plane as a whole and to their primary audiences, correctly distinguishing the four outbound, report-serving APIs from the Roster API's inbound role.\n\nPurpose: Show a hub-and-spoke vis-network graph with \"Analytics Plane\" as the central hub and the five APIs as spokes, with edge direction visually distinguishing inbound from outbound APIs.\n\nNodes:\n\n- Center: \"Analytics Plane\"\n- Spoke: \"Analytics API\" — edge FROM Analytics Plane, labeled \"backs every report and dashboard\"\n- Spoke: \"Admin API\" — edge FROM Analytics Plane, labeled \"serves admin UIs, every mutation audited\"\n- Spoke: \"Experiment API\" — edge FROM Analytics Plane, labeled \"assignment + readout for A/B tests\"\n- Spoke: \"Export API\" — edge FROM Analytics Plane, labeled \"bulk async export\"\n- Spoke: \"Roster API\" — edge TO Analytics Plane, labeled \"enrollment data flows in\"\n\nInteractive features: Every node is clickable via vis-network's built-in click event. Clicking the hub opens an infobox restating the Analytics Plane's definition from this chapter. Clicking any spoke opens an infobox with that API's one-sentence purpose and its primary audience, matching the table above.\n\nColor coding: The four outbound APIs (Analytics, Admin, Experiment, Export) in the book's teal accent color; the Roster API in a contrasting amber to visually flag its reversed, inbound edge direction.\n\nImplementation: vis-network graph with physics-based layout (hub at center, five spokes arranged around it), directional arrows on every edge matching inbound/outbound direction, full click-to-infobox coverage on every node. Responsive width and height tracking the containing element, with layout re-stabilizing on resize."
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>SSO + RBAC Login Flow</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'default', flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' } });
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="diagram-panel">
+            <div class="mermaid">
+flowchart TB
+    S1["1 &middot; User opens the District Overview Dashboard URL<br/><small>lane: User / Browser</small>"]:::user
+    S2["2 &middot; Browser redirects to the district's Identity Provider<br/><small>SAML or OIDC, district's choice</small>"]:::idp
+    S3["3 &middot; User authenticates once<br/><small>existing school credentials</small>"]:::idp
+    S4["4 &middot; Identity Provider returns a signed assertion / token"]:::idp
+    S5["5 &middot; Browser presents the token to the Admin API"]:::user
+    S6["6 &middot; Admin API validates token, resolves Role (District Admin), checks RBAC, returns report"]:::api
+    S1 --> S2 --> S3 --> S4 --> S5 --> S6
+
+    classDef user fill:#37474f,stroke:#1c2529,color:#fff,font-size:12px
+    classDef idp fill:#3d7fc1,stroke:#2a5c91,color:#fff,font-size:12px
+    classDef api fill:#2a9d8f,stroke:#1f7a6f,color:#fff,font-size:12px
+    linkStyle default stroke:#999,stroke-width:2px
+            </div>
+        </div>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a step to see details</p></div>
+        </div>
+    </div>
+    <script>
+        const nodeInfo = {
+            'S1': { title: 'Step 1 &mdash; open the dashboard', description: 'The User (a District Admin) opens the District Overview Dashboard URL in the Browser. The Browser lane is the user&rsquo;s agent throughout.' },
+            'S2': { title: 'Step 2 &mdash; redirect to IdP', description: 'The Browser is redirected to the district&rsquo;s Identity Provider. SSO can use <strong>SAML</strong> (an XML assertion) or <strong>OIDC</strong> (a JSON token) &mdash; the district chooses. This step is about PROVING identity, not granting access.' },
+            'S3': { title: 'Step 3 &mdash; authenticate once', description: 'The user signs in once against their own IdP using existing school credentials. The LRS never sees or stores the password.' },
+            'S4': { title: 'Step 4 &mdash; signed assertion', description: 'The IdP returns a cryptographically signed assertion (SAML) or token (OIDC) to the Browser, attesting who the user is.' },
+            'S5': { title: 'Step 5 &mdash; present the token', description: 'The Browser presents that token to this LRS&rsquo;s Admin API. Identity is now proven; authorization is still to come.' },
+            'S6': { title: 'Step 6 &mdash; RBAC at the API', description: 'The Admin API validates the token, resolves the user&rsquo;s Role (District Admin), and checks RBAC before returning any report data. RBAC is enforced at the API layer &mdash; never only in the UI, which a client could bypass.' }
+        };
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

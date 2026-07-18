@@ -1,0 +1,3347 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="An intelligent textbook on Learning Record Stores: what they are, how xAPI statements work, and how to design, deploy, and query an LRS.">
+      
+      
+        <meta name="author" content="Dan McCreary">
+      
+      
+        <link rel="canonical" href="https://dmccreary.github.io/learning-record-store/stories/story-ideas-chatgpt/">
+      
+      
+        <link rel="prev" href="../story-ideas-antigravity/">
+      
+      
+        <link rel="next" href="../the-red-node-before-monday/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
+    
+    
+      
+        <title>LRS Feedback Story Ideas (ChatGPT) - Learning Record Store</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/extra.css">
+    
+      <link rel="stylesheet" href="../../css/mascot.css">
+    
+      <link rel="stylesheet" href="../../css/lrs-xapi.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#twelve-graphic-novel-story-ideas-following-the-learning-record" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Learning Record Store" class="md-header__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  <img src="../../img/mascot/neutral.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Learning Record Store
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              LRS Feedback Story Ideas (ChatGPT)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Learning Record Store" class="md-nav__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  <img src="../../img/mascot/neutral.png" alt="logo">
+
+    </a>
+    Learning Record Store
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../course-description/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Course Description
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Stories
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../chapters/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Chapters
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../learning-graph/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Learning Graph
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../sims/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    MicroSims
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Stories
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_8" id="__nav_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Stories
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../story-ideas-claude/index.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LRS Graphic Novel Stories Claude
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../story-ideas-antigravity/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LRS Graphic Novel Story Ideas
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    LRS Feedback Story Ideas (ChatGPT)
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    LRS Feedback Story Ideas (ChatGPT)
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#selection-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      Selection Criteria
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recurring-character-sheets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recurring Character Sheets
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Recurring Character Sheets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dr-elena-ruiz-district-learning-director" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dr. Elena Ruiz — District Learning Director
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ms-maya-chen-middle-school-science-teacher" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ms. Maya Chen — Middle-School Science Teacher
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#noah-okafor-intelligent-textbook-designer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Noah Okafor — Intelligent-Textbook Designer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#leila-brooks-student" class="md-nav__link">
+    <span class="md-ellipsis">
+      Leila Brooks — Student
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rowan-learning-record-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rowan — Learning-Record Guide
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stories-13-continuity-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stories 1–3 Continuity Map
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background-character-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background-Character Rule
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#story-ideas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Story Ideas
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Story Ideas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-red-node-before-monday" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. The Red Node Before Monday
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-the-simulation-everyone-escaped" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. The Simulation Everyone Escaped
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-two-paths-through-the-storm" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Two Paths Through the Storm
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-the-school-that-faded-from-the-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. The School That Faded from the Map
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-the-question-with-two-right-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. The Question with Two Right Answers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-the-case-of-the-missing-tuesday" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. The Case of the Missing Tuesday
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-a-new-classroom-the-same-learning-journey" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. A New Classroom, the Same Learning Journey
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-the-small-group-behind-the-curtain" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. The Small Group Behind the Curtain
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-reading-doing-and-the-empty-middle" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Reading, Doing, and the Empty Middle
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-the-chapter-with-the-vanishing-ending" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. The Chapter with the Vanishing Ending
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11-the-three-versions-of-wednesday" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. The Three Versions of Wednesday
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-the-evidence-council" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. The Evidence Council
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-shared-visual-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      A Shared Visual Language
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-develop-an-idea" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to Develop an Idea
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../the-red-node-before-monday/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The Red Node Before Monday
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../the-simulation-everyone-escaped/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The Simulation Everyone Escaped
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../two-paths-through-the-storm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Two Paths Through the Storm
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../the-school-that-faded-from-the-map/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The School That Faded from the Map
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../the-question-with-two-right-answers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The Question with Two Right Answers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../the-case-of-the-missing-tuesday/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The Case of the Missing Tuesday
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../a-new-classroom-the-same-learning-journey/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A New Classroom, the Same Learning Journey
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../the-small-group-behind-the-curtain/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The Small Group Behind the Curtain
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reading-doing-and-the-empty-middle/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reading, Doing, and the Empty Middle
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../the-chapter-with-the-vanishing-ending/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The Chapter with the Vanishing Ending
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../the-three-versions-of-wednesday/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The Three Versions of Wednesday
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../the-evidence-council/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The Evidence Council
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../demo/graph-queries/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Demo
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../case-studies/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Case Studies
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Glossary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../license/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contact/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contact
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#selection-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      Selection Criteria
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recurring-character-sheets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recurring Character Sheets
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Recurring Character Sheets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dr-elena-ruiz-district-learning-director" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dr. Elena Ruiz — District Learning Director
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ms-maya-chen-middle-school-science-teacher" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ms. Maya Chen — Middle-School Science Teacher
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#noah-okafor-intelligent-textbook-designer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Noah Okafor — Intelligent-Textbook Designer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#leila-brooks-student" class="md-nav__link">
+    <span class="md-ellipsis">
+      Leila Brooks — Student
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rowan-learning-record-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rowan — Learning-Record Guide
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stories-13-continuity-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stories 1–3 Continuity Map
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background-character-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background-Character Rule
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#story-ideas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Story Ideas
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Story Ideas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-red-node-before-monday" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. The Red Node Before Monday
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-the-simulation-everyone-escaped" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. The Simulation Everyone Escaped
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-two-paths-through-the-storm" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Two Paths Through the Storm
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-the-school-that-faded-from-the-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. The School That Faded from the Map
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-the-question-with-two-right-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. The Question with Two Right Answers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-the-case-of-the-missing-tuesday" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. The Case of the Missing Tuesday
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-a-new-classroom-the-same-learning-journey" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. A New Classroom, the Same Learning Journey
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-the-small-group-behind-the-curtain" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. The Small Group Behind the Curtain
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-reading-doing-and-the-empty-middle" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Reading, Doing, and the Empty Middle
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-the-chapter-with-the-vanishing-ending" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. The Chapter with the Vanishing Ending
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11-the-three-versions-of-wednesday" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. The Three Versions of Wednesday
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-the-evidence-council" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. The Evidence Council
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-shared-visual-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      A Shared Visual Language
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-develop-an-idea" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to Develop an Idea
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/stories/story-ideas-chatgpt.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="twelve-graphic-novel-story-ideas-following-the-learning-record">Twelve Graphic-Novel Story Ideas: Following the Learning Record<a class="headerlink" href="#twelve-graphic-novel-story-ideas-following-the-learning-record" title="Permanent link">&para;</a></h1>
+<p>These short graphic-novel ideas show how one trustworthy learning record can help
+four people make better decisions together:</p>
+<ul>
+<li><strong>Dr. Elena Ruiz</strong>, the district learning director</li>
+<li><strong>Ms. Maya Chen</strong>, a middle-school science teacher</li>
+<li><strong>Noah Okafor</strong>, an intelligent-textbook designer</li>
+<li><strong>Leila Brooks</strong>, a student in Ms. Chen's class</li>
+</ul>
+<p>Rowan, the cinnamon-and-cream red panda with teal glasses, a teal neckerchief,
+and a learning-record satchel, appears as a quiet guide. His question throughout
+the anthology is, <strong>“What does the evidence show?”</strong></p>
+<p>The stories are fictional, but their feedback loops use capabilities described in
+this textbook: xAPI records, class mastery views, prerequisite-gap analysis,
+content-effectiveness reports, controlled experiments, deployment inventories,
+data-quality monitoring, and privacy-aware district reporting.</p>
+<h2 id="selection-criteria">Selection Criteria<a class="headerlink" href="#selection-criteria" title="Permanent link">&para;</a></h2>
+<p>The ideas were selected for:</p>
+<ul>
+<li><strong>Shared benefit</strong> — every story helps the district, teacher, designer, and student.</li>
+<li><strong>Student agency</strong> — records start conversations; they do not replace human judgment.</li>
+<li><strong>Technical credibility</strong> — the evidence and reports match the LRS specification.</li>
+<li><strong>Visual drama</strong> — each plot turns an invisible learning pattern into a visible clue.</li>
+<li><strong>Variety</strong> — the collection covers instruction, content design, operations, equity,
+  privacy, experimentation, and recovery.</li>
+</ul>
+<h2 id="recurring-character-sheets">Recurring Character Sheets<a class="headerlink" href="#recurring-character-sheets" title="Permanent link">&para;</a></h2>
+<p>Use these sheets as the visual source of truth for the first three stories and for
+every later story in this anthology. Copy the character's <strong>prompt anchor</strong> verbatim
+into every image prompt in which that character appears, then append only the pose,
+expression, and action needed for that panel. Do not change a character's age, face,
+hair, body type, signature colors, glasses, or recurring accessories between panels.
+Clothing may change only when the setting requires it; retain the character's
+signature color and silhouette when it does.</p>
+<p>All five characters should be drawn in the same warm contemporary educational-comic
+style: clean ink contours, softly painted color, expressive but natural faces, gentle
+paper texture, and realistic proportions with slightly simplified features. Avoid
+photorealism, caricature, chibi proportions, and branded clothing or devices.</p>
+<h3 id="dr-elena-ruiz-district-learning-director">Dr. Elena Ruiz — District Learning Director<a class="headerlink" href="#dr-elena-ruiz-district-learning-director" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Canonical detail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Identity</strong></td>
+<td>47-year-old Mexican American woman; district learning director</td>
+</tr>
+<tr>
+<td><strong>Build and height</strong></td>
+<td>168 cm (5 ft 6 in); medium build; upright, composed posture</td>
+</tr>
+<tr>
+<td><strong>Skin and face</strong></td>
+<td>Warm medium-brown skin; oval face; high cheekbones; straight nose; defined dark eyebrows; faint smile lines</td>
+</tr>
+<tr>
+<td><strong>Hair</strong></td>
+<td>Dark espresso-brown, collarbone-length wavy bob, side part, one narrow silver streak at the right temple</td>
+</tr>
+<tr>
+<td><strong>Eyes and glasses</strong></td>
+<td>Dark-brown eyes; thin rectangular deep-teal glasses</td>
+</tr>
+<tr>
+<td><strong>Core wardrobe</strong></td>
+<td>Navy single-breasted blazer, cream collarless blouse, straight charcoal trousers, low dark-brown shoes</td>
+</tr>
+<tr>
+<td><strong>Accessories</strong></td>
+<td>Small hammered-gold circular stud earrings; slim amber watch on left wrist; navy folio or district tablet</td>
+</tr>
+<tr>
+<td><strong>Signature colors</strong></td>
+<td>Navy <code>#17324D</code>, deep teal <code>#006D77</code>, cream <code>#F5E9D3</code>, amber <code>#D99A2B</code></td>
+</tr>
+<tr>
+<td><strong>Body language</strong></td>
+<td>Listens with chin slightly lowered; studies evidence before speaking; uses an open palm rather than a pointing finger when addressing people</td>
+</tr>
+<tr>
+<td><strong>Expression range</strong></td>
+<td>Calm scrutiny, concerned attention, quiet resolve, restrained satisfaction; never smug or authoritarian</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Prompt anchor:</strong> Dr. Elena Ruiz, a 47-year-old Mexican American woman of medium
+height and build, with warm medium-brown skin, an oval high-cheekboned face,
+dark-brown eyes behind thin rectangular deep-teal glasses, and a collarbone-length
+wavy espresso-brown bob with a side part and one narrow silver streak at her right
+temple; she wears a navy blazer over a cream collarless blouse, charcoal trousers,
+small hammered-gold circular studs, and a slim amber watch on her left wrist.</p>
+<p><strong>Continuity test:</strong> Elena must remain identifiable in silhouette by the wavy bob and
+single right-temple silver streak, rectangular teal glasses, and navy-over-cream
+wardrobe even when her folio or tablet is absent.</p>
+<h3 id="ms-maya-chen-middle-school-science-teacher">Ms. Maya Chen — Middle-School Science Teacher<a class="headerlink" href="#ms-maya-chen-middle-school-science-teacher" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Canonical detail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Identity</strong></td>
+<td>35-year-old Chinese American woman; seventh-grade science teacher</td>
+</tr>
+<tr>
+<td><strong>Build and height</strong></td>
+<td>160 cm (5 ft 3 in); compact athletic build; energetic forward-leaning posture</td>
+</tr>
+<tr>
+<td><strong>Skin and face</strong></td>
+<td>Light warm-beige skin; softly square face; rounded cheeks; small beauty mark below the outer corner of her left eye</td>
+</tr>
+<tr>
+<td><strong>Hair</strong></td>
+<td>Straight blue-black hair in a low practical ponytail; center part; two short face-framing strands</td>
+</tr>
+<tr>
+<td><strong>Eyes and glasses</strong></td>
+<td>Dark-brown almond-shaped eyes; no glasses</td>
+</tr>
+<tr>
+<td><strong>Core wardrobe</strong></td>
+<td>Deep-teal cardigan with sleeves pushed to mid-forearm, pale-blue button-front shirt, ankle-length charcoal trousers, white low-profile sneakers</td>
+</tr>
+<tr>
+<td><strong>Accessories</strong></td>
+<td>Amber enamel atom pin on left side of cardigan; dark-teal lanyard with an unbranded school ID; fine black dry-erase marker often tucked behind right ear</td>
+</tr>
+<tr>
+<td><strong>Signature colors</strong></td>
+<td>Deep teal <code>#006D77</code>, pale blue <code>#C9E6EA</code>, charcoal <code>#343A40</code>, amber <code>#D99A2B</code></td>
+</tr>
+<tr>
+<td><strong>Body language</strong></td>
+<td>Crouches or sits to speak at student eye level; gestures with both hands when explaining; turns screens toward learners instead of holding them away</td>
+</tr>
+<tr>
+<td><strong>Expression range</strong></td>
+<td>Alert curiosity, empathetic concern, delighted recognition, focused instruction; never scolding or theatrical</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Prompt anchor:</strong> Ms. Maya Chen, a 35-year-old Chinese American woman with a compact
+athletic build, light warm-beige skin, a softly square face with rounded cheeks, a
+small beauty mark below the outer corner of her left eye, and dark-brown almond-shaped
+eyes; her straight blue-black hair is center-parted in a low ponytail with two short
+face-framing strands, and she wears a deep-teal cardigan with pushed-up sleeves over a
+pale-blue button-front shirt, charcoal ankle trousers, white low-profile sneakers, an
+amber atom pin, and a dark-teal school lanyard.</p>
+<p><strong>Continuity test:</strong> Maya must remain identifiable by her low center-parted ponytail,
+left-eye beauty mark, rolled teal sleeves, amber atom pin, and active, student-level
+posture.</p>
+<h3 id="noah-okafor-intelligent-textbook-designer">Noah Okafor — Intelligent-Textbook Designer<a class="headerlink" href="#noah-okafor-intelligent-textbook-designer" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Canonical detail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Identity</strong></td>
+<td>31-year-old Nigerian American man; intelligent-textbook interaction designer</td>
+</tr>
+<tr>
+<td><strong>Build and height</strong></td>
+<td>183 cm (6 ft); lean build; relaxed posture that becomes intent when testing an interface</td>
+</tr>
+<tr>
+<td><strong>Skin and face</strong></td>
+<td>Deep umber-brown skin; long oval face; broad nose; high forehead; short boxed beard and mustache kept very close</td>
+</tr>
+<tr>
+<td><strong>Hair</strong></td>
+<td>Dense black hair in a neat 3 cm high flat-topped coil cut with faded sides</td>
+</tr>
+<tr>
+<td><strong>Eyes and glasses</strong></td>
+<td>Dark-brown eyes; round translucent amber eyeglass frames</td>
+</tr>
+<tr>
+<td><strong>Core wardrobe</strong></td>
+<td>Cinnamon overshirt worn open, cream crew-neck shirt, dark indigo trousers, teal canvas shoes</td>
+</tr>
+<tr>
+<td><strong>Accessories</strong></td>
+<td>Narrow deep-teal woven bracelet on right wrist; charcoal cross-body laptop sleeve; black stylus held in left hand; no visible logos</td>
+</tr>
+<tr>
+<td><strong>Signature colors</strong></td>
+<td>Cinnamon <code>#C65D16</code>, cream <code>#F5E9D3</code>, deep teal <code>#006D77</code>, indigo <code>#243B53</code></td>
+</tr>
+<tr>
+<td><strong>Body language</strong></td>
+<td>Left-handed; sketches flows in the air or on a tablet; leans close to observe a learner without taking over the device</td>
+</tr>
+<tr>
+<td><strong>Expression range</strong></td>
+<td>Playful curiosity, puzzled concentration, accountable concern, bright relief; never a detached technical savior</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Prompt anchor:</strong> Noah Okafor, a 31-year-old Nigerian American man who is tall and
+lean, with deep umber-brown skin, a long oval face, broad nose, high forehead,
+dark-brown eyes behind round translucent amber glasses, a very short boxed beard and
+mustache, and dense black hair in a neat flat-topped coil cut with faded sides; he
+wears an open cinnamon overshirt over a cream crew-neck shirt, dark indigo trousers,
+teal canvas shoes, and a narrow deep-teal woven bracelet on his right wrist, and he
+usually holds a black stylus in his left hand.</p>
+<p><strong>Continuity test:</strong> Noah must remain identifiable by his tall lean silhouette,
+flat-topped coils, close beard, round amber glasses, open cinnamon overshirt, teal
+right-wrist bracelet, and left-handed stylus use.</p>
+<h3 id="leila-brooks-student">Leila Brooks — Student<a class="headerlink" href="#leila-brooks-student" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Canonical detail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Identity</strong></td>
+<td>13-year-old Black American girl; seventh-grade science student</td>
+</tr>
+<tr>
+<td><strong>Build and height</strong></td>
+<td>157 cm (5 ft 2 in); slender build; age-appropriate proportions; shoulders initially drawn inward when uncertain and open when confident</td>
+</tr>
+<tr>
+<td><strong>Skin and face</strong></td>
+<td>Rich dark-brown skin; heart-shaped face; full cheeks; broad nose; small gap between upper front teeth visible when she smiles</td>
+</tr>
+<tr>
+<td><strong>Hair</strong></td>
+<td>Black shoulder-length two-strand twists, center part, gathered away from her face by two matte amber barrettes placed symmetrically at her temples</td>
+</tr>
+<tr>
+<td><strong>Eyes and glasses</strong></td>
+<td>Large dark-brown eyes; no glasses</td>
+</tr>
+<tr>
+<td><strong>Core wardrobe</strong></td>
+<td>Cream short-sleeved polo under a teal zip-front school hoodie, dark-navy straight-leg trousers, cinnamon high-top sneakers</td>
+</tr>
+<tr>
+<td><strong>Accessories</strong></td>
+<td>Amber elastic wristband on left wrist; navy backpack with one small stitched cream lightning-bolt patch; spiral science notebook with an amber cover</td>
+</tr>
+<tr>
+<td><strong>Signature colors</strong></td>
+<td>Teal <code>#1B7F79</code>, cream <code>#F5E9D3</code>, navy <code>#17324D</code>, cinnamon <code>#C65D16</code>, amber <code>#D99A2B</code></td>
+</tr>
+<tr>
+<td><strong>Body language</strong></td>
+<td>Protects her notebook close to her chest when anxious; taps a pencil against the page while thinking; sits forward and makes direct eye contact when she finds the explanation</td>
+</tr>
+<tr>
+<td><strong>Expression range</strong></td>
+<td>Tired frustration, cautious curiosity, focused effort, earned confidence; never helpless, infantilized, or used as a symbol of failure</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Prompt anchor:</strong> Leila Brooks, a 13-year-old Black American girl with a slender,
+age-appropriate build, rich dark-brown skin, a heart-shaped full-cheeked face, broad
+nose, large dark-brown eyes, and a small gap between her upper front teeth visible
+when she smiles; her black shoulder-length two-strand twists have a center part and
+are held back by two symmetrical matte amber barrettes, and she wears a cream
+short-sleeved polo under a teal zip-front school hoodie, dark-navy straight-leg
+trousers, cinnamon high-top sneakers, and an amber elastic wristband on her left wrist.</p>
+<p><strong>Continuity test:</strong> Leila must remain identifiable by her symmetrical amber
+barrettes, shoulder-length twists, teal hoodie over a cream polo, left-wrist band,
+cinnamon high-tops, and amber science notebook. Show her as an active interpreter of
+her own experience, not a passive subject of a dashboard.</p>
+<h3 id="rowan-learning-record-guide">Rowan — Learning-Record Guide<a class="headerlink" href="#rowan-learning-record-guide" title="Permanent link">&para;</a></h3>
+<p>Rowan's canonical source remains
+<a href="../../img/mascot/character-sheet/"><code>docs/img/mascot/character-sheet.md</code></a>. The details
+below are the compact story prompt version; if they ever conflict, the canonical
+mascot sheet wins.</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Canonical detail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Identity</strong></td>
+<td>Small anthropomorphic red panda; curious, patient, encouraging, and precise</td>
+</tr>
+<tr>
+<td><strong>Body and face</strong></td>
+<td>Rounded cinnamon-orange body; cream muzzle, eyebrow patches, inner ears, and belly; large kind brown eyes; dark-brown legs; ringed cinnamon-and-cream tail</td>
+</tr>
+<tr>
+<td><strong>Clothing and props</strong></td>
+<td>Round deep-teal glasses; deep-teal triangular neckerchief; compact brown cross-body learning-record satchel with a small gold connected-dots emblem</td>
+</tr>
+<tr>
+<td><strong>Scale</strong></td>
+<td>About 76 cm (2 ft 6 in) standing; roughly desk height beside an adult; keep this scale constant</td>
+</tr>
+<tr>
+<td><strong>Signature colors</strong></td>
+<td>Cinnamon <code>#C65D16</code>, cream <code>#F5E9D3</code>, deep teal <code>#006D77</code>, warm gold <code>#D99A2B</code></td>
+</tr>
+<tr>
+<td><strong>Body language</strong></td>
+<td>Points to a record, traces a connection, or offers reassurance; does not operate private dashboards, reveal answers, or make decisions for people</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Prompt anchor:</strong> Rowan, a small rounded anthropomorphic red panda about desk height,
+with cinnamon-orange fur, a cream muzzle, cream eyebrow patches and belly, large kind
+brown eyes, dark-brown legs, and a thick ringed cinnamon-and-cream tail; he wears round
+deep-teal glasses, a deep-teal triangular neckerchief, and a compact brown cross-body
+satchel bearing a small gold connected-dots emblem.</p>
+<p><strong>Continuity test:</strong> Rowan must always have round teal glasses, a teal neckerchief,
+the connected-dots satchel, the same desk-height scale, and a purposeful relationship
+to the evidence in the scene.</p>
+<h3 id="stories-13-continuity-map">Stories 1–3 Continuity Map<a class="headerlink" href="#stories-13-continuity-map" title="Permanent link">&para;</a></h3>
+<p>The following details are fixed for the first three stories. Use them alongside the
+prompt anchors so a later story script does not silently recast the setting, clothing,
+devices, or evidence displays.</p>
+<table>
+<thead>
+<tr>
+<th>Story</th>
+<th>Time and place</th>
+<th>On-panel cast</th>
+<th>Fixed visual evidence</th>
+<th>Continuity details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1. The Red Node Before Monday</strong></td>
+<td>Friday, 3:35–4:20 p.m., early October; Room 214 and the adjacent science-planning area at Cedar Grove Middle School; soft amber autumn light</td>
+<td>Leila, Maya, Noah, Elena, Rowan; background classmates are visually distinct but unnamed</td>
+<td>A navy concept map with <strong>Ecosystems</strong> as an amber-red node; two prerequisite arrows lead upstream to <strong>Energy Transfer</strong>, which is also amber-red; after the bridge activity, Energy Transfer changes to teal before Ecosystems does</td>
+<td>Keep every character in the core wardrobe. Leila's amber notebook contains a hand-drawn food web. Maya uses a wall-mounted class display. Noah joins on a laptop video tile before arriving with the bridge activity. Elena studies a de-identified district rollup, never Leila's named record.</td>
+</tr>
+<tr>
+<td><strong>2. The Simulation Everyone Escaped</strong></td>
+<td>Tuesday, 10:05–10:50 a.m., late October; the same Room 214 during a climate-model lesson, followed by Noah's small design studio; cool daylight with warm screen light</td>
+<td>Leila, Maya, Noah, Elena, Rowan; four unnamed classmates may appear as a diverse background group</td>
+<td>The fictional <strong>StormLab Climate Model</strong> has a pale-gray control panel; the original small amber <strong>Run Model</strong> control sits low at the right edge; the revision uses one large high-contrast teal <strong>Run Model</strong> control centered below the variables; no real product marks</td>
+<td>Keep Leila, Maya, and Rowan in core wardrobe. Noah removes his cinnamon overshirt only while seated in the studio but keeps it over the chair and retains his cream shirt, amber glasses, bracelet, and left-handed stylus. Elena appears only with an aggregated multi-school completion chart. Use the same fictional simulation layout before and after so the button change is unmistakable.</td>
+</tr>
+<tr>
+<td><strong>3. Two Paths Through the Storm</strong></td>
+<td>Three consecutive science periods in mid-November; Room 214, Noah's studio, and Elena's district review room; rain-dark windows and slate-blue storm imagery</td>
+<td>Leila, Maya, Noah, Elena, Rowan; two balanced, unnamed student groups labeled only <strong>Path A</strong> and <strong>Path B</strong></td>
+<td>Both paths use the same reading and the same <strong>StormLab</strong> MicroSim from Story 2. Path A is <strong>Read → Sim</strong> in amber; Path B is <strong>Sim → Read</strong> in teal. Assignment remains stable for each learner, and the final comparison shows de-identified group medians, uncertainty ranges, and time-to-mastery rather than a winner based on raw clicks.</td>
+<td>Maya teaches both groups with the same materials and core wardrobe. Leila is assigned to Path B and records her reactions in the same amber notebook, but her experience is presented as context rather than proof. Noah retains the revised centered teal Run Model control from Story 2. Elena approves and reviews only the de-identified experiment. Rowan traces the two paths but never announces the result.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="background-character-rule">Background-Character Rule<a class="headerlink" href="#background-character-rule" title="Permanent link">&para;</a></h3>
+<p>Unnamed students may vary across panels only if they are not meant to represent the
+same learner. When a background classmate recurs within a story, give that classmate
+one simple invariant (for example, a purple headband or a green checked overshirt) and
+repeat it in every relevant prompt. Do not add names, disabilities, family details,
+academic labels, or emotional diagnoses that the story does not establish.</p>
+<h2 id="story-ideas">Story Ideas<a class="headerlink" href="#story-ideas" title="Permanent link">&para;</a></h2>
+<h3 id="1-the-red-node-before-monday">1. The Red Node Before Monday<a class="headerlink" href="#1-the-red-node-before-monday" title="Permanent link">&para;</a></h3>
+<p><strong>Status:</strong> Done</p>
+<p><strong><a href="../the-red-node-before-monday/">Read the complete 8-panel story →</a></strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Setting</strong></td>
+<td>Friday afternoon, Cedar Grove Middle School</td>
+</tr>
+<tr>
+<td><strong>Theme</strong></td>
+<td>A weak prerequisite can hide beneath a difficult new concept.</td>
+</tr>
+<tr>
+<td><strong>Connection</strong></td>
+<td>Class Mastery Heatmap, Struggle Detector, and Prerequisite Gap Analysis</td>
+</tr>
+<tr>
+<td><strong>Panels</strong></td>
+<td><strong>8</strong> — enough for a clue, an upstream graph search, a targeted lesson, and a measured recovery.</td>
+</tr>
+</tbody>
+</table>
+<p>Leila keeps missing ecosystem questions even though she studies every night. Ms.
+Chen opens the class heatmap, follows the weak concept upstream, and discovers that
+Leila and several classmates never mastered energy transfer. Noah supplies a short
+bridge activity, while Dr. Ruiz finds the same prerequisite gap in several schools
+and schedules district coaching; the next records show students moving forward.</p>
+<p><strong>How everyone benefits:</strong> Leila receives help aimed at the real obstacle; Ms. Chen
+avoids reteaching the wrong lesson; Noah learns where the textbook assumed too much;
+Dr. Ruiz directs support toward a shared need instead of a hunch.</p>
+<p><em>Why this inspires:</em> A red mark becomes a useful clue rather than a label of failure.</p>
+<hr />
+<h3 id="2-the-simulation-everyone-escaped">2. The Simulation Everyone Escaped<a class="headerlink" href="#2-the-simulation-everyone-escaped" title="Permanent link">&para;</a></h3>
+<p><strong>Status:</strong> Done</p>
+<p><strong><a href="../the-simulation-everyone-escaped/">Read the complete 7-panel story →</a></strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Setting</strong></td>
+<td>A newly released climate-model MicroSim</td>
+</tr>
+<tr>
+<td><strong>Theme</strong></td>
+<td>Frustration in an interface can masquerade as difficulty in a subject.</td>
+</tr>
+<tr>
+<td><strong>Connection</strong></td>
+<td>MicroSim Utilization, Page Effectiveness, and Confusing-Content Finder</td>
+</tr>
+<tr>
+<td><strong>Panels</strong></td>
+<td><strong>7</strong> — a compact interface mystery with a clear before-and-after resolution.</td>
+</tr>
+</tbody>
+</table>
+<p>Leila understands the science but repeatedly leaves the MicroSim after the same
+screen. Ms. Chen sees the class pattern and sends Noah a note backed by aggregated
+interaction evidence. Noah discovers that the “Run Model” control is nearly invisible,
+releases a clearer version, and Dr. Ruiz confirms that completion improves across
+schools without exposing individual students.</p>
+<p><strong>How everyone benefits:</strong> Leila can demonstrate what she knows; Ms. Chen can
+separate content confusion from interface confusion; Noah gets precise design
+feedback; Dr. Ruiz sees that the licensed resource is now usable district-wide.</p>
+<p><em>Why this inspires:</em> Sometimes the learner is not broken—the button is.</p>
+<hr />
+<h3 id="3-two-paths-through-the-storm">3. Two Paths Through the Storm<a class="headerlink" href="#3-two-paths-through-the-storm" title="Permanent link">&para;</a></h3>
+<p><strong>Status:</strong> Done</p>
+<p><strong><a href="../two-paths-through-the-storm/">Read the complete 9-panel story →</a></strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Setting</strong></td>
+<td>A weather-science chapter with two possible lesson sequences</td>
+</tr>
+<tr>
+<td><strong>Theme</strong></td>
+<td>Good intentions become trustworthy improvements only when tested fairly.</td>
+</tr>
+<tr>
+<td><strong>Connection</strong></td>
+<td>Experiment Designer, sticky assignment, sequencing A/B test, and experiment readout</td>
+</tr>
+<tr>
+<td><strong>Panels</strong></td>
+<td><strong>9</strong> — room to establish the hypothesis, run both paths, and reveal the result without rushing.</td>
+</tr>
+</tbody>
+</table>
+<p>Noah wonders whether students should explore a storm MicroSim before or after the
+reading. With district approval, the textbook assigns students consistently to two
+versions, while Ms. Chen teaches both groups normally and Leila documents how her
+sequence felt. The readout shows which order improves time-to-mastery, so Noah ships
+the stronger path and Dr. Ruiz can justify the change with evidence rather than
+fashion.</p>
+<p><strong>How everyone benefits:</strong> Leila gets a sequence shown to support learning; Ms. Chen
+gains a clearer lesson flow; Noah can distinguish a real effect from anecdotes; Dr.
+Ruiz makes a defensible adoption decision.</p>
+<p><em>Why this inspires:</em> Curiosity becomes an experiment, and an experiment becomes a
+better experience for the next learner.</p>
+<hr />
+<h3 id="4-the-school-that-faded-from-the-map">4. The School That Faded from the Map<a class="headerlink" href="#4-the-school-that-faded-from-the-map" title="Permanent link">&para;</a></h3>
+<p><strong>Status:</strong> Done</p>
+<p><strong><a href="../the-school-that-faded-from-the-map/">Read the complete 8-panel story →</a></strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Setting</strong></td>
+<td>The district adoption dashboard during the first month of school</td>
+</tr>
+<tr>
+<td><strong>Theme</strong></td>
+<td>Low activity can reveal an access problem, not a motivation problem.</td>
+</tr>
+<tr>
+<td><strong>Connection</strong></td>
+<td>District Adoption Dashboard, School Comparison, and Deployment Inventory</td>
+</tr>
+<tr>
+<td><strong>Panels</strong></td>
+<td><strong>8</strong> — a district-scale mystery that resolves through a visit to one classroom.</td>
+</tr>
+</tbody>
+</table>
+<p>One school appears unusually quiet on Dr. Ruiz's dashboard. She visits instead of
+assuming students are disengaged, and Leila shows her that aging tablets lose their
+sessions whenever the wireless network drops. Ms. Chen explains the classroom
+workaround, Noah makes the textbook more resilient to interrupted sessions, and the
+district repairs the access point; trustworthy records finally reflect the learning
+that was happening all along.</p>
+<p><strong>How everyone benefits:</strong> Leila's effort is no longer invisible; Ms. Chen gets stable
+classroom tools; Noah learns how the book behaves under real conditions; Dr. Ruiz
+finds and fixes an infrastructure inequity.</p>
+<p><em>Why this inspires:</em> Evidence is most powerful when leaders investigate the human
+story behind it.</p>
+<hr />
+<h3 id="5-the-question-with-two-right-answers">5. The Question with Two Right Answers<a class="headerlink" href="#5-the-question-with-two-right-answers" title="Permanent link">&para;</a></h3>
+<p><strong>Status:</strong> Done</p>
+<p><strong><a href="../the-question-with-two-right-answers/">Read the complete 6-panel story →</a></strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Setting</strong></td>
+<td>A quiz on renewable and nonrenewable energy</td>
+</tr>
+<tr>
+<td><strong>Theme</strong></td>
+<td>A high-quality record can expose a bad assessment item.</td>
+</tr>
+<tr>
+<td><strong>Connection</strong></td>
+<td>Quiz Item Analysis, Question Discrimination, and Question Health</td>
+</tr>
+<tr>
+<td><strong>Panels</strong></td>
+<td><strong>6</strong> — a single-question mystery suited to a brisk reveal and repair.</td>
+</tr>
+</tbody>
+</table>
+<p>Leila defends an answer the textbook marked wrong, and Ms. Chen notices that many of
+her strongest students chose it too. The item-analysis view shows an unusual response
+pattern across sections. Noah traces it to ambiguous wording, corrects the item and
+its explanation, while Dr. Ruiz ensures the flawed result is not used to judge
+students or schools.</p>
+<p><strong>How everyone benefits:</strong> Leila is heard and receives a fair result; Ms. Chen gains
+confidence in the quiz; Noah improves assessment quality; Dr. Ruiz prevents one bad
+question from distorting district decisions.</p>
+<p><em>Why this inspires:</em> One student's careful objection can improve a book for thousands.</p>
+<hr />
+<h3 id="6-the-case-of-the-missing-tuesday">6. The Case of the Missing Tuesday<a class="headerlink" href="#6-the-case-of-the-missing-tuesday" title="Permanent link">&para;</a></h3>
+<p><strong>Status:</strong> Done</p>
+<p><strong><a href="../the-case-of-the-missing-tuesday/">Read the complete 8-panel story →</a></strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Setting</strong></td>
+<td>A dashboard that suddenly shows an entire day with no learning activity</td>
+</tr>
+<tr>
+<td><strong>Theme</strong></td>
+<td>Before acting on feedback, verify that the record itself is healthy.</td>
+</tr>
+<tr>
+<td><strong>Connection</strong></td>
+<td>Data Quality Monitor, Ingestion Health, processing lag, and replayable event log</td>
+</tr>
+<tr>
+<td><strong>Panels</strong></td>
+<td><strong>8</strong> — a technical mystery with visible clues, a false conclusion, and a corrected record.</td>
+</tr>
+</tbody>
+</table>
+<p>The dashboard suggests Leila and her classmates did no work on Tuesday, but Ms. Chen
+remembers a lively lab. Rowan points to the empty timeline: “Let's follow the record.”
+Dr. Ruiz's system-health view reveals a processing backlog, and after recovery the
+stored statements rebuild the summaries; Noah and Ms. Chen postpone their conclusions
+until the complete evidence returns.</p>
+<p><strong>How everyone benefits:</strong> Leila is not mislabeled as inactive; Ms. Chen avoids an
+unnecessary intervention; Noah avoids redesigning sound content; Dr. Ruiz can detect,
+explain, and recover from a data-pipeline problem.</p>
+<p><em>Why this inspires:</em> Trust grows when a system can admit, reveal, and repair a gap.</p>
+<hr />
+<h3 id="7-a-new-classroom-the-same-learning-journey">7. A New Classroom, the Same Learning Journey<a class="headerlink" href="#7-a-new-classroom-the-same-learning-journey" title="Permanent link">&para;</a></h3>
+<p><strong>Status:</strong> Done</p>
+<p><strong><a href="../a-new-classroom-the-same-learning-journey/">Read the complete 8-panel story →</a></strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Setting</strong></td>
+<td>Leila transfers between two schools in the same district mid-semester.</td>
+</tr>
+<tr>
+<td><strong>Theme</strong></td>
+<td>Portable, standards-based records preserve continuity during change.</td>
+</tr>
+<tr>
+<td><strong>Connection</strong></td>
+<td>xAPI interoperability, district-scoped student identity, Student Progress Overview, and textbook versions</td>
+</tr>
+<tr>
+<td><strong>Panels</strong></td>
+<td><strong>8</strong> — enough to contrast the anxiety of starting over with a well-informed welcome.</td>
+</tr>
+</tbody>
+</table>
+<p>Leila fears she will have to repeat weeks of work after transferring. Her new teacher
+can see the district-authorized progress record and begins with a conversation about
+what she remembers, while the textbook presents appropriate review instead of a full
+restart. Noah learns where transfers encounter version mismatches, and Dr. Ruiz uses
+the deployment inventory to align the two schools.</p>
+<p><strong>How everyone benefits:</strong> Leila keeps momentum; Ms. Chen's counterpart welcomes her
+with context; Noah designs smoother transitions between versions; Dr. Ruiz sees where
+inconsistent deployments create needless repetition.</p>
+<p><em>Why this inspires:</em> A move changes the classroom, not the value of learning already
+earned.</p>
+<hr />
+<h3 id="8-the-small-group-behind-the-curtain">8. The Small Group Behind the Curtain<a class="headerlink" href="#8-the-small-group-behind-the-curtain" title="Permanent link">&para;</a></h3>
+<p><strong>Status:</strong> Done</p>
+<p><strong><a href="../the-small-group-behind-the-curtain/">Read the complete 7-panel story →</a></strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Setting</strong></td>
+<td>A district review of outcomes for a very small student group</td>
+</tr>
+<tr>
+<td><strong>Theme</strong></td>
+<td>Useful feedback must protect students from being identified by statistics.</td>
+</tr>
+<tr>
+<td><strong>Connection</strong></td>
+<td>Privacy Filter Choke Point, aggregation thresholds, teacher roster access, and Privacy &amp; Access Audit</td>
+</tr>
+<tr>
+<td><strong>Panels</strong></td>
+<td><strong>7</strong> — a focused ethical dilemma followed by a privacy-preserving solution.</td>
+</tr>
+</tbody>
+</table>
+<p>Dr. Ruiz asks why a district chart hides one small group's result, and Rowan explains
+that publishing it could reveal individual students. Ms. Chen can still discuss
+Leila's progress privately because she has a legitimate classroom relationship, while
+Noah receives a sufficiently large, de-identified content summary. The access audit
+shows who viewed sensitive information and why.</p>
+<p><strong>How everyone benefits:</strong> Leila receives personal support without public exposure;
+Ms. Chen retains the detail needed to teach; Noah gets actionable aggregate feedback;
+Dr. Ruiz can improve programs without weakening district privacy rules.</p>
+<p><em>Why this inspires:</em> A system can learn from students without turning students into
+public data points.</p>
+<hr />
+<h3 id="9-reading-doing-and-the-empty-middle">9. Reading, Doing, and the Empty Middle<a class="headerlink" href="#9-reading-doing-and-the-empty-middle" title="Permanent link">&para;</a></h3>
+<p><strong>Status:</strong> Done</p>
+<p><strong><a href="../reading-doing-and-the-empty-middle/">Read the complete 7-panel story →</a></strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Setting</strong></td>
+<td>A chapter where students read extensively but rarely practice</td>
+</tr>
+<tr>
+<td><strong>Theme</strong></td>
+<td>Engagement is not one number; the kind of activity matters.</td>
+</tr>
+<tr>
+<td><strong>Connection</strong></td>
+<td>Reading vs. Doing Balance, Page Engagement, MicroSim Utilization, and mastery evidence</td>
+</tr>
+<tr>
+<td><strong>Panels</strong></td>
+<td><strong>7</strong> — a clean pattern-to-redesign arc with one central visual metaphor.</td>
+</tr>
+</tbody>
+</table>
+<p>Leila spends a long time on the chapter yet still feels unprepared for the quiz. The
+records show plenty of reading but almost no opportunity to apply the idea. Ms. Chen
+adds a hands-on station, Noah embeds two short practice interactions, and Dr. Ruiz
+watches the reading-doing balance improve without rewarding mere screen time.</p>
+<p><strong>How everyone benefits:</strong> Leila gets practice that builds confidence; Ms. Chen sees
+why effort did not become mastery; Noah identifies a structural gap in the chapter;
+Dr. Ruiz measures meaningful use rather than raw minutes online.</p>
+<p><em>Why this inspires:</em> Effort becomes visible—and then the learning environment meets it
+halfway.</p>
+<hr />
+<h3 id="10-the-chapter-with-the-vanishing-ending">10. The Chapter with the Vanishing Ending<a class="headerlink" href="#10-the-chapter-with-the-vanishing-ending" title="Permanent link">&para;</a></h3>
+<p><strong>Status:</strong> Done</p>
+<p><strong><a href="../the-chapter-with-the-vanishing-ending/">Read the complete 8-panel story →</a></strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Setting</strong></td>
+<td>A completion funnel that narrows sharply before the final activity</td>
+</tr>
+<tr>
+<td><strong>Theme</strong></td>
+<td>Where learners stop can be as informative as what they answer.</td>
+</tr>
+<tr>
+<td><strong>Connection</strong></td>
+<td>Completion Funnel, Drop-off Map, Page Effectiveness, and textbook version comparison</td>
+</tr>
+<tr>
+<td><strong>Panels</strong></td>
+<td><strong>8</strong> — a visual trail through pages naturally fits a short investigation.</td>
+</tr>
+</tbody>
+</table>
+<p>Leila admits that the chapter's long recap made the final challenge feel unreachable.
+Ms. Chen sees that the same page is a class bottleneck, Noah finds the pattern across
+many sections, and Dr. Ruiz confirms it is content-specific rather than a problem at
+one school. Noah splits the recap into checkpoints, and the next version carries more
+students to the ending.</p>
+<p><strong>How everyone benefits:</strong> Leila gets a path with visible milestones; Ms. Chen knows
+where to encourage the class; Noah sees exactly where pacing fails; Dr. Ruiz can tell
+a design bottleneck from a school-performance issue.</p>
+<p><em>Why this inspires:</em> Reaching the end begins with noticing where the journey became too
+heavy.</p>
+<hr />
+<h3 id="11-the-three-versions-of-wednesday">11. The Three Versions of Wednesday<a class="headerlink" href="#11-the-three-versions-of-wednesday" title="Permanent link">&para;</a></h3>
+<p><strong>Status:</strong> Done</p>
+<p><strong><a href="../the-three-versions-of-wednesday/">Read the complete 9-panel story →</a></strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Setting</strong></td>
+<td>Three schools unknowingly use three releases of the same textbook.</td>
+</tr>
+<tr>
+<td><strong>Theme</strong></td>
+<td>Feedback is interpretable only when the content version is known.</td>
+</tr>
+<tr>
+<td><strong>Connection</strong></td>
+<td>Textbook Registry, Deployment Inventory, Textbook Version, and Version Comparison</td>
+</tr>
+<tr>
+<td><strong>Panels</strong></td>
+<td><strong>9</strong> — a version-control mystery needs three parallel classrooms and one convergence.</td>
+</tr>
+</tbody>
+</table>
+<p>Leila's class loves a new worked example, but another school reports that the same
+lesson is confusing. The deployment inventory reveals that the schools are not using
+the same version at all. Ms. Chen annotates the difference, Noah verifies which change
+helped, and Dr. Ruiz coordinates a safe rollout so future comparisons match like with
+like.</p>
+<p><strong>How everyone benefits:</strong> Leila keeps the helpful example; Ms. Chen can explain the
+conflicting reports; Noah receives version-specific evidence; Dr. Ruiz gains an
+accurate inventory and a controlled update plan.</p>
+<p><em>Why this inspires:</em> The contradiction disappears when the team follows the record to
+the exact page students actually saw.</p>
+<hr />
+<h3 id="12-the-evidence-council">12. The Evidence Council<a class="headerlink" href="#12-the-evidence-council" title="Permanent link">&para;</a></h3>
+<p><strong>Status:</strong> Done</p>
+<p><strong><a href="../the-evidence-council/">Read the complete 10-panel story →</a></strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Setting</strong></td>
+<td>An end-of-term meeting where students help plan the next textbook release</td>
+</tr>
+<tr>
+<td><strong>Theme</strong></td>
+<td>The best feedback loop combines records with the voices of the people represented.</td>
+</tr>
+<tr>
+<td><strong>Connection</strong></td>
+<td>Cross-persona dashboards, de-identified district rollups, content insights, and student progress reports</td>
+</tr>
+<tr>
+<td><strong>Panels</strong></td>
+<td><strong>10</strong> — a synthesis finale that revisits evidence from the anthology and gives every character agency.</td>
+</tr>
+</tbody>
+</table>
+<p>Dr. Ruiz, Ms. Chen, Noah, and Leila gather around four views of the same semester:
+district adoption, class mastery, content effectiveness, and personal progress. Each
+view reveals something the others cannot, and Leila's explanation changes how the
+team interprets one stubborn pattern. Together they choose one teaching change, one
+textbook revision, and one district investment, then agree on what evidence will show
+whether those choices helped.</p>
+<p><strong>How everyone benefits:</strong> Leila becomes a partner in improvement; Ms. Chen connects
+classroom context to the charts; Noah designs from evidence and lived experience; Dr.
+Ruiz coordinates action across the system with clear measures of success.</p>
+<p><em>Why this inspires:</em> A high-quality learning record does not end the conversation—it
+helps the right conversation begin.</p>
+<h2 id="a-shared-visual-language">A Shared Visual Language<a class="headerlink" href="#a-shared-visual-language" title="Permanent link">&para;</a></h2>
+<p>If these ideas become full graphic novels, use a warm contemporary educational-comic
+style with clear expressions, readable dashboard shapes, and a teal, cinnamon, cream,
+navy, and amber palette. Keep the four recurring characters visually consistent.
+Use the canonical character sheets and prompt anchors above in every panel prompt;
+do not paraphrase away their identifying features.
+Rowan should point to evidence, connect people, or lower anxiety; he should never act
+as a decorative mascot or announce a decision the human characters have not examined.</p>
+<p>Recurring visual motifs can bind the anthology together:</p>
+<ul>
+<li>a glowing thread that follows an xAPI record from Leila's textbook to each role;</li>
+<li>concept nodes changing from amber to teal as understanding develops;</li>
+<li>Rowan opening his satchel to reveal records as cards, never student secrets;</li>
+<li>four windows onto the same evidence at student, class, content, and district scale.</li>
+</ul>
+<h2 id="how-to-develop-an-idea">How to Develop an Idea<a class="headerlink" href="#how-to-develop-an-idea" title="Permanent link">&para;</a></h2>
+<p>To turn an idea into a complete illustrated story, invoke the available
+<code>story-generator</code> skill with its title and suggested panel count. For example:</p>
+<blockquote>
+<p>/story-generator The Red Node Before Monday --panels 8</p>
+</blockquote>
+<p>The full story should include a cover, the numbered panels, concise narration, and
+self-contained 16:9 image prompts. Preserve the central rule of this collection:
+<strong>the record supplies evidence, people supply context and judgment, and the next round
+of evidence checks whether their decision actually helped.</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../story-ideas-antigravity/" class="md-footer__link md-footer__link--prev" aria-label="Previous: LRS Graphic Novel Story Ideas">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                LRS Graphic Novel Story Ideas
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../the-red-node-before-monday/" class="md-footer__link md-footer__link--next" aria-label="Next: The Red Node Before Monday">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                The Red Node Before Monday
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Dan McCreary. Licensed under <a href="license/">CC BY-NC-SA 4.0</a> for non-commercial use.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../js/katex.js"></script>
+      
+        <script src="../../js/quiz-xapi.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

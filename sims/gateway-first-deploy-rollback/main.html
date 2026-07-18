@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Gateway-First Deploy &amp; Rollback</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'default', flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' } });
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="diagram-panel">
+            <div class="mermaid">
+flowchart TB
+    subgraph DEPLOY["Deploy order"]
+        direction LR
+        D1["Gateway (first)"]:::dep
+        D2["Processors<br/><small>Termination Grace Period 60s</small>"]:::dep
+        D3["Summarizer"]:::dep
+        D4["Stateless APIs &amp; Dashboards (last)"]:::dep
+        D1 --> D2 --> D3 --> D4
+    end
+    subgraph ROLL["Rollback order"]
+        direction LR
+        R1["Stateless APIs &amp; Dashboards (first)"]:::rb
+        R2["Summarizer"]:::rb
+        R3["Processors"]:::rb
+        R4["Gateway (last)"]:::rb
+        R1 --> R2 --> R3 --> R4
+    end
+    Note["Expand-Contract Rollback<br/><small>schema never mutated out from under a version, so adjacent versions run against it at once</small>"]:::sidenote
+    DEPLOY -.-> Note
+    ROLL -.-> Note
+
+    classDef dep fill:#2a9d8f,stroke:#1f7a6f,color:#fff,font-size:13px
+    classDef rb fill:#e9a23b,stroke:#b8791f,color:#222,font-size:13px
+    classDef sidenote fill:#eef2f0,stroke:#9bbdb5,color:#234,font-size:12px
+    linkStyle default stroke:#999,stroke-width:2px
+            </div>
+        </div>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a role to see details</p></div>
+        </div>
+    </div>
+    <script>
+        const nodeInfo = {
+            'D1': { title: 'Deploy: Gateway first', description: 'The gateway is deployed first so the new version can accept traffic before downstream roles change. It appears at the START of deploy and the END of rollback &mdash; the asymmetry this diagram highlights.' },
+            'D2': { title: 'Deploy: Processors', description: 'Processors roll next. They honor a 60-second Termination Grace Period so in-flight batches finish and offsets commit before the old pod exits.' },
+            'D3': { title: 'Deploy: Summarizer', description: 'The summarizer rolls after processors. Its absolute-write design means a brief gap only delays graph updates, never corrupts them.' },
+            'D4': { title: 'Deploy: Stateless last', description: 'Stateless APIs and dashboards roll last &mdash; they only read, so they should adopt the new version after the write path is already updated.' },
+            'R1': { title: 'Rollback: Stateless first', description: 'Rollback reverses the order. Stateless read roles revert first because reverting them is harmless and instant.' },
+            'R2': { title: 'Rollback: Summarizer', description: 'The summarizer reverts next, still safe due to absolute writes.' },
+            'R3': { title: 'Rollback: Processors', description: 'Processors revert with the same 60-second grace period, draining in-flight work.' },
+            'R4': { title: 'Rollback: Gateway last', description: 'The gateway reverts last. It is the only role whose downtime loses data (it is the durability boundary), so it changes only when everything else is already stable &mdash; hence first-in, last-out.' },
+            'Note': { title: 'Expand-Contract Rollback', description: 'Schema is never mutated out from under a running version: new columns are added (expand) before old ones are removed (contract). Adjacent versions can therefore run against the same schema at once, which is what makes both deploy and rollback safe mid-sequence.' }
+        };
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

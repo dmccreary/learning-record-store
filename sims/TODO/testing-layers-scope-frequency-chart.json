@@ -1,0 +1,15 @@
+{
+  "sim_id": "testing-layers-scope-frequency-chart",
+  "diagram_name": "Testing Layers by Scope and Run Frequency",
+  "chapter_number": 19,
+  "chapter_title": "Failure Modes and Verification",
+  "chapter_dir": "19-failure-modes-and-verification",
+  "chapter_rel_dir": "chapters/19-failure-modes-and-verification",
+  "library": "Chart.js",
+  "bloom_level": "Evaluate (L5)",
+  "bloom_verb": "compare, justify",
+  "learning_objective": "Compare the eight testing layers by how much of the system each exercises and how often each runs, and justify why the widest-scope layer is also the least frequent.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: chart\n**sim-id:** testing-layers-scope-frequency-chart<br/>\n**Library:** Chart.js<br/>\n**Status:** Specified\n\nBloom Taxonomy: Evaluate (L5)\nBloom Taxonomy Verb: compare, justify\n\nLearning objective: Compare the eight testing layers by how much of the system each exercises and how often each runs, and justify why the widest-scope layer is also the least frequent.\n\nChart type: Scatter/quadrant chart. X-axis: \"Scope,\" from \"Single function\" to \"Whole live system.\" Y-axis: \"Run frequency,\" from \"Scheduled/quarterly\" to \"Every commit,\" on a reversed log-like scale.\n\nData points: Unit Test Layer (narrow scope, every commit), Compression Test Suite (narrow-medium, every commit), ADL Conformance Test Suite (medium, every CI run), Testcontainers Integration Test (medium-wide, every CI run), Privacy Adversarial Suite (medium, every CI run), Load Test Loadgen (wide, pre-release), Replay Nightly Test (wide, nightly), Chaos Kill Test (widest, scheduled/staging-only).\n\nInteractive features: Hovering a point shows a tooltip with the layer's name and what it checks. Clicking opens an infobox with the full prose description. A toggle switches the y-axis to \"blast radius if this layer alone were skipped,\" re-plotting the same points.\n\nColor scheme: Gradient from teal (narrow, frequent) to amber (wide, infrequent).\n\nAnnotation: A dashed diagonal trend line labeled \"Wider scope, slower cadence.\"\n\nResponsive design: Chart resizes to container width; axis labels abbreviate on narrow viewports while tooltips retain full text."
+}

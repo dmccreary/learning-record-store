@@ -1,0 +1,24 @@
+{
+  "title": "xAPI Statement Building Blocks",
+  "description": "Give the learner a first, plain-language mental model of the five Statement components (Actor, Verb, Object Activity, Result, Context) using one worked example, before Chapter 2 formalizes the JSON structure.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "xapi-statement-triple",
+  "library": "Mermaid",
+  "bloomLevel": "Understand (L2)",
+  "bloomVerb": "exemplify, classify",
+  "completion_status": "implemented",
+  "chapter_number": 1,
+  "chapter_title": "From Learning Management Systems to the Experience API",
+  "chapter_dir": "01-lms-to-experience-api",
+  "chapter_rel_dir": "chapters/01-lms-to-experience-api",
+  "canvasHeight": 380
+}

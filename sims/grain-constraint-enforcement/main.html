@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Grain Uniqueness Constraint Enforcement</title>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { width: 100%; height: 100%; overflow: hidden; font-family: Arial, Helvetica, sans-serif; background: #fff; }
+        .wrap { display: flex; flex-direction: column; width: 100%; height: 100%; }
+        .title { text-align: center; font-size: 15px; font-weight: bold; color: #1a3a5c; padding: 6px; }
+        #network { flex: 1 1 auto; min-height: 200px; background: aliceblue; border-top: 1px solid #dee2e6; border-bottom: 1px solid #dee2e6; }
+        .controls { padding: 8px; display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+        button { font-size: 13px; padding: 7px 12px; border: none; border-radius: 5px; cursor: pointer; color: #fff; }
+        .btn-merge { background: #2a9d8f; }
+        .btn-stmt { background: #e05a5a; }
+        .btn-reset { background: #6b7a8d; }
+        button:hover { filter: brightness(1.08); }
+        .log { height: 130px; overflow-y: auto; padding: 8px 12px; font-family: monospace; font-size: 12px; background: #0f1720; color: #cfe; }
+        .log .ok { color: #6fd0be; }
+        .log .rej { color: #ff8080; }
+        .log .ts { color: #7a8a99; }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="title">Grain Uniqueness Constraint &mdash; MERGE upserts, :Statement is rejected</div>
+        <div id="network"></div>
+        <div class="controls">
+            <button class="btn-merge" id="btn-merge">Simulate MERGE write (same grain)</button>
+            <button class="btn-stmt" id="btn-stmt">Simulate write with :Statement label</button>
+            <button class="btn-reset" id="btn-reset">Reset</button>
+        </div>
+        <div class="log" id="log"></div>
+    </div>
+    <script>
+        let tick = 0;                 // deterministic timestamp (no Date in sandbox-safe pattern)
+        let evidence = 5;
+        let mastery = 0.62;
+        const baseColor = { background: '#2a9d8f', border: '#1f7a6f' };
+        const nodes = new vis.DataSet([
+            { id: 'CM', label: masteryLabel(), color: baseColor, font: { color: '#fff', size: 15 } }
+        ]);
+        const edges = new vis.DataSet([]);
+        const network = new vis.Network(document.getElementById('network'), { nodes: nodes, edges: edges }, {
+            nodes: { shape: 'box', margin: 12, borderWidth: 2, widthConstraint: { maximum: 220 } },
+            physics: { enabled: false },
+            interaction: { dragView: false, zoomView: false }
+        });
+        network.moveTo({ position: { x: 0, y: 0 }, scale: 1.1 });
+
+        function masteryLabel() {
+            return 'ConceptMastery\n(student_key, concept_id)\nmastery_score: ' + mastery.toFixed(2) + '\nevidence_count: ' + evidence;
+        }
+        function logLine(cls, text) {
+            tick += 1;
+            const log = document.getElementById('log');
+            const div = document.createElement('div');
+            div.innerHTML = '<span class="ts">[t+' + tick + 's]</span> <span class="' + cls + '">' + text + '</span>';
+            log.appendChild(div);
+            log.scrollTop = log.scrollHeight;
+        }
+
+        document.getElementById('btn-merge').addEventListener('click', function () {
+            evidence += 1;
+            mastery = Math.min(0.99, mastery + 0.05);
+            nodes.update({ id: 'CM', label: masteryLabel() });
+            // brief highlight
+            nodes.update({ id: 'CM', color: { background: '#3fd0bd', border: '#1f7a6f' } });
+            setTimeout(function () { nodes.update({ id: 'CM', color: baseColor }); }, 500);
+            logLine('ok', 'MERGE matched existing grain — properties updated (mastery_score, evidence_count), no new vertex created');
+        });
+
+        document.getElementById('btn-stmt').addEventListener('click', function () {
+            // attempt a forbidden :Statement node, flash red, then remove
+            nodes.add({ id: 'BAD', label: ':Statement\n(per-statement node)', color: { background: '#e05a5a', border: '#b23b3b' }, font: { color: '#fff', size: 14 }, x: 180, y: 0, fixed: true });
+            logLine('rej', 'REJECTED — :Statement label is prohibited; lrs bootstrap --verify would fail this deployment');
+            setTimeout(function () { if (nodes.get('BAD')) nodes.remove('BAD'); }, 900);
+        });
+
+        document.getElementById('btn-reset').addEventListener('click', function () {
+            evidence = 5; mastery = 0.62; tick = 0;
+            if (nodes.get('BAD')) nodes.remove('BAD');
+            nodes.update({ id: 'CM', label: masteryLabel(), color: baseColor });
+            document.getElementById('log').innerHTML = '';
+        });
+    </script>
+</body>
+</html>

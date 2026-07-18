@@ -1,0 +1,24 @@
+{
+  "title": "The Nine Admin UIs at a Glance",
+  "description": "Identify each of the nine admin UIs, its one-line purpose, and which of the six roles from this chapter can open it, as a quick-reference survey before Chapters 25 through 27 cover several of them in depth.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "nine-admin-uis-survey",
+  "library": "p5.js",
+  "bloomLevel": "Remember (L1)",
+  "bloomVerb": "identify, recall",
+  "completion_status": "implemented",
+  "chapter_number": 24,
+  "chapter_title": "Meet the Three Personas and the Admin UI Surface",
+  "chapter_dir": "24-three-personas-and-admin-uis",
+  "chapter_rel_dir": "chapters/24-three-personas-and-admin-uis",
+  "canvasHeight": 500
+}

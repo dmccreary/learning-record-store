@@ -1,0 +1,15 @@
+{
+  "sim_id": "image-supply-chain-pipeline",
+  "diagram_name": "Image Supply Chain Pipeline",
+  "chapter_number": 17,
+  "chapter_title": "Docker Compose, the Makefile, and the Image Supply Chain",
+  "chapter_dir": "17-compose-makefile-supply-chain",
+  "chapter_rel_dir": "chapters/17-compose-makefile-supply-chain",
+  "library": "Mermaid",
+  "bloom_level": "Analyze (L4)",
+  "bloom_verb": "trace, differentiate",
+  "learning_objective": "Trace a single image from a release-tag push through build, cache, provenance/SBOM generation, vulnerability scanning, and signing, and explain why a deployment must reference the resulting digest rather than a mutable tag.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: workflow\n**sim-id:** image-supply-chain-pipeline<br/>\n**Library:** Mermaid<br/>\n**Status:** Specified\n**Template:** https://github.com/dmccreary/infographics/tree/main/docs/sims/cicd-deployment-pipeline<br/>\n\nBloom Taxonomy: Analyze (L4)\nBloom Taxonomy Verb: trace, differentiate\n\nLearning objective: Trace a single image from a release-tag push through build, cache, provenance/SBOM generation, vulnerability scanning, and signing, and explain why a deployment must reference the resulting digest rather than a mutable tag.\n\nPurpose: A left-to-right Mermaid flowchart tracing one release through the abridged workflow quoted in this chapter's prose.\n\nNodes in order: \"Push to release tag\" -> \"Docker Buildx (multi-arch: amd64 + arm64)\" -> \"GHA Layer Cache\" -> \"Build image, attach Provenance Attestation + SBOM\" -> \"Trivy Vulnerability Scan (CRITICAL/HIGH = block)\" -> two branches: \"Vulnerabilities found\" to a red \"Release blocked, exit 1\" end node; \"Clean scan\" onward to \"Cosign Image Signing\" -> \"Push ghcr.io/dmccreary/lrs@sha256:... (Immutable Digest Reference)\" -> \"Deployment pulls by digest, never by tag\".\n\nInteractive features: Every node has a Mermaid click directive opening an infobox with a one-sentence definition drawn from this chapter's prose. Clicking the Trivy node explains severity and exit-code gating. Clicking the final two nodes explains the difference between a mutable tag and an immutable digest reference.\n\nColor coding: Build-stage nodes in the book's teal accent color, security-gate nodes (Trivy, Cosign) in amber, the blocked-release branch in red, the final deploy-by-digest node in green.\n\nResponsive design: The flowchart stacks vertically on narrow viewports, preserving left-to-right order as top-to-bottom, with the two branch paths staying visually distinct."
+}

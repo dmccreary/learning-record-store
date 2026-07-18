@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Ingestion &rarr; Processing &rarr; Storage Pipeline</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' }
+        });
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="diagram-panel">
+            <div class="mermaid">
+flowchart TD
+    S1["1 &middot; Intelligent Textbook<br/>sends statement<br/><small>POST one xAPI statement</small>"]:::ingest
+    S2["2 &middot; Gateway validates<br/>structure<br/><small>actor, verb, object, timestamp</small>"]:::ingest
+    S3["3 &middot; Gateway queues<br/>statement<br/><small>hands to queue, responds at once</small>"]:::ingest
+    S4["4 &middot; Durable Event Queue<br/>holds in order<br/><small>preserves per-learner sequence</small>"]:::process
+    S5["5 &middot; Stream Processor<br/>enriches<br/><small>resolve learner, add context, pseudonymize</small>"]:::process
+    S6["6 &middot; Writes to Event Store<br/><small>durable, queryable log</small>"]:::store
+    Down["If the Stream Processor is down<br/><small>the statement waits safely in the queue &mdash; the textbook already got its response in step 3</small>"]:::branch
+    S1 --> S2 --> S3 --> S4 --> S5 --> S6
+    S3 -.-> Down
+
+    classDef ingest fill:#12695f,stroke:#0c4a43,color:#fff,font-size:14px
+    classDef process fill:#2a9d8f,stroke:#1f7a6f,color:#fff,font-size:14px
+    classDef store fill:#8fd3c9,stroke:#3bab9d,color:#0c2f2b,font-size:14px
+    classDef branch fill:#e9e2d0,stroke:#b3a67e,color:#4a4326,font-size:13px
+    linkStyle default stroke:#999,stroke-width:2px
+            </div>
+        </div>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display">
+                <p class="info-placeholder">Click a step to see details</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const nodeInfo = {
+            'S1': { title: 'Step 1 &mdash; Submit (Ingestion Plane)', description: 'An intelligent textbook POSTs one xAPI statement to the Ingestion Gateway. The Ingestion Plane&rsquo;s job is deliberately narrow: accept the statement quickly and safely.' },
+            'S2': { title: 'Step 2 &mdash; Validate (Ingestion Plane)', description: 'The Gateway checks that actor, verb, object, and timestamp are present and well-formed. Malformed statements are rejected here, before they enter the durable pipeline.' },
+            'S3': { title: 'Step 3 &mdash; Queue &amp; respond (Ingestion Plane)', description: 'The Gateway hands the statement to the Durable Event Queue and responds to the textbook immediately &mdash; it does not wait for processing or storage. This is what makes ingestion non-blocking.' },
+            'S4': { title: 'Step 4 &mdash; Durable Queue (Processing Plane)', description: 'The Durable Event Queue holds the statement in order, preserving each learner&rsquo;s sequence until a processor is ready to consume it. Nothing is lost if consumers fall behind.' },
+            'S5': { title: 'Step 5 &mdash; Enrich (Processing Plane)', description: 'The Stream Processor consumes from the queue and enriches: it resolves the learner, attaches section and concept context, and pseudonymizes the actor before storage.' },
+            'S6': { title: 'Step 6 &mdash; Store (Storage Plane)', description: 'The enriched statement is written to the Event Store, becoming part of the durable, queryable log that analytics reads from.' },
+            'Down': { title: 'Non-blocking ingestion', description: 'Because step 3 already returned a response, a temporary Stream Processor outage does not fail the textbook&rsquo;s request &mdash; the statement simply waits in the Durable Event Queue and is processed when the consumer recovers.' }
+        };
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

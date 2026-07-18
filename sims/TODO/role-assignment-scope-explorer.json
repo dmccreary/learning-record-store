@@ -1,0 +1,15 @@
+{
+  "sim_id": "role-assignment-scope-explorer",
+  "diagram_name": "Role Assignment Scope Explorer",
+  "chapter_number": 26,
+  "chapter_title": "District Administrator: Access Control and System Configuration",
+  "chapter_dir": "26-district-admin-access-control",
+  "chapter_rel_dir": "chapters/26-district-admin-access-control",
+  "library": "vis-network",
+  "bloom_level": "Understand (L2)",
+  "bloom_verb": "distinguish, classify",
+  "learning_objective": "Distinguish a role (a fixed set of capabilities) from a scope (the specific district, school, or section that role applies to for one account), and see how two accounts sharing a role can still be authorized for different data.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: graph-model\n**sim-id:** role-assignment-scope-explorer<br/>\n**Library:** vis-network<br/>\n**Status:** Specified\n\nBloom Taxonomy: Understand (L2)\nBloom Taxonomy Verb: distinguish, classify\n\nLearning objective: Distinguish a role (a fixed set of capabilities) from a scope (the specific district, school, or section that role applies to for one account), and see how two accounts sharing a role can still be authorized for different data.\n\nPurpose: A vis-network graph showing five example User accounts, each connected to one role node and one scope node, so a learner can trace that the role stays constant while the scope varies.\n\nNodes: Five \"User Account\" nodes (Ada, Ben, Chi, Dev, Eli). Three \"Role\" nodes: \"District Administrator,\" \"School Administrator,\" \"Instructor.\" Five \"Scope\" nodes from Chapter 25's tenancy hierarchy: \"Riverbend Unified (District),\" \"Lincoln Middle School,\" \"Cedar Heights Middle School,\" \"Section: Biology 101, Period 3,\" \"Section: Algebra I, Period 5.\"\n\nEdges: Ada -> District Administrator -> Riverbend Unified. Ben -> School Administrator -> Lincoln Middle School. Eli -> School Administrator -> Cedar Heights Middle School (same role as Ben, different scope). Chi -> Instructor -> Section: Biology 101, Period 3. Dev -> Instructor -> Section: Algebra I, Period 5.\n\nInteractive features: Clicking any User Account node opens an infobox reading \"This account's role is [role] and its scope is [scope].\" Clicking a Role node opens an infobox with that role's fixed capability description, matching Chapter 24's role table. Clicking a Scope node opens an infobox naming that scope's place in the tenancy hierarchy and, for the two School Administrator scope nodes, a note explicitly stating \"same role, different scope — Ben cannot see Cedar Heights, and Eli cannot see Lincoln Middle School.\"\n\nColor coding: User Account nodes in cream, Role nodes in the book's teal accent color, Scope nodes in amber, so a learner can visually separate \"who,\" \"what they can do,\" and \"where they can do it\" at a glance.\n\nResponsive design: Force-directed layout re-stabilizes on window resize; on narrow viewports the graph switches to a vertically stacked layout with pan-and-zoom enabled so all thirteen nodes remain reachable."
+}

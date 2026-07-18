@@ -1,0 +1,24 @@
+{
+  "title": "Two Summary-Building Functions \u2014 Mastery and Progress",
+  "description": "Let the learner differentiate the Mastery Computation Function's single grain (ConceptMastery) from the Progress Projection Function's five grains (PageEngagement, MicroSimEngagement, QuestionResponse, LearningSession, SectionRollup), classifying each of Chapter 8's six summary-vertex labels under the correct function.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "mastery-vs-progress-rollup",
+  "library": "vis-network",
+  "bloomLevel": "Analyze (L4)",
+  "bloomVerb": "differentiate, classify",
+  "completion_status": "implemented",
+  "chapter_number": 9,
+  "chapter_title": "The Twelve Core LRS Functions",
+  "chapter_dir": "09-twelve-core-lrs-functions",
+  "chapter_rel_dir": "chapters/09-twelve-core-lrs-functions",
+  "canvasHeight": 560
+}

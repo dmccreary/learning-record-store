@@ -1,0 +1,15 @@
+{
+  "sim_id": "naive-vs-compressed-graph-write-rate",
+  "diagram_name": "Naive vs. Compressed Graph Write Rate",
+  "chapter_number": 11,
+  "chapter_title": "Architecture Decision Records and the Capacity Model",
+  "chapter_dir": "11-adrs-and-capacity-model",
+  "chapter_rel_dir": "chapters/11-adrs-and-capacity-model",
+  "library": "vis-network",
+  "bloom_level": "Analyze (L4)",
+  "bloom_verb": "compare, differentiate",
+  "learning_objective": "Let the learner compare the naive per-statement graph write rate against the compressed summarizer write rate side by side, and attribute the ~20x reduction to the specific mechanism (ADR-001/ADR-002) that produces it.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: graph-model\n**sim-id:** naive-vs-compressed-graph-write-rate<br/>\n**Library:** vis-network<br/>\n**Status:** Specified\n\nBloom Taxonomy: Analyze (L4)\nBloom Taxonomy Verb: compare, differentiate\n\nLearning objective: Let the learner compare the naive per-statement graph write rate against the compressed summarizer write rate side by side, and attribute the ~20x reduction to the specific mechanism (ADR-001/ADR-002) that produces it.\n\nPurpose: Two clusters of nodes in one vis-network canvas, contrasting a rejected design against the accepted one, both grounded in this chapter's own figures.\n\nNodes, left cluster \"Naive (rejected)\": \"10,000 statements/sec\" connects to \"~4 edges per statement\" connects to \"~50,000 graph writes/sec\" connects to a red-flagged node \"Prohibited — spec §5.6 C-1, no property graph operates here.\"\n\nNodes, right cluster \"Compressed (ADR-001 + ADR-002, accepted)\": \"10,000 statements/sec\" connects to \"ClickHouse AggregatingMergeTree rollup (no app-level state)\" connects to \"~150,000 distinct active grains per 60s window\" connects to \"~2,500 batched graph upserts/sec via summarizer\" connects to a green-flagged node \"Comfortable for Neo4j via UNWIND.\"\n\nInteractive features: Clicking any node opens an infobox with that node's number and a one-sentence source (this chapter's capacity model or the ADR that produced it). Hovering an edge shows the multiplier or reduction it represents (e.g., hovering the edge into \"~50,000 graph writes/sec\" shows \"10,000 × ~4\"). A toggle labeled \"Show burst scenario\" re-labels the \"10,000 statements/sec\" nodes to \"50,000 statements/sec (burst)\" and updates the naive cluster's math to ~250,000 writes/sec while the compressed cluster's downstream numbers stay visibly unchanged — reinforcing that compression absorbs a 5x burst almost entirely.\n\nColor coding: The naive cluster in a muted red-gray to signal \"rejected\"; the compressed cluster in the book's teal accent color to signal \"accepted design.\"\n\nResponsive design: vis-network's physics layout recalculates on window resize; clusters stack vertically below tablet width."
+}

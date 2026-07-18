@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Provisional Reconcile Queue Workflow</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'default', flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' } });
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="diagram-panel">
+            <div class="mermaid">
+flowchart TB
+    Stub["Stub appears in Provisional Reconcile Queue<br/><small>provisional: true</small>"]:::start
+    Match{"Reconciliation Worker<br/>suggests a candidate match?"}:::decide
+    A1["Confident candidate shown"]:::auto
+    A2["Administrator clicks 'Accept Auto-Match'"]:::auto
+    B1["No confident candidate"]:::manual
+    B2["Administrator opens Manual Mapping"]:::manual
+    B3["Selects the correct published<br/>Textbook / TextbookVersion / MicroSim / Concept"]:::manual
+    Promote["Stub promoted to provisional: false<br/><small>COVERS / EMBEDS / DEPENDS_ON back-filled</small>"]:::conv
+    Done["Entry removed from queue;<br/>historical statements become richly queryable retroactively"]:::conv
+    Stub --> Match
+    Match -->|confident| A1 --> A2 --> Promote
+    Match -->|not confident| B1 --> B2 --> B3 --> Promote
+    Promote --> Done
+
+    classDef start fill:#37474f,stroke:#1c2529,color:#fff,font-size:13px
+    classDef decide fill:#f0d67a,stroke:#b8961f,color:#222,font-size:12px
+    classDef auto fill:#2a9d8f,stroke:#1f7a6f,color:#fff,font-size:12px
+    classDef manual fill:#e9a23b,stroke:#b8791f,color:#222,font-size:12px
+    classDef conv fill:#8b9bb0,stroke:#5f6e82,color:#fff,font-size:12px
+    linkStyle default stroke:#999,stroke-width:2px
+            </div>
+        </div>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a node to see details</p></div>
+        </div>
+    </div>
+    <script>
+        const nodeInfo = {
+            'Stub': { title: 'Provisional stub', description: 'A stub with <code>provisional: true</code> arrives here from Chapter 8&rsquo;s Accept-First Ingestion &mdash; a statement referenced content the LRS had not yet registered, so a Provisional Node was created.' },
+            'Match': { title: 'Candidate match?', description: 'The Reconciliation Worker tries to match the stub. &ldquo;Confident&rdquo; means a match by <strong>git_sha</strong>, then <strong>IRI path</strong>, then <strong>title similarity</strong> (Chapter 8&rsquo;s three-tier order).' },
+            'A1': { title: 'Confident candidate', description: 'The worker found a high-confidence match and shows it to the administrator for one-click confirmation.' },
+            'A2': { title: 'Accept Auto-Match', description: 'The common, low-effort path: the admin clicks Accept Auto-Match and the promotion happens automatically.' },
+            'B1': { title: 'No confident candidate', description: 'No match cleared the confidence bar, so the entry needs administrator judgment.' },
+            'B2': { title: 'Manual Mapping', description: 'The admin opens Manual Mapping to choose the correct target by hand.' },
+            'B3': { title: 'Select the target', description: 'The admin selects the correct published Textbook, TextbookVersion, MicroSim, or Concept to map the stub onto.' },
+            'Promote': { title: 'Promotion', description: 'Either path promotes the stub to <code>provisional: false</code> and back-fills its three relationships: <code>COVERS</code>, <code>EMBEDS</code>, and <code>DEPENDS_ON</code>.' },
+            'Done': { title: 'No data lost', description: 'The entry leaves the queue and every historical statement about this stub becomes richly queryable retroactively &mdash; the no-data-loss guarantee from Chapter 8, now visible at the screen level.' }
+        };
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

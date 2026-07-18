@@ -1,0 +1,71 @@
+{
+  "title": "From Learning Activity to Action",
+  "description": "Interactive top-down workflow showing how learning activity becomes standardized evidence, stored records, analysis, and an actionable response.",
+  "subject": "Learning Analytics and Learning Record Stores",
+  "creator": "OpenAI Codex with Mermaid Generator Skill",
+  "date": "2026-07-18",
+  "type": "Interactive Workflow Diagram",
+  "format": "text/html",
+  "language": "en-US",
+  "coverage": "Introductory",
+  "rights": "CC BY-NC-SA 4.0",
+  "audience": "Undergraduate and Professional",
+  "diagram_type": "flowchart",
+  "direction": "TD",
+  "node_count": "5",
+  "edge_count": "4",
+  "concepts": [
+    "Learning Activity",
+    "xAPI Statement",
+    "Learning Record Store",
+    "Learning-Record Warehouse",
+    "Learning Analytics",
+    "Feedback",
+    "Intervention"
+  ],
+  "bloom_taxonomy": "Understand",
+  "library": "mermaid.js",
+  "library_version": "11",
+  "canvasHeight": 700,
+  "educational": {
+    "gradeLevel": [
+      "undergraduate",
+      "graduate",
+      "professional"
+    ],
+    "subjectArea": "Learning Analytics",
+    "topic": "The learning-record-to-action pipeline",
+    "learningObjectives": [
+      "Trace a learning observation from its source to an educational response",
+      "Explain the distinct roles of standardization, record storage, and analysis",
+      "Identify why collecting statements without a downstream consumer does not improve learning"
+    ],
+    "bloomsTaxonomy": "Understand",
+    "duration": "3-5 minutes",
+    "prerequisites": [
+      "Basic distinction between an LMS and an LRS"
+    ],
+    "standards": [
+      "Experience API"
+    ]
+  },
+  "pedagogical": {
+    "pattern": "interactive-process-explanation",
+    "bloomAlignment": [
+      "understand"
+    ],
+    "bloomVerbs": [
+      "trace",
+      "explain",
+      "identify"
+    ],
+    "pacing": "self-paced",
+    "supportsPrediction": false,
+    "dataVisibility": "high",
+    "feedbackType": [
+      "explanatory"
+    ],
+    "interactionStyle": "hover-click-and-keyboard-exploration"
+  },
+  "version": "1.0"
+}

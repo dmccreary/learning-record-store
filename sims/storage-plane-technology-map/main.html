@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Storage Plane Technology Map</title>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="graph-panel">
+            <div id="network"></div>
+            <div class="title">Storage Plane &mdash; Technology by Data Kind</div>
+        </div>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a technology to see details</p></div>
+        </div>
+    </div>
+    <script>
+        const SOR = { background: '#2a9d8f', border: '#1f7a6f' };
+        const CACHE = { background: '#8fd3c9', border: '#3bab9d' };
+        const OBJ = { background: '#8b9bb0', border: '#5f6e82' };
+        window.GRAPH = {
+            layout: 'physics',
+            nodes: [
+                { id: 'Plane', label: 'Storage Plane', color: { background: '#37474f', border: '#1c2529' }, borderWidth: 3 },
+                { id: 'CH', label: 'ClickHouse', color: SOR, borderWidth: 4 },
+                { id: 'Neo4j', label: 'Neo4j 5 Community', color: SOR, borderWidth: 4 },
+                { id: 'Vault', label: 'PostgreSQL 16 (vault-db)', color: SOR },
+                { id: 'Meta', label: 'PostgreSQL 16 (meta-db)', color: SOR },
+                { id: 'Redis', label: 'Redis 7', color: CACHE, font: { color: '#08312c' } },
+                { id: 'Obj', label: 'MinIO (dev) / Amazon S3 (prod)', color: OBJ }
+            ],
+            edges: [
+                { from: 'Plane', to: 'CH' }, { from: 'Plane', to: 'Neo4j' },
+                { from: 'Plane', to: 'Vault' }, { from: 'Plane', to: 'Meta' },
+                { from: 'Plane', to: 'Redis' }, { from: 'Plane', to: 'Obj' }
+            ],
+            nodeInfo: {
+                'Plane': { title: 'Storage Plane', description: 'The plane responsible for durably holding data. Six technologies, each owning a distinct kind of data &mdash; system of record, cache, or object store.' },
+                'CH': { title: 'ClickHouse (system of record)', description: 'The system of record for EVERY statement, at full fidelity. Columnar, fast for analytical scans. Nothing derived is authoritative &mdash; this is.' },
+                'Neo4j': { title: 'Neo4j 5 Community (system of record)', description: 'Holds structure and compressed summary vertices ONLY &mdash; never raw events. It is a projection of ClickHouse, rebuildable by replay.' },
+                'Vault': { title: 'PostgreSQL 16 &mdash; vault-db (isolated)', description: 'The PII vault holding the identity-to-key mapping. Reachable ONLY from the identity service, on the isolated vault-net. Same engine as meta-db but a completely separate, isolated instance.' },
+                'Meta': { title: 'PostgreSQL 16 &mdash; meta-db (isolated)', description: 'Admin config, RBAC, audit log, and experiment definitions. A second, network-isolated PostgreSQL instance &mdash; same role cluster as vault-db (both systems of record) but kept physically apart.' },
+                'Redis': { title: 'Redis 7 (cache)', description: 'The only cache: token cache, salt cache, analytics response cache, and rate limits. Losing it costs latency, never data.' },
+                'Obj': { title: 'MinIO / Amazon S3 (object store)', description: 'Bulk exports, archival, and the event-store cold tier. MinIO in dev, Amazon S3 in prod &mdash; same object-store interface.' }
+            }
+        };
+    </script>
+    <script src="vis-app.js"></script>
+</body>
+</html>

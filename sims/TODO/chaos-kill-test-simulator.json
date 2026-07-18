@@ -1,0 +1,15 @@
+{
+  "sim_id": "chaos-kill-test-simulator",
+  "diagram_name": "Chaos Kill Test Simulator",
+  "chapter_number": 19,
+  "chapter_title": "Failure Modes and Verification",
+  "chapter_dir": "19-failure-modes-and-verification",
+  "chapter_rel_dir": "chapters/19-failure-modes-and-verification",
+  "library": "p5.js",
+  "bloom_level": "Evaluate (L5)",
+  "bloom_verb": "predict, verify",
+  "learning_objective": "Given a choice of which service to kill in a simulated staging environment, predict the resulting system behavior before revealing it, reinforcing this chapter's failure-mode-to-behavior mapping.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: microsim\n**sim-id:** chaos-kill-test-simulator<br/>\n**Library:** p5.js<br/>\n**Status:** Specified\n\nBloom Taxonomy: Evaluate (L5)\nBloom Taxonomy Verb: predict, verify\n\nLearning objective: Given a choice of which service to kill in a simulated staging environment, predict the resulting system behavior before revealing it, reinforcing this chapter's failure-mode-to-behavior mapping.\n\nCanvas layout: A simplified system diagram across the top (Gateway, Kafka, Processor, ClickHouse, Summarizer, Neo4j, Redis, Identity Service as clickable icons) and a control/readout panel below.\n\nVisual elements: Each icon shows a green \"healthy\" indicator by default. A row of status lights tracks \"Ingestion,\" \"Graph Freshness,\" and \"Dashboard Latency\" as green/amber/red, updating live as the simulated failure plays out.\n\nInteractive controls: A dropdown listing the eight services; a \"Predict\" step where the learner picks \"No data loss\" / \"Some data loss\" / \"System fully down\" before revealing the result; \"Kill Service,\" \"Restore Service,\" and \"Reset\" buttons.\n\nDefault parameters: All services healthy; none pre-selected; prediction required before the kill button activates.\n\nBehavior: On \"Kill Service,\" the icon turns red and the status lights animate to that failure's actual behavior from this chapter's table (killing Kafka turns \"Ingestion\" red immediately; killing Neo4j turns \"Graph Freshness\" amber and climbing; killing Redis turns only \"Dashboard Latency\" amber). An infobox then reveals the failure's detection, behavior, and response, comparing it against the learner's prediction. \"Restore Service\" recovers the icon and lights at the pace described for that failure (immediate for Redis, gradual for Neo4j and the summarizer).\n\nImplementation notes: p5.js with a simple per-service state machine (healthy/failing/recovering) driven by a lookup table keyed to the twelve failure modes. Responsive design: diagram and panel stack vertically on narrow viewports; click targets stay at least 44 pixels for touch use."
+}

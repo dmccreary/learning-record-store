@@ -1,0 +1,24 @@
+{
+  "title": "Sort the Component into Its Plane",
+  "description": "Let the learner apply their understanding of the five architectural planes by sorting eight named components (Ingestion Gateway, Durable Event Queue, Stream Processor, Event Store, Analytics API, Admin API, Experiment API, Roster API, Export API, Dash/Plotly Dashboards) into the correct one of five labeled plane buckets.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "five-architectural-planes-infographic",
+  "library": "p5.js",
+  "bloomLevel": "Apply (L3)",
+  "bloomVerb": "classify, sort",
+  "completion_status": "implemented",
+  "chapter_number": 5,
+  "chapter_title": "System Context and the Five Architectural Planes",
+  "chapter_dir": "05-system-context-architectural-planes",
+  "chapter_rel_dir": "chapters/05-system-context-architectural-planes",
+  "canvasHeight": 520
+}

@@ -1,0 +1,15 @@
+{
+  "sim_id": "burst-insensitivity-chart",
+  "diagram_name": "Burst Insensitivity — Graph Write Rate vs. Ingest Rate",
+  "chapter_number": 22,
+  "chapter_title": "Proving the Architecture - the MVP Plan",
+  "chapter_dir": "22-proving-the-architecture-mvp",
+  "chapter_rel_dir": "chapters/22-proving-the-architecture-mvp",
+  "library": "Chart.js",
+  "bloom_level": "Evaluate (L5)",
+  "bloom_verb": "judge, justify",
+  "learning_objective": "Evaluate a burst-test result by comparing an ingest-rate line against a graph-write-rate line across a 5x load increase, and judge whether the pattern confirms or falsifies the burst insensitivity claim.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: chart\n**sim-id:** burst-insensitivity-chart<br/>\n**Library:** Chart.js<br/>\n**Status:** Specified\n\nBloom Taxonomy: Evaluate (L5)\nBloom Taxonomy Verb: judge, justify\n\nLearning objective: Evaluate a burst-test result by comparing an ingest-rate line against a graph-write-rate line across a 5x load increase, and judge whether the pattern confirms or falsifies the burst insensitivity claim.\n\nChart type: Dual-line chart over a shared time axis (seconds, 0-600s), left y-axis \"Ingest rate (statements/sec)\" 0-1200, right y-axis \"Graph write rate (upserts/sec)\" 0-1200.\n\nDefault state (\"Passing result\"): Ingest-rate line steps from 200 to 1,000 statements/sec at t=300s and holds. Graph-write-rate line stays essentially flat around 60-70 upserts/sec (scaled to this MVP's smaller population) through the step change, with minor jitter.\n\nToggle — \"Show failing (hypothetical) result\": redraws the graph-write-rate line climbing in step with ingest after t=300s, so the learner can contrast both outcomes on the same axes.\n\nToggle — \"Show test parameters\": overlays an annotation panel listing baseline rate, burst rate, ratio (5x), and the 60s sync cadence.\n\nInteractive features: Hovering any point shows its value and timestamp. Clicking the dashed line at t=300s (burst onset) opens an infobox on what changes at that moment. A caption below updates per toggle: \"Flat graph writes under 5x ingest: the architecture holds\" versus \"Climbing graph writes: the architecture does not decouple as designed.\"\n\nColor scheme: Ingest-rate line in the book's teal accent color; graph-write-rate line in a contrasting warm color; the failing line renders in warning amber.\n\nResponsive design: Resizes to its container's width; legend and toggles stack below on narrow viewports; touch targets stay tap-sized."
+}

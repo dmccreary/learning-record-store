@@ -1,0 +1,24 @@
+{
+  "title": "Anatomy of an xAPI Profile",
+  "description": "Let the learner classify how the xAPI Profile Standard, JSON-LD, an Application Profile, a Determining Property, and the xAPI Profile Server relate to one another, distinguishing the general rulebook from one concrete published document.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "xapi-profile-anatomy",
+  "library": "Mermaid",
+  "bloomLevel": "Understand (L2)",
+  "bloomVerb": "classify, differentiate",
+  "completion_status": "implemented",
+  "chapter_number": 3,
+  "chapter_title": "IEEE Standardization of xAPI and cmi5",
+  "chapter_dir": "03-ieee-standardization-xapi-cmi5",
+  "chapter_rel_dir": "chapters/03-ieee-standardization-xapi-cmi5",
+  "canvasHeight": 480
+}

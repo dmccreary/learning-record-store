@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Activity Naming &amp; Occurrence Fields</title>
+    <style>
+        * { box-sizing: border-box; }
+        html, body { margin: 0; font-family: Arial, Helvetica, sans-serif; background: #fff; color: #222; }
+        .wrap { padding: 12px 16px; }
+        h2 { font-size: 16px; color: #1a3a5c; text-align: center; margin: 4px 0 10px; }
+        .hint { text-align: center; font-size: 12px; color: #666; margin-bottom: 10px; }
+        pre.stmt { background: #0f1720; color: #cfe; border-radius: 8px; padding: 14px; font-size: 13px; line-height: 1.7; overflow-x: auto; margin: 0; }
+        .f { border-radius: 4px; padding: 1px 4px; cursor: pointer; transition: outline .1s; }
+        .f:hover, .f.sel { outline: 2px solid #fff; }
+        .def  { background: #2a9d8f; color: #fff; }   /* Activity Definition fields */
+        .ctx  { background: #7b6cc4; color: #fff; }    /* Context fields */
+        .panel { margin-top: 12px; padding: 12px; border-radius: 8px; background: #f8f9fa; border: 1px solid #dee2e6; min-height: 70px; font-size: 14px; line-height: 1.45; }
+        .panel b { color: #1f7a6f; }
+        .legend { text-align: center; font-size: 12px; margin: 10px 0 0; }
+        .chip { display: inline-block; padding: 2px 10px; border-radius: 10px; color: #fff; margin: 0 6px; }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <h2>Activity Definition vs Context Fields</h2>
+        <div class="hint">Click a highlighted field to see which question it answers.</div>
+<pre class="stmt">{
+  "object": {
+    "id": "<span class="f def" data-k="id">https://dmccreary.github.io/lrs/sims/sine-wave/</span>",
+    "definition": {
+      "type": "<span class="f def" data-k="type">http://adlnet.gov/expapi/activities/simulation</span>",
+      "name": { "en-US": "Sine Wave Explorer" }
+    }
+  },
+  "context": {
+    "registration": "<span class="f ctx" data-k="registration">a94e...c2f1</span>",
+    "revision": "<span class="f def" data-k="revision">v2.4</span>",
+    "platform": "<span class="f ctx" data-k="platform">Intelligent Textbook Web</span>"
+  }
+}</pre>
+        <div class="panel" id="panel">Each colored field answers one question. Green = the Activity Definition (describes the activity itself); purple = Context (the circumstances around this occurrence).</div>
+        <div class="legend">
+            <span class="chip" style="background:#2a9d8f">Activity Definition</span>
+            <span class="chip" style="background:#7b6cc4">Context</span>
+        </div>
+    </div>
+    <script>
+        const INFO = {
+            id: '<b>object.id</b> (Activity Definition) — "Which activity is this?" The canonical, absolute HTTPS IRI that uniquely and stably names the page. It is the identity every engagement rolls up under.',
+            type: '<b>definition.type</b> (Activity Definition) — "What KIND of activity is it?" A shared IRI for the activity type (here, a simulation), so tools can treat all simulations alike.',
+            revision: '<b>revision</b> (Activity Definition) — "Which version of the activity?" Distinguishes v2.4 from v2.3 of the same activity, so effectiveness can be compared across versions.',
+            registration: '<b>context.registration</b> (Context) — "Which attempt / session?" A UUID grouping every statement from one launch into a single queryable attempt.',
+            platform: '<b>context.platform</b> (Context) — "Where did it happen?" The system the experience occurred on. A circumstance of THIS occurrence, not a property of the activity itself.'
+        };
+        const panel = document.getElementById('panel');
+        let sel = null;
+        document.querySelectorAll('.f').forEach(function (el) {
+            el.addEventListener('click', function () {
+                if (sel) sel.classList.remove('sel');
+                sel = el; el.classList.add('sel');
+                panel.innerHTML = INFO[el.dataset.k];
+            });
+            el.addEventListener('mouseenter', function () { panel.innerHTML = INFO[el.dataset.k]; });
+        });
+    </script>
+</body>
+</html>

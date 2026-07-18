@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Concept Dependencies &mdash; Prerequisite Tracer</title>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="graph-panel">
+            <div id="network"></div>
+            <div class="title">Concept Dependencies &mdash; walk DEPENDS_ON upstream</div>
+        </div>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click the weak concept, then its prerequisites</p></div>
+        </div>
+    </div>
+    <script>
+        const MASTERED = { background: '#2a9d8f', border: '#1f7a6f' };   // already mastered
+        const UNMASTERED = { background: '#e05a5a', border: '#b23b3b' }; // unmastered prerequisite (root cause)
+        const WEAK = { background: '#e9a23b', border: '#b8791f' };       // the flagged weak concept
+        window.GRAPH = {
+            layout: 'hierarchical', direction: 'LR',
+            nodes: [
+                { id: 'Arithmetic', label: 'Arithmetic', color: MASTERED },
+                { id: 'Fractions', label: 'Fractions', color: MASTERED },
+                { id: 'Ratios', label: 'Ratios (unmastered)', color: UNMASTERED, font: { color: '#fff' } },
+                { id: 'Variables', label: 'Variables', color: MASTERED },
+                { id: 'Proportions', label: 'Proportions (unmastered)', color: UNMASTERED, font: { color: '#fff' } },
+                { id: 'LinearEq', label: 'Linear Equations', color: MASTERED },
+                { id: 'Slope', label: 'Slope (WEAK - flagged)', color: WEAK, borderWidth: 4, font: { color: '#222' } }
+            ],
+            edges: [
+                { from: 'Fractions', to: 'Arithmetic', label: 'DEPENDS_ON' },
+                { from: 'Ratios', to: 'Fractions', label: 'DEPENDS_ON' },
+                { from: 'Proportions', to: 'Ratios', label: 'DEPENDS_ON' },
+                { from: 'LinearEq', to: 'Variables', label: 'DEPENDS_ON' },
+                { from: 'Slope', to: 'Proportions', label: 'DEPENDS_ON' },
+                { from: 'Slope', to: 'LinearEq', label: 'DEPENDS_ON' }
+            ],
+            nodeInfo: {
+                'Slope': { title: 'Slope (the flagged weak concept)', description: 'The student was flagged weak here. Walking DEPENDS_ON upstream finds its prerequisites: Proportions and Linear Equations. Linear Equations is mastered; Proportions is NOT &mdash; a likely root cause.' },
+                'Proportions': { title: 'Proportions (unmastered root cause)', description: 'An UNMASTERED direct prerequisite of Slope. Because Slope depends on it, weakness here plausibly explains the Slope struggle. Its own prerequisite, Ratios, is also unmastered &mdash; the gap goes deeper.' },
+                'Ratios': { title: 'Ratios (unmastered)', description: 'An unmastered ANCESTOR two hops up from Slope. Ratios feeds Proportions feeds Slope &mdash; this is where the prerequisite chain first breaks down.' },
+                'LinearEq': { title: 'Linear Equations (mastered)', description: 'A direct prerequisite of Slope that IS mastered. So it is not the cause of the Slope struggle &mdash; the trail leads to the Proportions/Ratios branch instead.' },
+                'Variables': { title: 'Variables (mastered)', description: 'An upstream, already-mastered ancestor. Distinguishing mastered ancestors from unmastered ones is the whole point &mdash; only the unmastered ones are candidate root causes.' },
+                'Fractions': { title: 'Fractions (mastered)', description: 'A mastered ancestor further up the Ratios branch. Mastered, so not the root cause.' },
+                'Arithmetic': { title: 'Arithmetic (mastered)', description: 'A foundational, mastered concept at the base of the chain. Solid foundation &mdash; the problem is higher up, at Ratios/Proportions.' }
+            }
+        };
+    </script>
+    <script src="vis-app.js"></script>
+</body>
+</html>

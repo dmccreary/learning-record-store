@@ -1,0 +1,15 @@
+{
+  "sim_id": "authentication-scheme-comparison",
+  "diagram_name": "Authentication Scheme Comparison",
+  "chapter_number": 2,
+  "chapter_title": "The Anatomy of an xAPI Statement",
+  "chapter_dir": "02-anatomy-of-xapi-statement",
+  "chapter_rel_dir": "chapters/02-anatomy-of-xapi-statement",
+  "library": "p5.js",
+  "bloom_level": "Evaluate (L5)",
+  "bloom_verb": "assess, justify",
+  "learning_objective": "Let the learner evaluate which authentication scheme fits a given Learning Record Provider scenario, justifying the choice against criteria introduced in the prose above.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: infographic\n**sim-id:** authentication-scheme-comparison<br/>\n**Library:** p5.js<br/>\n**Status:** Specified\n**Template:** https://github.com/dmccreary/xapi-course/tree/main/docs/sims/authentication-scheme-comparison<br/>\n\nBloom Taxonomy: Evaluate (L5)\nBloom Taxonomy Verb: assess, justify\n\nLearning objective: Let the learner evaluate which authentication scheme fits a given Learning Record Provider scenario, justifying the choice against criteria introduced in the prose above.\n\nPurpose: Adapt the referenced template (which compares three schemes) to compare only the two this chapter covers — Basic Authentication and OAuth Authentication — across the criteria that matter for an intelligent-textbook deployment.\n\nCriteria (columns):\n\n- Credential exposure per request\n- Implementation effort\n- Revocation (can access be cut off without changing the underlying password?)\n- Best-fit Learning Record Provider type\n\nRows: Basic Authentication, OAuth Authentication\n\nInteractive features: Clicking a cell opens an infobox with a one-sentence justification tied back to the chapter's worked examples (server-side ingestion gateway for Basic; browser-based MicroSim for OAuth). A toggle lets the learner select a scenario (\"server-side textbook publisher\" or \"browser-based MicroSim\") and highlights the recommended scheme's row.\n\nInstructional Rationale: An Evaluate-level objective calls for a tool that supports judgment against explicit criteria rather than passive viewing — the scenario toggle asks the learner to apply the criteria themselves before the tool confirms the recommendation.\n\nImplementation: p5.js canvas adapted from the template's three-scheme comparison down to two schemes, with an added scenario-toggle interaction not present in the original."
+}

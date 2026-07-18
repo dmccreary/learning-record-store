@@ -1,0 +1,15 @@
+{
+  "sim_id": "tenancy-hierarchy-tree",
+  "diagram_name": "This Project's Tenancy Hierarchy",
+  "chapter_number": 6,
+  "chapter_title": "Multi-Tenancy, Rosters, and Pseudonymous Identity",
+  "chapter_dir": "06-multi-tenancy-rosters-identity",
+  "chapter_rel_dir": "chapters/06-multi-tenancy-rosters-identity",
+  "library": "Mermaid",
+  "bloom_level": "Understand (L2)",
+  "bloom_verb": "identify, describe",
+  "learning_objective": "Let the learner identify each level of this project's Tenancy Hierarchy, in order, and describe in one sentence what each level represents and which entities live directly beneath it.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: graph-model\n**sim-id:** tenancy-hierarchy-tree<br/>\n**Library:** Mermaid<br/>\n**Status:** Specified<br/>\n**Template:** https://github.com/dmccreary/data-science-course/tree/main/docs/sims/data-structure-hierarchy<br/>\n\nBloom Taxonomy: Understand (L2)\nBloom Taxonomy Verb: identify, describe\n\nLearning objective: Let the learner identify each level of this project's Tenancy Hierarchy, in order, and describe in one sentence what each level represents and which entities live directly beneath it.\n\nPurpose: Render the roster side of the Tenancy Hierarchy from spec §3.1 as a single top-to-bottom Mermaid flowchart, one node per level plus a node representing the Enrollment link between Section and Student.\n\nNodes, top to bottom:\n\n- \"District — the Tenant (hard isolation boundary)\"\n- \"School\"\n- \"Course\"\n- \"Section (a class period / cohort)\"\n- \"Enrollment (Student ↔ Section)\" — drawn as a diamond/rhombus node to visually distinguish a relationship from an entity\n- \"Student (pseudonymous)\"\n\nEdges: District to School labeled \"HAS_SCHOOL\"; School to Course labeled \"OFFERS\"; Course to Section labeled \"HAS_SECTION\"; Section to Enrollment and Enrollment to Student both labeled \"ENROLLED_IN\", showing Enrollment as the connective relationship rather than a strict tree node.\n\nInteractive features: Every node has a Mermaid `click` directive. Clicking \"District\" opens an infobox defining Tenant and District together, and naming the hard isolation guarantee. Clicking \"School,\" \"Course,\" or \"Section\" opens an infobox with that level's one-sentence definition and its key graph properties (e.g., Section: `section_id`, `period`, `term`, `academic_year`). Clicking \"Enrollment\" opens an infobox explaining that it is a relationship, not a level, carrying `enrolled_at` and `status`. Clicking \"Student\" opens an infobox noting that the Student node is pseudonymous and holds no PII, previewing the identity section later in this chapter.\n\nColor coding: A single top-to-bottom gradient in the book's teal accent color, darkest at District and lightest at Student, echoing the gradient convention established in Chapter 5's System Context Diagram.\n\nImplementation: Mermaid flowchart, top-to-bottom orientation, full click-to-infobox coverage on every node. Responsive width tracking the containing element."
+}

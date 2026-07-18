@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Naive vs Compressed Graph Write Rate</title>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="graph-panel">
+            <div id="network"></div>
+            <div class="title">Naive vs Compressed &mdash; Graph Write Rate</div>
+        </div>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a node to see details</p></div>
+        </div>
+    </div>
+    <script>
+        const BAD = { background: '#9a7b7b', border: '#6e5555' };
+        const RED = { background: '#e05a5a', border: '#b23b3b' };
+        const TEAL = { background: '#2a9d8f', border: '#1f7a6f' };
+        const GREEN = { background: '#4c956c', border: '#2f6b48' };
+        window.GRAPH = {
+            layout: 'hierarchical', direction: 'UD',
+            nodes: [
+                { id: 'N1', label: 'NAIVE (rejected): 10,000 statements/sec', color: BAD },
+                { id: 'N2', label: '~4 edges per statement', color: BAD },
+                { id: 'N3', label: '~50,000 graph writes/sec', color: BAD },
+                { id: 'N4', label: 'PROHIBITED - spec 5.6 C-1: no property graph operates here', color: RED },
+                { id: 'C1', label: 'COMPRESSED (accepted): 10,000 statements/sec', color: TEAL },
+                { id: 'C2', label: 'ClickHouse AggregatingMergeTree rollup (no app-level state)', color: TEAL },
+                { id: 'C3', label: '~150,000 distinct active grains per 60s window', color: TEAL },
+                { id: 'C4', label: '~2,500 batched graph upserts/sec via summarizer', color: TEAL },
+                { id: 'C5', label: 'Comfortable for Neo4j via UNWIND', color: GREEN }
+            ],
+            edges: [
+                { from: 'N1', to: 'N2', label: 'x ~4' }, { from: 'N2', to: 'N3' }, { from: 'N3', to: 'N4' },
+                { from: 'C1', to: 'C2' }, { from: 'C2', to: 'C3' }, { from: 'C3', to: 'C4', label: '/60s, batched' }, { from: 'C4', to: 'C5' }
+            ],
+            nodeInfo: {
+                'N1': { title: 'Naive input', description: '10,000 statements/sec &mdash; this chapter&rsquo;s capacity-model figure. The rejected naive design would write to the graph on every statement.' },
+                'N2': { title: '~4 edges per statement', description: 'Each statement would touch roughly 4 graph edges (student, concept, page, session).' },
+                'N3': { title: '~50,000 writes/sec', description: '10,000 x ~4 = ~50,000 graph writes/sec &mdash; far beyond what a property graph can sustain.' },
+                'N4': { title: 'Prohibited (C-1)', description: 'Spec &sect;5.6 constraint C-1 prohibits per-statement graph writes. No property graph operates at this rate &mdash; which is why the naive design was rejected outright.' },
+                'C1': { title: 'Compressed input', description: 'The same 10,000 statements/sec &mdash; but the accepted design (ADR-001 + ADR-002) never writes the graph per statement.' },
+                'C2': { title: 'AggregatingMergeTree rollup', description: 'ADR-002: ClickHouse rolls statements into grains inside the database, with no application-level state. The heavy aggregation is free.' },
+                'C3': { title: '~150,000 active grains / 60s', description: 'Across a 60-second window, ~150,000 distinct grains change &mdash; but they are counted, not written per event.' },
+                'C4': { title: '~2,500 upserts/sec', description: 'The summarizer batches those changed grains into ~2,500 graph upserts/sec &mdash; a ~20x reduction from the naive 50,000.' },
+                'C5': { title: 'Comfortable for Neo4j', description: 'Batched via UNWIND, ~2,500 upserts/sec is comfortable for Neo4j. Under a 5x burst the naive path hits ~250,000 writes/sec, while this compressed path barely moves &mdash; compression absorbs the burst.' }
+            }
+        };
+    </script>
+    <script src="vis-app.js"></script>
+</body>
+</html>

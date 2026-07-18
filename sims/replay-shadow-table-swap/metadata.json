@@ -1,0 +1,24 @@
+{
+  "title": "Replay Command and Rebuild Graph Command Compared",
+  "description": "Let the learner trace the Replay Command's shadow-table-and-swap path side by side with the Rebuild Graph Command's watermark-reset path, and explain why the second needs no separate rebuild logic of its own.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "replay-shadow-table-swap",
+  "library": "Mermaid",
+  "bloomLevel": "Analyze (L4)",
+  "bloomVerb": "differentiate, trace",
+  "completion_status": "implemented",
+  "chapter_number": 15,
+  "chapter_title": "Privacy Enforcement and Dashboard Mechanics",
+  "chapter_dir": "15-privacy-and-dashboard-mechanics",
+  "chapter_rel_dir": "chapters/15-privacy-and-dashboard-mechanics",
+  "canvasHeight": 660
+}

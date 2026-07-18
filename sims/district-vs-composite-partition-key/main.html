@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>District vs Composite Partition Key</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'default', flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' } });
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="diagram-panel">
+            <div class="mermaid">
+flowchart TB
+    subgraph BEFORE["key = district_id only (spec as written)"]
+        direction LR
+        LgB["Large District<br/>40,000 students"]:::src
+        SmB["Small District<br/>200 students"]:::src
+        P0B["Partition 0<br/><small>&#9888; Hotspot</small>"]:::hot
+        P1B["Partition 1"]:::cool
+        LgB --> P0B
+        SmB --> P1B
+    end
+    subgraph AFTER["key = {district_id}:{student_key} (design as built)"]
+        direction LR
+        LgA["Large District<br/>40,000 students"]:::src
+        SmA["Small District<br/>200 students"]:::src
+        PA0["Partition 0"]:::cool
+        PA1["Partition 1"]:::cool
+        PA2["Partition 2"]:::cool
+        PA3["Partition 3"]:::cool
+        LgA --> PA0
+        LgA --> PA1
+        LgA --> PA2
+        LgA --> PA3
+        SmA --> PA1
+        SmA --> PA2
+    end
+
+    classDef src fill:#8b9bb0,stroke:#5f6e82,color:#fff,font-size:13px
+    classDef hot fill:#e05a5a,stroke:#b23b3b,color:#fff,font-size:13px
+    classDef cool fill:#2a9d8f,stroke:#1f7a6f,color:#fff,font-size:13px
+    linkStyle default stroke:#999,stroke-width:2px
+            </div>
+        </div>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a node to see details</p></div>
+        </div>
+    </div>
+    <script>
+        const nodeInfo = {
+            'LgB': { title: 'Large district (before)', description: 'Keyed by <code>district_id</code> alone, every one of the large district&rsquo;s 40,000 students hashes to the same partition &mdash; all their writes pile onto one broker.' },
+            'SmB': { title: 'Small district (before)', description: 'A small district lands entirely on its own partition. Load is wildly uneven across partitions.' },
+            'P0B': { title: 'Partition 0 &mdash; Hotspot', description: 'This is a write Hotspot: one partition absorbs a whole large district. It is the exact condition the specification&rsquo;s scale-and-availability targets forbid, and it triggers the District Queue Flood failure from Chapter 19 if unmitigated.' },
+            'P1B': { title: 'Partition 1', description: 'Nearly idle &mdash; it holds only the tiny district. Capacity is wasted while Partition 0 is overwhelmed.' },
+            'LgA': { title: 'Large district (after)', description: 'Keyed by <code>{district_id}:{student_key}</code>, the large district&rsquo;s students hash evenly across all four partitions &mdash; no single broker is overwhelmed. A per-district quota still caps its total rate.' },
+            'SmA': { title: 'Small district (after)', description: 'The small district spreads across a couple of partitions too. Every partition carries a balanced share.' },
+            'PA0': { title: 'Partition 0 (balanced)', description: 'One of four partitions sharing the load. Crucially, each individual student&rsquo;s statements always hash to the SAME partition, preserving per-learner ordering.' },
+            'PA1': { title: 'Partition 1 (balanced)', description: 'Because the key includes <code>student_key</code>, a given student never splits across partitions &mdash; which is exactly what Bayesian Knowledge Tracing needs for correct, in-order updates.' },
+            'PA2': { title: 'Partition 2 (balanced)', description: 'Load is spread by a hash of the composite key. Balanced throughput without sacrificing per-learner ordering.' },
+            'PA3': { title: 'Partition 3 (balanced)', description: 'The fourth partition. Together the four share what one partition carried before &mdash; the hotspot is gone.' }
+        };
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

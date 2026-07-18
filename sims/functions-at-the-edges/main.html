@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Functions at the Edges</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'default', flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' } });
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="diagram-panel">
+            <div class="mermaid">
+flowchart LR
+    T1["A student reaches an<br/>experiment eligibility check<br/><small>trigger: per-statement</small>"]:::ondemand
+    F9["Experiment Assignment (F-9)<br/><small>deterministic, sticky variant assignment</small>"]:::ondemand
+    R9["Ch. 31: assignment &amp; readout mechanics"]:::ref
+    T1 --> F9 --> R9
+
+    T2["Scheduled scan of<br/>provisional nodes<br/><small>trigger: scheduled</small>"]:::sched
+    F10["Reconciliation (F-10)<br/><small>match + promote + back-fill</small>"]:::sched
+    R10["Ch. 8: reconciliation mechanics"]:::ref
+    T2 --> F10 --> R10
+
+    T3["Admin requests a bulk export<br/><small>trigger: on-demand</small>"]:::ondemand
+    F11["Export (F-11)<br/><small>async job, signed download URL</small>"]:::ondemand
+    T3 --> F11
+
+    T4["Scheduled partition drop, or<br/>on-demand erasure request<br/><small>trigger: scheduled + on-demand</small>"]:::sched
+    F12["Retention Purge (F-12)<br/><small>policy-driven, FERPA/COPPA-compliant purge</small>"]:::sched
+    R12["A later chapter: full compliance treatment"]:::ref
+    T4 --> F12 --> R12
+
+    classDef sched fill:#5f6e82,stroke:#3f4a59,color:#fff,font-size:13px
+    classDef ondemand fill:#2a9d8f,stroke:#1f7a6f,color:#fff,font-size:13px
+    classDef ref fill:#eee,stroke:#bbb,color:#333,font-size:12px
+    linkStyle default stroke:#999,stroke-width:2px
+            </div>
+        </div>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a trigger or function to see details</p></div>
+        </div>
+    </div>
+    <script>
+        const nodeInfo = {
+            'T1': { title: 'Trigger: per-statement', description: 'Experiment Assignment fires when a specific student reaches an experiment&rsquo;s eligibility check &mdash; driven by an individual statement flowing through, not a timer.' },
+            'F9': { title: 'Experiment Assignment (F-9)', description: 'Deterministically assigns a sticky variant to an eligible student, so the same student always lands in the same arm of an experiment.' },
+            'R9': { title: 'Where it is covered', description: 'Chapter 31 covers the full assignment and readout mechanics for experiments.' },
+            'T2': { title: 'Trigger: scheduled', description: 'Reconciliation runs on a timer &mdash; a scheduled scan of provisional nodes &mdash; not in response to any single statement.' },
+            'F10': { title: 'Reconciliation (F-10)', description: 'Matches provisional stub nodes against published metadata, promotes them, and back-fills their relationships.' },
+            'R10': { title: 'Where it is covered', description: 'Chapter 8 covers the full reconciliation mechanics, including the three-tier matching order.' },
+            'T3': { title: 'Trigger: on-demand', description: 'Export runs because a district or system admin explicitly asks for a bulk export &mdash; on demand, not on a schedule.' },
+            'F11': { title: 'Export (F-11)', description: 'Runs as an asynchronous job and returns a signed download URL when the export is ready, so large exports never block a request.' },
+            'T4': { title: 'Trigger: scheduled + on-demand', description: 'Retention Purge has two triggers: a scheduled partition drop (time-based retention) and an on-demand erasure request (e.g. a right-to-be-forgotten action).' },
+            'F12': { title: 'Retention Purge (F-12)', description: 'Applies policy-driven retention and performs FERPA/COPPA-compliant purges of data that must no longer be kept.' },
+            'R12': { title: 'Where it is covered', description: 'A later chapter gives the full compliance treatment of retention and erasure.' }
+        };
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

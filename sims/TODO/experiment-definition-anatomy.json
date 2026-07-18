@@ -1,0 +1,15 @@
+{
+  "sim_id": "experiment-definition-anatomy",
+  "diagram_name": "Anatomy of an Experiment Definition",
+  "chapter_number": 31,
+  "chapter_title": "Designing and Reading A/B Experiments",
+  "chapter_dir": "31-designing-ab-experiments",
+  "chapter_rel_dir": "chapters/31-designing-ab-experiments",
+  "library": "Mermaid",
+  "bloom_level": "Understand (L2)",
+  "bloom_verb": "classify, exemplify",
+  "learning_objective": "Let the learner map the six named parts of an Experiment Definition (Experiment Hypothesis, Primary Outcome Metric, Unit Of Randomization, Experiment Variant, Allocation Weight, Guardrail Metric, Eligibility Predicate) onto one concrete worked example, reinforcing the plain-language definitions given in this section's prose.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: infographic\n**sim-id:** experiment-definition-anatomy<br/>\n**Library:** Mermaid<br/>\n**Status:** Specified\n\nBloom Taxonomy: Understand (L2)\nBloom Taxonomy Verb: classify, exemplify\n\nLearning objective: Let the learner map the six named parts of an Experiment Definition (Experiment Hypothesis, Primary Outcome Metric, Unit Of Randomization, Experiment Variant, Allocation Weight, Guardrail Metric, Eligibility Predicate) onto one concrete worked example, reinforcing the plain-language definitions given in this section's prose.\n\nPurpose: A central node labeled \"Experiment Definition: Chapter 3 Worked Examples Test\" with six labeled child nodes branching outward, each populated with a concrete filled-in example value: Experiment Hypothesis (\"Worked examples raise mastery on Chapter 3 concepts\"), Primary Outcome Metric (\"Chapter 3 concept mastery\"), Unit Of Randomization (\"student_key\"), Experiment Variant ×2 (\"Control: v2.3\" and \"Treatment: v2.4 with worked examples\", each showing its Allocation Weight of 50%), Guardrail Metric (\"Engagement must not drop by more than 5%\"), and Eligibility Predicate (\"Districts that have not opted out of experimentation\").\n\nInteractive features: Clicking any of the six child nodes opens an infobox with that field's one-sentence definition, matching this section's prose, plus the worked example's specific value. A \"Reset view\" button collapses all open infoboxes.\n\nColor coding: The central Experiment Definition node in the book's teal accent color; the two Experiment Variant nodes distinguished as control (gray-blue) versus treatment (amber) so the reader can see the comparison at a glance.\n\nResponsive design: The diagram re-flows from a radial layout on wide viewports to a vertical stacked layout on narrow viewports, with all six child nodes remaining independently clickable at any width."
+}

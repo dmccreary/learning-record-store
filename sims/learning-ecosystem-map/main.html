@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Learning Ecosystem Map</title>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="graph-panel">
+            <div id="network"></div>
+            <div class="title">Learning Ecosystem Map</div>
+        </div>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a node to see details</p></div>
+        </div>
+    </div>
+    <script>
+        const TEAL = { background: '#2a9d8f', border: '#1f7a6f' };
+        const GRAY = { background: '#8b9bb0', border: '#5f6e82' };
+        const NEUTRAL = { background: '#37474f', border: '#1c2529' };
+        window.GRAPH = {
+            layout: 'physics',
+            nodes: [
+                { id: 'Learner', label: 'Learner', color: NEUTRAL },
+                { id: 'LRS', label: 'Learning Record Store', color: TEAL, borderWidth: 4 },
+                { id: 'CF', label: 'Competency Framework', color: TEAL },
+                { id: 'Repo', label: 'Content Repository', color: GRAY },
+                { id: 'Dash', label: 'Analytics Dashboard', color: GRAY },
+                { id: 'Fed', label: 'Federated LRS (different vendor)', color: GRAY }
+            ],
+            edges: [
+                { from: 'LRS', to: 'Learner', label: 'stores Statements about' },
+                { from: 'CF', to: 'LRS', label: 'supplies identifiers Statements reference' },
+                { from: 'Repo', to: 'LRS', label: 'describes referenced resources' },
+                { from: 'Dash', to: 'LRS', label: 'reads Statement history' },
+                { from: 'Fed', to: 'LRS', label: 'may exchange records' }
+            ],
+            nodeInfo: {
+                'Learner': { title: 'Learner', description: 'The center of the ecosystem &mdash; the person every other component serves, describes, or reports on.' },
+                'LRS': { title: 'Learning Record Store', description: 'The tightly-coupled hub. It stores xAPI Statements about the learner and is the source every other tool reads from or writes to. This is the vendor-neutral generalization of Chapter 3&rsquo;s Total Learning Architecture.' },
+                'CF': { title: 'Competency Framework', description: 'Supplies the shared concept and competency identifiers that Statements reference &mdash; part of the inner, most tightly-coupled ring with the LRS.' },
+                'Repo': { title: 'Content Repository', description: 'A catalog of learning resources described with Learning Object Metadata (defined earlier in this chapter). It describes the resources that Statements reference. Outer ring: looser, standards-mediated coupling.' },
+                'Dash': { title: 'Analytics Dashboard', description: 'Reads Statement history from the LRS to visualize progress and mastery. Outer ring &mdash; a consumer, not a source of record.' },
+                'Fed': { title: 'Federated LRS', description: 'An LRS from a different vendor. Because xAPI is a shared standard, records can be exchanged when a learner moves between organizations.' }
+            }
+        };
+    </script>
+    <script src="vis-app.js"></script>
+</body>
+</html>

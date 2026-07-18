@@ -1,0 +1,24 @@
+{
+  "title": "Grain Constraints and the Statement Label Prohibition",
+  "description": "Let the learner simulate a summarizer write attempt against a Grain Uniqueness Constraint and observe why a second write for the same grain upserts rather than duplicates, then contrast that outcome with a hypothetical write carrying a forbidden :Statement label.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "grain-constraint-enforcement",
+  "library": "vis-network",
+  "bloomLevel": "Evaluate (L5)",
+  "bloomVerb": "justify, critique",
+  "completion_status": "implemented",
+  "chapter_number": 14,
+  "chapter_title": "Kafka Topics, ClickHouse Schema, and Graph Constraints",
+  "chapter_dir": "14-kafka-clickhouse-graph-schema",
+  "chapter_rel_dir": "chapters/14-kafka-clickhouse-graph-schema",
+  "canvasHeight": 520
+}

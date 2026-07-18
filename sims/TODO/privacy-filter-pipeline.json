@@ -1,0 +1,15 @@
+{
+  "sim_id": "privacy-filter-pipeline",
+  "diagram_name": "The Privacy Filter Pipeline",
+  "chapter_number": 15,
+  "chapter_title": "Privacy Enforcement and Dashboard Mechanics",
+  "chapter_dir": "15-privacy-and-dashboard-mechanics",
+  "chapter_rel_dir": "chapters/15-privacy-and-dashboard-mechanics",
+  "library": "Mermaid",
+  "bloom_level": "Analyze (L4)",
+  "bloom_verb": "trace, differentiate",
+  "learning_objective": "Let the learner trace an Analytics API request from Tenant Context Injection through Threshold Suppression, Complementary Suppression, and Privacy Audit Write, and identify at which stage a rostered-teacher exemption applies versus a cross-group view.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: workflow\n**sim-id:** privacy-filter-pipeline<br/>\n**Library:** Mermaid<br/>\n**Status:** Specified\n**Template:** https://github.com/dmccreary/information-systems/tree/main/docs/sims/privacy-regulatory-landscape<br/>\n\nBloom Taxonomy: Analyze (L4)\nBloom Taxonomy Verb: trace, differentiate\n\nLearning objective: Let the learner trace an Analytics API request from Tenant Context Injection through Threshold Suppression, Complementary Suppression, and Privacy Audit Write, and identify at which stage a rostered-teacher exemption applies versus a cross-group view.\n\nPurpose: Show a single Mermaid flowchart tracing one request end to end through the privacy filter's structural stages.\n\nNodes in order: \"Dash callback issues request\" -> \"TenantContext injection (query cannot compile without it)\" -> \"Query builder reads pre-aggregated ClickHouse view\" -> \"Is this the caller's own rostered scope?\" (decision diamond) -> two branches: \"Yes: exempt from Threshold Suppression\" and \"No: apply Threshold Suppression\" -> both branches rejoin at \"Complementary Suppression check\" -> \"Privacy Audit Write to lrs.audit\" -> \"Response returned to Dash callback, cached by (report_id, tenant, params, data_version)\".\n\nInteractive features: Every node has a Mermaid click directive opening an infobox with a one-sentence definition matching this chapter's prose. Clicking the decision diamond opens an infobox explaining the rostered-scope exemption: a teacher viewing their own students already knows those students by name, so showing their own roster's progress discloses nothing new, while cross-district, cross-school, and segment-breakdown views always pass through full suppression.\n\nColor coding: The two AuthN/AuthZ nodes (Dash callback, TenantContext injection) in neutral gray; the three privacy-filter stages (threshold, complementary, audit) in the book's teal accent color to visually group them as \"the one choke point.\"\n\nResponsive design: The flowchart resizes to the width of its containing element; on narrow viewports the decision branches stack vertically instead of side by side."
+}

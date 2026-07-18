@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Analytics Plane API Map</title>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="graph-panel">
+            <div id="network"></div>
+            <div class="title">Analytics Plane &mdash; Five APIs</div>
+        </div>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a node to see details</p></div>
+        </div>
+    </div>
+    <script>
+        const TEAL = { background: '#2a9d8f', border: '#1f7a6f' };
+        const AMBER = { background: '#e9a23b', border: '#b8791f' };
+        const HUB = { background: '#12695f', border: '#0a3f39' };
+        window.GRAPH = {
+            layout: 'physics',
+            nodes: [
+                { id: 'Plane', label: 'Analytics Plane', color: HUB, borderWidth: 4 },
+                { id: 'Analytics', label: 'Analytics API', color: TEAL },
+                { id: 'Admin', label: 'Admin API', color: TEAL },
+                { id: 'Experiment', label: 'Experiment API', color: TEAL },
+                { id: 'Export', label: 'Export API', color: TEAL },
+                { id: 'Roster', label: 'Roster API', color: AMBER, font: { color: '#222' } }
+            ],
+            edges: [
+                { from: 'Plane', to: 'Analytics', label: 'backs every report & dashboard' },
+                { from: 'Plane', to: 'Admin', label: 'serves admin UIs; every mutation audited' },
+                { from: 'Plane', to: 'Experiment', label: 'assignment + readout for A/B tests' },
+                { from: 'Plane', to: 'Export', label: 'bulk async export' },
+                { from: 'Roster', to: 'Plane', label: 'enrollment data flows IN', color: { color: '#b8791f' } }
+            ],
+            nodeInfo: {
+                'Plane': { title: 'Analytics Plane', description: 'The plane that answers questions over stored events. It hosts five APIs &mdash; four that serve data OUT, and one (Roster) that takes data IN.' },
+                'Analytics': { title: 'Analytics API (outbound)', description: 'Backs every report and dashboard. Audience: teachers, district admins, authors. Reads pre-aggregated views, passes through the privacy filter.' },
+                'Admin': { title: 'Admin API (outbound)', description: 'Serves the admin UIs. Every mutation is audited. Audience: district and system administrators.' },
+                'Experiment': { title: 'Experiment API (outbound)', description: 'Handles variant assignment and readout for A/B tests. Audience: textbook authors running experiments.' },
+                'Export': { title: 'Export API (outbound)', description: 'Runs bulk exports asynchronously and returns a signed download URL. Audience: admins needing raw data extracts.' },
+                'Roster': { title: 'Roster API (INBOUND)', description: 'The odd one out: its edge points INTO the plane. It ingests enrollment data from a district SIS (via OneRoster) rather than serving reports out &mdash; which is why it is colored differently and its arrow is reversed.' }
+            }
+        };
+    </script>
+    <script src="vis-app.js"></script>
+</body>
+</html>

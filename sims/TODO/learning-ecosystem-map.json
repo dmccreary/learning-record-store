@@ -1,0 +1,15 @@
+{
+  "sim_id": "learning-ecosystem-map",
+  "diagram_name": "Learning Ecosystem Map",
+  "chapter_number": 4,
+  "chapter_title": "Standards Governance and the Wider Interoperability Ecosystem",
+  "chapter_dir": "04-standards-governance-ecosystem",
+  "chapter_rel_dir": "chapters/04-standards-governance-ecosystem",
+  "library": "vis-network",
+  "bloom_level": "Analyze (L4)",
+  "bloom_verb": "analyze, relate",
+  "learning_objective": "Let the learner analyze how a Learning Record Store, a Competency Framework, a content repository, and analytics tools interoperate within a Learning Ecosystem, in a general, vendor-neutral form that generalizes Chapter 3's Total Learning Architecture map.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: graph-model\n**sim-id:** learning-ecosystem-map<br/>\n**Library:** vis-network<br/>\n**Status:** Specified<br/>\n**Template:** https://github.com/dmccreary/automating-instructional-design/tree/main/docs/sims/ed-tech-ecosystem<br/>\n\nBloom Taxonomy: Analyze (L4)\nBloom Taxonomy Verb: analyze, relate\n\nLearning objective: Let the learner analyze how a Learning Record Store, a Competency Framework, a content repository, and analytics tools interoperate within a Learning Ecosystem, in a general, vendor-neutral form that generalizes Chapter 3's Total Learning Architecture map.\n\nPurpose: Show a central \"Learner\" node surrounded by concentric rings of connected component nodes representing a general Learning Ecosystem.\n\nNodes:\n\n- Center: \"Learner\"\n- Inner ring: \"Learning Record Store\" — edge to Learner labeled \"stores Statements about\"\n- Inner ring: \"Competency Framework\" — edge to Learning Record Store labeled \"supplies identifiers Statements reference\"\n- Outer ring: \"Content Repository (cataloged with Learning Object Metadata)\" — edge to Learning Record Store labeled \"describes the resources Statements reference\"\n- Outer ring: \"Analytics Dashboard\" — edge to Learning Record Store labeled \"reads Statement history\"\n- Outer ring: \"Federated Learning Record Store (different vendor)\" — edge to Learning Record Store labeled \"may exchange records when a learner moves organizations\"\n\nInteractive features: Every node is clickable via vis-network's built-in click event. Clicking any node opens an infobox with its one-sentence role in the ecosystem, and, where relevant, which earlier chapter concept it corresponds to (for example, clicking \"Content Repository\" reiterates the Learning Object Metadata definition from earlier in this chapter).\n\nColor coding: \"Learner\" in a neutral center color; \"Learning Record Store\" and \"Competency Framework\" in the book's teal accent color as the inner, most tightly coupled ring; the outer-ring nodes in a lighter gray-blue to signal looser, standards-mediated coupling.\n\nImplementation: vis-network graph with physics-based layout (learner at center, components arranged in rings around it), full click-to-infobox coverage on every node. Responsive width and height tracking the containing element, with layout re-stabilizing on resize."
+}

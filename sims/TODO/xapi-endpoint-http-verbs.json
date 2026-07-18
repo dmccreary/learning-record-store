@@ -1,0 +1,15 @@
+{
+  "sim_id": "xapi-endpoint-http-verbs",
+  "diagram_name": "xAPI Endpoint and HTTP Verbs",
+  "chapter_number": 2,
+  "chapter_title": "The Anatomy of an xAPI Statement",
+  "chapter_dir": "02-anatomy-of-xapi-statement",
+  "chapter_rel_dir": "chapters/02-anatomy-of-xapi-statement",
+  "library": "Mermaid",
+  "bloom_level": "Apply (L3)",
+  "bloom_verb": "demonstrate, apply",
+  "learning_objective": "Let the learner apply their knowledge of HTTP Verbs and Statement Query Parameters by tracing three concrete requests against one xAPI Endpoint and predicting what each returns.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: workflow\n**sim-id:** xapi-endpoint-http-verbs<br/>\n**Library:** Mermaid<br/>\n**Status:** Specified\n\nBloom Taxonomy: Apply (L3)\nBloom Taxonomy Verb: demonstrate, apply\n\nLearning objective: Let the learner apply their knowledge of HTTP Verbs and Statement Query Parameters by tracing three concrete requests against one xAPI Endpoint and predicting what each returns.\n\nPurpose: Show a base endpoint box `https://lrs.example.org/xapi/` with three outgoing request arrows to a `/statements` resource box, each labeled with a full example request.\n\nRequests to show:\n\n1. `PUT /statements?statementId=abc-123` with a JSON body — labeled \"Store one Statement at a known ID\"\n2. `POST /statements` with a JSON array body — labeled \"Store multiple Statements; LRS assigns IDs\"\n3. `GET /statements?agent={Maya's account}&verb=completed&since=2026-01-01` — labeled \"Query Maya's completions since New Year\"\n\nResponse box: A fourth box showing an abbreviated JSON response for request 3, containing a `statements` array with one entry and a `more` field for pagination.\n\nInteractive features: Every request arrow and the response box are clickable via Mermaid `click` directives. Clicking a request arrow opens an infobox explaining which HTTP Verb is used and why. Clicking the response box explains the `more` field's role in paging through large result sets.\n\nColor coding: `GET` requests in blue, `PUT` in teal, `POST` in green — consistent with a legend shown beside the diagram.\n\nImplementation: Mermaid flowchart with click-to-infobox coverage on every node. Responsive width tracking the containing element."
+}

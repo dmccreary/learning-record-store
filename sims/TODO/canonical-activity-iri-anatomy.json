@@ -1,0 +1,15 @@
+{
+  "sim_id": "canonical-activity-iri-anatomy",
+  "diagram_name": "Canonical Activity IRI Anatomy",
+  "chapter_number": 32,
+  "chapter_title": "The Producer Contract: Writing Conformant Statements",
+  "chapter_dir": "32-producer-contract-conformant-statements",
+  "chapter_rel_dir": "chapters/32-producer-contract-conformant-statements",
+  "library": "p5.js",
+  "bloom_level": "Understand (L2)",
+  "bloom_verb": "classify, distinguish",
+  "learning_objective": "Let the learner classify a candidate object.id string as canonical or malformed by clicking through three worked examples and seeing which rule each one satisfies or breaks.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: infographic\n**sim-id:** canonical-activity-iri-anatomy<br/>\n**Library:** p5.js<br/>\n**Status:** Specified\n**Template:** https://github.com/dmccreary/xapi-course/tree/main/docs/sims/activity-naming-and-occurrence-fields<br/>\n\nBloom Taxonomy: Understand (L2)\nBloom Taxonomy Verb: classify, distinguish\n\nLearning objective: Let the learner classify a candidate object.id string as canonical or malformed by clicking through three worked examples and seeing which rule each one satisfies or breaks.\n\nPurpose: Three clickable IRI cards: (1) canonical `https://dmccreary.github.io/learning-record-store/sims/sine-wave/`, (2) missing-slash `…/sims/sine-wave`, (3) wrong-page `…/sims/sine-wave/main.html`.\n\nLayout: A horizontal row of three cards above a shared verdict panel, each showing the raw string with the differing segment highlighted.\n\nInteractive features: Clicking card 1 shows \"Canonical — absolute HTTPS, trailing slash present.\" Card 2 shows \"Violates the Trailing Slash Rule — a different ORDER BY string, splitting one page's engagement into two rows.\" Card 3 shows \"Violates the Canonical Activity IRI rule — main.html is the iframe payload, not the page; mints a second identity.\" A \"why it matters\" toggle reveals a mock two-row ClickHouse split caused by cards 2 and 3.\n\nColor coding: Card 1 in the book's teal accent color; cards 2 and 3 in amber with the broken segment underlined in red.\n\nImplementation: p5.js canvas adapted from the referenced template's click-to-reveal pattern, narrowed to the three cards above. Responsive: canvas width tracks its container; cards stack vertically below tablet width."
+}

@@ -1,0 +1,15 @@
+{
+  "sim_id": "dashboard-patterns",
+  "diagram_name": "Dashboard Layout Builder",
+  "chapter_number": 15,
+  "chapter_title": "Privacy Enforcement and Dashboard Mechanics",
+  "chapter_dir": "15-privacy-and-dashboard-mechanics",
+  "chapter_rel_dir": "chapters/15-privacy-and-dashboard-mechanics",
+  "library": "p5.js",
+  "bloom_level": null,
+  "bloom_verb": null,
+  "learning_objective": null,
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: infographic\n**sim-id:** dashboard-patterns<br/>\n**Library:** p5.js<br/>\n**Status:** Reused<br/>\n**Source:** https://dmccreary.github.io/search-microsims/sims/dashboard-patterns/<br/>\n**Source Repo:** https://github.com/dmccreary/search-microsims/tree/main/docs/sims/dashboard-patterns<br/>\n\nReused from the MicroSim catalog (WHAT match score 0.76). Learning objective: let the learner construct a dashboard by selecting and arranging KPI tiles, a heatmap, and supporting detail components onto the Common Dashboard Anatomy's header/rail/canvas/footer skeleton, reinforcing which component types belong in which region and why a consistent skeleton lets a reader navigate any dashboard in this book without relearning the layout."
+}

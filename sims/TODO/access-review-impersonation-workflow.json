@@ -1,0 +1,15 @@
+{
+  "sim_id": "access-review-impersonation-workflow",
+  "diagram_name": "Access Review and Impersonation Audit Workflow",
+  "chapter_number": 26,
+  "chapter_title": "District Administrator: Access Control and System Configuration",
+  "chapter_dir": "26-district-admin-access-control",
+  "chapter_rel_dir": "chapters/26-district-admin-access-control",
+  "library": "Mermaid",
+  "bloom_level": "Apply (L3)",
+  "bloom_verb": "operate, differentiate",
+  "learning_objective": "Operate the Access Review Workflow as an administrator would, and differentiate its routine, scheduled nature from an Impersonation session's exceptional, heavily-audited one, even though both live on the same admin screen.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: workflow\n**sim-id:** access-review-impersonation-workflow<br/>\n**Library:** Mermaid<br/>\n**Status:** Specified\n\nBloom Taxonomy: Apply (L3)\nBloom Taxonomy Verb: operate, differentiate\n\nLearning objective: Operate the Access Review Workflow as an administrator would, and differentiate its routine, scheduled nature from an Impersonation session's exceptional, heavily-audited one, even though both live on the same admin screen.\n\nPurpose: A Mermaid flowchart with two parallel swimlanes sharing one starting node, so a learner can compare a routine process against an exceptional one side by side.\n\nSwimlane A \"Access Review (routine, scheduled)\": \"Review window opens\" -> \"Administrator sees every active account and scope in their territory\" -> \"Administrator confirms grant is still needed?\" -- branches into \"Yes: grant reconfirmed, review timestamp reset\" and \"No or no response: grant flagged as stale\" -> \"Administrator revokes or later reconfirms the stale grant.\"\n\nSwimlane B \"Impersonation (exceptional, heavily audited)\": \"System Administrator initiates impersonation for support\" -> \"Persistent banner displays 'Impersonating: [user]' on every screen\" -> \"Support action taken as impersonated user\" -> \"Action logged with impersonation marker\" -> \"Session ends; banner disappears.\"\n\nInteractive features: Every node has a Mermaid `click` directive. Clicking any Swimlane A node opens an infobox matching this chapter's prose on stale-grant flagging. Clicking any Swimlane B node opens an infobox matching this chapter's prose on the persistent banner and full action logging. Clicking the shared starting node opens an infobox stating that both processes exist on the User & Access Management UI, and both write to the Audit Log Browser this chapter covers next.\n\nColor coding: Swimlane A in the book's teal accent color to signal routine, low-stakes operation; Swimlane B in amber to signal an exceptional, closely-watched operation.\n\nResponsive design: Swimlanes stack vertically on narrow viewports instead of running side by side, preserving the left-to-right sequence within each lane."
+}

@@ -1,0 +1,24 @@
+{
+  "title": "Accept-First Ingestion and Reconciliation Flow",
+  "description": "Let the learner explain how a newly published textbook can emit statements before its metadata is registered, and sequence the four steps of Accept-First Ingestion from a statement's arrival to a Provisional Node's promotion.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "accept-first-reconciliation-flow",
+  "library": "Mermaid",
+  "bloomLevel": "Understand (L2)",
+  "bloomVerb": "explain, sequence",
+  "completion_status": "implemented",
+  "chapter_number": 8,
+  "chapter_title": "Summary Vertices and Statement Ingestion Mechanics",
+  "chapter_dir": "08-summary-vertices-ingestion",
+  "chapter_rel_dir": "chapters/08-summary-vertices-ingestion",
+  "canvasHeight": 560
+}

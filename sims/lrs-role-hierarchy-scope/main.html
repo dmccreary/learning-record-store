@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>LRS Role Hierarchy &amp; Scope</title>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="graph-panel">
+            <div id="network"></div>
+            <div class="title">Roles: Nested Authority vs Scope-Bound</div>
+        </div>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a role to see details</p></div>
+        </div>
+    </div>
+    <script>
+        const ROOT = { background: '#37474f', border: '#1c2529' };
+        const T1 = { background: '#0f5c53', border: '#0a3f39' };
+        const T2 = { background: '#1a7f72', border: '#12695f' };
+        const T3 = { background: '#2a9d8f', border: '#1f7a6f' };
+        window.GRAPH = {
+            layout: 'physics',
+            nodes: [
+                { id: 'Root', label: 'LRS Access Control', color: ROOT, borderWidth: 3 },
+                { id: 'Sys', label: 'System Administrator (global)', color: T1 },
+                { id: 'Dist', label: 'District Administrator (one district)', color: T2 },
+                { id: 'School', label: 'School Administrator (one school)', color: T3 },
+                { id: 'Teacher', label: 'Teacher (own sections only)', color: { background: '#7b6cc4', border: '#544a91' } },
+                { id: 'Author', label: 'Textbook Author (content & experiments, no student identity)', color: { background: '#c9822b', border: '#8a5a1c' } },
+                { id: 'Auditor', label: 'Auditor Role (read-only, audit log only)', color: { background: '#5aa0c4', border: '#3a7091' } }
+            ],
+            edges: [
+                { from: 'Sys', to: 'Dist', label: 'contains' },
+                { from: 'Dist', to: 'School', label: 'contains' },
+                { from: 'Root', to: 'Sys' },
+                { from: 'Root', to: 'Teacher', dashes: true },
+                { from: 'Root', to: 'Author', dashes: true },
+                { from: 'Root', to: 'Auditor', dashes: true }
+            ],
+            nodeInfo: {
+                'Root': { title: 'LRS Access Control', description: 'The root. Below it are two structurally different shapes: a nested-authority chain (a vertical superset ladder) and scope-bound roles (single, non-nested scope lines).' },
+                'Sys': { title: 'System Administrator', description: 'Global scope &mdash; the broadest nested-authority role. It can do everything a District Admin can, in every district, plus system-level operations.' },
+                'Dist': { title: 'District Administrator', description: 'Scoped to ONE district. Its authority is a superset of every School Admin in that district &mdash; but it can never reach another district.' },
+                'School': { title: 'School Administrator', description: 'Scoped to ONE school. The narrowest link in the nested chain. A broader role (District, System) contains all of its capabilities; the reverse never holds.' },
+                'Teacher': { title: 'Teacher (scope-bound)', description: 'Not part of the nested chain. Bounded to their OWN sections only &mdash; a single, non-nested scope line to the root. It is not &ldquo;below&rdquo; School Admin; it is a different kind of role.' },
+                'Author': { title: 'Textbook Author (scope-bound)', description: 'Bounded to content and experiments, with NO access to student identity. A distinct scope-bound role, not ranked against Teacher or Auditor.' },
+                'Auditor': { title: 'Auditor Role (scope-bound)', description: 'Read-only access to the audit log ONLY. A separate scope-bound role &mdash; powerful for oversight, but unable to change anything.' }
+            }
+        };
+    </script>
+    <script src="vis-app.js"></script>
+</body>
+</html>

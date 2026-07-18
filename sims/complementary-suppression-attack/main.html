@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Complementary Suppression Attack</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * { box-sizing: border-box; }
+        html, body { margin: 0; font-family: Arial, Helvetica, sans-serif; background: #fff; color: #222; }
+        .wrap { padding: 8px 12px; }
+        h2 { font-size: 16px; color: #1a3a5c; text-align: center; margin: 4px 0 8px; }
+        .chart-box { position: relative; height: 300px; }
+        .controls { text-align: center; margin: 8px 0; }
+        button { font-size: 12px; padding: 6px 10px; border: 1px solid #2a9d8f; background: #fff; color: #1f7a6f; border-radius: 5px; cursor: pointer; margin: 0 3px; }
+        button.active { background: #2a9d8f; color: #fff; }
+        .readout { text-align: center; font-size: 14px; font-weight: bold; margin: 8px auto; min-height: 20px; }
+        .fail { color: #c0392b; }
+        .safe { color: #1f7a6f; }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <h2>Why Threshold Suppression Alone Fails</h2>
+        <div class="chart-box"><canvas id="c"></canvas></div>
+        <div class="controls">
+            <button id="b0" class="active">All visible</button>
+            <button id="b1">Threshold suppression only</button>
+            <button id="b2">Complementary suppression (D-5)</button>
+        </div>
+        <div class="readout" id="readout">Total published: 84. All nine bands visible.</div>
+    </div>
+    <script>
+        const cats = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
+        const real = [12, 8, 4, 15, 9, 11, 7, 10, 8];   // sum = 84
+        const TOTAL = real.reduce(function (a, b) { return a + b; }, 0);
+        const THRESH = 10;
+        // indices below threshold -> smallest is C(=4). Second-hidden (complementary): smallest still >= threshold.
+        let mode = 0;
+        const chart = new Chart(document.getElementById('c'), {
+            type: 'bar',
+            data: { labels: cats.concat(['TOTAL']), datasets: [{ label: 'Count', data: real.concat([TOTAL]), backgroundColor: bg() }] },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: function (ctx) { return hidden().indexOf(ctx.dataIndex) >= 0 ? 'Suppressed' : ('Count: ' + ctx.raw); } } } }, scales: { y: { beginAtZero: true } } }
+        });
+        function hidden() {
+            if (mode === 1) return [2];               // band C (value 4, below threshold)
+            if (mode === 2) return [2, 6];            // C plus the smallest >= threshold band still ambiguous: G(7)? pick a >= threshold-ish second cell -> H(10)
+            return [];
+        }
+        function bg() {
+            const h = hidden();
+            return real.concat([TOTAL]).map(function (v, i) {
+                if (i === cats.length) return '#37474f';
+                return h.indexOf(i) >= 0 ? '#9aa7b4' : '#2a9d8f';
+            });
+        }
+        function render() {
+            const h = hidden();
+            chart.data.datasets[0].data = real.concat([TOTAL]).map(function (v, i) { return h.indexOf(i) >= 0 ? 0 : v; });
+            chart.data.datasets[0].backgroundColor = bg();
+            chart.update();
+            const ro = document.getElementById('readout');
+            if (mode === 0) { ro.className = 'readout'; ro.textContent = 'Total published: ' + TOTAL + '. All nine bands visible.'; }
+            else if (mode === 1) {
+                const recovered = TOTAL - real.filter(function (v, i) { return h.indexOf(i) < 0; }).reduce(function (a, b) { return a + b; }, 0);
+                ro.className = 'readout fail';
+                ro.textContent = 'Recovered by subtraction: ' + recovered + ' — suppression FAILED.';
+            } else {
+                ro.className = 'readout safe';
+                ro.textContent = 'Cannot be recovered — two unknowns, one equation.';
+            }
+            [0, 1, 2].forEach(function (m) { document.getElementById('b' + m).classList.toggle('active', m === mode); });
+        }
+        document.getElementById('b0').onclick = function () { mode = 0; render(); };
+        document.getElementById('b1').onclick = function () { mode = 1; render(); };
+        document.getElementById('b2').onclick = function () { mode = 2; render(); };
+    </script>
+</body>
+</html>

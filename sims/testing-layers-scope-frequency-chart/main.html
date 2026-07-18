@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Testing Layers: Scope vs Frequency</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * { box-sizing: border-box; }
+        html, body { margin: 0; font-family: Arial, Helvetica, sans-serif; background: #fff; color: #222; }
+        .wrap { padding: 8px 12px; }
+        h2 { font-size: 16px; color: #1a3a5c; text-align: center; margin: 4px 0 8px; }
+        .chart-box { position: relative; height: 360px; }
+        .caption { font-size: 13px; color: #555; text-align: center; max-width: 700px; margin: 6px auto; line-height: 1.4; }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <h2>Testing Layers &mdash; Scope vs Run Frequency</h2>
+        <div class="chart-box"><canvas id="c"></canvas></div>
+        <p class="caption">Wider scope, slower cadence: the widest-scope layer (Chaos Kill Test) is the least frequent because exercising the whole live system is expensive and disruptive, so it runs on a schedule in staging rather than on every commit.</p>
+    </div>
+    <script>
+        // x: scope 1(single fn) .. 5(whole live system). y: frequency 5(every commit) .. 1(quarterly)
+        const pts = [
+            { x: 1, y: 5, n: 'Unit Test Layer', w: 'One function in isolation; runs every commit.' },
+            { x: 1.7, y: 5, n: 'Compression Test Suite', w: 'Compression logic correctness; every commit.' },
+            { x: 3, y: 4, n: 'ADL Conformance Test Suite', w: 'xAPI spec conformance; every CI run.' },
+            { x: 3.6, y: 4, n: 'Testcontainers Integration Test', w: 'Real services in containers; every CI run.' },
+            { x: 3, y: 4, n: 'Privacy Adversarial Suite', w: 'Differencing/re-identification attacks; every CI run.' },
+            { x: 4.2, y: 2, n: 'Load Test Loadgen', w: 'Sustained synthetic load; pre-release.' },
+            { x: 4.3, y: 3, n: 'Replay Nightly Test', w: 'Full log replay for parity; nightly.' },
+            { x: 5, y: 1, n: 'Chaos Kill Test', w: 'Kill live components; scheduled, staging only.' }
+        ];
+        function color(x) { const t = (x - 1) / 4; const r = Math.round(42 + t * (233 - 42)); const g = Math.round(157 + t * (162 - 157)); const b = Math.round(143 + t * (59 - 143)); return 'rgb(' + r + ',' + g + ',' + b + ')'; }
+        new Chart(document.getElementById('c'), {
+            type: 'scatter',
+            data: { datasets: [{ label: 'Testing layers', data: pts, pointRadius: 9, pointHoverRadius: 12, backgroundColor: pts.map(function (p) { return color(p.x); }) }] },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { display: false }, tooltip: { callbacks: { label: function (ctx) { const p = ctx.raw; return p.n; }, afterLabel: function (ctx) { return ctx.raw.w; } } } },
+                scales: {
+                    x: { min: 0.5, max: 5.5, title: { display: true, text: 'Scope: single function  ->  whole live system' }, ticks: { callback: function (v) { return ({ 1: 'function', 3: 'subsystem', 5: 'live system' })[v] || ''; } } },
+                    y: { min: 0.5, max: 5.5, title: { display: true, text: 'Run frequency: quarterly  ->  every commit' }, ticks: { callback: function (v) { return ({ 1: 'quarterly', 2: 'pre-release', 3: 'nightly', 4: 'every CI', 5: 'every commit' })[v] || ''; } } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

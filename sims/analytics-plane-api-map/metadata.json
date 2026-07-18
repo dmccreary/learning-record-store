@@ -1,0 +1,24 @@
+{
+  "title": "Analytics Plane API Map",
+  "description": "Let the learner analyze how the five Analytics Plane APIs relate to the Analytics Plane as a whole and to their primary audiences, correctly distinguishing the four outbound, report-serving APIs from the Roster API's inbound role.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "analytics-plane-api-map",
+  "library": "vis-network",
+  "bloomLevel": "Analyze (L4)",
+  "bloomVerb": "analyze, relate",
+  "completion_status": "implemented",
+  "chapter_number": 5,
+  "chapter_title": "System Context and the Five Architectural Planes",
+  "chapter_dir": "05-system-context-architectural-planes",
+  "chapter_rel_dir": "chapters/05-system-context-architectural-planes",
+  "canvasHeight": 520
+}

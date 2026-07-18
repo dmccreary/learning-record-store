@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Pseudonymization Pipeline</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'default', flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' } });
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="diagram-panel">
+            <div class="mermaid">
+flowchart TB
+    Raw["Raw actor identifier in statement body<br/><small>homePage + name</small>"]:::raw
+    Salt["Fetch Per-District Salt<br/><small>Mutual TLS Salt Fetch (once per district, cached in memory)</small>"]:::safe
+    HMAC["HMAC-SHA256 Pseudonymization<br/><small>computed locally in the processor</small>"]:::safe
+    Key["student_key<br/><small>base32, first 16 bytes</small>"]:::safe
+    Store["Written to ClickHouse and Neo4j<br/><small>the only form any downstream store ever sees</small>"]:::safe
+    Raw --> Salt --> HMAC --> Key --> Store
+
+    classDef raw fill:#e9a23b,stroke:#b8791f,color:#222,font-size:14px
+    classDef safe fill:#2a9d8f,stroke:#1f7a6f,color:#fff,font-size:14px
+    linkStyle default stroke:#999,stroke-width:2px
+            </div>
+        </div>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a step to see details</p></div>
+        </div>
+    </div>
+    <script>
+        const nodeInfo = {
+            'Raw': { title: 'Raw actor identifier', description: 'The statement arrives naming the actor by <code>homePage + name</code> &mdash; directly identifying information. This is the only point where raw identity exists in the pipeline.' },
+            'Salt': { title: 'Per-District Salt (Mutual TLS)', description: 'The processor fetches a district-specific salt over Mutual TLS &mdash; both sides present certificates. It is fetched once per district and cached in memory, so the secret is never stored alongside the data.' },
+            'HMAC': { title: 'HMAC-SHA256', description: 'The key is <code>HMAC-SHA256(salt, actor)</code>, computed locally in the processor. Because each district has its own salt, the same student in two districts produces unrelated keys &mdash; no cross-district linkage.' },
+            'Key': { title: 'student_key', description: 'The output is a <code>student_key</code>: base32-encoded, first 16 bytes. It is irreversible &mdash; you cannot recover the actor from the key without the salt.' },
+            'Store': { title: 'Downstream stores', description: 'Only the <code>student_key</code> is written to ClickHouse and Neo4j. Nothing downstream ever sees the raw identifier &mdash; the identity boundary is crossed exactly once, here.' }
+        };
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
