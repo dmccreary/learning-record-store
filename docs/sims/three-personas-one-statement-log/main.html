@@ -3,115 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
     <title>Three Personas, One Statement Log</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
-    </style>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'default', flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' } });
+    </script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="container">
-        <h1>Three Personas, One Statement Log</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
+    <div class="container">
+        <div class="diagram-panel">
+            <div class="mermaid">
+flowchart TB
+    Log["Statement Log<br/><small>every ingested xAPI Statement &mdash; the system of record</small>"]:::src
+    D1["Aggregated by school and district"]:::dist
+    D2["Adoption and deployment coverage view"]:::dist
+    D3["Answers: is every school covered and compliant?"]:::dist
+    T1["Aggregated by section and student,<br/>scoped to this teacher's sections"]:::teach
+    T2["Classroom mastery and at-risk view"]:::teach
+    T3["Answers: which student needs help, and on what?"]:::teach
+    A1["Aggregated by content version and MicroSim,<br/>no student identity"]:::auth
+    A2["Content-effectiveness and experiment view"]:::auth
+    A3["Answers: did my content change actually help?"]:::auth
+    Log --> D1 --> D2 --> D3
+    Log --> T1 --> T2 --> T3
+    Log --> A1 --> A2 --> A3
+
+    classDef src fill:#2a9d8f,stroke:#1f7a6f,color:#fff,font-size:13px
+    classDef dist fill:#e9a23b,stroke:#b8791f,color:#222,font-size:12px
+    classDef teach fill:#7b6cc4,stroke:#544a91,color:#fff,font-size:12px
+    classDef auth fill:#4c956c,stroke:#2f6b48,color:#fff,font-size:12px
+    linkStyle default stroke:#999,stroke-width:2px
+            </div>
         </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> three-personas-one-statement-log</p>
-            <p><strong>Library:</strong> Mermaid</p>
-            <p><strong>Bloom Level:</strong> Understand (L2)</p>
-            <p><strong>Learning Objective:</strong> Explain how the District Administrator, Teacher, and Textbook Author each draw on the same underlying xAPI statement log, filtered through a different aggregation and access lens, rather than three separate data sources.</p>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a node to see details</p></div>
         </div>
     </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: workflow
-    **sim-id:** three-personas-one-statement-log<br/>
-    **Library:** Mermaid<br/>
-    **Status:** Specified
-    
-    Bloom Taxonomy: Understand (L2)
-    Bloom Taxonomy Verb: explain, summarize
-    
-    Learning objective: Explain how the District Administrator, Teacher, and Textbook Author each draw on the same underlying xAPI statement log, filtered through a different aggregation and access lens, rather than three separate data sources.
-    
-    Purpose: A single Mermaid flowchart with one shared source node fanning out into three persona-specific paths, so the learner sees structurally that the fan-out happens after ingestion, not before it.
-    
-    Shared source node: "Statement Log (every ingested xAPI Statement, this project's system of record)."
-    
-    Three outgoing paths from the shared node:
-    
-    - Path 1 "District Administrator": Statement Log -> "Aggregated by school and district" -> "Adoption and deployment coverage view" -> "Answers: is every school covered and compliant?"
-    - Path 2 "Teacher": Statement Log -> "Aggregated by section and student, scoped to sections this teacher teaches" -> "Classroom mastery and at-risk view" -> "Answers: which student needs help, and on what?"
-    - Path 3 "Textbook Author": Statement Log -> "Aggregated by content version and MicroSim, no student identity" -> "Content-effectiveness and experiment view" -> "Answers: did my content change actually help?"
-    
-    Interactive features: Every node has a Mermaid click directive. Clicking the shared "Statement Log" node opens an infobox recapping Chapter 1's Actor/Verb/Object Activity model and noting this single log is the only source for all three paths. Clicking any aggregation node opens an infobox naming the access boundary enforced at that step (district/school scope, section/roster scope, or de-identified content scope). Clicking any "Answers:" node opens an infobox restating that persona's goal sentence from this chapter's prose.
-    
-    Color coding: The shared source node in the book's teal accent color; the District Administrator path in amber, the Teacher path in violet, the Textbook Author path in green — three distinct hues so a learner can trace one path at a glance without following arrows carefully.
-    
-    Responsive design: The three paths stack vertically below the shared source node on narrow viewports instead of fanning out horizontally; click targets stay tap-sized.
-    -->
+    <script>
+        const nodeInfo = {
+            'Log': { title: 'Statement Log', description: 'Every ingested xAPI Statement (Actor / Verb / Object Activity, from Chapter 1) lands in one log &mdash; this project&rsquo;s single system of record. All three personas below read from THIS log; the fan-out happens after ingestion, not before.' },
+            'D1': { title: 'District: aggregate', description: 'The district admin&rsquo;s view aggregates by school and district. Access boundary: district/school scope &mdash; no individual student rows.' },
+            'D2': { title: 'District: view', description: 'Produces an adoption and deployment coverage view across schools.' },
+            'D3': { title: 'District: goal', description: 'Answers the district admin&rsquo;s question: is every school covered and compliant?' },
+            'T1': { title: 'Teacher: aggregate', description: 'The teacher&rsquo;s view aggregates by section and student, scoped to the sections this teacher teaches. Access boundary: section/roster scope.' },
+            'T2': { title: 'Teacher: view', description: 'Produces a classroom mastery and at-risk view for the teacher&rsquo;s own students.' },
+            'T3': { title: 'Teacher: goal', description: 'Answers the teacher&rsquo;s question: which student needs help, and on what?' },
+            'A1': { title: 'Author: aggregate', description: 'The author&rsquo;s view aggregates by content version and MicroSim, with no student identity. Access boundary: de-identified content scope.' },
+            'A2': { title: 'Author: view', description: 'Produces a content-effectiveness and experiment view.' },
+            'A3': { title: 'Author: goal', description: 'Answers the author&rsquo;s question: did my content change actually help?' }
+        };
+    </script>
+    <script src="script.js"></script>
 </body>
 </html>

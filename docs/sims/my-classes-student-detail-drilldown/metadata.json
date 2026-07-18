@@ -1,5 +1,5 @@
 {
-  "title": "My Classes to Student Detail — One Click, Nine Reports",
+  "title": "My Classes to Student Detail \u2014 One Click, Nine Reports",
   "description": "Explain how a teacher moves from a section-level roster on My Classes to a single student's nine-report Student Detail view, carrying filter context (the selected date range and textbook version) across the click.",
   "creator": "Learning Record Store",
   "author": "Dan McCreary",
@@ -15,9 +15,10 @@
   "library": "Mermaid",
   "bloomLevel": "Understand (L2)",
   "bloomVerb": "explain, sequence",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 28,
   "chapter_title": "Teacher Dashboards and Student-Level Reports",
   "chapter_dir": "28-teacher-dashboards-student-reports",
-  "chapter_rel_dir": "chapters/28-teacher-dashboards-student-reports"
+  "chapter_rel_dir": "chapters/28-teacher-dashboards-student-reports",
+  "canvasHeight": 680
 }

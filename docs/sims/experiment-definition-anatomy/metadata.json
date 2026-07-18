@@ -15,9 +15,10 @@
   "library": "Mermaid",
   "bloomLevel": "Understand (L2)",
   "bloomVerb": "classify, exemplify",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 31,
   "chapter_title": "Designing and Reading A/B Experiments",
   "chapter_dir": "31-designing-ab-experiments",
-  "chapter_rel_dir": "chapters/31-designing-ab-experiments"
+  "chapter_rel_dir": "chapters/31-designing-ab-experiments",
+  "canvasHeight": 600
 }

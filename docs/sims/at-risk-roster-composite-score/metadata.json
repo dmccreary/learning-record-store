@@ -1,5 +1,5 @@
 {
-  "title": "At-Risk Roster — How the Composite Score Is Built",
+  "title": "At-Risk Roster \u2014 How the Composite Score Is Built",
   "description": "Let the learner decompose one student's composite at-risk score into its three contributing signals (disengagement, low mastery, prerequisite gaps) and justify why a student flagged on all three ranks higher than a student flagged on only one.",
   "creator": "Learning Record Store",
   "author": "Dan McCreary",
@@ -15,9 +15,10 @@
   "library": "Mermaid",
   "bloomLevel": "Analyze (L4)",
   "bloomVerb": "decompose, justify",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 29,
   "chapter_title": "Class-Level Reports and Teacher Tools",
   "chapter_dir": "29-class-level-reports-and-tools",
-  "chapter_rel_dir": "chapters/29-class-level-reports-and-tools"
+  "chapter_rel_dir": "chapters/29-class-level-reports-and-tools",
+  "canvasHeight": 560
 }

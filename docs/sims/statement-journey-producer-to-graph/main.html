@@ -3,107 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
-    <title>Statement Journey — Producer to Graph</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
-    </style>
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Statement Journey: Producer to Graph</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'default', flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' } });
+    </script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="container">
-        <h1>Statement Journey — Producer to Graph</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
+    <div class="container">
+        <div class="diagram-panel">
+            <div class="mermaid">
+flowchart LR
+    Prod["Producer emits<br/>Statement JSON"]:::teal
+    GW["Gateway validates"]:::teal
+    CH["ClickHouse<br/>lrs.statements row"]:::blue
+    F1["object_id"]:::field
+    F2["object_type"]:::field
+    F3["result_success"]:::field
+    F4["duration_ms"]:::field
+    F5["concept_ids"]:::field
+    Comp["Compression pipeline"]:::amber
+    NE["Neo4j summary<br/>vertex property"]:::blue
+    Prod --> GW --> CH
+    CH --> F1
+    CH --> F2
+    CH --> F3
+    CH --> F4
+    CH --> F5
+    F1 --> Comp
+    F2 --> Comp
+    F3 --> Comp
+    F4 --> Comp
+    F5 --> Comp
+    Comp --> NE
+
+    classDef teal fill:#2a9d8f,stroke:#1f7a6f,color:#fff,font-size:12px
+    classDef blue fill:#3d5a80,stroke:#293f5c,color:#fff,font-size:12px
+    classDef field fill:#cfd8dc,stroke:#8a9aa1,color:#1a2430,font-size:11px
+    classDef amber fill:#e9a23b,stroke:#b8791f,color:#222,font-size:12px
+    linkStyle default stroke:#999,stroke-width:2px
+            </div>
         </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> statement-journey-producer-to-graph</p>
-            <p><strong>Library:</strong> Mermaid</p>
-            <p><strong>Bloom Level:</strong> Analyze (L4)</p>
-            <p><strong>Learning Objective:</strong> Let the learner decompose a single xAPI Statement into its storage destinations, tracing one JSON field from the producer through the gateway to a ClickHouse column and on to a Neo4j summary-vertex property.</p>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a stage or field to see details</p></div>
         </div>
     </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: workflow
-    **sim-id:** statement-journey-producer-to-graph<br/>
-    **Library:** Mermaid<br/>
-    **Status:** Specified
-    
-    Bloom Taxonomy: Analyze (L4)
-    Bloom Taxonomy Verb: trace, decompose
-    
-    Learning objective: Let the learner decompose a single xAPI Statement into its storage destinations, tracing one JSON field from the producer through the gateway to a ClickHouse column and on to a Neo4j summary-vertex property.
-    
-    Purpose: A Mermaid flowchart with four stages left to right: "Producer emits Statement JSON" → "Gateway validates" → "ClickHouse lrs.statements row" → "Compression pipeline" → "Neo4j summary vertex property." The ClickHouse stage fans out into five field boxes (object_id, object_type, result_success, duration_ms, concept_ids), each fanning into its Neo4j counterpart.
-    
-    Interactive features: Every node and field box has a Mermaid `click` directive. Clicking "Gateway validates" lists the three rejection triggers from this chapter: an invalid verb, an unmapped object type, a missing grouping[0]. Clicking a field box shows that row from the Field To Column Map table. Clicking the Neo4j stage restates that summary vertices are projections, reproducible by replaying the log — tying back to Chapter 7.
-    
-    Color coding: Producer and gateway stages in teal; ClickHouse and Neo4j in deeper blue; the compression arrow in amber.
-    
-    Implementation: Mermaid flowchart, left-to-right, full click-to-infobox coverage. Responsive: stacks top-to-bottom below tablet width.
-    -->
+    <script>
+        const nodeInfo = {
+            'Prod': { title: 'Producer', description: 'A MicroSim or textbook emits an xAPI Statement as JSON &mdash; the raw record whose fields we will trace to their storage destinations.' },
+            'GW': { title: 'Gateway validates', description: 'The gateway validates before storing. Three rejection triggers in this chapter: an invalid verb, an unmapped object type, or a missing <code>grouping[0]</code>.' },
+            'CH': { title: 'ClickHouse row', description: 'A valid statement becomes one row in <code>lrs.statements</code>, at full fidelity. From this row, specific fields map onward to graph properties.' },
+            'F1': { title: 'object_id', description: 'The Field-to-Column Map: the statement&rsquo;s Object id becomes the <code>object_id</code> column, identifying which activity was acted on.' },
+            'F2': { title: 'object_type', description: 'The Object&rsquo;s activity type becomes <code>object_type</code> &mdash; page, MicroSim, question, etc.' },
+            'F3': { title: 'result_success', description: 'The Result success flag becomes <code>result_success</code> &mdash; did the learner get it right?' },
+            'F4': { title: 'duration_ms', description: 'The Result duration becomes <code>duration_ms</code> &mdash; time on task in milliseconds.' },
+            'F5': { title: 'concept_ids', description: 'The resolved concepts become <code>concept_ids</code> &mdash; which learning-graph concepts this evidence touches.' },
+            'Comp': { title: 'Compression pipeline', description: 'The compression pipeline rolls many rows into summary vertices, carrying each field forward into a graph property rather than storing per-statement in the graph.' },
+            'NE': { title: 'Neo4j property', description: 'Each field lands as a property on a Neo4j summary vertex. These vertices are PROJECTIONS &mdash; reproducible by replaying the ClickHouse log (Chapter 7), never the system of record themselves.' }
+        };
+    </script>
+    <script src="script.js"></script>
 </body>
 </html>

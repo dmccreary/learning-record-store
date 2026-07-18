@@ -3,117 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
-    <title>From Login to RBAC-Checked Action</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
-    </style>
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>SSO + RBAC Login Flow</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'default', flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' } });
+    </script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="container">
-        <h1>From Login to RBAC-Checked Action</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
+    <div class="container">
+        <div class="diagram-panel">
+            <div class="mermaid">
+flowchart TB
+    S1["1 &middot; User opens the District Overview Dashboard URL<br/><small>lane: User / Browser</small>"]:::user
+    S2["2 &middot; Browser redirects to the district's Identity Provider<br/><small>SAML or OIDC, district's choice</small>"]:::idp
+    S3["3 &middot; User authenticates once<br/><small>existing school credentials</small>"]:::idp
+    S4["4 &middot; Identity Provider returns a signed assertion / token"]:::idp
+    S5["5 &middot; Browser presents the token to the Admin API"]:::user
+    S6["6 &middot; Admin API validates token, resolves Role (District Admin), checks RBAC, returns report"]:::api
+    S1 --> S2 --> S3 --> S4 --> S5 --> S6
+
+    classDef user fill:#37474f,stroke:#1c2529,color:#fff,font-size:12px
+    classDef idp fill:#3d7fc1,stroke:#2a5c91,color:#fff,font-size:12px
+    classDef api fill:#2a9d8f,stroke:#1f7a6f,color:#fff,font-size:12px
+    linkStyle default stroke:#999,stroke-width:2px
+            </div>
         </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> sso-rbac-login-flow</p>
-            <p><strong>Library:</strong> Mermaid</p>
-            <p><strong>Bloom Level:</strong> Understand (L2)</p>
-            <p><strong>Learning Objective:</strong> Let the learner trace a single login from browser to RBAC-checked action across four lanes, distinguishing the identity-proving job (SSO via SAML or OIDC) from the authorization-granting job (RBAC).</p>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a step to see details</p></div>
         </div>
     </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: workflow
-    **sim-id:** sso-rbac-login-flow<br/>
-    **Library:** Mermaid<br/>
-    **Status:** Specified
-    **Template:** https://github.com/dmccreary/cybersecurity/tree/main/docs/sims/iam-request-flow<br/>
-    
-    Bloom Taxonomy: Understand (L2)
-    Bloom Taxonomy Verb: explain, sequence
-    
-    Learning objective: Let the learner trace a single login from browser to RBAC-checked action across four lanes, distinguishing the identity-proving job (SSO via SAML or OIDC) from the authorization-granting job (RBAC).
-    
-    Purpose: A four-lane Mermaid sequence diagram — User, Browser, Identity Provider, and this LRS's Admin API — showing a District Admin logging in and then requesting a report.
-    
-    Steps:
-    
-    1. User opens the District Overview Dashboard URL in the Browser.
-    2. Browser redirects to the district's Identity Provider (labeled "SAML or OIDC, district's choice").
-    3. User authenticates once against the Identity Provider (their existing school credentials).
-    4. Identity Provider returns a signed assertion/token to the Browser.
-    5. Browser presents that token to the Admin API.
-    6. Admin API validates the token, resolves the user's Role (District Admin), and checks RBAC before returning the requested report data.
-    
-    Interactive features: Every lane header and every numbered step is clickable via a Mermaid `click` directive. Clicking a lane header opens an infobox naming that lane's responsibility. Clicking step 2 or 4 opens an infobox distinguishing SAML's XML assertion from OIDC's JSON token. Clicking step 6 opens an infobox stating RBAC is enforced at the API layer, never only in the UI.
-    
-    Color coding: Identity-proving steps (2-4) in blue; authorization-checking step (6) in the book's teal accent color.
-    
-    Implementation: Mermaid sequence diagram with full click-to-infobox coverage, adapted from the referenced template's four-lane federated-login structure. Responsive width tracking the containing element.
-    -->
+    <script>
+        const nodeInfo = {
+            'S1': { title: 'Step 1 &mdash; open the dashboard', description: 'The User (a District Admin) opens the District Overview Dashboard URL in the Browser. The Browser lane is the user&rsquo;s agent throughout.' },
+            'S2': { title: 'Step 2 &mdash; redirect to IdP', description: 'The Browser is redirected to the district&rsquo;s Identity Provider. SSO can use <strong>SAML</strong> (an XML assertion) or <strong>OIDC</strong> (a JSON token) &mdash; the district chooses. This step is about PROVING identity, not granting access.' },
+            'S3': { title: 'Step 3 &mdash; authenticate once', description: 'The user signs in once against their own IdP using existing school credentials. The LRS never sees or stores the password.' },
+            'S4': { title: 'Step 4 &mdash; signed assertion', description: 'The IdP returns a cryptographically signed assertion (SAML) or token (OIDC) to the Browser, attesting who the user is.' },
+            'S5': { title: 'Step 5 &mdash; present the token', description: 'The Browser presents that token to this LRS&rsquo;s Admin API. Identity is now proven; authorization is still to come.' },
+            'S6': { title: 'Step 6 &mdash; RBAC at the API', description: 'The Admin API validates the token, resolves the user&rsquo;s Role (District Admin), and checks RBAC before returning any report data. RBAC is enforced at the API layer &mdash; never only in the UI, which a client could bypass.' }
+        };
+    </script>
+    <script src="script.js"></script>
 </body>
 </html>

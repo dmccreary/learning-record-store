@@ -15,9 +15,10 @@
   "library": "Mermaid",
   "bloomLevel": "Understand (L2)",
   "bloomVerb": "explain, sequence",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 27,
   "chapter_title": "Compliance, Privacy Law, and District-Level Reporting",
   "chapter_dir": "27-compliance-and-district-reporting",
-  "chapter_rel_dir": "chapters/27-compliance-and-district-reporting"
+  "chapter_rel_dir": "chapters/27-compliance-and-district-reporting",
+  "canvasHeight": 560
 }

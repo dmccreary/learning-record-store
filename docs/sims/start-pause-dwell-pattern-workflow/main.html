@@ -3,107 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
-    <title>The Start/Pause Dwell Pattern</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
-    </style>
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Start / Pause Dwell Pattern</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'default', flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' } });
+    </script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="container">
-        <h1>The Start/Pause Dwell Pattern</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
+    <div class="container">
+        <div class="diagram-panel">
+            <div class="mermaid">
+flowchart TB
+    Start["Student clicks Start<br/><small>MicroSim loaded paused</small>"]:::start
+    P1["Pause after a normal run"]:::path
+    P2["Switches tabs while running"]:::path
+    P3["Pause under 250ms"]:::path
+    P4["Walks away, Pause never clicked"]:::path
+    E1["Emit ONE Experienced statement<br/><small>duration = elapsed</small>"]:::emit
+    E2["visibilitychange fires &rarr; Visibility Change Flush<br/><small>emit immediately</small>"]:::emit
+    E3["Emit nothing<br/><small>mis-click</small>"]:::none
+    E4["Emit nothing<br/><small>unclosed interval</small>"]:::none
+    Start --> P1 --> E1
+    Start --> P2 --> E2
+    Start --> P3 --> E3
+    Start --> P4 --> E4
+
+    classDef start fill:#37474f,stroke:#1c2529,color:#fff,font-size:12px
+    classDef path fill:#8fd3c9,stroke:#3bab9d,color:#0c2f2b,font-size:12px
+    classDef emit fill:#2a9d8f,stroke:#1f7a6f,color:#fff,font-size:12px
+    classDef none fill:#8b9bb0,stroke:#5f6e82,color:#fff,font-size:12px
+    linkStyle default stroke:#999,stroke-width:2px
+            </div>
         </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> start-pause-dwell-pattern-workflow</p>
-            <p><strong>Library:</strong> Mermaid</p>
-            <p><strong>Bloom Level:</strong> Apply (L3)</p>
-            <p><strong>Learning Objective:</strong> Let the learner trace a MicroSim's Start/Pause lifecycle through four branches — normal Pause, tab hidden while running, sub-250ms run, walk-away-with-no-pause — and predict which emits an Experienced Verb statement.</p>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a branch to see details</p></div>
         </div>
     </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: workflow
-    **sim-id:** start-pause-dwell-pattern-workflow<br/>
-    **Library:** Mermaid<br/>
-    **Status:** Specified
-    
-    Bloom Taxonomy: Apply (L3)
-    Bloom Taxonomy Verb: trace, predict
-    
-    Learning objective: Let the learner trace a MicroSim's Start/Pause lifecycle through four branches — normal Pause, tab hidden while running, sub-250ms run, walk-away-with-no-pause — and predict which emits an Experienced Verb statement.
-    
-    Purpose: A Mermaid flowchart from "Student clicks Start (loaded paused)" branching into four paths: (1) "Pause after a normal run" → "Emit ONE Experienced statement, duration = elapsed"; (2) "Switches tabs while running" → "visibilitychange fires → Visibility Change Flush: emit immediately"; (3) "Pause under 250ms" → "Emit nothing — mis-click"; (4) "Walks away, Pause never clicked" → "Emit nothing — unclosed interval."
-    
-    Interactive features: Every node has a Mermaid `click` directive opening an infobox explaining that outcome using the reasoning above (unclosed intervals, mis-click noise, mobile Safari's visibilitychange requirement).
-    
-    Color coding: The two "emit nothing" outcomes in muted gray-blue; the two statement-emitting outcomes in the book's teal accent color.
-    
-    Implementation: Mermaid flowchart, top-to-bottom, full click-to-infobox coverage. Responsive: stacks branches vertically on narrow viewports.
-    -->
+    <script>
+        const nodeInfo = {
+            'Start': { title: 'Start (loaded paused)', description: 'A MicroSim loads paused. Only when the student clicks Start does an interval begin. The question each branch answers: does this branch close the interval cleanly enough to emit a statement?' },
+            'P1': { title: 'Normal Pause', description: 'The student runs the sim, then clicks Pause. A clean open-then-close interval.' },
+            'P2': { title: 'Tab hidden while running', description: 'The student switches tabs while the sim is still running &mdash; the interval would otherwise never close on that tab.' },
+            'P3': { title: 'Sub-250ms run', description: 'Start and Pause within 250ms &mdash; almost certainly a mis-click, not real engagement.' },
+            'P4': { title: 'Walk-away, no Pause', description: 'The student wanders off and never clicks Pause. The interval is left open indefinitely.' },
+            'E1': { title: 'Emit one statement', description: 'A normal run emits exactly ONE Experienced statement, with <code>duration</code> = the elapsed run time. The clean, expected case.' },
+            'E2': { title: 'Visibility Change Flush', description: 'The <code>visibilitychange</code> event fires when the tab is hidden, triggering an immediate flush &mdash; emit now, before the tab may be discarded. This is required on mobile Safari, which can kill a backgrounded tab without warning.' },
+            'E3': { title: 'Emit nothing (mis-click)', description: 'A sub-250ms interval emits NOTHING &mdash; it is filtered as mis-click noise so accidental taps do not pollute time-on-task.' },
+            'E4': { title: 'Emit nothing (unclosed)', description: 'A walk-away with no Pause leaves an unclosed interval, which emits NOTHING &mdash; emitting a runaway open-ended duration would badly inflate time-on-task.' }
+        };
+    </script>
+    <script src="script.js"></script>
 </body>
 </html>

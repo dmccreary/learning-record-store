@@ -3,108 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
-    <title>How Concept Mastery Rolls Up to a Section</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
-    </style>
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Section Rollup Aggregation</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'default', flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' } });
+    </script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="container">
-        <h1>How Concept Mastery Rolls Up to a Section</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
+    <div class="container">
+        <div class="diagram-panel">
+            <div class="mermaid">
+flowchart TB
+    Amara["ConceptMastery: Amara<br/><small>score 0.82</small>"]:::student
+    Devon["ConceptMastery: Devon<br/><small>score 0.55</small>"]:::student
+    Priya["ConceptMastery: Priya<br/><small>score 0.91</small>"]:::student
+    Roll["SectionRollup<br/><small>mastery_distribution, mean_score, student_count, last_computed</small>"]:::roll
+    Section["Section"]:::section
+    Rep1["Class Mastery Heatmap"]:::report
+    Rep2["Concept Difficulty Ranking"]:::report
+    Rep3["other class-level reports"]:::report
+    Amara -->|ROLLS_UP_TO| Roll
+    Devon -->|ROLLS_UP_TO| Roll
+    Priya -->|ROLLS_UP_TO| Roll
+    Roll -->|FOR_SECTION| Section
+    Roll -.-> Rep1
+    Roll -.-> Rep2
+    Roll -.-> Rep3
+
+    classDef student fill:#cfd8dc,stroke:#8a9aa1,color:#1a2430,font-size:12px
+    classDef roll fill:#2a9d8f,stroke:#1f7a6f,color:#fff,font-size:12px
+    classDef section fill:#37474f,stroke:#1c2529,color:#fff,font-size:12px
+    classDef report fill:#eef2f0,stroke:#9bbdb5,color:#234,font-size:11px
+    linkStyle default stroke:#999,stroke-width:2px
+            </div>
         </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> section-rollup-aggregation</p>
-            <p><strong>Library:</strong> Mermaid</p>
-            <p><strong>Bloom Level:</strong> Understand (L2)</p>
-            <p><strong>Learning Objective:</strong> Explain how many students' individual ConceptMastery vertices aggregate, through a ROLLS_UP_TO edge, into one SectionRollup vertex per concept, which the ten class-level reports in this chapter all read from.</p>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a node to see details</p></div>
         </div>
     </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: workflow
-    **sim-id:** section-rollup-aggregation<br/>
-    **Library:** Mermaid<br/>
-    **Status:** Specified
-    **Template:** https://github.com/dmccreary/microsims/tree/main/docs/sims/learning-graph-v1<br/>
-    
-    Bloom Taxonomy: Understand (L2)
-    Bloom Taxonomy Verb: explain, trace
-    
-    Learning objective: Explain how many students' individual ConceptMastery vertices aggregate, through a ROLLS_UP_TO edge, into one SectionRollup vertex per concept, which the ten class-level reports in this chapter all read from.
-    
-    Purpose: A Mermaid flowchart showing three sample `ConceptMastery` boxes (one per sample student: Amara, Devon, Priya), each with a small mastery-score label, each connected by a `ROLLS_UP_TO` arrow into one central `SectionRollup` box labeled with its key properties (`mastery_distribution`, `mean_score`, `student_count`, `last_computed`). A `FOR_SECTION` arrow connects the `SectionRollup` box to a `Section` box. A dashed arrow fans out from `SectionRollup` to three placeholder report boxes labeled "Class Mastery Heatmap," "Concept Difficulty Ranking," and "other class-level reports."
-    
-    Interactive features: Clicking any `ConceptMastery` box opens an infobox recapping that it is the same per-student mastery score Chapter 28 introduced. Clicking the `SectionRollup` box opens an infobox listing its four key properties and stating it refreshes incrementally, not by re-scanning every statement. Clicking the `Section` box opens an infobox defining Section Enrollment as the boundary that determines which students' ConceptMastery vertices feed this particular rollup.
-    
-    Color coding: The three student-level ConceptMastery boxes in a light neutral tone to signal "already covered in Chapter 28"; the SectionRollup box in the book's teal accent color to signal "new in this chapter"; the fan-out to report boxes in a muted gray dashed line.
-    
-    Implementation: Mermaid flowchart adapted from the referenced template's node/edge layout conventions, with full click-to-infobox coverage on every node. Responsive width tracking the containing element; on narrow viewports the three ConceptMastery boxes stack vertically above the SectionRollup box instead of side by side.
-    -->
+    <script>
+        const nodeInfo = {
+            'Amara': { title: 'ConceptMastery: Amara', description: 'A per-student ConceptMastery vertex &mdash; the same mastery score Chapter 28 introduced. One exists per student per concept.' },
+            'Devon': { title: 'ConceptMastery: Devon', description: 'Another student&rsquo;s per-concept mastery vertex. Devon&rsquo;s lower score pulls the section mean down.' },
+            'Priya': { title: 'ConceptMastery: Priya', description: 'A third student&rsquo;s per-concept mastery vertex, contributing to the same rollup.' },
+            'Roll': { title: 'SectionRollup vertex', description: 'One SectionRollup vertex per concept aggregates all enrolled students&rsquo; ConceptMastery via the <code>ROLLS_UP_TO</code> edge. Key properties: <code>mastery_distribution</code>, <code>mean_score</code>, <code>student_count</code>, <code>last_computed</code>. It refreshes INCREMENTALLY &mdash; not by re-scanning every statement.' },
+            'Section': { title: 'Section', description: 'The <code>FOR_SECTION</code> edge ties the rollup to its Section. Section Enrollment is the boundary that determines which students&rsquo; ConceptMastery vertices feed THIS particular rollup.' },
+            'Rep1': { title: 'Class Mastery Heatmap', description: 'One of the ten class-level reports. It reads from the SectionRollup, not from raw statements.' },
+            'Rep2': { title: 'Concept Difficulty Ranking', description: 'Another class-level report reading the same rollup &mdash; ranks concepts by how the class is doing.' },
+            'Rep3': { title: 'Other class-level reports', description: 'All ten class-level reports in this chapter read from the SectionRollup, which is why the rollup is computed once and reused.' }
+        };
+    </script>
+    <script src="script.js"></script>
 </body>
 </html>

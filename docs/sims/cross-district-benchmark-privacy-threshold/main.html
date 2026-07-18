@@ -3,107 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
-    <title>Cross-District Benchmark — Applying the Privacy Aggregation Threshold</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
-    </style>
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Cross-District Benchmark Privacy Threshold</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'default', flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' } });
+    </script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="container">
-        <h1>Cross-District Benchmark — Applying the Privacy Aggregation Threshold</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
+    <div class="container">
+        <div class="diagram-panel">
+            <div class="mermaid">
+flowchart TB
+    Group["Candidate district group"]:::start
+    Size{"Group size &ge; 10 students?"}:::decide
+    Show["Display de-identified aggregate<br/><small>box plot</small>"]:::show
+    Suppress["Suppress &mdash; merge with an adjacent group, or omit"]:::suppress
+    Report["Cross-District Benchmark Report<br/><small>always renders, never a suppressed group's raw values</small>"]:::report
+    Group --> Size
+    Size -->|yes| Show --> Report
+    Size -->|no| Suppress --> Report
+
+    classDef start fill:#37474f,stroke:#1c2529,color:#fff,font-size:13px
+    classDef decide fill:#e9a23b,stroke:#b8791f,color:#222,font-size:13px
+    classDef show fill:#2a9d8f,stroke:#1f7a6f,color:#fff,font-size:12px
+    classDef suppress fill:#9aa7b4,stroke:#5f6e82,color:#fff,font-size:12px
+    classDef report fill:#37474f,stroke:#1c2529,color:#fff,font-size:12px
+    linkStyle default stroke:#999,stroke-width:2px
+            </div>
         </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> cross-district-benchmark-privacy-threshold</p>
-            <p><strong>Library:</strong> Mermaid</p>
-            <p><strong>Bloom Level:</strong> Apply (L3)</p>
-            <p><strong>Learning Objective:</strong> Apply the aggregation-threshold rule to determine whether a cross-district comparison may be displayed to an author, given a set of candidate district groupings of varying size.</p>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a node to see details</p></div>
         </div>
     </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: workflow
-    **sim-id:** cross-district-benchmark-privacy-threshold<br/>
-    **Library:** Mermaid<br/>
-    **Status:** Specified
-    
-    Bloom Taxonomy: Apply (L3)
-    Bloom Taxonomy Verb: apply, determine
-    
-    Learning objective: Apply the aggregation-threshold rule to determine whether a cross-district comparison may be displayed to an author, given a set of candidate district groupings of varying size.
-    
-    Purpose: A Mermaid flowchart starting from a "Candidate district group" decision node, branching on "group size >= 10 students?" Yes leads to a "Display de-identified aggregate (box plot)" box; No leads to a "Suppress — merge with an adjacent group or omit" box. A third box below both outcomes, "Cross-District Benchmark Report," receives arrows from both branches, showing that the report always renders something, but never a suppressed group's raw values.
-    
-    Interactive features: Every node is wired with a Mermaid `click` directive. Clicking the decision node opens an infobox defining the aggregation threshold and its default value (group size >= 10). Clicking "Display de-identified aggregate" opens an infobox explaining that even a displayed aggregate never identifies a single district by name in the chart itself. Clicking "Suppress" opens an infobox explaining that suppression is enforced at the API layer, not merely hidden in the dashboard, so no client-side request can retrieve the raw group either.
-    
-    Color coding: The threshold decision node in the book's amber accent color to mark it as the single enforcement choke point; the "Display" outcome in teal; the "Suppress" outcome in a muted gray to signal "intentionally withheld," not "missing data."
-    
-    Responsive design: The flowchart resizes to the containing element's width; on narrow viewports the two outcome boxes stack vertically beneath the decision node instead of branching left and right.
-    -->
+    <script>
+        const nodeInfo = {
+            'Group': { title: 'Candidate group', description: 'A candidate district grouping the author wants to benchmark. Whether it may be shown depends entirely on its size.' },
+            'Size': { title: 'Aggregation threshold', description: 'The single enforcement choke point: is the group at least 10 students (the default aggregation threshold)? Groups below the threshold cannot be shown, because a small group risks re-identifying individuals.' },
+            'Show': { title: 'Display aggregate', description: 'Groups at or above the threshold are shown as a de-identified aggregate (a box plot). Even then, the chart never identifies a single district by name.' },
+            'Suppress': { title: 'Suppress', description: 'Below-threshold groups are suppressed &mdash; merged with an adjacent group or omitted. This is enforced at the API layer, not merely hidden in the dashboard, so no client-side request can retrieve the raw group either.' },
+            'Report': { title: 'Report always renders', description: 'The Cross-District Benchmark Report always renders SOMETHING &mdash; it just never exposes a suppressed group&rsquo;s raw values. Suppression is &ldquo;intentionally withheld,&rdquo; not &ldquo;missing data.&rdquo;' }
+        };
+    </script>
+    <script src="script.js"></script>
 </body>
 </html>

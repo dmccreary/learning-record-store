@@ -15,9 +15,10 @@
   "library": "Mermaid",
   "bloomLevel": "Understand (L2)",
   "bloomVerb": "explain, summarize",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 24,
   "chapter_title": "Meet the Three Personas and the Admin UI Surface",
   "chapter_dir": "24-three-personas-and-admin-uis",
-  "chapter_rel_dir": "chapters/24-three-personas-and-admin-uis"
+  "chapter_rel_dir": "chapters/24-three-personas-and-admin-uis",
+  "canvasHeight": 600
 }

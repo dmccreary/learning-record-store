@@ -15,9 +15,10 @@
   "library": "Mermaid",
   "bloomLevel": "Apply (L3)",
   "bloomVerb": "operate, differentiate",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 26,
   "chapter_title": "District Administrator: Access Control and System Configuration",
   "chapter_dir": "26-district-admin-access-control",
-  "chapter_rel_dir": "chapters/26-district-admin-access-control"
+  "chapter_rel_dir": "chapters/26-district-admin-access-control",
+  "canvasHeight": 680
 }

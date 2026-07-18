@@ -3,115 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
     <title>Cross-Persona Workflow</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
-    </style>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'default', flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' } });
+    </script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="container">
-        <h1>Cross-Persona Workflow</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
+    <div class="container">
+        <div class="diagram-panel">
+            <div class="mermaid">
+flowchart TB
+    E1["Student answers a MicroSim question correctly"]:::src
+    E2["xAPI Statement ingested once<br/><small>Actor, Verb, Object Activity, Result</small>"]:::src
+    TA["Teacher: BKT update for this student's<br/>cellular-respiration mastery"]:::teach
+    TB["At-risk roster re-evaluated for this student"]:::teach
+    DA["District Admin: counted toward this section's<br/>textbook-usage coverage, no student named"]:::dist
+    DB["District adoption percentage updated"]:::dist
+    AA["Author: added to this MicroSim version's<br/>running effectiveness estimate, no student named"]:::auth
+    AB["Feeds the Experiment Administration UI readout<br/>if an experiment is running"]:::auth
+    E1 --> E2
+    E2 --> TA --> TB
+    E2 --> DA --> DB
+    E2 --> AA --> AB
+
+    classDef src fill:#2a9d8f,stroke:#1f7a6f,color:#fff,font-size:13px
+    classDef teach fill:#7b6cc4,stroke:#544a91,color:#fff,font-size:12px
+    classDef dist fill:#e9a23b,stroke:#b8791f,color:#222,font-size:12px
+    classDef auth fill:#4c956c,stroke:#2f6b48,color:#fff,font-size:12px
+    linkStyle default stroke:#999,stroke-width:2px
+            </div>
         </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> cross-persona-workflow</p>
-            <p><strong>Library:</strong> Mermaid</p>
-            <p><strong>Bloom Level:</strong> Analyze (L4)</p>
-            <p><strong>Learning Objective:</strong> Trace one ingested xAPI Statement through three independent, simultaneously-updated aggregations, and analyze why no persona's view requires a separate data pipeline from the others.</p>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a node to see details</p></div>
         </div>
     </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: workflow
-    **sim-id:** cross-persona-workflow<br/>
-    **Library:** Mermaid<br/>
-    **Status:** Specified
-    
-    Bloom Taxonomy: Analyze (L4)
-    Bloom Taxonomy Verb: trace, analyze
-    
-    Learning objective: Trace one ingested xAPI Statement through three independent, simultaneously-updated aggregations, and analyze why no persona's view requires a separate data pipeline from the others.
-    
-    Purpose: A single Mermaid flowchart tracing one concrete Statement (a student's correct MicroSim answer on cellular respiration) from ingestion into three parallel, non-interfering outcomes.
-    
-    Flow: "Student answers MicroSim question correctly" -> "xAPI Statement ingested once (Actor, Verb, Object Activity, Result)" -> three parallel branches.
-    
-    Branch A "Teacher": -> "Bayesian Knowledge Tracing update for this student's cellular-respiration mastery" -> "At-risk roster re-evaluated for this student."
-    
-    Branch B "District Administrator": -> "Counted toward this section's textbook-usage coverage, no student named" -> "District adoption percentage updated."
-    
-    Branch C "Textbook Author": -> "Added to this MicroSim version's running effectiveness estimate, no student named" -> "Feeds the Experiment Administration UI's readout if an experiment is running."
-    
-    Interactive features: Every node has a Mermaid click directive. Clicking the shared ingestion node opens an infobox recapping that this is the same non-blocking ingestion path Chapter 8 described. Clicking any Branch A node opens an infobox linking to Chapter 12's Bayesian Knowledge Tracing explanation. Clicking any Branch B node opens an infobox naming the aggregation-threshold rule from Chapter 15 that would suppress this count if the group were smaller than ten. Clicking any Branch C node opens an infobox previewing Chapter 30 and Chapter 31's content-effectiveness and experiment coverage.
-    
-    Color coding: Shared ingestion node in teal; Teacher branch in violet; District Administrator branch in amber; Textbook Author branch in green — matching the same three persona colors used in the "Three Personas, One Statement Log" diagram earlier in this chapter, so a reader recognizes the color scheme as a running convention.
-    
-    Responsive design: The three branches stack vertically below the shared node on narrow viewports; click targets stay tap-sized.
-    -->
+    <script>
+        const nodeInfo = {
+            'E1': { title: 'One real event', description: 'A single student answers one MicroSim question on cellular respiration correctly. Everything downstream flows from this one event.' },
+            'E2': { title: 'Ingested once', description: 'The event becomes one xAPI Statement, ingested exactly once through the same non-blocking path Chapter 8 described. Three personas will read it &mdash; but it is stored only once.' },
+            'TA': { title: 'Teacher: mastery', description: 'For the teacher, the statement drives a Bayesian Knowledge Tracing update of this student&rsquo;s cellular-respiration mastery. See Chapter 12 for the BKT mechanism.' },
+            'TB': { title: 'Teacher: at-risk', description: 'The updated mastery re-evaluates whether this student belongs on the at-risk roster &mdash; a named, per-student view only the teacher can see.' },
+            'DA': { title: 'District Admin: coverage', description: 'For the district admin, the same statement is counted toward this section&rsquo;s textbook-usage coverage &mdash; aggregated, with no student named. If the group were smaller than ten, Chapter 15&rsquo;s aggregation threshold would suppress the count.' },
+            'DB': { title: 'District Admin: adoption', description: 'The count rolls up into the district&rsquo;s adoption percentage &mdash; a compliance-and-usage view, never individual students.' },
+            'AA': { title: 'Author: effectiveness', description: 'For the textbook author, the statement feeds this MicroSim version&rsquo;s running effectiveness estimate &mdash; de-identified, no student named.' },
+            'AB': { title: 'Author: experiment', description: 'If an experiment is running, the same evidence feeds the Experiment Administration UI readout (Chapters 30&ndash;31). One statement, three non-interfering aggregations &mdash; no persona needs a separate pipeline.' }
+        };
+    </script>
+    <script src="script.js"></script>
 </body>
 </html>

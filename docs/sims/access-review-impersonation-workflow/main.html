@@ -3,111 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
-    <title>Access Review and Impersonation Audit Workflow</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
-    </style>
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Access Review &amp; Impersonation Workflow</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'default', flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' } });
+    </script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="container">
-        <h1>Access Review and Impersonation Audit Workflow</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
+    <div class="container">
+        <div class="diagram-panel">
+            <div class="mermaid">
+flowchart TB
+    Shared["User &amp; Access Management UI<br/><small>both processes live here; both write to the Audit Log</small>"]:::shared
+    subgraph LANEA["Access Review (routine, scheduled)"]
+        direction TB
+        A1["Review window opens"]:::routine
+        A2["Admin sees every active account and scope in their territory"]:::routine
+        A3{"Grant still needed?"}:::decide
+        A4["Yes: grant reconfirmed, review timestamp reset"]:::routine
+        A5["No / no response: grant flagged as stale"]:::routine
+        A6["Admin revokes, or later reconfirms, the stale grant"]:::routine
+        A1 --> A2 --> A3
+        A3 -->|yes| A4
+        A3 -->|no| A5 --> A6
+    end
+    subgraph LANEB["Impersonation (exceptional, heavily audited)"]
+        direction TB
+        B1["System Admin initiates impersonation for support"]:::exc
+        B2["Persistent banner: 'Impersonating: [user]' on every screen"]:::exc
+        B3["Support action taken as the impersonated user"]:::exc
+        B4["Action logged with an impersonation marker"]:::exc
+        B5["Session ends; banner disappears"]:::exc
+        B1 --> B2 --> B3 --> B4 --> B5
+    end
+    Shared --> A1
+    Shared --> B1
+
+    classDef shared fill:#37474f,stroke:#1c2529,color:#fff,font-size:12px
+    classDef routine fill:#2a9d8f,stroke:#1f7a6f,color:#fff,font-size:12px
+    classDef decide fill:#f0d67a,stroke:#b8961f,color:#222,font-size:12px
+    classDef exc fill:#e9a23b,stroke:#b8791f,color:#222,font-size:12px
+    linkStyle default stroke:#999,stroke-width:2px
+            </div>
         </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> access-review-impersonation-workflow</p>
-            <p><strong>Library:</strong> Mermaid</p>
-            <p><strong>Bloom Level:</strong> Apply (L3)</p>
-            <p><strong>Learning Objective:</strong> Operate the Access Review Workflow as an administrator would, and differentiate its routine, scheduled nature from an Impersonation session's exceptional, heavily-audited one, even though both live on the same admin screen.</p>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a node to see details</p></div>
         </div>
     </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: workflow
-    **sim-id:** access-review-impersonation-workflow<br/>
-    **Library:** Mermaid<br/>
-    **Status:** Specified
-    
-    Bloom Taxonomy: Apply (L3)
-    Bloom Taxonomy Verb: operate, differentiate
-    
-    Learning objective: Operate the Access Review Workflow as an administrator would, and differentiate its routine, scheduled nature from an Impersonation session's exceptional, heavily-audited one, even though both live on the same admin screen.
-    
-    Purpose: A Mermaid flowchart with two parallel swimlanes sharing one starting node, so a learner can compare a routine process against an exceptional one side by side.
-    
-    Swimlane A "Access Review (routine, scheduled)": "Review window opens" -> "Administrator sees every active account and scope in their territory" -> "Administrator confirms grant is still needed?" -- branches into "Yes: grant reconfirmed, review timestamp reset" and "No or no response: grant flagged as stale" -> "Administrator revokes or later reconfirms the stale grant."
-    
-    Swimlane B "Impersonation (exceptional, heavily audited)": "System Administrator initiates impersonation for support" -> "Persistent banner displays 'Impersonating: [user]' on every screen" -> "Support action taken as impersonated user" -> "Action logged with impersonation marker" -> "Session ends; banner disappears."
-    
-    Interactive features: Every node has a Mermaid `click` directive. Clicking any Swimlane A node opens an infobox matching this chapter's prose on stale-grant flagging. Clicking any Swimlane B node opens an infobox matching this chapter's prose on the persistent banner and full action logging. Clicking the shared starting node opens an infobox stating that both processes exist on the User & Access Management UI, and both write to the Audit Log Browser this chapter covers next.
-    
-    Color coding: Swimlane A in the book's teal accent color to signal routine, low-stakes operation; Swimlane B in amber to signal an exceptional, closely-watched operation.
-    
-    Responsive design: Swimlanes stack vertically on narrow viewports instead of running side by side, preserving the left-to-right sequence within each lane.
-    -->
+    <script>
+        const nodeInfo = {
+            'Shared': { title: 'One screen, two processes', description: 'Both the routine Access Review and the exceptional Impersonation flow live on the User &amp; Access Management UI, and both write to the Audit Log Browser covered next in this chapter.' },
+            'A1': { title: 'Review window opens', description: 'Access Review is scheduled &mdash; it runs on a recurring cadence, not in response to an incident.' },
+            'A2': { title: 'See all grants', description: 'The administrator sees every active account and scope within their territory, laid out for review.' },
+            'A3': { title: 'Still needed?', description: 'For each grant the admin decides whether it is still needed &mdash; the routine judgment at the heart of least-privilege hygiene.' },
+            'A4': { title: 'Reconfirmed', description: 'A grant that is still needed is reconfirmed and its review timestamp reset, restarting the clock.' },
+            'A5': { title: 'Flagged stale', description: 'A grant answered &ldquo;no&rdquo; &mdash; or ignored &mdash; is flagged as stale, surfacing access that has outlived its purpose.' },
+            'A6': { title: 'Revoke or reconfirm', description: 'The admin revokes the stale grant, or later reconfirms it if it turns out to still be needed.' },
+            'B1': { title: 'Initiate impersonation', description: 'Impersonation is exceptional: a System Administrator starts it only to provide support, and it is heavily audited.' },
+            'B2': { title: 'Persistent banner', description: 'While active, a persistent banner reading &ldquo;Impersonating: [user]&rdquo; shows on every screen &mdash; there is no way to forget you are impersonating.' },
+            'B3': { title: 'Action as user', description: 'Support actions are taken as the impersonated user so the admin sees exactly what the user sees.' },
+            'B4': { title: 'Logged with marker', description: 'Every action is written to the audit log with an explicit impersonation marker, distinguishing it from the real user&rsquo;s own actions.' },
+            'B5': { title: 'Session ends', description: 'When the session ends the banner disappears and normal access resumes &mdash; a bounded, fully-traced exception.' }
+        };
+    </script>
+    <script src="script.js"></script>
 </body>
 </html>
