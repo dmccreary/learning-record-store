@@ -1,5 +1,5 @@
 {
-  "title": "Processor Batch Loop — Dedup, Score, and Replay",
+  "title": "Processor Batch Loop \u2014 Dedup, Score, and Replay",
   "description": "Let the learner trace a batch of statements through the processor's Kafka Consumer Batch Window, ReplacingMergeTree Dedup, and BKT Streaming Update, then differentiate the ordinary redelivery path from the late-arrival path that triggers a Targeted Replay Command.",
   "creator": "Learning Record Store",
   "author": "Dan McCreary",
@@ -15,9 +15,10 @@
   "library": "Mermaid",
   "bloomLevel": "Analyze (L4)",
   "bloomVerb": "trace, differentiate",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 13,
   "chapter_title": "Component Design in Depth",
   "chapter_dir": "13-component-design-in-depth",
-  "chapter_rel_dir": "chapters/13-component-design-in-depth"
+  "chapter_rel_dir": "chapters/13-component-design-in-depth",
+  "canvasHeight": 640
 }

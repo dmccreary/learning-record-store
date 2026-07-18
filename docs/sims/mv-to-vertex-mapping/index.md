@@ -1,7 +1,7 @@
 ---
 title: Materialized Views to Summary Vertex Mapping
 description: Let the learner trace raw rows in lrs.statements through each of the three materialized views to the specific Neo4j summary vertex label each view feeds, and differentiate the aggregation grain of each path.
-status: scaffold
+status: implemented
 library: Mermaid
 bloom_level: Analyze (L4)
 ---
@@ -10,7 +10,7 @@ bloom_level: Analyze (L4)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="482"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

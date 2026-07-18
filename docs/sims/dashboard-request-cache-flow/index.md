@@ -1,7 +1,7 @@
 ---
 title: Analytics Cache Key and the Privacy Filter Choke Point
 description: Let the learner trace a dashboard request from its Report ID Endpoint Pattern URL through an Analytics Cache Key lookup, a Data Version Invalidation check, and the single Privacy Filter Choke Point, to a response that meets the P95 Latency Budget.
-status: scaffold
+status: implemented
 library: Mermaid
 bloom_level: Analyze (L4)
 ---
@@ -10,7 +10,7 @@ bloom_level: Analyze (L4)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="562"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

@@ -3,109 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
     <title>Gateway Request Pipeline</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
-    </style>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'default', flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' } });
+    </script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="container">
-        <h1>Gateway Request Pipeline</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
+    <div class="container">
+        <div class="diagram-panel">
+            <div class="mermaid">
+flowchart TB
+    P1["Textbook sends POST /xapi/statements<br/><small>(batch)</small>"]:::before
+    P2["AuthN Token Cache lookup<br/><small>Redis, 60s TTL; falls back to local LRU on Redis failure</small>"]:::before
+    P3["Tier-1 structural validation<br/><small>all-or-nothing per batch</small>"]:::before
+    P4["Assign UUIDv7 Statement ID where missing"]:::before
+    P5["Produce to Kafka<br/><small>acks=all, key = district:student</small>"]:::after
+    OK["Broker acks &rarr; 200 with statement IDs"]:::after
+    Fail["Backpressure Queue full AND broker unreachable<br/><small>&rarr; 503 + Retry-After + page alert</small>"]:::exc
+    P1 --> P2 --> P3 --> P4 --> P5
+    P5 --> OK
+    P5 --> Fail
+
+    classDef before fill:#8b9bb0,stroke:#5f6e82,color:#fff,font-size:13px
+    classDef after fill:#2a9d8f,stroke:#1f7a6f,color:#fff,font-size:13px
+    classDef exc fill:#e9a23b,stroke:#b8791f,color:#222,font-size:13px
+    linkStyle default stroke:#999,stroke-width:2px
+            </div>
         </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> gateway-request-pipeline</p>
-            <p><strong>Library:</strong> Mermaid</p>
-            <p><strong>Bloom Level:</strong> Understand (L2)</p>
-            <p><strong>Learning Objective:</strong> Let the learner trace one xAPI statement batch through the gateway's five-step request path — token cache lookup, structural validation, statement ID assignment, durable-queue produce with acks=all, and response — and explain what each step protects against.</p>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a step to see details</p></div>
         </div>
     </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: workflow
-    **sim-id:** gateway-request-pipeline<br/>
-    **Library:** Mermaid<br/>
-    **Status:** Specified
-    
-    Bloom Taxonomy: Understand (L2)
-    Bloom Taxonomy Verb: trace, explain
-    
-    Learning objective: Let the learner trace one xAPI statement batch through the gateway's five-step request path — token cache lookup, structural validation, statement ID assignment, durable-queue produce with acks=all, and response — and explain what each step protects against.
-    
-    Purpose: Show a single Mermaid flowchart tracing one POST request through the gateway's internal steps in order, ending at two possible outcomes.
-    
-    Nodes: "Textbook sends POST /xapi/statements (batch)" leads to "AuthN Token Cache lookup (Redis, 60s TTL; falls back to local LRU on Redis failure)" leads to "Tier-1 structural validation (all-or-nothing per batch)" leads to "Assign UUIDv7 Statement ID where missing" leads to "Produce to Kafka: Kafka Producer Acks All, key = district:student" then splits into two outcomes: "Broker acks → 200 with statement IDs" and "Gateway Backpressure Queue full AND broker unreachable → 503 with Retry-After + page alert".
-    
-    Interactive features: Every node has a Mermaid click directive opening an infobox with that step's one-sentence definition (cache fallback, UUIDv7 sortability, acks=all latency tradeoff, or the outcome condition). A toggle labeled "Show durability boundary" highlights every node before the Kafka produce step in one color and every node after it in another, reinforcing that the response happens only after the queue acknowledges.
-    
-    Color coding: Steps before the durability boundary (queue ack) in a neutral gray-blue; the Kafka produce node and everything after it in the book's teal accent color; the 503 outcome branch in amber to flag it as the exceptional path.
-    
-    Responsive design: Flowchart resizes to the width of its containing element; on narrow viewports the chain reflows top-to-bottom.
-    -->
+    <script>
+        const nodeInfo = {
+            'P1': { title: 'POST a batch', description: 'A textbook submits a batch of statements in one request &mdash; batching amortizes the HTTP and auth cost across many statements.' },
+            'P2': { title: 'Token Cache lookup', description: 'The gateway checks the AuthN Token Cache (Redis, 60s TTL). If Redis is unavailable it falls back to a local LRU cache, so an auth-store hiccup does not stop ingestion.' },
+            'P3': { title: 'Structural validation', description: 'Tier-1 validation is all-or-nothing per batch: if any statement in the batch is malformed the whole batch is rejected, so partially-valid batches never enter the queue.' },
+            'P4': { title: 'Assign UUIDv7', description: 'Any statement missing an id gets a UUIDv7 &mdash; time-ordered, so ids sort roughly by creation time, which helps downstream storage locality.' },
+            'P5': { title: 'Produce to Kafka (durability boundary)', description: 'The batch is produced to Kafka with <code>acks=all</code> (every in-sync replica must acknowledge) and keyed <code>district:student</code> to preserve per-student order. The response is sent only after this ack &mdash; the durability boundary.' },
+            'OK': { title: '200 &mdash; success', description: 'The broker acknowledged the write, so the gateway returns 200 with the assigned statement IDs. The data is durably queued before the client hears success.' },
+            'Fail': { title: '503 &mdash; backpressure', description: 'If the Backpressure Queue is full AND the broker is unreachable, the gateway returns 503 with a <code>Retry-After</code> header and pages an operator &mdash; it sheds load rather than losing data.' }
+        };
+    </script>
+    <script src="script.js"></script>
 </body>
 </html>

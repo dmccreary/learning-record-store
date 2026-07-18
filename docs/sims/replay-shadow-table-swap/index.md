@@ -1,7 +1,7 @@
 ---
 title: Replay Command and Rebuild Graph Command Compared
 description: Let the learner trace the Replay Command's shadow-table-and-swap path side by side with the Rebuild Graph Command's watermark-reset path, and explain why the second needs no separate rebuild logic of its own.
-status: scaffold
+status: implemented
 library: Mermaid
 bloom_level: Analyze (L4)
 ---
@@ -10,7 +10,7 @@ bloom_level: Analyze (L4)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="662"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

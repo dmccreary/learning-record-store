@@ -1,7 +1,7 @@
 ---
 title: Image Supply Chain Pipeline
 description: Trace a single image from a release-tag push through build, cache, provenance/SBOM generation, vulnerability scanning, and signing, and explain why a deployment must reference the resulting digest rather than a mutable tag.
-status: scaffold
+status: implemented
 library: Mermaid
 bloom_level: Analyze (L4)
 ---
@@ -10,7 +10,7 @@ bloom_level: Analyze (L4)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="642"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

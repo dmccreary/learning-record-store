@@ -1,7 +1,7 @@
 ---
 title: Pseudonymization Pipeline
 description: Let the learner trace how a raw actor identifier becomes an irreversible `student_key`, following the hop from the statement body through the Mutual TLS Salt Fetch and the HMAC-SHA256 Pseudonymization computation to the pseudonymous key written to ClickHouse.
-status: scaffold
+status: implemented
 library: Mermaid
 bloom_level: Understand (L2)
 ---
@@ -10,7 +10,7 @@ bloom_level: Understand (L2)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="522"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

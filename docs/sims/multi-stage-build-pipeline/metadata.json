@@ -15,9 +15,10 @@
   "library": "Mermaid",
   "bloomLevel": "Understand (L2)",
   "bloomVerb": "trace, explain",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 16,
   "chapter_title": "The Container Image and the Role Dispatcher CLI",
   "chapter_dir": "16-container-image-and-cli",
-  "chapter_rel_dir": "chapters/16-container-image-and-cli"
+  "chapter_rel_dir": "chapters/16-container-image-and-cli",
+  "canvasHeight": 560
 }

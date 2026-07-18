@@ -3,110 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
     <title>Image Supply Chain Pipeline</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
-    </style>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'default', flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' } });
+    </script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="container">
-        <h1>Image Supply Chain Pipeline</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
+    <div class="container">
+        <div class="diagram-panel">
+            <div class="mermaid">
+flowchart TB
+    S1["Push to release tag"]:::build
+    S2["Docker Buildx<br/><small>multi-arch: amd64 + arm64</small>"]:::build
+    S3["GHA Layer Cache"]:::build
+    S4["Build image, attach<br/>Provenance Attestation + SBOM"]:::build
+    S5["Trivy Vulnerability Scan<br/><small>CRITICAL/HIGH = block</small>"]:::gate
+    Blocked["Release blocked, exit 1"]:::blocked
+    S6["Cosign Image Signing"]:::gate
+    S7["Push ghcr.io/dmccreary/lrs@sha256:...<br/><small>Immutable Digest Reference</small>"]:::deploy
+    S8["Deployment pulls by digest, never by tag"]:::deploy
+    S1 --> S2 --> S3 --> S4 --> S5
+    S5 -->|Vulnerabilities found| Blocked
+    S5 -->|Clean scan| S6 --> S7 --> S8
+
+    classDef build fill:#2a9d8f,stroke:#1f7a6f,color:#fff,font-size:13px
+    classDef gate fill:#e9a23b,stroke:#b8791f,color:#222,font-size:13px
+    classDef blocked fill:#e05a5a,stroke:#b23b3b,color:#fff,font-size:13px
+    classDef deploy fill:#4c956c,stroke:#2f6b48,color:#fff,font-size:13px
+    linkStyle default stroke:#999,stroke-width:2px
+            </div>
         </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> image-supply-chain-pipeline</p>
-            <p><strong>Library:</strong> Mermaid</p>
-            <p><strong>Bloom Level:</strong> Analyze (L4)</p>
-            <p><strong>Learning Objective:</strong> Trace a single image from a release-tag push through build, cache, provenance/SBOM generation, vulnerability scanning, and signing, and explain why a deployment must reference the resulting digest rather than a mutable tag.</p>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a step to see details</p></div>
         </div>
     </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: workflow
-    **sim-id:** image-supply-chain-pipeline<br/>
-    **Library:** Mermaid<br/>
-    **Status:** Specified
-    **Template:** https://github.com/dmccreary/infographics/tree/main/docs/sims/cicd-deployment-pipeline<br/>
-    
-    Bloom Taxonomy: Analyze (L4)
-    Bloom Taxonomy Verb: trace, differentiate
-    
-    Learning objective: Trace a single image from a release-tag push through build, cache, provenance/SBOM generation, vulnerability scanning, and signing, and explain why a deployment must reference the resulting digest rather than a mutable tag.
-    
-    Purpose: A left-to-right Mermaid flowchart tracing one release through the abridged workflow quoted in this chapter's prose.
-    
-    Nodes in order: "Push to release tag" -> "Docker Buildx (multi-arch: amd64 + arm64)" -> "GHA Layer Cache" -> "Build image, attach Provenance Attestation + SBOM" -> "Trivy Vulnerability Scan (CRITICAL/HIGH = block)" -> two branches: "Vulnerabilities found" to a red "Release blocked, exit 1" end node; "Clean scan" onward to "Cosign Image Signing" -> "Push ghcr.io/dmccreary/lrs@sha256:... (Immutable Digest Reference)" -> "Deployment pulls by digest, never by tag".
-    
-    Interactive features: Every node has a Mermaid click directive opening an infobox with a one-sentence definition drawn from this chapter's prose. Clicking the Trivy node explains severity and exit-code gating. Clicking the final two nodes explains the difference between a mutable tag and an immutable digest reference.
-    
-    Color coding: Build-stage nodes in the book's teal accent color, security-gate nodes (Trivy, Cosign) in amber, the blocked-release branch in red, the final deploy-by-digest node in green.
-    
-    Responsive design: The flowchart stacks vertically on narrow viewports, preserving left-to-right order as top-to-bottom, with the two branch paths staying visually distinct.
-    -->
+    <script>
+        const nodeInfo = {
+            'S1': { title: 'Push a release tag', description: 'A push to a release tag triggers the image build workflow &mdash; releases are cut from tags, not arbitrary commits.' },
+            'S2': { title: 'Docker Buildx', description: 'Buildx builds a multi-architecture image for both amd64 and arm64 from one workflow, so the same release runs on either CPU.' },
+            'S3': { title: 'GHA Layer Cache', description: 'GitHub Actions layer caching reuses unchanged layers between builds, cutting build time without changing the output.' },
+            'S4': { title: 'Provenance + SBOM', description: 'The build attaches a Provenance Attestation (how/where it was built) and a Software Bill of Materials (what is inside), so the image is auditable.' },
+            'S5': { title: 'Trivy scan (gate)', description: 'Trivy scans the image for known vulnerabilities. Any CRITICAL or HIGH finding fails the job with a non-zero exit code &mdash; severity-based, exit-code gating that blocks the release.' },
+            'Blocked': { title: 'Release blocked', description: 'If vulnerabilities are found the workflow exits 1 and nothing is signed or pushed &mdash; a vulnerable image never reaches the registry.' },
+            'S6': { title: 'Cosign signing', description: 'A clean scan proceeds to Cosign, which cryptographically signs the image so consumers can verify it was produced by this pipeline and not tampered with.' },
+            'S7': { title: 'Immutable Digest Reference', description: 'The signed image is pushed and addressed by its content digest, <code>@sha256:...</code>. A digest is immutable &mdash; it always names exactly these bytes.' },
+            'S8': { title: 'Deploy by digest', description: 'Deployments reference the digest, never a mutable tag like <code>:latest</code>. A tag can be moved to point at different bytes later; a digest cannot, so deploying by digest guarantees you run exactly the scanned, signed image.' }
+        };
+    </script>
+    <script src="script.js"></script>
 </body>
 </html>

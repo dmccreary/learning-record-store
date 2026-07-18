@@ -15,9 +15,10 @@
   "library": "Mermaid",
   "bloomLevel": "Analyze (L4)",
   "bloomVerb": "differentiate, trace",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 15,
   "chapter_title": "Privacy Enforcement and Dashboard Mechanics",
   "chapter_dir": "15-privacy-and-dashboard-mechanics",
-  "chapter_rel_dir": "chapters/15-privacy-and-dashboard-mechanics"
+  "chapter_rel_dir": "chapters/15-privacy-and-dashboard-mechanics",
+  "canvasHeight": 660
 }

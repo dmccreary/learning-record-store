@@ -3,109 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
     <title>Compose Startup Dependency Graph</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
-    </style>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'default', flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' } });
+    </script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="container">
-        <h1>Compose Startup Dependency Graph</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
+    <div class="container">
+        <div class="diagram-panel">
+            <div class="mermaid">
+flowchart TB
+    redpanda["redpanda"]:::svc
+    clickhouse["clickhouse"]:::svc
+    neo4j["neo4j"]:::svc
+    redis["redis"]:::svc
+    vaultdb["vault-db"]:::svc
+    bootstrap["bootstrap"]:::boot
+    identity["identity"]:::role
+    processor["processor"]:::role
+    summarizer["summarizer"]:::role
+    gateway["gateway"]:::gw
+    redpanda -->|service_healthy| bootstrap
+    clickhouse -->|service_healthy| bootstrap
+    neo4j -->|service_healthy| bootstrap
+    redis -->|service_healthy| bootstrap
+    vaultdb -->|service_healthy| bootstrap
+    bootstrap -->|service_completed_successfully| identity
+    bootstrap -->|service_completed_successfully| processor
+    bootstrap -->|service_completed_successfully| summarizer
+    redpanda -->|service_healthy| identity
+    clickhouse -->|service_healthy| processor
+    neo4j -->|service_healthy| summarizer
+    redis -->|service_healthy| identity
+    redpanda ==>|"service_healthy (deliberately narrow, spec 5.4)"| gateway
+
+    classDef svc fill:#8b9bb0,stroke:#5f6e82,color:#fff,font-size:13px
+    classDef boot fill:#e9a23b,stroke:#b8791f,color:#222,font-size:13px
+    classDef role fill:#2a9d8f,stroke:#1f7a6f,color:#fff,font-size:13px
+    classDef gw fill:#7b6cc4,stroke:#544a91,color:#fff,font-size:13px
+    linkStyle default stroke:#999,stroke-width:2px
+            </div>
         </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> compose-startup-dependency-graph</p>
-            <p><strong>Library:</strong> Mermaid</p>
-            <p><strong>Bloom Level:</strong> Analyze (L4)</p>
-            <p><strong>Learning Objective:</strong> Trace which services gate which other services at startup, and explain why the gateway's dependency list is deliberately narrower than every other application role's.</p>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a service to see details</p></div>
         </div>
     </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: workflow
-    **sim-id:** compose-startup-dependency-graph<br/>
-    **Library:** Mermaid<br/>
-    **Status:** Specified
-    
-    Bloom Taxonomy: Analyze (L4)
-    Bloom Taxonomy Verb: trace, differentiate
-    
-    Learning objective: Trace which services gate which other services at startup, and explain why the gateway's dependency list is deliberately narrower than every other application role's.
-    
-    Purpose: A Mermaid flowchart of five backing services, the bootstrap container, and four application roles, with edges representing depends_on conditions.
-    
-    Nodes and edges: redpanda, clickhouse, neo4j, redis, vault-db each feed into "bootstrap" labeled "service_healthy". "bootstrap" feeds into "identity", "processor", "summarizer" labeled "service_completed_successfully". redpanda, clickhouse, neo4j, redis also feed into those three roles labeled "service_healthy" (the lrs-depends anchor). redpanda ALONE feeds into "gateway", in a distinct color, with a callout reading "Deliberately narrow -- spec section 5.4".
-    
-    Interactive features: Every node has a Mermaid click directive opening an infobox with a one-sentence definition drawn from this chapter's prose. A toggle button "Highlight the narrow dependency" dims every edge except the single redpanda-to-gateway edge.
-    
-    Color coding: Backing services gray-blue, bootstrap amber (gate), application roles the book's teal accent, the gateway's single redpanda edge in a distinct highlight color.
-    
-    Responsive design: The graph reflows vertically (backing services top, bootstrap middle, roles bottom) on narrow viewports, preserving all click handlers.
-    -->
+    <script>
+        const nodeInfo = {
+            'redpanda': { title: 'redpanda', description: 'The Kafka-compatible event broker. It gates the gateway and the application roles via a <code>service_healthy</code> condition &mdash; and it is the ONLY thing the gateway waits for.' },
+            'clickhouse': { title: 'clickhouse', description: 'The event store. Gates the bootstrap and the processor (which writes to it).' },
+            'neo4j': { title: 'neo4j', description: 'The summary graph store. Gates the bootstrap and the summarizer (which writes vertices to it).' },
+            'redis': { title: 'redis', description: 'The cache / token store. Gates the bootstrap and the identity role.' },
+            'vaultdb': { title: 'vault-db', description: 'Backs the secret manager. Gates the bootstrap, which needs secrets to run migrations and seed configuration.' },
+            'bootstrap': { title: 'bootstrap', description: 'A one-shot container that runs migrations and seeding. It waits for every backing service to be <code>service_healthy</code>, then the application roles wait for it to have <code>service_completed_successfully</code>.' },
+            'identity': { title: 'identity', description: 'An application role. Waits for bootstrap to complete AND for its own backing services (redpanda, redis) to be healthy.' },
+            'processor': { title: 'processor', description: 'An application role. Waits for bootstrap to complete AND for clickhouse to be healthy before consuming statements.' },
+            'summarizer': { title: 'summarizer', description: 'An application role. Waits for bootstrap to complete AND for neo4j to be healthy before writing summary vertices.' },
+            'gateway': { title: 'gateway (deliberately narrow)', description: 'The gateway depends on <strong>redpanda alone</strong>. Per spec &sect;5.4 this is deliberate: the gateway&rsquo;s only hard requirement is that it can enqueue statements. It must accept traffic even while stores are still warming up, so it does not wait on clickhouse, neo4j, redis, or bootstrap.' }
+        };
+    </script>
+    <script src="script.js"></script>
 </body>
 </html>

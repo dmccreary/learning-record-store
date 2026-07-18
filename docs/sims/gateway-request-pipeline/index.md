@@ -1,7 +1,7 @@
 ---
 title: Gateway Request Pipeline
 description: Let the learner trace one xAPI statement batch through the gateway's five-step request path — token cache lookup, structural validation, statement ID assignment, durable-queue produce with acks=all, and response — and explain what each step protects against.
-status: scaffold
+status: implemented
 library: Mermaid
 bloom_level: Understand (L2)
 ---
@@ -10,7 +10,7 @@ bloom_level: Understand (L2)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="622"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

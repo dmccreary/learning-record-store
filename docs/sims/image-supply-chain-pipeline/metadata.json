@@ -15,9 +15,10 @@
   "library": "Mermaid",
   "bloomLevel": "Analyze (L4)",
   "bloomVerb": "trace, differentiate",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 17,
   "chapter_title": "Docker Compose, the Makefile, and the Image Supply Chain",
   "chapter_dir": "17-compose-makefile-supply-chain",
-  "chapter_rel_dir": "chapters/17-compose-makefile-supply-chain"
+  "chapter_rel_dir": "chapters/17-compose-makefile-supply-chain",
+  "canvasHeight": 640
 }

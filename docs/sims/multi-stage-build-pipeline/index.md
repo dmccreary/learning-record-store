@@ -1,7 +1,7 @@
 ---
 title: The Multi-Stage Build Pipeline
 description: Trace which files and tools enter each of the three Dockerfile stages, and see which artifacts the Runtime stage copies forward versus what the Builder stage's tools are discarded along with.
-status: scaffold
+status: implemented
 library: Mermaid
 bloom_level: Understand (L2)
 ---
@@ -10,7 +10,7 @@ bloom_level: Understand (L2)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="562"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

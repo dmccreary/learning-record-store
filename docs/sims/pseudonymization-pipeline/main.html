@@ -3,110 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
     <title>Pseudonymization Pipeline</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
-    </style>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'default', flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' } });
+    </script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="container">
-        <h1>Pseudonymization Pipeline</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
+    <div class="container">
+        <div class="diagram-panel">
+            <div class="mermaid">
+flowchart TB
+    Raw["Raw actor identifier in statement body<br/><small>homePage + name</small>"]:::raw
+    Salt["Fetch Per-District Salt<br/><small>Mutual TLS Salt Fetch (once per district, cached in memory)</small>"]:::safe
+    HMAC["HMAC-SHA256 Pseudonymization<br/><small>computed locally in the processor</small>"]:::safe
+    Key["student_key<br/><small>base32, first 16 bytes</small>"]:::safe
+    Store["Written to ClickHouse and Neo4j<br/><small>the only form any downstream store ever sees</small>"]:::safe
+    Raw --> Salt --> HMAC --> Key --> Store
+
+    classDef raw fill:#e9a23b,stroke:#b8791f,color:#222,font-size:14px
+    classDef safe fill:#2a9d8f,stroke:#1f7a6f,color:#fff,font-size:14px
+    linkStyle default stroke:#999,stroke-width:2px
+            </div>
         </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> pseudonymization-pipeline</p>
-            <p><strong>Library:</strong> Mermaid</p>
-            <p><strong>Bloom Level:</strong> Understand (L2)</p>
-            <p><strong>Learning Objective:</strong> Let the learner trace how a raw actor identifier becomes an irreversible `student_key`, following the hop from the statement body through the Mutual TLS Salt Fetch and the HMAC-SHA256 Pseudonymization computation to the pseudonymous key written to ClickHouse.</p>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a step to see details</p></div>
         </div>
     </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: workflow
-    **sim-id:** pseudonymization-pipeline<br/>
-    **Library:** Mermaid<br/>
-    **Status:** Specified<br/>
-    **Template:** https://github.com/dmccreary/xapi-course/tree/main/docs/sims/pseudonymization-pipeline
-    
-    Bloom Taxonomy: Understand (L2)
-    Bloom Taxonomy Verb: trace, explain
-    
-    Learning objective: Let the learner trace how a raw actor identifier becomes an irreversible `student_key`, following the hop from the statement body through the Mutual TLS Salt Fetch and the HMAC-SHA256 Pseudonymization computation to the pseudonymous key written to ClickHouse.
-    
-    Purpose: Show a single Mermaid flowchart tracing one raw actor identifier from the statement body to its final pseudonymous form, adapted from the template's existing LMS-to-LRS identity flow to this chapter's specific mechanism.
-    
-    Nodes: "Raw actor identifier in statement body (homePage + name)" leads to "Processor fetches Per-District Salt via Mutual TLS Salt Fetch (once per district, cached in memory)" leads to "HMAC-SHA256 Pseudonymization computed locally in the processor" leads to "student_key (base32, first 16 bytes)" leads to "Written to ClickHouse and Neo4j — the only form any downstream store ever sees".
-    
-    Interactive features: Every node has a Mermaid click directive opening an infobox with that step's definition — mutual TLS and fetch frequency at the salt node, the formula and cross-district unrelatedness at the HMAC node, and the "nothing downstream sees raw identity" guarantee at the final node.
-    
-    Color coding: The raw-identity node in amber to flag it as sensitive; every node from the salt fetch onward in the book's teal accent color to show the boundary has been crossed.
-    
-    Responsive design: Flowchart resizes to the width of its containing element; on narrow viewports the chain reflows top-to-bottom.
-    -->
+    <script>
+        const nodeInfo = {
+            'Raw': { title: 'Raw actor identifier', description: 'The statement arrives naming the actor by <code>homePage + name</code> &mdash; directly identifying information. This is the only point where raw identity exists in the pipeline.' },
+            'Salt': { title: 'Per-District Salt (Mutual TLS)', description: 'The processor fetches a district-specific salt over Mutual TLS &mdash; both sides present certificates. It is fetched once per district and cached in memory, so the secret is never stored alongside the data.' },
+            'HMAC': { title: 'HMAC-SHA256', description: 'The key is <code>HMAC-SHA256(salt, actor)</code>, computed locally in the processor. Because each district has its own salt, the same student in two districts produces unrelated keys &mdash; no cross-district linkage.' },
+            'Key': { title: 'student_key', description: 'The output is a <code>student_key</code>: base32-encoded, first 16 bytes. It is irreversible &mdash; you cannot recover the actor from the key without the salt.' },
+            'Store': { title: 'Downstream stores', description: 'Only the <code>student_key</code> is written to ClickHouse and Neo4j. Nothing downstream ever sees the raw identifier &mdash; the identity boundary is crossed exactly once, here.' }
+        };
+    </script>
+    <script src="script.js"></script>
 </body>
 </html>

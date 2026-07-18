@@ -1,7 +1,7 @@
 ---
 title: The Privacy Filter Pipeline
 description: Let the learner trace an Analytics API request from Tenant Context Injection through Threshold Suppression, Complementary Suppression, and Privacy Audit Write, and identify at which stage a rostered-teacher exemption applies versus a cross-group view.
-status: scaffold
+status: implemented
 library: Mermaid
 bloom_level: Analyze (L4)
 ---
@@ -10,7 +10,7 @@ bloom_level: Analyze (L4)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="642"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

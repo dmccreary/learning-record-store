@@ -1,7 +1,7 @@
 ---
 title: Compose Startup Dependency Graph
 description: Trace which services gate which other services at startup, and explain why the gateway's dependency list is deliberately narrower than every other application role's.
-status: scaffold
+status: implemented
 library: Mermaid
 bloom_level: Analyze (L4)
 ---
@@ -10,7 +10,7 @@ bloom_level: Analyze (L4)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="602"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 
