@@ -117,3 +117,83 @@ College, mascot: Rowan).
 **Files Created/Updated:**
 
 - `docs/chapters/02-anatomy-of-xapi-statement/index.md` (content generated, TODO placeholder removed)
+
+## Chapters 3-32 generation (2026-07-17, same-day follow-up)
+
+**Execution Mode:** Sequential, one chapter at a time (no parallel execution requested). Each
+chapter was delegated to a fresh `general-purpose` subagent with a fully self-contained prompt
+(shared course/mascot/reading-level context, this chapter's spec-grounding sources, exact
+formatting templates), run synchronously and independently verified by the orchestrating session
+after each one completed — never trusting the subagent's self-report alone.
+
+**One-time full-book validation before any chapter was generated:**
+
+- Built the complete concept-to-chapter mapping across all 32 chapters' "Concepts Covered"
+  sections and ran the Step 1.3b dependency check against the full `learning-graph.json`.
+- Result: **0 dependency violations**, all 578 graph concepts covered exactly once, 0 concept
+  labels unmatched. This confirmed the book-chapter-generator's structure was sound before
+  spending any generation effort.
+
+**Per-chapter spec grounding:** Starting at Chapter 5 (Part 2, this project's own architecture),
+every subagent was instructed to read the actual authoritative specs (`lrs-spec-v1.md`,
+`lrs-design-v1.md`, `hardware-requirements.md`, `dev-environment-setup.md`, `mvp-plan.md`,
+`xapi-producer-contract-v1.md`) — and in several chapters, the actual repo source
+(`Dockerfile`, `src/lrs/cli.py`, `src/lrs/config.py`, `docker-compose.yml`, `Makefile`) — rather
+than inventing architectural details from generic knowledge. This caught and corrected several
+near-misses during generation (e.g., Chapter 8's subagent caught that not all six summary-vertex
+grains share a `statements_compressed` property; Chapter 14 confirmed exact Kafka topic/ClickHouse
+schema names; Chapter 16 verified CLI flags against the real `Dockerfile`).
+
+**Connection failures:** Three subagent dispatches were cut off mid-task by transient API
+connection errors (Chapter 22, twice on Chapter 27). Chapter 22 recovered cleanly via
+`SendMessage` resume from its saved transcript. Chapter 27 failed a second and third time on
+resume/redispatch, so — rather than keep retrying — the orchestrating session read the relevant
+spec sections (`lrs-spec-v1.md` §9.4, §10.1, §10.7, §10.8, §12.3) directly and wrote that chapter's
+content itself, then ran the identical verification checks used for every subagent-written
+chapter. No content was lost; the final chapter passed every check.
+
+**Results — all 32 chapters:**
+
+| # | Chapter | Words | Diagrams | TODO |
+|---|---|---|---|---|
+| 1 | From LMS to the Experience API | 4,378 | 4 | 0 |
+| 2 | Anatomy of an xAPI Statement | 4,171 | 4 | 0 |
+| 3 | IEEE Standardization of xAPI and cmi5 | 4,939 | 4 | 0 |
+| 4 | Standards Governance and the Wider Ecosystem | 4,618 | 4 | 0 |
+| 5 | System Context and the Five Architectural Planes | 4,752 | 4 | 0 |
+| 6 | Multi-Tenancy, Rosters, and Pseudonymous Identity | 5,076 | 4 | 0 |
+| 7 | The Property Graph Data Model | 4,735 | 3 | 0 |
+| 8 | Summary Vertices and Statement Ingestion Mechanics | 5,175 | 4 | 0 |
+| 9 | The Twelve Core LRS Functions | 4,874 | 4 | 0 |
+| 10 | Choosing the Technology Stack | 4,668 | 4 | 0 |
+| 11 | ADRs and the Capacity Model | 6,554 | 4 | 0 |
+| 12 | Bayesian Knowledge Tracing for Mastery | 3,988 | 3 | 0 |
+| 13 | Component Design in Depth | 5,208 | 5 | 0 |
+| 14 | Kafka Topics, ClickHouse Schema, Graph Constraints | 5,251 | 4 | 0 |
+| 15 | Privacy Enforcement and Dashboard Mechanics | 5,226 | 4 | 0 |
+| 16 | The Container Image and the Role Dispatcher CLI | 4,991 | 4 | 0 |
+| 17 | Docker Compose, Makefile, Image Supply Chain | 4,995 | 3 | 0 |
+| 18 | Configuration, Migration, Backup, and Rollout | 4,996 | 4 | 0 |
+| 19 | Failure Modes and Verification | 4,996 | 4 | 0 |
+| 20 | Spec Deviations, Roadmap, Open Questions | 5,052 | 4 | 0 |
+| 21 | Hardware Sizing, Cost, Dev Environment | 4,996 | 4 | 0 |
+| 22 | Proving the Architecture — the MVP Plan | 4,985 | 4 | 0 |
+| 23 | Production Infrastructure and Cloud Services | 5,196 | 4 | 0 |
+| 24 | Meet the Three Personas and the Admin UI Surface | 4,760 | 4 | 0 |
+| 25 | District Admin — Rosters, Deployments, Registries | 4,817 | 4 | 0 |
+| 26 | District Admin — Access Control and Config | 4,921 | 4 | 0 |
+| 27 | Compliance, Privacy Law, District Reporting | 3,777 | 3 | 0 |
+| 28 | Teacher Dashboards and Student-Level Reports | 4,366 | 4 | 0 |
+| 29 | Class-Level Reports and Teacher Tools | 4,456 | 4 | 0 |
+| 30 | Textbook Author Dashboards and Content Reports | 4,726 | 4 | 0 |
+| 31 | Designing and Reading A/B Experiments | 4,911 | 4 | 0 |
+| 32 | The Producer Contract (final chapter) | 5,491 | 3 | 0 |
+
+**Overall:** 32/32 chapters complete, ~156,045 total words, 124 interactive diagram/MicroSim/
+chart/workflow elements specified across the book (roughly a third reused or built from an
+existing MicroSim template rather than specified fully from scratch), 0 TODO placeholders
+remaining, 0 dependency violations, mascot self-introduction appears exactly once (Chapter 1),
+Chapter 32 closes the book with a capstone section and no dangling forward-reference to a
+nonexistent Chapter 33.
+
+**Files Created/Updated:** `docs/chapters/03-*` through `docs/chapters/32-*` (30 files), this log.
