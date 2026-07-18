@@ -3,117 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
-    <title>Build Steps to Development Host Tier</title>
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Build Steps to Host Tier</title>
+    <script src="https://unpkg.com/vis-timeline@7.7.3/standalone/umd/vis-timeline-graph2d.min.js"></script>
+    <link href="https://unpkg.com/vis-timeline@7.7.3/styles/vis-timeline-graph2d.min.css" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
+        * { box-sizing: border-box; }
+        html, body { margin: 0; font-family: Arial, Helvetica, sans-serif; background: #fff; color: #222; }
+        .wrap { padding: 8px 12px; }
+        h2 { font-size: 16px; color: #1a3a5c; text-align: center; margin: 4px 0 6px; }
+        .controls { text-align: center; margin-bottom: 6px; }
+        button { font-size: 13px; padding: 6px 12px; border: 1px solid #2a9d8f; background: #fff; color: #1f7a6f; border-radius: 5px; cursor: pointer; }
+        button.active { background: #2a9d8f; color: #fff; }
+        #timeline { border: 1px solid #dee2e6; }
+        .info { margin-top: 8px; padding: 10px; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 6px; min-height: 74px; font-size: 13.5px; line-height: 1.45; }
+        .info b { color: #1f7a6f; }
     </style>
 </head>
 <body>
-    <div id="container">
-        <h1>Build Steps to Development Host Tier</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
-        </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> build-steps-to-host-tier-timeline</p>
-            <p><strong>Library:</strong> vis-timeline</p>
-            <p><strong>Bloom Level:</strong> Understand (L2)</p>
-            <p><strong>Learning Objective:</strong> Match each of the five MVP build steps to the minimum development host tier that can prove it, and recognize that only the final step — the burst-throughput proof — requires the Recommended tier.</p>
-        </div>
+    <div class="wrap">
+        <h2>Five Build Steps &rarr; Minimum vs Recommended Host</h2>
+        <div class="controls"><button id="tierBtn">Highlight Minimum vs Recommended</button></div>
+        <div id="timeline"></div>
+        <div class="info" id="info">Four of five steps fit on the Minimum host; only Step 5 (the burst proof) needs the Recommended tier.</div>
     </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: timeline
-    **sim-id:** build-steps-to-host-tier-timeline<br/>
-    **Library:** vis-timeline<br/>
-    **Status:** Specified
-    
-    Bloom Taxonomy: Understand (L2)
-    Bloom Taxonomy Verb: sequence, match
-    
-    Learning objective: Match each of the five MVP build steps to the minimum development host tier that can prove it, and recognize that only the final step — the burst-throughput proof — requires the Recommended tier.
-    
-    Time period: Not calendar time — five sequential build steps, rendered as five contiguous blocks in build order.
-    
-    Orientation: Horizontal, left to right, each block labeled with its step number and headline task.
-    
-    Events:
-    
-    - Step 1: Foundation, bootstrap, infrastructure validation — host tier: Minimum; backing services only, no image needed yet
-    - Step 2: Ingest path (gateway to processor to ClickHouse) — host tier: Minimum; full stack, low volume
-    - Step 3: Load generator at the contract shape — host tier: Minimum to Recommended; 200 statements/sec baseline
-    - Step 4: Compression, graph, and mastery correctness — host tier: Minimum; correctness proofs hold at any volume
-    - Step 5: The burst-throughput proof (200 to 1,000 statements/sec) — host tier: Recommended (16 GB, local NVMe); the measurement this stack exists to produce
-    
-    Interactive features: Clicking a step block opens an infobox with its full description and required tier. A "Minimum vs. Recommended" toggle recolors all five blocks to show that four of five steps fit on the smallest host and only the last needs the larger one.
-    
-    Visual style: Blocks 1–4 shaded calm teal ("fits on Minimum"); block 5 shaded amber to flag its stricter requirement.
-    
-    Responsive design: The timeline resizes to its container's width; on narrow viewports, labels abbreviate to step number and expand on tap.
-    -->
+    <script>
+        const info = {
+            1: '<b>Step 1: Foundation, bootstrap, infra validation</b><br>Backing services only, no image needed yet. Host tier: <b>Minimum</b>.',
+            2: '<b>Step 2: Ingest path (gateway -> processor -> ClickHouse)</b><br>Full stack, low volume. Host tier: <b>Minimum</b>.',
+            3: '<b>Step 3: Load generator at the contract shape</b><br>200 statements/sec baseline. Host tier: <b>Minimum to Recommended</b>.',
+            4: '<b>Step 4: Compression, graph, mastery correctness</b><br>Correctness proofs hold at any volume. Host tier: <b>Minimum</b>.',
+            5: '<b>Step 5: The burst-throughput proof (200 -> 1,000/sec)</b><br>The measurement this stack exists to produce. Host tier: <b>Recommended</b> (16 GB, local NVMe).'
+        };
+        const teal = 'background-color:#2a9d8f;color:#fff;border-color:#1f7a6f;';
+        const amber = 'background-color:#e9a23b;color:#222;border-color:#b8791f;';
+        const gray = 'background-color:#9aa7b4;color:#fff;border-color:#5f6e82;';
+        const items = new vis.DataSet([
+            { id: 1, content: 'Step 1: Foundation', start: '2026-01-01', end: '2026-01-06', style: teal },
+            { id: 2, content: 'Step 2: Ingest path', start: '2026-01-06', end: '2026-01-11', style: teal },
+            { id: 3, content: 'Step 3: Loadgen 200/s', start: '2026-01-11', end: '2026-01-16', style: teal },
+            { id: 4, content: 'Step 4: Compression/mastery', start: '2026-01-16', end: '2026-01-21', style: teal },
+            { id: 5, content: 'Step 5: Burst proof', start: '2026-01-21', end: '2026-01-26', style: amber }
+        ]);
+        const timeline = new vis.Timeline(document.getElementById('timeline'), items, { showCurrentTime: false, stack: false, margin: { item: 10 }, zoomable: false });
+        window.__tl = timeline;
+        timeline.on('select', function (p) { const id = p.items[0]; document.getElementById('info').innerHTML = id ? info[id] : 'Click a step for its task and required tier.'; });
+        let hi = false;
+        document.getElementById('tierBtn').onclick = function () {
+            hi = !hi; this.classList.toggle('active', hi);
+            [1, 2, 3, 4].forEach(function (i) { items.update({ id: i, style: hi ? gray : teal }); });
+            items.update({ id: 5, style: amber });
+        };
+    </script>
 </body>
 </html>

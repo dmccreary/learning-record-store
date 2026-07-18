@@ -1,7 +1,7 @@
 ---
 title: Delivery Roadmap Timeline
 description: Sequence the six delivery milestones by duration and cumulative week number, and recall each milestone's headline deliverable and exit criterion.
-status: scaffold
+status: implemented
 library: vis-timeline
 bloom_level: Understand (L2)
 ---
@@ -10,7 +10,7 @@ bloom_level: Understand (L2)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="422"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

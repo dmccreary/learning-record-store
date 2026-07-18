@@ -3,118 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
     <title>Term Rollover Timeline</title>
+    <script src="https://unpkg.com/vis-timeline@7.7.3/standalone/umd/vis-timeline-graph2d.min.js"></script>
+    <link href="https://unpkg.com/vis-timeline@7.7.3/styles/vis-timeline-graph2d.min.css" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
+        * { box-sizing: border-box; }
+        html, body { margin: 0; font-family: Arial, Helvetica, sans-serif; background: #fff; color: #222; }
+        .wrap { padding: 8px 12px; }
+        h2 { font-size: 16px; color: #1a3a5c; text-align: center; margin: 4px 0 4px; }
+        .legend { text-align: center; font-size: 12px; margin-bottom: 6px; }
+        .chip { display: inline-block; padding: 2px 8px; border-radius: 10px; margin: 0 4px; }
+        #timeline { border: 1px solid #dee2e6; }
+        .info { margin-top: 8px; padding: 10px; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 6px; min-height: 84px; font-size: 13.5px; line-height: 1.45; }
+        .info b { color: #1f7a6f; }
     </style>
 </head>
 <body>
-    <div id="container">
-        <h1>Term Rollover Timeline</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
+    <div class="wrap">
+        <h2>Term / Academic-Year Rollover</h2>
+        <div class="legend">
+            <span class="chip" style="background:#9aa7b4;color:#fff">Archived term</span>
+            <span class="chip" style="background:#2a9d8f;color:#fff">New term</span>
         </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> term-rollover-timeline</p>
-            <p><strong>Library:</strong> vis-timeline</p>
-            <p><strong>Bloom Level:</strong> Understand (L2)</p>
-            <p><strong>Learning Objective:</strong> Sequence the steps of a Term / Academic-Year Rollover, from archiving the outgoing term through rolling section templates forward into the new one, and see where the Enrollment Editor and Instructor Assignment Tool fit into that sequence.</p>
-        </div>
+        <div id="timeline"></div>
+        <div class="info" id="info">Click a milestone to see what changed, which tool is responsible, and what stays queryable.</div>
     </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: timeline
-    **sim-id:** term-rollover-timeline<br/>
-    **Library:** vis-timeline<br/>
-    **Status:** Specified
-    
-    Bloom Taxonomy: Understand (L2)
-    Bloom Taxonomy Verb: sequence, summarize
-    
-    Learning objective: Sequence the steps of a Term / Academic-Year Rollover, from archiving the outgoing term through rolling section templates forward into the new one, and see where the Enrollment Editor and Instructor Assignment Tool fit into that sequence.
-    
-    Time period: One academic year cycle, late May through early September
-    
-    Orientation: Horizontal, left to right
-    
-    Events:
-    
-    - Late May: Spring term's sections marked for archival; historical enrollment and rollup data frozen and preserved
-    - Early June: Prior-term sections archived; read-only from this point forward
-    - Mid-June: Section templates for the upcoming term generated from the archived shapes (same course, same period structure)
-    - July: New roster sync populates the upcoming term's Enrollment Editor with incoming students
-    - Mid-August: Instructor Assignment Tool used to confirm or reassign `TEACHES` edges for the new term, including any co-teacher pairings
-    - Early September: New term goes live; sections begin accepting Textbook Deployment bindings and ingesting statements
-    
-    Interactive features: Clicking any milestone opens an infobox describing what changed at that step and which tool (Enrollment Editor, Instructor Assignment Tool, or the rollover mechanism itself) is responsible for it, plus a note on which prior-term data remains queryable afterward.
-    
-    Visual style: Archived-term milestones shown in a muted gray; new-term milestones shown in the book's teal accent color, so a learner can see at a glance which side of the rollover each event falls on.
-    
-    Responsive design: Timeline resizes to its containing element's width and remains readable at tablet width, collapsing event labels to abbreviated form below 600px.
-    -->
+    <script>
+        const info = {
+            1: '<b>Late May &mdash; Sections marked for archival</b><br>Spring term sections are flagged; historical enrollment and rollup data is frozen and preserved. Tool: the rollover mechanism. Prior-term rollups remain queryable.',
+            2: '<b>Early June &mdash; Prior-term sections archived</b><br>Sections become read-only from this point. Tool: the rollover mechanism. Archived statements stay queryable for reporting.',
+            3: '<b>Mid-June &mdash; Section templates generated</b><br>Templates for the upcoming term are generated from the archived shapes (same course, same period structure). Tool: the rollover mechanism.',
+            4: '<b>July &mdash; New roster sync</b><br>A roster sync populates the upcoming term&rsquo;s Enrollment Editor with incoming students. Tool: <b>Enrollment Editor</b> (fed by the roster sync).',
+            5: '<b>Mid-August &mdash; Instructor assignment</b><br>The Instructor Assignment Tool confirms or reassigns TEACHES edges for the new term, including co-teacher pairings. Tool: <b>Instructor Assignment Tool</b>.',
+            6: '<b>Early September &mdash; New term goes live</b><br>Sections begin accepting Textbook Deployment bindings and ingesting statements. The new term is active; the archived term stays read-only but queryable.'
+        };
+        const gray = 'background-color:#9aa7b4;color:#fff;border-color:#5f6e82;';
+        const teal = 'background-color:#2a9d8f;color:#fff;border-color:#1f7a6f;';
+        const items = new vis.DataSet([
+            { id: 1, content: 'Marked for archival', start: '2026-05-25', type: 'box', style: gray },
+            { id: 2, content: 'Sections archived', start: '2026-06-05', type: 'box', style: gray },
+            { id: 3, content: 'Templates generated', start: '2026-06-15', type: 'box', style: gray },
+            { id: 4, content: 'Roster sync (Enrollment Editor)', start: '2026-07-10', type: 'box', style: teal },
+            { id: 5, content: 'Instructor Assignment', start: '2026-08-15', type: 'box', style: teal },
+            { id: 6, content: 'New term live', start: '2026-09-04', type: 'box', style: teal }
+        ]);
+        const timeline = new vis.Timeline(document.getElementById('timeline'), items, { showCurrentTime: false, stack: true, margin: { item: 12 }, min: '2026-05-10', max: '2026-09-20', zoomable: true });
+        window.__tl = timeline;
+        timeline.on('select', function (p) { const id = p.items[0]; document.getElementById('info').innerHTML = id ? info[id] : "Click a milestone for details."; });
+    </script>
 </body>
 </html>

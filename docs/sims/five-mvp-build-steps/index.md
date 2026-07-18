@@ -1,7 +1,7 @@
 ---
 title: The Five MVP Build Steps
 description: Sequence the five MVP build steps and match each to its exit criterion, recognizing each step's output as a precondition for the next.
-status: scaffold
+status: implemented
 library: vis-timeline
 bloom_level: Understand (L2)
 ---
@@ -10,7 +10,7 @@ bloom_level: Understand (L2)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="402"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

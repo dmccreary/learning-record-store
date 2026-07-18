@@ -3,112 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
-    <title>One Student's Time-on-Task Timeline</title>
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Time-on-Task Timeline</title>
+    <script src="https://unpkg.com/vis-timeline@7.7.3/standalone/umd/vis-timeline-graph2d.min.js"></script>
+    <link href="https://unpkg.com/vis-timeline@7.7.3/styles/vis-timeline-graph2d.min.css" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
+        * { box-sizing: border-box; }
+        html, body { margin: 0; font-family: Arial, Helvetica, sans-serif; background: #fff; color: #222; }
+        .wrap { padding: 8px 12px; }
+        h2 { font-size: 16px; color: #1a3a5c; text-align: center; margin: 4px 0 6px; }
+        .controls { text-align: center; margin-bottom: 6px; }
+        button { font-size: 13px; padding: 6px 12px; border: 1px solid #2a9d8f; background: #fff; color: #1f7a6f; border-radius: 5px; cursor: pointer; margin: 0 3px; }
+        button.active { background: #2a9d8f; color: #fff; }
+        #timeline { border: 1px solid #dee2e6; }
+        .info { margin-top: 8px; padding: 10px; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 6px; min-height: 66px; font-size: 13.5px; line-height: 1.45; }
+        .info b { color: #1f7a6f; }
+        .vis-item.quiz { background-color: #c0392b; border-color: #8a2a20; color: #fff; }
     </style>
 </head>
 <body>
-    <div id="container">
-        <h1>One Student's Time-on-Task Timeline</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
+    <div class="wrap">
+        <h2>One Student's Learning Sessions Across a Week</h2>
+        <div class="controls">
+            <button id="steadyBtn" class="active">Steady student</button>
+            <button id="cramBtn">Cram student</button>
         </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> time-on-task-timeline</p>
-            <p><strong>Library:</strong> vis-timeline</p>
-            <p><strong>Bloom Level:</strong> Understand (L2)</p>
-            <p><strong>Learning Objective:</strong> Let the learner interpret a Gantt-style timeline of one student's learning sessions across a week, distinguishing a steady engagement pattern from a single last-minute cram session.</p>
-        </div>
+        <div id="timeline"></div>
+        <div class="info" id="info">Click a session bar to see the concepts it touched. Toggle students to compare a steady pattern against a last-minute cram.</div>
     </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: timeline
-    **sim-id:** time-on-task-timeline<br/>
-    **Library:** vis-timeline<br/>
-    **Status:** Specified
-    **Template:** https://github.com/dmccreary/learning-graphs/tree/main/docs/sims/goal-horizon-timeline<br/>
-    
-    Bloom Taxonomy: Understand (L2)
-    Bloom Taxonomy Verb: interpret, distinguish
-    
-    Learning objective: Let the learner interpret a Gantt-style timeline of one student's learning sessions across a week, distinguishing a steady engagement pattern from a single last-minute cram session.
-    
-    Time period: One sample week, Monday through Sunday
-    
-    Orientation: Horizontal, left to right, one row per day
-    
-    Events: Six to eight session bars of varying length and time of day placed across the week, including one deliberately long bar the night before a sample "quiz due" marker to illustrate a cram pattern, and several short, evenly spaced bars earlier in the week to illustrate steady engagement for comparison.
-    
-    Interactive features: Clicking any session bar opens an infobox listing the concepts touched during that session (drawn from that session's `TOUCHED` edges) and a link labeled "view individual statements," representing the drill-down into the event store. A toggle switches between two sample students — one steady, one cram-pattern — so the learner can compare timeline shapes directly.
-    
-    Visual style: Session bars colored by duration (short sessions in a lighter shade, long sessions in a darker shade of the book's teal accent color) so a cram session visually stands out without needing to read the bar's length precisely.
-    
-    Responsive design: Timeline resizes to the width of its containing element; on narrow viewports the day labels abbreviate and bars remain tap-sized for the click-to-infobox interaction.
-    -->
+    <script>
+        const groups = new vis.DataSet([
+            { id: 'Mon', content: 'Mon' }, { id: 'Tue', content: 'Tue' }, { id: 'Wed', content: 'Wed' },
+            { id: 'Thu', content: 'Thu' }, { id: 'Fri', content: 'Fri' }, { id: 'Sat', content: 'Sat' }, { id: 'Sun', content: 'Sun' }
+        ]);
+        function short(len) { return len <= 30; }
+        function style(len) { return short(len) ? 'background-color:#8fd3c9;color:#08312c;border-color:#3bab9d;' : 'background-color:#1a7f72;color:#fff;border-color:#0f5c53;'; }
+        const info = {};
+        function mk(id, group, date, s, e, len, concepts) {
+            info[id] = '<b>Session (' + len + ' min)</b><br>Concepts touched (TOUCHED edges): ' + concepts + '.<br><a href="#">view individual statements</a> &mdash; drill into the event store.';
+            return { id: id, group: group, content: len + 'm', start: date + 'T' + s, end: date + 'T' + e, style: style(len) };
+        }
+        // Steady: short, evenly spaced sessions across the week
+        const steady = new vis.DataSet([
+            mk('s1', 'Mon', '2026-03-02', '16:00:00', '16:25:00', 25, 'Cells, Cell Membrane'),
+            mk('s2', 'Tue', '2026-03-03', '17:10:00', '17:35:00', 25, 'Transport, Osmosis'),
+            mk('s3', 'Wed', '2026-03-04', '16:30:00', '17:00:00', 30, 'Osmosis, Active Transport'),
+            mk('s4', 'Thu', '2026-03-05', '15:50:00', '16:15:00', 25, 'Respiration'),
+            mk('s5', 'Fri', '2026-03-06', '16:40:00', '17:05:00', 25, 'ATP Synthesis'),
+            mk('s6', 'Sat', '2026-03-07', '10:00:00', '10:35:00', 35, 'Review: Cells, Respiration'),
+            { id: 'quizA', group: 'Sun', content: 'Quiz due', start: '2026-03-08T20:00:00', type: 'point', className: 'quiz' }
+        ]);
+        // Cram: one long session the night before the quiz, little else
+        const cram = new vis.DataSet([
+            mk('c1', 'Tue', '2026-03-03', '17:00:00', '17:20:00', 20, 'Cells'),
+            mk('c2', 'Sun', '2026-03-08', '18:00:00', '19:55:00', 115, 'Cells, Membrane, Transport, Osmosis, Respiration, ATP (all at once)'),
+            { id: 'quizB', group: 'Sun', content: 'Quiz due', start: '2026-03-08T20:00:00', type: 'point', className: 'quiz' }
+        ]);
+        const opts = { showCurrentTime: false, stack: false, margin: { item: 6 }, min: '2026-03-02', max: '2026-03-09', orientation: 'top' };
+        const timeline = new vis.Timeline(document.getElementById('timeline'), steady, groups, opts);
+        window.__tl = timeline;
+        timeline.on('select', function (p) { const id = p.items[0]; document.getElementById('info').innerHTML = (id && info[id]) ? info[id] : "Click a session bar to see the concepts it touched."; });
+        document.getElementById('steadyBtn').onclick = function () { timeline.setItems(steady); this.classList.add('active'); document.getElementById('cramBtn').classList.remove('active'); document.getElementById('info').innerHTML = 'Steady: short, evenly spaced sessions all week &mdash; consistent engagement.'; };
+        document.getElementById('cramBtn').onclick = function () { timeline.setItems(cram); this.classList.add('active'); document.getElementById('steadyBtn').classList.remove('active'); document.getElementById('info').innerHTML = 'Cram: one long 115-minute session the night before the quiz &mdash; the tall dark bar stands out immediately.'; };
+    </script>
 </body>
 </html>

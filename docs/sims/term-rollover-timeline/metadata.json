@@ -15,9 +15,10 @@
   "library": "vis-timeline",
   "bloomLevel": "Understand (L2)",
   "bloomVerb": "sequence, summarize",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 25,
   "chapter_title": "District Administrator: Rosters, Deployments, and Registries",
   "chapter_dir": "25-district-admin-rosters-deployments",
-  "chapter_rel_dir": "chapters/25-district-admin-rosters-deployments"
+  "chapter_rel_dir": "chapters/25-district-admin-rosters-deployments",
+  "canvasHeight": 420
 }

@@ -1,7 +1,7 @@
 ---
 title: A Timeline of Learning Interoperability Standards
 description: Help the learner place SCORM, AICC, and xAPI in chronological order and see that xAPI did not replace the others overnight — it emerged from documented limitations in the SCORM/AICC model.
-status: scaffold
+status: implemented
 library: vis-timeline
 bloom_level: Understand (L2)
 ---
@@ -10,7 +10,7 @@ bloom_level: Understand (L2)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="402"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

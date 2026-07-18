@@ -15,9 +15,10 @@
   "library": "vis-timeline",
   "bloomLevel": "Understand (L2)",
   "bloomVerb": "interpret, distinguish",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 28,
   "chapter_title": "Teacher Dashboards and Student-Level Reports",
   "chapter_dir": "28-teacher-dashboards-student-reports",
-  "chapter_rel_dir": "chapters/28-teacher-dashboards-student-reports"
+  "chapter_rel_dir": "chapters/28-teacher-dashboards-student-reports",
+  "canvasHeight": 460
 }

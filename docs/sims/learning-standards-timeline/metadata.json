@@ -1,6 +1,6 @@
 {
   "title": "A Timeline of Learning Interoperability Standards",
-  "description": "Help the learner place SCORM, AICC, and xAPI in chronological order and see that xAPI did not replace the others overnight — it emerged from documented limitations in the SCORM/AICC model.",
+  "description": "Help the learner place SCORM, AICC, and xAPI in chronological order and see that xAPI did not replace the others overnight \u2014 it emerged from documented limitations in the SCORM/AICC model.",
   "creator": "Learning Record Store",
   "author": "Dan McCreary",
   "date": "2026-07-17",
@@ -15,9 +15,10 @@
   "library": "vis-timeline",
   "bloomLevel": "Understand (L2)",
   "bloomVerb": "summarize",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 1,
   "chapter_title": "From Learning Management Systems to the Experience API",
   "chapter_dir": "01-lms-to-experience-api",
-  "chapter_rel_dir": "chapters/01-lms-to-experience-api"
+  "chapter_rel_dir": "chapters/01-lms-to-experience-api",
+  "canvasHeight": 400
 }
