@@ -1,7 +1,7 @@
 ---
 title: Two Summary-Building Functions — Mastery and Progress
 description: Let the learner differentiate the Mastery Computation Function's single grain (ConceptMastery) from the Progress Projection Function's five grains (PageEngagement, MicroSimEngagement, QuestionResponse, LearningSession, SectionRollup), classifying each of Chapter 8's six summary-vertex labels under the correct function.
-status: scaffold
+status: implemented
 library: vis-network
 bloom_level: Analyze (L4)
 ---
@@ -10,7 +10,7 @@ bloom_level: Analyze (L4)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="562"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

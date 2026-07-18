@@ -3,117 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
     <title>Learning Ecosystem Map</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
-    </style>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="container">
-        <h1>Learning Ecosystem Map</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
+    <div class="container">
+        <div class="graph-panel">
+            <div id="network"></div>
+            <div class="title">Learning Ecosystem Map</div>
         </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> learning-ecosystem-map</p>
-            <p><strong>Library:</strong> vis-network</p>
-            <p><strong>Bloom Level:</strong> Analyze (L4)</p>
-            <p><strong>Learning Objective:</strong> Let the learner analyze how a Learning Record Store, a Competency Framework, a content repository, and analytics tools interoperate within a Learning Ecosystem, in a general, vendor-neutral form that generalizes Chapter 3's Total Learning Architecture map.</p>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a node to see details</p></div>
         </div>
     </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: graph-model
-    **sim-id:** learning-ecosystem-map<br/>
-    **Library:** vis-network<br/>
-    **Status:** Specified<br/>
-    **Template:** https://github.com/dmccreary/automating-instructional-design/tree/main/docs/sims/ed-tech-ecosystem<br/>
-    
-    Bloom Taxonomy: Analyze (L4)
-    Bloom Taxonomy Verb: analyze, relate
-    
-    Learning objective: Let the learner analyze how a Learning Record Store, a Competency Framework, a content repository, and analytics tools interoperate within a Learning Ecosystem, in a general, vendor-neutral form that generalizes Chapter 3's Total Learning Architecture map.
-    
-    Purpose: Show a central "Learner" node surrounded by concentric rings of connected component nodes representing a general Learning Ecosystem.
-    
-    Nodes:
-    
-    - Center: "Learner"
-    - Inner ring: "Learning Record Store" — edge to Learner labeled "stores Statements about"
-    - Inner ring: "Competency Framework" — edge to Learning Record Store labeled "supplies identifiers Statements reference"
-    - Outer ring: "Content Repository (cataloged with Learning Object Metadata)" — edge to Learning Record Store labeled "describes the resources Statements reference"
-    - Outer ring: "Analytics Dashboard" — edge to Learning Record Store labeled "reads Statement history"
-    - Outer ring: "Federated Learning Record Store (different vendor)" — edge to Learning Record Store labeled "may exchange records when a learner moves organizations"
-    
-    Interactive features: Every node is clickable via vis-network's built-in click event. Clicking any node opens an infobox with its one-sentence role in the ecosystem, and, where relevant, which earlier chapter concept it corresponds to (for example, clicking "Content Repository" reiterates the Learning Object Metadata definition from earlier in this chapter).
-    
-    Color coding: "Learner" in a neutral center color; "Learning Record Store" and "Competency Framework" in the book's teal accent color as the inner, most tightly coupled ring; the outer-ring nodes in a lighter gray-blue to signal looser, standards-mediated coupling.
-    
-    Implementation: vis-network graph with physics-based layout (learner at center, components arranged in rings around it), full click-to-infobox coverage on every node. Responsive width and height tracking the containing element, with layout re-stabilizing on resize.
-    -->
+    <script>
+        const TEAL = { background: '#2a9d8f', border: '#1f7a6f' };
+        const GRAY = { background: '#8b9bb0', border: '#5f6e82' };
+        const NEUTRAL = { background: '#37474f', border: '#1c2529' };
+        window.GRAPH = {
+            layout: 'physics',
+            nodes: [
+                { id: 'Learner', label: 'Learner', color: NEUTRAL },
+                { id: 'LRS', label: 'Learning Record Store', color: TEAL, borderWidth: 4 },
+                { id: 'CF', label: 'Competency Framework', color: TEAL },
+                { id: 'Repo', label: 'Content Repository', color: GRAY },
+                { id: 'Dash', label: 'Analytics Dashboard', color: GRAY },
+                { id: 'Fed', label: 'Federated LRS (different vendor)', color: GRAY }
+            ],
+            edges: [
+                { from: 'LRS', to: 'Learner', label: 'stores Statements about' },
+                { from: 'CF', to: 'LRS', label: 'supplies identifiers Statements reference' },
+                { from: 'Repo', to: 'LRS', label: 'describes referenced resources' },
+                { from: 'Dash', to: 'LRS', label: 'reads Statement history' },
+                { from: 'Fed', to: 'LRS', label: 'may exchange records' }
+            ],
+            nodeInfo: {
+                'Learner': { title: 'Learner', description: 'The center of the ecosystem &mdash; the person every other component serves, describes, or reports on.' },
+                'LRS': { title: 'Learning Record Store', description: 'The tightly-coupled hub. It stores xAPI Statements about the learner and is the source every other tool reads from or writes to. This is the vendor-neutral generalization of Chapter 3&rsquo;s Total Learning Architecture.' },
+                'CF': { title: 'Competency Framework', description: 'Supplies the shared concept and competency identifiers that Statements reference &mdash; part of the inner, most tightly-coupled ring with the LRS.' },
+                'Repo': { title: 'Content Repository', description: 'A catalog of learning resources described with Learning Object Metadata (defined earlier in this chapter). It describes the resources that Statements reference. Outer ring: looser, standards-mediated coupling.' },
+                'Dash': { title: 'Analytics Dashboard', description: 'Reads Statement history from the LRS to visualize progress and mastery. Outer ring &mdash; a consumer, not a source of record.' },
+                'Fed': { title: 'Federated LRS', description: 'An LRS from a different vendor. Because xAPI is a shared standard, records can be exchanged when a learner moves between organizations.' }
+            }
+        };
+    </script>
+    <script src="vis-app.js"></script>
 </body>
 </html>

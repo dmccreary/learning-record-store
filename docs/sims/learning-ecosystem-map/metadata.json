@@ -15,9 +15,10 @@
   "library": "vis-network",
   "bloomLevel": "Analyze (L4)",
   "bloomVerb": "analyze, relate",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 4,
   "chapter_title": "Standards Governance and the Wider Interoperability Ecosystem",
   "chapter_dir": "04-standards-governance-ecosystem",
-  "chapter_rel_dir": "chapters/04-standards-governance-ecosystem"
+  "chapter_rel_dir": "chapters/04-standards-governance-ecosystem",
+  "canvasHeight": 520
 }

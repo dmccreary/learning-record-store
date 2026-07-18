@@ -15,9 +15,10 @@
   "library": "vis-network",
   "bloomLevel": "Analyze (L4)",
   "bloomVerb": "analyze, relate",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 5,
   "chapter_title": "System Context and the Five Architectural Planes",
   "chapter_dir": "05-system-context-architectural-planes",
-  "chapter_rel_dir": "chapters/05-system-context-architectural-planes"
+  "chapter_rel_dir": "chapters/05-system-context-architectural-planes",
+  "canvasHeight": 520
 }

@@ -1,7 +1,7 @@
 ---
 title: The Wider Standards Ecosystem Map
 description: Let the learner analyze how IEEE LTSC, the ADL Initiative, I2IDL, and the 1EdTech Consortium relate to one another and to the specifications each governs, correctly attributing xAPI, cmi5, and the Total Learning Architecture to one governance family and LTI, QTI, Caliper Analytics, and Learning Object Metadata to the other.
-status: scaffold
+status: implemented
 library: vis-network
 bloom_level: Analyze (L4)
 ---
@@ -10,7 +10,7 @@ bloom_level: Analyze (L4)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="562"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

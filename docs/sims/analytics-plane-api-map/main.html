@@ -3,116 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
     <title>Analytics Plane API Map</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
-    </style>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="container">
-        <h1>Analytics Plane API Map</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
+    <div class="container">
+        <div class="graph-panel">
+            <div id="network"></div>
+            <div class="title">Analytics Plane &mdash; Five APIs</div>
         </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> analytics-plane-api-map</p>
-            <p><strong>Library:</strong> vis-network</p>
-            <p><strong>Bloom Level:</strong> Analyze (L4)</p>
-            <p><strong>Learning Objective:</strong> Let the learner analyze how the five Analytics Plane APIs relate to the Analytics Plane as a whole and to their primary audiences, correctly distinguishing the four outbound, report-serving APIs from the Roster API's inbound role.</p>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a node to see details</p></div>
         </div>
     </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: graph-model
-    **sim-id:** analytics-plane-api-map<br/>
-    **Library:** vis-network<br/>
-    **Status:** Specified
-    
-    Bloom Taxonomy: Analyze (L4)
-    Bloom Taxonomy Verb: analyze, relate
-    
-    Learning objective: Let the learner analyze how the five Analytics Plane APIs relate to the Analytics Plane as a whole and to their primary audiences, correctly distinguishing the four outbound, report-serving APIs from the Roster API's inbound role.
-    
-    Purpose: Show a hub-and-spoke vis-network graph with "Analytics Plane" as the central hub and the five APIs as spokes, with edge direction visually distinguishing inbound from outbound APIs.
-    
-    Nodes:
-    
-    - Center: "Analytics Plane"
-    - Spoke: "Analytics API" — edge FROM Analytics Plane, labeled "backs every report and dashboard"
-    - Spoke: "Admin API" — edge FROM Analytics Plane, labeled "serves admin UIs, every mutation audited"
-    - Spoke: "Experiment API" — edge FROM Analytics Plane, labeled "assignment + readout for A/B tests"
-    - Spoke: "Export API" — edge FROM Analytics Plane, labeled "bulk async export"
-    - Spoke: "Roster API" — edge TO Analytics Plane, labeled "enrollment data flows in"
-    
-    Interactive features: Every node is clickable via vis-network's built-in click event. Clicking the hub opens an infobox restating the Analytics Plane's definition from this chapter. Clicking any spoke opens an infobox with that API's one-sentence purpose and its primary audience, matching the table above.
-    
-    Color coding: The four outbound APIs (Analytics, Admin, Experiment, Export) in the book's teal accent color; the Roster API in a contrasting amber to visually flag its reversed, inbound edge direction.
-    
-    Implementation: vis-network graph with physics-based layout (hub at center, five spokes arranged around it), directional arrows on every edge matching inbound/outbound direction, full click-to-infobox coverage on every node. Responsive width and height tracking the containing element, with layout re-stabilizing on resize.
-    -->
+    <script>
+        const TEAL = { background: '#2a9d8f', border: '#1f7a6f' };
+        const AMBER = { background: '#e9a23b', border: '#b8791f' };
+        const HUB = { background: '#12695f', border: '#0a3f39' };
+        window.GRAPH = {
+            layout: 'physics',
+            nodes: [
+                { id: 'Plane', label: 'Analytics Plane', color: HUB, borderWidth: 4 },
+                { id: 'Analytics', label: 'Analytics API', color: TEAL },
+                { id: 'Admin', label: 'Admin API', color: TEAL },
+                { id: 'Experiment', label: 'Experiment API', color: TEAL },
+                { id: 'Export', label: 'Export API', color: TEAL },
+                { id: 'Roster', label: 'Roster API', color: AMBER, font: { color: '#222' } }
+            ],
+            edges: [
+                { from: 'Plane', to: 'Analytics', label: 'backs every report & dashboard' },
+                { from: 'Plane', to: 'Admin', label: 'serves admin UIs; every mutation audited' },
+                { from: 'Plane', to: 'Experiment', label: 'assignment + readout for A/B tests' },
+                { from: 'Plane', to: 'Export', label: 'bulk async export' },
+                { from: 'Roster', to: 'Plane', label: 'enrollment data flows IN', color: { color: '#b8791f' } }
+            ],
+            nodeInfo: {
+                'Plane': { title: 'Analytics Plane', description: 'The plane that answers questions over stored events. It hosts five APIs &mdash; four that serve data OUT, and one (Roster) that takes data IN.' },
+                'Analytics': { title: 'Analytics API (outbound)', description: 'Backs every report and dashboard. Audience: teachers, district admins, authors. Reads pre-aggregated views, passes through the privacy filter.' },
+                'Admin': { title: 'Admin API (outbound)', description: 'Serves the admin UIs. Every mutation is audited. Audience: district and system administrators.' },
+                'Experiment': { title: 'Experiment API (outbound)', description: 'Handles variant assignment and readout for A/B tests. Audience: textbook authors running experiments.' },
+                'Export': { title: 'Export API (outbound)', description: 'Runs bulk exports asynchronously and returns a signed download URL. Audience: admins needing raw data extracts.' },
+                'Roster': { title: 'Roster API (INBOUND)', description: 'The odd one out: its edge points INTO the plane. It ingests enrollment data from a district SIS (via OneRoster) rather than serving reports out &mdash; which is why it is colored differently and its arrow is reversed.' }
+            }
+        };
+    </script>
+    <script src="vis-app.js"></script>
 </body>
 </html>

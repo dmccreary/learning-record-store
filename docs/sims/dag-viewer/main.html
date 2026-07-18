@@ -3,98 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
-    <title>DAG Viewer</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
-    </style>
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Concept Dependency DAG Viewer</title>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="container">
-        <h1>DAG Viewer</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
+    <div class="container">
+        <div class="graph-panel">
+            <div id="network"></div>
+            <div class="title">Concept Dependency DAG &mdash; DEPENDS_ON edges</div>
         </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> dag-viewer</p>
-            <p><strong>Library:</strong> vis-network</p>
-            <p><strong>Bloom Level:</strong> TBD</p>
-            <p><strong>Learning Objective:</strong> TBD</p>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a concept to see details</p></div>
         </div>
     </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: graph-model
-    **sim-id:** dag-viewer<br/>
-    **Library:** vis-network<br/>
-    **Status:** Reused<br/>
-    **Source:** https://dmccreary.github.io/graph-algorithms/sims/dag-viewer/main.html<br/>
-    **Source Repo:** https://github.com/dmccreary/graph-algorithms/tree/main/docs/sims/dag-viewer
-    
-    Reused from the MicroSim catalog (WHAT match score 0.7818). Learning objective: Let the learner explore a hierarchical, left-to-right rendering of a concept dependency graph built from `DEPENDS_ON` edges, and see how nodes with no outgoing edges sit at the foundation of the graph while nodes with many outgoing edges depend on several prerequisites at once — directly illustrating the Learning Graph DAG structure this project's Concept nodes form.
-    -->
+    <script>
+        const FOUND = { background: '#2a9d8f', border: '#1f7a6f' };  // foundational (no prerequisites)
+        const MID = { background: '#5aa0c4', border: '#3a7091' };
+        const TOP = { background: '#7b6cc4', border: '#544a91' };    // depends on several
+        window.GRAPH = {
+            layout: 'hierarchical', direction: 'LR',
+            nodes: [
+                { id: 'Actor', label: 'Actor', color: FOUND },
+                { id: 'Verb', label: 'Verb', color: FOUND },
+                { id: 'Object', label: 'Object Activity', color: FOUND },
+                { id: 'Statement', label: 'xAPI Statement', color: MID },
+                { id: 'LRS', label: 'Learning Record Store', color: MID },
+                { id: 'Immutability', label: 'Immutability', color: FOUND },
+                { id: 'Voiding', label: 'Voiding', color: MID },
+                { id: 'Compression', label: 'Compression', color: MID },
+                { id: 'Summary', label: 'Summary Vertex', color: TOP },
+                { id: 'Mastery', label: 'ConceptMastery', color: TOP }
+            ],
+            edges: [
+                { from: 'Statement', to: 'Actor', label: 'DEPENDS_ON' },
+                { from: 'Statement', to: 'Verb', label: 'DEPENDS_ON' },
+                { from: 'Statement', to: 'Object', label: 'DEPENDS_ON' },
+                { from: 'LRS', to: 'Statement', label: 'DEPENDS_ON' },
+                { from: 'Voiding', to: 'Statement', label: 'DEPENDS_ON' },
+                { from: 'Voiding', to: 'Immutability', label: 'DEPENDS_ON' },
+                { from: 'Compression', to: 'LRS', label: 'DEPENDS_ON' },
+                { from: 'Summary', to: 'Compression', label: 'DEPENDS_ON' },
+                { from: 'Summary', to: 'LRS', label: 'DEPENDS_ON' },
+                { from: 'Mastery', to: 'Summary', label: 'DEPENDS_ON' }
+            ],
+            nodeInfo: {
+                'Actor': { title: 'Actor (foundational)', description: 'A foundational concept &mdash; it has NO outgoing DEPENDS_ON edge, so it sits at the left foundation of the DAG. Nothing must be learned before it.' },
+                'Verb': { title: 'Verb (foundational)', description: 'Foundational: no prerequisites. Part of the xAPI Statement triple.' },
+                'Object': { title: 'Object Activity (foundational)', description: 'Foundational: no prerequisites. The thing the learner acted on.' },
+                'Immutability': { title: 'Immutability (foundational)', description: 'Foundational: no prerequisites. The rule that stored statements are never edited.' },
+                'Statement': { title: 'xAPI Statement', description: 'DEPENDS_ON Actor, Verb, and Object &mdash; three outgoing edges. It cannot be understood until all three prerequisites are.' },
+                'LRS': { title: 'Learning Record Store', description: 'DEPENDS_ON xAPI Statement. A node with an outgoing edge depends on its prerequisite; the more outgoing edges, the more it presupposes.' },
+                'Voiding': { title: 'Voiding', description: 'DEPENDS_ON both xAPI Statement AND Immutability &mdash; voiding only makes sense once you know statements are immutable.' },
+                'Compression': { title: 'Compression', description: 'DEPENDS_ON the LRS. It compresses the statement log into summaries.' },
+                'Summary': { title: 'Summary Vertex', description: 'DEPENDS_ON Compression and the LRS &mdash; multiple outgoing edges, so it sits deep in the DAG, presupposing several concepts.' },
+                'Mastery': { title: 'ConceptMastery', description: 'DEPENDS_ON Summary Vertex &mdash; one of the most-dependent concepts, near the right end of the DAG. It sits atop everything to its left.' }
+            }
+        };
+    </script>
+    <script src="vis-app.js"></script>
 </body>
 </html>

@@ -15,9 +15,10 @@
   "library": "vis-network",
   "bloomLevel": "Analyze (L4)",
   "bloomVerb": "analyze, relate",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 3,
   "chapter_title": "IEEE Standardization of xAPI and cmi5",
   "chapter_dir": "03-ieee-standardization-xapi-cmi5",
-  "chapter_rel_dir": "chapters/03-ieee-standardization-xapi-cmi5"
+  "chapter_rel_dir": "chapters/03-ieee-standardization-xapi-cmi5",
+  "canvasHeight": 520
 }

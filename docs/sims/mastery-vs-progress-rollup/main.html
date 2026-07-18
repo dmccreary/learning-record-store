@@ -3,110 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
-    <title>Two Summary-Building Functions — Mastery and Progress</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
-    </style>
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Mastery vs Progress Rollup</title>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="container">
-        <h1>Two Summary-Building Functions — Mastery and Progress</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
+    <div class="container">
+        <div class="graph-panel">
+            <div id="network"></div>
+            <div class="title">Mastery (F-7) vs Progress (F-8) &mdash; Grains</div>
         </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> mastery-vs-progress-rollup</p>
-            <p><strong>Library:</strong> vis-network</p>
-            <p><strong>Bloom Level:</strong> Analyze (L4)</p>
-            <p><strong>Learning Objective:</strong> Let the learner differentiate the Mastery Computation Function's single grain (ConceptMastery) from the Progress Projection Function's five grains (PageEngagement, MicroSimEngagement, QuestionResponse, LearningSession, SectionRollup), classifying each of Chapter 8's six summary-vertex labels under the correct function.</p>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a node to see details</p></div>
         </div>
     </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: infographic
-    **sim-id:** mastery-vs-progress-rollup<br/>
-    **Library:** vis-network<br/>
-    **Status:** Specified<br/>
-    **Template:** https://github.com/dmccreary/intelligent-textbooks/tree/main/docs/sims/question-color-update<br/>
-    
-    Bloom Taxonomy: Analyze (L4)
-    Bloom Taxonomy Verb: differentiate, classify
-    
-    Learning objective: Let the learner differentiate the Mastery Computation Function's single grain (ConceptMastery) from the Progress Projection Function's five grains (PageEngagement, MicroSimEngagement, QuestionResponse, LearningSession, SectionRollup), classifying each of Chapter 8's six summary-vertex labels under the correct function.
-    
-    Purpose: Show a two-branch vis-network graph rooted at "Enriched Statement (concept_ids attached)", splitting into a "Mastery Computation Function (F-7)" branch and a "Progress Projection Function (F-8)" branch.
-    
-    Nodes: Root: "Enriched Statement". Branch F-7: single child node "ConceptMastery — (student, concept)". Branch F-8: five child nodes "PageEngagement — (student, page)", "MicroSimEngagement — (student, microsim)", "QuestionResponse — (student, question)", "LearningSession — (student, session)", "SectionRollup — (section, concept)".
-    
-    Interactive features: Clicking "Mastery Computation Function" or "Progress Projection Function" opens an infobox with that function's definition from this chapter's prose and its F-number. Clicking any of the six grain nodes opens an infobox recalling that vertex's key properties from Chapter 8's grain table. A toggle labeled "Show statement compression ratio" annotates each leaf node with its approximate compression ratio from Chapter 8 (e.g. ConceptMastery ~100:1, SectionRollup ~3,000:1) when enabled.
-    
-    Color coding: The F-7 branch in the book's teal accent color; the F-8 branch in a complementary amber, matching the two-function color language established for the "accept immediately / reconciled later" split in Chapter 8's Accept-First diagram.
-    
-    Responsive design: Graph layout recalculates on window resize using vis-network's physics engine; on narrow viewports the two branches stack vertically rather than side by side.
-    -->
+    <script>
+        const ROOT = { background: '#37474f', border: '#1c2529' };
+        const TEAL = { background: '#2a9d8f', border: '#1f7a6f' };
+        const AMBER = { background: '#e9a23b', border: '#b8791f' };
+        window.GRAPH = {
+            layout: 'hierarchical', direction: 'UD',
+            nodes: [
+                { id: 'Root', label: 'Enriched Statement (concept_ids attached)', color: ROOT },
+                { id: 'F7', label: 'Mastery Computation Function (F-7)', color: TEAL, borderWidth: 4 },
+                { id: 'F8', label: 'Progress Projection Function (F-8)', color: AMBER, borderWidth: 4, font: { color: '#222' } },
+                { id: 'CM', label: 'ConceptMastery (student, concept)', color: TEAL },
+                { id: 'PE', label: 'PageEngagement (student, page)', color: AMBER, font: { color: '#222' } },
+                { id: 'ME', label: 'MicroSimEngagement (student, microsim)', color: AMBER, font: { color: '#222' } },
+                { id: 'QR', label: 'QuestionResponse (student, question)', color: AMBER, font: { color: '#222' } },
+                { id: 'LS', label: 'LearningSession (student, session)', color: AMBER, font: { color: '#222' } },
+                { id: 'SR', label: 'SectionRollup (section, concept)', color: AMBER, font: { color: '#222' } }
+            ],
+            edges: [
+                { from: 'Root', to: 'F7' }, { from: 'Root', to: 'F8' },
+                { from: 'F7', to: 'CM' },
+                { from: 'F8', to: 'PE' }, { from: 'F8', to: 'ME' }, { from: 'F8', to: 'QR' },
+                { from: 'F8', to: 'LS' }, { from: 'F8', to: 'SR' }
+            ],
+            nodeInfo: {
+                'Root': { title: 'Enriched Statement', description: 'The shared input: a statement after enrichment, with <code>concept_ids</code> attached. It fans into two functions that produce different summary vertices.' },
+                'F7': { title: 'Mastery Computation Function (F-7)', description: 'Computes a learner&rsquo;s mastery. It produces exactly ONE grain: ConceptMastery. Single-grain, because mastery is defined per (student, concept).' },
+                'F8': { title: 'Progress Projection Function (F-8)', description: 'Projects engagement and progress. It produces FIVE grains &mdash; the difference from F-7 is that progress is measured across many dimensions, not one.' },
+                'CM': { title: 'ConceptMastery', description: 'Grain: (student, concept). The single mastery estimate per concept. ~100:1 compression from raw statements.' },
+                'PE': { title: 'PageEngagement', description: 'Grain: (student, page). Engagement measures per page &mdash; an F-8 progress grain.' },
+                'ME': { title: 'MicroSimEngagement', description: 'Grain: (student, microsim). Dwell and interaction per sim &mdash; an F-8 progress grain.' },
+                'QR': { title: 'QuestionResponse', description: 'Grain: (student, question). Per-question responses &mdash; an F-8 progress grain.' },
+                'LS': { title: 'LearningSession', description: 'Grain: (student, session). One sitting&rsquo;s activity &mdash; an F-8 progress grain.' },
+                'SR': { title: 'SectionRollup', description: 'Grain: (section, concept). Class-level rollup &mdash; the coarsest F-8 grain, ~3,000:1 compression.' }
+            }
+        };
+    </script>
+    <script src="vis-app.js"></script>
 </body>
 </html>

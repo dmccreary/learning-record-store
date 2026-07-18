@@ -15,9 +15,10 @@
   "library": "vis-network",
   "bloomLevel": "Analyze (L4)",
   "bloomVerb": "classify, organize",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 9,
   "chapter_title": "The Twelve Core LRS Functions",
   "chapter_dir": "09-twelve-core-lrs-functions",
-  "chapter_rel_dir": "chapters/09-twelve-core-lrs-functions"
+  "chapter_rel_dir": "chapters/09-twelve-core-lrs-functions",
+  "canvasHeight": 600
 }

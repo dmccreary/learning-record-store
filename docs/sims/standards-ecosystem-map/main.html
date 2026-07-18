@@ -3,115 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
-    <title>The Wider Standards Ecosystem Map</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
-    </style>
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Standards Ecosystem Map</title>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="container">
-        <h1>The Wider Standards Ecosystem Map</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
+    <div class="container">
+        <div class="graph-panel">
+            <div id="network"></div>
+            <div class="title">Standards Governance &mdash; Two Families</div>
         </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> standards-ecosystem-map</p>
-            <p><strong>Library:</strong> vis-network</p>
-            <p><strong>Bloom Level:</strong> Analyze (L4)</p>
-            <p><strong>Learning Objective:</strong> Let the learner analyze how IEEE LTSC, the ADL Initiative, I2IDL, and the 1EdTech Consortium relate to one another and to the specifications each governs, correctly attributing xAPI, cmi5, and the Total Learning Architecture to one governance family and LTI, QTI, Caliper Analytics, and Learning Object Metadata to the other.</p>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a hub or spec to see details</p></div>
         </div>
     </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: graph-model
-    **sim-id:** standards-ecosystem-map<br/>
-    **Library:** vis-network<br/>
-    **Status:** Specified<br/>
-    **Template:** https://github.com/dmccreary/intelligent-textbooks/tree/main/docs/sims/standards-ecosystem<br/>
-    
-    Bloom Taxonomy: Analyze (L4)
-    Bloom Taxonomy Verb: analyze, relate
-    
-    Learning objective: Let the learner analyze how IEEE LTSC, the ADL Initiative, I2IDL, and the 1EdTech Consortium relate to one another and to the specifications each governs, correctly attributing xAPI, cmi5, and the Total Learning Architecture to one governance family and LTI, QTI, Caliper Analytics, and Learning Object Metadata to the other.
-    
-    Purpose: Show a two-cluster vis-network graph with governing-body nodes as hubs and specification nodes as spokes, so the learner can trace every named specification back to exactly one governing body.
-    
-    Nodes:
-    
-    - Hub: "IEEE LTSC" — spokes to "IEEE 9274.1.1-2023 (xAPI core)" and "Learning Object Metadata (IEEE 1484.12.1)"
-    - Hub: "ADL Initiative" — spokes to "xAPI (origin)," "cmi5," and "Total Learning Architecture"
-    - Hub: "I2IDL" — spokes to "xAPI Conformance Suite," "xAPI Profile Server," and "TLA Reference Implementation"
-    - Hub: "1EdTech Consortium" — spokes to "Learning Tools Interoperability (LTI)," "Question and Test Interoperability (QTI)," and "Caliper Analytics"
-    
-    Interactive features: Every node is clickable via vis-network's built-in click event. Clicking a hub node opens an infobox with that organization's one-sentence governance role, matching the definitions given in this chapter and Chapter 3. Clicking a spoke node opens an infobox with that specification's one-sentence purpose and which chapter first defined it.
-    
-    Color coding: The xAPI/ADL/IEEE LTSC/I2IDL cluster in the book's teal accent color (matching Chapter 3's governance diagram); the 1EdTech Consortium cluster in a contrasting amber, so the two governance families are visually distinct at a glance.
-    
-    Implementation: vis-network graph with physics-based layout, two hub-and-spoke clusters. Responsive width and height tracking the containing element, with layout re-stabilizing on resize.
-    -->
+    <script>
+        const TEAL = { background: '#2a9d8f', border: '#1f7a6f' };
+        const TEALHUB = { background: '#12695f', border: '#0a3f39' };
+        const AMBER = { background: '#e9a23b', border: '#b8791f' };
+        const AMBERHUB = { background: '#b8791f', border: '#8a5a1c' };
+        window.GRAPH = {
+            layout: 'physics',
+            nodes: [
+                { id: 'IEEE', label: 'IEEE LTSC', color: TEALHUB, borderWidth: 3 },
+                { id: 'ADL', label: 'ADL Initiative', color: TEALHUB, borderWidth: 3 },
+                { id: 'I2IDL', label: 'I2IDL', color: TEALHUB, borderWidth: 3 },
+                { id: 'Edtech', label: '1EdTech Consortium', color: AMBERHUB, borderWidth: 3, font: { color: '#222' } },
+                { id: 'xapicore', label: 'IEEE 9274.1.1-2023 (xAPI core)', color: TEAL },
+                { id: 'LOM', label: 'Learning Object Metadata (IEEE 1484.12.1)', color: TEAL },
+                { id: 'xapi', label: 'xAPI (origin)', color: TEAL },
+                { id: 'cmi5', label: 'cmi5', color: TEAL },
+                { id: 'TLA', label: 'Total Learning Architecture', color: TEAL },
+                { id: 'conf', label: 'xAPI Conformance Suite', color: TEAL },
+                { id: 'profsrv', label: 'xAPI Profile Server', color: TEAL },
+                { id: 'tlaref', label: 'TLA Reference Implementation', color: TEAL },
+                { id: 'LTI', label: 'Learning Tools Interoperability (LTI)', color: AMBER, font: { color: '#222' } },
+                { id: 'QTI', label: 'Question & Test Interoperability (QTI)', color: AMBER, font: { color: '#222' } },
+                { id: 'Caliper', label: 'Caliper Analytics', color: AMBER, font: { color: '#222' } }
+            ],
+            edges: [
+                { from: 'IEEE', to: 'xapicore' }, { from: 'IEEE', to: 'LOM' },
+                { from: 'ADL', to: 'xapi' }, { from: 'ADL', to: 'cmi5' }, { from: 'ADL', to: 'TLA' },
+                { from: 'I2IDL', to: 'conf' }, { from: 'I2IDL', to: 'profsrv' }, { from: 'I2IDL', to: 'tlaref' },
+                { from: 'Edtech', to: 'LTI' }, { from: 'Edtech', to: 'QTI' }, { from: 'Edtech', to: 'Caliper' }
+            ],
+            nodeInfo: {
+                'IEEE': { title: 'IEEE LTSC', description: 'The IEEE Learning Technology Standards Committee. It stewards the balloted xAPI core standard and Learning Object Metadata.' },
+                'ADL': { title: 'ADL Initiative', description: 'The U.S. Advanced Distributed Learning Initiative &mdash; origin of xAPI, cmi5, and the Total Learning Architecture concept.' },
+                'I2IDL': { title: 'I2IDL', description: 'Operates the running tooling for the xAPI/TLA family: the Conformance Suite, the Profile Server, and the TLA Reference Implementation.' },
+                'Edtech': { title: '1EdTech Consortium', description: 'A separate governance family (formerly IMS Global) governing LTI, QTI, and Caliper Analytics &mdash; distinct from the xAPI/ADL/IEEE/I2IDL family.' },
+                'xapicore': { title: 'IEEE 9274.1.1-2023', description: 'The published xAPI core standard (Chapter 3): Statement structure, RESTful API, conformance requirements.' },
+                'LOM': { title: 'Learning Object Metadata', description: 'IEEE 1484.12.1 &mdash; a schema for describing learning resources, referenced by content repositories (this chapter).' },
+                'xapi': { title: 'xAPI (origin)', description: 'The Experience API, originated by ADL via Project Tin Can (Chapter 1).' },
+                'cmi5': { title: 'cmi5', description: 'An xAPI Application Profile for launching and tracking assignable units (Chapter 3).' },
+                'TLA': { title: 'Total Learning Architecture', description: 'ADL&rsquo;s vision for how learning systems interoperate around an LRS (Chapter 3).' },
+                'conf': { title: 'xAPI Conformance Suite', description: 'I2IDL-operated tests that check an LRS conforms to the xAPI standard.' },
+                'profsrv': { title: 'xAPI Profile Server', description: 'I2IDL-operated infrastructure that hosts published Application Profiles.' },
+                'tlaref': { title: 'TLA Reference Implementation', description: 'I2IDL-operated working demo of the Total Learning Architecture.' },
+                'LTI': { title: 'Learning Tools Interoperability', description: '1EdTech standard for launching external tools from an LMS. Different governance family from xAPI.' },
+                'QTI': { title: 'Question & Test Interoperability', description: '1EdTech standard for portable assessment items.' },
+                'Caliper': { title: 'Caliper Analytics', description: '1EdTech&rsquo;s learning-analytics event standard &mdash; a peer/alternative to xAPI, governed by 1EdTech rather than the ADL/IEEE family.' }
+            }
+        };
+    </script>
+    <script src="vis-app.js"></script>
 </body>
 </html>
