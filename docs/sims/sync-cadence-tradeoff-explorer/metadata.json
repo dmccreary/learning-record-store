@@ -1,0 +1,23 @@
+{
+  "title": "Sync Cadence Tradeoff Explorer",
+  "description": "Let the learner manipulate the summarizer's sync cadence and observe, with real computed numbers, how distinct active grains, graph upserts per second, and graph lag all move together — building intuition for why the design specification chose 60 seconds as the default.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "sync-cadence-tradeoff-explorer",
+  "library": "p5.js",
+  "bloomLevel": "Apply (L3)",
+  "bloomVerb": "calculate, experiment, apply",
+  "completion_status": "scaffold",
+  "chapter_number": 11,
+  "chapter_title": "Architecture Decision Records and the Capacity Model",
+  "chapter_dir": "11-adrs-and-capacity-model",
+  "chapter_rel_dir": "chapters/11-adrs-and-capacity-model"
+}

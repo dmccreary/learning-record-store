@@ -1,0 +1,15 @@
+{
+  "sim_id": "bkt-four-parameters-explorer",
+  "diagram_name": "The Four BKT Parameters Explorer",
+  "chapter_number": 12,
+  "chapter_title": "Bayesian Knowledge Tracing for Mastery",
+  "chapter_dir": "12-bayesian-knowledge-tracing",
+  "chapter_rel_dir": "chapters/12-bayesian-knowledge-tracing",
+  "library": "p5.js",
+  "bloom_level": "Understand (L2)",
+  "bloom_verb": "explain, illustrate",
+  "learning_objective": "Let the learner explain what each of the four BKT parameters (prior, slip, guess, transit) controls, and illustrate how changing one parameter's value shifts a mastery trajectory while holding the evidence sequence fixed.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: infographic\n**sim-id:** bkt-four-parameters-explorer<br/>\n**Library:** p5.js<br/>\n**Status:** Specified\n\nBloom Taxonomy: Understand (L2)\nBloom Taxonomy Verb: explain, illustrate\n\nLearning objective: Let the learner explain what each of the four BKT parameters (prior, slip, guess, transit) controls, and illustrate how changing one parameter's value shifts a mastery trajectory while holding the evidence sequence fixed.\n\nPurpose: Give the learner a hands-on feel for the four parameters before the equations that combine them are introduced.\n\nCanvas layout: Four clickable cards across the top — \"Prior P(L0)\", \"Slip p_slip\", \"Guess p_guess\", \"Transit p_transit\" — each showing its current value, above a line chart plotting P(Ln) across a fixed five-observation sequence (correct, incorrect, correct, correct, correct), with a slider below bound to whichever card is selected.\n\nInteractive features: Clicking a card selects it and opens an infobox with that parameter's definition, matching this chapter's prose. Dragging the selected parameter's slider (range 0.0–1.0, step 0.01; defaults: prior 0.30, slip 0.10, guess 0.20, transit 0.15) immediately recomputes the trajectory using this chapter's conditioning and transition equations. A \"Reset to defaults\" button restores the starting values.\n\nColor scheme: Each card uses a distinct book-palette color (prior teal, slip amber, guess rose, transit green); the trajectory line reuses the selected card's color.\n\nResponsive design: Cards reflow into a two-by-two grid below tablet width; chart and slider stay full width at every size."
+}

@@ -1,0 +1,15 @@
+{
+  "sim_id": "two-dashboards-one-log",
+  "diagram_name": "District Overview vs. System Health — Two Lenses on One Log",
+  "chapter_number": 27,
+  "chapter_title": "Compliance, Privacy Law, and District-Level Reporting",
+  "chapter_dir": "27-compliance-and-district-reporting",
+  "chapter_rel_dir": "chapters/27-compliance-and-district-reporting",
+  "library": "vis-network",
+  "bloom_level": "Understand (L2)",
+  "bloom_verb": "classify, contrast",
+  "learning_objective": "Let the learner classify each of the eight reports under the dashboard it belongs to, and see that both dashboards read from the same underlying statement log rather than separate data sources.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: graph-model\n**sim-id:** two-dashboards-one-log<br/>\n**Library:** vis-network<br/>\n**Status:** Specified\n\nBloom Taxonomy: Understand (L2)\nBloom Taxonomy Verb: classify, contrast\n\nLearning objective: Let the learner classify each of the eight reports under the dashboard it belongs to, and see that both dashboards read from the same underlying statement log rather than separate data sources.\n\nPurpose: A central \"Statement Log\" node with two dashboard nodes branching from it (District Overview, System Health), each connected to its four (or three) constituent report nodes.\n\nNodes: Statement Log (center), District Overview Dashboard, System Health Dashboard, and the eight report nodes from the table above, each attached to its owning dashboard.\n\nInteractive features: Hovering the Statement Log node highlights all eight report nodes at once, showing they share one source. Clicking a dashboard node highlights only its own reports and dims the other dashboard's. Clicking any report node opens an infobox with that report's one-line description from the table above.\n\nColor coding: District Overview Dashboard and its reports in the book's teal accent color; System Health Dashboard and its reports in amber.\n\nImplementation: vis-network force-directed graph with click/hover handlers, responsive width tracking the containing element. Zoom and pan enabled."
+}

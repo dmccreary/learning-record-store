@@ -1,0 +1,15 @@
+{
+  "sim_id": "lrs-system-context-diagram",
+  "diagram_name": "This Project's System Context Diagram",
+  "chapter_number": 5,
+  "chapter_title": "System Context and the Five Architectural Planes",
+  "chapter_dir": "05-system-context-architectural-planes",
+  "chapter_rel_dir": "chapters/05-system-context-architectural-planes",
+  "library": "Mermaid",
+  "bloom_level": "Understand (L2)",
+  "bloom_verb": "describe, identify",
+  "learning_objective": "Let the learner identify the external actors and the five internal planes of this project's Learning Record Store, and describe in one sentence what crosses the system boundary in each direction.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: graph-model\n**sim-id:** lrs-system-context-diagram<br/>\n**Library:** Mermaid<br/>\n**Status:** Specified<br/>\n**Template:** https://github.com/dmccreary/automating-instructional-design/tree/main/docs/sims/xapi-data-flow<br/>\n\nBloom Taxonomy: Understand (L2)\nBloom Taxonomy Verb: describe, identify\n\nLearning objective: Let the learner identify the external actors and the five internal planes of this project's Learning Record Store, and describe in one sentence what crosses the system boundary in each direction.\n\nPurpose: Render the system context from the LRS specification's §2 diagram as a single Mermaid flowchart, top to bottom, with the external actors outside a bounding subgraph labeled \"Learning Record Store\" and the five planes as ordered nodes inside it.\n\nNodes, top to bottom:\n\n- External: \"Intelligent Textbooks (thousands, concurrent)\" — sends xAPI statements\n- Inside the LRS boundary, in order: \"Ingestion Plane\", \"Processing Plane\", \"Storage Plane\", \"Analytics Plane\", \"Presentation Plane\"\n- External: \"Instructors\" — receives dashboards\n- External: \"District & System Admins\" — receives admin reports\n\nEdges: \"Intelligent Textbooks\" to \"Ingestion Plane\" labeled \"xAPI statements\"; each plane to the next labeled with what flows between them (\"durably queued statements\", \"validated + enriched events\", \"aggregated queries\", \"rendered reports\"); \"Presentation Plane\" to \"Instructors\" labeled \"dashboards\"; \"Presentation Plane\" to \"District & System Admins\" labeled \"admin UIs\".\n\nInteractive features: Every node has a Mermaid `click` directive. Clicking an external-actor node opens an infobox naming its role (Learning Record Provider, dashboard viewer, or administrator). Clicking any plane node opens an infobox with that plane's one-sentence definition and the two or three components it contains, previewing the deep-dive sections later in this chapter.\n\nColor coding: External actors in a neutral gray; the five internal planes in a left-to-right gradient of the book's teal accent color, darkest at Ingestion and lightest at Presentation, so the reader can visually track the direction data flows.\n\nImplementation: Mermaid flowchart, top-to-bottom orientation, one bounding subgraph for the system boundary, full click-to-infobox coverage on every node. Responsive width tracking the containing element."
+}

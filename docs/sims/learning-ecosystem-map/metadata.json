@@ -1,0 +1,23 @@
+{
+  "title": "Learning Ecosystem Map",
+  "description": "Let the learner analyze how a Learning Record Store, a Competency Framework, a content repository, and analytics tools interoperate within a Learning Ecosystem, in a general, vendor-neutral form that generalizes Chapter 3's Total Learning Architecture map.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "learning-ecosystem-map",
+  "library": "vis-network",
+  "bloomLevel": "Analyze (L4)",
+  "bloomVerb": "analyze, relate",
+  "completion_status": "scaffold",
+  "chapter_number": 4,
+  "chapter_title": "Standards Governance and the Wider Interoperability Ecosystem",
+  "chapter_dir": "04-standards-governance-ecosystem",
+  "chapter_rel_dir": "chapters/04-standards-governance-ecosystem"
+}

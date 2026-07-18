@@ -1,0 +1,23 @@
+{
+  "title": "Tracing One Student's Mastery Across Four Observations",
+  "description": "Let the learner compute the Prior Mastery Probability after each of four observations using the Evidence Conditioning Step and the Learning Transition Step, tracing exactly how the numbers move rather than watching an abstract animation.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "bkt-mastery-trace-stepper",
+  "library": "p5.js",
+  "bloomLevel": "Apply (L3)",
+  "bloomVerb": "compute, trace",
+  "completion_status": "scaffold",
+  "chapter_number": 12,
+  "chapter_title": "Bayesian Knowledge Tracing for Mastery",
+  "chapter_dir": "12-bayesian-knowledge-tracing",
+  "chapter_rel_dir": "chapters/12-bayesian-knowledge-tracing"
+}

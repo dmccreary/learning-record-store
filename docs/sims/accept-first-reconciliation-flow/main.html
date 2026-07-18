@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- microsim-scaffold-stub -->
+    <title>Accept-First Ingestion and Reconciliation Flow</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Accept-First Ingestion and Reconciliation Flow</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> accept-first-reconciliation-flow</p>
+            <p><strong>Library:</strong> Mermaid</p>
+            <p><strong>Bloom Level:</strong> Understand (L2)</p>
+            <p><strong>Learning Objective:</strong> Let the learner explain how a newly published textbook can emit statements before its metadata is registered, and sequence the four steps of Accept-First Ingestion from a statement's arrival to a Provisional Node's promotion.</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    Type: workflow
+    **sim-id:** accept-first-reconciliation-flow<br/>
+    **Library:** Mermaid<br/>
+    **Status:** Specified
+    
+    Bloom Taxonomy: Understand (L2)
+    Bloom Taxonomy Verb: explain, sequence
+    
+    Learning objective: Let the learner explain how a newly published textbook can emit statements before its metadata is registered, and sequence the four steps of Accept-First Ingestion from a statement's arrival to a Provisional Node's promotion.
+    
+    Purpose: Show a six-node, left-to-right Mermaid flowchart tracing one never-before-seen textbook's first statement from arrival through reconciliation, matching the four numbered steps described in this chapter's prose.
+    
+    Nodes, in order: "Statement arrives naming an unknown textbook_id/version_id"; "Ingestion Gateway accepts it (Accept-First Ingestion)"; "Stream Processor auto-provisions a stub (Provisional Node, provisional: true)"; "Event Store retains the statement immutably"; "Reconciliation Worker matches the stub against published metadata (git_sha, then IRI path, then title similarity)"; "Node promoted (provisional: false), COVERS/EMBEDS/DEPENDS_ON back-filled — earlier statements become richly queryable retroactively". Edges connect each node to the next in sequence.
+    
+    Interactive features: Every node has a Mermaid `click` directive opening an infobox with that node's definition from this chapter's prose — Schema On Read, Accept-First Ingestion, Provisional Node and its `provisional: true` property, the no-data-loss guarantee, the Reconciliation Worker's three-tier matching order, and retroactive queryability with a link back to Chapter 7's `COVERS`, `EMBEDS`, and `DEPENDS_ON` relationship types, in node order.
+    
+    Color coding: The three "accept immediately" nodes in the book's teal accent color; the three "reconciled later" nodes in a complementary amber — visually separating what happens instantly from what happens eventually.
+    
+    Implementation: Mermaid flowchart, single left-to-right chain, full click-to-infobox coverage on every node. Responsive width tracking the containing element; on narrow viewports the chain reflows top-to-bottom.
+    -->
+</body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "title": "The Storage Plane, Which Technology Holds What",
+  "description": "Let the learner classify each storage-plane technology — ClickHouse, Neo4j 5 Community, PostgreSQL 16 (×2), Redis 7, MinIO, and Amazon S3 — by the specific kind of data it is responsible for, differentiating the event store from the graph from the two isolated PostgreSQL instances.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "storage-plane-technology-map",
+  "library": "vis-network",
+  "bloomLevel": "Analyze (L4)",
+  "bloomVerb": "classify, differentiate",
+  "completion_status": "scaffold",
+  "chapter_number": 10,
+  "chapter_title": "Choosing the Technology Stack",
+  "chapter_dir": "10-choosing-technology-stack",
+  "chapter_rel_dir": "chapters/10-choosing-technology-stack"
+}

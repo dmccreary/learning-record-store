@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- microsim-scaffold-stub -->
+    <title>Statement Path Under ADR-001 and ADR-002</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Statement Path Under ADR-001 and ADR-002</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> statement-path-adr-001-002</p>
+            <p><strong>Library:</strong> Mermaid</p>
+            <p><strong>Bloom Level:</strong> Understand (L2)</p>
+            <p><strong>Learning Objective:</strong> Let the learner trace one xAPI statement's storage path and explain, node by node, which decision (ADR-001 or ADR-002) governs each hop, reinforcing that the graph never receives a per-statement write.</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    Type: workflow
+    **sim-id:** statement-path-adr-001-002<br/>
+    **Library:** Mermaid<br/>
+    **Status:** Specified
+    
+    Bloom Taxonomy: Understand (L2)
+    Bloom Taxonomy Verb: explain, trace
+    
+    Learning objective: Let the learner trace one xAPI statement's storage path and explain, node by node, which decision (ADR-001 or ADR-002) governs each hop, reinforcing that the graph never receives a per-statement write.
+    
+    Purpose: A single Mermaid flowchart showing one statement's journey from arrival to its two eventual resting places — full-fidelity storage and, much later, a compressed summary.
+    
+    Nodes: "Statement arrives at the gateway" leads to "Written to ClickHouse, full JSON, full fidelity (ADR-001)" leads to "AggregatingMergeTree materialized view rolls the statement into its grain, incrementally, at zero app cost (ADR-002)". A second branch from the materialized-view node leads to "Every 60s: summarizer reads only grains whose last_seen advanced" leads to "Summarizer writes an absolute value to Neo4j via MERGE + SET, never += (ADR-002)" leads to "One compressed summary vertex in Neo4j, per grain, never per statement (ADR-001)". A dead-end node off the ClickHouse node reads "No arrow from here ever reaches Neo4j directly — nothing per-statement is ever written to the graph."
+    
+    Interactive features: Every node has a Mermaid click directive. Clicking the ClickHouse node opens an infobox explaining ADR-001 in one paragraph, quoting "ClickHouse is the immutable system of record for every statement, at full fidelity." Clicking the materialized-view node or the summarizer node opens an infobox explaining ADR-002's absolute-write mechanism and why streaming deltas were rejected. Clicking the final Neo4j summary-vertex node opens an infobox reminding the learner that the graph schema has no Statement label at all. Clicking the dead-end node opens an infobox stating the C-1 constraint from Chapter 8 in one sentence.
+    
+    Color coding: The ClickHouse path in the book's teal accent color; the summarizer/graph path in a complementary amber to visually separate "every statement, immediately" from "one absolute value, every 60 seconds."
+    
+    Responsive design: Flowchart resizes to the width of its containing element; on narrow viewports the chain reflows top-to-bottom instead of left-to-right.
+    -->
+</body>
+</html>

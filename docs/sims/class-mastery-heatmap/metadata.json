@@ -1,0 +1,23 @@
+{
+  "title": "Class Mastery Heatmap for One Section",
+  "description": "Let the learner distinguish a concept-wide weakness (a dark column across most students) from a student-specific weakness (a dark row across most concepts) in a class mastery heatmap, and identify which pattern calls for whole-class re-teaching versus individual attention.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "class-mastery-heatmap",
+  "library": "p5.js",
+  "bloomLevel": "Analyze (L4)",
+  "bloomVerb": "differentiate, distinguish",
+  "completion_status": "scaffold",
+  "chapter_number": 29,
+  "chapter_title": "Class-Level Reports and Teacher Tools",
+  "chapter_dir": "29-class-level-reports-and-tools",
+  "chapter_rel_dir": "chapters/29-class-level-reports-and-tools"
+}

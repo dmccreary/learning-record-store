@@ -1,0 +1,24 @@
+{
+  "title": "This Project's System Context Diagram",
+  "description": "Let the learner identify the external actors and the five internal planes of this project's Learning Record Store, and describe in one sentence what crosses the system boundary in each direction.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "lrs-system-context-diagram",
+  "library": "Mermaid",
+  "bloomLevel": "Understand (L2)",
+  "bloomVerb": "describe, identify",
+  "completion_status": "implemented",
+  "chapter_number": 5,
+  "chapter_title": "System Context and the Five Architectural Planes",
+  "chapter_dir": "05-system-context-architectural-planes",
+  "chapter_rel_dir": "chapters/05-system-context-architectural-planes",
+  "canvasHeight": 680
+}

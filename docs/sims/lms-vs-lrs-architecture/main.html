@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>LMS-Centric vs LRS-Centric Architecture</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' }
+        });
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="diagram-panel">
+            <div class="mermaid">
+flowchart LR
+    subgraph LEGACY["LMS-Centric (SCORM / AICC era)"]
+        direction TB
+        SCO1["SCO 1"]:::legacy
+        SCO2["SCO 2"]:::legacy
+        SCO3["SCO 3"]:::legacy
+        LMS["Learning Management System"]:::legacyhub
+        SCO1 --> LMS
+        SCO2 --> LMS
+        SCO3 --> LMS
+    end
+    subgraph MODERN["LRS-Centric (xAPI era)"]
+        direction TB
+        Textbook["Intelligent Textbook"]:::provider
+        Mobile["Mobile App"]:::provider
+        VR["VR Simulator"]:::provider
+        CodingLab["Coding Lab"]:::provider
+        Kiosk["Physical Kiosk"]:::provider
+        LRS["Learning Record Store"]:::lrshub
+        Dashboards["Dashboards &amp; Reports"]:::report
+        Textbook --> LRS
+        Mobile --> LRS
+        VR --> LRS
+        CodingLab --> LRS
+        Kiosk --> LRS
+        LRS --> Dashboards
+    end
+
+    classDef legacy fill:#b0bdcc,stroke:#5f6e82,color:#1a2430,font-size:15px
+    classDef legacyhub fill:#8b9bb0,stroke:#5f6e82,color:#fff,font-weight:bold,font-size:15px
+    classDef provider fill:#8fd3c9,stroke:#3bab9d,color:#123,font-size:15px
+    classDef lrshub fill:#2a9d8f,stroke:#1f7a6f,color:#fff,font-weight:bold,font-size:15px
+    classDef report fill:#4c956c,stroke:#2f6b48,color:#fff,font-size:15px
+    linkStyle default stroke:#999,stroke-width:2px
+            </div>
+        </div>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display">
+                <p class="info-placeholder">Click a node to see details</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const nodeInfo = {
+            'LMS': {
+                title: 'Learning Management System',
+                description: 'A central platform that hosts courses and records completion. In the SCORM/AICC era it was the single destination for all learning data &mdash; every content module reported only to the LMS, and nothing else could receive that data.'
+            },
+            'SCO1': { title: 'SCO 1 &mdash; Sharable Content Object', description: 'A SCORM content unit. A SCO can only communicate with the one LMS that launched it, using a browser-based API. It cannot send records to any other system.' },
+            'SCO2': { title: 'SCO 2 &mdash; Sharable Content Object', description: 'A SCORM content unit. A SCO can only communicate with the one LMS that launched it, using a browser-based API. It cannot send records to any other system.' },
+            'SCO3': { title: 'SCO 3 &mdash; Sharable Content Object', description: 'A SCORM content unit. A SCO can only communicate with the one LMS that launched it, using a browser-based API. It cannot send records to any other system.' },
+            'LRS': {
+                title: 'Learning Record Store',
+                description: 'A dedicated store for xAPI Statements. Any number of independent Learning Record Providers can send records to it, and analytics tools can read records out &mdash; a hub-and-spoke shape that scales to many kinds of learning experience.'
+            },
+            'Textbook': { title: 'Intelligent Textbook', description: 'A Learning Record Provider: any system that emits xAPI Statements. Here, a textbook sends a Statement each time a learner completes a section or answers a question.' },
+            'Mobile': { title: 'Mobile App', description: 'A Learning Record Provider &mdash; a phone or tablet app that emits a Statement when a learner finishes a lesson, even while offline and syncing later.' },
+            'VR': { title: 'VR Simulator', description: 'A Learning Record Provider &mdash; for example flight-training software that emits a Statement each time a trainee completes a maneuver.' },
+            'CodingLab': { title: 'Coding Lab', description: 'A Learning Record Provider &mdash; a programming environment that emits a Statement when a learner passes a test suite or submits an exercise.' },
+            'Kiosk': { title: 'Physical Kiosk', description: 'A Learning Record Provider &mdash; a standalone hardware station (e.g. on a factory floor) that emits a Statement when an operator completes a safety module.' },
+            'Dashboards': { title: 'Dashboards &amp; Reports', description: 'Analytics consumers. Because records flow OUT of the LRS as well as in, reporting tools can read the accumulated Statements to build instructor dashboards and administrative reports.' }
+        };
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

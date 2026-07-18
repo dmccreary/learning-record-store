@@ -1,0 +1,24 @@
+{
+  "title": "LMS-Centric versus LRS-Centric Architecture",
+  "description": "Let the learner compare a single-hub LMS-centric architecture against a hub-and-spoke LRS-centric architecture, and see structurally why the second scales to many kinds of Learning Record Providers while the first does not.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "lms-vs-lrs-architecture",
+  "library": "Mermaid",
+  "bloomLevel": "Analyze (L4)",
+  "bloomVerb": "compare, differentiate",
+  "completion_status": "implemented",
+  "chapter_number": 1,
+  "chapter_title": "From Learning Management Systems to the Experience API",
+  "chapter_dir": "01-lms-to-experience-api",
+  "chapter_rel_dir": "chapters/01-lms-to-experience-api",
+  "canvasHeight": 460
+}

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- microsim-scaffold-stub -->
+    <title>The Twelve Core Functions Explorer</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>The Twelve Core Functions Explorer</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> twelve-core-functions-explorer</p>
+            <p><strong>Library:</strong> vis-network</p>
+            <p><strong>Bloom Level:</strong> Analyze (L4)</p>
+            <p><strong>Learning Objective:</strong> Let the learner classify all twelve core LRS functions by the architectural plane and specific component that implements each one, using a single explorable network rather than twelve separate diagrams.</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    Type: infographic
+    **sim-id:** twelve-core-functions-explorer<br/>
+    **Library:** vis-network<br/>
+    **Status:** Specified
+    
+    Bloom Taxonomy: Analyze (L4)
+    Bloom Taxonomy Verb: classify, organize
+    
+    Learning objective: Let the learner classify all twelve core LRS functions by the architectural plane and specific component that implements each one, using a single explorable network rather than twelve separate diagrams.
+    
+    Purpose: Show a clustered vis-network graph with four plane-cluster hubs — "Ingestion Plane", "Processing Plane", "Storage Plane", "Analytics Plane" (reusing Chapter 5's plane names and color language) — and twelve function nodes attached to whichever plane cluster implements them.
+    
+    Nodes and cluster assignment: Storage Plane cluster: "Statement Storage Function (F-1)", "Statement Retrieval Function (F-2)", "Voiding Function (F-3)". Processing Plane cluster: "Actor Pseudonymization Function (F-4)", "Activity Resolution Function (F-5)", "Concept Mapping Function (F-6)", "Mastery Computation Function (F-7)", "Progress Projection Function (F-8)", "Reconciliation Function (F-10)". Analytics Plane cluster: "Experiment Assignment Function (F-9)", "Export Function (F-11)". A fifth, unclustered node off to the side: "Retention Purge Function (F-12)", connected by a dashed edge to both the Storage Plane and Analytics Plane clusters, reflecting that it acts on stored data but is administered through the Analytics Plane's Admin API.
+    
+    Interactive features: Clicking a plane-cluster hub opens an infobox recalling that plane's definition from Chapter 5. Clicking any function node opens an infobox with its full specification-language description (from `lrs-spec-v1.md` §6), its F-number, and the specific component that implements it (e.g. "F-7, Mastery Computation Function — implemented in the Stream Processor's mastery-scoring step"). A search box above the canvas lets the learner type an F-number or function name to highlight and center that node. A "Group by component" toggle re-clusters the same twelve nodes by implementing component (Ingestion Gateway, identity service, Stream Processor, Compression Pipeline, Reconciliation Worker, Experiment Service, Analytics API, Export API) instead of by plane, so the learner can explore the same catalog two different ways.
+    
+    Color coding: Cluster hubs colored using Chapter 5's existing plane gradient (darkest teal for Ingestion Plane through lightest for Presentation-adjacent planes); function nodes colored to match their parent cluster; the unclustered Retention Purge Function node in the contrasting amber used for cross-cutting, compliance-adjacent elements throughout this book.
+    
+    Responsive design: Network layout recalculates via vis-network's physics engine on window resize; below tablet width, cluster hubs collapse to a simple accordion list with function nodes as expandable children, preserving full interactivity without requiring precise clicking on a small canvas.
+    -->
+</body>
+</html>

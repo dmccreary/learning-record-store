@@ -1,0 +1,23 @@
+{
+  "title": "From Compressed Evidence to Graph Edges",
+  "description": "Let the learner trace how a Student node connects to compressed summary vertices through the Has Mastery, Of Concept, and Touched relationships, and explain what question each edge answers, without needing the compression mechanics Chapter 8 covers.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "compressed-evidence-graph-edges",
+  "library": "Mermaid",
+  "bloomLevel": "Understand (L2)",
+  "bloomVerb": "trace, explain",
+  "completion_status": "scaffold",
+  "chapter_number": 7,
+  "chapter_title": "The Property Graph Data Model",
+  "chapter_dir": "07-property-graph-data-model",
+  "chapter_rel_dir": "chapters/07-property-graph-data-model"
+}

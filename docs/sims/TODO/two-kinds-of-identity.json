@@ -1,0 +1,15 @@
+{
+  "sim_id": "two-kinds-of-identity",
+  "diagram_name": "Two Kinds of Identity in This Learning Record Store",
+  "chapter_number": 10,
+  "chapter_title": "Choosing the Technology Stack",
+  "chapter_dir": "10-choosing-technology-stack",
+  "chapter_rel_dir": "chapters/10-choosing-technology-stack",
+  "library": "vis-network",
+  "bloom_level": "Understand (L2)",
+  "bloom_verb": "distinguish, contrast",
+  "learning_objective": "Let the learner distinguish the Chapter 6 pseudonymization identity service from Keycloak's human single-sign-on role, so the two systems that both use the word \"identity\" are never conflated.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: infographic\n**sim-id:** two-kinds-of-identity<br/>\n**Library:** vis-network<br/>\n**Status:** Specified\n\nBloom Taxonomy: Understand (L2)\nBloom Taxonomy Verb: distinguish, contrast\n\nLearning objective: Let the learner distinguish the Chapter 6 pseudonymization identity service from Keycloak's human single-sign-on role, so the two systems that both use the word \"identity\" are never conflated.\n\nPurpose: Show a two-branch vis-network graph contrasting \"Learner Identity (Chapter 6)\" against \"Human Identity (this chapter)\" side by side.\n\nNodes: Root splits into two branches. Branch 1, \"Learner Identity\": \"Raw actor in an xAPI statement\" leads to \"identity service — per-district HMAC salt\" leads to \"student_key (pseudonymous)\" leads to \"Used by: Stream Processor, analytics stores. Never a login.\". Branch 2, \"Human Identity\": \"District admin / teacher / author logs in\" leads to \"Keycloak (dev) / customer identity provider (prod) — OpenID Connect\" leads to \"Signed token carrying a role\" leads to \"Used by: Admin API, Analytics API, Dash dashboards. Enforces RBAC.\".\n\nInteractive features: Clicking any node opens an infobox with that node's one-sentence role. Clicking either branch's header opens an infobox contrasting it directly against the other branch, quoting this chapter's \"keep the two apart\" framing. A toggle labeled \"Show what a breach would expose\" annotates each branch's leaf node with the consequence of that specific system being compromised, reinforcing why the separation matters for privacy.\n\nColor coding: Learner Identity branch in the book's teal accent color, matching Chapter 6's existing identity-service diagrams; Human Identity branch in a distinct violet, signaling this is a different system entirely.\n\nResponsive design: Branches stack vertically on narrow viewports; vis-network physics layout recalculates on window resize."
+}

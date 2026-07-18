@@ -1,0 +1,15 @@
+{
+  "sim_id": "compose-startup-dependency-graph",
+  "diagram_name": "Compose Startup Dependency Graph",
+  "chapter_number": 17,
+  "chapter_title": "Docker Compose, the Makefile, and the Image Supply Chain",
+  "chapter_dir": "17-compose-makefile-supply-chain",
+  "chapter_rel_dir": "chapters/17-compose-makefile-supply-chain",
+  "library": "Mermaid",
+  "bloom_level": "Analyze (L4)",
+  "bloom_verb": "trace, differentiate",
+  "learning_objective": "Trace which services gate which other services at startup, and explain why the gateway's dependency list is deliberately narrower than every other application role's.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: workflow\n**sim-id:** compose-startup-dependency-graph<br/>\n**Library:** Mermaid<br/>\n**Status:** Specified\n\nBloom Taxonomy: Analyze (L4)\nBloom Taxonomy Verb: trace, differentiate\n\nLearning objective: Trace which services gate which other services at startup, and explain why the gateway's dependency list is deliberately narrower than every other application role's.\n\nPurpose: A Mermaid flowchart of five backing services, the bootstrap container, and four application roles, with edges representing depends_on conditions.\n\nNodes and edges: redpanda, clickhouse, neo4j, redis, vault-db each feed into \"bootstrap\" labeled \"service_healthy\". \"bootstrap\" feeds into \"identity\", \"processor\", \"summarizer\" labeled \"service_completed_successfully\". redpanda, clickhouse, neo4j, redis also feed into those three roles labeled \"service_healthy\" (the lrs-depends anchor). redpanda ALONE feeds into \"gateway\", in a distinct color, with a callout reading \"Deliberately narrow -- spec section 5.4\".\n\nInteractive features: Every node has a Mermaid click directive opening an infobox with a one-sentence definition drawn from this chapter's prose. A toggle button \"Highlight the narrow dependency\" dims every edge except the single redpanda-to-gateway edge.\n\nColor coding: Backing services gray-blue, bootstrap amber (gate), application roles the book's teal accent, the gateway's single redpanda edge in a distinct highlight color.\n\nResponsive design: The graph reflows vertically (backing services top, bootstrap middle, roles bottom) on narrow viewports, preserving all click handlers."
+}

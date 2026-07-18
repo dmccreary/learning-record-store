@@ -1,0 +1,15 @@
+{
+  "sim_id": "gateway-first-deploy-rollback",
+  "diagram_name": "Gateway-First Deploy and Rollback Order",
+  "chapter_number": 18,
+  "chapter_title": "Configuration, Migration, Backup, and Rollout",
+  "chapter_dir": "18-config-migration-backup-rollout",
+  "chapter_rel_dir": "chapters/18-config-migration-backup-rollout",
+  "library": "Mermaid",
+  "bloom_level": "Analyze (L4)",
+  "bloom_verb": "trace, differentiate",
+  "learning_objective": "Trace the deploy order and the reverse rollback order across the gateway, processors, and stateless roles, and explain why the gateway sits at both ends of the sequence.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: workflow\n**sim-id:** gateway-first-deploy-rollback<br/>\n**Library:** Mermaid<br/>\n**Status:** Specified\n\nBloom Taxonomy: Analyze (L4)\nBloom Taxonomy Verb: trace, differentiate\n\nLearning objective: Trace the deploy order and the reverse rollback order across the gateway, processors, and stateless roles, and explain why the gateway sits at both ends of the sequence.\n\nPurpose: A Mermaid flowchart with two tracks sharing the same role nodes — \"Deploy order\" and \"Rollback order\" — visiting roles in opposite sequence, to make the asymmetry visually obvious.\n\nDeploy order track: \"Gateway (first)\" -> \"Processors (Termination Grace Period 60s)\" -> \"Summarizer\" -> \"Stateless APIs & Dashboards (last)\".\n\nRollback order track: \"Stateless APIs & Dashboards (first)\" -> \"Summarizer\" -> \"Processors\" -> \"Gateway (last)\".\n\nA shared side note connects both tracks: \"Expand-Contract Rollback: schema never mutated out from under a version, so adjacent versions can run against it at once.\"\n\nInteractive features: Every node has a Mermaid click directive opening an infobox on that role's rollout behavior (clicking \"Processors\" explains the Termination Grace Period; clicking \"Gateway\" explains why it is the only role whose downtime loses data). Clicking the side note explains Expand-Contract Rollback. A toggle highlights one track and dims the other.\n\nColor coding: Deploy track teal, rollback track amber with reversed arrows, both gateway nodes outlined to draw the eye to the asymmetry.\n\nResponsive design: Tracks stack vertically on narrow viewports, preserving reading order and all click handlers."
+}

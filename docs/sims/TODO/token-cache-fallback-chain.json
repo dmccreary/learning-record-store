@@ -1,0 +1,15 @@
+{
+  "sim_id": "token-cache-fallback-chain",
+  "diagram_name": "The Token Cache's Fallback Chain",
+  "chapter_number": 23,
+  "chapter_title": "Production Infrastructure and Cloud Services",
+  "chapter_dir": "23-production-infrastructure-cloud",
+  "chapter_rel_dir": "chapters/23-production-infrastructure-cloud",
+  "library": "Mermaid",
+  "bloom_level": "Understand (L2)",
+  "bloom_verb": "explain, sequence",
+  "learning_objective": "Explain how a gateway's token-to-district lookup degrades from a shared Redis cache to a local LRU fallback as Cache TTL Expiry and Redis availability change, without ever blocking ingestion.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: workflow\n**sim-id:** token-cache-fallback-chain<br/>\n**Library:** Mermaid<br/>\n**Status:** Specified\n\nBloom Taxonomy: Understand (L2)\nBloom Taxonomy Verb: explain, sequence\n\nLearning objective: Explain how a gateway's token-to-district lookup degrades from a shared Redis cache to a local LRU fallback as Cache TTL Expiry and Redis availability change, without ever blocking ingestion.\n\nPurpose: A Mermaid flowchart tracing one incoming request's token lookup through every possible path.\n\nFlow: \"Gateway receives request with bearer token\" -> \"Check ElastiCache Redis for cached district mapping\" -> two branches.\n\nBranch A \"Redis reachable, entry present and fresh (within 60s TTL)\": -> \"Return cached district_id\" -> \"Proceed to Tier-1 validation.\"\n\nBranch B \"Redis reachable, entry expired (Cache TTL Expiry passed)\": -> \"Re-fetch mapping from the identity service\" -> \"Re-populate Redis with a fresh 60s TTL\" -> \"Proceed to Tier-1 validation.\"\n\nBranch C \"Redis unreachable\": -> \"Fall back to the gateway pod's local LRU Fallback Cache\" -> \"Serve from local cache if present, else re-fetch from identity service directly\" -> \"Proceed to Tier-1 validation\" with an annotation \"Ingestion never blocks on cache health.\"\n\nInteractive features: Every node has a Mermaid click directive. Clicking a TTL-related node opens an infobox defining Cache TTL Expiry with the 60-second default. Clicking the LRU node opens an infobox defining LRU Fallback Cache and why it is smaller and pod-local rather than shared. Clicking the final \"Proceed to Tier-1 validation\" node in any branch opens an infobox noting all three branches converge on the same non-blocking outcome.\n\nColor coding: The healthy Redis path in teal; the fallback path in amber to flag it as the degraded-but-safe branch, not a failure state.\n\nResponsive design: Branches stack vertically on narrow viewports; click targets stay tap-sized."
+}

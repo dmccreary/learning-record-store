@@ -1,0 +1,23 @@
+{
+  "title": "Pseudonymization Pipeline",
+  "description": "Let the learner trace how a raw actor identifier becomes an irreversible `student_key`, following the hop from the statement body through the Mutual TLS Salt Fetch and the HMAC-SHA256 Pseudonymization computation to the pseudonymous key written to ClickHouse.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "pseudonymization-pipeline",
+  "library": "Mermaid",
+  "bloomLevel": "Understand (L2)",
+  "bloomVerb": "trace, explain",
+  "completion_status": "scaffold",
+  "chapter_number": 13,
+  "chapter_title": "Component Design in Depth",
+  "chapter_dir": "13-component-design-in-depth",
+  "chapter_rel_dir": "chapters/13-component-design-in-depth"
+}

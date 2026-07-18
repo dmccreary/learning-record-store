@@ -1,0 +1,23 @@
+{
+  "title": "The Role Dispatcher Command Explorer",
+  "description": "Given a deployment scenario, select the correct lrs subcommand and identify whether it is a long-running server role or a one-shot operational command.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "role-dispatcher-command-explorer",
+  "library": "p5.js",
+  "bloomLevel": "Apply (L3)",
+  "bloomVerb": "select, apply",
+  "completion_status": "scaffold",
+  "chapter_number": 16,
+  "chapter_title": "The Container Image and the Role Dispatcher CLI",
+  "chapter_dir": "16-container-image-and-cli",
+  "chapter_rel_dir": "chapters/16-container-image-and-cli"
+}

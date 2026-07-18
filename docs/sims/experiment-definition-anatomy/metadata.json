@@ -1,0 +1,23 @@
+{
+  "title": "Anatomy of an Experiment Definition",
+  "description": "Let the learner map the six named parts of an Experiment Definition (Experiment Hypothesis, Primary Outcome Metric, Unit Of Randomization, Experiment Variant, Allocation Weight, Guardrail Metric, Eligibility Predicate) onto one concrete worked example, reinforcing the plain-language definitions given in this section's prose.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "experiment-definition-anatomy",
+  "library": "Mermaid",
+  "bloomLevel": "Understand (L2)",
+  "bloomVerb": "classify, exemplify",
+  "completion_status": "scaffold",
+  "chapter_number": 31,
+  "chapter_title": "Designing and Reading A/B Experiments",
+  "chapter_dir": "31-designing-ab-experiments",
+  "chapter_rel_dir": "chapters/31-designing-ab-experiments"
+}

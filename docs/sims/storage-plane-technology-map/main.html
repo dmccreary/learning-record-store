@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- microsim-scaffold-stub -->
+    <title>The Storage Plane, Which Technology Holds What</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>The Storage Plane, Which Technology Holds What</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> storage-plane-technology-map</p>
+            <p><strong>Library:</strong> vis-network</p>
+            <p><strong>Bloom Level:</strong> Analyze (L4)</p>
+            <p><strong>Learning Objective:</strong> Let the learner classify each storage-plane technology — ClickHouse, Neo4j 5 Community, PostgreSQL 16 (×2), Redis 7, MinIO, and Amazon S3 — by the specific kind of data it is responsible for, differentiating the event store from the graph from the two isolated PostgreSQL instances.</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    Type: graph-model
+    **sim-id:** storage-plane-technology-map<br/>
+    **Library:** vis-network<br/>
+    **Status:** Specified
+    
+    Bloom Taxonomy: Analyze (L4)
+    Bloom Taxonomy Verb: classify, differentiate
+    
+    Learning objective: Let the learner classify each storage-plane technology — ClickHouse, Neo4j 5 Community, PostgreSQL 16 (×2), Redis 7, MinIO, and Amazon S3 — by the specific kind of data it is responsible for, differentiating the event store from the graph from the two isolated PostgreSQL instances.
+    
+    Purpose: Show a vis-network graph with six technology nodes, each connected to a short label describing what it holds, colored by whether the technology is a system of record, a cache, or an object store.
+    
+    Nodes: "ClickHouse — system of record for every statement, at full fidelity" (system of record). "Neo4j 5 Community — structure and compressed summary vertices only, never raw events" (system of record). "PostgreSQL 16 — vault-db, PII vault, reachable only from the identity service" (system of record, isolated). "PostgreSQL 16 — meta-db, admin config, RBAC, audit log, experiment definitions" (system of record, isolated). "Redis 7 — token cache, salt cache, analytics response cache, rate limits" (cache). "MinIO (dev) / Amazon S3 (prod) — bulk exports, archival, event-store cold tier" (object store).
+    
+    Interactive features: Clicking any node opens an infobox with that technology's one-sentence definition from this chapter's prose and the specific data it holds. A toggle labeled "Group by role" clusters the six nodes into three groups — system of record, cache, object store — instead of a flat list, letting the learner see that the two PostgreSQL 16 instances share a role cluster while remaining visually separate nodes, because they are isolated at the network level.
+    
+    Color coding: System-of-record nodes in the book's teal accent color; the cache node in a lighter tint of the same hue; the object-store node in a neutral gray, consistent with Chapter 7's storage-plane color language.
+    
+    Responsive design: Graph layout recalculates via vis-network's physics engine on window resize; below tablet width, nodes stack into a scrollable single column grouped by role.
+    -->
+</body>
+</html>

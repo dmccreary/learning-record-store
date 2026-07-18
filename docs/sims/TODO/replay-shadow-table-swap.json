@@ -1,0 +1,15 @@
+{
+  "sim_id": "replay-shadow-table-swap",
+  "diagram_name": "Replay Command and Rebuild Graph Command Compared",
+  "chapter_number": 15,
+  "chapter_title": "Privacy Enforcement and Dashboard Mechanics",
+  "chapter_dir": "15-privacy-and-dashboard-mechanics",
+  "chapter_rel_dir": "chapters/15-privacy-and-dashboard-mechanics",
+  "library": "Mermaid",
+  "bloom_level": "Analyze (L4)",
+  "bloom_verb": "differentiate, trace",
+  "learning_objective": "Let the learner trace the Replay Command's shadow-table-and-swap path side by side with the Rebuild Graph Command's watermark-reset path, and explain why the second needs no separate rebuild logic of its own.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: workflow\n**sim-id:** replay-shadow-table-swap<br/>\n**Library:** Mermaid<br/>\n**Status:** Specified\n\nBloom Taxonomy: Analyze (L4)\nBloom Taxonomy Verb: differentiate, trace\n\nLearning objective: Let the learner trace the Replay Command's shadow-table-and-swap path side by side with the Rebuild Graph Command's watermark-reset path, and explain why the second needs no separate rebuild logic of its own.\n\nPurpose: Show two parallel Mermaid flowchart lanes under one heading, so the learner reads across both paths and sees them diverge from a shared starting point.\n\nLeft lane \"Replay Command: lrs replay --from T1 --to T2 --into <table>\": \"Read immutable log for district + time window\" -> \"Recompute projection, keyed by statement_id\" -> \"Write into new shadow table (invisible to live queries)\" -> \"Rebuild complete: atomic swap\" -> \"Shadow table becomes the live table\".\n\nRight lane \"Rebuild Graph Command: lrs replay --rebuild-graph\": \"Reset summarizer watermark to zero\" -> \"Ordinary 60-second sync loop runs as normal\" -> \"Summarizer reads 'unsynced' rollups (which is now all of them)\" -> \"MERGE upserts every summary vertex, guarded by the Grain Uniqueness Constraint\" -> \"Graph fully rebuilt with no dedicated rebuild code path\".\n\nInteractive features: Every node has a Mermaid click directive opening an infobox with a one-sentence explanation. A toggle labeled \"Highlight shared safety guarantee\" highlights the \"keyed by statement_id\" node in the left lane and the \"Grain Uniqueness Constraint\" node in the right lane simultaneously, with a connecting annotation: \"Both paths are safe to re-run because each relies on a different structural guarantee against duplication.\"\n\nColor coding: Left lane in one tint of the book's teal accent color, right lane in a second tint, so the two paths stay visually distinct while clearly belonging to the same diagram; the shared safety-guarantee toggle highlight in amber.\n\nResponsive design: The two lanes stack vertically on narrow viewports instead of side by side, each still reading top to bottom."
+}

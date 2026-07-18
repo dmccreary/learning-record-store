@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- microsim-scaffold-stub -->
+    <title>From Walking Skeleton to Scaled Production</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>From Walking Skeleton to Scaled Production</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> production-delivery-roadmap</p>
+            <p><strong>Library:</strong> vis-timeline</p>
+            <p><strong>Bloom Level:</strong> Understand (L2)</p>
+            <p><strong>Learning Objective:</strong> Sequence the design document's delivery milestones from a walking skeleton through scaled production, and identify which milestone introduces each managed service covered in this chapter.</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    Type: timeline
+    **sim-id:** production-delivery-roadmap<br/>
+    **Library:** vis-timeline<br/>
+    **Status:** Specified
+    
+    Bloom Taxonomy: Understand (L2)
+    Bloom Taxonomy Verb: sequence, summarize
+    
+    Learning objective: Sequence the design document's delivery milestones from a walking skeleton through scaled production, and identify which milestone introduces each managed service covered in this chapter.
+    
+    Time period: Not calendar time — six sequential delivery milestones rendered as contiguous blocks in build order.
+    
+    Orientation: Horizontal, left to right, each block labeled with its milestone code and headline deliverable.
+    
+    Events:
+    
+    - M0 Walking skeleton: Compose stack, image, CLI, bootstrap, gateway through Kafka to ClickHouse, smoke test
+    - M1 Ingestion complete: pseudonymization, vault, accept-first provisioning, reconciler, Dead Letter Queue, replay
+    - M2 Compression plus graph plus mastery: Neo4j structure, ClickHouse rollup views, the summarizer, BKT engine — Neo4j licensing decision due here
+    - M3 Analytics plus first dashboards: Analytics API, privacy filter, first report set
+    - M4 Admin plus experiments: Admin API and UI, RBAC, audit, experiment service
+    - M5 Scale plus production: Helm, KEDA, managed stores (Managed Streaming Kafka, ClickHouse Cloud, Neo4j AuraDB/Enterprise, RDS Multi-AZ Postgres, ElastiCache Redis), disaster-recovery drill, full report catalog
+    
+    Interactive features: Clicking a milestone block opens an infobox with its full deliverable list and exit criteria. A "Highlight this chapter's services" toggle overlays which managed services from Chapter 23 first appear at M5, and marks M2 with a small flag icon noting the Neo4j licensing decision deadline discussed in this chapter.
+    
+    Visual style: M0 through M4 shaded calm teal as already-covered ground; M5 shaded amber as the milestone this chapter belongs to.
+    
+    Responsive design: Resizes to its container's width; on narrow viewports labels abbreviate to milestone code and expand on tap.
+    -->
+</body>
+</html>

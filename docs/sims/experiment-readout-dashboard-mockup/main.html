@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- microsim-scaffold-stub -->
+    <title>Reading the Experiment Readout Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Reading the Experiment Readout Dashboard</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> experiment-readout-dashboard-mockup</p>
+            <p><strong>Library:</strong> p5.js</p>
+            <p><strong>Bloom Level:</strong> Evaluate (L5)</p>
+            <p><strong>Learning Objective:</strong> Let the learner practice judging, from a single mocked-up readout, whether an experiment's result is trustworthy enough to act on — weighing effect size, confidence interval width, sample-ratio mismatch status, and guardrail flags together rather than looking at any one number in isolation.</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    Type: chart
+    **sim-id:** experiment-readout-dashboard-mockup<br/>
+    **Library:** p5.js<br/>
+    **Status:** Specified
+    
+    Bloom Taxonomy: Evaluate (L5)
+    Bloom Taxonomy Verb: judge, justify
+    
+    Learning objective: Let the learner practice judging, from a single mocked-up readout, whether an experiment's result is trustworthy enough to act on — weighing effect size, confidence interval width, sample-ratio mismatch status, and guardrail flags together rather than looking at any one number in isolation.
+    
+    Canvas layout: A single dashboard mockup with four stacked panels matching the table in this section: (1) a small allocation bar showing 50/50 planned versus 52/48 actual with an SRM status badge; (2) a bar chart of mean primary-metric outcome for control versus treatment, each bar with a vertical confidence-interval whisker; (3) a row of guardrail metric badges (green "OK" or red "Regression Flag"); (4) a text verdict line that updates based on the controls below.
+    
+    Interactive controls: A `createSlider()` control lets the learner drag the treatment arm's mean outcome up or down, which live-redraws the confidence-interval whiskers and recomputes a simplified Cohen's d shown beside the chart. A `createCheckbox()` toggles "Trigger sample-ratio mismatch" (shifts the allocation bar and flips the SRM badge to a failure state). A second `createCheckbox()` toggles "Trigger guardrail regression" (flips one guardrail badge to red). The verdict text at the bottom changes dynamically: a clean, significant, guardrail-safe result reads "Ready to ship"; an SRM failure reads "Investigate assignment before trusting this result"; a guardrail regression reads "Primary metric improved, but a guardrail regressed — do not ship without review."
+    
+    Default parameters: Treatment mean set 0.3 standard deviations above control (Cohen's d ≈ 0.3), both mismatch and guardrail toggles off at start, so the default view shows a clean, shippable result.
+    
+    Color coding: Control arm in gray-blue, treatment arm in the book's teal accent color, guardrail badges in green/red, verdict text background shifting from green to amber to red depending on which toggles are active.
+    
+    Responsive design: Panels stack vertically at any width; on narrow viewports the sliders and checkboxes move below the chart rather than beside it, and the canvas width tracks its containing element.
+    -->
+</body>
+</html>

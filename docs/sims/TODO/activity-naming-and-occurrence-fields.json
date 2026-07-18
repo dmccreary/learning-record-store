@@ -1,0 +1,15 @@
+{
+  "sim_id": "activity-naming-and-occurrence-fields",
+  "diagram_name": "Anatomy of an Activity Definition",
+  "chapter_number": 4,
+  "chapter_title": "Standards Governance and the Wider Interoperability Ecosystem",
+  "chapter_dir": "04-standards-governance-ecosystem",
+  "chapter_rel_dir": "chapters/04-standards-governance-ecosystem",
+  "library": "HTML/CSS/JavaScript",
+  "bloom_level": null,
+  "bloom_verb": null,
+  "learning_objective": null,
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: infographic\n**sim-id:** activity-naming-and-occurrence-fields<br/>\n**Library:** HTML/CSS/JavaScript<br/>\n**Status:** Reused<br/>\n**Source:** https://dmccreary.github.io/xapi-course/sims/activity-naming-and-occurrence-fields/<br/>\n**Source Repo:** https://github.com/dmccreary/xapi-course/tree/main/docs/sims/activity-naming-and-occurrence-fields\n\nReused from the MicroSim catalog (WHAT match score 0.76). Learning objective: Understand (L2) — classify the fields of an Activity Definition (object id, definition type, revision) alongside related Context fields (registration, platform) by hovering or clicking each colored field of an annotated Statement to see which question it answers, reinforcing the distinction this chapter draws between a Statement's descriptive Activity Definition and a full Learning Object Metadata record."
+}

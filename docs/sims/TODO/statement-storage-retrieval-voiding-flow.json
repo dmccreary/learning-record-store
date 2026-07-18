@@ -1,0 +1,15 @@
+{
+  "sim_id": "statement-storage-retrieval-voiding-flow",
+  "diagram_name": "One Statement, Three Ways to Touch the Record",
+  "chapter_number": 9,
+  "chapter_title": "The Twelve Core LRS Functions",
+  "chapter_dir": "09-twelve-core-lrs-functions",
+  "chapter_rel_dir": "chapters/09-twelve-core-lrs-functions",
+  "library": "Mermaid",
+  "bloom_level": "Understand (L2)",
+  "bloom_verb": "distinguish, trace",
+  "learning_objective": "Let the learner distinguish the Statement Storage Function, the Statement Retrieval Function, and the Voiding Function as three separate operations against one shared Event Store, and trace how a voided statement is retracted without ever being deleted.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: workflow\n**sim-id:** statement-storage-retrieval-voiding-flow<br/>\n**Library:** Mermaid<br/>\n**Status:** Specified<br/>\n**Template:** https://github.com/dmccreary/ai-strategy-for-education/tree/main/docs/sims/xapi-statement-anatomy<br/>\n\nBloom Taxonomy: Understand (L2)\nBloom Taxonomy Verb: distinguish, trace\n\nLearning objective: Let the learner distinguish the Statement Storage Function, the Statement Retrieval Function, and the Voiding Function as three separate operations against one shared Event Store, and trace how a voided statement is retracted without ever being deleted.\n\nPurpose: Show a single Mermaid flowchart with the Event Store as a central node and three labeled operations arranged around it, each drawn as its own path rather than a strict left-to-right chain.\n\nNodes: \"Event Store (immutable log)\" as the central node. Path A: \"POST /xapi/statements\" leads to \"Statement Storage Function (F-1): new row appended\". Path B: \"GET /xapi/statements?actor=...&verb=...&since=...\" leads to \"Statement Retrieval Function (F-2): matching rows returned, none modified\". Path C: \"A later statement with Verb: voided, Object: {statementId}\" leads to \"Voiding Function (F-3): original row's voided_by field set\" leads to \"Row still exists; excluded from future rollups and default retrieval\".\n\nInteractive features: Every node has a Mermaid click directive. Clicking \"Event Store\" opens an infobox recalling its definition from Chapter 5. Clicking any Storage, Retrieval, or Voiding node opens an infobox with that function's one-sentence definition from this chapter's prose, plus its F-number. Clicking the final \"excluded from future rollups\" node opens an infobox naming the voided_by property and linking back to Chapter 8's compression rollups.\n\nColor coding: Path A (storage) in the book's teal accent color; Path B (retrieval) in a neutral gray-blue; Path C (voiding) in a contrasting amber to visually flag it as a correction path rather than a normal read/write path.\n\nResponsive design: Flowchart resizes to the width of its containing element; on narrow viewports the three paths stack vertically instead of radiating from the center."
+}

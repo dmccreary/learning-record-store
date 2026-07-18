@@ -1,0 +1,15 @@
+{
+  "sim_id": "observability-pipeline-trace-flow",
+  "diagram_name": "The Observability Pipeline, From Statement to Screen",
+  "chapter_number": 10,
+  "chapter_title": "Choosing the Technology Stack",
+  "chapter_dir": "10-choosing-technology-stack",
+  "chapter_rel_dir": "chapters/10-choosing-technology-stack",
+  "library": "Mermaid",
+  "bloom_level": "Understand (L2)",
+  "bloom_verb": "trace, explain",
+  "learning_objective": "Let the learner trace how a single trace ID and a separate metrics stream flow through OpenTelemetry, Jaeger, Prometheus, and Grafana, from statement receipt to a screen a system administrator actually watches.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: workflow\n**sim-id:** observability-pipeline-trace-flow<br/>\n**Library:** Mermaid<br/>\n**Status:** Specified\n\nBloom Taxonomy: Understand (L2)\nBloom Taxonomy Verb: trace, explain\n\nLearning objective: Let the learner trace how a single trace ID and a separate metrics stream flow through OpenTelemetry, Jaeger, Prometheus, and Grafana, from statement receipt to a screen a system administrator actually watches.\n\nPurpose: Show a single Mermaid flowchart with two parallel paths sharing a common source, reflecting that traces and metrics are two different signals produced by the same instrumentation.\n\nNodes: Common source: \"Gateway mints a trace ID on statement receipt\". Path A (traces): leads to \"OpenTelemetry instrumentation attaches the trace ID at every hop (gateway, queue, processor, ClickHouse write, Neo4j write)\" leads to \"Jaeger stores the full trace as one connected timeline\" leads to \"Engineer looks up one statement's entire journey\". Path B (metrics): \"Every role emits metrics (queue depth, processing lag, dead-letter rate) via OpenTelemetry\" leads to \"Prometheus scrapes and stores the metrics as a time series\" leads to \"Grafana renders dashboards a system administrator watches\" leads to \"Same numbers back the Data Quality Monitor report for a district administrator\".\n\nInteractive features: Every node has a Mermaid click directive. Clicking \"OpenTelemetry\" opens an infobox defining it as the vendor-neutral instrumentation standard, distinguishing it from the three products that consume its output. Clicking \"Jaeger\" or \"Prometheus\" opens an infobox naming which signal type each stores (traces vs. metrics). Clicking \"Grafana\" opens an infobox naming its role as the presentation layer for both. Clicking the shared \"trace ID\" node reinforces the end-to-end-tracing requirement named in this chapter's prose.\n\nColor coding: The trace path in the book's teal accent color; the metrics path in a complementary amber; the shared source node in a neutral color to show it is the common origin of both.\n\nResponsive design: The two paths stack vertically at narrow widths, remaining independently readable; the flowchart resizes to the width of its containing element."
+}

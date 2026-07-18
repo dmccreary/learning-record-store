@@ -1,0 +1,15 @@
+{
+  "sim_id": "statement-path-adr-001-002",
+  "diagram_name": "Statement Path Under ADR-001 and ADR-002",
+  "chapter_number": 11,
+  "chapter_title": "Architecture Decision Records and the Capacity Model",
+  "chapter_dir": "11-adrs-and-capacity-model",
+  "chapter_rel_dir": "chapters/11-adrs-and-capacity-model",
+  "library": "Mermaid",
+  "bloom_level": "Understand (L2)",
+  "bloom_verb": "explain, trace",
+  "learning_objective": "Let the learner trace one xAPI statement's storage path and explain, node by node, which decision (ADR-001 or ADR-002) governs each hop, reinforcing that the graph never receives a per-statement write.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: workflow\n**sim-id:** statement-path-adr-001-002<br/>\n**Library:** Mermaid<br/>\n**Status:** Specified\n\nBloom Taxonomy: Understand (L2)\nBloom Taxonomy Verb: explain, trace\n\nLearning objective: Let the learner trace one xAPI statement's storage path and explain, node by node, which decision (ADR-001 or ADR-002) governs each hop, reinforcing that the graph never receives a per-statement write.\n\nPurpose: A single Mermaid flowchart showing one statement's journey from arrival to its two eventual resting places — full-fidelity storage and, much later, a compressed summary.\n\nNodes: \"Statement arrives at the gateway\" leads to \"Written to ClickHouse, full JSON, full fidelity (ADR-001)\" leads to \"AggregatingMergeTree materialized view rolls the statement into its grain, incrementally, at zero app cost (ADR-002)\". A second branch from the materialized-view node leads to \"Every 60s: summarizer reads only grains whose last_seen advanced\" leads to \"Summarizer writes an absolute value to Neo4j via MERGE + SET, never += (ADR-002)\" leads to \"One compressed summary vertex in Neo4j, per grain, never per statement (ADR-001)\". A dead-end node off the ClickHouse node reads \"No arrow from here ever reaches Neo4j directly — nothing per-statement is ever written to the graph.\"\n\nInteractive features: Every node has a Mermaid click directive. Clicking the ClickHouse node opens an infobox explaining ADR-001 in one paragraph, quoting \"ClickHouse is the immutable system of record for every statement, at full fidelity.\" Clicking the materialized-view node or the summarizer node opens an infobox explaining ADR-002's absolute-write mechanism and why streaming deltas were rejected. Clicking the final Neo4j summary-vertex node opens an infobox reminding the learner that the graph schema has no Statement label at all. Clicking the dead-end node opens an infobox stating the C-1 constraint from Chapter 8 in one sentence.\n\nColor coding: The ClickHouse path in the book's teal accent color; the summarizer/graph path in a complementary amber to visually separate \"every statement, immediately\" from \"one absolute value, every 60 seconds.\"\n\nResponsive design: Flowchart resizes to the width of its containing element; on narrow viewports the chain reflows top-to-bottom instead of left-to-right."
+}

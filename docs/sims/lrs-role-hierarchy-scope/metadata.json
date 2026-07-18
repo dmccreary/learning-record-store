@@ -1,0 +1,23 @@
+{
+  "title": "Role Hierarchy and Scope",
+  "description": "Differentiate the three nested administrative roles (System Administrator, District Administrator, School Administrator) from the three scope-bound roles (Teacher, Textbook Author, Auditor Role) by tracing each role's scope boundary in a single graph.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "lrs-role-hierarchy-scope",
+  "library": "vis-network",
+  "bloomLevel": "Analyze (L4)",
+  "bloomVerb": "compare, differentiate",
+  "completion_status": "scaffold",
+  "chapter_number": 24,
+  "chapter_title": "Meet the Three Personas and the Admin UI Surface",
+  "chapter_dir": "24-three-personas-and-admin-uis",
+  "chapter_rel_dir": "chapters/24-three-personas-and-admin-uis"
+}

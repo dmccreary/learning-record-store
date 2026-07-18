@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- microsim-scaffold-stub -->
+    <title>Kafka Topic Map for the LRS Event Backbone</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Kafka Topic Map for the LRS Event Backbone</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> kafka-topic-map</p>
+            <p><strong>Library:</strong> vis-network</p>
+            <p><strong>Bloom Level:</strong> Understand (L2)</p>
+            <p><strong>Learning Objective:</strong> Let the learner classify each of the six Kafka topics by its key format, partition count, and retention policy, and explain why the compacted mastery-state topic differs structurally from the other five.</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    Type: infographic
+    **sim-id:** kafka-topic-map<br/>
+    **Library:** vis-network<br/>
+    **Status:** Specified
+    
+    Bloom Taxonomy: Understand (L2)
+    Bloom Taxonomy Verb: explain, classify
+    
+    Learning objective: Let the learner classify each of the six Kafka topics by its key format, partition count, and retention policy, and explain why the compacted mastery-state topic differs structurally from the other five.
+    
+    Purpose: Show all six topics as nodes arranged around a central "Kafka / Redpanda Broker" hub node, so the learner can see the whole topic inventory at a glance before drilling into any one topic.
+    
+    Nodes: One central hub node "Kafka / Redpanda Broker". Six satellite nodes, one per topic, each labeled with its exact topic string: "xapi.statements.raw", "xapi.statements.bulk", "xapi.statements.dlq", "lrs.reconcile", "lrs.mastery.state", "lrs.audit". Each satellite node's size scales with its partition count (48-partition topics render larger than 12-partition topics) so partition count is visible without clicking.
+    
+    Interactive features: Clicking any satellite topic node opens an infobox showing that topic's key format, partition count, retention policy, and one-sentence purpose, matching the table already presented in this chapter. A toggle labeled "Group by retention family" re-colors nodes into three clusters — short-lived (7 days), long-lived (30-400 days), and compacted — so the learner can see the retention pattern structurally rather than by reading text.
+    
+    Color coding: The compacted mastery-state topic in the book's teal accent color to visually flag it as the one structural outlier; the other five topics in a shared neutral blue-gray, differentiated only by node size (partition count).
+    
+    Responsive design: Network graph resizes to the width of its containing element and re-centers on resize; on narrow viewports satellite nodes arrange in two rows instead of a full circle around the hub.
+    -->
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "sim_id": "xapi-vocabulary-matching-pairs",
+  "diagram_name": "xAPI Vocabulary Matching Pairs",
+  "chapter_number": 1,
+  "chapter_title": "From Learning Management Systems to the Experience API",
+  "chapter_dir": "01-lms-to-experience-api",
+  "chapter_rel_dir": "chapters/01-lms-to-experience-api",
+  "library": "p5.js",
+  "bloom_level": "Remember (L1)",
+  "bloom_verb": "recall, identify, match",
+  "learning_objective": "Reinforce recall of the six terms introduced in this chapter's statement-anatomy section (Actor, Verb, Object Activity, Activity Type, Result, Context) by matching each term to its one-sentence definition.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: microsim\n**sim-id:** xapi-vocabulary-matching-pairs<br/>\n**Library:** p5.js<br/>\n**Status:** Specified\n\nBloom Taxonomy: Remember (L1)\nBloom Taxonomy Verb: recall, identify, match\n\nLearning objective: Reinforce recall of the six terms introduced in this chapter's statement-anatomy section (Actor, Verb, Object Activity, Activity Type, Result, Context) by matching each term to its one-sentence definition.\n\nCanvas layout:\n\n- Left column (six draggable term tiles): Actor, Verb, Object Activity, Activity Type, Result, Context\n- Right column (six definition tiles in scrambled order)\n- Bottom strip: score readout (\"Matched: 0 / 6\") and a \"Shuffle\" button\n\nVisual elements:\n\n- Term tiles in the book's teal accent color\n- Definition tiles in a neutral cream color\n- A correct match locks both tiles together with a green outline and a brief checkmark animation\n- An incorrect match flashes red for half a second and the tiles bounce back to their original position\n\nInteractive controls:\n\n- Drag-and-drop: drag a term tile onto a definition tile to attempt a match\n- Button: \"Shuffle\" — re-randomizes definition tile order and clears progress\n- Button: \"Reveal All\" — shows all correct pairings for review, disabled until at least one attempt has been made\n\nDefault parameters:\n\n- All six terms unmatched at start\n- Definitions shown in random order (re-randomized via a seeded index, not JavaScript's raw Math.random, so the layout is reproducible for a given session)\n\nBehavior:\n\n- On correct match, increment the \"Matched\" counter and lock the pair\n- When all six are matched, display \"All matched! You know the vocabulary.\" and enable a small \"Try Again\" reset button\n- Track each drag-and-drop attempt (success or failure) as an interaction event\n\nImplementation notes:\n\n- Use p5.js mouse-press and mouse-release events to implement drag-and-drop\n- Store term/definition pairs as a simple array of objects so the same MicroSim shell can be reused for future chapters' vocabulary sets\n- Responsive design: canvas width tracks the containing element's width; tile size and column layout adjust at narrow (mobile) widths by stacking columns vertically instead of side-by-side"
+}

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- microsim-scaffold-stub -->
+    <title>Gateway-First Deploy and Rollback Order</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Gateway-First Deploy and Rollback Order</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> gateway-first-deploy-rollback</p>
+            <p><strong>Library:</strong> Mermaid</p>
+            <p><strong>Bloom Level:</strong> Analyze (L4)</p>
+            <p><strong>Learning Objective:</strong> Trace the deploy order and the reverse rollback order across the gateway, processors, and stateless roles, and explain why the gateway sits at both ends of the sequence.</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    Type: workflow
+    **sim-id:** gateway-first-deploy-rollback<br/>
+    **Library:** Mermaid<br/>
+    **Status:** Specified
+    
+    Bloom Taxonomy: Analyze (L4)
+    Bloom Taxonomy Verb: trace, differentiate
+    
+    Learning objective: Trace the deploy order and the reverse rollback order across the gateway, processors, and stateless roles, and explain why the gateway sits at both ends of the sequence.
+    
+    Purpose: A Mermaid flowchart with two tracks sharing the same role nodes — "Deploy order" and "Rollback order" — visiting roles in opposite sequence, to make the asymmetry visually obvious.
+    
+    Deploy order track: "Gateway (first)" -> "Processors (Termination Grace Period 60s)" -> "Summarizer" -> "Stateless APIs & Dashboards (last)".
+    
+    Rollback order track: "Stateless APIs & Dashboards (first)" -> "Summarizer" -> "Processors" -> "Gateway (last)".
+    
+    A shared side note connects both tracks: "Expand-Contract Rollback: schema never mutated out from under a version, so adjacent versions can run against it at once."
+    
+    Interactive features: Every node has a Mermaid click directive opening an infobox on that role's rollout behavior (clicking "Processors" explains the Termination Grace Period; clicking "Gateway" explains why it is the only role whose downtime loses data). Clicking the side note explains Expand-Contract Rollback. A toggle highlights one track and dims the other.
+    
+    Color coding: Deploy track teal, rollback track amber with reversed arrows, both gateway nodes outlined to draw the eye to the asymmetry.
+    
+    Responsive design: Tracks stack vertically on narrow viewports, preserving reading order and all click handlers.
+    -->
+</body>
+</html>

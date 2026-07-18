@@ -1,0 +1,23 @@
+{
+  "title": "Dashboard Layout Builder",
+  "description": "Dashboard Layout Builder",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "dashboard-patterns",
+  "library": "p5.js",
+  "bloomLevel": "TBD",
+  "bloomVerb": "TBD",
+  "completion_status": "scaffold",
+  "chapter_number": 15,
+  "chapter_title": "Privacy Enforcement and Dashboard Mechanics",
+  "chapter_dir": "15-privacy-and-dashboard-mechanics",
+  "chapter_rel_dir": "chapters/15-privacy-and-dashboard-mechanics"
+}

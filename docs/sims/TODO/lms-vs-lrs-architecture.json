@@ -1,0 +1,15 @@
+{
+  "sim_id": "lms-vs-lrs-architecture",
+  "diagram_name": "LMS-Centric versus LRS-Centric Architecture",
+  "chapter_number": 1,
+  "chapter_title": "From Learning Management Systems to the Experience API",
+  "chapter_dir": "01-lms-to-experience-api",
+  "chapter_rel_dir": "chapters/01-lms-to-experience-api",
+  "library": "Mermaid",
+  "bloom_level": "Analyze (L4)",
+  "bloom_verb": "compare, differentiate",
+  "learning_objective": "Let the learner compare a single-hub LMS-centric architecture against a hub-and-spoke LRS-centric architecture, and see structurally why the second scales to many kinds of Learning Record Providers while the first does not.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: workflow\n**sim-id:** lms-vs-lrs-architecture<br/>\n**Library:** Mermaid<br/>\n**Status:** Specified\n**Template:** https://github.com/dmccreary/intelligent-textbooks/tree/main/docs/sims/standards-ecosystem<br/>\n\nBloom Taxonomy: Analyze (L4)\nBloom Taxonomy Verb: compare, differentiate\n\nLearning objective: Let the learner compare a single-hub LMS-centric architecture against a hub-and-spoke LRS-centric architecture, and see structurally why the second scales to many kinds of Learning Record Providers while the first does not.\n\nPurpose: Show two side-by-side diagrams — \"Before: LMS-Centric\" and \"After: LRS-Centric\" — as a single Mermaid flowchart with two subgraphs.\n\nLeft subgraph \"LMS-Centric (SCORM/AICC era)\":\n\n- One box: \"Learning Management System\"\n- Three boxes labeled \"SCO 1\", \"SCO 2\", \"SCO 3\" each with an arrow pointing only to the LMS box (one-way, tightly coupled)\n- No other system can receive data from the SCOs\n\nRight subgraph \"LRS-Centric (xAPI era)\":\n\n- One central box: \"Learning Record Store\"\n- Five surrounding boxes, each with an arrow pointing to the LRS box: \"Intelligent Textbook\", \"Mobile App\", \"VR Simulator\", \"Coding Lab\", \"Physical Kiosk\" — each labeled with the small tag \"Learning Record Provider\"\n- One additional box below the LRS labeled \"Dashboards & Reports\" with an arrow FROM the LRS (data flows out for analysis)\n\nInteractive features: Every node in both subgraphs is clickable via a Mermaid `click` directive. Clicking \"Learning Management System\" opens an infobox defining LMS; clicking any \"SCO\" node opens an infobox defining Sharable Content Object; clicking \"Learning Record Store\" opens an infobox defining LRS; clicking any Learning Record Provider node opens an infobox explaining that term generally, then names the specific example (e.g., \"VR Simulator — a Learning Record Provider might be flight-training software that emits a statement each time a trainee completes a maneuver\").\n\nColor coding: LMS-centric subgraph in a muted gray-blue to signal \"legacy\"; LRS-centric subgraph in the book's teal accent color to signal \"current architecture.\"\n\nImplementation: Mermaid flowchart with two subgraphs and full click-to-infobox coverage on every node."
+}

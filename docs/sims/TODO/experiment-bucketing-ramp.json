@@ -1,0 +1,15 @@
+{
+  "sim_id": "experiment-bucketing-ramp",
+  "diagram_name": "Deterministic Bucketing and the Ramping Rule",
+  "chapter_number": 13,
+  "chapter_title": "Component Design in Depth",
+  "chapter_dir": "13-component-design-in-depth",
+  "chapter_rel_dir": "chapters/13-component-design-in-depth",
+  "library": "p5.js",
+  "bloom_level": "Apply (L3)",
+  "bloom_verb": "demonstrate, predict",
+  "learning_objective": "Let the learner manipulate an experiment's allocation percentage and observe that xxhash64 Bucketing keeps every student's bucket number fixed while only the Bucket To Variant Map's boundary moves, and that the Ramping Allocation Rule prevents the boundary from ever moving backward.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: infographic\n**sim-id:** experiment-bucketing-ramp<br/>\n**Library:** p5.js<br/>\n**Status:** Specified\n\nBloom Taxonomy: Apply (L3)\nBloom Taxonomy Verb: demonstrate, predict\n\nLearning objective: Let the learner manipulate an experiment's allocation percentage and observe that xxhash64 Bucketing keeps every student's bucket number fixed while only the Bucket To Variant Map's boundary moves, and that the Ramping Allocation Rule prevents the boundary from ever moving backward.\n\nCanvas layout:\n\n- A horizontal strip of 10,000 small tick marks representing bucket numbers 0-9,999, compressed to roughly 200 visible segments\n- A vertical boundary line separating \"treatment\" (left, teal) from \"control\" (right, neutral gray)\n- A slider labeled \"Treatment allocation %\" ranging from 0 to 100\n- A row of five labeled student dots at fixed bucket positions, each showing its current variant\n\nInteractive controls:\n\n- Slider: \"Treatment allocation %\" — moving it right attempts to move the boundary right (more treatment)\n- Checkbox: \"Enforce Ramping Allocation Rule\" — checked blocks any leftward boundary move with a red flash; unchecked lets the boundary move freely and flags in red any student dot that flips from treatment back to control, labeled \"This is the bug the rule prevents\"\n- Button: \"Reset\"\n\nBehavior: Each student dot's bucket position is fixed for the session, computed once from a seeded hash so the layout is reproducible; only the boundary moves in response to the slider.\n\nColor coding: Treatment region and its student dots in the book's teal accent color; control region and its dots in neutral gray; the \"bug\" highlight in red, shown only when the rule checkbox is unchecked.\n\nResponsive design: Canvas width tracks its containing element; the tick strip and slider stack vertically below the student-dot row on narrow viewports."
+}

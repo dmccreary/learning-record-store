@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- microsim-scaffold-stub -->
+    <title>Processor Batch Loop — Dedup, Score, and Replay</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Processor Batch Loop — Dedup, Score, and Replay</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> processor-batch-dedup-replay</p>
+            <p><strong>Library:</strong> Mermaid</p>
+            <p><strong>Bloom Level:</strong> Analyze (L4)</p>
+            <p><strong>Learning Objective:</strong> Let the learner trace a batch of statements through the processor's Kafka Consumer Batch Window, ReplacingMergeTree Dedup, and BKT Streaming Update, then differentiate the ordinary redelivery path from the late-arrival path that triggers a Targeted Replay Command.</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    Type: workflow
+    **sim-id:** processor-batch-dedup-replay<br/>
+    **Library:** Mermaid<br/>
+    **Status:** Specified
+    
+    Bloom Taxonomy: Analyze (L4)
+    Bloom Taxonomy Verb: trace, differentiate
+    
+    Learning objective: Let the learner trace a batch of statements through the processor's Kafka Consumer Batch Window, ReplacingMergeTree Dedup, and BKT Streaming Update, then differentiate the ordinary redelivery path from the late-arrival path that triggers a Targeted Replay Command.
+    
+    Purpose: Show a Mermaid flowchart with a main loop and one branch for the late-arrival exception.
+    
+    Nodes: "Consume batch: up to 1,000 statements or 200ms (Kafka Consumer Batch Window)" leads to "Pseudonymize + resolve + enrich" leads to "BKT Streaming Update per (student, concept), in partition order" leads to "Write batch to ClickHouse; ReplacingMergeTree Dedup absorbs any redelivered rows" leads to "Checkpoint mastery state to Compacted State Checkpoint topic" leads to "Commit Kafka offset". A separate branch from "Consume batch": "Late Arrival Detector flags a statement far behind the watermark" leads to "Enqueue Targeted Replay Command scoped to (student, concept)" leads to "Recompute mastery trajectory in order, directly from the ClickHouse log" leads back into "Checkpoint mastery state".
+    
+    Interactive features: Every node has a Mermaid click directive opening a definition infobox, with the dedup and BKT nodes' infoboxes explicitly contrasting idempotent-by-construction against order-sensitive. A toggle labeled "Show why order matters" highlights the BKT node and the late-arrival branch in a shared color, dimming the rest of the diagram.
+    
+    Color coding: The main loop in the book's teal accent color; the late-arrival branch in amber to flag it as the exception path; the Compacted State Checkpoint node in a distinct violet since it is a durability mechanism rather than a processing step.
+    
+    Responsive design: Flowchart resizes to the width of its containing element; the late-arrival branch collapses beneath the main loop on narrow viewports rather than sitting beside it.
+    -->
+</body>
+</html>

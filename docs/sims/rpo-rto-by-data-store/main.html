@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- microsim-scaffold-stub -->
+    <title>Recovery Point and Recovery Time by Data Store</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Recovery Point and Recovery Time by Data Store</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> rpo-rto-by-data-store</p>
+            <p><strong>Library:</strong> Chart.js</p>
+            <p><strong>Bloom Level:</strong> Evaluate (L5)</p>
+            <p><strong>Learning Objective:</strong> Compare Recovery Point Objective and Recovery Time Objective across ClickHouse, Neo4j, vault-db, and meta-db, and judge which store's backup strategy the whole system depends on most.</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    Type: chart
+    **sim-id:** rpo-rto-by-data-store<br/>
+    **Library:** Chart.js<br/>
+    **Status:** Specified
+    
+    Bloom Taxonomy: Evaluate (L5)
+    Bloom Taxonomy Verb: compare, justify
+    
+    Learning objective: Compare Recovery Point Objective and Recovery Time Objective across ClickHouse, Neo4j, vault-db, and meta-db, and judge which store's backup strategy the whole system depends on most.
+    
+    Chart type: Grouped horizontal bar chart, logarithmic x-axis in minutes.
+    
+    Purpose: Show that vault-db and meta-db have the tightest RPO despite Neo4j having the loosest, connecting that gap to which stores are rebuildable versus irreplaceable.
+    
+    Y-axis (categories): ClickHouse, Neo4j, vault-db, meta-db.
+    
+    Data series:
+    1. RPO (minutes), teal bars: ClickHouse 60, Neo4j 1440, vault-db 5, meta-db 5.
+    2. RTO (minutes), amber bars: ClickHouse 240, Neo4j 60, vault-db 60, meta-db 60.
+    
+    Interactive features: Hovering a bar shows an exact tooltip ("vault-db RPO: 5 minutes — continuous WAL archiving"). Clicking a store's label opens an infobox explaining why its numbers look that way (e.g., Neo4j's loose RPO because it is rebuildable from the log). A checkbox filters to irreplaceable stores only (vault-db, meta-db).
+    
+    Color scheme: Teal for RPO bars, amber for RTO bars; vault-db and meta-db rows get a red left-border flagging them as unrecoverable-if-lost.
+    
+    Annotations: A callout near vault-db reading "The one true worst case."
+    
+    Responsive design: Chart resizes to container width; series stack per category and the legend moves below the chart on narrow viewports.
+    -->
+</body>
+</html>

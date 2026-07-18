@@ -1,0 +1,23 @@
+{
+  "title": "Gateway-First Deploy and Rollback Order",
+  "description": "Trace the deploy order and the reverse rollback order across the gateway, processors, and stateless roles, and explain why the gateway sits at both ends of the sequence.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "gateway-first-deploy-rollback",
+  "library": "Mermaid",
+  "bloomLevel": "Analyze (L4)",
+  "bloomVerb": "trace, differentiate",
+  "completion_status": "scaffold",
+  "chapter_number": 18,
+  "chapter_title": "Configuration, Migration, Backup, and Rollout",
+  "chapter_dir": "18-config-migration-backup-rollout",
+  "chapter_rel_dir": "chapters/18-config-migration-backup-rollout"
+}

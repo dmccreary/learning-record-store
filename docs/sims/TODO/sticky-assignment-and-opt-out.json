@@ -1,0 +1,15 @@
+{
+  "sim_id": "sticky-assignment-and-opt-out",
+  "diagram_name": "Deterministic Sticky Assignment and District Opt-Out",
+  "chapter_number": 31,
+  "chapter_title": "Designing and Reading A/B Experiments",
+  "chapter_dir": "31-designing-ab-experiments",
+  "chapter_rel_dir": "chapters/31-designing-ab-experiments",
+  "library": "Mermaid",
+  "bloom_level": "Apply (L3)",
+  "bloom_verb": "trace, apply",
+  "learning_objective": "Let the learner trace a single student's request through the eligibility check, the hash-based assignment formula, and the non-blocking fallback path, applying the deterministic sticky assignment rule to a concrete decision.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: workflow\n**sim-id:** sticky-assignment-and-opt-out<br/>\n**Library:** Mermaid<br/>\n**Status:** Specified\n\nBloom Taxonomy: Apply (L3)\nBloom Taxonomy Verb: trace, apply\n\nLearning objective: Let the learner trace a single student's request through the eligibility check, the hash-based assignment formula, and the non-blocking fallback path, applying the deterministic sticky assignment rule to a concrete decision.\n\nPurpose: A Mermaid flowchart beginning at \"Student requests a page covered by an active experiment,\" branching first on \"Is the student's district opted out of experimentation?\" — Yes leads directly to \"Serve control arm (excluded from randomization)\"; No proceeds to \"Is the assignment service reachable?\" — No leads to \"Serve control arm (non-blocking fallback); statement still recorded\"; Yes leads to \"Compute variant = hash(experiment_id, unit_id) mod k\" which leads to \"Look up ASSIGNED_TO edge, or create it on first assignment\" and finally to \"Serve the assigned variant; assignment is now sticky for this student.\"\n\nInteractive features: Every node is wired with a Mermaid `click` directive. Clicking the opt-out decision node opens an infobox explaining that eligibility is enforced through the Eligibility Predicate and cannot be overridden by an author. Clicking the hash-formula node opens an infobox restating the formula from this section's prose in plain language. Clicking either \"Serve control arm\" outcome opens an infobox distinguishing the two reasons a student might land in control: policy exclusion versus a temporary service outage.\n\nColor coding: The two decision (branch) nodes in the book's amber accent color; the two control-arm outcomes in muted gray-blue; the \"sticky assignment\" terminal node in teal to mark the normal, successful path.\n\nResponsive design: The flowchart resizes to the containing element's width and stacks its branches vertically rather than horizontally on narrow viewports, preserving click targets at mobile widths."
+}

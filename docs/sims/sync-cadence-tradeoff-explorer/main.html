@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- microsim-scaffold-stub -->
+    <title>Sync Cadence Tradeoff Explorer</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Sync Cadence Tradeoff Explorer</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> sync-cadence-tradeoff-explorer</p>
+            <p><strong>Library:</strong> p5.js</p>
+            <p><strong>Bloom Level:</strong> Apply (L3)</p>
+            <p><strong>Learning Objective:</strong> Let the learner manipulate the summarizer's sync cadence and observe, with real computed numbers, how distinct active grains, graph upserts per second, and graph lag all move together — building intuition for why the design specification chose 60 seconds as the default.</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    Type: microsim
+    **sim-id:** sync-cadence-tradeoff-explorer<br/>
+    **Library:** p5.js<br/>
+    **Status:** Specified
+    
+    Bloom Taxonomy: Apply (L3)
+    Bloom Taxonomy Verb: calculate, experiment, apply
+    
+    Learning objective: Let the learner manipulate the summarizer's sync cadence and observe, with real computed numbers, how distinct active grains, graph upserts per second, and graph lag all move together — building intuition for why the design specification chose 60 seconds as the default.
+    
+    Canvas layout:
+    
+    - Top area (400px): a horizontal slider labeled "Sync cadence (seconds)" ranging from 5 to 300, with tick marks at 5, 60, and 300 matching the three rows of this chapter's table
+    - Middle area: four large numeric readouts that update live as the slider moves — "Statements coalesced," "Distinct active grains," "Graph upserts/sec," and "Graph lag"
+    - Bottom area: a horizontal bar showing "Graph upserts/sec" scaled against a fixed reference line at "10,000/sec (naive, prohibited)" so the learner can see how far below the naive rate every cadence setting stays
+    
+    Visual elements:
+    
+    - Slider track in the book's teal accent color, with a draggable handle
+    - The four numeric readouts in large, high-contrast text, each with a small icon (clock for cadence-dependent, database for grain count)
+    - The bottom comparison bar shrinks and grows in real time as the slider moves, always dwarfed by the fixed 10,000/sec reference line
+    
+    Interactive controls:
+    
+    - Slider: "Sync cadence (seconds)," 5 to 300, default 60
+    - Toggle button: "Show burst scenario (50,000 stmt/sec)" — recomputes all four readouts using the burst ingest rate instead of the peak sustained rate, so the learner can see directly that upserts/sec barely changes even though ingest quintuples
+    - Button: "Reset to default (60s)"
+    
+    Default parameters:
+    
+    - Cadence: 60 seconds
+    - Ingest scenario: peak sustained (10,000 stmt/sec)
+    
+    Behavior:
+    
+    - Moving the slider recomputes all four readouts using this chapter's derivation: statements coalesced = ingest rate × cadence; distinct active grains scales sub-linearly toward a ceiling around 300K as cadence grows; graph upserts/sec = distinct active grains ÷ cadence; graph lag = cadence itself
+    - At the three tick marks (5s, 60s, 300s) the readouts snap to and display the exact figures from this chapter's Sync Cadence Tradeoff table, so the learner can verify the simulation against the printed numbers
+    - Toggling "Show burst scenario" visibly changes "Statements coalesced" a great deal while "Graph upserts/sec" changes only modestly, making the burst-insensitivity property directly observable rather than merely asserted in prose
+    
+    Instructional Rationale: An Apply-level objective calls for parameter exploration rather than a passive animation — the learner should be able to drag the cadence slider themselves and watch the tradeoff numbers respond, which builds the intuition that a longer cadence trades freshness for a gentler write rate, matching exactly the design decision ADR-002 and this chapter's prose describe.
+    
+    Implementation notes: Use p5.js `slider()` for the cadence control and redraw the four readouts and the comparison bar every frame based on the current slider value; interpolate distinct-active-grains between the three anchor points (50K at 5s, 150K at 60s, 300K at 300s) using a smooth curve rather than linear interpolation, since the underlying relationship saturates. Responsive design: canvas width tracks the containing element's width, with the readout panel reflowing beneath the slider on narrow viewports instead of beside it.
+    -->
+</body>
+</html>

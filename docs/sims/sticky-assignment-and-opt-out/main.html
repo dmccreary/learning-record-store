@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- microsim-scaffold-stub -->
+    <title>Deterministic Sticky Assignment and District Opt-Out</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Deterministic Sticky Assignment and District Opt-Out</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> sticky-assignment-and-opt-out</p>
+            <p><strong>Library:</strong> Mermaid</p>
+            <p><strong>Bloom Level:</strong> Apply (L3)</p>
+            <p><strong>Learning Objective:</strong> Let the learner trace a single student's request through the eligibility check, the hash-based assignment formula, and the non-blocking fallback path, applying the deterministic sticky assignment rule to a concrete decision.</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    Type: workflow
+    **sim-id:** sticky-assignment-and-opt-out<br/>
+    **Library:** Mermaid<br/>
+    **Status:** Specified
+    
+    Bloom Taxonomy: Apply (L3)
+    Bloom Taxonomy Verb: trace, apply
+    
+    Learning objective: Let the learner trace a single student's request through the eligibility check, the hash-based assignment formula, and the non-blocking fallback path, applying the deterministic sticky assignment rule to a concrete decision.
+    
+    Purpose: A Mermaid flowchart beginning at "Student requests a page covered by an active experiment," branching first on "Is the student's district opted out of experimentation?" — Yes leads directly to "Serve control arm (excluded from randomization)"; No proceeds to "Is the assignment service reachable?" — No leads to "Serve control arm (non-blocking fallback); statement still recorded"; Yes leads to "Compute variant = hash(experiment_id, unit_id) mod k" which leads to "Look up ASSIGNED_TO edge, or create it on first assignment" and finally to "Serve the assigned variant; assignment is now sticky for this student."
+    
+    Interactive features: Every node is wired with a Mermaid `click` directive. Clicking the opt-out decision node opens an infobox explaining that eligibility is enforced through the Eligibility Predicate and cannot be overridden by an author. Clicking the hash-formula node opens an infobox restating the formula from this section's prose in plain language. Clicking either "Serve control arm" outcome opens an infobox distinguishing the two reasons a student might land in control: policy exclusion versus a temporary service outage.
+    
+    Color coding: The two decision (branch) nodes in the book's amber accent color; the two control-arm outcomes in muted gray-blue; the "sticky assignment" terminal node in teal to mark the normal, successful path.
+    
+    Responsive design: The flowchart resizes to the containing element's width and stacks its branches vertically rather than horizontally on narrow viewports, preserving click targets at mobile widths.
+    -->
+</body>
+</html>

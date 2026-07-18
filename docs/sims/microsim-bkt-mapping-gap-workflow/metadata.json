@@ -1,0 +1,23 @@
+{
+  "title": "MicroSim Evidence to BKT Mapping Gap",
+  "description": "Trace two candidate designs for turning raw MicroSim interaction facts into a soft-correctness value that feeds a concept's Bayesian Knowledge Tracing update, and critique the trade-off each one makes.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "microsim-bkt-mapping-gap-workflow",
+  "library": "Mermaid",
+  "bloomLevel": "Evaluate (L5)",
+  "bloomVerb": "compare, critique",
+  "completion_status": "scaffold",
+  "chapter_number": 20,
+  "chapter_title": "Spec Deviations, the Delivery Roadmap, and Open Questions",
+  "chapter_dir": "20-deviations-roadmap-open-questions",
+  "chapter_rel_dir": "chapters/20-deviations-roadmap-open-questions"
+}

@@ -1,0 +1,24 @@
+{
+  "title": "From Student Information System to Enrollment",
+  "description": "Let the learner trace how roster data travels from a district's Student Information System, through the OneRoster standard and the Roster API, into School, Course, Section, and Enrollment structure inside this LRS.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "roster-ingestion-workflow",
+  "library": "Mermaid",
+  "bloomLevel": "Apply (L3)",
+  "bloomVerb": "trace, demonstrate",
+  "completion_status": "implemented",
+  "chapter_number": 6,
+  "chapter_title": "Multi-Tenancy, Rosters, and Pseudonymous Identity",
+  "chapter_dir": "06-multi-tenancy-rosters-identity",
+  "chapter_rel_dir": "chapters/06-multi-tenancy-rosters-identity",
+  "canvasHeight": 420
+}

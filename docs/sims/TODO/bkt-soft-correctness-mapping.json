@@ -1,0 +1,15 @@
+{
+  "sim_id": "bkt-soft-correctness-mapping",
+  "diagram_name": "From Raw Evidence to Soft Correctness",
+  "chapter_number": 12,
+  "chapter_title": "Bayesian Knowledge Tracing for Mastery",
+  "chapter_dir": "12-bayesian-knowledge-tracing",
+  "chapter_rel_dir": "chapters/12-bayesian-knowledge-tracing",
+  "library": "p5.js",
+  "bloom_level": "Analyze (L4)",
+  "bloom_verb": "evaluate, differentiate",
+  "learning_objective": "Let the learner evaluate how different raw evidence signals (a graded quiz answer, dwell time on a page, MicroSim interaction depth) map to a soft correctness value and a blending weight, and differentiate why non-binary evidence should count for less than a graded response.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: chart\n**sim-id:** bkt-soft-correctness-mapping<br/>\n**Library:** p5.js<br/>\n**Status:** Specified\n**Template:** https://github.com/dmccreary/theory-of-knowledge/tree/main/docs/sims/evidence-strength-hierarchy<br/>\n\nBloom Taxonomy: Analyze (L4)\nBloom Taxonomy Verb: evaluate, differentiate\n\nLearning objective: Let the learner evaluate how different raw evidence signals (a graded quiz answer, dwell time on a page, MicroSim interaction depth) map to a soft correctness value and a blending weight, and differentiate why non-binary evidence should count for less than a graded response.\n\nPurpose: Show, as an interactive bar chart, how three evidence types convert into a soft correctness value in [0,1] plus a separate evidence weight, so the learner sees both numbers move together as the underlying signal changes.\n\nControls: A toggle selecting evidence type — \"Graded quiz response\" (binary), \"Page dwell time\" (slider, 0–300 seconds), \"MicroSim interaction depth\" (slider, 0–20 interactions) — plus a \"Compare to a graded response\" checkbox that overlays a fixed reference bar at weight 1.0.\n\nVisual elements: Two side-by-side bars per selection, \"Soft Correctness\" (0–1) and \"Evidence Weight\" (0–1), updating live as the slider moves. A graded response fixes Evidence Weight at 1.0; dwell time and interaction depth both show Soft Correctness rising smoothly with the slider but Evidence Weight capped well below 1.0 (illustrative default: 0.3), reinforcing that this evidence counts for less.\n\nInteractive features: Moving a slider recomputes both bars immediately. Hovering a bar shows its exact value and a one-sentence explanation matching this chapter's prose. An \"Open question\" info icon notes that the specification leaves the owning component for this mapping undecided.\n\nColor scheme: Soft Correctness bars in the book's teal accent color; Evidence Weight bars in muted gray; the reference graded-response bar in amber when enabled.\n\nResponsive design: Chart resizes to its container; below tablet width the bars stack vertically and the toggle becomes a dropdown."
+}

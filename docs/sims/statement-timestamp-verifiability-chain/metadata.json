@@ -1,0 +1,24 @@
+{
+  "title": "Statement Timestamp and the Verifiability Chain",
+  "description": "Let the learner apply their understanding of Statement Timestamp and Statement Immutability by tracing how the two combine to produce a verifiable audit trail, and predict what an auditor would flag as suspicious versus ordinary.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "statement-timestamp-verifiability-chain",
+  "library": "Mermaid",
+  "bloomLevel": "Apply (L3)",
+  "bloomVerb": "trace, demonstrate",
+  "completion_status": "implemented",
+  "chapter_number": 4,
+  "chapter_title": "Standards Governance and the Wider Interoperability Ecosystem",
+  "chapter_dir": "04-standards-governance-ecosystem",
+  "chapter_rel_dir": "chapters/04-standards-governance-ecosystem",
+  "canvasHeight": 540
+}

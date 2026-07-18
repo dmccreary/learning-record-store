@@ -1,0 +1,23 @@
+{
+  "title": "Naive vs. Compressed Graph Write Rate",
+  "description": "Let the learner compare the naive per-statement graph write rate against the compressed summarizer write rate side by side, and attribute the ~20x reduction to the specific mechanism (ADR-001/ADR-002) that produces it.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "naive-vs-compressed-graph-write-rate",
+  "library": "vis-network",
+  "bloomLevel": "Analyze (L4)",
+  "bloomVerb": "compare, differentiate",
+  "completion_status": "scaffold",
+  "chapter_number": 11,
+  "chapter_title": "Architecture Decision Records and the Capacity Model",
+  "chapter_dir": "11-adrs-and-capacity-model",
+  "chapter_rel_dir": "chapters/11-adrs-and-capacity-model"
+}

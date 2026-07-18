@@ -1,0 +1,23 @@
+{
+  "title": "From Login to RBAC-Checked Action",
+  "description": "Let the learner trace a single login from browser to RBAC-checked action across four lanes, distinguishing the identity-proving job (SSO via SAML or OIDC) from the authorization-granting job (RBAC).",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "sso-rbac-login-flow",
+  "library": "Mermaid",
+  "bloomLevel": "Understand (L2)",
+  "bloomVerb": "explain, sequence",
+  "completion_status": "scaffold",
+  "chapter_number": 27,
+  "chapter_title": "Compliance, Privacy Law, and District-Level Reporting",
+  "chapter_dir": "27-compliance-and-district-reporting",
+  "chapter_rel_dir": "chapters/27-compliance-and-district-reporting"
+}

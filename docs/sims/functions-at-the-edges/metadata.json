@@ -1,0 +1,23 @@
+{
+  "title": "Four Functions at the System's Edges",
+  "description": "Let the learner explain what triggers each of the four functions that run off the main statement pipeline — Experiment Assignment, Reconciliation, Export, and Retention Purge — and classify each by whether its trigger is per-statement, scheduled, or on-demand.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "functions-at-the-edges",
+  "library": "Mermaid",
+  "bloomLevel": "Understand (L2)",
+  "bloomVerb": "explain, classify",
+  "completion_status": "scaffold",
+  "chapter_number": 9,
+  "chapter_title": "The Twelve Core LRS Functions",
+  "chapter_dir": "09-twelve-core-lrs-functions",
+  "chapter_rel_dir": "chapters/09-twelve-core-lrs-functions"
+}

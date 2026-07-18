@@ -1,0 +1,23 @@
+{
+  "title": "System Configuration and Alerting Dashboard",
+  "description": "Interpret a live-style processing-lag chart against a configurable Alerting Configuration threshold line, and relate that threshold to the platform-wide Retention Defaults Config, Feature Flag Config, and Rate Limit Config panels a System Administrator manages on the same screen.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "system-config-alerting-dashboard",
+  "library": "Chart.js",
+  "bloomLevel": "Analyze (L4)",
+  "bloomVerb": "relate, interpret",
+  "completion_status": "scaffold",
+  "chapter_number": 26,
+  "chapter_title": "District Administrator: Access Control and System Configuration",
+  "chapter_dir": "26-district-admin-access-control",
+  "chapter_rel_dir": "chapters/26-district-admin-access-control"
+}

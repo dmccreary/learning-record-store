@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- microsim-scaffold-stub -->
+    <title>Privacy and Compliance UI Mockup</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Privacy and Compliance UI Mockup</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> privacy-compliance-ui-mockup</p>
+            <p><strong>Library:</strong> p5.js</p>
+            <p><strong>Bloom Level:</strong> Apply (L3)</p>
+            <p><strong>Learning Objective:</strong> Operate a realistic mock-up of the Privacy & Compliance UI, locating each of the four fields this section explains — Policy Profile Preset, Data Subject Request, Consent Status, and Aggregation Threshold — within a plausible screen layout rather than a bulleted description.</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    Type: infographic
+    **sim-id:** privacy-compliance-ui-mockup<br/>
+    **Library:** p5.js<br/>
+    **Status:** Specified
+    **Template:** https://github.com/dmccreary/token-efficiency/tree/main/docs/sims/privacy-compliance-pipeline<br/>
+    
+    Bloom Taxonomy: Apply (L3)
+    Bloom Taxonomy Verb: operate, locate
+    
+    Learning objective: Operate a realistic mock-up of the Privacy & Compliance UI, locating each of the four fields this section explains — Policy Profile Preset, Data Subject Request, Consent Status, and Aggregation Threshold — within a plausible screen layout rather than a bulleted description.
+    
+    Canvas layout: A mock admin-screen rendered as a bordered browser-window frame with a left navigation rail showing "Districts > Riverbend Unified > Privacy & Compliance" as breadcrumb, and a main panel divided into four labeled cards: "Policy Profile," "Data Subject Request," "Consent Status," and "Aggregation Threshold."
+    
+    Visual elements: The "Policy Profile" card shows three radio options ("FERPA," "COPPA," "GDPR") with "COPPA" selected. The "Data Subject Request" card shows a search field ("Search by roster identity...") and three buttons, "Access," "Rectify," "Erase," with "Erase" outlined in warning red to signal irreversibility. The "Consent Status" card shows three example students with status chips reading "Granted" (green), "Pending" (amber), and "Withdrawn" (gray). The "Aggregation Threshold" card shows a slider reading "Minimum group size: 10" with a caption "Groups smaller than this are suppressed on every report."
+    
+    Interactive controls: Clicking a Policy Profile radio option updates the Aggregation Threshold slider and a small "Retention" readout elsewhere on the mock screen to that preset's typical value, demonstrating that a preset configures multiple fields at once. Clicking "Erase" on the Data Subject Request card opens a confirmation dialog reading "This will permanently remove this student's identity mapping. De-identified aggregates will be preserved. This cannot be undone." with "Confirm" and "Cancel" buttons. Clicking a Consent Status chip cycles it through Granted, Pending, and Withdrawn, and clicking "Withdrawn" updates a caption reading "This student is now excluded from non-essential processing."
+    
+    Default state: COPPA preset selected; Aggregation Threshold at 10; three example students with mixed consent statuses; no dialog open.
+    
+    Implementation notes: Use p5.js `createButton()` for Access, Rectify, and Erase, `createSlider()` for the Aggregation Threshold, and a custom radio-button group drawn with `ellipse()` and mouse-press detection for the Policy Profile Preset selector, per this project's convention of using p5.js's built-in controls wherever a native equivalent exists.
+    
+    Responsive design: The four-card grid collapses from a 2x2 layout to a single stacked column on narrow viewports; the confirmation dialog becomes a full-width overlay below 600px width.
+    -->
+</body>
+</html>

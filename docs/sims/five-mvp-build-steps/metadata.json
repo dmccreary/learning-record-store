@@ -1,0 +1,23 @@
+{
+  "title": "The Five MVP Build Steps",
+  "description": "Sequence the five MVP build steps and match each to its exit criterion, recognizing each step's output as a precondition for the next.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "five-mvp-build-steps",
+  "library": "vis-timeline",
+  "bloomLevel": "Understand (L2)",
+  "bloomVerb": "sequence, match",
+  "completion_status": "scaffold",
+  "chapter_number": 22,
+  "chapter_title": "Proving the Architecture - the MVP Plan",
+  "chapter_dir": "22-proving-the-architecture-mvp",
+  "chapter_rel_dir": "chapters/22-proving-the-architecture-mvp"
+}

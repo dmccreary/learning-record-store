@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- microsim-scaffold-stub -->
+    <title>Build Steps to Development Host Tier</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Build Steps to Development Host Tier</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> build-steps-to-host-tier-timeline</p>
+            <p><strong>Library:</strong> vis-timeline</p>
+            <p><strong>Bloom Level:</strong> Understand (L2)</p>
+            <p><strong>Learning Objective:</strong> Match each of the five MVP build steps to the minimum development host tier that can prove it, and recognize that only the final step — the burst-throughput proof — requires the Recommended tier.</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    Type: timeline
+    **sim-id:** build-steps-to-host-tier-timeline<br/>
+    **Library:** vis-timeline<br/>
+    **Status:** Specified
+    
+    Bloom Taxonomy: Understand (L2)
+    Bloom Taxonomy Verb: sequence, match
+    
+    Learning objective: Match each of the five MVP build steps to the minimum development host tier that can prove it, and recognize that only the final step — the burst-throughput proof — requires the Recommended tier.
+    
+    Time period: Not calendar time — five sequential build steps, rendered as five contiguous blocks in build order.
+    
+    Orientation: Horizontal, left to right, each block labeled with its step number and headline task.
+    
+    Events:
+    
+    - Step 1: Foundation, bootstrap, infrastructure validation — host tier: Minimum; backing services only, no image needed yet
+    - Step 2: Ingest path (gateway to processor to ClickHouse) — host tier: Minimum; full stack, low volume
+    - Step 3: Load generator at the contract shape — host tier: Minimum to Recommended; 200 statements/sec baseline
+    - Step 4: Compression, graph, and mastery correctness — host tier: Minimum; correctness proofs hold at any volume
+    - Step 5: The burst-throughput proof (200 to 1,000 statements/sec) — host tier: Recommended (16 GB, local NVMe); the measurement this stack exists to produce
+    
+    Interactive features: Clicking a step block opens an infobox with its full description and required tier. A "Minimum vs. Recommended" toggle recolors all five blocks to show that four of five steps fit on the smallest host and only the last needs the larger one.
+    
+    Visual style: Blocks 1–4 shaded calm teal ("fits on Minimum"); block 5 shaded amber to flag its stricter requirement.
+    
+    Responsive design: The timeline resizes to its container's width; on narrow viewports, labels abbreviate to step number and expand on tap.
+    -->
+</body>
+</html>

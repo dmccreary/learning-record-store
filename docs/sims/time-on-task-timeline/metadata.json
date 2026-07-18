@@ -1,0 +1,23 @@
+{
+  "title": "One Student's Time-on-Task Timeline",
+  "description": "Let the learner interpret a Gantt-style timeline of one student's learning sessions across a week, distinguishing a steady engagement pattern from a single last-minute cram session.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "time-on-task-timeline",
+  "library": "vis-timeline",
+  "bloomLevel": "Understand (L2)",
+  "bloomVerb": "interpret, distinguish",
+  "completion_status": "scaffold",
+  "chapter_number": 28,
+  "chapter_title": "Teacher Dashboards and Student-Level Reports",
+  "chapter_dir": "28-teacher-dashboards-student-reports",
+  "chapter_rel_dir": "chapters/28-teacher-dashboards-student-reports"
+}

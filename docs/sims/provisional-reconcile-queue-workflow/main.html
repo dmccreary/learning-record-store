@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- microsim-scaffold-stub -->
+    <title>Provisional Reconcile Queue Workflow</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Provisional Reconcile Queue Workflow</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> provisional-reconcile-queue-workflow</p>
+            <p><strong>Library:</strong> Mermaid</p>
+            <p><strong>Bloom Level:</strong> Apply (L3)</p>
+            <p><strong>Learning Objective:</strong> Operate the Provisional Reconcile Queue as a District Administrator would — reviewing a queued entry, choosing between one-click accept and manual mapping — and connect that screen-level action to the underlying promotion from provisional to reconciled that Chapter 8 already explained.</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    Type: workflow
+    **sim-id:** provisional-reconcile-queue-workflow<br/>
+    **Library:** Mermaid<br/>
+    **Status:** Specified
+    
+    Bloom Taxonomy: Apply (L3)
+    Bloom Taxonomy Verb: operate, resolve
+    
+    Learning objective: Operate the Provisional Reconcile Queue as a District Administrator would — reviewing a queued entry, choosing between one-click accept and manual mapping — and connect that screen-level action to the underlying promotion from provisional to reconciled that Chapter 8 already explained.
+    
+    Purpose: A Mermaid flowchart showing the queue's decision path for a single provisional stub, starting where Chapter 8's ingestion mechanics leave off.
+    
+    Flow: "Stub appears in Provisional Reconcile Queue (provisional: true)" -> "Reconciliation Worker suggests a candidate match?" -- branches into two paths.
+    
+    Path A (confident match found): "Confident candidate shown" -> "Administrator clicks 'Accept Auto-Match'" -> "Stub promoted to provisional: false; COVERS/EMBEDS/DEPENDS_ON back-filled."
+    
+    Path B (no confident match): "No confident candidate" -> "Administrator opens Manual Mapping" -> "Administrator selects the correct published Textbook/TextbookVersion/MicroSim/Concept" -> "Stub promoted to provisional: false; COVERS/EMBEDS/DEPENDS_ON back-filled."
+    
+    Both paths converge on: "Entry removed from queue; historical statements about this stub become richly queryable retroactively."
+    
+    Interactive features: Every node has a Mermaid `click` directive. Clicking the initial stub node opens an infobox linking back to Chapter 8's Accept-First Ingestion and Provisional Node definitions. Clicking either branch condition opens an infobox explaining what "confident" means (a match by git_sha, then IRI path, then title similarity, per Chapter 8). Clicking either promotion node opens an infobox naming the three relationship types being back-filled. Clicking the final convergence node opens an infobox restating the no-data-loss guarantee from Chapter 8's ingestion mechanics.
+    
+    Color coding: Path A (auto-match) in the book's teal accent color to signal the common, low-effort case; Path B (manual mapping) in amber to signal the less common case that needs administrator judgment; the shared convergence node in a neutral gray.
+    
+    Responsive design: Flowchart reflows to a single vertical column on narrow viewports, keeping branch labels legible and click targets tap-sized.
+    -->
+</body>
+</html>

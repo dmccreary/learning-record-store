@@ -1,0 +1,23 @@
+{
+  "title": "Materialized Views to Summary Vertex Mapping",
+  "description": "Let the learner trace raw rows in lrs.statements through each of the three materialized views to the specific Neo4j summary vertex label each view feeds, and differentiate the aggregation grain of each path.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "mv-to-vertex-mapping",
+  "library": "Mermaid",
+  "bloomLevel": "Analyze (L4)",
+  "bloomVerb": "trace, differentiate",
+  "completion_status": "scaffold",
+  "chapter_number": 14,
+  "chapter_title": "Kafka Topics, ClickHouse Schema, and Graph Constraints",
+  "chapter_dir": "14-kafka-clickhouse-graph-schema",
+  "chapter_rel_dir": "chapters/14-kafka-clickhouse-graph-schema"
+}

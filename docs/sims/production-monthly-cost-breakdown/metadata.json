@@ -1,0 +1,23 @@
+{
+  "title": "Production Monthly Cost Breakdown",
+  "description": "Break down the production system's monthly cost into its component line items, and compare the on-demand total against the reserved-pricing total to see which line items are fixed and which shrink under a multi-year commitment.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "production-monthly-cost-breakdown",
+  "library": "Chart.js",
+  "bloomLevel": "Analyze (L4)",
+  "bloomVerb": "compare, break down",
+  "completion_status": "scaffold",
+  "chapter_number": 21,
+  "chapter_title": "Hardware Sizing, Cost, and the Development Environment",
+  "chapter_dir": "21-hardware-cost-dev-environment",
+  "chapter_rel_dir": "chapters/21-hardware-cost-dev-environment"
+}

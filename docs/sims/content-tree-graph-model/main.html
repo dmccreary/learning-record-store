@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- microsim-scaffold-stub -->
+    <title>The Content Tree — From Textbook to Concept</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>The Content Tree — From Textbook to Concept</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> content-tree-graph-model</p>
+            <p><strong>Library:</strong> vis-network</p>
+            <p><strong>Bloom Level:</strong> Understand (L2)</p>
+            <p><strong>Learning Objective:</strong> Let the learner identify every content-tree node label from Textbook down to Concept, and describe which relationship type connects each pair, exactly as cataloged in this project's specification §4.1–§4.2.</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    Type: graph-model
+    **sim-id:** content-tree-graph-model<br/>
+    **Library:** vis-network<br/>
+    **Status:** Specified<br/>
+    **Template:** https://github.com/dmccreary/learning-graphs/tree/main/docs/sims/concept-to-content-viewer<br/>
+    
+    Bloom Taxonomy: Understand (L2)
+    Bloom Taxonomy Verb: identify, describe
+    
+    Learning objective: Let the learner identify every content-tree node label from Textbook down to Concept, and describe which relationship type connects each pair, exactly as cataloged in this project's specification §4.1–§4.2.
+    
+    Purpose: Render the full content-tree portion of the graph data model as an interactive vis-network diagram, using this project's actual node labels and relationship types, so the learner can see the tree from the spec as a real graph rather than a table.
+    
+    Nodes (colored by node label, one color per label): `Textbook`, `TextbookVersion`, `Chapter`, `Page`, `MicroSim`, `MicroSimVersion`, `Quiz`, `Question`, `Concept`. Layout: hierarchical, top to bottom, Textbook at the top.
+    
+    Edges, each labeled with its relationship type and drawn as a directed arrow: `TextbookVersion` → `Textbook` (`VERSION_OF`); `Textbook` → `Chapter` (`CONTAINS`); `Chapter` → `Page` (`CONTAINS`); `Page` → `MicroSim` (`EMBEDS`); `Page` → `Quiz` (`EMBEDS`); `MicroSim` → `MicroSimVersion` (`HAS_VERSION`); `Quiz` → `Question` (`CONTAINS`); `Page` → `Concept` (`COVERS`); `MicroSim` → `Concept` (`COVERS`); `Question` → `Concept` (`COVERS`).
+    
+    Interactive features: Clicking any node opens an infobox listing that node label's key properties, matching the table in this chapter's prose exactly. Clicking any edge opens an infobox naming the relationship type, its direction (from → to), and a one-sentence description of what it structurally means. Hovering over a node highlights all of its direct edges and dims the rest of the graph so the learner can trace one node's connections in isolation.
+    
+    Color scheme: Each node label gets a distinct, consistent color from the book's palette (Textbook and TextbookVersion in one hue-pair, Chapter and Page in a second, MicroSim/MicroSimVersion/Quiz/Question in a third, Concept in the book's teal accent color to visually mark it as the bridge into the learning graph proper).
+    
+    Responsive design: The network canvas resizes to the width of its containing element on window resize, using vis-network's built-in responsive container option; on narrow (mobile) viewports the hierarchical layout switches from top-to-bottom to left-to-right to make better use of vertical scroll space.
+    -->
+</body>
+</html>

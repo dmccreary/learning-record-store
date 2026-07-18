@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- microsim-scaffold-stub -->
+    <title>District Tenancy Hierarchy Explorer</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>District Tenancy Hierarchy Explorer</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> district-tenancy-hierarchy-explorer</p>
+            <p><strong>Library:</strong> vis-network</p>
+            <p><strong>Bloom Level:</strong> Understand (L2)</p>
+            <p><strong>Learning Objective:</strong> Identify the nested tenancy hierarchy a District Administrator operates within — District, School, Course, Section, Enrollment — and distinguish the hard isolation boundary at the district level from the soft, role-scoped boundaries below it.</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    Type: graph-model
+    **sim-id:** district-tenancy-hierarchy-explorer<br/>
+    **Library:** vis-network<br/>
+    **Status:** Specified
+    **Template:** https://github.com/dmccreary/search-microsims/tree/main/docs/sims/subject-taxonomy-explorer<br/>
+    
+    Bloom Taxonomy: Understand (L2)
+    Bloom Taxonomy Verb: identify, describe
+    
+    Learning objective: Identify the nested tenancy hierarchy a District Administrator operates within — District, School, Course, Section, Enrollment — and distinguish the hard isolation boundary at the district level from the soft, role-scoped boundaries below it.
+    
+    Purpose: A vis-network hierarchical graph rooted at one District node, branching down through School, Course, Section, to Enrollment, with a separate branch showing a Textbook Version deployed onto a Section.
+    
+    Nodes: One root "District" node. Two child "School" nodes. Each School has two child "Course" nodes. Each Course has two child "Section" nodes. Each Section has three child "Enrollment" nodes (representing students) and one dashed edge labeled "DEPLOYS" to a shared "Textbook Version" node drawn off to the side.
+    
+    Interactive features: Clicking the District node opens an infobox stating the hard isolation guarantee — no cross-district query without explicit, de-identified system-admin benchmarking. Clicking any School, Course, or Section node opens an infobox naming that node's key properties from the graph data model (school_id/name/grade_band; course_id/title/subject; section_id/period/term/academic_year) and noting the boundary here is soft, enforced by role scope. Clicking an Enrollment node opens an infobox defining enrollment as the student-to-section relationship. Clicking the Textbook Version node or the DEPLOYS edge opens an infobox previewing the Textbook Deployment UI section later in this chapter.
+    
+    Color coding: The District node in a saturated teal to mark the hard boundary; School, Course, Section, and Enrollment nodes in graduated lighter shades of the same hue to show they nest inside it; the Textbook Version node and DEPLOYS edge in amber to visually separate "who a student is" from "what content they see."
+    
+    Responsive design: Hierarchical layout re-centers on window resize using vis-network's built-in layout engine; on narrow viewports the tree renders top-to-bottom rather than left-to-right and remains pannable.
+    -->
+</body>
+</html>

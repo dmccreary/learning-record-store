@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>cmi5 Launch Sequence</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' }
+        });
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="diagram-panel">
+            <div class="mermaid">
+flowchart TB
+    S1["1 &middot; LMS assigns the AU to a learner<br/><small>knows which Assignable Unit and which learner</small>"]:::launch
+    S2["2 &middot; LMS launches the AU URL<br/><small>query params: endpoint, fetch, actor, registration</small>"]:::launch
+    S3["3 &middot; AU calls the fetch URL<br/><small>exchanges the reference for an auth token</small>"]:::launch
+    S4["4 &middot; AU sends 'initialized'<br/><small>first Statement, tagged with the Registration</small>"]:::session
+    S5["5 &middot; Learner interacts with the AU<br/><small>stream of domain-verb Statements (experienced, answered)</small>"]:::session
+    S6["6 &middot; AU sends 'completed' or 'passed'/'failed'<br/><small>the outcome of this attempt</small>"]:::session
+    S7["7 &middot; AU sends 'terminated'<br/><small>signals the session has ended</small>"]:::session
+    S8["8 &middot; LMS queries the LRS<br/><small>using agent + registration query parameters</small>"]:::readback
+    S1 --> S2 --> S3 --> S4 --> S5 --> S6 --> S7 --> S8
+
+    classDef launch fill:#e9a23b,stroke:#b8791f,color:#222,font-size:15px
+    classDef session fill:#2a9d8f,stroke:#1f7a6f,color:#fff,font-size:15px
+    classDef readback fill:#4c956c,stroke:#2f6b48,color:#fff,font-size:15px
+    linkStyle default stroke:#999,stroke-width:2px
+            </div>
+        </div>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display">
+                <p class="info-placeholder">Click a step to see details</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const nodeInfo = {
+            'S1': { title: 'Step 1 &mdash; Assignment', description: 'The LMS records that a specific learner is assigned a specific Assignable Unit (AU). No launch has happened yet; this is bookkeeping in the LMS.' },
+            'S2': { title: 'Step 2 &mdash; Launch parameters', description: 'The LMS opens the AU URL with the cmi5 Launch Method parameters:<span class="mini">endpoint &rarr; where to send Statements &nbsp;&bull;&nbsp; fetch &rarr; URL to get an auth token &nbsp;&bull;&nbsp; actor &rarr; who the learner is &nbsp;&bull;&nbsp; registration &rarr; id grouping this attempt</span>' },
+            'S3': { title: 'Step 3 &mdash; Fetch the token', description: 'The AU calls the one-time <code>fetch</code> URL to trade the short-lived reference for an authorization token it will use on every Statement it sends.' },
+            'S4': { title: 'Step 4 &mdash; initialized', description: 'The session&rsquo;s first Statement.<span class="mini">Actor: learner &nbsp;&bull;&nbsp; Verb: initialized &nbsp;&bull;&nbsp; Object: the AU</span>Tagged with the launch&rsquo;s Registration so it can be grouped later.' },
+            'S5': { title: 'Step 5 &mdash; Learner activity', description: 'A stream of Statements using domain Verbs such as <em>experienced</em> or <em>answered</em>, each carrying the same Registration.' },
+            'S6': { title: 'Step 6 &mdash; Outcome', description: 'The attempt result.<span class="mini">Verb: completed &mdash; or passed / failed &nbsp;&bull;&nbsp; Object: the AU</span>cmi5 requires exactly this kind of Statement to mark the attempt&rsquo;s result.' },
+            'S7': { title: 'Step 7 &mdash; terminated', description: 'The AU signals the end of the session.<span class="mini">Verb: terminated &nbsp;&bull;&nbsp; Object: the AU</span>After this, no further Statements belong to this attempt.' },
+            'S8': { title: 'Step 8 &mdash; LMS reads back', description: 'The LMS queries the LRS with the <code>agent</code> and <code>registration</code> Statement Query Parameters. Because every Statement in this attempt shares one Registration, the LMS retrieves the whole attempt as a single queryable group.' }
+        };
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- microsim-scaffold-stub -->
+    <title>The Data-Loss Boundary Across the Compression Pipeline</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>The Data-Loss Boundary Across the Compression Pipeline</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> lrs-failure-mode-data-loss-boundary</p>
+            <p><strong>Library:</strong> Mermaid</p>
+            <p><strong>Bloom Level:</strong> Analyze (L4)</p>
+            <p><strong>Learning Objective:</strong> Given any one of six failure modes in the compression pipeline, classify it as occurring before or after the Kafka durability boundary and predict whether it can lose data.</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    Type: workflow
+    **sim-id:** lrs-failure-mode-data-loss-boundary<br/>
+    **Library:** Mermaid<br/>
+    **Status:** Specified
+    
+    Bloom Taxonomy: Analyze (L4)
+    Bloom Taxonomy Verb: classify, trace
+    
+    Learning objective: Given any one of six failure modes in the compression pipeline, classify it as occurring before or after the Kafka durability boundary and predict whether it can lose data.
+    
+    Purpose: A Mermaid flowchart of the statement's path from a Learning Record Provider through the gateway, Kafka, the processor, ClickHouse, the summarizer, and Neo4j, with a vertical boundary line after Kafka separating "can lose data" from "cannot lose data."
+    
+    Nodes in path order: "Learning Record Provider" -> "Ingestion Gateway" -> "Kafka (durability boundary)" -> "Processor" -> "ClickHouse (event log)" -> "Summarizer" -> "Neo4j (graph projection)". A separate node "Redis (mastery cache)" branches off ClickHouse/Neo4j reads.
+    
+    Visual boundary: A dashed red vertical line crosses the diagram immediately after the Kafka node, labeled "Only failures left of this line can lose data."
+    
+    Interactive features: Every node has a Mermaid click directive opening an infobox naming its associated failure mode (Gateway/Kafka: Kafka Unavailable Failure; Processor/ClickHouse: ClickHouse Unavailable Failure; Summarizer: Summarizer Stopped Failure and Summarizer Split Brain; Neo4j: Neo4j Unavailable Failure; Redis: Redis Unavailable Failure) with that failure's detection, behavior, and response. Clicking the boundary line opens an infobox on the "only the first row loses data" rule.
+    
+    Color coding: Nodes left of the boundary shaded warning amber; nodes right of the boundary shaded the book's calm teal to signal "recoverable."
+    
+    Responsive design: The flowchart reflows to a single column on narrow viewports, preserving the boundary line's position and all click handlers.
+    -->
+</body>
+</html>

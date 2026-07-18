@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- microsim-scaffold-stub -->
+    <title>The Nine Admin UIs at a Glance</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>The Nine Admin UIs at a Glance</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> nine-admin-uis-survey</p>
+            <p><strong>Library:</strong> p5.js</p>
+            <p><strong>Bloom Level:</strong> Remember (L1)</p>
+            <p><strong>Learning Objective:</strong> Identify each of the nine admin UIs, its one-line purpose, and which of the six roles from this chapter can open it, as a quick-reference survey before Chapters 25 through 27 cover several of them in depth.</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    Type: infographic
+    **sim-id:** nine-admin-uis-survey<br/>
+    **Library:** p5.js<br/>
+    **Status:** Specified
+    **Template:** https://github.com/dmccreary/automating-instructional-design/tree/main/docs/sims/xapi-data-flow<br/>
+    
+    Bloom Taxonomy: Remember (L1)
+    Bloom Taxonomy Verb: identify, recall
+    
+    Learning objective: Identify each of the nine admin UIs, its one-line purpose, and which of the six roles from this chapter can open it, as a quick-reference survey before Chapters 25 through 27 cover several of them in depth.
+    
+    Canvas layout: A 3x3 grid of nine tiles, one per admin UI, each labeled with its short name (District Management, School Course Section, Textbook Deployment, xAPI Credentials, Experiment Administration, User Access Management, Privacy Compliance, Audit Monitoring, System Configuration).
+    
+    Visual elements: Each tile shows the UI's short name in bold and a small icon suggesting its function (a building for District Management, a roster grid for School Course Section, a package for Textbook Deployment, a key for xAPI Credentials, a flask for Experiment Administration, a badge for User Access Management, a shield for Privacy Compliance, a magnifying glass for Audit Monitoring, a set of dials for System Configuration). Tiles are colored by which chapter covers them in depth: three tiles destined for Chapter 25 in one hue, two for Chapter 26 in a second hue, one for Chapter 27 in a third hue, and the remaining three (xAPI Credentials, Experiment Administration, Audit Monitoring) in a neutral hue since they are introduced here but revisited more briefly elsewhere in the book.
+    
+    Interactive controls: Clicking any tile expands it into a detail panel showing the UI's full one- or two-sentence description from this chapter's prose, plus a chip for each role permitted to use it (matching the roles-to-UIs table above). A "Filter by role" dropdown (p5.js `createSelect()`) lets the reader choose one of the six roles and dims every tile that role cannot access, leaving only that role's accessible UIs at full opacity — a direct, exploratory version of reading one column of the table above.
+    
+    Default state: All nine tiles shown at full opacity, no role filter applied, no tile expanded.
+    
+    Behavior: Selecting a role from the dropdown dims inaccessible tiles to 30% opacity with a smooth 300ms transition; selecting "All roles" (the default option) restores full opacity to every tile. Clicking an expanded tile a second time collapses it back to its compact form.
+    
+    Implementation notes: Use p5.js `createSelect()` for the role-filter control, per this project's convention of always using p5.js's built-in controls rather than hand-drawn UI. Store the nine UI-to-roles mappings as a simple array of objects so the filter logic is a single lookup rather than nine hardcoded conditionals.
+    
+    Responsive design: Grid collapses from 3x3 to a single scrollable column of nine tiles on narrow viewports; the role-filter dropdown remains pinned above the grid at every width.
+    -->
+</body>
+</html>

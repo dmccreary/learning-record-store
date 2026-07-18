@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- microsim-scaffold-stub -->
+    <title>MicroSim Impact — Observational Delta vs. a Controlled Effect</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>MicroSim Impact — Observational Delta vs. a Controlled Effect</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> microsim-impact-observational-vs-controlled</p>
+            <p><strong>Library:</strong> p5.js</p>
+            <p><strong>Bloom Level:</strong> Evaluate (L5)</p>
+            <p><strong>Learning Objective:</strong> Let the learner evaluate why an observational mastery delta between MicroSim users and non-users can be confounded by a hidden third factor, and justify why only a controlled experiment can support a causal claim about the MicroSim's effect.</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    Type: chart
+    **sim-id:** microsim-impact-observational-vs-controlled<br/>
+    **Library:** p5.js<br/>
+    **Status:** Specified
+    **Template:** https://github.com/dmccreary/theory-of-knowledge/tree/main/docs/sims/correlation-causation<br/>
+    
+    Bloom Taxonomy: Evaluate (L5)
+    Bloom Taxonomy Verb: judge, justify
+    
+    Learning objective: Let the learner evaluate why an observational mastery delta between MicroSim users and non-users can be confounded by a hidden third factor, and justify why only a controlled experiment can support a causal claim about the MicroSim's effect.
+    
+    Canvas layout: Two side-by-side panels. The left panel shows a simple bar comparison — "Used the MicroSim" versus "Skipped the MicroSim" — each bar's height set by mean mastery score, with a visible gap between them labeled "Observed Delta." The right panel shows the same two groups after a third variable, "Prior Mastery Band," is revealed as a `createSlider()`-controlled toggle: when toggled on, both groups split into low/medium/high prior-mastery sub-bars, and the gap in the left panel visibly shrinks or reverses within each sub-band.
+    
+    Interactive features: A "Reveal confound" button animates the transition from the left panel's simple comparison to the right panel's stratified view. Hovering any bar shows the exact mean mastery score and student count behind it. A caption below the chart updates dynamically: before the reveal, "Naive comparison: MicroSim users score higher"; after the reveal, "Within each prior-mastery band, the gap shrinks — the naive comparison was partly measuring who was already stronger, not what the MicroSim taught."
+    
+    Color coding: Both groups shaded in neutral gray-blue before the reveal; after the reveal, prior-mastery sub-bands shaded on a light-to-dark scale to visually separate the confound from the outcome measure.
+    
+    Responsive design: The two panels stack vertically on narrow viewports instead of appearing side by side, with the "Reveal confound" button remaining full-width and easy to tap.
+    -->
+</body>
+</html>

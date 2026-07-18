@@ -1,0 +1,23 @@
+{
+  "title": "Poison Message Retry and Dead-Letter Queue Workflow",
+  "description": "Trace a single malformed statement through three consumption attempts and its landing in the dead-letter queue, and explain why the consumer keeps processing other messages throughout.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "poison-message-dlq-retry-workflow",
+  "library": "Mermaid",
+  "bloomLevel": "Apply (L3)",
+  "bloomVerb": "trace, apply",
+  "completion_status": "scaffold",
+  "chapter_number": 19,
+  "chapter_title": "Failure Modes and Verification",
+  "chapter_dir": "19-failure-modes-and-verification",
+  "chapter_rel_dir": "chapters/19-failure-modes-and-verification"
+}

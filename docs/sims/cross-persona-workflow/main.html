@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- microsim-scaffold-stub -->
+    <title>Cross-Persona Workflow</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Cross-Persona Workflow</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> cross-persona-workflow</p>
+            <p><strong>Library:</strong> Mermaid</p>
+            <p><strong>Bloom Level:</strong> Analyze (L4)</p>
+            <p><strong>Learning Objective:</strong> Trace one ingested xAPI Statement through three independent, simultaneously-updated aggregations, and analyze why no persona's view requires a separate data pipeline from the others.</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    Type: workflow
+    **sim-id:** cross-persona-workflow<br/>
+    **Library:** Mermaid<br/>
+    **Status:** Specified
+    
+    Bloom Taxonomy: Analyze (L4)
+    Bloom Taxonomy Verb: trace, analyze
+    
+    Learning objective: Trace one ingested xAPI Statement through three independent, simultaneously-updated aggregations, and analyze why no persona's view requires a separate data pipeline from the others.
+    
+    Purpose: A single Mermaid flowchart tracing one concrete Statement (a student's correct MicroSim answer on cellular respiration) from ingestion into three parallel, non-interfering outcomes.
+    
+    Flow: "Student answers MicroSim question correctly" -> "xAPI Statement ingested once (Actor, Verb, Object Activity, Result)" -> three parallel branches.
+    
+    Branch A "Teacher": -> "Bayesian Knowledge Tracing update for this student's cellular-respiration mastery" -> "At-risk roster re-evaluated for this student."
+    
+    Branch B "District Administrator": -> "Counted toward this section's textbook-usage coverage, no student named" -> "District adoption percentage updated."
+    
+    Branch C "Textbook Author": -> "Added to this MicroSim version's running effectiveness estimate, no student named" -> "Feeds the Experiment Administration UI's readout if an experiment is running."
+    
+    Interactive features: Every node has a Mermaid click directive. Clicking the shared ingestion node opens an infobox recapping that this is the same non-blocking ingestion path Chapter 8 described. Clicking any Branch A node opens an infobox linking to Chapter 12's Bayesian Knowledge Tracing explanation. Clicking any Branch B node opens an infobox naming the aggregation-threshold rule from Chapter 15 that would suppress this count if the group were smaller than ten. Clicking any Branch C node opens an infobox previewing Chapter 30 and Chapter 31's content-effectiveness and experiment coverage.
+    
+    Color coding: Shared ingestion node in teal; Teacher branch in violet; District Administrator branch in amber; Textbook Author branch in green — matching the same three persona colors used in the "Three Personas, One Statement Log" diagram earlier in this chapter, so a reader recognizes the color scheme as a running convention.
+    
+    Responsive design: The three branches stack vertically below the shared node on narrow viewports; click targets stay tap-sized.
+    -->
+</body>
+</html>

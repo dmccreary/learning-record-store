@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- microsim-scaffold-stub -->
+    <title>Graph Write Rate vs. Compression Sync Cadence</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Graph Write Rate vs. Compression Sync Cadence</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> write-rate-vs-sync-cadence</p>
+            <p><strong>Library:</strong> Chart.js</p>
+            <p><strong>Bloom Level:</strong> Analyze (L4)</p>
+            <p><strong>Learning Objective:</strong> Let the learner evaluate the tradeoff between sync cadence, graph write rate, and graph lag in Change-Driven Materialization, and predict how each candidate cadence would behave during an ingestion burst.</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    Type: chart
+    **sim-id:** write-rate-vs-sync-cadence<br/>
+    **Library:** Chart.js<br/>
+    **Status:** Specified<br/>
+    **Template:** https://github.com/dmccreary/it-management-graph/tree/main/docs/sims/native-graph-storage-vs-graph-layer-performance-comparison<br/>
+    
+    Bloom Taxonomy: Analyze (L4)
+    Bloom Taxonomy Verb: evaluate, predict
+    
+    Learning objective: Let the learner evaluate the tradeoff between sync cadence, graph write rate, and graph lag in Change-Driven Materialization, and predict how each candidate cadence would behave during an ingestion burst.
+    
+    Purpose: Render the three sync-cadence scenarios from this section's prose as a grouped bar-and-line chart so the tradeoff is visible at a glance rather than read out of a table.
+    
+    Data: Three x-axis categories — "5 s", "60 s (default)", "300 s". Bar series "Graph upserts/sec" (left y-axis, linear): 10000, 2500, 1000. Dashed line series "Graph lag" (right y-axis, labeled in seconds, log scale): 5, 60, 300.
+    
+    Interactive features: Hovering any bar or line point shows a tooltip with that cadence's exact statements-coalesced and distinct-active-grain figures (e.g. "60 s: ~600K statements coalesced into ~150K distinct active grains -> ~2,500 upserts/sec"). A toggle labeled "Simulate 5x ingest burst" recomputes the statement-count figures upward five-fold in the tooltip while holding the "Graph upserts/sec" bars nearly constant, demonstrating the insensitivity property described below the chart. The "60 s (default)" bar carries a highlight border.
+    
+    Color scheme: Bars in the book's teal accent color, with the default-cadence bar in the darkest shade; the graph-lag line in a contrasting amber dashed stroke so the two series stay visually distinct on shared axes.
+    
+    Responsive design: Chart canvas resizes to the width of its containing element on window resize, using Chart.js's built-in responsive option; the legend moves below the chart on narrow viewports.
+    -->
+</body>
+</html>

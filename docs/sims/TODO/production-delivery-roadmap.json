@@ -1,0 +1,15 @@
+{
+  "sim_id": "production-delivery-roadmap",
+  "diagram_name": "From Walking Skeleton to Scaled Production",
+  "chapter_number": 23,
+  "chapter_title": "Production Infrastructure and Cloud Services",
+  "chapter_dir": "23-production-infrastructure-cloud",
+  "chapter_rel_dir": "chapters/23-production-infrastructure-cloud",
+  "library": "vis-timeline",
+  "bloom_level": "Understand (L2)",
+  "bloom_verb": "sequence, summarize",
+  "learning_objective": "Sequence the design document's delivery milestones from a walking skeleton through scaled production, and identify which milestone introduces each managed service covered in this chapter.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: timeline\n**sim-id:** production-delivery-roadmap<br/>\n**Library:** vis-timeline<br/>\n**Status:** Specified\n\nBloom Taxonomy: Understand (L2)\nBloom Taxonomy Verb: sequence, summarize\n\nLearning objective: Sequence the design document's delivery milestones from a walking skeleton through scaled production, and identify which milestone introduces each managed service covered in this chapter.\n\nTime period: Not calendar time — six sequential delivery milestones rendered as contiguous blocks in build order.\n\nOrientation: Horizontal, left to right, each block labeled with its milestone code and headline deliverable.\n\nEvents:\n\n- M0 Walking skeleton: Compose stack, image, CLI, bootstrap, gateway through Kafka to ClickHouse, smoke test\n- M1 Ingestion complete: pseudonymization, vault, accept-first provisioning, reconciler, Dead Letter Queue, replay\n- M2 Compression plus graph plus mastery: Neo4j structure, ClickHouse rollup views, the summarizer, BKT engine — Neo4j licensing decision due here\n- M3 Analytics plus first dashboards: Analytics API, privacy filter, first report set\n- M4 Admin plus experiments: Admin API and UI, RBAC, audit, experiment service\n- M5 Scale plus production: Helm, KEDA, managed stores (Managed Streaming Kafka, ClickHouse Cloud, Neo4j AuraDB/Enterprise, RDS Multi-AZ Postgres, ElastiCache Redis), disaster-recovery drill, full report catalog\n\nInteractive features: Clicking a milestone block opens an infobox with its full deliverable list and exit criteria. A \"Highlight this chapter's services\" toggle overlays which managed services from Chapter 23 first appear at M5, and marks M2 with a small flag icon noting the Neo4j licensing decision deadline discussed in this chapter.\n\nVisual style: M0 through M4 shaded calm teal as already-covered ground; M5 shaded amber as the milestone this chapter belongs to.\n\nResponsive design: Resizes to its container's width; on narrow viewports labels abbreviate to milestone code and expand on tap."
+}

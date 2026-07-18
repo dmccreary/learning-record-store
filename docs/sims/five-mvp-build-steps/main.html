@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- microsim-scaffold-stub -->
+    <title>The Five MVP Build Steps</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>The Five MVP Build Steps</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> five-mvp-build-steps</p>
+            <p><strong>Library:</strong> vis-timeline</p>
+            <p><strong>Bloom Level:</strong> Understand (L2)</p>
+            <p><strong>Learning Objective:</strong> Sequence the five MVP build steps and match each to its exit criterion, recognizing each step's output as a precondition for the next.</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    Type: timeline
+    **sim-id:** five-mvp-build-steps<br/>
+    **Library:** vis-timeline<br/>
+    **Status:** Specified
+    
+    Bloom Taxonomy: Understand (L2)
+    Bloom Taxonomy Verb: sequence, match
+    
+    Learning objective: Sequence the five MVP build steps and match each to its exit criterion, recognizing each step's output as a precondition for the next.
+    
+    Time period: Not calendar time — five sequential build steps rendered as contiguous blocks in build order.
+    
+    Orientation: Horizontal, left to right, each block labeled with its step number and headline task.
+    
+    Events:
+    
+    - Step 1: Foundation + an honest harness — exit: clean boot from a cold clone; smoke check correctly red before anything real exists
+    - Step 2: Ingest path (gateway, stream processor) — exit: smoke check green for the right reason, provably red when broken
+    - Step 3: Loadgen at the producer-contract shape — exit: sustains 200 stmt/sec; store row count matches emitted count exactly
+    - Step 4: Compression and graph (summarizer, mastery join) — exit: zero per-statement nodes, identical graph on a second run, ratio asserted, mastery non-null
+    - Step 5: The burst proof (replay, 5x load, chaos test) — exit: a chart showing ingest 5x while graph writes stay flat
+    
+    Interactive features: Clicking a step block opens an infobox with its full description and exit criterion. A "Show dependency arrows" toggle overlays arrows from each step to the one it depends on.
+    
+    Visual style: Steps 1-4 shaded calm teal; step 5 shaded amber as the step the MVP exists to reach.
+    
+    Responsive design: Resizes to its container's width; on narrow viewports labels abbreviate to step number and expand on tap.
+    -->
+</body>
+</html>

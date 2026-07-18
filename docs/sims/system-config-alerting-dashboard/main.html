@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- microsim-scaffold-stub -->
+    <title>System Configuration and Alerting Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>System Configuration and Alerting Dashboard</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> system-config-alerting-dashboard</p>
+            <p><strong>Library:</strong> Chart.js</p>
+            <p><strong>Bloom Level:</strong> Analyze (L4)</p>
+            <p><strong>Learning Objective:</strong> Interpret a live-style processing-lag chart against a configurable Alerting Configuration threshold line, and relate that threshold to the platform-wide Retention Defaults Config, Feature Flag Config, and Rate Limit Config panels a System Administrator manages on the same screen.</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    Type: chart
+    **sim-id:** system-config-alerting-dashboard<br/>
+    **Library:** Chart.js<br/>
+    **Status:** Specified
+    
+    Bloom Taxonomy: Analyze (L4)
+    Bloom Taxonomy Verb: relate, interpret
+    
+    Learning objective: Interpret a live-style processing-lag chart against a configurable Alerting Configuration threshold line, and relate that threshold to the platform-wide Retention Defaults Config, Feature Flag Config, and Rate Limit Config panels a System Administrator manages on the same screen.
+    
+    Purpose: A combination line chart plus control panel: the chart shows a simulated processing-lag time series across the last 60 minutes, with a horizontal threshold line the learner can drag to any value between 1 and 15 minutes.
+    
+    Chart data: Sixty data points, one per simulated minute, oscillating between 1 and 4 minutes of processing lag with three deliberate spikes (minute 20 reaching 6 minutes; minute 35 reaching 8 minutes; minute 50 reaching 3 minutes), so the learner sees both alert-triggering and non-triggering fluctuation.
+    
+    Interactive controls: A draggable horizontal threshold line, default 5 minutes per the specification's example. Any segment crossing above the threshold turns red and shows an "ALERT: paging System Administrator" banner; dragging the threshold live-updates which spikes trigger an alert. Below the chart, three read-only panels labeled "Retention Defaults," "Feature Flags," and "Rate Limits" show one example value each, and hovering any panel opens a tooltip with that field's one-sentence definition from this chapter's prose.
+    
+    Color coding: Chart line in the book's teal accent color below threshold, red above it; threshold line in dashed amber.
+    
+    Implementation notes: Use Chart.js's line chart type with an annotation layer for the draggable threshold line; the three configuration panels can be plain HTML/CSS elements since they hold static reference values rather than chart data.
+    
+    Responsive design: Chart resizes to its containing element's width using Chart.js's built-in responsive option; the three configuration panels stack vertically below the chart on viewports narrower than 700px instead of sitting in a row.
+    -->
+</body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "title": "Total Learning Architecture Ecosystem Map",
+  "description": "Let the learner analyze how a Learning Record Store relates to the other named components of the Total Learning Architecture, and locate this project's own LRS within that wider ecosystem rather than treating it as a standalone system.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "tla-ecosystem-map",
+  "library": "vis-network",
+  "bloomLevel": "Analyze (L4)",
+  "bloomVerb": "analyze, relate",
+  "completion_status": "scaffold",
+  "chapter_number": 3,
+  "chapter_title": "IEEE Standardization of xAPI and cmi5",
+  "chapter_dir": "03-ieee-standardization-xapi-cmi5",
+  "chapter_rel_dir": "chapters/03-ieee-standardization-xapi-cmi5"
+}

@@ -1,0 +1,15 @@
+{
+  "sim_id": "accept-first-reconciliation-flow",
+  "diagram_name": "Accept-First Ingestion and Reconciliation Flow",
+  "chapter_number": 8,
+  "chapter_title": "Summary Vertices and Statement Ingestion Mechanics",
+  "chapter_dir": "08-summary-vertices-ingestion",
+  "chapter_rel_dir": "chapters/08-summary-vertices-ingestion",
+  "library": "Mermaid",
+  "bloom_level": "Understand (L2)",
+  "bloom_verb": "explain, sequence",
+  "learning_objective": "Let the learner explain how a newly published textbook can emit statements before its metadata is registered, and sequence the four steps of Accept-First Ingestion from a statement's arrival to a Provisional Node's promotion.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: workflow\n**sim-id:** accept-first-reconciliation-flow<br/>\n**Library:** Mermaid<br/>\n**Status:** Specified\n\nBloom Taxonomy: Understand (L2)\nBloom Taxonomy Verb: explain, sequence\n\nLearning objective: Let the learner explain how a newly published textbook can emit statements before its metadata is registered, and sequence the four steps of Accept-First Ingestion from a statement's arrival to a Provisional Node's promotion.\n\nPurpose: Show a six-node, left-to-right Mermaid flowchart tracing one never-before-seen textbook's first statement from arrival through reconciliation, matching the four numbered steps described in this chapter's prose.\n\nNodes, in order: \"Statement arrives naming an unknown textbook_id/version_id\"; \"Ingestion Gateway accepts it (Accept-First Ingestion)\"; \"Stream Processor auto-provisions a stub (Provisional Node, provisional: true)\"; \"Event Store retains the statement immutably\"; \"Reconciliation Worker matches the stub against published metadata (git_sha, then IRI path, then title similarity)\"; \"Node promoted (provisional: false), COVERS/EMBEDS/DEPENDS_ON back-filled — earlier statements become richly queryable retroactively\". Edges connect each node to the next in sequence.\n\nInteractive features: Every node has a Mermaid `click` directive opening an infobox with that node's definition from this chapter's prose — Schema On Read, Accept-First Ingestion, Provisional Node and its `provisional: true` property, the no-data-loss guarantee, the Reconciliation Worker's three-tier matching order, and retroactive queryability with a link back to Chapter 7's `COVERS`, `EMBEDS`, and `DEPENDS_ON` relationship types, in node order.\n\nColor coding: The three \"accept immediately\" nodes in the book's teal accent color; the three \"reconciled later\" nodes in a complementary amber — visually separating what happens instantly from what happens eventually.\n\nImplementation: Mermaid flowchart, single left-to-right chain, full click-to-infobox coverage on every node. Responsive width tracking the containing element; on narrow viewports the chain reflows top-to-bottom."
+}

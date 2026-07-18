@@ -1,0 +1,15 @@
+{
+  "sim_id": "remote-dev-workflow-comparison",
+  "diagram_name": "Three Ways to Develop Against a Remote Host",
+  "chapter_number": 21,
+  "chapter_title": "Hardware Sizing, Cost, and the Development Environment",
+  "chapter_dir": "21-hardware-cost-dev-environment",
+  "chapter_rel_dir": "chapters/21-hardware-cost-dev-environment",
+  "library": "Mermaid",
+  "bloom_level": "Analyze (L4)",
+  "bloom_verb": "compare, differentiate",
+  "learning_objective": "Compare Remote SSH Development, Docker Context Over SSH, and plain git-plus-SSH as three ways of developing against containers running on a rented host, and identify which piece of tooling runs locally versus remotely in each pattern.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: workflow\n**sim-id:** remote-dev-workflow-comparison<br/>\n**Library:** Mermaid<br/>\n**Status:** Specified\n\nBloom Taxonomy: Analyze (L4)\nBloom Taxonomy Verb: compare, differentiate\n\nLearning objective: Compare Remote SSH Development, Docker Context Over SSH, and plain git-plus-SSH as three ways of developing against containers running on a rented host, and identify which piece of tooling runs locally versus remotely in each pattern.\n\nPurpose: A Mermaid flowchart with three parallel branches, each starting from a shared \"Laptop\" node and ending at a shared \"Remote Host running Docker Engine\" node, so the learner sees what crosses the network in each pattern.\n\nBranch A \"Remote SSH Development\": \"Laptop (editor UI only)\" -> \"VS Code / Cursor Remote-SSH extension\" -> \"Files, terminal, `make up` execute on\" -> \"Remote Host.\" Tag: \"Ports auto-forwarded to localhost; smoothest loop, no manual tunnel.\"\n\nBranch B \"Docker Context Over SSH\": \"Laptop (Docker CLI + GUI)\" -> \"`docker context use lrs-remote`\" -> \"Commands sent over SSH to\" -> \"Remote Host's Docker engine.\" Tag: \"Containers publish ports remotely — needs a manual SSH Tunnel Port Forward for `localhost` scripts.\"\n\nBranch C \"Plain git + SSH\": \"Laptop (git commit/push)\" -> \"GitHub\" -> \"`git pull` inside an SSH session on\" -> \"Remote Host.\" Tag: \"No editor integration; simplest fallback, always works.\"\n\nInteractive features: Every node has a Mermaid click directive. Clicking a tag node opens an infobox with its trade-off text. Clicking the shared \"Remote Host\" node opens an infobox naming the UFW Firewall Rule that keeps only SSH exposed.\n\nColor coding: Branch A teal (recommended default); Branch B amber; Branch C neutral gray; shared start/end nodes darker neutral.\n\nResponsive design: The three branches stack vertically on narrow viewports, preserving click handlers and tag text."
+}

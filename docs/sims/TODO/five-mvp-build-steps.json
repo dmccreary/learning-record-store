@@ -1,0 +1,15 @@
+{
+  "sim_id": "five-mvp-build-steps",
+  "diagram_name": "The Five MVP Build Steps",
+  "chapter_number": 22,
+  "chapter_title": "Proving the Architecture - the MVP Plan",
+  "chapter_dir": "22-proving-the-architecture-mvp",
+  "chapter_rel_dir": "chapters/22-proving-the-architecture-mvp",
+  "library": "vis-timeline",
+  "bloom_level": "Understand (L2)",
+  "bloom_verb": "sequence, match",
+  "learning_objective": "Sequence the five MVP build steps and match each to its exit criterion, recognizing each step's output as a precondition for the next.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: timeline\n**sim-id:** five-mvp-build-steps<br/>\n**Library:** vis-timeline<br/>\n**Status:** Specified\n\nBloom Taxonomy: Understand (L2)\nBloom Taxonomy Verb: sequence, match\n\nLearning objective: Sequence the five MVP build steps and match each to its exit criterion, recognizing each step's output as a precondition for the next.\n\nTime period: Not calendar time — five sequential build steps rendered as contiguous blocks in build order.\n\nOrientation: Horizontal, left to right, each block labeled with its step number and headline task.\n\nEvents:\n\n- Step 1: Foundation + an honest harness — exit: clean boot from a cold clone; smoke check correctly red before anything real exists\n- Step 2: Ingest path (gateway, stream processor) — exit: smoke check green for the right reason, provably red when broken\n- Step 3: Loadgen at the producer-contract shape — exit: sustains 200 stmt/sec; store row count matches emitted count exactly\n- Step 4: Compression and graph (summarizer, mastery join) — exit: zero per-statement nodes, identical graph on a second run, ratio asserted, mastery non-null\n- Step 5: The burst proof (replay, 5x load, chaos test) — exit: a chart showing ingest 5x while graph writes stay flat\n\nInteractive features: Clicking a step block opens an infobox with its full description and exit criterion. A \"Show dependency arrows\" toggle overlays arrows from each step to the one it depends on.\n\nVisual style: Steps 1-4 shaded calm teal; step 5 shaded amber as the step the MVP exists to reach.\n\nResponsive design: Resizes to its container's width; on narrow viewports labels abbreviate to step number and expand on tap."
+}

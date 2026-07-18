@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- microsim-scaffold-stub -->
+    <title>At-Risk Roster — How the Composite Score Is Built</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>At-Risk Roster — How the Composite Score Is Built</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> at-risk-roster-composite-score</p>
+            <p><strong>Library:</strong> Mermaid</p>
+            <p><strong>Bloom Level:</strong> Analyze (L4)</p>
+            <p><strong>Learning Objective:</strong> Let the learner decompose one student's composite at-risk score into its three contributing signals (disengagement, low mastery, prerequisite gaps) and justify why a student flagged on all three ranks higher than a student flagged on only one.</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    Type: workflow
+    **sim-id:** at-risk-roster-composite-score<br/>
+    **Library:** Mermaid<br/>
+    **Status:** Specified
+    **Template:** https://github.com/dmccreary/atam/tree/main/docs/sims/risk-register-explorer<br/>
+    
+    Bloom Taxonomy: Analyze (L4)
+    Bloom Taxonomy Verb: decompose, justify
+    
+    Learning objective: Let the learner decompose one student's composite at-risk score into its three contributing signals (disengagement, low mastery, prerequisite gaps) and justify why a student flagged on all three ranks higher than a student flagged on only one.
+    
+    Purpose: A Mermaid flowchart with three input boxes — "Idle Disengagement Alert" (no statements in N days), "Low Overall Mastery" (below-threshold ConceptMastery average), "Prerequisite Gap Analysis" (unmastered upstream concepts) — each with a labeled weight arrow flowing into one central "Composite Risk Score" box, which itself flows into a ranked "At-Risk Roster" table box showing three sample rows with different score compositions (one flagged on all three signals, ranked highest; one flagged on only disengagement, ranked lower; one flagged on only prerequisite gaps, ranked lowest of the three).
+    
+    Interactive features: Clicking any of the three input boxes opens an infobox recapping that signal's definition from Chapter 28 (Idle Disengagement Alert, Struggle Detector's low-mastery evidence, Prerequisite Gap Analysis). Clicking the "Composite Risk Score" box opens an infobox explaining that the score is a weighted combination, not a simple count, and that a student can rank highly on strength of one severe signal alone. Clicking any roster row opens an infobox showing that student's individual signal breakdown.
+    
+    Color coding: The three input boxes each in a distinct muted hue; the composite box in the book's amber accent color to mark it as the point of convergence; the roster rows shaded darkest-to-lightest by rank to reinforce the ranking visually.
+    
+    Implementation: Mermaid flowchart adapted from the referenced template's factor-to-composite-score layout, with full click-to-infobox coverage. Responsive width tracking the containing element; on narrow viewports the three input boxes stack vertically above the composite box instead of fanning in from the sides.
+    -->
+</body>
+</html>

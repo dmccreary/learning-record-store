@@ -1,0 +1,23 @@
+{
+  "title": "Prerequisite Gap Analysis — Walking Upstream From a Weak Concept",
+  "description": "Prerequisite Gap Analysis — Walking Upstream From a Weak Concept",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "concept-dependencies",
+  "library": "vis-network",
+  "bloomLevel": "TBD",
+  "bloomVerb": "TBD",
+  "completion_status": "scaffold",
+  "chapter_number": 28,
+  "chapter_title": "Teacher Dashboards and Student-Level Reports",
+  "chapter_dir": "28-teacher-dashboards-student-reports",
+  "chapter_rel_dir": "chapters/28-teacher-dashboards-student-reports"
+}

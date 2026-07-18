@@ -1,0 +1,23 @@
+{
+  "title": "Graph Write Rate vs. Compression Sync Cadence",
+  "description": "Let the learner evaluate the tradeoff between sync cadence, graph write rate, and graph lag in Change-Driven Materialization, and predict how each candidate cadence would behave during an ingestion burst.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "write-rate-vs-sync-cadence",
+  "library": "Chart.js",
+  "bloomLevel": "Analyze (L4)",
+  "bloomVerb": "evaluate, predict",
+  "completion_status": "scaffold",
+  "chapter_number": 8,
+  "chapter_title": "Summary Vertices and Statement Ingestion Mechanics",
+  "chapter_dir": "08-summary-vertices-ingestion",
+  "chapter_rel_dir": "chapters/08-summary-vertices-ingestion"
+}

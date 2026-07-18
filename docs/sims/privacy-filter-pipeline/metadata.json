@@ -1,0 +1,23 @@
+{
+  "title": "The Privacy Filter Pipeline",
+  "description": "Let the learner trace an Analytics API request from Tenant Context Injection through Threshold Suppression, Complementary Suppression, and Privacy Audit Write, and identify at which stage a rostered-teacher exemption applies versus a cross-group view.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "privacy-filter-pipeline",
+  "library": "Mermaid",
+  "bloomLevel": "Analyze (L4)",
+  "bloomVerb": "trace, differentiate",
+  "completion_status": "scaffold",
+  "chapter_number": 15,
+  "chapter_title": "Privacy Enforcement and Dashboard Mechanics",
+  "chapter_dir": "15-privacy-and-dashboard-mechanics",
+  "chapter_rel_dir": "chapters/15-privacy-and-dashboard-mechanics"
+}

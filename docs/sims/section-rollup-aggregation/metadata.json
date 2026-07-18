@@ -1,0 +1,23 @@
+{
+  "title": "How Concept Mastery Rolls Up to a Section",
+  "description": "Explain how many students' individual ConceptMastery vertices aggregate, through a ROLLS_UP_TO edge, into one SectionRollup vertex per concept, which the ten class-level reports in this chapter all read from.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "section-rollup-aggregation",
+  "library": "Mermaid",
+  "bloomLevel": "Understand (L2)",
+  "bloomVerb": "explain, trace",
+  "completion_status": "scaffold",
+  "chapter_number": 29,
+  "chapter_title": "Class-Level Reports and Teacher Tools",
+  "chapter_dir": "29-class-level-reports-and-tools",
+  "chapter_rel_dir": "chapters/29-class-level-reports-and-tools"
+}

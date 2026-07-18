@@ -1,0 +1,15 @@
+{
+  "sim_id": "xapi-statement-triple",
+  "diagram_name": "xAPI Statement Building Blocks",
+  "chapter_number": 1,
+  "chapter_title": "From Learning Management Systems to the Experience API",
+  "chapter_dir": "01-lms-to-experience-api",
+  "chapter_rel_dir": "chapters/01-lms-to-experience-api",
+  "library": "Mermaid",
+  "bloom_level": "Understand (L2)",
+  "bloom_verb": "exemplify, classify",
+  "learning_objective": "Give the learner a first, plain-language mental model of the five Statement components (Actor, Verb, Object Activity, Result, Context) using one worked example, before Chapter 2 formalizes the JSON structure.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: infographic\n**sim-id:** xapi-statement-triple<br/>\n**Library:** Mermaid<br/>\n**Status:** Specified\n**Template:** https://dmccreary.github.io/xapi-course/sims/xapi-statement-triple/<br/>\n\nBloom Taxonomy: Understand (L2)\nBloom Taxonomy Verb: exemplify, classify\n\nLearning objective: Give the learner a first, plain-language mental model of the five Statement components (Actor, Verb, Object Activity, Result, Context) using one worked example, before Chapter 2 formalizes the JSON structure.\n\nPurpose: Show a single example Statement broken into its labeled parts, so the reader can see the vocabulary just introduced in the prose applied to one concrete sentence.\n\nLayout: A horizontal sentence strip reading \"Maya | completed | the Photosynthesis Quiz\" with the words \"Actor\", \"Verb\", \"Object Activity\" as labels beneath each phrase, plus two additional connected boxes below labeled \"Result: scored 9/10\" and \"Context: Biology 101, Section 2\".\n\nData Visibility Requirements:\nStage 1: Show the plain English sentence \"Maya completed the Photosynthesis Quiz, scoring 9 out of 10, in Biology 101.\"\nStage 2: Highlight and label \"Maya\" as Actor.\nStage 3: Highlight and label \"completed\" as Verb.\nStage 4: Highlight and label \"the Photosynthesis Quiz\" as Object Activity, with its Activity Type (\"quiz\") shown as a small sub-tag.\nStage 5: Reveal the Result box: \"scored 9/10.\"\nStage 6: Reveal the Context box: \"Biology 101, Section 2.\"\n\nInteractive features: Each of the five labeled parts (Actor, Verb, Object Activity, Result, Context) is clickable. Clicking opens an infobox with that term's one-sentence definition, matching the definition given in this chapter's prose, plus the note \"Required\" or \"Optional.\"\n\nInstructional Rationale: A step-through, data-visible worked example is appropriate for this Understand-level objective because the learner needs to trace one concrete Statement piece by piece before generalizing. Continuous animation or particle effects would obscure exactly which words map to which component.\n\nImplementation: Mermaid diagram (or equivalent static-layout HTML/CSS) with click handlers wired to an infobox panel, matching the reused template's existing interaction pattern."
+}

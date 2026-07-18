@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>xAPI Profile Anatomy</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' }
+        });
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="diagram-panel">
+            <div class="mermaid">
+flowchart TB
+    STD["xAPI Profile Standard<br/><small>IEEE 9274.2.1 (in development) &mdash; the rulebook</small>"]:::rule
+    JSONLD["JSON-LD<br/><small>the format Profiles are written in</small>"]:::rule
+    AP["Application Profile<br/><small>example: cmi5 &mdash; one concrete document</small>"]:::doc
+    TMPL["Statement Template"]:::doc
+    DP["Determining Property<br/><small>routes a Statement to this template</small>"]:::doc
+    SRV["xAPI Profile Server<br/><small>operated by I2IDL</small>"]:::infra
+    STD -->|expressed using| JSONLD
+    STD -->|one instance of| AP
+    AP --> TMPL
+    TMPL --> DP
+    AP -->|hosted at| SRV
+
+    classDef rule fill:#2a9d8f,stroke:#1f7a6f,color:#fff,font-size:15px
+    classDef doc fill:#e9a23b,stroke:#b8791f,color:#222,font-size:15px
+    classDef infra fill:#4c956c,stroke:#2f6b48,color:#fff,font-size:15px
+    linkStyle default stroke:#999,stroke-width:2px
+            </div>
+        </div>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display">
+                <p class="info-placeholder">Click a node to see details</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const nodeInfo = {
+            'STD': { title: 'xAPI Profile Standard', description: 'The general rulebook (IEEE 9274.2.1, in development) that says how <em>any</em> Profile must be structured. It is not itself a Profile &mdash; distinguish the rules that govern all Profiles from a single published Application Profile like cmi5.' },
+            'JSONLD': { title: 'JSON-LD', description: 'The linked-data JSON format Profiles are written in. An <code>@context</code> maps short terms to full IRIs &mdash; for example the term <code>completed</code> resolves to <code>http://adlnet.gov/expapi/verbs/completed</code>, so every system agrees on its meaning.' },
+            'AP': { title: 'Application Profile (cmi5)', description: 'One concrete, published instance of the Profile Standard. cmi5 is an Application Profile: a specific rulebook for one family of use cases, hosted as a real document rather than an abstract standard.' },
+            'TMPL': { title: 'Statement Template', description: 'A rule inside a Profile describing what a valid Statement for a particular case must look like &mdash; which Verb, which Object type, which required fields. A Profile usually defines several Templates.' },
+            'DP': { title: 'Determining Property', description: 'The field (such as the Verb or an Activity Type) a Template uses to claim an incoming Statement. It routes one Statement to exactly one Template within a Profile that defines many, so validators know which rules to apply.' },
+            'SRV': { title: 'xAPI Profile Server', description: 'I2IDL-operated infrastructure that hosts published Application Profiles at stable IRIs, so tools can fetch and validate against a Profile at runtime.' }
+        };
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

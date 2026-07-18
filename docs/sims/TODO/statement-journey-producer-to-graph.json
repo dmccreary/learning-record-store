@@ -1,0 +1,15 @@
+{
+  "sim_id": "statement-journey-producer-to-graph",
+  "diagram_name": "Statement Journey — Producer to Graph",
+  "chapter_number": 32,
+  "chapter_title": "The Producer Contract: Writing Conformant Statements",
+  "chapter_dir": "32-producer-contract-conformant-statements",
+  "chapter_rel_dir": "chapters/32-producer-contract-conformant-statements",
+  "library": "Mermaid",
+  "bloom_level": "Analyze (L4)",
+  "bloom_verb": "trace, decompose",
+  "learning_objective": "Let the learner decompose a single xAPI Statement into its storage destinations, tracing one JSON field from the producer through the gateway to a ClickHouse column and on to a Neo4j summary-vertex property.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: workflow\n**sim-id:** statement-journey-producer-to-graph<br/>\n**Library:** Mermaid<br/>\n**Status:** Specified\n\nBloom Taxonomy: Analyze (L4)\nBloom Taxonomy Verb: trace, decompose\n\nLearning objective: Let the learner decompose a single xAPI Statement into its storage destinations, tracing one JSON field from the producer through the gateway to a ClickHouse column and on to a Neo4j summary-vertex property.\n\nPurpose: A Mermaid flowchart with four stages left to right: \"Producer emits Statement JSON\" → \"Gateway validates\" → \"ClickHouse lrs.statements row\" → \"Compression pipeline\" → \"Neo4j summary vertex property.\" The ClickHouse stage fans out into five field boxes (object_id, object_type, result_success, duration_ms, concept_ids), each fanning into its Neo4j counterpart.\n\nInteractive features: Every node and field box has a Mermaid `click` directive. Clicking \"Gateway validates\" lists the three rejection triggers from this chapter: an invalid verb, an unmapped object type, a missing grouping[0]. Clicking a field box shows that row from the Field To Column Map table. Clicking the Neo4j stage restates that summary vertices are projections, reproducible by replaying the log — tying back to Chapter 7.\n\nColor coding: Producer and gateway stages in teal; ClickHouse and Neo4j in deeper blue; the compression arrow in amber.\n\nImplementation: Mermaid flowchart, left-to-right, full click-to-infobox coverage. Responsive: stacks top-to-bottom below tablet width."
+}

@@ -1,0 +1,15 @@
+{
+  "sim_id": "multi-stage-build-pipeline",
+  "diagram_name": "The Multi-Stage Build Pipeline",
+  "chapter_number": 16,
+  "chapter_title": "The Container Image and the Role Dispatcher CLI",
+  "chapter_dir": "16-container-image-and-cli",
+  "chapter_rel_dir": "chapters/16-container-image-and-cli",
+  "library": "Mermaid",
+  "bloom_level": "Understand (L2)",
+  "bloom_verb": "trace, explain",
+  "learning_objective": "Trace which files and tools enter each of the three Dockerfile stages, and see which artifacts the Runtime stage copies forward versus what the Builder stage's tools are discarded along with.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: workflow\n**sim-id:** multi-stage-build-pipeline<br/>\n**Library:** Mermaid<br/>\n**Status:** Specified\n\nBloom Taxonomy: Understand (L2)\nBloom Taxonomy Verb: trace, explain\n\nLearning objective: Trace which files and tools enter each of the three Dockerfile stages, and see which artifacts the Runtime stage copies forward versus what the Builder stage's tools are discarded along with.\n\nPurpose: One Mermaid flowchart with three stage subgraphs left to right, connected by arrows representing COPY --from instructions.\n\nLeft subgraph \"Base Build Stage\": \"python:3.12-slim\" -> \"Create non-root lrs user/group (UID 10001)\".\n\nMiddle subgraph \"Builder Build Stage\" (arrow in from Base, labeled \"FROM base\"): \"Copy in uv binary\" -> \"Copy pyproject.toml + uv.lock\" -> \"uv sync --frozen (dependency layer)\" -> \"Copy src/\" -> \"uv sync --frozen (application layer)\" -> \"Populated .venv/ and src/ (uv and build cache left behind)\".\n\nRight subgraph \"Runtime Build Stage\" (arrows in from Base, labeled \"FROM base\", AND from Builder, labeled \"COPY --from=builder: .venv/ and src/ ONLY\"): \"USER lrs\" -> \"EXPOSE 8080\" -> \"HEALTHCHECK: lrs healthcheck\" -> \"ENTRYPOINT [\\\"lrs\\\"]\" -> \"Final shippable image\".\n\nInteractive features: Every node has a Mermaid click directive opening a one-sentence infobox matching this chapter's prose. A toggle \"Highlight what's left behind\" dims every Builder-stage node except the two copied forward.\n\nColor coding: Base in neutral gray, Builder in muted amber (discarded scaffolding), Runtime in the book's teal accent color (what ships).\n\nResponsive design: Subgraphs stack vertically on narrow viewports, preserving left-to-right order as top-to-bottom."
+}

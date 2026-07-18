@@ -1,0 +1,15 @@
+{
+  "sim_id": "concept-mastery-radar",
+  "diagram_name": "Concept Mastery Radar for One Student",
+  "chapter_number": 28,
+  "chapter_title": "Teacher Dashboards and Student-Level Reports",
+  "chapter_dir": "28-teacher-dashboards-student-reports",
+  "chapter_rel_dir": "chapters/28-teacher-dashboards-student-reports",
+  "library": "p5.js",
+  "bloom_level": "Understand (L2)",
+  "bloom_verb": "interpret, compare",
+  "learning_objective": "Let the learner interpret a radar chart of one student's Bayesian Knowledge Tracing mastery scores grouped by taxonomy category, identifying the category where that student is weakest.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: chart\n**sim-id:** concept-mastery-radar<br/>\n**Library:** p5.js<br/>\n**Status:** Specified\n**Template:** https://github.com/dmccreary/blockchain/tree/main/docs/sims/quality-attribute-radar<br/>\n\nBloom Taxonomy: Understand (L2)\nBloom Taxonomy Verb: interpret, compare\n\nLearning objective: Let the learner interpret a radar chart of one student's Bayesian Knowledge Tracing mastery scores grouped by taxonomy category, identifying the category where that student is weakest.\n\nPurpose: A radar/spider chart with five to seven spokes, one per taxonomy category (e.g., Vocabulary, Procedures, Analysis, Application, Synthesis), each spoke scaled 0 to 1 to match the BKT mastery-score range.\n\nData: A sample student's per-category average mastery scores plotted as a filled polygon; a faint dashed reference polygon at 0.75 mastery marks the textbook's default \"likely mastered\" line so the learner can see at a glance which spokes fall short of it.\n\nInteractive features: Clicking any spoke's label opens an infobox naming that taxonomy category and listing the two or three concepts within it that pull the average down the most. A slider (p5.js `createSlider()`) lets the learner switch between three sample students to see how the same chart shape changes with a different mastery profile.\n\nColor coding: The filled mastery polygon in the book's teal accent color; the 0.75 reference line in a neutral dashed gray so it reads as a threshold, not a second data series.\n\nImplementation: p5.js canvas rendering a polar/radar plot from an array of category-score pairs, adapted from the referenced template's radar-chart structure. Responsive width tracking the containing element; spoke labels rotate to remain horizontal and legible at narrow widths."
+}

@@ -1,0 +1,15 @@
+{
+  "sim_id": "dag-viewer",
+  "diagram_name": "DAG Viewer",
+  "chapter_number": 7,
+  "chapter_title": "The Property Graph Data Model",
+  "chapter_dir": "07-property-graph-data-model",
+  "chapter_rel_dir": "chapters/07-property-graph-data-model",
+  "library": "vis-network",
+  "bloom_level": null,
+  "bloom_verb": null,
+  "learning_objective": null,
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: graph-model\n**sim-id:** dag-viewer<br/>\n**Library:** vis-network<br/>\n**Status:** Reused<br/>\n**Source:** https://dmccreary.github.io/graph-algorithms/sims/dag-viewer/main.html<br/>\n**Source Repo:** https://github.com/dmccreary/graph-algorithms/tree/main/docs/sims/dag-viewer\n\nReused from the MicroSim catalog (WHAT match score 0.7818). Learning objective: Let the learner explore a hierarchical, left-to-right rendering of a concept dependency graph built from `DEPENDS_ON` edges, and see how nodes with no outgoing edges sit at the foundation of the graph while nodes with many outgoing edges depend on several prerequisites at once — directly illustrating the Learning Graph DAG structure this project's Concept nodes form."
+}

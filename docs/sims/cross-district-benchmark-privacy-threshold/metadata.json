@@ -1,0 +1,23 @@
+{
+  "title": "Cross-District Benchmark — Applying the Privacy Aggregation Threshold",
+  "description": "Apply the aggregation-threshold rule to determine whether a cross-district comparison may be displayed to an author, given a set of candidate district groupings of varying size.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "cross-district-benchmark-privacy-threshold",
+  "library": "Mermaid",
+  "bloomLevel": "Apply (L3)",
+  "bloomVerb": "apply, determine",
+  "completion_status": "scaffold",
+  "chapter_number": 30,
+  "chapter_title": "Textbook Author Dashboards and Content Reports",
+  "chapter_dir": "30-author-dashboards-content-reports",
+  "chapter_rel_dir": "chapters/30-author-dashboards-content-reports"
+}

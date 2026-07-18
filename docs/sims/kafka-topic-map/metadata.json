@@ -1,0 +1,23 @@
+{
+  "title": "Kafka Topic Map for the LRS Event Backbone",
+  "description": "Let the learner classify each of the six Kafka topics by its key format, partition count, and retention policy, and explain why the compacted mastery-state topic differs structurally from the other five.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "kafka-topic-map",
+  "library": "vis-network",
+  "bloomLevel": "Understand (L2)",
+  "bloomVerb": "explain, classify",
+  "completion_status": "scaffold",
+  "chapter_number": 14,
+  "chapter_title": "Kafka Topics, ClickHouse Schema, and Graph Constraints",
+  "chapter_dir": "14-kafka-clickhouse-graph-schema",
+  "chapter_rel_dir": "chapters/14-kafka-clickhouse-graph-schema"
+}

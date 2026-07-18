@@ -1,0 +1,24 @@
+{
+  "title": "cmi5 Launch Sequence",
+  "description": "Let the learner apply their understanding of the cmi5 Launch Method by tracing a full launch sequence from LMS assignment through the Assignable Unit's xAPI Statements, predicting which Launch Method parameter enables each step.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "cmi5-launch-sequence",
+  "library": "Mermaid",
+  "bloomLevel": "Apply (L3)",
+  "bloomVerb": "demonstrate, trace",
+  "completion_status": "implemented",
+  "chapter_number": 3,
+  "chapter_title": "IEEE Standardization of xAPI and cmi5",
+  "chapter_dir": "03-ieee-standardization-xapi-cmi5",
+  "chapter_rel_dir": "chapters/03-ieee-standardization-xapi-cmi5",
+  "canvasHeight": 660
+}

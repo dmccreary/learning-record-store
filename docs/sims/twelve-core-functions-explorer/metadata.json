@@ -1,0 +1,23 @@
+{
+  "title": "The Twelve Core Functions Explorer",
+  "description": "Let the learner classify all twelve core LRS functions by the architectural plane and specific component that implements each one, using a single explorable network rather than twelve separate diagrams.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "twelve-core-functions-explorer",
+  "library": "vis-network",
+  "bloomLevel": "Analyze (L4)",
+  "bloomVerb": "classify, organize",
+  "completion_status": "scaffold",
+  "chapter_number": 9,
+  "chapter_title": "The Twelve Core LRS Functions",
+  "chapter_dir": "09-twelve-core-lrs-functions",
+  "chapter_rel_dir": "chapters/09-twelve-core-lrs-functions"
+}

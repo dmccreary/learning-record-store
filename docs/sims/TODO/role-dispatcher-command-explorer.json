@@ -1,0 +1,15 @@
+{
+  "sim_id": "role-dispatcher-command-explorer",
+  "diagram_name": "The Role Dispatcher Command Explorer",
+  "chapter_number": 16,
+  "chapter_title": "The Container Image and the Role Dispatcher CLI",
+  "chapter_dir": "16-container-image-and-cli",
+  "chapter_rel_dir": "chapters/16-container-image-and-cli",
+  "library": "p5.js",
+  "bloom_level": "Apply (L3)",
+  "bloom_verb": "select, apply",
+  "learning_objective": "Given a deployment scenario, select the correct lrs subcommand and identify whether it is a long-running server role or a one-shot operational command.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: infographic\n**sim-id:** role-dispatcher-command-explorer<br/>\n**Library:** p5.js<br/>\n**Status:** Specified\n\nBloom Taxonomy: Apply (L3)\nBloom Taxonomy Verb: select, apply\n\nLearning objective: Given a deployment scenario, select the correct lrs subcommand and identify whether it is a long-running server role or a one-shot operational command.\n\nCanvas layout: Left column, a scrollable list of nine role/command tiles (bootstrap, identity, analytics-api, admin-api, dashboards, seed, loadgen, replay, healthcheck) in monospace. Right panel, a detail card populated on click, showing the full example command, its exposed port (\"no port -- exits when done\" for one-shot commands), and a one-sentence description matching this chapter's prose. Top strip: \"Server roles\" / \"Operational commands\" / \"Show all\" filter buttons.\n\nVisual elements: Server-role tiles show a looping-arrow icon and a teal left border; operational-command tiles show a checkmark icon and an amber left border. The selected tile has a highlighted outline; its detail card slides in from the right.\n\nInteractive controls: Click a tile to populate the detail panel. Filter buttons highlight one category and dim the rest. A scenario search box (e.g. typing \"recover the graph\") highlights the best-matching tile (replay) via keyword tags stored per tile.\n\nBehavior: The search box performs a keyword match against each tile's tags (e.g. healthcheck tagged \"liveness,\" \"is it healthy\"; replay tagged \"recover,\" \"rebuild,\" \"fix bad data\") and highlights the closest match, giving the learner a self-check on scenario-to-command mapping.\n\nColor coding: Teal left border for server roles, amber for operational commands, matching the build-versus-run color logic used earlier in this chapter.\n\nResponsive design: The two-column layout collapses to a single stacked column on narrow viewports, the detail card appearing below the selected tile."
+}

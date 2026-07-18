@@ -1,0 +1,15 @@
+{
+  "sim_id": "complementary-suppression-attack",
+  "diagram_name": "Complementary Suppression Attack",
+  "chapter_number": 20,
+  "chapter_title": "Spec Deviations, the Delivery Roadmap, and Open Questions",
+  "chapter_dir": "20-deviations-roadmap-open-questions",
+  "chapter_rel_dir": "chapters/20-deviations-roadmap-open-questions",
+  "library": "Chart.js",
+  "bloom_level": "Evaluate (L5)",
+  "bloom_verb": "demonstrate, justify",
+  "learning_objective": "Demonstrate how a single suppressed small-group value in a published table can be recovered by subtraction from the row's published total, and justify why complementary suppression — hiding a second, larger cell — is required to actually protect it.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: chart\n**sim-id:** complementary-suppression-attack<br/>\n**Library:** Chart.js<br/>\n**Status:** Specified\n\nBloom Taxonomy: Evaluate (L5)\nBloom Taxonomy Verb: demonstrate, justify\n\nLearning objective: Demonstrate how a single suppressed small-group value in a published table can be recovered by subtraction from the row's published total, and justify why complementary suppression — hiding a second, larger cell — is required to actually protect it.\n\nChart type: Grouped bar chart with a toggle control, showing nine category counts (e.g., \"reading level bands\" across a grade) plus their published total.\n\nDefault state: All nine bars visible with real values; total bar shown alongside, correct and summing to the nine visible bars.\n\nToggle 1 — \"Threshold suppression only\": the one bar below the group-size threshold (value 4, threshold 10) is redrawn as a hatched \"Suppressed\" bar with no numeric label; the total bar is unchanged. An automatically computed \"Recovered value\" readout beneath the chart subtracts the eight visible bars from the total and displays the exact suppressed value, labeled in red: \"Recovered by subtraction: 4 — suppression failed.\"\n\nToggle 2 — \"Complementary suppression (D-5)\": the same small bar is hidden, and a second, larger bar (chosen automatically as the smallest bar still above threshold) is also redrawn as hatched \"Suppressed.\" The \"Recovered value\" readout now shows \"Cannot be recovered — two unknowns, one equation,\" in teal, because subtracting seven known bars from the total leaves two suppressed values and one equation, which is not solvable.\n\nInteractive features: Clicking either toggle animates the transition and updates the readout live. Hovering any bar shows a tooltip with its category label and value (or \"Suppressed\" if hidden). A small annotation links this scenario to Chapter 19's Privacy Adversarial Suite and its differencing-attack tests.\n\nColor scheme: Visible bars in the book's teal accent color; suppressed bars in a hatched pattern over muted gray; the \"Recovered\" readout text in warning red when the attack succeeds and teal when it fails.\n\nResponsive design: Chart and readout stack vertically on narrow viewports; toggle controls remain full-width and tappable."
+}

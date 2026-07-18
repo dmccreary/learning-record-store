@@ -1,0 +1,15 @@
+{
+  "sim_id": "voiding-lifecycle-flow",
+  "diagram_name": "Voiding Lifecycle Flow",
+  "chapter_number": 2,
+  "chapter_title": "The Anatomy of an xAPI Statement",
+  "chapter_dir": "02-anatomy-of-xapi-statement",
+  "chapter_rel_dir": "chapters/02-anatomy-of-xapi-statement",
+  "library": "Mermaid",
+  "bloom_level": "Understand (L2)",
+  "bloom_verb": "explain, sequence",
+  "learning_objective": "Let the learner trace the full lifecycle of a mistaken Statement from emission through correction, and see concretely why immutability and voiding are two halves of one mechanism rather than opposing rules.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: workflow\n**sim-id:** voiding-lifecycle-flow<br/>\n**Library:** Mermaid<br/>\n**Status:** Specified\n**Template:** https://github.com/dmccreary/xapi-course/tree/main/docs/sims/voiding-lifecycle-flow<br/>\n\nBloom Taxonomy: Understand (L2)\nBloom Taxonomy Verb: explain, sequence\n\nLearning objective: Let the learner trace the full lifecycle of a mistaken Statement from emission through correction, and see concretely why immutability and voiding are two halves of one mechanism rather than opposing rules.\n\nPurpose: Show an eight-step Mermaid flowchart tracing a Statement's lifecycle when an error is discovered after the fact.\n\nSteps:\n\n1. \"Learning Record Provider emits Statement A\" — Maya's quiz Statement, score 9/10, Statement ID abc-123\n2. \"Learning Record Store stores Statement A\" — accepted, immutable from this point forward\n3. \"Error discovered\" — grading script bug found, correct score is 6/10\n4. \"Provider emits Statement B: voided\" — Verb is `voided`, Object is a StatementRef pointing to abc-123\n5. \"LRS stores Statement B\" — Statement A is never deleted or edited; both now exist\n6. \"LRS flags Statement A as voided\" — internal bookkeeping, not a mutation of A's fields\n7. \"Provider emits Statement C\" — a new, independent Statement with the corrected score of 6/10 and a new Statement ID\n8. \"Default queries now return only Statement C\" — Statement A remains in the log for audit purposes but is excluded from normal result sets\n\nInteractive features: Every node in the Mermaid flowchart has a `click` directive. Clicking any node opens an infobox with a one-sentence explanation of that step, and clicking nodes 1, 4, and 7 additionally shows the relevant Statement's Actor/Verb/Object in miniature.\n\nColor coding: Steps 1-2 (original Statement) in the book's teal accent color; steps 3-6 (the voiding action) in amber to signal \"correction in progress\"; steps 7-8 (the new, correct record) in green to signal \"resolved.\"\n\nImplementation: Mermaid flowchart, top-to-bottom orientation, with full click-to-infobox coverage on every node. Responsive width tracking the containing element."
+}

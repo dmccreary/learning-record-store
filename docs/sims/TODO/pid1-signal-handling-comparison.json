@@ -1,0 +1,15 @@
+{
+  "sim_id": "pid1-signal-handling-comparison",
+  "diagram_name": "PID 1 Signal Handling — Exec Form versus Shell Form",
+  "chapter_number": 16,
+  "chapter_title": "The Container Image and the Role Dispatcher CLI",
+  "chapter_dir": "16-container-image-and-cli",
+  "chapter_rel_dir": "chapters/16-container-image-and-cli",
+  "library": "p5.js",
+  "bloom_level": "Analyze (L4)",
+  "bloom_verb": "compare, differentiate",
+  "learning_objective": "Given a simulated SIGTERM, compare how the signal propagates under exec-form versus shell-form ENTRYPOINT, and predict whether in-flight work finishes cleanly or is killed.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: microsim\n**sim-id:** pid1-signal-handling-comparison<br/>\n**Library:** p5.js<br/>\n**Status:** Specified\n\nBloom Taxonomy: Analyze (L4)\nBloom Taxonomy Verb: compare, differentiate\n\nLearning objective: Given a simulated SIGTERM, compare how the signal propagates under exec-form versus shell-form ENTRYPOINT, and predict whether in-flight work finishes cleanly or is killed.\n\nCanvas layout: Two side-by-side process-tree panels, left \"Exec form: ENTRYPOINT [\\\"lrs\\\"]\" (one box, \"PID 1: lrs process\"), right \"Shell form: ENTRYPOINT lrs\" (two stacked boxes, \"PID 1: /bin/sh -c lrs\" above \"PID 2 (child): lrs process\"). A control strip above: \"Send SIGTERM\" button and a \"Grace period\" slider (1-10s, default 5). A countdown and status readout below each panel.\n\nVisual elements: Before SIGTERM, both panels show calm teal boxes with a pulsing \"in-flight request\" icon. On click, a signal icon travels from a \"container runtime\" icon down to PID 1 in each panel. Left panel: signal reaches `lrs` directly; box turns amber (\"draining\"), the request completes and fades, box turns gray (\"exited\") before the grace period ends. Right panel: signal reaches the shell, which turns amber, but no arrow continues to the child box, which stays teal (\"unaware\") until the countdown hits zero, then turns red (\"SIGKILL -- work lost\").\n\nInteractive controls: \"Send SIGTERM\" button starts both panels' animation together; \"Grace period\" slider adjusts the countdown; \"Reset\" restores the pre-signal state.\n\nInteractive features: Clicking either process box opens an infobox stating its PID, whether it received SIGTERM directly, and — for the child box — that Docker and Kubernetes send SIGTERM only to PID 1 by default.\n\nColor coding: Teal running, amber draining, gray clean exit, red unclean SIGKILL.\n\nResponsive design: Panels stack vertically on narrow viewports; the control strip stays fixed above both."
+}

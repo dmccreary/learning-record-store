@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- microsim-scaffold-stub -->
+    <title>The AB Test Lifecycle</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>The AB Test Lifecycle</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> ab-test-lifecycle-states</p>
+            <p><strong>Library:</strong> Mermaid</p>
+            <p><strong>Bloom Level:</strong> Understand (L2)</p>
+            <p><strong>Learning Objective:</strong> Let the learner sequence the states an experiment moves through — draft, running, paused, concluded, archived — and identify which transitions are reversible versus terminal.</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    Type: workflow
+    **sim-id:** ab-test-lifecycle-states<br/>
+    **Library:** Mermaid<br/>
+    **Status:** Specified
+    
+    Bloom Taxonomy: Understand (L2)
+    Bloom Taxonomy Verb: sequence, summarize
+    
+    Learning objective: Let the learner sequence the states an experiment moves through — draft, running, paused, concluded, archived — and identify which transitions are reversible versus terminal.
+    
+    Purpose: A Mermaid state diagram with five nodes: "Draft" → "Running" (on approval), "Running" → "Paused" (on guardrail regression, SRM failure, or author judgment), "Paused" → "Running" (on resume once the issue is resolved), "Running" → "Concluded" (on stop; control arm served to everyone from this point forward), "Concluded" → "Archived" (terminal).
+    
+    Interactive features: Every state node is wired with a Mermaid `click` directive. Clicking "Draft" opens an infobox noting the Experiment Definition is still editable and unapproved. Clicking "Running" opens an infobox noting assignment and data collection are both active. Clicking "Paused" opens an infobox listing the three common triggers (guardrail regression, SRM failure, author judgment) and noting no data is lost. Clicking "Concluded" opens an infobox emphasizing that stopping serves the control arm to everyone going forward, regardless of which arm the readout favored. Clicking "Archived" opens an infobox noting this is a terminal, read-only state kept for audit history.
+    
+    Color coding: Draft in neutral gray, Running in teal, Paused in amber, Concluded in a deeper teal, Archived in muted gray-blue — a progression from "not yet active" through "active" to "done," with Paused visually distinct as an interruption rather than an ending.
+    
+    Responsive design: The state diagram resizes to the containing element's width; on narrow viewports the states stack top-to-bottom in sequence rather than arranging left-to-right.
+    -->
+</body>
+</html>

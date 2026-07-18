@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- microsim-scaffold-stub -->
+    <title>Compose Startup Dependency Graph</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Compose Startup Dependency Graph</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> compose-startup-dependency-graph</p>
+            <p><strong>Library:</strong> Mermaid</p>
+            <p><strong>Bloom Level:</strong> Analyze (L4)</p>
+            <p><strong>Learning Objective:</strong> Trace which services gate which other services at startup, and explain why the gateway's dependency list is deliberately narrower than every other application role's.</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    Type: workflow
+    **sim-id:** compose-startup-dependency-graph<br/>
+    **Library:** Mermaid<br/>
+    **Status:** Specified
+    
+    Bloom Taxonomy: Analyze (L4)
+    Bloom Taxonomy Verb: trace, differentiate
+    
+    Learning objective: Trace which services gate which other services at startup, and explain why the gateway's dependency list is deliberately narrower than every other application role's.
+    
+    Purpose: A Mermaid flowchart of five backing services, the bootstrap container, and four application roles, with edges representing depends_on conditions.
+    
+    Nodes and edges: redpanda, clickhouse, neo4j, redis, vault-db each feed into "bootstrap" labeled "service_healthy". "bootstrap" feeds into "identity", "processor", "summarizer" labeled "service_completed_successfully". redpanda, clickhouse, neo4j, redis also feed into those three roles labeled "service_healthy" (the lrs-depends anchor). redpanda ALONE feeds into "gateway", in a distinct color, with a callout reading "Deliberately narrow -- spec section 5.4".
+    
+    Interactive features: Every node has a Mermaid click directive opening an infobox with a one-sentence definition drawn from this chapter's prose. A toggle button "Highlight the narrow dependency" dims every edge except the single redpanda-to-gateway edge.
+    
+    Color coding: Backing services gray-blue, bootstrap amber (gate), application roles the book's teal accent, the gateway's single redpanda edge in a distinct highlight color.
+    
+    Responsive design: The graph reflows vertically (backing services top, bootstrap middle, roles bottom) on narrow viewports, preserving all click handlers.
+    -->
+</body>
+</html>

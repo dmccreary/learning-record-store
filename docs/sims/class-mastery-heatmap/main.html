@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- microsim-scaffold-stub -->
+    <title>Class Mastery Heatmap for One Section</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Class Mastery Heatmap for One Section</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> class-mastery-heatmap</p>
+            <p><strong>Library:</strong> p5.js</p>
+            <p><strong>Bloom Level:</strong> Analyze (L4)</p>
+            <p><strong>Learning Objective:</strong> Let the learner distinguish a concept-wide weakness (a dark column across most students) from a student-specific weakness (a dark row across most concepts) in a class mastery heatmap, and identify which pattern calls for whole-class re-teaching versus individual attention.</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    Type: chart
+    **sim-id:** class-mastery-heatmap<br/>
+    **Library:** p5.js<br/>
+    **Status:** Specified
+    
+    Bloom Taxonomy: Analyze (L4)
+    Bloom Taxonomy Verb: differentiate, distinguish
+    
+    Learning objective: Let the learner distinguish a concept-wide weakness (a dark column across most students) from a student-specific weakness (a dark row across most concepts) in a class mastery heatmap, and identify which pattern calls for whole-class re-teaching versus individual attention.
+    
+    Canvas layout: A grid of roughly 24 rows (sample students, labeled by first name and last initial) by 8 columns (sample concepts, labeled along the top, rotated diagonally to fit). Each cell is a filled rectangle shaded on a single-hue color scale from light (high mastery, near 1.0) to dark (low mastery, near 0.0), matching the book's teal accent hue so meaning is never carried by color alone.
+    
+    Data: A synthetic mastery-score matrix with one deliberately dark column (a concept most of the class is weak on) and one deliberately dark row (a single student weak across most concepts), so both patterns are visible in the default view.
+    
+    Interactive features: Hovering any cell reveals a tooltip with the exact mastery score and the student/concept pair. Clicking a column header highlights that entire column and opens an infobox stating the class-wide mean score for that concept. Clicking a row label highlights that entire row and opens a "View Student Detail" link representing the drill-down into that student's nine-report dashboard from Chapter 28. A `createSlider()` control lets the learner filter the grid to only students below a chosen mastery threshold.
+    
+    Color coding: Single-hue sequential scale (light-to-dark teal) rather than a red-green scale, so the chart remains legible for color-vision-deficient readers; a numeric label appears on hover as a redundant, non-color-dependent cue.
+    
+    Implementation: p5.js canvas rendering a grid of colored rectangles from a 2D array of scores, with mouse-position hit-testing for hover and click. Responsive design: canvas width tracks the containing element's width; at narrow viewports column headers abbreviate to two-letter concept codes and cell size shrinks rather than the grid overflowing horizontally.
+    -->
+</body>
+</html>

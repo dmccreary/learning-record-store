@@ -1,0 +1,15 @@
+{
+  "sim_id": "start-pause-dwell-pattern-workflow",
+  "diagram_name": "The Start/Pause Dwell Pattern",
+  "chapter_number": 32,
+  "chapter_title": "The Producer Contract: Writing Conformant Statements",
+  "chapter_dir": "32-producer-contract-conformant-statements",
+  "chapter_rel_dir": "chapters/32-producer-contract-conformant-statements",
+  "library": "Mermaid",
+  "bloom_level": "Apply (L3)",
+  "bloom_verb": "trace, predict",
+  "learning_objective": "Let the learner trace a MicroSim's Start/Pause lifecycle through four branches — normal Pause, tab hidden while running, sub-250ms run, walk-away-with-no-pause — and predict which emits an Experienced Verb statement.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: workflow\n**sim-id:** start-pause-dwell-pattern-workflow<br/>\n**Library:** Mermaid<br/>\n**Status:** Specified\n\nBloom Taxonomy: Apply (L3)\nBloom Taxonomy Verb: trace, predict\n\nLearning objective: Let the learner trace a MicroSim's Start/Pause lifecycle through four branches — normal Pause, tab hidden while running, sub-250ms run, walk-away-with-no-pause — and predict which emits an Experienced Verb statement.\n\nPurpose: A Mermaid flowchart from \"Student clicks Start (loaded paused)\" branching into four paths: (1) \"Pause after a normal run\" → \"Emit ONE Experienced statement, duration = elapsed\"; (2) \"Switches tabs while running\" → \"visibilitychange fires → Visibility Change Flush: emit immediately\"; (3) \"Pause under 250ms\" → \"Emit nothing — mis-click\"; (4) \"Walks away, Pause never clicked\" → \"Emit nothing — unclosed interval.\"\n\nInteractive features: Every node has a Mermaid `click` directive opening an infobox explaining that outcome using the reasoning above (unclosed intervals, mis-click noise, mobile Safari's visibilitychange requirement).\n\nColor coding: The two \"emit nothing\" outcomes in muted gray-blue; the two statement-emitting outcomes in the book's teal accent color.\n\nImplementation: Mermaid flowchart, top-to-bottom, full click-to-infobox coverage. Responsive: stacks branches vertically on narrow viewports."
+}

@@ -1,0 +1,23 @@
+{
+  "title": "Three Personas, One Statement Log",
+  "description": "Explain how the District Administrator, Teacher, and Textbook Author each draw on the same underlying xAPI statement log, filtered through a different aggregation and access lens, rather than three separate data sources.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "three-personas-one-statement-log",
+  "library": "Mermaid",
+  "bloomLevel": "Understand (L2)",
+  "bloomVerb": "explain, summarize",
+  "completion_status": "scaffold",
+  "chapter_number": 24,
+  "chapter_title": "Meet the Three Personas and the Admin UI Surface",
+  "chapter_dir": "24-three-personas-and-admin-uis",
+  "chapter_rel_dir": "chapters/24-three-personas-and-admin-uis"
+}

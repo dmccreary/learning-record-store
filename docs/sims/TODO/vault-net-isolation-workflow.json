@@ -1,0 +1,15 @@
+{
+  "sim_id": "vault-net-isolation-workflow",
+  "diagram_name": "Vault Network Isolation in the Compose Topology",
+  "chapter_number": 22,
+  "chapter_title": "Proving the Architecture - the MVP Plan",
+  "chapter_dir": "22-proving-the-architecture-mvp",
+  "chapter_rel_dir": "chapters/22-proving-the-architecture-mvp",
+  "library": "Mermaid",
+  "bloom_level": "Analyze (L4)",
+  "bloom_verb": "explain, justify",
+  "learning_objective": "Explain why the vault database is reachable only by the identity service on an isolated network, and identify which services can and cannot see a real learner identity.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: workflow\n**sim-id:** vault-net-isolation-workflow<br/>\n**Library:** Mermaid<br/>\n**Status:** Specified\n\nBloom Taxonomy: Analyze (L4)\nBloom Taxonomy Verb: explain, justify\n\nLearning objective: Explain why the vault database is reachable only by the identity service on an isolated network, and identify which services can and cannot see a real learner identity.\n\nPurpose: A Mermaid flowchart with two subgraphs on one canvas, showing which services sit on the general application network versus the isolated vault network.\n\nLeft/general subgraph \"Application Network\": nodes \"Gateway\", \"Stream Processor\", \"Summarizer\", \"Graph Store (Neo4j)\", \"Analytics Store (ClickHouse)\" — connected only as the real data flow requires (Gateway -> Processor -> Analytics Store; Processor -> Graph Store via structural stub only; Summarizer -> Graph Store).\n\nRight/isolated subgraph \"vault-net (no published host port)\": nodes \"Identity Service\" and \"Vault Database\", connected only to each other.\n\nOne crossing edge: \"Stream Processor\" -> \"Identity Service\" labeled \"resolves salted key only — never the raw mapping.\"\n\nInteractive features: Every node has a Mermaid click directive. \"Vault Database\" opens an infobox on why this is the only place the identity-to-key mapping exists. Any Application Network node opens an infobox confirming \"sees only the derived student_key.\" The crossing edge opens an infobox recapping Chapter 6's HMAC derivation in one sentence.\n\nColor coding: Application Network in the book's teal accent color; vault-net outlined in amber with a padlock icon, matching Chapter 21's visual language for compliance boundaries.\n\nResponsive design: Subgraphs stack vertically on narrow viewports with the crossing edge redrawn to remain visible; click targets stay tap-sized."
+}

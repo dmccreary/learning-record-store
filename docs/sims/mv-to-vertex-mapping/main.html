@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- microsim-scaffold-stub -->
+    <title>Materialized Views to Summary Vertex Mapping</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Materialized Views to Summary Vertex Mapping</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> mv-to-vertex-mapping</p>
+            <p><strong>Library:</strong> Mermaid</p>
+            <p><strong>Bloom Level:</strong> Analyze (L4)</p>
+            <p><strong>Learning Objective:</strong> Let the learner trace raw rows in lrs.statements through each of the three materialized views to the specific Neo4j summary vertex label each view feeds, and differentiate the aggregation grain of each path.</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    Type: workflow
+    **sim-id:** mv-to-vertex-mapping<br/>
+    **Library:** Mermaid<br/>
+    **Status:** Specified
+    
+    Bloom Taxonomy: Analyze (L4)
+    Bloom Taxonomy Verb: trace, differentiate
+    
+    Learning objective: Let the learner trace raw rows in lrs.statements through each of the three materialized views to the specific Neo4j summary vertex label each view feeds, and differentiate the aggregation grain of each path.
+    
+    Purpose: Show a Mermaid flowchart with one source node fanning out into three parallel aggregation paths that reconverge conceptually at "Summarizer" before terminating in three distinct vertex labels.
+    
+    Nodes: "lrs.statements (one row per statement)" fans out to three parallel nodes: "mv_section_concept_daily (AggregatingMergeTree, grain: section+concept+day)", "mv_student_concept_rollup (AggregatingMergeTree, grain: student+concept)", "mv_student_page_rollup (AggregatingMergeTree, grain: student+page)". Each feeds into "Summarizer reads changed rows via last_seen watermark" which fans back out to three terminal nodes: "SectionRollup vertex", "ConceptMastery vertex", "PageEngagement vertex".
+    
+    Interactive features: Every node has a Mermaid click directive opening an infobox with that view's ORDER BY key and the specific aggregate columns it computes. A toggle labeled "Show grain size" annotates each of the three paths with an approximate compression ratio (for example, "~600K statements to ~150K grains") drawn from the chapter's own worked numbers.
+    
+    Color coding: The three parallel paths render in three distinguishable tints of the book's teal accent color so the learner can visually keep each path separate from source to terminal vertex; the shared "lrs.statements" source and "Summarizer" nodes render in neutral gray to mark them as convergence points.
+    
+    Responsive design: The three parallel paths stack vertically rather than side-by-side on narrow viewports, each still reading left-to-right from source to vertex.
+    -->
+</body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "title": "Recovery Point and Recovery Time by Data Store",
+  "description": "Compare Recovery Point Objective and Recovery Time Objective across ClickHouse, Neo4j, vault-db, and meta-db, and judge which store's backup strategy the whole system depends on most.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "rpo-rto-by-data-store",
+  "library": "Chart.js",
+  "bloomLevel": "Evaluate (L5)",
+  "bloomVerb": "compare, justify",
+  "completion_status": "scaffold",
+  "chapter_number": 18,
+  "chapter_title": "Configuration, Migration, Backup, and Rollout",
+  "chapter_dir": "18-config-migration-backup-rollout",
+  "chapter_rel_dir": "chapters/18-config-migration-backup-rollout"
+}

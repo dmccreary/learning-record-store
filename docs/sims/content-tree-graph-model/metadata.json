@@ -1,0 +1,23 @@
+{
+  "title": "The Content Tree — From Textbook to Concept",
+  "description": "Let the learner identify every content-tree node label from Textbook down to Concept, and describe which relationship type connects each pair, exactly as cataloged in this project's specification §4.1–§4.2.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "content-tree-graph-model",
+  "library": "vis-network",
+  "bloomLevel": "Understand (L2)",
+  "bloomVerb": "identify, describe",
+  "completion_status": "scaffold",
+  "chapter_number": 7,
+  "chapter_title": "The Property Graph Data Model",
+  "chapter_dir": "07-property-graph-data-model",
+  "chapter_rel_dir": "chapters/07-property-graph-data-model"
+}

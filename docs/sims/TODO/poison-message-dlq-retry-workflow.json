@@ -1,0 +1,15 @@
+{
+  "sim_id": "poison-message-dlq-retry-workflow",
+  "diagram_name": "Poison Message Retry and Dead-Letter Queue Workflow",
+  "chapter_number": 19,
+  "chapter_title": "Failure Modes and Verification",
+  "chapter_dir": "19-failure-modes-and-verification",
+  "chapter_rel_dir": "chapters/19-failure-modes-and-verification",
+  "library": "Mermaid",
+  "bloom_level": "Apply (L3)",
+  "bloom_verb": "trace, apply",
+  "learning_objective": "Trace a single malformed statement through three consumption attempts and its landing in the dead-letter queue, and explain why the consumer keeps processing other messages throughout.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: workflow\n**sim-id:** poison-message-dlq-retry-workflow<br/>\n**Library:** Mermaid<br/>\n**Status:** Specified\n\nBloom Taxonomy: Apply (L3)\nBloom Taxonomy Verb: trace, apply\n\nLearning objective: Trace a single malformed statement through three consumption attempts and its landing in the dead-letter queue, and explain why the consumer keeps processing other messages throughout.\n\nPurpose: A Mermaid flowchart showing one message moving through the processor's retry logic, with a loop-back arrow for retries and a terminal branch to the dead-letter queue.\n\nNodes: \"Message consumed\" -> \"Processing attempt\" -> decision \"Succeeded?\" -> (yes) \"Offset committed, consumer continues\"; (no) -> \"Attempt count += 1\" -> decision \"Attempts = 3?\" -> (no, loop back to) \"Processing attempt\"; (yes) -> \"Routed to Dead-Letter Queue (DLQ)\" -> \"Offset committed, consumer continues\".\n\nA parallel track shown alongside: \"Next message in partition\" -> \"Processing attempt\" -> \"Offset committed\" — showing the poison message's retries do not block the rest of the stream.\n\nInteractive features: Every node has a Mermaid click directive opening an infobox. \"Attempt count += 1\" explains the three-attempt limit. \"Routed to Dead-Letter Queue (DLQ)\" defines a DLQ and links its inspection to Chapter 18's diagnostics UI. The parallel track explains that per-partition processing is sequential, but the DLQ hand-off keeps one bad message from blocking it indefinitely.\n\nColor coding: Retry loop amber (\"in progress\"); DLQ terminal node muted red (\"quarantined, not lost\"); successful-commit nodes teal.\n\nResponsive design: The flowchart stacks the retry track above the parallel track on narrow viewports, preserving click handlers and loop direction."
+}

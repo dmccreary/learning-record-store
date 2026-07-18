@@ -1,0 +1,15 @@
+{
+  "sim_id": "concept-dependencies",
+  "diagram_name": "Prerequisite Gap Analysis — Walking Upstream From a Weak Concept",
+  "chapter_number": 28,
+  "chapter_title": "Teacher Dashboards and Student-Level Reports",
+  "chapter_dir": "28-teacher-dashboards-student-reports",
+  "chapter_rel_dir": "chapters/28-teacher-dashboards-student-reports",
+  "library": "vis-network",
+  "bloom_level": null,
+  "bloom_verb": null,
+  "learning_objective": null,
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: graph-model\n**sim-id:** concept-dependencies<br/>\n**Library:** vis-network<br/>\n**Status:** Reused<br/>\n**Source:** https://dmccreary.github.io/automating-instructional-design/sims/concept-dependencies/<br/>\n**Source Repo:** https://github.com/dmccreary/automating-instructional-design/tree/main/docs/sims/concept-dependencies\n\nReused from the MicroSim catalog (WHAT match score 0.7919). Learning objective: let the learner trace upstream prerequisite concepts from a student's flagged weak concept, distinguishing already-mastered ancestors from unmastered ones that are the likely root cause of the struggle. The reused sim's existing REQUIRES/SUPPORTS dependency-edge model and click-to-highlight-upstream-and-downstream interaction map directly onto this report's \"walk `DEPENDS_ON` upstream and flag unmastered prerequisites\" behavior — a weak concept plays the role of the clicked node, and its unmastered ancestors are the highlighted upstream set."
+}

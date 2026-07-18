@@ -1,0 +1,15 @@
+{
+  "sim_id": "write-rate-vs-sync-cadence",
+  "diagram_name": "Graph Write Rate vs. Compression Sync Cadence",
+  "chapter_number": 8,
+  "chapter_title": "Summary Vertices and Statement Ingestion Mechanics",
+  "chapter_dir": "08-summary-vertices-ingestion",
+  "chapter_rel_dir": "chapters/08-summary-vertices-ingestion",
+  "library": "Chart.js",
+  "bloom_level": "Analyze (L4)",
+  "bloom_verb": "evaluate, predict",
+  "learning_objective": "Let the learner evaluate the tradeoff between sync cadence, graph write rate, and graph lag in Change-Driven Materialization, and predict how each candidate cadence would behave during an ingestion burst.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: chart\n**sim-id:** write-rate-vs-sync-cadence<br/>\n**Library:** Chart.js<br/>\n**Status:** Specified<br/>\n**Template:** https://github.com/dmccreary/it-management-graph/tree/main/docs/sims/native-graph-storage-vs-graph-layer-performance-comparison<br/>\n\nBloom Taxonomy: Analyze (L4)\nBloom Taxonomy Verb: evaluate, predict\n\nLearning objective: Let the learner evaluate the tradeoff between sync cadence, graph write rate, and graph lag in Change-Driven Materialization, and predict how each candidate cadence would behave during an ingestion burst.\n\nPurpose: Render the three sync-cadence scenarios from this section's prose as a grouped bar-and-line chart so the tradeoff is visible at a glance rather than read out of a table.\n\nData: Three x-axis categories — \"5 s\", \"60 s (default)\", \"300 s\". Bar series \"Graph upserts/sec\" (left y-axis, linear): 10000, 2500, 1000. Dashed line series \"Graph lag\" (right y-axis, labeled in seconds, log scale): 5, 60, 300.\n\nInteractive features: Hovering any bar or line point shows a tooltip with that cadence's exact statements-coalesced and distinct-active-grain figures (e.g. \"60 s: ~600K statements coalesced into ~150K distinct active grains -> ~2,500 upserts/sec\"). A toggle labeled \"Simulate 5x ingest burst\" recomputes the statement-count figures upward five-fold in the tooltip while holding the \"Graph upserts/sec\" bars nearly constant, demonstrating the insensitivity property described below the chart. The \"60 s (default)\" bar carries a highlight border.\n\nColor scheme: Bars in the book's teal accent color, with the default-cadence bar in the darkest shade; the graph-lag line in a contrasting amber dashed stroke so the two series stay visually distinct on shared axes.\n\nResponsive design: Chart canvas resizes to the width of its containing element on window resize, using Chart.js's built-in responsive option; the legend moves below the chart on narrow viewports."
+}

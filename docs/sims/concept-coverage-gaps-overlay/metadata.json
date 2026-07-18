@@ -1,0 +1,23 @@
+{
+  "title": "Concept-Coverage Gaps Overlaid on the Learning Graph",
+  "description": "Let the learner identify which concepts in a dependency graph have little or no engagement evidence behind them, and distinguish a coverage gap (no content or no engagement) from a mastery gap (content exists but students are not learning it).",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "concept-coverage-gaps-overlay",
+  "library": "vis-network",
+  "bloomLevel": "Analyze (L4)",
+  "bloomVerb": "identify, differentiate",
+  "completion_status": "scaffold",
+  "chapter_number": 30,
+  "chapter_title": "Textbook Author Dashboards and Content Reports",
+  "chapter_dir": "30-author-dashboards-content-reports",
+  "chapter_rel_dir": "chapters/30-author-dashboards-content-reports"
+}

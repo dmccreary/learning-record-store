@@ -1,0 +1,15 @@
+{
+  "sim_id": "single-server-pilot-vm-layout",
+  "diagram_name": "Single-Server Pilot Tier VM Layout",
+  "chapter_number": 21,
+  "chapter_title": "Hardware Sizing, Cost, and the Development Environment",
+  "chapter_dir": "21-hardware-cost-dev-environment",
+  "chapter_rel_dir": "chapters/21-hardware-cost-dev-environment",
+  "library": "p5.js",
+  "bloom_level": "Understand (L2)",
+  "bloom_verb": "explain, classify",
+  "learning_objective": "Explain how five virtual machines on one physical server separate workload roles and compliance boundaries, and identify which VM exists for a scale reason versus a compliance reason.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: infographic\n**sim-id:** single-server-pilot-vm-layout<br/>\n**Library:** p5.js<br/>\n**Template:** https://github.com/dmccreary/data-science-course/tree/main/docs/sims/virtual-environment-isolation-microsim<br/>\n**Status:** Specified\n\nBloom Taxonomy: Understand (L2)\nBloom Taxonomy Verb: explain, classify\n\nLearning objective: Explain how five virtual machines on one physical server separate workload roles and compliance boundaries, and identify which VM exists for a scale reason versus a compliance reason.\n\nCanvas layout: One outer rectangle labeled \"Physical Server (32–48 cores, 128 GB RAM, 2–4 TB NVMe RAID)\" containing five inner boxes sized proportional to vCPU allocation: \"app\" (16 vCPU/20 GB), \"streaming-analytics\" (8 vCPU/28 GB), \"graph-cache\" (6 vCPU/20 GB), \"vault\" (2 vCPU/4 GB), \"meta-objects\" (3 vCPU/6 GB).\n\nVisual elements: Each VM box in the book's teal accent color except \"vault,\" outlined in amber to flag it as a compliance boundary rather than a workload split. A label band along the bottom reads \"Hypervisor (Proxmox / KVM / ESXi).\"\n\nInteractive controls: Clicking a VM box opens an infobox with its exact contents (e.g., \"graph-cache: Neo4j Community single instance + Redis\") and vCPU/RAM allocation. A \"Why is vault separate?\" button opens an infobox with the compliance rationale.\n\nDefault parameters: All five VMs shown at once, sized to scale against each other.\n\nBehavior: Hovering enlarges a box and dims the others; clicking pins the infobox open until another box or \"Close\" is clicked.\n\nImplementation notes: p5.js rectangles with widths proportional to vCPU count; VM metadata stored as an array of objects (name, vCPU, RAM, contents, rationale). Responsive design: canvas width tracks its container; boxes stack into two rows on narrow viewports."
+}

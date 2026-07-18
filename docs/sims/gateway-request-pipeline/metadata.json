@@ -1,0 +1,23 @@
+{
+  "title": "Gateway Request Pipeline",
+  "description": "Let the learner trace one xAPI statement batch through the gateway's five-step request path — token cache lookup, structural validation, statement ID assignment, durable-queue produce with acks=all, and response — and explain what each step protects against.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "gateway-request-pipeline",
+  "library": "Mermaid",
+  "bloomLevel": "Understand (L2)",
+  "bloomVerb": "trace, explain",
+  "completion_status": "scaffold",
+  "chapter_number": 13,
+  "chapter_title": "Component Design in Depth",
+  "chapter_dir": "13-component-design-in-depth",
+  "chapter_rel_dir": "chapters/13-component-design-in-depth"
+}

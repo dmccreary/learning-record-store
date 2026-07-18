@@ -1,0 +1,15 @@
+{
+  "sim_id": "xapi-profile-anatomy",
+  "diagram_name": "Anatomy of an xAPI Profile",
+  "chapter_number": 3,
+  "chapter_title": "IEEE Standardization of xAPI and cmi5",
+  "chapter_dir": "03-ieee-standardization-xapi-cmi5",
+  "chapter_rel_dir": "chapters/03-ieee-standardization-xapi-cmi5",
+  "library": "Mermaid",
+  "bloom_level": "Understand (L2)",
+  "bloom_verb": "classify, differentiate",
+  "learning_objective": "Let the learner classify how the xAPI Profile Standard, JSON-LD, an Application Profile, a Determining Property, and the xAPI Profile Server relate to one another, distinguishing the general rulebook from one concrete published document.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: infographic\n**sim-id:** xapi-profile-anatomy<br/>\n**Library:** Mermaid<br/>\n**Status:** Specified<br/>\n**Template:** https://github.com/dmccreary/xapi-course/tree/main/docs/sims/vocabulary-profile-architecture<br/>\n\nBloom Taxonomy: Understand (L2)\nBloom Taxonomy Verb: classify, differentiate\n\nLearning objective: Let the learner classify how the xAPI Profile Standard, JSON-LD, an Application Profile, a Determining Property, and the xAPI Profile Server relate to one another, distinguishing the general rulebook from one concrete published document.\n\nPurpose: Show a hierarchical Mermaid flowchart with the xAPI Profile Standard at the top as the general rulebook, branching down to a concrete example.\n\nNodes:\n\n- \"xAPI Profile Standard (IEEE 9274.2.1, in development)\" — top node, the general rules for any Profile\n- \"JSON-LD\" — connected as \"expressed using,\" the format Profiles are written in\n- \"Application Profile (example: cmi5)\" — connected as \"one instance of,\" a concrete published document\n- \"Statement Template\" — child of Application Profile\n- \"Determining Property\" — child of Statement Template, labeled \"routes a Statement to this template\"\n- \"xAPI Profile Server (operated by I2IDL)\" — connected to Application Profile as \"hosted at\"\n\nInteractive features: Every node has a Mermaid `click` directive. Clicking \"xAPI Profile Standard\" opens an infobox distinguishing it from a single Application Profile. Clicking \"JSON-LD\" opens an infobox with the `@context`/IRI example from the chapter prose (`completed` resolving to a full IRI). Clicking \"Statement Template\" and \"Determining Property\" together opens a two-part infobox showing how a Determining Property routes one incoming Statement to one Template within a Profile that defines several. Clicking \"xAPI Profile Server\" opens an infobox naming it as I2IDL-operated infrastructure.\n\nColor coding: The general rulebook (xAPI Profile Standard, JSON-LD) in the book's teal accent color; the concrete document layer (Application Profile, Statement Template, Determining Property) in amber; the hosting infrastructure (xAPI Profile Server) in green to match I2IDL's color from the governance diagram.\n\nImplementation: Mermaid flowchart, top-to-bottom orientation, full click-to-infobox coverage on every node. Responsive width tracking the containing element."
+}

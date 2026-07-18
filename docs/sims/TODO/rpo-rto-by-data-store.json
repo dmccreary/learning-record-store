@@ -1,0 +1,15 @@
+{
+  "sim_id": "rpo-rto-by-data-store",
+  "diagram_name": "Recovery Point and Recovery Time by Data Store",
+  "chapter_number": 18,
+  "chapter_title": "Configuration, Migration, Backup, and Rollout",
+  "chapter_dir": "18-config-migration-backup-rollout",
+  "chapter_rel_dir": "chapters/18-config-migration-backup-rollout",
+  "library": "Chart.js",
+  "bloom_level": "Evaluate (L5)",
+  "bloom_verb": "compare, justify",
+  "learning_objective": "Compare Recovery Point Objective and Recovery Time Objective across ClickHouse, Neo4j, vault-db, and meta-db, and judge which store's backup strategy the whole system depends on most.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: chart\n**sim-id:** rpo-rto-by-data-store<br/>\n**Library:** Chart.js<br/>\n**Status:** Specified\n\nBloom Taxonomy: Evaluate (L5)\nBloom Taxonomy Verb: compare, justify\n\nLearning objective: Compare Recovery Point Objective and Recovery Time Objective across ClickHouse, Neo4j, vault-db, and meta-db, and judge which store's backup strategy the whole system depends on most.\n\nChart type: Grouped horizontal bar chart, logarithmic x-axis in minutes.\n\nPurpose: Show that vault-db and meta-db have the tightest RPO despite Neo4j having the loosest, connecting that gap to which stores are rebuildable versus irreplaceable.\n\nY-axis (categories): ClickHouse, Neo4j, vault-db, meta-db.\n\nData series:\n1. RPO (minutes), teal bars: ClickHouse 60, Neo4j 1440, vault-db 5, meta-db 5.\n2. RTO (minutes), amber bars: ClickHouse 240, Neo4j 60, vault-db 60, meta-db 60.\n\nInteractive features: Hovering a bar shows an exact tooltip (\"vault-db RPO: 5 minutes — continuous WAL archiving\"). Clicking a store's label opens an infobox explaining why its numbers look that way (e.g., Neo4j's loose RPO because it is rebuildable from the log). A checkbox filters to irreplaceable stores only (vault-db, meta-db).\n\nColor scheme: Teal for RPO bars, amber for RTO bars; vault-db and meta-db rows get a red left-border flagging them as unrecoverable-if-lost.\n\nAnnotations: A callout near vault-db reading \"The one true worst case.\"\n\nResponsive design: Chart resizes to container width; series stack per category and the legend moves below the chart on narrow viewports."
+}

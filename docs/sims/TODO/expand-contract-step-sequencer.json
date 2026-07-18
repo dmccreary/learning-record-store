@@ -1,0 +1,15 @@
+{
+  "sim_id": "expand-contract-step-sequencer",
+  "diagram_name": "Expand-Contract Step Sequencer",
+  "chapter_number": 18,
+  "chapter_title": "Configuration, Migration, Backup, and Rollout",
+  "chapter_dir": "18-config-migration-backup-rollout",
+  "chapter_rel_dir": "chapters/18-config-migration-backup-rollout",
+  "library": "p5.js",
+  "bloom_level": "Apply (L3)",
+  "bloom_verb": "apply, sequence",
+  "learning_objective": "Given the five steps of an Expand Contract Migration in scrambled order, arrange them into the correct sequence and identify which steps can ship independently.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: microsim\n**sim-id:** expand-contract-step-sequencer<br/>\n**Library:** p5.js<br/>\n**Status:** Specified\n\nBloom Taxonomy: Apply (L3)\nBloom Taxonomy Verb: apply, sequence\n\nLearning objective: Given the five steps of an Expand Contract Migration in scrambled order, arrange them into the correct sequence and identify which steps can ship independently.\n\nCanvas layout: A vertical drop-zone column of five numbered slots on the left; a scrambled shelf of five draggable tiles on the right — \"Add new column (nullable)\", \"Backfill from old column\", \"Dual-write to both columns\", \"Switch reads to new column\", \"Drop old column\". A bottom strip reads \"Correctly placed: 0 / 5\" with a \"Check Order\" button.\n\nVisual elements: Teal rounded-rectangle tiles; a correctly placed tile turns green with a checkmark, an incorrect one flashes red and returns to the shelf.\n\nInteractive controls: Drag-and-drop tiles into slots; \"Check Order\" validates and updates the score; \"Reset\" clears the board.\n\nDefault parameters: All five tiles start on the shelf in seeded (reproducible) random order; no slot pre-filled.\n\nBehavior: On a fully correct order, display \"Expand, contract, done — every step above could have shipped on its own.\" Clicking a placed tile reopens an infobox explaining why that step must precede the next.\n\nImplementation notes: p5.js mouse-press/release drag-and-drop, matching Chapter 1's vocabulary-matching MicroSim. Responsive: canvas tracks container width; columns stack vertically on narrow viewports."
+}

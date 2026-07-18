@@ -1,0 +1,15 @@
+{
+  "sim_id": "gateway-request-pipeline",
+  "diagram_name": "Gateway Request Pipeline",
+  "chapter_number": 13,
+  "chapter_title": "Component Design in Depth",
+  "chapter_dir": "13-component-design-in-depth",
+  "chapter_rel_dir": "chapters/13-component-design-in-depth",
+  "library": "Mermaid",
+  "bloom_level": "Understand (L2)",
+  "bloom_verb": "trace, explain",
+  "learning_objective": "Let the learner trace one xAPI statement batch through the gateway's five-step request path — token cache lookup, structural validation, statement ID assignment, durable-queue produce with acks=all, and response — and explain what each step protects against.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: workflow\n**sim-id:** gateway-request-pipeline<br/>\n**Library:** Mermaid<br/>\n**Status:** Specified\n\nBloom Taxonomy: Understand (L2)\nBloom Taxonomy Verb: trace, explain\n\nLearning objective: Let the learner trace one xAPI statement batch through the gateway's five-step request path — token cache lookup, structural validation, statement ID assignment, durable-queue produce with acks=all, and response — and explain what each step protects against.\n\nPurpose: Show a single Mermaid flowchart tracing one POST request through the gateway's internal steps in order, ending at two possible outcomes.\n\nNodes: \"Textbook sends POST /xapi/statements (batch)\" leads to \"AuthN Token Cache lookup (Redis, 60s TTL; falls back to local LRU on Redis failure)\" leads to \"Tier-1 structural validation (all-or-nothing per batch)\" leads to \"Assign UUIDv7 Statement ID where missing\" leads to \"Produce to Kafka: Kafka Producer Acks All, key = district:student\" then splits into two outcomes: \"Broker acks → 200 with statement IDs\" and \"Gateway Backpressure Queue full AND broker unreachable → 503 with Retry-After + page alert\".\n\nInteractive features: Every node has a Mermaid click directive opening an infobox with that step's one-sentence definition (cache fallback, UUIDv7 sortability, acks=all latency tradeoff, or the outcome condition). A toggle labeled \"Show durability boundary\" highlights every node before the Kafka produce step in one color and every node after it in another, reinforcing that the response happens only after the queue acknowledges.\n\nColor coding: Steps before the durability boundary (queue ack) in a neutral gray-blue; the Kafka produce node and everything after it in the book's teal accent color; the 503 outcome branch in amber to flag it as the exceptional path.\n\nResponsive design: Flowchart resizes to the width of its containing element; on narrow viewports the chain reflows top-to-bottom."
+}

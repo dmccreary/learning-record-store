@@ -1,0 +1,23 @@
+{
+  "title": "Makefile Target Command Explorer",
+  "description": "Given a development scenario, select the correct make target, distinguish implemented targets from the deferred obs target, and identify the underlying docker compose (or script) command each one expands to.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "makefile-target-explorer",
+  "library": "p5.js",
+  "bloomLevel": "Apply (L3)",
+  "bloomVerb": "select, apply",
+  "completion_status": "scaffold",
+  "chapter_number": 17,
+  "chapter_title": "Docker Compose, the Makefile, and the Image Supply Chain",
+  "chapter_dir": "17-compose-makefile-supply-chain",
+  "chapter_rel_dir": "chapters/17-compose-makefile-supply-chain"
+}

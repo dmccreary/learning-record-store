@@ -1,0 +1,15 @@
+{
+  "sim_id": "dashboard-request-cache-flow",
+  "diagram_name": "Analytics Cache Key and the Privacy Filter Choke Point",
+  "chapter_number": 13,
+  "chapter_title": "Component Design in Depth",
+  "chapter_dir": "13-component-design-in-depth",
+  "chapter_rel_dir": "chapters/13-component-design-in-depth",
+  "library": "Mermaid",
+  "bloom_level": "Analyze (L4)",
+  "bloom_verb": "trace, justify",
+  "learning_objective": "Let the learner trace a dashboard request from its Report ID Endpoint Pattern URL through an Analytics Cache Key lookup, a Data Version Invalidation check, and the single Privacy Filter Choke Point, to a response that meets the P95 Latency Budget.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: workflow\n**sim-id:** dashboard-request-cache-flow<br/>\n**Library:** Mermaid<br/>\n**Status:** Specified<br/>\n**Template:** https://github.com/dmccreary/it-management-graph/tree/main/docs/sims/performance-monitoring-dashboard-workflow\n\nBloom Taxonomy: Analyze (L4)\nBloom Taxonomy Verb: trace, justify\n\nLearning objective: Let the learner trace a dashboard request from its Report ID Endpoint Pattern URL through an Analytics Cache Key lookup, a Data Version Invalidation check, and the single Privacy Filter Choke Point, to a response that meets the P95 Latency Budget.\n\nPurpose: Show a Mermaid flowchart tracing one dashboard request, adapted from the template's existing performance-dashboard workflow to this chapter's cache and privacy mechanisms.\n\nNodes: \"Dash callback calls GET /v1/reports/R-201?... (Report ID Endpoint Pattern)\" leads to \"Build Analytics Cache Key: report_id + tenant + params + data_version\" then splits: \"Cache hit\" leads to \"Skip straight to Privacy Filter Choke Point\"; \"Cache miss or Data Version Invalidation triggered\" leads to \"Query pre-aggregated ClickHouse view / Redis mastery vector\" leads to \"Privacy Filter Choke Point\". Both paths converge at \"Privacy Filter Choke Point (threshold + complementary suppression, always applied)\" leads to \"Response returned within P95 Latency Budget\".\n\nInteractive features: Every node has a Mermaid click directive opening a definition infobox — the cache-key node lists all four key parts, the Data Version Invalidation node explains watermark-driven versus fixed-TTL invalidation, and the choke-point node stresses that both paths converge there so no response can bypass it.\n\nColor coding: The cache-hit path in the book's teal accent color; the cache-miss path in a lighter tint of the same hue; the shared Privacy Filter Choke Point node in amber to flag it as the mandatory convergence point.\n\nResponsive design: Flowchart resizes to the width of its containing element; the two branches stack vertically above their shared convergence node on narrow viewports."
+}

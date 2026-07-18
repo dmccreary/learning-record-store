@@ -1,0 +1,15 @@
+{
+  "sim_id": "two-bugs-green-checkmark",
+  "diagram_name": "Two Bugs Behind a Green Checkmark",
+  "chapter_number": 22,
+  "chapter_title": "Proving the Architecture - the MVP Plan",
+  "chapter_dir": "22-proving-the-architecture-mvp",
+  "chapter_rel_dir": "chapters/22-proving-the-architecture-mvp",
+  "library": "Mermaid",
+  "bloom_level": "Analyze (L4)",
+  "bloom_verb": "differentiate, examine",
+  "learning_objective": "Analyze why a passing smoke-test script and a graph with mastery scores present can both hide a real defect, by tracing where each verification silently breaks.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: infographic\n**sim-id:** two-bugs-green-checkmark<br/>\n**Library:** Mermaid<br/>\n**Status:** Specified\n\nBloom Taxonomy: Analyze (L4)\nBloom Taxonomy Verb: differentiate, examine\n\nLearning objective: Analyze why a passing smoke-test script and a graph with mastery scores present can both hide a real defect, by tracing where each verification silently breaks.\n\nPurpose: Two parallel Mermaid flowcharts stacked vertically, each tracing one bug from \"looks fine\" to \"the actual break.\"\n\nTop panel \"Smoke Harness Decorative Check\": \"Run check: query store, grep result\" -> \"grep fails to match (real problem exists)\" -> \"`&&` chaining means `set -e` does not apply here\" -> \"Script prints checkmark anyway\" -> \"Exit code 0: harness reports success.\" Short branch: \"Print compression ratio\" -> \"No assertion follows\" -> \"Falls through to 'smoke passed'.\"\n\nBottom panel \"Mastery Path Disconnection\": \"BKT computes P(L) update\" -> \"Mastery-aggregation query does not select a mastery column\" -> \"Materialized rollup does not compute one either\" -> \"Durable store has the column, nothing writes to it\" -> \"Graph write step sets mastery from a value never produced\" -> \"Result: mastery score is null, no error raised.\"\n\nInteractive features: Every node has a Mermaid click directive; clicking opens an infobox explaining why that step's signal diverges from reality, naming the file/layer it corresponds to.\n\nColor coding: Steps that look correct shaded calm teal; the step where signal and reality diverge shaded warning amber with a break-in-the-chain icon.\n\nResponsive design: Panels stack vertically and stay full-width on narrow viewports; click targets stay tap-sized."
+}

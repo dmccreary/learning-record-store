@@ -1,0 +1,15 @@
+{
+  "sim_id": "ab-test-lifecycle-states",
+  "diagram_name": "The AB Test Lifecycle",
+  "chapter_number": 31,
+  "chapter_title": "Designing and Reading A/B Experiments",
+  "chapter_dir": "31-designing-ab-experiments",
+  "chapter_rel_dir": "chapters/31-designing-ab-experiments",
+  "library": "Mermaid",
+  "bloom_level": "Understand (L2)",
+  "bloom_verb": "sequence, summarize",
+  "learning_objective": "Let the learner sequence the states an experiment moves through — draft, running, paused, concluded, archived — and identify which transitions are reversible versus terminal.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: workflow\n**sim-id:** ab-test-lifecycle-states<br/>\n**Library:** Mermaid<br/>\n**Status:** Specified\n\nBloom Taxonomy: Understand (L2)\nBloom Taxonomy Verb: sequence, summarize\n\nLearning objective: Let the learner sequence the states an experiment moves through — draft, running, paused, concluded, archived — and identify which transitions are reversible versus terminal.\n\nPurpose: A Mermaid state diagram with five nodes: \"Draft\" → \"Running\" (on approval), \"Running\" → \"Paused\" (on guardrail regression, SRM failure, or author judgment), \"Paused\" → \"Running\" (on resume once the issue is resolved), \"Running\" → \"Concluded\" (on stop; control arm served to everyone from this point forward), \"Concluded\" → \"Archived\" (terminal).\n\nInteractive features: Every state node is wired with a Mermaid `click` directive. Clicking \"Draft\" opens an infobox noting the Experiment Definition is still editable and unapproved. Clicking \"Running\" opens an infobox noting assignment and data collection are both active. Clicking \"Paused\" opens an infobox listing the three common triggers (guardrail regression, SRM failure, author judgment) and noting no data is lost. Clicking \"Concluded\" opens an infobox emphasizing that stopping serves the control arm to everyone going forward, regardless of which arm the readout favored. Clicking \"Archived\" opens an infobox noting this is a terminal, read-only state kept for audit history.\n\nColor coding: Draft in neutral gray, Running in teal, Paused in amber, Concluded in a deeper teal, Archived in muted gray-blue — a progression from \"not yet active\" through \"active\" to \"done,\" with Paused visually distinct as an interruption rather than an ending.\n\nResponsive design: The state diagram resizes to the containing element's width; on narrow viewports the states stack top-to-bottom in sequence rather than arranging left-to-right."
+}

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- microsim-scaffold-stub -->
+    <title>Grain Constraints and the Statement Label Prohibition</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Grain Constraints and the Statement Label Prohibition</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> grain-constraint-enforcement</p>
+            <p><strong>Library:</strong> vis-network</p>
+            <p><strong>Bloom Level:</strong> Evaluate (L5)</p>
+            <p><strong>Learning Objective:</strong> Let the learner simulate a summarizer write attempt against a Grain Uniqueness Constraint and observe why a second write for the same grain upserts rather than duplicates, then contrast that outcome with a hypothetical write carrying a forbidden :Statement label.</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    Type: graph-model
+    **sim-id:** grain-constraint-enforcement<br/>
+    **Library:** vis-network<br/>
+    **Status:** Specified
+    
+    Bloom Taxonomy: Evaluate (L5)
+    Bloom Taxonomy Verb: justify, critique
+    
+    Learning objective: Let the learner simulate a summarizer write attempt against a Grain Uniqueness Constraint and observe why a second write for the same grain upserts rather than duplicates, then contrast that outcome with a hypothetical write carrying a forbidden :Statement label.
+    
+    Canvas layout:
+    
+    - A central graph view showing one ConceptMastery node for a sample (student_key, concept_id) pair
+    - A control panel with two buttons: "Simulate MERGE write (same grain)" and "Simulate write with :Statement label"
+    - An event log panel below the graph showing the outcome of each simulated write attempt
+    
+    Interactive controls:
+    
+    - Button "Simulate MERGE write (same grain)" — animates a second write attempt for the identical (student_key, concept_id) pair; the graph shows the existing node's properties updating in place (mastery_score, evidence_count) rather than a new node appearing, and the event log records "MERGE matched existing grain — properties updated, no new vertex created"
+    - Button "Simulate write with :Statement label" — animates an attempted write of a per-statement node; the graph flashes the attempted node in red and it fails to attach, and the event log records "REJECTED — :Statement label is prohibited; lrs bootstrap --verify would fail this deployment"
+    - Button "Reset" — clears the event log and returns the graph to its single starting vertex
+    
+    Behavior: Each simulated write appends a timestamped line to the event log panel so the learner can review the sequence of attempts and outcomes after several clicks.
+    
+    Color coding: The legitimate ConceptMastery vertex in the book's teal accent color; the rejected hypothetical :Statement node flashes red before disappearing; the event log's successful entries in teal text and rejected entries in red text.
+    
+    Responsive design: Control panel and event log stack below the graph view on narrow viewports instead of beside it; the graph canvas resizes to the width of its containing element.
+    -->
+</body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "title": "Cross-Persona Workflow",
+  "description": "Trace one ingested xAPI Statement through three independent, simultaneously-updated aggregations, and analyze why no persona's view requires a separate data pipeline from the others.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "cross-persona-workflow",
+  "library": "Mermaid",
+  "bloomLevel": "Analyze (L4)",
+  "bloomVerb": "trace, analyze",
+  "completion_status": "scaffold",
+  "chapter_number": 24,
+  "chapter_title": "Meet the Three Personas and the Admin UI Surface",
+  "chapter_dir": "24-three-personas-and-admin-uis",
+  "chapter_rel_dir": "chapters/24-three-personas-and-admin-uis"
+}

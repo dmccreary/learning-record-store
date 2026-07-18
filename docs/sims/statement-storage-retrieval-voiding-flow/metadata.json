@@ -1,0 +1,23 @@
+{
+  "title": "One Statement, Three Ways to Touch the Record",
+  "description": "Let the learner distinguish the Statement Storage Function, the Statement Retrieval Function, and the Voiding Function as three separate operations against one shared Event Store, and trace how a voided statement is retracted without ever being deleted.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "statement-storage-retrieval-voiding-flow",
+  "library": "Mermaid",
+  "bloomLevel": "Understand (L2)",
+  "bloomVerb": "distinguish, trace",
+  "completion_status": "scaffold",
+  "chapter_number": 9,
+  "chapter_title": "The Twelve Core LRS Functions",
+  "chapter_dir": "09-twelve-core-lrs-functions",
+  "chapter_rel_dir": "chapters/09-twelve-core-lrs-functions"
+}

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- microsim-scaffold-stub -->
+    <title>Complementary Suppression Attack</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Complementary Suppression Attack</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> complementary-suppression-attack</p>
+            <p><strong>Library:</strong> Chart.js</p>
+            <p><strong>Bloom Level:</strong> Evaluate (L5)</p>
+            <p><strong>Learning Objective:</strong> Demonstrate how a single suppressed small-group value in a published table can be recovered by subtraction from the row's published total, and justify why complementary suppression — hiding a second, larger cell — is required to actually protect it.</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    Type: chart
+    **sim-id:** complementary-suppression-attack<br/>
+    **Library:** Chart.js<br/>
+    **Status:** Specified
+    
+    Bloom Taxonomy: Evaluate (L5)
+    Bloom Taxonomy Verb: demonstrate, justify
+    
+    Learning objective: Demonstrate how a single suppressed small-group value in a published table can be recovered by subtraction from the row's published total, and justify why complementary suppression — hiding a second, larger cell — is required to actually protect it.
+    
+    Chart type: Grouped bar chart with a toggle control, showing nine category counts (e.g., "reading level bands" across a grade) plus their published total.
+    
+    Default state: All nine bars visible with real values; total bar shown alongside, correct and summing to the nine visible bars.
+    
+    Toggle 1 — "Threshold suppression only": the one bar below the group-size threshold (value 4, threshold 10) is redrawn as a hatched "Suppressed" bar with no numeric label; the total bar is unchanged. An automatically computed "Recovered value" readout beneath the chart subtracts the eight visible bars from the total and displays the exact suppressed value, labeled in red: "Recovered by subtraction: 4 — suppression failed."
+    
+    Toggle 2 — "Complementary suppression (D-5)": the same small bar is hidden, and a second, larger bar (chosen automatically as the smallest bar still above threshold) is also redrawn as hatched "Suppressed." The "Recovered value" readout now shows "Cannot be recovered — two unknowns, one equation," in teal, because subtracting seven known bars from the total leaves two suppressed values and one equation, which is not solvable.
+    
+    Interactive features: Clicking either toggle animates the transition and updates the readout live. Hovering any bar shows a tooltip with its category label and value (or "Suppressed" if hidden). A small annotation links this scenario to Chapter 19's Privacy Adversarial Suite and its differencing-attack tests.
+    
+    Color scheme: Visible bars in the book's teal accent color; suppressed bars in a hatched pattern over muted gray; the "Recovered" readout text in warning red when the attack succeeds and teal when it fails.
+    
+    Responsive design: Chart and readout stack vertically on narrow viewports; toggle controls remain full-width and tappable.
+    -->
+</body>
+</html>

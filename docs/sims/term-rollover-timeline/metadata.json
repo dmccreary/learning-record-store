@@ -1,0 +1,23 @@
+{
+  "title": "Term Rollover Timeline",
+  "description": "Sequence the steps of a Term / Academic-Year Rollover, from archiving the outgoing term through rolling section templates forward into the new one, and see where the Enrollment Editor and Instructor Assignment Tool fit into that sequence.",
+  "creator": "Learning Record Store",
+  "author": "Dan McCreary",
+  "date": "2026-07-17",
+  "subject": [
+    "Learning Record Store"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en",
+  "rights": "CC BY-NC-SA 4.0",
+  "identifier": "term-rollover-timeline",
+  "library": "vis-timeline",
+  "bloomLevel": "Understand (L2)",
+  "bloomVerb": "sequence, summarize",
+  "completion_status": "scaffold",
+  "chapter_number": 25,
+  "chapter_title": "District Administrator: Rosters, Deployments, and Registries",
+  "chapter_dir": "25-district-admin-rosters-deployments",
+  "chapter_rel_dir": "chapters/25-district-admin-rosters-deployments"
+}

@@ -1,0 +1,15 @@
+{
+  "sim_id": "kafka-topic-map",
+  "diagram_name": "Kafka Topic Map for the LRS Event Backbone",
+  "chapter_number": 14,
+  "chapter_title": "Kafka Topics, ClickHouse Schema, and Graph Constraints",
+  "chapter_dir": "14-kafka-clickhouse-graph-schema",
+  "chapter_rel_dir": "chapters/14-kafka-clickhouse-graph-schema",
+  "library": "vis-network",
+  "bloom_level": "Understand (L2)",
+  "bloom_verb": "explain, classify",
+  "learning_objective": "Let the learner classify each of the six Kafka topics by its key format, partition count, and retention policy, and explain why the compacted mastery-state topic differs structurally from the other five.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: infographic\n**sim-id:** kafka-topic-map<br/>\n**Library:** vis-network<br/>\n**Status:** Specified\n\nBloom Taxonomy: Understand (L2)\nBloom Taxonomy Verb: explain, classify\n\nLearning objective: Let the learner classify each of the six Kafka topics by its key format, partition count, and retention policy, and explain why the compacted mastery-state topic differs structurally from the other five.\n\nPurpose: Show all six topics as nodes arranged around a central \"Kafka / Redpanda Broker\" hub node, so the learner can see the whole topic inventory at a glance before drilling into any one topic.\n\nNodes: One central hub node \"Kafka / Redpanda Broker\". Six satellite nodes, one per topic, each labeled with its exact topic string: \"xapi.statements.raw\", \"xapi.statements.bulk\", \"xapi.statements.dlq\", \"lrs.reconcile\", \"lrs.mastery.state\", \"lrs.audit\". Each satellite node's size scales with its partition count (48-partition topics render larger than 12-partition topics) so partition count is visible without clicking.\n\nInteractive features: Clicking any satellite topic node opens an infobox showing that topic's key format, partition count, retention policy, and one-sentence purpose, matching the table already presented in this chapter. A toggle labeled \"Group by retention family\" re-colors nodes into three clusters — short-lived (7 days), long-lived (30-400 days), and compacted — so the learner can see the retention pattern structurally rather than by reading text.\n\nColor coding: The compacted mastery-state topic in the book's teal accent color to visually flag it as the one structural outlier; the other five topics in a shared neutral blue-gray, differentiated only by node size (partition count).\n\nResponsive design: Network graph resizes to the width of its containing element and re-centers on resize; on narrow viewports satellite nodes arrange in two rows instead of a full circle around the hub."
+}

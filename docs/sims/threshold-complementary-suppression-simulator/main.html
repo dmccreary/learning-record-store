@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- microsim-scaffold-stub -->
+    <title>Threshold and Complementary Suppression Simulator</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Threshold and Complementary Suppression Simulator</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> threshold-complementary-suppression-simulator</p>
+            <p><strong>Library:</strong> p5.js</p>
+            <p><strong>Bloom Level:</strong> Evaluate (L5)</p>
+            <p><strong>Learning Objective:</strong> Given a small table of per-mastery-band student counts and a row total, let the learner determine which cells Threshold Suppression hides and which additional cell Complementary Suppression must hide to prevent the first suppression from being recovered by subtraction.</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    Type: microsim
+    **sim-id:** threshold-complementary-suppression-simulator<br/>
+    **Library:** p5.js<br/>
+    **Status:** Specified
+    
+    Bloom Taxonomy: Evaluate (L5)
+    Bloom Taxonomy Verb: determine, justify
+    
+    Learning objective: Given a small table of per-mastery-band student counts and a row total, let the learner determine which cells Threshold Suppression hides and which additional cell Complementary Suppression must hide to prevent the first suppression from being recovered by subtraction.
+    
+    Canvas layout:
+    
+    - A 5-row by 4-column data table: rows are mastery bands ("Beginning", "Developing", "Proficient", "Advanced"), columns are student counts per band plus a "Row Total" column
+    - A control strip above the table: a "Threshold" slider (range 5-20, default 10), a "Load Scenario" dropdown with three presets ("Safe — all cells above threshold", "Single suppression needed", "Complementary suppression needed"), and a "Reset" button
+    
+    Visual elements:
+    
+    - Cells with a count at or above the threshold render with a normal white background and black text
+    - Cells below the threshold render with a red background and a lock icon, replacing the number with "—"
+    - When Complementary Suppression triggers, the second suppressed cell renders with an amber background and a lock icon, visually distinct from the primary (red) suppression
+    - A status line below the table states in plain language why each suppression happened, e.g. "Beginning (6) is below the threshold of 10 — suppressed. Developing (14) is now also suppressed: the row total and the two remaining visible cells would let a reader recover Beginning's value by subtraction."
+    
+    Interactive controls:
+    
+    - Slider: "Threshold" — recomputes suppression live as it moves
+    - Dropdown: "Load Scenario" — loads one of three preset row configurations to demonstrate no-suppression, single-suppression, and complementary-suppression cases
+    - Button: "Reset" — restores the default scenario and threshold
+    
+    Behavior: On any threshold change or scenario load, the simulator recomputes which cells fall below threshold, then checks whether the remaining visible cells plus the row total would allow the suppressed cell's value to be derived by subtraction; if so, it suppresses the next-smallest visible cell and updates the status line to explain the chain of reasoning.
+    
+    Interactive features: Clicking any cell (suppressed or not) opens an infobox stating its raw count (for instructor/demo mode only — a real dashboard would never expose this), whether it was suppressed, and which rule caused the suppression.
+    
+    Color coding: Red background for primary Threshold Suppression, amber for secondary Complementary Suppression, matching the color logic used consistently across this chapter's other suppression discussion.
+    
+    Responsive design: Table and control strip stack vertically on narrow viewports; the table itself scrolls horizontally within its container rather than shrinking column text below a readable size.
+    -->
+</body>
+</html>

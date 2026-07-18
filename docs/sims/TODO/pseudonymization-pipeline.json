@@ -1,0 +1,15 @@
+{
+  "sim_id": "pseudonymization-pipeline",
+  "diagram_name": "Pseudonymization Pipeline",
+  "chapter_number": 13,
+  "chapter_title": "Component Design in Depth",
+  "chapter_dir": "13-component-design-in-depth",
+  "chapter_rel_dir": "chapters/13-component-design-in-depth",
+  "library": "Mermaid",
+  "bloom_level": "Understand (L2)",
+  "bloom_verb": "trace, explain",
+  "learning_objective": "Let the learner trace how a raw actor identifier becomes an irreversible `student_key`, following the hop from the statement body through the Mutual TLS Salt Fetch and the HMAC-SHA256 Pseudonymization computation to the pseudonymous key written to ClickHouse.",
+  "completion_status": "specified",
+  "extracted_date": "2026-07-17",
+  "specification": "Type: workflow\n**sim-id:** pseudonymization-pipeline<br/>\n**Library:** Mermaid<br/>\n**Status:** Specified<br/>\n**Template:** https://github.com/dmccreary/xapi-course/tree/main/docs/sims/pseudonymization-pipeline\n\nBloom Taxonomy: Understand (L2)\nBloom Taxonomy Verb: trace, explain\n\nLearning objective: Let the learner trace how a raw actor identifier becomes an irreversible `student_key`, following the hop from the statement body through the Mutual TLS Salt Fetch and the HMAC-SHA256 Pseudonymization computation to the pseudonymous key written to ClickHouse.\n\nPurpose: Show a single Mermaid flowchart tracing one raw actor identifier from the statement body to its final pseudonymous form, adapted from the template's existing LMS-to-LRS identity flow to this chapter's specific mechanism.\n\nNodes: \"Raw actor identifier in statement body (homePage + name)\" leads to \"Processor fetches Per-District Salt via Mutual TLS Salt Fetch (once per district, cached in memory)\" leads to \"HMAC-SHA256 Pseudonymization computed locally in the processor\" leads to \"student_key (base32, first 16 bytes)\" leads to \"Written to ClickHouse and Neo4j — the only form any downstream store ever sees\".\n\nInteractive features: Every node has a Mermaid click directive opening an infobox with that step's definition — mutual TLS and fetch frequency at the salt node, the formula and cross-district unrelatedness at the HMAC node, and the \"nothing downstream sees raw identity\" guarantee at the final node.\n\nColor coding: The raw-identity node in amber to flag it as sensitive; every node from the salt fetch onward in the book's teal accent color to show the boundary has been crossed.\n\nResponsive design: Flowchart resizes to the width of its containing element; on narrow viewports the chain reflows top-to-bottom."
+}

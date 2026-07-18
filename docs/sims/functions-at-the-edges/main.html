@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- microsim-scaffold-stub -->
+    <title>Four Functions at the System's Edges</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Four Functions at the System's Edges</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> functions-at-the-edges</p>
+            <p><strong>Library:</strong> Mermaid</p>
+            <p><strong>Bloom Level:</strong> Understand (L2)</p>
+            <p><strong>Learning Objective:</strong> Let the learner explain what triggers each of the four functions that run off the main statement pipeline — Experiment Assignment, Reconciliation, Export, and Retention Purge — and classify each by whether its trigger is per-statement, scheduled, or on-demand.</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    Type: workflow
+    **sim-id:** functions-at-the-edges<br/>
+    **Library:** Mermaid<br/>
+    **Status:** Specified
+    
+    Bloom Taxonomy: Understand (L2)
+    Bloom Taxonomy Verb: explain, classify
+    
+    Learning objective: Let the learner explain what triggers each of the four functions that run off the main statement pipeline — Experiment Assignment, Reconciliation, Export, and Retention Purge — and classify each by whether its trigger is per-statement, scheduled, or on-demand.
+    
+    Purpose: Show four independent Mermaid flowchart branches, each rooted at a distinct trigger rather than a shared starting node, visually reinforcing that these functions do not share one pipeline.
+    
+    Nodes, one branch per function: Branch 1: "A student reaches an experiment's eligibility check" leads to "Experiment Assignment Function (F-9): deterministic, sticky variant assignment" leads to "Chapter 31: full assignment and readout mechanics". Branch 2: "Scheduled scan of provisional nodes" leads to "Reconciliation Function (F-10): match + promote + back-fill" leads to "Chapter 8: full reconciliation mechanics". Branch 3: "District or system admin requests a bulk export" leads to "Export Function (F-11): async job, signed download URL". Branch 4: "Scheduled partition drop, or an on-demand erasure request" leads to "Retention Purge Function (F-12): policy-driven retention, FERPA/COPPA-compliant purge" leads to "A later chapter: full compliance treatment".
+    
+    Interactive features: Every node has a Mermaid click directive. Clicking a trigger node opens an infobox stating whether the trigger is per-statement, scheduled, or on-demand. Clicking a function node opens an infobox with that function's one-sentence definition and F-number from this chapter's prose. Clicking a "full mechanics" reference node opens an infobox naming which earlier or later chapter covers that function in depth.
+    
+    Color coding: Scheduled-trigger branches (Reconciliation, the retention half of F-12) in a muted slate color; on-demand/per-statement branches (Experiment Assignment, Export, the erasure half of F-12) in the book's teal accent color, distinguishing "runs on a timer" from "runs because someone asked."
+    
+    Responsive design: The four branches stack vertically and remain independently readable at any viewport width; each branch's internal flow remains left-to-right down to tablet width, then reflows top-to-bottom below it.
+    -->
+</body>
+</html>
