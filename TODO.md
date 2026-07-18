@@ -23,6 +23,29 @@
     rendered graph viewer first before approving more cross-links. Revisit
     once reviewed.
 
+## Skill improvements
+
+- **Teach the `microsim-generator` Mermaid guidance the LR-vs-TD narrow-column rule.** This
+  session converted 9 of 11 `flowchart LR` diagrams under `docs/sims/*/main.html` to `flowchart
+  TD` so they'd fit a chapter's narrow iframe column instead of squeezing illegibly-small text
+  into ~436px — full writeup in
+  [`logs/flowchart-lr-and-td-analysis.md`](logs/flowchart-lr-and-td-analysis.md). The user called
+  the analysis "excellent work" and was explicitly happy with the empirical-verification approach,
+  which is the reason this is worth generalizing rather than re-deriving from scratch next time.
+  - **The reusable rule:** Mermaid's dagre layout stacks disconnected components (or sibling
+    subgraphs with no edge between them) along the axis *perpendicular* to the flow direction —
+    so LR stacks them narrow (good for a narrow column) and TD would spread them wide (bad). A
+    single **connected** graph (chain/tree/diamond) does the opposite: LR is wide and TD collapses
+    it narrow. The fix must check connectivity before flipping direction, not just search-and-replace.
+  - **Proposed addition:** in the `microsim-generator` skill's Mermaid section (and/or
+    `microsim-utils`), add a decision check — "does this diagram contain >1 connected component or
+    sibling subgraphs joined only by proximity? If yes, keep/prefer `LR` for narrow embedding; if
+    it's one connected component, prefer `TD`." Document the empirical test method too (temporarily
+    flip direction, reload in-repo, read the SVG `viewBox` via JS) since layout behavior isn't
+    reliably predictable from the source alone.
+  - **Status:** not started — flagged here rather than edited directly, since it changes shared
+    skill guidance rather than this project's content.
+
 ## Open specification work
 
 - **Retrofit specification for existing intelligent textbooks.** Write a new

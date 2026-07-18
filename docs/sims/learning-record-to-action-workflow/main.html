@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>From Learning Activity to Action</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis',
+                subGraphTitleMargin: { top: 10, bottom: 14 }
+            }
+        });
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="container">
+        <section class="diagram-panel" aria-label="Learning record workflow diagram">
+            <div class="mermaid">
+flowchart TD
+    Activity("Learning Activity"):::activityNode
+    Record["Standardized Event<br/>or Record"]:::recordNode
+    Store["LRS or<br/>Learning-Record<br/>Warehouse"]:::storeNode
+    Analysis["Aggregation and Analysis"]:::analysisNode
+    Action("Feedback, Dashboard,<br/>Intervention, or Course Change"):::actionNode
+
+    Activity --> Record
+    Record --> Store
+    Store --> Analysis
+    Analysis --> Action
+
+    classDef activityNode fill:#0f766e,stroke:#134e4a,stroke-width:2px,color:#fff,font-size:16px
+    classDef recordNode fill:#0284c7,stroke:#075985,stroke-width:2px,color:#fff,font-size:16px
+    classDef storeNode fill:#4f46e5,stroke:#312e81,stroke-width:2px,color:#fff,font-size:16px
+    classDef analysisNode fill:#7c3aed,stroke:#5b21b6,stroke-width:2px,color:#fff,font-size:16px
+    classDef actionNode fill:#c2410c,stroke:#7c2d12,stroke-width:2px,color:#fff,font-size:16px
+
+    linkStyle default stroke:#64748b,stroke-width:2px,font-size:16px
+            </div>
+        </section>
+        <aside class="info-panel" aria-live="polite">
+            <h3>Step Details</h3>
+            <p class="interaction-hint">Select a step to keep its description visible.</p>
+            <div id="panel-wrap">
+                <div id="info-display">
+                    <p class="info-placeholder">Hover over or select a workflow step to see details.</p>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <script>
+        const nodeInfo = {
+            'Activity': {
+                title: 'Learning Activity',
+                description: 'A learner reads, answers a question, uses a simulation, attends a session, or performs another observable learning action. This is where the evidence originates.'
+            },
+            'Record': {
+                title: 'Standardized Event or Record',
+                description: 'The source system translates the activity into a consistent record. An xAPI statement can identify the learner, action, activity, result, and learning context.'
+            },
+            'Store': {
+                title: 'LRS or Learning-Record Warehouse',
+                description: 'The store validates and retains records from one or more learning systems. A broader warehouse may combine xAPI events with grades, enrolment, attendance, or Caliper data.'
+            },
+            'Analysis': {
+                title: 'Aggregation and Analysis',
+                description: 'Raw records are grouped and interpreted to produce measures such as engagement, progress, content use, risk, or concept-level evidence. Derived results should remain traceable to their source records.'
+            },
+            'Action': {
+                title: 'Feedback or Action',
+                description: 'The evidence reaches a decision point: learner feedback, a teacher dashboard, an intervention, a compliance workflow, or a change to course content. This step turns stored records into educational value.'
+            }
+        };
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

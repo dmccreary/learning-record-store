@@ -1,5 +1,5 @@
 {
-  "title": "Statement Journey \u2014 Producer to Graph",
+  "title": "Statement Journey — Producer to Graph",
   "description": "Let the learner decompose a single xAPI Statement into its storage destinations, tracing one JSON field from the producer through the gateway to a ClickHouse column and on to a Neo4j summary-vertex property.",
   "creator": "Learning Record Store",
   "author": "Dan McCreary",
@@ -20,5 +20,5 @@
   "chapter_title": "The Producer Contract: Writing Conformant Statements",
   "chapter_dir": "32-producer-contract-conformant-statements",
   "chapter_rel_dir": "chapters/32-producer-contract-conformant-statements",
-  "canvasHeight": 560
+  "canvasHeight": 350
 }

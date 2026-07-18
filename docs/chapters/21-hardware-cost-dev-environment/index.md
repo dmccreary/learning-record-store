@@ -237,7 +237,7 @@ Once a host is running, the code still needs editing from somewhere — a separa
 
 #### Diagram: Three Ways to Develop Against a Remote Host
 
-<iframe src="../../sims/remote-dev-workflow-comparison/main.html" width="100%" height="562px" scrolling="no"></iframe>
+<iframe src="../../sims/remote-dev-workflow-comparison/main.html" width="100%" height="297px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Three Ways to Develop Against a Remote Host</summary>

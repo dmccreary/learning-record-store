@@ -186,7 +186,7 @@ That roster data flows in through the **Roster API**, the inbound member of the 
 
 #### Diagram: From Student Information System to Enrollment
 
-<iframe src="../../sims/roster-ingestion-workflow/main.html" width="100%" height="422px" scrolling="no"></iframe>
+<iframe src="../../sims/roster-ingestion-workflow/main.html" width="100%" height="577px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>From Student Information System to Enrollment</summary>

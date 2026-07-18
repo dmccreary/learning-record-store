@@ -144,7 +144,7 @@ The table below reinforces the three stages just described.
 
 #### Diagram: The Multi-Stage Build Pipeline
 
-<iframe src="../../sims/multi-stage-build-pipeline/main.html" width="100%" height="562px" scrolling="no"></iframe>
+<iframe src="../../sims/multi-stage-build-pipeline/main.html" width="100%" height="1912px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>The Multi-Stage Build Pipeline</summary>

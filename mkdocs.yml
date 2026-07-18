@@ -35,6 +35,13 @@ nav:
   - Home: index.md
   - About: about.md
   - Course Description: course-description.md
+  - Stories:
+      - Introduction: stories/index.md
+      - LRS Graphic Novel Story Ideas: stories/story-ideas-antigravity.md
+      - LRS Feedback Story Ideas (ChatGPT): stories/story-ideas-chatgpt.md
+      - The Red Node Before Monday: stories/the-red-node-before-monday/index.md
+      - The Simulation Everyone Escaped: stories/the-simulation-everyone-escaped/index.md
+      - Two Paths Through the Storm: stories/two-paths-through-the-storm/index.md
 
   - Chapters:
       - List of Chapters: chapters/index.md
@@ -81,14 +88,146 @@ nav:
       - Taxonomy Distribution: learning-graph/taxonomy-distribution.md
 
   - MicroSims:
-      - List of MicroSims: sims/index.md
-      - Learning Graph Viewer: sims/graph-viewer/index.md
-      - LRS Graph Data Model Explorer: sims/lrs-data-model/index.md
-      - Sine Wave: sims/sine-wave/index.md
-      - Bouncing Ball: sims/bouncing-ball/index.md
-      - Scientific Method Workflow: sims/scientific-method/index.md
-      - Animal Cell: sims/animal-cell/index.md
-      
+    - List of MicroSims: sims/index.md
+    - A Timeline of Learning Interoperability Standards: sims/learning-standards-timeline/index.md
+    - Accept-First Ingestion and Reconciliation Flow: sims/accept-first-reconciliation-flow/index.md
+    - Access Review and Impersonation Audit Workflow: sims/access-review-impersonation-workflow/index.md
+    - Analytics Cache Key and the Privacy Filter Choke Point: sims/dashboard-request-cache-flow/index.md
+    - Analytics Plane API Map: sims/analytics-plane-api-map/index.md
+    - Anatomy of an Activity Definition: sims/activity-naming-and-occurrence-fields/index.md
+    - Anatomy of an Experiment Definition: sims/experiment-definition-anatomy/index.md
+    - Anatomy of an Extended Statement: sims/extended-statement-anatomy/index.md
+    - Anatomy of an xAPI Profile: sims/xapi-profile-anatomy/index.md
+    - Animal Cell: sims/animal-cell/index.md
+    - At-Risk Roster — How the Composite Score Is Built: sims/at-risk-roster-composite-score/index.md
+    - Authentication Scheme Comparison: sims/authentication-scheme-comparison/index.md
+    - Bouncing Ball: sims/bouncing-ball/index.md
+    - Build Steps to Development Host Tier: sims/build-steps-to-host-tier-timeline/index.md
+    - Burst Insensitivity — Graph Write Rate vs. Ingest Rate: sims/burst-insensitivity-chart/index.md
+    - Canonical Activity IRI Anatomy: sims/canonical-activity-iri-anatomy/index.md
+    - Chaos Kill Test Simulator: sims/chaos-kill-test-simulator/index.md
+    - Class Mastery Heatmap for One Section: sims/class-mastery-heatmap/index.md
+    - ClickHouse `lrs.statements` Table Anatomy: sims/clickhouse-statements-anatomy/index.md
+    - ClickHouse Storage Growth Over the Retention Window: sims/clickhouse-storage-growth/index.md
+    - cmi5 Launch Sequence: sims/cmi5-launch-sequence/index.md
+    - Complementary Suppression Attack: sims/complementary-suppression-attack/index.md
+    - Compose Startup Dependency Graph: sims/compose-startup-dependency-graph/index.md
+    - Concept Mastery Radar for One Student: sims/concept-mastery-radar/index.md
+    - Concept-Coverage Gaps Overlaid on the Learning Graph: sims/concept-coverage-gaps-overlay/index.md
+    - Config and Secrets Flow: sims/config-secrets-flow/index.md
+    - Cross-District Benchmark — Applying the Privacy Aggregation Threshold: sims/cross-district-benchmark-privacy-threshold/index.md
+    - Cross-Persona Workflow: sims/cross-persona-workflow/index.md
+    - DAG Viewer: sims/dag-viewer/index.md
+    - Dashboard Layout Builder: sims/dashboard-patterns/index.md
+    - Delivery Roadmap Timeline: sims/delivery-roadmap-m0-to-m5-timeline/index.md
+    - Deterministic Bucketing and the Ramping Rule: sims/experiment-bucketing-ramp/index.md
+    - Deterministic Sticky Assignment and District Opt-Out: sims/sticky-assignment-and-opt-out/index.md
+    - District Management UI Mock Dashboard: sims/district-management-ui-mockup/index.md
+    - District Overview vs. System Health — Two Lenses on One Log: sims/two-dashboards-one-log/index.md
+    - District Tenancy Hierarchy Explorer: sims/district-tenancy-hierarchy-explorer/index.md
+    - District-Keyed versus Composite-Keyed Partitioning: sims/district-vs-composite-partition-key/index.md
+    - Expand-Contract Step Sequencer: sims/expand-contract-step-sequencer/index.md
+    - Four Functions at the System's Edges: sims/functions-at-the-edges/index.md
+    - From Compressed Evidence to Graph Edges: sims/compressed-evidence-graph-edges/index.md
+    - From Gateway to Event Store — the Ingestion and Processing Pipeline: sims/ingestion-processing-storage-pipeline/index.md
+    - From Learning Activity to Action: sims/learning-record-to-action-workflow/index.md
+    - From Login to RBAC-Checked Action: sims/sso-rbac-login-flow/index.md
+    - From Raw Evidence to Soft Correctness: sims/bkt-soft-correctness-mapping/index.md
+    - From Student Information System to Enrollment: sims/roster-ingestion-workflow/index.md
+    - From Walking Skeleton to Scaled Production: sims/production-delivery-roadmap/index.md
+    - Gateway Request Pipeline: sims/gateway-request-pipeline/index.md
+    - Gateway-First Deploy and Rollback Order: sims/gateway-first-deploy-rollback/index.md
+    - Grain Constraints and the Statement Label Prohibition: sims/grain-constraint-enforcement/index.md
+    - Graph Write Rate vs. Compression Sync Cadence: sims/write-rate-vs-sync-cadence/index.md
+    - How Concept Mastery Rolls Up to a Section: sims/section-rollup-aggregation/index.md
+    - How Eight Content Reports Read Four Summary Vertices: sims/content-insights-pipeline-flow/index.md
+    - HPA vs. KEDA — Two Autoscalers React to a Burst: sims/hpa-vs-keda-burst-response/index.md
+    - Image Supply Chain Pipeline: sims/image-supply-chain-pipeline/index.md
+    - Kafka Topic Map for the LRS Event Backbone: sims/kafka-topic-map/index.md
+    - Learning Ecosystem Map: sims/learning-ecosystem-map/index.md
+    - Learning Graph Viewer: sims/graph-viewer/index.md
+    - LMS-Centric versus LRS-Centric Architecture: sims/lms-vs-lrs-architecture/index.md
+    - LRS Graph Data Model Explorer: sims/lrs-data-model/index.md
+    - Makefile Target Command Explorer: sims/makefile-target-explorer/index.md
+    - Materialized Views to Summary Vertex Mapping: sims/mv-to-vertex-mapping/index.md
+    - MicroSim Evidence to BKT Mapping Gap: sims/microsim-bkt-mapping-gap-workflow/index.md
+    - MicroSim Impact — Observational Delta vs. a Controlled Effect: sims/microsim-impact-observational-vs-controlled/index.md
+    - My Classes to Student Detail — One Click, Nine Reports: sims/my-classes-student-detail-drilldown/index.md
+    - Naive vs. Compressed Graph Write Rate: sims/naive-vs-compressed-graph-write-rate/index.md
+    - Neo4j's Production Path — Community, Enterprise, AuraDB, or an Alternative: sims/neo4j-licensing-decision-tree/index.md
+    - One Statement, Three Ways to Touch the Record: sims/statement-storage-retrieval-voiding-flow/index.md
+    - One Student's Time-on-Task Timeline: sims/time-on-task-timeline/index.md
+    - PID 1 Signal Handling — Exec Form versus Shell Form: sims/pid1-signal-handling-comparison/index.md
+    - Poison Message Retry and Dead-Letter Queue Workflow: sims/poison-message-dlq-retry-workflow/index.md
+    - Prerequisite Gap Analysis — Walking Upstream From a Weak Concept: sims/concept-dependencies/index.md
+    - Privacy Access Audit Explorer: sims/privacy-access-audit-explorer/index.md
+    - Privacy and Compliance UI Mockup: sims/privacy-compliance-ui-mockup/index.md
+    - Processor Batch Loop — Dedup, Score, and Replay: sims/processor-batch-dedup-replay/index.md
+    - Production Monthly Cost Breakdown: sims/production-monthly-cost-breakdown/index.md
+    - Provisional Reconcile Queue Workflow: sims/provisional-reconcile-queue-workflow/index.md
+    - Pseudonymization Pipeline: sims/pseudonymization-pipeline/index.md
+    - Reading the Experiment Readout Dashboard: sims/experiment-readout-dashboard-mockup/index.md
+    - Rebuild Time by Scenario and Cache State: sims/build-cache-rebuild-times/index.md
+    - Recovery Point and Recovery Time by Data Store: sims/rpo-rto-by-data-store/index.md
+    - Replay Command and Rebuild Graph Command Compared: sims/replay-shadow-table-swap/index.md
+    - Role Assignment Scope Explorer: sims/role-assignment-scope-explorer/index.md
+    - Role Hierarchy and Scope: sims/lrs-role-hierarchy-scope/index.md
+    - Scientific Method Workflow: sims/scientific-method/index.md
+    - Sine Wave: sims/sine-wave/index.md
+    - Single-Server Pilot Tier VM Layout: sims/single-server-pilot-vm-layout/index.md
+    - Sort Each Level into Hard or Soft Isolation: sims/hard-vs-soft-isolation-sorter/index.md
+    - Sort the Component into Its Plane: sims/five-architectural-planes-infographic/index.md
+    - Standards Governance Handoff: sims/xapi-governance-handoff/index.md
+    - Statement Ingestion Pipeline — From Statement to Summary Vertex: sims/statement-ingestion-pipeline/index.md
+    - Statement Journey — Producer to Graph: sims/statement-journey-producer-to-graph/index.md
+    - Statement Path Under ADR-001 and ADR-002: sims/statement-path-adr-001-002/index.md
+    - Statement Timestamp and the Verifiability Chain: sims/statement-timestamp-verifiability-chain/index.md
+    - Storage Compression Ratio by Summary-Vertex Grain: sims/compression-ratio-by-grain/index.md
+    - Sync Cadence Tradeoff Explorer: sims/sync-cadence-tradeoff-explorer/index.md
+    - System Configuration and Alerting Dashboard: sims/system-config-alerting-dashboard/index.md
+    - Term Rollover Timeline: sims/term-rollover-timeline/index.md
+    - Testing Layers by Scope and Run Frequency: sims/testing-layers-scope-frequency-chart/index.md
+    - The AB Test Lifecycle: sims/ab-test-lifecycle-states/index.md
+    - The Content Tree — From Textbook to Concept: sims/content-tree-graph-model/index.md
+    - The Data-Loss Boundary Across the Compression Pipeline: sims/lrs-failure-mode-data-loss-boundary/index.md
+    - The Five MVP Build Steps: sims/five-mvp-build-steps/index.md
+    - The Four BKT Parameters Explorer: sims/bkt-four-parameters-explorer/index.md
+    - The Ingestion Plane Technology Stack: sims/ingestion-plane-technology-stack/index.md
+    - The Multi-Stage Build Pipeline: sims/multi-stage-build-pipeline/index.md
+    - The Nine Admin UIs at a Glance: sims/nine-admin-uis-survey/index.md
+    - The Observability Pipeline, From Statement to Screen: sims/observability-pipeline-trace-flow/index.md
+    - The Privacy Filter Pipeline: sims/privacy-filter-pipeline/index.md
+    - The Role Dispatcher Command Explorer: sims/role-dispatcher-command-explorer/index.md
+    - The Start/Pause Dwell Pattern: sims/start-pause-dwell-pattern-workflow/index.md
+    - The Storage Plane, Which Technology Holds What: sims/storage-plane-technology-map/index.md
+    - The Token Cache's Fallback Chain: sims/token-cache-fallback-chain/index.md
+    - The Twelve Core Functions Explorer: sims/twelve-core-functions-explorer/index.md
+    - The Wider Standards Ecosystem Map: sims/standards-ecosystem-map/index.md
+    - This Project's System Context Diagram: sims/lrs-system-context-diagram/index.md
+    - This Project's Tenancy Hierarchy: sims/tenancy-hierarchy-tree/index.md
+    - Three Personas, One Statement Log: sims/three-personas-one-statement-log/index.md
+    - Three Ways to Develop Against a Remote Host: sims/remote-dev-workflow-comparison/index.md
+    - Threshold and Complementary Suppression Simulator: sims/threshold-complementary-suppression-simulator/index.md
+    - Total Learning Architecture Ecosystem Map: sims/tla-ecosystem-map/index.md
+    - Tracing One Student's Mastery Across Four Observations: sims/bkt-mastery-trace-stepper/index.md
+    - Two Bugs Behind a Green Checkmark: sims/two-bugs-green-checkmark/index.md
+    - Two Kinds of Identity in This Learning Record Store: sims/two-kinds-of-identity/index.md
+    - Two Summary-Building Functions — Mastery and Progress: sims/mastery-vs-progress-rollup/index.md
+    - Vault Network Isolation in the Compose Topology: sims/vault-net-isolation-workflow/index.md
+    - Voiding Lifecycle Flow: sims/voiding-lifecycle-flow/index.md
+    - xAPI Endpoint and HTTP Verbs: sims/xapi-endpoint-http-verbs/index.md
+    - xAPI Statement Building Blocks: sims/xapi-statement-triple/index.md
+    - xAPI Vocabulary Matching Pairs: sims/xapi-vocabulary-matching-pairs/index.md
+
+  - Stories:
+      - Introduction: stories/index.md
+      - LRS Graphic Novel Stories Claude: stories/story-ideas-claude/index.md
+      - LRS Graphic Novel Story Ideas: stories/story-ideas-antigravity.md
+      - LRS Feedback Story Ideas (ChatGPT): stories/story-ideas-chatgpt.md
+      - The Red Node Before Monday: stories/the-red-node-before-monday/index.md
+      - The Simulation Everyone Escaped: stories/the-simulation-everyone-escaped/index.md
+      - Two Paths Through the Storm: stories/two-paths-through-the-storm/index.md
+
   - Specifications:
       - LRS Specification (v1): specs/lrs-spec-v1.md
       - LRS Design & Deployment (v1): specs/lrs-design-v1.md
@@ -100,6 +239,9 @@ nav:
   - Demo:
       - Live Graph Demo: demo/graph-queries.md
 
+  - Case Studies:
+      - Overview of LRS Case Studies: case-studies/index.md
+      - Summary of LRS Case Studies: case-studies/summary.md
 
   - Glossary: glossary.md
   - License: license.md

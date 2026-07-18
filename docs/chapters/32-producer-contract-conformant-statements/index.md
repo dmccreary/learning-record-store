@@ -312,7 +312,7 @@ Tracing one row end to end makes the whole architecture concrete in a way earlie
 
 #### Diagram: Statement Journey — Producer to Graph
 
-<iframe src="../../sims/statement-journey-producer-to-graph/main.html" width="100%" height="562px" scrolling="no"></iframe>
+<iframe src="../../sims/statement-journey-producer-to-graph/main.html" width="100%" height="352px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Statement Journey — Producer to Graph</summary>

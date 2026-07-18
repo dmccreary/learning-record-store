@@ -76,7 +76,7 @@ Voiding's effect reaches further than the Event Store alone. Chapter 8's compres
 
 #### Diagram: One Statement, Three Ways to Touch the Record
 
-<iframe src="../../sims/statement-storage-retrieval-voiding-flow/main.html" width="100%" height="442px" scrolling="no"></iframe>
+<iframe src="../../sims/statement-storage-retrieval-voiding-flow/main.html" width="100%" height="277px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>One Statement, Three Ways to Touch the Record</summary>

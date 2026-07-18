@@ -200,7 +200,7 @@ Every technology named so far answers "where does the data live" or "how does a 
 
 #### Diagram: The Observability Pipeline, From Statement to Screen
 
-<iframe src="../../sims/observability-pipeline-trace-flow/main.html" width="100%" height="442px" scrolling="no"></iframe>
+<iframe src="../../sims/observability-pipeline-trace-flow/main.html" width="100%" height="472px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>The Observability Pipeline, From Statement to Screen</summary>

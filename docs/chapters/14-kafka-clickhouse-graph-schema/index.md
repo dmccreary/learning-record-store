@@ -293,7 +293,7 @@ The list below reinforces the three materialized views just described, matched t
 
 #### Diagram: Materialized Views to Summary Vertex Mapping
 
-<iframe src="../../sims/mv-to-vertex-mapping/main.html" width="100%" height="482px" scrolling="no"></iframe>
+<iframe src="../../sims/mv-to-vertex-mapping/main.html" width="100%" height="287px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Materialized Views to Summary Vertex Mapping</summary>

@@ -1,5 +1,5 @@
 {
-  "title": "From Gateway to Event Store \u2014 the Ingestion and Processing Pipeline",
+  "title": "From Gateway to Event Store — the Ingestion and Processing Pipeline",
   "description": "Let the learner trace one xAPI statement's path from an intelligent textbook through the Ingestion Gateway, the Durable Event Queue, and the Stream Processor, into the Event Store, and predict which steps can proceed even if a later step is temporarily unavailable.",
   "creator": "Learning Record Store",
   "author": "Dan McCreary",
@@ -20,5 +20,5 @@
   "chapter_title": "System Context and the Five Architectural Planes",
   "chapter_dir": "05-system-context-architectural-planes",
   "chapter_rel_dir": "chapters/05-system-context-architectural-planes",
-  "canvasHeight": 420
+  "canvasHeight": 670
 }

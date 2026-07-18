@@ -19,7 +19,7 @@
     <div class="container">
         <div class="diagram-panel">
             <div class="mermaid">
-flowchart LR
+flowchart TD
     S1["1 &middot; District SIS<br/><small>holds official enrollment &mdash; outside this LRS</small>"]:::ext
     S2["2 &middot; Admin configures a roster source<br/><small>OneRoster REST/CSV; creds in a secret manager</small>"]:::ext
     S3["3 &middot; Roster sync runs on a schedule<br/><small>data exported in OneRoster format</small>"]:::lrs

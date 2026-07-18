@@ -184,7 +184,7 @@ Before looking at the diagram below, hold the shape of the pipeline so far in mi
 
 #### Diagram: From Gateway to Event Store — the Ingestion and Processing Pipeline
 
-<iframe src="../../sims/ingestion-processing-storage-pipeline/main.html" width="100%" height="422px" scrolling="no"></iframe>
+<iframe src="../../sims/ingestion-processing-storage-pipeline/main.html" width="100%" height="672px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>From Gateway to Event Store — the Ingestion and Processing Pipeline</summary>
