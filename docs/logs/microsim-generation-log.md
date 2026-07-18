@@ -1,35 +1,50 @@
 # MicroSim Generation Log
 
-Autonomous run converting all TODO diagram specifications extracted from the
-chapter content into working MicroSims, one library group at a time.
+Autonomous run converting **all 122 TODO diagram specifications** (extracted from
+the `#### Diagram:` blocks of every chapter's `index.md`) into working, verified
+MicroSims. Every sim was implemented, given a per-diagram iframe height, marked
+`status: implemented` in its `index.md` and `completion_status: implemented` in
+its `metadata.json`, and verified to render in a real headless browser before
+being counted done.
 
-- **Source specs:** `docs/sims/TODO/*.json` (extracted from `#### Diagram:` blocks
-  in every chapter's `index.md`).
-- **Total to implement:** 122 MicroSims.
-- **Library mix:** 56 Mermaid, 29 p5.js, 19 vis-network, 10 Chart.js,
-  7 vis-timeline, 1 custom HTML.
+## Final tally — 122 / 122 complete
 
-Each implemented sim replaces its scaffold `main.html` with a real
-implementation, gets a per-diagram iframe height, `status: implemented` in
-`index.md`, and `canvasHeight` + `completion_status: implemented` in
-`metadata.json`. Mermaid sims share a click-to-infobox `script.js` + `style.css`
-(2/3 diagram + 1/3 info panel). Each diagram is verified to parse/render before
-being marked done.
+| Library | Count | Pattern used |
+|---|---:|---|
+| Mermaid | 56 | 2/3 diagram + 1/3 info panel; shared click-to-infobox `script.js` + `style.css` |
+| p5.js | 29 | p5 standard: `updateCanvasSize()` first, `<main>` parenting, built-in controls, default-paused |
+| vis-network | 19 | shared `vis-app.js` driver; 2/3 graph + 1/3 info panel; physics or hierarchical layout |
+| Chart.js | 10 | self-contained, fixed-height chart box, tooltips + the key toggle/slider per sim |
+| vis-timeline | 7 | self-contained, auto-height timeline + click-to-details panel |
+| HTML/CSS/JS | 1 | self-contained annotated-statement interactive |
 
-## Progress by batch
+## How it was built
 
-### Batch 1 — Mermaid, chapters 1–6 (12 sims) — DONE
+- **Extraction & scaffolding.** `create-microsim-todo-json-files.py` pulled 123
+  specs into `docs/sims/TODO/`; `scaffold-microsims-from-todo.py` stubbed 122 sim
+  directories. (One spec, `xapi-statement-triple`, already had a directory.)
+- **Sequential, per-library batches.** Implemented one library group at a time,
+  chapter by chapter, committing a checkpoint after each batch.
+- **Verification harness.** `_verify.html` (a dev-only harness, not committed)
+  loaded each batch's sims in visible, staggered iframes and polled each until it
+  settled (an SVG/canvas/timeline rendered, or a Mermaid parse error appeared).
+  Every one of the 122 was confirmed rendering; interaction was spot-checked
+  (Mermaid click-to-infobox, vis-network node clicks, the grain-constraint
+  MERGE/`:Statement` buttons, the suppression-attack subtraction math, p5 controls).
 
-lms-vs-lrs-architecture, xapi-statement-triple, voiding-lifecycle-flow,
-xapi-endpoint-http-verbs, cmi5-launch-sequence, xapi-governance-handoff,
-xapi-profile-anatomy, statement-timestamp-verifiability-chain,
-ingestion-processing-storage-pipeline, lrs-system-context-diagram,
-roster-ingestion-workflow, tenancy-hierarchy-tree.
+## Notable fixes made during the run
 
-Notes: adapted the shared Mermaid template from hover to **click**-to-reveal per
-the specs. Fixed the node-id extractor for Mermaid v11's
-`mermaid-<ts>-flowchart-<id>-<n>` element ids (the original `^flowchart-` regex
-left the diagram prefix, so clicks never matched `nodeInfo`). All 12 verified
-rendering without syntax errors; click interaction confirmed in-browser.
+- **Mermaid v11 node ids.** Elements are `mermaid-<ts>-flowchart-<id>-<n>`; the
+  first id-extraction regex only stripped a `flowchart-` prefix, so clicks never
+  matched `nodeInfo`. Fixed the shared `script.js` to strip the full prefix.
+- **Mermaid reserved words.** `classDef graph`/`note` and a bare `-.-` link caused
+  parse errors; switched to safe class names and dotted-arrow `-.->`.
+- **Harness reliability.** `display:none` iframes render lazily, causing false
+  "failures"; the harness was changed to use visible iframes and poll until each
+  frame settles, then extended to recognize vis-timeline output.
 
-<!-- Subsequent batches appended below as they complete. -->
+## Batch commits
+
+Scaffold → Mermaid (ch 1-6, 7-11, 13-17, 18-23, 24-32) → vis-network (ch 3-9,
+10-30) → Chart.js (ch 8-26) → vis-timeline (ch 1-28) → p5.js (ch 1-6, 11-15,
+16-25, 4-32). See `git log` for the per-batch messages.
