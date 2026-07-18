@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="An intelligent textbook on Learning Record Stores: what they are, how xAPI statements work, and how to design, deploy, and query an LRS.">
+        <meta name="description" content="The project's own minimum-viable build plan for testing the falsifiable claim that graph write rates stay flat under a 5x ingest burst, including the bugs found in its own proof harness and the five build steps to a measured result.">
       
       
         <meta name="author" content="Dan McCreary">
@@ -21,22 +21,19 @@
         <link rel="next" href="../23-production-infrastructure-cloud/">
       
       
-        
-      
-      
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
     
     
       
-        <title>22. Proving the Architecture - the MVP Plan - Learning Record Store</title>
+        <title>Proving the Architecture - the MVP Plan - Learning Record Store</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -67,6 +64,7 @@
     
       
 
+    
     
     
   </head>
@@ -121,7 +119,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              22. Proving the Architecture - the MVP Plan
+              Proving the Architecture - the MVP Plan
             
           </span>
         </div>
@@ -133,13 +131,11 @@
     
     
     
-      
-      
-        <label class="md-header__button md-icon" for="__search">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        </label>
-        <div class="md-search" data-md-component="search" role="dialog">
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
@@ -178,14 +174,13 @@
     </div>
   </div>
 </div>
-      
     
     
       <div class="md-header__source">
         <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub Repo
@@ -230,7 +225,7 @@
       <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub Repo
@@ -250,16 +245,9 @@
       <a href="../.." class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Home
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -277,16 +265,9 @@
       <a href="../../about/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     About
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -304,16 +285,9 @@
       <a href="../../course-description/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Course Description
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -325,120 +299,6 @@
       
   
   
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-  
-    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
-      
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Specifications
-  
-
-    
-  </span>
-  
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-  
-    <a href="../../demo/graph-queries/" class="md-nav__link">
-      
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Demo
-  
-
-    
-  </span>
-  
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -451,70 +311,133 @@
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
-    
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
     
     
     
@@ -524,42 +447,32 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
+          
           
           <div class="md-nav__link md-nav__container">
             <a href="../" class="md-nav__link ">
               
   
-  
   <span class="md-ellipsis">
-    
-  
     Chapters
-  
-
-    
   </span>
-  
   
 
             </a>
             
               
-              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_6">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
-            
-  
-    Chapters
-  
-
+            Chapters
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -575,16 +488,9 @@
       <a href="../01-lms-to-experience-api/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     1. From Learning Management Systems to the Experience API
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -603,16 +509,9 @@
       <a href="../02-anatomy-of-xapi-statement/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     2. The Anatomy of an xAPI Statement
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -631,16 +530,9 @@
       <a href="../03-ieee-standardization-xapi-cmi5/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     3. IEEE Standardization of xAPI and cmi5
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -659,16 +551,9 @@
       <a href="../04-standards-governance-ecosystem/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     4. Standards Governance and the Wider Interoperability Ecosystem
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -687,16 +572,9 @@
       <a href="../05-system-context-architectural-planes/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     5. System Context and the Five Architectural Planes
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -715,16 +593,9 @@
       <a href="../06-multi-tenancy-rosters-identity/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     6. Multi-Tenancy, Rosters, and Pseudonymous Identity
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -743,16 +614,9 @@
       <a href="../07-property-graph-data-model/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     7. The Property Graph Data Model
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -771,16 +635,9 @@
       <a href="../08-summary-vertices-ingestion/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     8. Summary Vertices and Statement Ingestion Mechanics
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -799,16 +656,9 @@
       <a href="../09-twelve-core-lrs-functions/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     9. The Twelve Core LRS Functions
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -827,16 +677,9 @@
       <a href="../10-choosing-technology-stack/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     10. Choosing the Technology Stack
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -855,16 +698,9 @@
       <a href="../11-adrs-and-capacity-model/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     11. Architecture Decision Records and the Capacity Model
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -883,16 +719,9 @@
       <a href="../12-bayesian-knowledge-tracing/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     12. Bayesian Knowledge Tracing for Mastery
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -911,16 +740,9 @@
       <a href="../13-component-design-in-depth/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     13. Component Design in Depth
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -939,16 +761,9 @@
       <a href="../14-kafka-clickhouse-graph-schema/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     14. Kafka Topics, ClickHouse Schema, and Graph Constraints
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -967,16 +782,9 @@
       <a href="../15-privacy-and-dashboard-mechanics/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     15. Privacy Enforcement and Dashboard Mechanics
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -995,16 +803,9 @@
       <a href="../16-container-image-and-cli/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     16. The Container Image and the Role Dispatcher CLI
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1023,16 +824,9 @@
       <a href="../17-compose-makefile-supply-chain/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     17. Docker Compose, the Makefile, and the Image Supply Chain
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1051,16 +845,9 @@
       <a href="../18-config-migration-backup-rollout/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     18. Configuration, Migration, Backup, and Rollout
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1079,16 +866,9 @@
       <a href="../19-failure-modes-and-verification/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     19. Failure Modes and Verification
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1107,16 +887,9 @@
       <a href="../20-deviations-roadmap-open-questions/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     20. Spec Deviations, the Delivery Roadmap, and Open Questions
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1135,16 +908,9 @@
       <a href="../21-hardware-cost-dev-environment/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     21. Hardware Sizing, Cost, and the Development Environment
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1172,16 +938,9 @@
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
   
-  
   <span class="md-ellipsis">
-    
-  
     22. Proving the Architecture - the MVP Plan
-  
-
-    
   </span>
-  
   
 
           <span class="md-nav__icon md-icon"></span>
@@ -1190,16 +949,9 @@
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     22. Proving the Architecture - the MVP Plan
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1222,9 +974,7 @@
         <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Summary
-      
+      Summary
     </span>
   </a>
   
@@ -1233,9 +983,7 @@
         <li class="md-nav__item">
   <a href="#concepts-covered" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Concepts Covered
-      
+      Concepts Covered
     </span>
   </a>
   
@@ -1244,9 +992,157 @@
         <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
       
-        Prerequisites
+        <li class="md-nav__item">
+  <a href="#proving-the-architecture-before-chasing-a-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proving the Architecture Before Chasing a User
+    </span>
+  </a>
+  
+</li>
       
+        <li class="md-nav__item">
+  <a href="#the-claim-the-architecture-rests-on" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Claim the Architecture Rests On
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#two-bugs-hiding-behind-a-green-checkmark" class="md-nav__link">
+    <span class="md-ellipsis">
+      Two Bugs Hiding Behind a Green Checkmark
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Two Bugs Hiding Behind a Green Checkmark">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-two-bugs-behind-a-green-checkmark" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Two Bugs Behind a Green Checkmark
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lift-where-you-can-rewrite-where-you-must" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lift Where You Can, Rewrite Where You Must
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#three-fixes-that-ride-along-with-the-lift" class="md-nav__link">
+    <span class="md-ellipsis">
+      Three Fixes That Ride Along With the Lift
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Three Fixes That Ride Along With the Lift">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-vault-network-isolation-in-the-compose-topology" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Vault Network Isolation in the Compose Topology
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#five-steps-from-a-cold-clone-to-a-measurement" class="md-nav__link">
+    <span class="md-ellipsis">
+      Five Steps From a Cold Clone to a Measurement
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Five Steps From a Cold Clone to a Measurement">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-the-five-mvp-build-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: The Five MVP Build Steps
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-this-mvp-deliberately-leaves-out" class="md-nav__link">
+    <span class="md-ellipsis">
+      What This MVP Deliberately Leaves Out
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reading-the-proof" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reading the Proof
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reading the Proof">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-burst-insensitivity-graph-write-rate-vs-ingest-rate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Burst Insensitivity — Graph Write Rate vs. Ingest Rate
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#from-measurement-back-to-the-docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      From Measurement Back to the Docs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
     </span>
   </a>
   
@@ -1271,16 +1167,9 @@
       <a href="../23-production-infrastructure-cloud/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     23. Production Infrastructure and Cloud Services
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1299,16 +1188,9 @@
       <a href="../24-three-personas-and-admin-uis/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     24. Meet the Three Personas and the Admin UI Surface
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1327,16 +1209,9 @@
       <a href="../25-district-admin-rosters-deployments/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     25. District Administrator - Rosters, Deployments, and Registries
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1355,16 +1230,9 @@
       <a href="../26-district-admin-access-control/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     26. District Administrator - Access Control and System Configuration
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1383,16 +1251,9 @@
       <a href="../27-compliance-and-district-reporting/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     27. Compliance, Privacy Law, and District-Level Reporting
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1411,16 +1272,9 @@
       <a href="../28-teacher-dashboards-student-reports/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     28. Teacher Dashboards and Student-Level Reports
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1439,16 +1293,9 @@
       <a href="../29-class-level-reports-and-tools/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     29. Class-Level Reports and Teacher Tools
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1467,16 +1314,9 @@
       <a href="../30-author-dashboards-content-reports/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     30. Textbook Author Dashboards and Content Reports
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1495,16 +1335,9 @@
       <a href="../31-designing-ab-experiments/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     31. Designing and Reading A/B Experiments
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1523,16 +1356,9 @@
       <a href="../32-producer-contract-conformant-statements/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     32. The Producer Contract - Writing Conformant Statements
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1576,7 +1402,6 @@
     
     
     
-    
       
         
         
@@ -1587,20 +1412,12 @@
         
   
   
-  
     <a href="../../learning-graph/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     Learning Graph
-  
-
-    
   </span>
-  
   
 
       
@@ -1628,18 +1445,29 @@
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
-    
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
     
     
     
@@ -1653,20 +1481,108 @@
         
   
   
-  
     <a href="../../sims/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     MicroSims
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
   
 
     
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Specifications
   </span>
   
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../demo/graph-queries/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Demo
+  </span>
   
 
       
@@ -1690,16 +1606,9 @@
       <a href="../../glossary/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Glossary
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1717,16 +1626,9 @@
       <a href="../../license/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     License
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1744,16 +1646,9 @@
       <a href="../../contact/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Contact
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1790,9 +1685,7 @@
         <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Summary
-      
+      Summary
     </span>
   </a>
   
@@ -1801,9 +1694,7 @@
         <li class="md-nav__item">
   <a href="#concepts-covered" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Concepts Covered
-      
+      Concepts Covered
     </span>
   </a>
   
@@ -1812,9 +1703,157 @@
         <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
       
-        Prerequisites
+        <li class="md-nav__item">
+  <a href="#proving-the-architecture-before-chasing-a-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proving the Architecture Before Chasing a User
+    </span>
+  </a>
+  
+</li>
       
+        <li class="md-nav__item">
+  <a href="#the-claim-the-architecture-rests-on" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Claim the Architecture Rests On
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#two-bugs-hiding-behind-a-green-checkmark" class="md-nav__link">
+    <span class="md-ellipsis">
+      Two Bugs Hiding Behind a Green Checkmark
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Two Bugs Hiding Behind a Green Checkmark">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-two-bugs-behind-a-green-checkmark" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Two Bugs Behind a Green Checkmark
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lift-where-you-can-rewrite-where-you-must" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lift Where You Can, Rewrite Where You Must
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#three-fixes-that-ride-along-with-the-lift" class="md-nav__link">
+    <span class="md-ellipsis">
+      Three Fixes That Ride Along With the Lift
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Three Fixes That Ride Along With the Lift">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-vault-network-isolation-in-the-compose-topology" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Vault Network Isolation in the Compose Topology
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#five-steps-from-a-cold-clone-to-a-measurement" class="md-nav__link">
+    <span class="md-ellipsis">
+      Five Steps From a Cold Clone to a Measurement
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Five Steps From a Cold Clone to a Measurement">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-the-five-mvp-build-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: The Five MVP Build Steps
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-this-mvp-deliberately-leaves-out" class="md-nav__link">
+    <span class="md-ellipsis">
+      What This MVP Deliberately Leaves Out
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reading-the-proof" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reading the Proof
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reading the Proof">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-burst-insensitivity-graph-write-rate-vs-ingest-rate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Burst Insensitivity — Graph Write Rate vs. Ingest Rate
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#from-measurement-back-to-the-docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      From Measurement Back to the Docs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
     </span>
   </a>
   
@@ -1830,62 +1869,12 @@
           
           
             <div class="md-content" data-md-component="content">
-              
-                
-
-
-
-  
-
-
-  <nav class="md-path" aria-label="Navigation" >
-    <ol class="md-path__list">
-      
-        
-  
-  
-    <li class="md-path__item">
-      <a href="../.." class="md-path__link">
-        
-  <span class="md-ellipsis">
-    Home
-  </span>
-
-      </a>
-    </li>
-  
-
-      
-      
-        
-  
-  
-    
-    
-      <li class="md-path__item">
-        <a href="../" class="md-path__link">
-          
-  <span class="md-ellipsis">
-    Chapters
-  </span>
-
-        </a>
-      </li>
-    
-  
-
-      
-    </ol>
-  </nav>
-
-              
               <article class="md-content__inner md-typeset">
                 
                   
 
-
   
-    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/22-proving-the-architecture-mvp/index.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/22-proving-the-architecture-mvp/index.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1928,13 +1917,278 @@
 <li><a href="../16-container-image-and-cli/">Chapter 16: The Container Image and the Role Dispatcher CLI</a></li>
 </ul>
 <hr />
-<p>TODO: Generate Chapter Content</p>
+<div class="admonition mascot-welcome">
+<p class="admonition-title">The Budget Is Set. Now We Test the Claim.</p>
+<p><img alt="Rowan waving welcome" class="mascot-admonition-img" src="../../img/mascot/welcome.png" />
+Chapter 21 closed with a development host sized for exactly one measurement. This chapter is that measurement: the project's own minimum-viable build plan, the bugs it found hiding inside its own proof harness, and the five steps that turn a cold clone into a chart. Let's follow the record.</p>
+</div>
+<p>Every chapter before this one has described the Learning Record Store's design — the graph model, the compression pipeline, the twelve core functions, the hardware it needs to run. None of it has run. As of this project's own history, <code>docs/specs/</code> holds a mature functional specification and a matching design document, and every commit in the repository is documentation. The Dockerfile, the Compose file, the ClickHouse schema, and the graph constraints exist only as code blocks embedded inside prose. This chapter covers the plan that closes that gap: not by building the whole system end to end, but by building just enough of it to test the one claim the entire architecture rests on.</p>
+<h2 id="proving-the-architecture-before-chasing-a-user">Proving the Architecture Before Chasing a User<a class="headerlink" href="#proving-the-architecture-before-chasing-a-user" title="Permanent link">&para;</a></h2>
+<p>The design document's own roadmap lays out a twenty-six-week, layer-by-layer build that does not reach a real user until week twenty-one, because the dashboards a teacher or district administrator would look at need a roster, a signed district agreement, and privacy consent in place first — none of which code alone can produce. Waiting twenty-one weeks to learn whether the central architectural bet even works is a long time to be wrong.</p>
+<p>The <strong>MVP Architecture Proof</strong> is the alternative: a minimum-viable build plan that deliberately skips the user-facing layers and drives straight at the one design decision every other decision in this book depends on. It does not try to reach a classroom. It tries to reach a measurement. Every other choice in this chapter — which files to reuse, which bugs to fix first, which steps to build in what order — exists in service of getting to that one chart as fast as honestly possible.</p>
+<h2 id="the-claim-the-architecture-rests-on">The Claim the Architecture Rests On<a class="headerlink" href="#the-claim-the-architecture-rests-on" title="Permanent link">&para;</a></h2>
+<p>Chapter 11 introduced the capacity model's central distinction: some parts of this system scale with <em>event rate</em> (statements per second) and some scale with <em>population</em> (distinct students and concepts). The compression pipeline from Chapter 8 turns the first into the second — collapsing many small statements about one student and one concept into a single summary vertex, updated in place rather than appended to.</p>
+<p>The <strong>Burst Insensitivity Claim</strong> is what that mechanism predicts, stated as a number: at the design's default sixty-second summarization cadence, the graph write rate holds at roughly 2,500 upserts per second regardless of how hard ingest is pushed, because a burst means each already-active student emits more events, not that five times as many students appear. Distinct active (student, concept) pairs per sync window barely move even when statement volume quintuples, and write rate tracks distinct active pairs, not statement count.</p>
+<p>That is a <strong>falsifiable</strong> claim: multiply the ingest rate by five, and watch what the graph write rate does. Two outcomes are possible, and only one is good news.</p>
+<ul>
+<li><strong>If graph writes stay flat under a 5× ingest burst</strong>, the compression architecture works as designed — the graph tier never has to scale with statement volume, and every downstream conclusion in this book (the $10,300/month production estimate, the Neo4j licensing question, the constraint that forbids one graph vertex per statement) is standing on solid ground.</li>
+<li><strong>If graph writes climb roughly in step with ingest</strong>, the architecture does not work as designed — compression is not decoupling the graph from the event stream, and the constraints and cost model built on top of it need to be revisited before anything else is built.</li>
+</ul>
+<div class="admonition mascot-thinking">
+<p class="admonition-title">A Claim That Can Fail Is Worth More Than One That Can't</p>
+<p><img alt="Rowan thinking with a magnifying glass" class="mascot-admonition-img" src="../../img/mascot/thinking.png" />
+Notice the shape of this claim: a specific number (~2,500 upserts/sec), a specific stress test (5× ingest), a specific pass/fail line (flat versus climbing). A design document that only says "the architecture should scale well" cannot be wrong in any way anyone could catch. This one can — which is exactly what makes it worth testing rather than trusting.</p>
+</div>
+<p>Before this MVP plan existed, that claim had never been executed against real code — only reasoned about on paper. The table below restates the full set of claims this build tests, not just the headline one.</p>
+<table>
+<thead>
+<tr>
+<th>Claim</th>
+<th>What it means</th>
+<th>How it is tested</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Burst insensitivity</td>
+<td>Graph writes decouple from ingest rate</td>
+<td>Run <code>loadgen</code> at rate N and 5N; graph upserts/sec stays flat</td>
+</tr>
+<tr>
+<td>No per-statement vertices</td>
+<td>The graph never grows one vertex per event</td>
+<td>Query for statement-shaped nodes; count must be zero, enforced by a constraint</td>
+</tr>
+<tr>
+<td>Idempotent materialization</td>
+<td>Running the summarizer twice produces the same graph</td>
+<td>Run it twice; compare the graph byte-for-byte</td>
+</tr>
+<tr>
+<td>Observable compression ratio</td>
+<td>The statements-to-vertex ratio can be measured, not assumed</td>
+<td>Compute the ratio on seeded data; assert it clears 20:1</td>
+</tr>
+<tr>
+<td>Reproducibility from the log</td>
+<td>The graph can be rebuilt from the durable event log alone</td>
+<td>Rebuild the graph from a replay and compare to the original</td>
+</tr>
+<tr>
+<td>Non-blocking ingest</td>
+<td>A dead graph store never stops statements from being recorded</td>
+<td>Kill the graph database; confirm the ingest endpoint still returns success</td>
+</tr>
+</tbody>
+</table>
+<h2 id="two-bugs-hiding-behind-a-green-checkmark">Two Bugs Hiding Behind a Green Checkmark<a class="headerlink" href="#two-bugs-hiding-behind-a-green-checkmark" title="Permanent link">&para;</a></h2>
+<p>Before writing a line of new code, the MVP plan audited the design document's own proof harness — and found two problems that made testing this claim urgent rather than academic, because the harness meant to prove the architecture could not be trusted to prove anything.</p>
+<p>The first is a <strong>Smoke Harness Decorative Check</strong>: a step inside the design's own <code>smoke.sh</code> script that looks like a pass/fail test but cannot actually fail. The script chains commands with <code>&amp;&amp;</code>, and in a shell script that pattern silently swallows a failing check unless every command in the chain is the final one — so a line written as "query the store, grep for the expected result, print a checkmark" prints the checkmark whether or not the grep found anything. One step has no assertion at all: it prints a compression ratio to the screen and falls straight through to an unconditional "smoke passed" message, regardless of that ratio's value. A script structured this way is decorative in the most literal sense — it renders the appearance of verification without performing it.</p>
+<p>The second is the <strong>Mastery Path Disconnection</strong>: the route a student's Bayesian Knowledge Tracing mastery score — the number Chapter 12 built an entire probabilistic update rule around — is supposed to take from computation to the graph does not actually exist end to end in the design as written. The component that reads recent statements and produces mastery-relevant aggregates does not select the mastery column the graph-writing step expects, the materialized view that is supposed to compute it does not, and the store the design names as the processor's only durable write does not include the table that would carry it forward. Three independent pieces of evidence, one missing connection.</p>
+<p>The following list makes the shared shape of both findings explicit.</p>
+<ul>
+<li>A <strong>Smoke Harness Decorative Check</strong> produces a passing signal disconnected from the thing it claims to check — the script says "verified," the underlying assertion never ran.</li>
+<li>A <strong>Mastery Path Disconnection</strong> produces a graph that looks complete but is missing mastery, the number the rest of the product treats as its central output.</li>
+<li>Both share one property: running the pipeline once, casually, would never reveal either. Both needed someone to trace the actual data flow and compare it against what the code claimed to do.</li>
+</ul>
+<div class="admonition mascot-warning">
+<p class="admonition-title">A Green Checkmark Is a Claim, Not a Fact</p>
+<p><img alt="Rowan waving a caution flag" class="mascot-admonition-img" src="../../img/mascot/warning.png" />
+An architecture proof that ends in a green checkmark and a null mastery score is worse than no proof — it tells you the system works when it does not. Before trusting any test harness, read what it actually asserts, not just what it prints. A passing test suite is only as honest as its weakest assertion.</p>
+</div>
+<p>The diagram below lays the two findings side by side, so you can trace exactly where each one breaks — the decorative check inside the shell script's control flow, and the missing column inside the mastery data path.</p>
+<h4 id="diagram-two-bugs-behind-a-green-checkmark">Diagram: Two Bugs Behind a Green Checkmark<a class="headerlink" href="#diagram-two-bugs-behind-a-green-checkmark" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/two-bugs-green-checkmark/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Two Bugs Behind a Green Checkmark</summary>
+<p>Type: infographic
+<strong>sim-id:</strong> two-bugs-green-checkmark<br/>
+<strong>Library:</strong> Mermaid<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Analyze (L4)
+Bloom Taxonomy Verb: differentiate, examine</p>
+<p>Learning objective: Analyze why a passing smoke-test script and a graph with mastery scores present can both hide a real defect, by tracing where each verification silently breaks.</p>
+<p>Purpose: Two parallel Mermaid flowcharts stacked vertically, each tracing one bug from "looks fine" to "the actual break."</p>
+<p>Top panel "Smoke Harness Decorative Check": "Run check: query store, grep result" -&gt; "grep fails to match (real problem exists)" -&gt; "<code>&amp;&amp;</code> chaining means <code>set -e</code> does not apply here" -&gt; "Script prints checkmark anyway" -&gt; "Exit code 0: harness reports success." Short branch: "Print compression ratio" -&gt; "No assertion follows" -&gt; "Falls through to 'smoke passed'."</p>
+<p>Bottom panel "Mastery Path Disconnection": "BKT computes P(L) update" -&gt; "Mastery-aggregation query does not select a mastery column" -&gt; "Materialized rollup does not compute one either" -&gt; "Durable store has the column, nothing writes to it" -&gt; "Graph write step sets mastery from a value never produced" -&gt; "Result: mastery score is null, no error raised."</p>
+<p>Interactive features: Every node has a Mermaid click directive; clicking opens an infobox explaining why that step's signal diverges from reality, naming the file/layer it corresponds to.</p>
+<p>Color coding: Steps that look correct shaded calm teal; the step where signal and reality diverge shaded warning amber with a break-in-the-chain icon.</p>
+<p>Responsive design: Panels stack vertically and stay full-width on narrow viewports; click targets stay tap-sized.</p>
+</details>
+<h2 id="lift-where-you-can-rewrite-where-you-must">Lift Where You Can, Rewrite Where You Must<a class="headerlink" href="#lift-where-you-can-rewrite-where-you-must" title="Permanent link">&para;</a></h2>
+<p>With those findings in hand, the MVP plan needed a working principle for the code already sitting inside the design document. Rewriting everything would waste work the design had already gotten right; lifting everything unexamined would carry both bugs straight into a fresh codebase.</p>
+<p>The <strong>Lift Vs Rewrite Decision</strong> is that principle, applied file by file: reuse an artifact verbatim when it is correct as written, reuse it with named fixes when it is close but has a specific defect, and rewrite it entirely when its core logic cannot be trusted. This produces a short, decisive list rather than a vague "review everything" instruction, which matters because "review everything" rarely gets built.</p>
+<p>The table below organizes that decision across the design's major artifacts.</p>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Verdict</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dockerfile</td>
+<td>Lift verbatim</td>
+<td>Correct as written; add one image-source label for traceability</td>
+</tr>
+<tr>
+<td>Compose file</td>
+<td>Lift, with three fixes</td>
+<td>Correct shape, but network isolation, a healthcheck dependency, and a startup ordering gap need fixing</td>
+</tr>
+<tr>
+<td>ClickHouse schema</td>
+<td>Lift, with two fixes</td>
+<td>Correct tables, but one PII exposure and one column type are wrong</td>
+</tr>
+<tr>
+<td>Cypher constraints</td>
+<td>Lift, verify on Community edition</td>
+<td>Correct as written, but the licensing tier that runs them was never confirmed</td>
+</tr>
+<tr>
+<td>Kafka topics</td>
+<td>Lift, resized</td>
+<td>Correct topic design; partition count scaled down for MVP volume</td>
+</tr>
+<tr>
+<td><code>smoke.sh</code></td>
+<td>Rewrite entirely</td>
+<td>The decorative-check bug above means the control flow itself cannot be trusted, not just its content</td>
+</tr>
+</tbody>
+</table>
+<h2 id="three-fixes-that-ride-along-with-the-lift">Three Fixes That Ride Along With the Lift<a class="headerlink" href="#three-fixes-that-ride-along-with-the-lift" title="Permanent link">&para;</a></h2>
+<p>Three of those "lift, with fixes" verdicts deserve their own explanation, because each is a real defect that would have shipped silently if the MVP plan had lifted the design's code without reading it first.</p>
+<p>The <strong>Raw Column PII Hole</strong> is a privacy leak inside a column the design document calls "the full original JSON, verbatim... kept forever." That raw, unmodified copy of every incoming statement includes the learner's original account name — exactly what the pseudonymization boundary from Chapter 6 exists to strip out. Because the raw column sits in the analytics store, any reader with query access to analytics, not just the identity vault, can extract the name and re-identify a supposedly de-identified learner, contradicting the design's own claim that nothing downstream of ingestion sees more than a derived, salted key. The fix must land before any statement becomes durable: strip the identifying field before writing it, or move the column behind the same restricted access the vault already enforces. Fixing it after the store is live and append-only is far more expensive.</p>
+<p>The <strong>Last Seen Type Fix</strong> repairs a type mismatch in the schema tracking when a student last engaged with a concept. The design declares that column as an aggregate-function type meant to be merged across rows, but a downstream query filters on it directly — a comparison a pre-merged aggregate type cannot support without a type error or a full table scan that defeats the "only touch changed rows" design the column exists to enable. Declaring it as a plain, filterable value resolves both problems.</p>
+<p>The <strong>Mastery Join Fix</strong> is the concrete repair for the Mastery Path Disconnection: rather than one query computing mastery directly, the processor writes mastery evidence to its own durable table alongside the statement log, and the summarizer joins that table against its rollup when materializing the graph — the difference between a graph with a mastery column and a graph where that column is ever populated.</p>
+<div class="admonition mascot-tip">
+<p class="admonition-title">Read the Design Line by Line Before You Trust It</p>
+<p><img alt="Rowan pointing helpfully" class="mascot-admonition-img" src="../../img/mascot/tip.png" />
+All three fixes were found the same way: tracing one column from where it is written to where it is read, across every file that touches it. None would show up from running the stack once and eyeballing the output. When you inherit a design document, trace the data, don't just read the prose.</p>
+</div>
+<p>One more fix belongs in this group, though it addresses isolation rather than a data defect. <strong>Vault Net Isolation</strong> is a Compose-level network boundary: the identity service's vault database — the only place the mapping from a real learner identity to a pseudonymous key is stored — sits on its own private network no other service can reach, with no published host port. Every other service, including the summarizer and the graph store, sees only the derived, salted key Chapter 6 introduced, never the mapping that could reverse it. The design calls this "a compliance boundary, not a scale-driven one" — it exists because privacy regulation demands it, not because vault traffic needs its own network segment for throughput.</p>
+<h4 id="diagram-vault-network-isolation-in-the-compose-topology">Diagram: Vault Network Isolation in the Compose Topology<a class="headerlink" href="#diagram-vault-network-isolation-in-the-compose-topology" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/vault-net-isolation-workflow/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Vault Network Isolation in the Compose Topology</summary>
+<p>Type: workflow
+<strong>sim-id:</strong> vault-net-isolation-workflow<br/>
+<strong>Library:</strong> Mermaid<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Analyze (L4)
+Bloom Taxonomy Verb: explain, justify</p>
+<p>Learning objective: Explain why the vault database is reachable only by the identity service on an isolated network, and identify which services can and cannot see a real learner identity.</p>
+<p>Purpose: A Mermaid flowchart with two subgraphs on one canvas, showing which services sit on the general application network versus the isolated vault network.</p>
+<p>Left/general subgraph "Application Network": nodes "Gateway", "Stream Processor", "Summarizer", "Graph Store (Neo4j)", "Analytics Store (ClickHouse)" — connected only as the real data flow requires (Gateway -&gt; Processor -&gt; Analytics Store; Processor -&gt; Graph Store via structural stub only; Summarizer -&gt; Graph Store).</p>
+<p>Right/isolated subgraph "vault-net (no published host port)": nodes "Identity Service" and "Vault Database", connected only to each other.</p>
+<p>One crossing edge: "Stream Processor" -&gt; "Identity Service" labeled "resolves salted key only — never the raw mapping."</p>
+<p>Interactive features: Every node has a Mermaid click directive. "Vault Database" opens an infobox on why this is the only place the identity-to-key mapping exists. Any Application Network node opens an infobox confirming "sees only the derived student_key." The crossing edge opens an infobox recapping Chapter 6's HMAC derivation in one sentence.</p>
+<p>Color coding: Application Network in the book's teal accent color; vault-net outlined in amber with a padlock icon, matching Chapter 21's visual language for compliance boundaries.</p>
+<p>Responsive design: Subgraphs stack vertically on narrow viewports with the crossing edge redrawn to remain visible; click targets stay tap-sized.</p>
+</details>
+<h2 id="five-steps-from-a-cold-clone-to-a-measurement">Five Steps From a Cold Clone to a Measurement<a class="headerlink" href="#five-steps-from-a-cold-clone-to-a-measurement" title="Permanent link">&para;</a></h2>
+<p>With the audit complete and the fixes named, the MVP plan lays out five sequential build steps, each with its own exit criterion — a specific, checkable condition that must hold before the next step begins. Each step produces something the next depends on, so skipping ahead means building on an unverified foundation.</p>
+<p><strong>MVP Step 1 Foundation</strong> stands up the project skeleton and the honest version of the test harness rewritten above. It lifts the Dockerfile, Compose file, schema, and constraints with their fixes applied, defines a small producer contract pinning exactly which xAPI verbs and fields the rest of the build assumes, and confirms two things worth learning on day one rather than month six: every service's healthcheck goes healthy on the pinned container versions, and the graph database's uniqueness constraint — enforcing that no student-concept pair is ever duplicated — actually works on the free Community licensing tier the MVP runs on. Exit: a clean boot from a freshly cloned repository, plus a smoke check that correctly reports failure before any real component exists to pass it.</p>
+<p><strong>MVP Step 2 Ingest Path</strong> builds the two services that get a statement from an HTTP request into durable storage: the gateway that validates and queues it, and the stream processor that pseudonymizes the actor, resolves what activity it refers to, and writes it to the analytics store — landing the Raw Column PII Hole fix along the way. Exit: the same smoke check, now green for the right reason, and provably red again when the processor is deliberately broken.</p>
+<p><strong>MVP Step 3 Loadgen Contract</strong> builds a load generator that emits statements in exactly the shape Step 1's producer contract defined — the real shape an intelligent-textbook page would send, not a placeholder. Whatever gets measured against synthetic load has to be shaped like the real traffic it stands in for. Exit: sustaining at least 200 statements per second with the analytics store's row count matching the emitted count exactly.</p>
+<p><strong>MVP Step 4 Compression Graph</strong> is where the compression pipeline from Chapter 8 gets built for real: the summarizer running on its periodic cycle, landing the Mastery Join Fix, and writing the graph edges connecting a student to the concepts, pages, and questions they engaged with. Exit: the constraint against per-statement graph nodes holds at zero, running the summarizer twice produces an identical graph, the compression ratio clears its target and is asserted rather than printed, and mastery scores are no longer null.</p>
+<p><strong>MVP Step 5 Burst Proof</strong> is the payoff: replaying the durable log to confirm the graph rebuilds from scratch, then running the load generator at a low rate and again at five times that rate while measuring the graph write rate across the transition, plus one chaos check — stopping the graph database mid-run to confirm ingestion keeps accepting statements while the graph merely falls behind. Exit: the chart this chapter has been building toward — ingest rising five-fold while the graph write rate stays flat, the Burst Insensitivity Claim proven or falsified on real code instead of paper.</p>
+<h4 id="diagram-the-five-mvp-build-steps">Diagram: The Five MVP Build Steps<a class="headerlink" href="#diagram-the-five-mvp-build-steps" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/five-mvp-build-steps/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>The Five MVP Build Steps</summary>
+<p>Type: timeline
+<strong>sim-id:</strong> five-mvp-build-steps<br/>
+<strong>Library:</strong> vis-timeline<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Understand (L2)
+Bloom Taxonomy Verb: sequence, match</p>
+<p>Learning objective: Sequence the five MVP build steps and match each to its exit criterion, recognizing each step's output as a precondition for the next.</p>
+<p>Time period: Not calendar time — five sequential build steps rendered as contiguous blocks in build order.</p>
+<p>Orientation: Horizontal, left to right, each block labeled with its step number and headline task.</p>
+<p>Events:</p>
+<ul>
+<li>Step 1: Foundation + an honest harness — exit: clean boot from a cold clone; smoke check correctly red before anything real exists</li>
+<li>Step 2: Ingest path (gateway, stream processor) — exit: smoke check green for the right reason, provably red when broken</li>
+<li>Step 3: Loadgen at the producer-contract shape — exit: sustains 200 stmt/sec; store row count matches emitted count exactly</li>
+<li>Step 4: Compression and graph (summarizer, mastery join) — exit: zero per-statement nodes, identical graph on a second run, ratio asserted, mastery non-null</li>
+<li>Step 5: The burst proof (replay, 5x load, chaos test) — exit: a chart showing ingest 5x while graph writes stay flat</li>
+</ul>
+<p>Interactive features: Clicking a step block opens an infobox with its full description and exit criterion. A "Show dependency arrows" toggle overlays arrows from each step to the one it depends on.</p>
+<p>Visual style: Steps 1-4 shaded calm teal; step 5 shaded amber as the step the MVP exists to reach.</p>
+<p>Responsive design: Resizes to its container's width; on narrow viewports labels abbreviate to step number and expand on tap.</p>
+</details>
+<h2 id="what-this-mvp-deliberately-leaves-out">What This MVP Deliberately Leaves Out<a class="headerlink" href="#what-this-mvp-deliberately-leaves-out" title="Permanent link">&para;</a></h2>
+<p>A build plan this focused stays focused by refusing things that feel productive but would not move the central measurement forward. The <strong>MVP Deferred Scope</strong> names those refusals explicitly.</p>
+<ul>
+<li>The full A/B experimentation framework from later chapters — a controlled experiment on a handful of synthetic students would produce noise, not evidence, so it waits for a real rostered population.</li>
+<li>Every admin-facing user interface — district, teacher, and author dashboards all need a roster and consent first, the same twenty-one-week dependency that motivated proving the architecture before chasing a user.</li>
+<li>The reconciler background worker that resolves auto-provisioned activity stubs — the MVP keeps the accept-first stub-writing behavior that proves ingestion never blocks on the graph, but cleaning those stubs up later isn't needed to test burst insensitivity.</li>
+<li>Managed-infrastructure tooling — autoscaling, orchestration beyond Compose, and the supply-chain scanning from Chapter 17 — none of which changes whether the compression math holds.</li>
+<li>The privacy threshold that would blank an instructor's dashboard when too few students have consented — deferred for free, since synthetic test students were never rostered, but named as the next thing to resolve the day a real teacher logs in.</li>
+</ul>
+<div class="admonition mascot-encourage">
+<p class="admonition-title">Saying No to Good Ideas Is Part of the Plan</p>
+<p><img alt="Rowan offering encouragement" class="mascot-admonition-img" src="../../img/mascot/encouraging.png" />
+Every item on that deferred list is a legitimate, eventually-necessary piece of this system — none are bad ideas. Deferring them isn't cutting corners; it protects the one measurement this MVP exists to produce from getting buried under work that doesn't inform it. Saying no to good ideas on purpose is usually a sign the plan knows what it's trying to prove.</p>
+</div>
+<h2 id="reading-the-proof">Reading the Proof<a class="headerlink" href="#reading-the-proof" title="Permanent link">&para;</a></h2>
+<p>Step 5's chart is the destination this chapter has been walking toward, so it is worth being precise about what a passing and a failing version look like before you run it. In the passing case, the ingest-rate line rises in a clean five-fold step while the graph-write-rate line barely moves — the "insensitivity" the claim predicts, because the burst adds events per already-active student rather than adding new students. In the failing case, the graph-write-rate line climbs in step with ingest, meaning compression is not actually decoupling the two, and every downstream conclusion resting on that decoupling — the production hardware estimate from Chapter 21, the prohibition on one graph vertex per statement from Chapter 7 — would need to be revisited.</p>
+<h4 id="diagram-burst-insensitivity-graph-write-rate-vs-ingest-rate">Diagram: Burst Insensitivity — Graph Write Rate vs. Ingest Rate<a class="headerlink" href="#diagram-burst-insensitivity-graph-write-rate-vs-ingest-rate" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/burst-insensitivity-chart/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Burst Insensitivity — Graph Write Rate vs. Ingest Rate</summary>
+<p>Type: chart
+<strong>sim-id:</strong> burst-insensitivity-chart<br/>
+<strong>Library:</strong> Chart.js<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Evaluate (L5)
+Bloom Taxonomy Verb: judge, justify</p>
+<p>Learning objective: Evaluate a burst-test result by comparing an ingest-rate line against a graph-write-rate line across a 5x load increase, and judge whether the pattern confirms or falsifies the burst insensitivity claim.</p>
+<p>Chart type: Dual-line chart over a shared time axis (seconds, 0-600s), left y-axis "Ingest rate (statements/sec)" 0-1200, right y-axis "Graph write rate (upserts/sec)" 0-1200.</p>
+<p>Default state ("Passing result"): Ingest-rate line steps from 200 to 1,000 statements/sec at t=300s and holds. Graph-write-rate line stays essentially flat around 60-70 upserts/sec (scaled to this MVP's smaller population) through the step change, with minor jitter.</p>
+<p>Toggle — "Show failing (hypothetical) result": redraws the graph-write-rate line climbing in step with ingest after t=300s, so the learner can contrast both outcomes on the same axes.</p>
+<p>Toggle — "Show test parameters": overlays an annotation panel listing baseline rate, burst rate, ratio (5x), and the 60s sync cadence.</p>
+<p>Interactive features: Hovering any point shows its value and timestamp. Clicking the dashed line at t=300s (burst onset) opens an infobox on what changes at that moment. A caption below updates per toggle: "Flat graph writes under 5x ingest: the architecture holds" versus "Climbing graph writes: the architecture does not decouple as designed."</p>
+<p>Color scheme: Ingest-rate line in the book's teal accent color; graph-write-rate line in a contrasting warm color; the failing line renders in warning amber.</p>
+<p>Responsive design: Resizes to its container's width; legend and toggles stack below on narrow viewports; touch targets stay tap-sized.</p>
+</details>
+<h2 id="from-measurement-back-to-the-docs">From Measurement Back to the Docs<a class="headerlink" href="#from-measurement-back-to-the-docs" title="Permanent link">&para;</a></h2>
+<p>A proof that stays in a terminal window and never reaches the specification is a proof only the person who ran it can trust. The MVP plan's last instruction is to fold every finding back into the documents this book draws from: rewrite the smoke harness's description, correct the last-seen column's declared type, document the mastery join, resolve the raw-column exposure, and pin down the activity identifier convention that three parts of the existing code disagreed about. Left unamended, the next reader inherits a copy of the design already proven wrong in places.</p>
+<h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The <strong>MVP Architecture Proof</strong> skips the twenty-one-week path to a real user and drives straight at testing the architecture's central bet with the smallest honest build.</li>
+<li>The <strong>Burst Insensitivity Claim</strong> is a falsifiable, numeric prediction — graph writes stay roughly flat under a 5x ingest burst — not a vague promise the system "should scale well."</li>
+<li>A <strong>Smoke Harness Decorative Check</strong> looks like a passing test while never running its assertion, because shell command chaining silently swallows failures.</li>
+<li>The <strong>Mastery Path Disconnection</strong> shows a schema can have the right column and still never populate it, if no step actually writes to it.</li>
+<li>The <strong>Lift Vs Rewrite Decision</strong> applies one rule file by file: lift what's correct, lift-with-fixes what's close, rewrite what can't be trusted.</li>
+<li>The <strong>Raw Column PII Hole</strong>, <strong>Last Seen Type Fix</strong>, and <strong>Mastery Join Fix</strong> are three defects found by tracing data end to end, not by running the stack once and eyeballing the result.</li>
+<li><strong>Vault Net Isolation</strong> keeps the identity-to-key mapping reachable only by the identity service, on a network no other component can see.</li>
+<li><strong>MVP Step 1 Foundation</strong> through <strong>MVP Step 5 Burst Proof</strong> form a strictly sequential build, each exit criterion becoming the next step's precondition, ending in the chart that proves or falsifies the claim.</li>
+<li>The <strong>MVP Deferred Scope</strong> — experiments, admin UIs, the reconciler worker, managed infrastructure, the consent threshold — is a deliberate list of good ideas set aside so they don't dilute the one measurement this build exists to produce.</li>
+</ul>
+<div class="admonition mascot-celebration">
+<p class="admonition-title">The Architecture Just Met Its First Real Test</p>
+<p><img alt="Rowan celebrating with confetti" class="mascot-admonition-img" src="../../img/mascot/celebration.png" />
+From a cold clone to a chart showing ingest climbing five-fold while graph writes barely move — that's not a diagram anymore, that's measured evidence. What does the evidence show? The compression architecture holds under the exact stress it was designed for. One event at a time, this book has been building toward that chart since Chapter 8. In <a href="../23-production-infrastructure-cloud/">Chapter 23: Production Infrastructure and Cloud Services</a>, we take this proven MVP and figure out what it takes to run it for real.</p>
+</div>
 
 
 
 
 
 
+
+  
+  
 
 
 
@@ -2020,13 +2274,10 @@
     </div>
     
     
-    
-      
-      
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
         <script src="../../js/katex.js"></script>
       

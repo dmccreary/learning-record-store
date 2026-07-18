@@ -2,262 +2,266 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/about/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/contact/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/course-description/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/glossary/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/license/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
+    </url>
+    <url>
+         <loc>https://dmccreary.github.io/learning-record-store/blog-posts/fable-made-me-couragious/</loc>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/chapters/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/chapters/01-lms-to-experience-api/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
-         <loc>https://dmccreary.github.io/learning-record-store/chapters/01-what-is-an-ibook-lrs/</loc>
-         <lastmod>2026-07-17</lastmod>
-    </url>
-    <url>
-         <loc>https://dmccreary.github.io/learning-record-store/chapters/01-what-is-an-ibook-lrs/quiz/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <loc>https://dmccreary.github.io/learning-record-store/chapters/01-lms-to-experience-api/quiz/</loc>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/chapters/02-anatomy-of-xapi-statement/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/chapters/03-ieee-standardization-xapi-cmi5/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/chapters/04-standards-governance-ecosystem/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/chapters/05-system-context-architectural-planes/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/chapters/06-multi-tenancy-rosters-identity/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/chapters/07-property-graph-data-model/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/chapters/08-summary-vertices-ingestion/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/chapters/09-twelve-core-lrs-functions/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/chapters/10-choosing-technology-stack/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/chapters/11-adrs-and-capacity-model/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/chapters/12-bayesian-knowledge-tracing/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/chapters/13-component-design-in-depth/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/chapters/14-kafka-clickhouse-graph-schema/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/chapters/15-privacy-and-dashboard-mechanics/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/chapters/16-container-image-and-cli/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/chapters/17-compose-makefile-supply-chain/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/chapters/18-config-migration-backup-rollout/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/chapters/19-failure-modes-and-verification/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/chapters/20-deviations-roadmap-open-questions/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/chapters/21-hardware-cost-dev-environment/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/chapters/22-proving-the-architecture-mvp/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/chapters/23-production-infrastructure-cloud/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/chapters/24-three-personas-and-admin-uis/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/chapters/25-district-admin-rosters-deployments/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/chapters/26-district-admin-access-control/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/chapters/27-compliance-and-district-reporting/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/chapters/28-teacher-dashboards-student-reports/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/chapters/29-class-level-reports-and-tools/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/chapters/30-author-dashboards-content-reports/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/chapters/31-designing-ab-experiments/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/chapters/32-producer-contract-conformant-statements/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/demo/graph-queries/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
+    </url>
+    <url>
+         <loc>https://dmccreary.github.io/learning-record-store/img/cover-image-prompt/</loc>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/img/mascot/character-sheet/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/img/ugly-svg-mascot/character-sheet/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/learning-graph/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/learning-graph/concept-list/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/learning-graph/concept-taxonomy/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/learning-graph/course-description-assessment/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/learning-graph/index-template/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/learning-graph/mascot-test/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/learning-graph/quality-metrics/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/learning-graph/taxonomy-distribution/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/sims/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/sims/animal-cell/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/sims/bouncing-ball/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/sims/graph-viewer/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/sims/lrs-data-model/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/sims/scientific-method/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/sims/sine-wave/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/specs/dev-environment-setup/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/specs/hardware-requirements/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/specs/lrs-design-v1/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/specs/lrs-spec-v1/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/specs/mvp-plan/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
     <url>
          <loc>https://dmccreary.github.io/learning-record-store/specs/xapi-producer-contract-v1/</loc>
-         <lastmod>2026-07-17</lastmod>
+         <lastmod>2026-07-18</lastmod>
     </url>
 </urlset>

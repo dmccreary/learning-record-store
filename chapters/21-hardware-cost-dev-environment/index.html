@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="An intelligent textbook on Learning Record Stores: what they are, how xAPI statements work, and how to design, deploy, and query an LRS.">
+        <meta name="description" content="Deriving the production hardware footprint and monthly cost of the LRS at its 10,000-statement-per-second target, the cheaper single-server pilot tier, and how to provision a development host large enough to prove the burst-throughput claim.">
       
       
         <meta name="author" content="Dan McCreary">
@@ -21,22 +21,19 @@
         <link rel="next" href="../22-proving-the-architecture-mvp/">
       
       
-        
-      
-      
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
     
     
       
-        <title>21. Hardware Sizing, Cost, and the Development Environment - Learning Record Store</title>
+        <title>Hardware Sizing, Cost, and the Development Environment - Learning Record Store</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -67,6 +64,7 @@
     
       
 
+    
     
     
   </head>
@@ -121,7 +119,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              21. Hardware Sizing, Cost, and the Development Environment
+              Hardware Sizing, Cost, and the Development Environment
             
           </span>
         </div>
@@ -133,13 +131,11 @@
     
     
     
-      
-      
-        <label class="md-header__button md-icon" for="__search">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        </label>
-        <div class="md-search" data-md-component="search" role="dialog">
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
@@ -178,14 +174,13 @@
     </div>
   </div>
 </div>
-      
     
     
       <div class="md-header__source">
         <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub Repo
@@ -230,7 +225,7 @@
       <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub Repo
@@ -250,16 +245,9 @@
       <a href="../.." class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Home
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -277,16 +265,9 @@
       <a href="../../about/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     About
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -304,16 +285,9 @@
       <a href="../../course-description/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Course Description
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -325,120 +299,6 @@
       
   
   
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-  
-    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
-      
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Specifications
-  
-
-    
-  </span>
-  
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-  
-    <a href="../../demo/graph-queries/" class="md-nav__link">
-      
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Demo
-  
-
-    
-  </span>
-  
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -451,70 +311,133 @@
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
-    
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
     
     
     
@@ -524,42 +447,32 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
+          
           
           <div class="md-nav__link md-nav__container">
             <a href="../" class="md-nav__link ">
               
   
-  
   <span class="md-ellipsis">
-    
-  
     Chapters
-  
-
-    
   </span>
-  
   
 
             </a>
             
               
-              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_6">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
-            
-  
-    Chapters
-  
-
+            Chapters
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -575,16 +488,9 @@
       <a href="../01-lms-to-experience-api/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     1. From Learning Management Systems to the Experience API
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -603,16 +509,9 @@
       <a href="../02-anatomy-of-xapi-statement/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     2. The Anatomy of an xAPI Statement
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -631,16 +530,9 @@
       <a href="../03-ieee-standardization-xapi-cmi5/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     3. IEEE Standardization of xAPI and cmi5
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -659,16 +551,9 @@
       <a href="../04-standards-governance-ecosystem/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     4. Standards Governance and the Wider Interoperability Ecosystem
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -687,16 +572,9 @@
       <a href="../05-system-context-architectural-planes/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     5. System Context and the Five Architectural Planes
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -715,16 +593,9 @@
       <a href="../06-multi-tenancy-rosters-identity/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     6. Multi-Tenancy, Rosters, and Pseudonymous Identity
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -743,16 +614,9 @@
       <a href="../07-property-graph-data-model/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     7. The Property Graph Data Model
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -771,16 +635,9 @@
       <a href="../08-summary-vertices-ingestion/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     8. Summary Vertices and Statement Ingestion Mechanics
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -799,16 +656,9 @@
       <a href="../09-twelve-core-lrs-functions/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     9. The Twelve Core LRS Functions
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -827,16 +677,9 @@
       <a href="../10-choosing-technology-stack/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     10. Choosing the Technology Stack
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -855,16 +698,9 @@
       <a href="../11-adrs-and-capacity-model/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     11. Architecture Decision Records and the Capacity Model
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -883,16 +719,9 @@
       <a href="../12-bayesian-knowledge-tracing/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     12. Bayesian Knowledge Tracing for Mastery
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -911,16 +740,9 @@
       <a href="../13-component-design-in-depth/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     13. Component Design in Depth
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -939,16 +761,9 @@
       <a href="../14-kafka-clickhouse-graph-schema/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     14. Kafka Topics, ClickHouse Schema, and Graph Constraints
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -967,16 +782,9 @@
       <a href="../15-privacy-and-dashboard-mechanics/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     15. Privacy Enforcement and Dashboard Mechanics
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -995,16 +803,9 @@
       <a href="../16-container-image-and-cli/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     16. The Container Image and the Role Dispatcher CLI
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1023,16 +824,9 @@
       <a href="../17-compose-makefile-supply-chain/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     17. Docker Compose, the Makefile, and the Image Supply Chain
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1051,16 +845,9 @@
       <a href="../18-config-migration-backup-rollout/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     18. Configuration, Migration, Backup, and Rollout
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1079,16 +866,9 @@
       <a href="../19-failure-modes-and-verification/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     19. Failure Modes and Verification
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1107,16 +887,9 @@
       <a href="../20-deviations-roadmap-open-questions/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     20. Spec Deviations, the Delivery Roadmap, and Open Questions
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1144,16 +917,9 @@
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
   
-  
   <span class="md-ellipsis">
-    
-  
     21. Hardware Sizing, Cost, and the Development Environment
-  
-
-    
   </span>
-  
   
 
           <span class="md-nav__icon md-icon"></span>
@@ -1162,16 +928,9 @@
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     21. Hardware Sizing, Cost, and the Development Environment
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1194,9 +953,7 @@
         <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Summary
-      
+      Summary
     </span>
   </a>
   
@@ -1205,9 +962,7 @@
         <li class="md-nav__item">
   <a href="#concepts-covered" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Concepts Covered
-      
+      Concepts Covered
     </span>
   </a>
   
@@ -1216,9 +971,130 @@
         <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
       
-        Prerequisites
+        <li class="md-nav__item">
+  <a href="#sizing-the-production-fleet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sizing the Production Fleet
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sizing the Production Fleet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-production-monthly-cost-breakdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Production Monthly Cost Breakdown
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
+        <li class="md-nav__item">
+  <a href="#the-open-variable-neo4j-licensing" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Open Variable: Neo4j Licensing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-lower-cost-path-the-single-server-pilot-tier" class="md-nav__link">
+    <span class="md-ellipsis">
+      A Lower-Cost Path: The Single-Server Pilot Tier
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A Lower-Cost Path: The Single-Server Pilot Tier">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-single-server-pilot-tier-vm-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Single-Server Pilot Tier VM Layout
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-a-laptop-isnt-enough-to-build-on" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why a Laptop Isn't Enough to Build On
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Why a Laptop Isn't Enough to Build On">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-build-steps-to-development-host-tier" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Build Steps to Development Host Tier
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#choosing-a-cloud-host-and-developing-against-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      Choosing a Cloud Host and Developing Against It
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Choosing a Cloud Host and Developing Against It">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-three-ways-to-develop-against-a-remote-host" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Three Ways to Develop Against a Remote Host
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bringing-the-numbers-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bringing the Numbers Together
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
     </span>
   </a>
   
@@ -1243,16 +1119,9 @@
       <a href="../22-proving-the-architecture-mvp/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     22. Proving the Architecture - the MVP Plan
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1271,16 +1140,9 @@
       <a href="../23-production-infrastructure-cloud/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     23. Production Infrastructure and Cloud Services
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1299,16 +1161,9 @@
       <a href="../24-three-personas-and-admin-uis/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     24. Meet the Three Personas and the Admin UI Surface
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1327,16 +1182,9 @@
       <a href="../25-district-admin-rosters-deployments/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     25. District Administrator - Rosters, Deployments, and Registries
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1355,16 +1203,9 @@
       <a href="../26-district-admin-access-control/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     26. District Administrator - Access Control and System Configuration
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1383,16 +1224,9 @@
       <a href="../27-compliance-and-district-reporting/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     27. Compliance, Privacy Law, and District-Level Reporting
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1411,16 +1245,9 @@
       <a href="../28-teacher-dashboards-student-reports/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     28. Teacher Dashboards and Student-Level Reports
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1439,16 +1266,9 @@
       <a href="../29-class-level-reports-and-tools/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     29. Class-Level Reports and Teacher Tools
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1467,16 +1287,9 @@
       <a href="../30-author-dashboards-content-reports/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     30. Textbook Author Dashboards and Content Reports
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1495,16 +1308,9 @@
       <a href="../31-designing-ab-experiments/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     31. Designing and Reading A/B Experiments
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1523,16 +1329,9 @@
       <a href="../32-producer-contract-conformant-statements/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     32. The Producer Contract - Writing Conformant Statements
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1576,7 +1375,6 @@
     
     
     
-    
       
         
         
@@ -1587,20 +1385,12 @@
         
   
   
-  
     <a href="../../learning-graph/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     Learning Graph
-  
-
-    
   </span>
-  
   
 
       
@@ -1628,18 +1418,29 @@
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
-    
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
     
     
     
@@ -1653,20 +1454,108 @@
         
   
   
-  
     <a href="../../sims/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     MicroSims
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
   
 
     
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Specifications
   </span>
   
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../demo/graph-queries/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Demo
+  </span>
   
 
       
@@ -1690,16 +1579,9 @@
       <a href="../../glossary/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Glossary
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1717,16 +1599,9 @@
       <a href="../../license/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     License
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1744,16 +1619,9 @@
       <a href="../../contact/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Contact
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1790,9 +1658,7 @@
         <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Summary
-      
+      Summary
     </span>
   </a>
   
@@ -1801,9 +1667,7 @@
         <li class="md-nav__item">
   <a href="#concepts-covered" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Concepts Covered
-      
+      Concepts Covered
     </span>
   </a>
   
@@ -1812,9 +1676,130 @@
         <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
       
-        Prerequisites
+        <li class="md-nav__item">
+  <a href="#sizing-the-production-fleet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sizing the Production Fleet
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sizing the Production Fleet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-production-monthly-cost-breakdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Production Monthly Cost Breakdown
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
+        <li class="md-nav__item">
+  <a href="#the-open-variable-neo4j-licensing" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Open Variable: Neo4j Licensing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-lower-cost-path-the-single-server-pilot-tier" class="md-nav__link">
+    <span class="md-ellipsis">
+      A Lower-Cost Path: The Single-Server Pilot Tier
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A Lower-Cost Path: The Single-Server Pilot Tier">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-single-server-pilot-tier-vm-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Single-Server Pilot Tier VM Layout
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-a-laptop-isnt-enough-to-build-on" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why a Laptop Isn't Enough to Build On
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Why a Laptop Isn't Enough to Build On">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-build-steps-to-development-host-tier" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Build Steps to Development Host Tier
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#choosing-a-cloud-host-and-developing-against-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      Choosing a Cloud Host and Developing Against It
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Choosing a Cloud Host and Developing Against It">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-three-ways-to-develop-against-a-remote-host" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Three Ways to Develop Against a Remote Host
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bringing-the-numbers-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bringing the Numbers Together
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
     </span>
   </a>
   
@@ -1830,62 +1815,12 @@
           
           
             <div class="md-content" data-md-component="content">
-              
-                
-
-
-
-  
-
-
-  <nav class="md-path" aria-label="Navigation" >
-    <ol class="md-path__list">
-      
-        
-  
-  
-    <li class="md-path__item">
-      <a href="../.." class="md-path__link">
-        
-  <span class="md-ellipsis">
-    Home
-  </span>
-
-      </a>
-    </li>
-  
-
-      
-      
-        
-  
-  
-    
-    
-      <li class="md-path__item">
-        <a href="../" class="md-path__link">
-          
-  <span class="md-ellipsis">
-    Chapters
-  </span>
-
-        </a>
-      </li>
-    
-  
-
-      
-    </ol>
-  </nav>
-
-              
               <article class="md-content__inner md-typeset">
                 
                   
 
-
   
-    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/21-hardware-cost-dev-environment/index.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/21-hardware-cost-dev-environment/index.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1929,13 +1864,302 @@
 <li><a href="../20-deviations-roadmap-open-questions/">Chapter 20: Spec Deviations, the Delivery Roadmap, and Open Questions</a></li>
 </ul>
 <hr />
-<p>TODO: Generate Chapter Content</p>
+<div class="admonition mascot-welcome">
+<p class="admonition-title">From Design to Invoice</p>
+<p><img alt="Rowan waving welcome" class="mascot-admonition-img" src="../../img/mascot/welcome.png" />
+Chapter 20 closed on a promise: turning from open questions to the concrete budget and machine you'd actually need to build this system. That's this chapter's whole job — size the production fleet against the spec's 10,000-statement-per-second target, price it out in real dollars, size a cheaper single-server pilot tier, and answer the smaller question every builder faces first: what do I actually develop on? Let's follow the record.</p>
+</div>
+<p>Every architecture decision in this book eventually has to answer to a budget line and a piece of hardware in a rack or a cloud region. The functional specification's backpressure-and-scale target — sustained ingest of at least 10,000 statements per second, bursting to 50,000 — is not, by itself, a hardware requirement. It has to be translated into vCPUs, memory, disk throughput, and network bandwidth for each component in the stack, and that translation is what turns an architecture diagram into a monthly bill. This chapter works through that translation twice: once at full production scale, once at a tenth of that scale for a single-server pilot tier a district can run without committing to the larger fleet — then closes with the more immediate question of where <em>you</em> develop and test this system before either tier exists.</p>
+<h2 id="sizing-the-production-fleet">Sizing the Production Fleet<a class="headerlink" href="#sizing-the-production-fleet" title="Permanent link">&para;</a></h2>
+<p>The specification's 10,000-statement-per-second target does not mean 10,000 of anything everywhere in the system. <strong>Compute Plane Sizing</strong> translates one ingest number into the very different loads each component actually feels: roughly 100–400 HTTP requests per second at the gateway, because xAPI clients batch 25 to 100 statements per request; a flat ~2,500 graph upserts per second at the summarizer, because compression collapses many statements per learner into one periodic write; and about 15 MB/sec (120 Mbps) of raw network ingress — too small to bind any component in this design. Summing per-pod requirements across all seven application roles — gateway, stream processor, summarizer, reconciler, identity service, analytics API, admin API, and dashboards — comes to roughly 55 vCPU and 68 GB of memory. Add 30% headroom for autoscaler bursts, daemonsets, and rolling deploys, and the compute plane lands at roughly <strong>9 worker nodes of 8 vCPU / 16 GB each, spread three per availability zone</strong>.</p>
+<p>The stores behind that compute plane scale differently from each other. Kafka and ClickHouse sit on the write-hot path and scale directly with ingest rate; Neo4j, Redis, and PostgreSQL scale with student and district population instead, so a 5× burst adds statements per active learner rather than new active learners and never touches graph-tier sizing. That asymmetry — event rate versus population — is the same distinction Chapter 11's capacity model introduced, and it is why the 50,000-statement burst target doesn't double the production bill: only Kafka's queue needs headroom for it, drained by autoscaled processor pods over the following minute rather than by permanently oversized infrastructure.</p>
+<p>Turning that hardware footprint into a <strong>Monthly Cost Estimate</strong> means pricing each line item at current cloud list rates. The table below condenses the full component-by-component estimate into its major cost centers.</p>
+<table>
+<thead>
+<tr>
+<th>Line item</th>
+<th>Configuration</th>
+<th>Est. $/month (on-demand)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kubernetes control plane + 9 worker nodes</td>
+<td>8 vCPU/16 GB nodes, 3 AZs</td>
+<td>~$2,300</td>
+</tr>
+<tr>
+<td>Kafka (managed)</td>
+<td>3 brokers, 4 vCPU/16 GB, 1.1 TB storage</td>
+<td>~$1,950</td>
+</tr>
+<tr>
+<td>ClickHouse (self-hosted NVMe)</td>
+<td>3 × 8 vCPU/32 GB/4 TB NVMe</td>
+<td>~$1,980</td>
+</tr>
+<tr>
+<td>ClickHouse S3 cold tier</td>
+<td>~19 TB at steady state</td>
+<td>~$240</td>
+</tr>
+<tr>
+<td>Neo4j infrastructure</td>
+<td>3 × 8 vCPU/32 GB causal cluster</td>
+<td>~$840</td>
+</tr>
+<tr>
+<td>Neo4j Enterprise/Aura license</td>
+<td>Quote-based, unresolved</td>
+<td>see below</td>
+</tr>
+<tr>
+<td>Redis (Multi-AZ)</td>
+<td>3 shards × 13 GB, 6 nodes</td>
+<td>~$990</td>
+</tr>
+<tr>
+<td>PostgreSQL ×2 (Multi-AZ)</td>
+<td>vault-db + meta-db</td>
+<td>~$1,520</td>
+</tr>
+<tr>
+<td>S3, load balancing, NAT, cross-AZ transfer</td>
+<td></td>
+<td>~$500</td>
+</tr>
+<tr>
+<td><strong>Subtotal, infrastructure only</strong></td>
+<td></td>
+<td><strong>~$10,300/month</strong></td>
+</tr>
+</tbody>
+</table>
+<p>That subtotal is the on-demand ceiling, not what a production deployment actually pays. This workload is steady and predictable — the same statements arrive every school day, week after week — which is exactly the shape <strong>Reserved Instance Pricing</strong> rewards. Committing to a 1–3 year reserved instance or savings plan on the steady-state pieces — compute, Kafka, ClickHouse, Neo4j infrastructure, Redis, and Postgres — typically cuts 30–50% off the on-demand rate, bringing the footprint toward roughly <strong>$6,500–7,500 per month</strong>. That gap is the difference between a first-year budget conversation and a three-year commitment, and it's worth having both figures on hand.</p>
+<h4 id="diagram-production-monthly-cost-breakdown">Diagram: Production Monthly Cost Breakdown<a class="headerlink" href="#diagram-production-monthly-cost-breakdown" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/production-monthly-cost-breakdown/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Production Monthly Cost Breakdown</summary>
+<p>Type: chart
+<strong>sim-id:</strong> production-monthly-cost-breakdown<br/>
+<strong>Library:</strong> Chart.js<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Analyze (L4)
+Bloom Taxonomy Verb: compare, break down</p>
+<p>Learning objective: Break down the production system's monthly cost into its component line items, and compare the on-demand total against the reserved-pricing total to see which line items are fixed and which shrink under a multi-year commitment.</p>
+<p>Chart type: Horizontal stacked bar chart, one bar per pricing mode, segments colored by line item (Kubernetes, Kafka, ClickHouse hot + cold tier, Neo4j infrastructure, Neo4j license, Redis, PostgreSQL, other).</p>
+<p>Default state: "On-Demand" (~$10,300, Neo4j license as a hatched "unresolved" segment at the $3,000–8,000 placeholder midpoint) beside "Reserved (1–3 yr)" (~$7,000, segments scaled down 30–50% except the S3 cold tier and the Neo4j license, which don't discount).</p>
+<p>Toggle — "Show Memgraph alternative": zeroes the Neo4j license segment on both bars, relabeling it "Memgraph (Apache-2.0, no license cost)," and shrinks each bar's total accordingly.</p>
+<p>Interactive features: Hovering any segment shows its line item name, configuration, and dollar figure. Clicking the Neo4j license segment opens an infobox on why it's the largest source of uncertainty in the estimate.</p>
+<p>Color scheme: Each line item a distinct palette hue; the unresolved Neo4j license segment hatched rather than solid to flag it as an estimate.</p>
+<p>Responsive design: Bars and legend stack vertically on narrow viewports; hover targets stay tap-sized.</p>
+</details>
+<h2 id="the-open-variable-neo4j-licensing">The Open Variable: Neo4j Licensing<a class="headerlink" href="#the-open-variable-neo4j-licensing" title="Permanent link">&para;</a></h2>
+<p>One line item in that table carries more uncertainty than everything else combined. <strong>Neo4j Licensing Cost</strong> exists because Neo4j Community edition — the free tier — cannot cluster, and the production topology's three-node causal cluster requires either Neo4j Enterprise, self-managed, or its managed counterpart AuraDB Enterprise. Neither publishes list pricing; both are quote-based and commonly land in the low-to-mid five figures per year for a cluster this size — a rough planning placeholder of <strong>$3,000–8,000 per month</strong>, not a quote. This is the same open question Chapter 20 named and assigned to architecture, due before the M2 milestone, because the answer changes nothing in the code and everything in the budget.</p>
+<p>Two paths make that line item shrink or disappear. Memgraph, the drop-in alternative the design specification names, has an Apache-2.0 core with no per-node licensing cost — choosing it replaces the Neo4j Enterprise/Aura line with nothing but the infrastructure cost already counted above. Or a vendor quote could simply land inside that range, fixing the number instead of leaving it a placeholder. Either way, this decision is worth resolving before committing to a production budget, since it can swing the total by nearly as much as every other line item combined.</p>
+<div class="admonition mascot-thinking">
+<p class="admonition-title">One Decision, Disproportionate Weight</p>
+<p><img alt="Rowan thinking with a magnifying glass" class="mascot-admonition-img" src="../../img/mascot/thinking.png" />
+Every other line item in the cost table is a firm estimate with a narrow range. The Neo4j license line spans $3,000 to $8,000 — a $5,000/month swing on its own, bigger than the entire PostgreSQL or Redis line. That's what makes it a <strong>Cost Sensitivity Driver</strong> rather than an ordinary budget line: a variable whose change moves the total noticeably, and the largest one in this estimate.</p>
+</div>
+<p>That observation generalizes. A <strong>Cost Sensitivity Driver</strong> is any input whose change moves the total estimate by a meaningful amount, distinct from a line item that is simply large but fixed. The statement rate is one: Kafka and ClickHouse scale roughly linearly with it, while Neo4j, Redis, and PostgreSQL barely move, since they track population, not event volume. The seven-year ClickHouse retention window is a slower one — the S3 cold-tier line grows from near zero toward its steady-state figure only once the window fills, while hot-tier NVMe cost stays flat regardless of retention length. And managed-versus-self-hosted Kafka or ClickHouse trades a usage-based bill that can climb higher at sustained throughput for the on-call burden of self-hosting — a trade the specification accepts for Kafka and ClickHouse but declines for Postgres and Redis, where it isn't worth the savings.</p>
+<h2 id="a-lower-cost-path-the-single-server-pilot-tier">A Lower-Cost Path: The Single-Server Pilot Tier<a class="headerlink" href="#a-lower-cost-path-the-single-server-pilot-tier" title="Permanent link">&para;</a></h2>
+<p>Not every deployment needs the multi-availability-zone fleet above on day one. The <strong>Single-Server Pilot Tier</strong> runs the identical container image and data model at one-tenth the ingest rate — 1,000 statements per second sustained instead of 10,000 — implying roughly 10,000 concurrent active students at peak, about the size of one large district. Every hardware number that mattered for production shrinks by roughly the same factor: sub-2-terabyte hot storage, low hundreds of megabits of network traffic, and a graph write rate of about 250 upserts per second — an order of magnitude below what a single unclustered Neo4j instance handles without strain. This tier is not a toy: it validates the same capacity-model assumptions against real school telemetry, and puts real dashboards in front of real teachers before the larger spend is committed.</p>
+<p>Running that footprint on one machine still needs internal boundaries, and that's what <strong>VM Hypervisor Isolation</strong> provides. A hypervisor — Proxmox, KVM, or ESXi — carves one physical server into several virtual machines, each with its own kernel and network interface, without needing a full Kubernetes cluster. The pilot tier uses five VMs: <code>app</code> for the seven stateless application roles under the same <code>docker compose</code> shape Chapter 17 walked through, <code>streaming-analytics</code> for a single Kafka-compatible broker plus ClickHouse node, <code>graph-cache</code> for an unclustered Neo4j Community instance plus Redis, and two more isolated for compliance rather than scale — <code>vault</code>, holding only the PII vault database with minimal egress, the same boundary the specification requires at any deployment size, and <code>meta-objects</code>, holding the metadata database and object store. Together the five VMs need roughly 35 vCPU and 78 GB of memory, fitting a <strong>dual-socket server with 32–48 physical cores, 128 GB of RAM, and 2–4 TB of NVMe in a mirrored array</strong> — a standard mid-range rack server, not exotic hardware.</p>
+<h4 id="diagram-single-server-pilot-tier-vm-layout">Diagram: Single-Server Pilot Tier VM Layout<a class="headerlink" href="#diagram-single-server-pilot-tier-vm-layout" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/single-server-pilot-vm-layout/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Single-Server Pilot Tier VM Layout</summary>
+<p>Type: infographic
+<strong>sim-id:</strong> single-server-pilot-vm-layout<br/>
+<strong>Library:</strong> p5.js<br/>
+<strong>Template:</strong> https://github.com/dmccreary/data-science-course/tree/main/docs/sims/virtual-environment-isolation-microsim<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Understand (L2)
+Bloom Taxonomy Verb: explain, classify</p>
+<p>Learning objective: Explain how five virtual machines on one physical server separate workload roles and compliance boundaries, and identify which VM exists for a scale reason versus a compliance reason.</p>
+<p>Canvas layout: One outer rectangle labeled "Physical Server (32–48 cores, 128 GB RAM, 2–4 TB NVMe RAID)" containing five inner boxes sized proportional to vCPU allocation: "app" (16 vCPU/20 GB), "streaming-analytics" (8 vCPU/28 GB), "graph-cache" (6 vCPU/20 GB), "vault" (2 vCPU/4 GB), "meta-objects" (3 vCPU/6 GB).</p>
+<p>Visual elements: Each VM box in the book's teal accent color except "vault," outlined in amber to flag it as a compliance boundary rather than a workload split. A label band along the bottom reads "Hypervisor (Proxmox / KVM / ESXi)."</p>
+<p>Interactive controls: Clicking a VM box opens an infobox with its exact contents (e.g., "graph-cache: Neo4j Community single instance + Redis") and vCPU/RAM allocation. A "Why is vault separate?" button opens an infobox with the compliance rationale.</p>
+<p>Default parameters: All five VMs shown at once, sized to scale against each other.</p>
+<p>Behavior: Hovering enlarges a box and dims the others; clicking pins the infobox open until another box or "Close" is clicked.</p>
+<p>Implementation notes: p5.js rectangles with widths proportional to vCPU count; VM metadata stored as an array of objects (name, vCPU, RAM, contents, rationale). Responsive design: canvas width tracks its container; boxes stack into two rows on narrow viewports.</p>
+</details>
+<p>Two more decisions shape what this hardware costs and how it is acquired. <strong>Bare-Metal Hosting</strong> means renting a dedicated physical server at a flat monthly fee rather than hourly cloud rates — typically $300–800 per month for a comparable dual-socket spec, roughly a third of an equivalent cloud instance on-demand. Buying the hardware outright is the third option: $8,000–15,000 upfront amortizes to $220–420 per month over three years, plus $150–400 per month in colocation, power, and bandwidth if not run in-house. All three options land roughly 10–20 times cheaper than the production fleet's monthly bill, for two compounding reasons: a tenth of the infrastructure size, and no multi-zone redundancy tax. It also removes the Neo4j licensing question entirely — Community edition needs no cluster and therefore no Enterprise license at this scale.</p>
+<p>Whichever way the hardware is acquired, its disks matter more than its label. <strong>NVMe Local Storage</strong> — solid-state storage attached directly to the server rather than reached over a network — is required for Kafka and ClickHouse because both sit on the write-hot path and depend on sustained sequential-write speed and low fsync latency; network-attached block storage adds latency that compounds under burst load. This is the one place where "server hardware" in the literal sense — a disk in the box, not a network volume — determines whether the throughput claims hold up under test, at every tier in this chapter. <strong>Network Ingress Sizing</strong> at the pilot tier follows the same tenth-scale pattern as everything else: about 12 Mbps sustained, rising to 60 Mbps at its own burst — traffic no consumer-grade connection would notice.</p>
+<p>Running everything on one box without redundancy is a real trade-off, not a detail to gloss over.</p>
+<ul>
+<li><strong>Single point of failure.</strong> Every store — Kafka, ClickHouse, Neo4j — is unclustered, so a host fault, an OS patch reboot, or a VM crash takes the whole system down until it restarts, with no replica to fail over to.</li>
+<li><strong>Kafka runs at replication factor 1 in practice</strong>, not the production tier's factor of 3 — durability rests on the RAID array rather than cross-broker replication, though ClickHouse remains the true system of record, so this mainly affects how much lag is survivable during a restart.</li>
+<li><strong>Mitigations exist and are cheap relative to a second full cluster</strong>: nightly or hourly backups to off-box object storage, RAID for disk-level redundancy, and — far cheaper than a second three-zone cluster — a warm standby second server built from backups for a manual failover path.</li>
+</ul>
+<div class="admonition mascot-encourage">
+<p class="admonition-title">Giving Up High Availability Isn't a Failure Here</p>
+<p><img alt="Rowan offering encouragement" class="mascot-admonition-img" src="../../img/mascot/encouraging.png" />
+A single point of failure sounds alarming next to the production fleet's three-zone redundancy, but remember what this tier is <em>for</em>: a pilot district proving the capacity model against real telemetry, not a permanent home for a multi-district fleet. Accepting a restart-and-recover posture for a tenth of the cost is reasonable — the spec even names when it stops being reasonable: once sustained ingest approaches 3,000–5,000 statements/sec, move toward the distributed topology instead of scaling the single box further.</p>
+</div>
+<h2 id="why-a-laptop-isnt-enough-to-build-on">Why a Laptop Isn't Enough to Build On<a class="headerlink" href="#why-a-laptop-isnt-enough-to-build-on" title="Permanent link">&para;</a></h2>
+<p>Production sizing and the pilot tier both answer "what does this cost to run for real users?" A smaller question comes first for anyone writing the code: what do you develop on? The Docker Compose stack this project builds against — trimmed from the pilot tier's full profile for local development — still needs roughly 8 GB of resident memory once every store and role is running: about 3.3 GB for Neo4j, 2 GB for ClickHouse, 1 GB for the Kafka-compatible broker, the rest split across three processor workers and four more Python roles. On an 8 GB laptop, the runtime and OS need 2–3 GB before a single container starts, so the stack doesn't fit — it squeezes to about 3.5 GB by trimming Neo4j's heap and running one processor instead of three, fine for correctness but fatal to the one measurement this stack exists to produce: driving ingest from 200 to 1,000 statements per second and confirming the graph write rate stays flat. On a memory-saturated machine, a flat line is ambiguous — it might mean the architecture decouples graph writes from ingest, or it might mean the load generator never reached 1,000/sec because the machine was swapping. That measurement only means something with real headroom to spare.</p>
+<p>The table below sizes three tiers of development host against exactly that need, matched to which of the five MVP build steps each tier can prove.</p>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>RAM</th>
+<th>vCPU</th>
+<th>Disk</th>
+<th>Good for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Minimum</td>
+<td>8 GB</td>
+<td>4</td>
+<td>40 GB</td>
+<td>Correctness only — a <em>dedicated</em> 8 GB box, with nothing else competing for memory</td>
+</tr>
+<tr>
+<td>Recommended</td>
+<td>16 GB</td>
+<td>8</td>
+<td>80–100 GB</td>
+<td>The full stack including the burst-throughput proof, with headroom for the stores to absorb 1,000 statements/sec without contention</td>
+</tr>
+<tr>
+<td>Generous</td>
+<td>32 GB</td>
+<td>8</td>
+<td>100 GB</td>
+<td>Zero worry, and room to push past 1,000 statements/sec for a wider burst ratio</td>
+</tr>
+</tbody>
+</table>
+<h4 id="diagram-build-steps-to-development-host-tier">Diagram: Build Steps to Development Host Tier<a class="headerlink" href="#diagram-build-steps-to-development-host-tier" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/build-steps-to-host-tier-timeline/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Build Steps to Development Host Tier</summary>
+<p>Type: timeline
+<strong>sim-id:</strong> build-steps-to-host-tier-timeline<br/>
+<strong>Library:</strong> vis-timeline<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Understand (L2)
+Bloom Taxonomy Verb: sequence, match</p>
+<p>Learning objective: Match each of the five MVP build steps to the minimum development host tier that can prove it, and recognize that only the final step — the burst-throughput proof — requires the Recommended tier.</p>
+<p>Time period: Not calendar time — five sequential build steps, rendered as five contiguous blocks in build order.</p>
+<p>Orientation: Horizontal, left to right, each block labeled with its step number and headline task.</p>
+<p>Events:</p>
+<ul>
+<li>Step 1: Foundation, bootstrap, infrastructure validation — host tier: Minimum; backing services only, no image needed yet</li>
+<li>Step 2: Ingest path (gateway to processor to ClickHouse) — host tier: Minimum; full stack, low volume</li>
+<li>Step 3: Load generator at the contract shape — host tier: Minimum to Recommended; 200 statements/sec baseline</li>
+<li>Step 4: Compression, graph, and mastery correctness — host tier: Minimum; correctness proofs hold at any volume</li>
+<li>Step 5: The burst-throughput proof (200 to 1,000 statements/sec) — host tier: Recommended (16 GB, local NVMe); the measurement this stack exists to produce</li>
+</ul>
+<p>Interactive features: Clicking a step block opens an infobox with its full description and required tier. A "Minimum vs. Recommended" toggle recolors all five blocks to show that four of five steps fit on the smallest host and only the last needs the larger one.</p>
+<p>Visual style: Blocks 1–4 shaded calm teal ("fits on Minimum"); block 5 shaded amber to flag its stricter requirement.</p>
+<p>Responsive design: The timeline resizes to its container's width; on narrow viewports, labels abbreviate to step number and expand on tap.</p>
+</details>
+<p>Two runtimes reach that host, depending on where it lives. <strong>Docker Desktop</strong> is the packaged runtime for a Mac or Windows workstation — install it, then raise its resource limits, because Docker Desktop caps container memory at whatever its settings allow regardless of physical RAM; a fresh install often defaults too low to run this stack. <strong>Docker Engine</strong> is the headless equivalent for a Linux server with no GUI: the same <code>docker</code> and <code>docker compose</code> CLI, installed from the official package repository, producing a Compose stack byte-identical to the one under Docker Desktop. Which one you install depends only on whether the host is a workstation you own or a rented Linux box — the compose file and Makefile don't care which runtime launched them.</p>
+<div class="admonition mascot-tip">
+<p class="admonition-title">Local NVMe Is the Detail That Makes the Burst Test Trustworthy</p>
+<p><img alt="Rowan pointing helpfully" class="mascot-admonition-img" src="../../img/mascot/tip.png" />
+Whichever host you pick, check that its disk is local, not network-attached. Most VPS providers attach local NVMe by default; on AWS, the default EBS volume is network-attached, so pick an <code>i</code>-family or <code>d</code>-family instance with local instance storage for the burst test. Measuring on network-attached storage risks measuring the storage layer's latency instead of the architecture's claim.</p>
+</div>
+<h2 id="choosing-a-cloud-host-and-developing-against-it">Choosing a Cloud Host and Developing Against It<a class="headerlink" href="#choosing-a-cloud-host-and-developing-against-it" title="Permanent link">&para;</a></h2>
+<p>If you already own a workstation with 16 GB or more of RAM, the simplest path skips cloud rental entirely — install Docker Desktop and run the stack directly, at no ongoing cost. Renting a cloud box by the hour is the fallback: since the burst test runs for minutes, the usual pattern is to provision, prove the architecture, and destroy the box the same afternoon for the price of a coffee.</p>
+<table>
+<thead>
+<tr>
+<th>Provider</th>
+<th>Instance</th>
+<th>Specs</th>
+<th>Approx. cost</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Hetzner Cloud</strong></td>
+<td>CPX41</td>
+<td>8 vCPU, 16 GB, 240 GB NVMe</td>
+<td>~€0.06/hr, ~€28/mo</td>
+<td>Local NVMe by default; best value of the three</td>
+</tr>
+<tr>
+<td><strong>DigitalOcean</strong></td>
+<td>Basic 16 GB Droplet</td>
+<td>8 vCPU, 16 GB, 100 GB NVMe</td>
+<td>~$0.24/hr, ~$96/mo</td>
+<td>Simplest interface; one-click Docker droplet image</td>
+</tr>
+<tr>
+<td><strong>AWS EC2</strong></td>
+<td><code>m6i.2xlarge</code></td>
+<td>8 vCPU, 32 GB</td>
+<td>~$0.38/hr on-demand</td>
+<td>Default storage is network-attached EBS — add instance-store or expect burst-test latency to reflect the disk, not the design</td>
+</tr>
+</tbody>
+</table>
+<p>A <strong>Hetzner Cloud Host</strong> is the recommended default: it pairs the Recommended tier's specs with local NVMe at the lowest price of the three, and a full burst-proof session — provision, bring the stack up, seed data, run the 200 and 1,000-statement passes, read the results — finishes comfortably in under an hour. A <strong>DigitalOcean Droplet</strong> trades a little price advantage for the simplest console and a one-click Docker-ready image, useful for a first-time provisioner. An <strong>AWS EC2 Instance</strong> is worth choosing mainly if an AWS account already exists — <code>m6i.2xlarge</code> matches the Recommended tier's vCPU and exceeds its RAM, but its default <code>gp3</code> volume is network-attached, so swap in an instance-store-backed family before trusting a burst measurement.</p>
+<p>Once a host is running, the code still needs editing from somewhere — a separate decision from where the containers run. <strong>Remote SSH Development</strong> is the smoothest pattern: an editor extension — VS Code's or Cursor's "Remote-SSH" — opens the repository directly on the server, so the editor UI is local but the files, terminal, and every <code>make</code> command run remotely, with ports forwarded automatically so the gateway and Neo4j browser open locally with no manual setup. <strong>Docker Context Over SSH</strong> keeps the Docker CLI and any GUI local but points it at an engine on the remote host over SSH — <code>docker context create</code> then <code>docker context use</code> — honoring a Docker Desktop workflow while containers run elsewhere. The plainest pattern needs no tooling at all: commit and push locally, <code>git pull</code> on the server, and work inside a normal SSH session — no editor integration, but always works as a fallback.</p>
+<h4 id="diagram-three-ways-to-develop-against-a-remote-host">Diagram: Three Ways to Develop Against a Remote Host<a class="headerlink" href="#diagram-three-ways-to-develop-against-a-remote-host" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/remote-dev-workflow-comparison/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Three Ways to Develop Against a Remote Host</summary>
+<p>Type: workflow
+<strong>sim-id:</strong> remote-dev-workflow-comparison<br/>
+<strong>Library:</strong> Mermaid<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Analyze (L4)
+Bloom Taxonomy Verb: compare, differentiate</p>
+<p>Learning objective: Compare Remote SSH Development, Docker Context Over SSH, and plain git-plus-SSH as three ways of developing against containers running on a rented host, and identify which piece of tooling runs locally versus remotely in each pattern.</p>
+<p>Purpose: A Mermaid flowchart with three parallel branches, each starting from a shared "Laptop" node and ending at a shared "Remote Host running Docker Engine" node, so the learner sees what crosses the network in each pattern.</p>
+<p>Branch A "Remote SSH Development": "Laptop (editor UI only)" -&gt; "VS Code / Cursor Remote-SSH extension" -&gt; "Files, terminal, <code>make up</code> execute on" -&gt; "Remote Host." Tag: "Ports auto-forwarded to localhost; smoothest loop, no manual tunnel."</p>
+<p>Branch B "Docker Context Over SSH": "Laptop (Docker CLI + GUI)" -&gt; "<code>docker context use lrs-remote</code>" -&gt; "Commands sent over SSH to" -&gt; "Remote Host's Docker engine." Tag: "Containers publish ports remotely — needs a manual SSH Tunnel Port Forward for <code>localhost</code> scripts."</p>
+<p>Branch C "Plain git + SSH": "Laptop (git commit/push)" -&gt; "GitHub" -&gt; "<code>git pull</code> inside an SSH session on" -&gt; "Remote Host." Tag: "No editor integration; simplest fallback, always works."</p>
+<p>Interactive features: Every node has a Mermaid click directive. Clicking a tag node opens an infobox with its trade-off text. Clicking the shared "Remote Host" node opens an infobox naming the UFW Firewall Rule that keeps only SSH exposed.</p>
+<p>Color coding: Branch A teal (recommended default); Branch B amber; Branch C neutral gray; shared start/end nodes darker neutral.</p>
+<p>Responsive design: The three branches stack vertically on narrow viewports, preserving click handlers and tag text.</p>
+</details>
+<p>Whichever pattern is chosen, the host needs to be locked down before it holds anything resembling student data, synthetic or not. A <strong>UFW Firewall Rule</strong> is the mechanism: on a fresh Ubuntu host, <code>sudo ufw allow OpenSSH</code> followed by <code>sudo ufw --force enable</code> exposes exactly one port — SSH — so the gateway, Neo4j browser, and ClickHouse's HTTP interface stay unreachable from the public internet. Reaching those services still has to work for development, and that's what an <strong>SSH Tunnel Port Forward</strong> provides: a command like <code>ssh -N -L 8080:localhost:8080 -L 7474:localhost:7474 lrs@YOUR_SERVER_IP</code> opens an encrypted path from a local port to the same port remotely, so <code>localhost:8080</code> on the laptop transparently reaches the gateway — without opening it to the internet. Remote SSH Development handles this automatically; the other two patterns need it set up by hand.</p>
+<div class="admonition mascot-warning">
+<p class="admonition-title">Never Open the Service Ports Directly</p>
+<p><img alt="Rowan waving a caution flag" class="mascot-admonition-img" src="../../img/mascot/warning.png" />
+It's tempting, mid-debugging-session, to run <code>sudo ufw allow 8080</code> just to check something quickly from a phone browser. Don't. An open Neo4j browser or ClickHouse HTTP port on a public IP is found by automated scanners within minutes, and the data behind it is student-shaped even when synthetic. Reach every service through the SSH tunnel or an editor's automatic port-forwarding — never through a firewall rule that exposes it directly.</p>
+</div>
+<h2 id="bringing-the-numbers-together">Bringing the Numbers Together<a class="headerlink" href="#bringing-the-numbers-together" title="Permanent link">&para;</a></h2>
+<p>Three sizing exercises, one method: start from an ingest target and work outward to dollars and silicon. Production sizing does it at full scale, with Neo4j licensing as the biggest lever. The pilot tier does it at a tenth of the scale, trading redundancy for a cost ten to twenty times lower. The development host does it smallest of all — sized against one measurement, the burst-throughput proof, that only means something with real headroom to spare.</p>
+<h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Compute Plane Sizing</strong> translates one ingest number — 10,000 statements/sec — into very different per-component loads: gateway requests, flat graph upserts, and low network bandwidth.</li>
+<li>The <strong>Monthly Cost Estimate</strong> for the production fleet is roughly $10,300/month on-demand, falling to $6,500–7,500/month under <strong>Reserved Instance Pricing</strong> on the steady-state components.</li>
+<li><strong>Neo4j Licensing Cost</strong> is the largest <strong>Cost Sensitivity Driver</strong> in the whole estimate — a $3,000–8,000/month placeholder resolved by either a vendor quote or switching to the license-free Memgraph alternative.</li>
+<li>The <strong>Single-Server Pilot Tier</strong> runs the identical stack at a tenth of production scale, using <strong>VM Hypervisor Isolation</strong> to separate workload roles and the vault's compliance boundary on one machine.</li>
+<li><strong>Bare-Metal Hosting</strong> and owned hardware both undercut cloud rental for the pilot tier, and <strong>NVMe Local Storage</strong> plus modest <strong>Network Ingress Sizing</strong> hold at every scale in this chapter.</li>
+<li><strong>Docker Desktop</strong> and <strong>Docker Engine</strong> are the same Compose stack on two different hosts — a Mac/Windows workstation versus a headless Linux server.</li>
+<li><strong>Remote SSH Development</strong>, <strong>Docker Context Over SSH</strong>, and plain git-plus-SSH are three ways to edit code locally while running containers on a rented <strong>Hetzner Cloud Host</strong>, <strong>DigitalOcean Droplet</strong>, or <strong>AWS EC2 Instance</strong>.</li>
+<li>A <strong>UFW Firewall Rule</strong> exposing only SSH, combined with an <strong>SSH Tunnel Port Forward</strong> for everything else, keeps a development host's service ports off the public internet entirely.</li>
+</ul>
+<div class="admonition mascot-celebration">
+<p class="admonition-title">You Can Now Price and Provision This System</p>
+<p><img alt="Rowan celebrating with confetti" class="mascot-admonition-img" src="../../img/mascot/celebration.png" />
+You can now put a real number on the production fleet, explain why the single-server pilot tier costs a tenth as much, and stand up a development host that won't lie to you about the burst-throughput claim. What does the evidence show? A budget and a machine are necessary, but they aren't sufficient — the whole point of sizing a development host this carefully is to actually run the proof it was built for. In <a href="../22-proving-the-architecture-mvp/">Chapter 22: Proving the Architecture - the MVP Plan</a>, we put that host to work.</p>
+</div>
 
 
 
 
 
 
+
+  
+  
 
 
 
@@ -2021,13 +2245,10 @@
     </div>
     
     
-    
-      
-      
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
         <script src="../../js/katex.js"></script>
       

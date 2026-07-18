@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="An intelligent textbook on Learning Record Stores: what they are, how xAPI statements work, and how to design, deploy, and query an LRS.">
+        <meta name="description" content="The exact Kafka topic names and retention policies, the ClickHouse DDL for the event log and its materialized views, and the Neo4j constraints that make per-statement vertices structurally impossible.">
       
       
         <meta name="author" content="Dan McCreary">
@@ -21,22 +21,19 @@
         <link rel="next" href="../15-privacy-and-dashboard-mechanics/">
       
       
-        
-      
-      
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
     
     
       
-        <title>14. Kafka Topics, ClickHouse Schema, and Graph Constraints - Learning Record Store</title>
+        <title>Kafka Topics, ClickHouse Schema, and Graph Constraints - Learning Record Store</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -67,6 +64,7 @@
     
       
 
+    
     
     
   </head>
@@ -121,7 +119,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              14. Kafka Topics, ClickHouse Schema, and Graph Constraints
+              Kafka Topics, ClickHouse Schema, and Graph Constraints
             
           </span>
         </div>
@@ -133,13 +131,11 @@
     
     
     
-      
-      
-        <label class="md-header__button md-icon" for="__search">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        </label>
-        <div class="md-search" data-md-component="search" role="dialog">
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
@@ -178,14 +174,13 @@
     </div>
   </div>
 </div>
-      
     
     
       <div class="md-header__source">
         <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub Repo
@@ -230,7 +225,7 @@
       <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub Repo
@@ -250,16 +245,9 @@
       <a href="../.." class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Home
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -277,16 +265,9 @@
       <a href="../../about/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     About
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -304,16 +285,9 @@
       <a href="../../course-description/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Course Description
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -325,120 +299,6 @@
       
   
   
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-  
-    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
-      
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Specifications
-  
-
-    
-  </span>
-  
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-  
-    <a href="../../demo/graph-queries/" class="md-nav__link">
-      
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Demo
-  
-
-    
-  </span>
-  
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -451,70 +311,133 @@
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
-    
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
     
     
     
@@ -524,42 +447,32 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
+          
           
           <div class="md-nav__link md-nav__container">
             <a href="../" class="md-nav__link ">
               
   
-  
   <span class="md-ellipsis">
-    
-  
     Chapters
-  
-
-    
   </span>
-  
   
 
             </a>
             
               
-              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_6">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
-            
-  
-    Chapters
-  
-
+            Chapters
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -575,16 +488,9 @@
       <a href="../01-lms-to-experience-api/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     1. From Learning Management Systems to the Experience API
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -603,16 +509,9 @@
       <a href="../02-anatomy-of-xapi-statement/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     2. The Anatomy of an xAPI Statement
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -631,16 +530,9 @@
       <a href="../03-ieee-standardization-xapi-cmi5/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     3. IEEE Standardization of xAPI and cmi5
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -659,16 +551,9 @@
       <a href="../04-standards-governance-ecosystem/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     4. Standards Governance and the Wider Interoperability Ecosystem
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -687,16 +572,9 @@
       <a href="../05-system-context-architectural-planes/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     5. System Context and the Five Architectural Planes
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -715,16 +593,9 @@
       <a href="../06-multi-tenancy-rosters-identity/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     6. Multi-Tenancy, Rosters, and Pseudonymous Identity
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -743,16 +614,9 @@
       <a href="../07-property-graph-data-model/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     7. The Property Graph Data Model
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -771,16 +635,9 @@
       <a href="../08-summary-vertices-ingestion/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     8. Summary Vertices and Statement Ingestion Mechanics
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -799,16 +656,9 @@
       <a href="../09-twelve-core-lrs-functions/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     9. The Twelve Core LRS Functions
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -827,16 +677,9 @@
       <a href="../10-choosing-technology-stack/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     10. Choosing the Technology Stack
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -855,16 +698,9 @@
       <a href="../11-adrs-and-capacity-model/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     11. Architecture Decision Records and the Capacity Model
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -883,16 +719,9 @@
       <a href="../12-bayesian-knowledge-tracing/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     12. Bayesian Knowledge Tracing for Mastery
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -911,16 +740,9 @@
       <a href="../13-component-design-in-depth/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     13. Component Design in Depth
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -948,16 +770,9 @@
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
   
-  
   <span class="md-ellipsis">
-    
-  
     14. Kafka Topics, ClickHouse Schema, and Graph Constraints
-  
-
-    
   </span>
-  
   
 
           <span class="md-nav__icon md-icon"></span>
@@ -966,16 +781,9 @@
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     14. Kafka Topics, ClickHouse Schema, and Graph Constraints
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -998,9 +806,7 @@
         <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Summary
-      
+      Summary
     </span>
   </a>
   
@@ -1009,9 +815,7 @@
         <li class="md-nav__item">
   <a href="#concepts-covered" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Concepts Covered
-      
+      Concepts Covered
     </span>
   </a>
   
@@ -1020,9 +824,130 @@
         <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
       
-        Prerequisites
+        <li class="md-nav__item">
+  <a href="#the-six-kafka-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Six Kafka Topics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Six Kafka Topics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-kafka-topic-map-for-the-lrs-event-backbone" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Kafka Topic Map for the LRS Event Backbone
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
+        <li class="md-nav__item">
+  <a href="#the-clickhouse-event-log" class="md-nav__link">
+    <span class="md-ellipsis">
+      The ClickHouse Event Log
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The ClickHouse Event Log">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-clickhouse-lrsstatements-table-anatomy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: ClickHouse lrs.statements Table Anatomy
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#from-every-statement-to-one-number-per-grain" class="md-nav__link">
+    <span class="md-ellipsis">
+      From Every Statement to One Number Per Grain
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="From Every Statement to One Number Per Grain">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-materialized-views-to-summary-vertex-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Materialized Views to Summary Vertex Mapping
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#neo4j-constraints-that-enforce-the-grain" class="md-nav__link">
+    <span class="md-ellipsis">
+      Neo4j Constraints That Enforce the Grain
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Neo4j Constraints That Enforce the Grain">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-grain-constraints-and-the-statement-label-prohibition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Grain Constraints and the Statement Label Prohibition
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#two-postgresql-instances-one-hard-boundary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Two PostgreSQL Instances, One Hard Boundary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bringing-the-schema-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bringing the Schema Together
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
     </span>
   </a>
   
@@ -1047,16 +972,9 @@
       <a href="../15-privacy-and-dashboard-mechanics/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     15. Privacy Enforcement and Dashboard Mechanics
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1075,16 +993,9 @@
       <a href="../16-container-image-and-cli/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     16. The Container Image and the Role Dispatcher CLI
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1103,16 +1014,9 @@
       <a href="../17-compose-makefile-supply-chain/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     17. Docker Compose, the Makefile, and the Image Supply Chain
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1131,16 +1035,9 @@
       <a href="../18-config-migration-backup-rollout/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     18. Configuration, Migration, Backup, and Rollout
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1159,16 +1056,9 @@
       <a href="../19-failure-modes-and-verification/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     19. Failure Modes and Verification
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1187,16 +1077,9 @@
       <a href="../20-deviations-roadmap-open-questions/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     20. Spec Deviations, the Delivery Roadmap, and Open Questions
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1215,16 +1098,9 @@
       <a href="../21-hardware-cost-dev-environment/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     21. Hardware Sizing, Cost, and the Development Environment
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1243,16 +1119,9 @@
       <a href="../22-proving-the-architecture-mvp/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     22. Proving the Architecture - the MVP Plan
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1271,16 +1140,9 @@
       <a href="../23-production-infrastructure-cloud/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     23. Production Infrastructure and Cloud Services
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1299,16 +1161,9 @@
       <a href="../24-three-personas-and-admin-uis/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     24. Meet the Three Personas and the Admin UI Surface
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1327,16 +1182,9 @@
       <a href="../25-district-admin-rosters-deployments/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     25. District Administrator - Rosters, Deployments, and Registries
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1355,16 +1203,9 @@
       <a href="../26-district-admin-access-control/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     26. District Administrator - Access Control and System Configuration
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1383,16 +1224,9 @@
       <a href="../27-compliance-and-district-reporting/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     27. Compliance, Privacy Law, and District-Level Reporting
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1411,16 +1245,9 @@
       <a href="../28-teacher-dashboards-student-reports/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     28. Teacher Dashboards and Student-Level Reports
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1439,16 +1266,9 @@
       <a href="../29-class-level-reports-and-tools/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     29. Class-Level Reports and Teacher Tools
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1467,16 +1287,9 @@
       <a href="../30-author-dashboards-content-reports/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     30. Textbook Author Dashboards and Content Reports
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1495,16 +1308,9 @@
       <a href="../31-designing-ab-experiments/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     31. Designing and Reading A/B Experiments
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1523,16 +1329,9 @@
       <a href="../32-producer-contract-conformant-statements/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     32. The Producer Contract - Writing Conformant Statements
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1576,7 +1375,6 @@
     
     
     
-    
       
         
         
@@ -1587,20 +1385,12 @@
         
   
   
-  
     <a href="../../learning-graph/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     Learning Graph
-  
-
-    
   </span>
-  
   
 
       
@@ -1628,18 +1418,29 @@
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
-    
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
     
     
     
@@ -1653,20 +1454,108 @@
         
   
   
-  
     <a href="../../sims/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     MicroSims
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
   
 
     
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Specifications
   </span>
   
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../demo/graph-queries/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Demo
+  </span>
   
 
       
@@ -1690,16 +1579,9 @@
       <a href="../../glossary/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Glossary
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1717,16 +1599,9 @@
       <a href="../../license/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     License
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1744,16 +1619,9 @@
       <a href="../../contact/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Contact
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1790,9 +1658,7 @@
         <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Summary
-      
+      Summary
     </span>
   </a>
   
@@ -1801,9 +1667,7 @@
         <li class="md-nav__item">
   <a href="#concepts-covered" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Concepts Covered
-      
+      Concepts Covered
     </span>
   </a>
   
@@ -1812,9 +1676,130 @@
         <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
       
-        Prerequisites
+        <li class="md-nav__item">
+  <a href="#the-six-kafka-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Six Kafka Topics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Six Kafka Topics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-kafka-topic-map-for-the-lrs-event-backbone" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Kafka Topic Map for the LRS Event Backbone
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
+        <li class="md-nav__item">
+  <a href="#the-clickhouse-event-log" class="md-nav__link">
+    <span class="md-ellipsis">
+      The ClickHouse Event Log
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The ClickHouse Event Log">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-clickhouse-lrsstatements-table-anatomy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: ClickHouse lrs.statements Table Anatomy
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#from-every-statement-to-one-number-per-grain" class="md-nav__link">
+    <span class="md-ellipsis">
+      From Every Statement to One Number Per Grain
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="From Every Statement to One Number Per Grain">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-materialized-views-to-summary-vertex-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Materialized Views to Summary Vertex Mapping
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#neo4j-constraints-that-enforce-the-grain" class="md-nav__link">
+    <span class="md-ellipsis">
+      Neo4j Constraints That Enforce the Grain
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Neo4j Constraints That Enforce the Grain">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-grain-constraints-and-the-statement-label-prohibition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Grain Constraints and the Statement Label Prohibition
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#two-postgresql-instances-one-hard-boundary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Two PostgreSQL Instances, One Hard Boundary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bringing-the-schema-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bringing the Schema Together
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
     </span>
   </a>
   
@@ -1830,62 +1815,12 @@
           
           
             <div class="md-content" data-md-component="content">
-              
-                
-
-
-
-  
-
-
-  <nav class="md-path" aria-label="Navigation" >
-    <ol class="md-path__list">
-      
-        
-  
-  
-    <li class="md-path__item">
-      <a href="../.." class="md-path__link">
-        
-  <span class="md-ellipsis">
-    Home
-  </span>
-
-      </a>
-    </li>
-  
-
-      
-      
-        
-  
-  
-    
-    
-      <li class="md-path__item">
-        <a href="../" class="md-path__link">
-          
-  <span class="md-ellipsis">
-    Chapters
-  </span>
-
-        </a>
-      </li>
-    
-  
-
-      
-    </ol>
-  </nav>
-
-              
               <article class="md-content__inner md-typeset">
                 
                   
 
-
   
-    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/14-kafka-clickhouse-graph-schema/index.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/14-kafka-clickhouse-graph-schema/index.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1933,13 +1868,383 @@
 <li><a href="../13-component-design-in-depth/">Chapter 13: Component Design in Depth</a></li>
 </ul>
 <hr />
-<p>TODO: Generate Chapter Content</p>
+<div class="admonition mascot-welcome">
+<p class="admonition-title">The Spec, Word for Word</p>
+<p><img alt="Rowan waving welcome" class="mascot-admonition-img" src="../../img/mascot/welcome.png" />
+Chapter 13 named the mechanisms — token caches, HMAC pseudonymization, deterministic bucketing. This chapter names the exact nouns those mechanisms operate on: the six Kafka topic strings, the ClickHouse <code>CREATE TABLE</code> statements, and the Neo4j <code>CREATE CONSTRAINT</code> clauses. Every name in this chapter is copied verbatim from the design specification's §6, because this is the layer where a typo is not a style choice — it is a production outage. Let's follow the record.</p>
+</div>
+<p>Every mechanism the last chapter described eventually touches a physical object with a name: a Kafka topic, a ClickHouse table, or a Neo4j constraint. This chapter is a close reading of the design specification's §6, "Data Design," organized around three physical layers in the order a statement passes through them — the durable queue, the columnar event log, and the summary graph.</p>
+<h2 id="the-six-kafka-topics">The Six Kafka Topics<a class="headerlink" href="#the-six-kafka-topics" title="Permanent link">&para;</a></h2>
+<p>The design specification names exactly six Kafka topics, and each one exists to solve one specific problem raised in earlier chapters. The <strong>Raw Statements Topic</strong>, named <code>xapi.statements.raw</code>, is the one every textbook page actually writes to during live use — it is keyed by <code>{district_id}:{student_key}</code>, split across 48 partitions, and retained for 7 days. At ten thousand statements a second spread evenly, that partition count works out to roughly 208 statements per second per partition, comfortably inside what a single consumer thread can process.</p>
+<p>Live traffic is not the only traffic this pipeline carries. When a district re-imports a semester of historical statements, or an operator replays a window of the log to fix a bug, those statements flow through the <strong>Bulk Statements Topic</strong>, <code>xapi.statements.bulk</code> — the same key format, but only 12 partitions and a separate topic entirely. Chapter 11's ADR-004 explains the separation: a backfill job sharing the raw topic could starve live ingestion exactly when a district is watching a dashboard update in real time.</p>
+<p>Not every statement that arrives is well-formed. A statement missing a required <code>actor</code> or <code>verb</code> field fails Chapter 13's tier-one validation — but rejection still needs a paper trail, so the gateway writes it to the <strong>Dead Letter Topic</strong>, <code>xapi.statements.dlq</code>. Keyed only by <code>{district_id}</code> (there is no reliable student key for a malformed statement), it spans 12 partitions and is kept for 30 days — long enough for the dead-letter inspector in the specification's §10.5 to surface a misconfigured textbook's malformed batch before the evidence expires.</p>
+<div class="admonition mascot-thinking">
+<p class="admonition-title">Retention Is a Design Decision, Not a Default</p>
+<p><img alt="Rowan thinking with a magnifying glass" class="mascot-admonition-img" src="../../img/mascot/thinking.png" />
+Look at how differently each topic's retention window is set: 7 days for live and bulk traffic, 30 days for dead letters, 400 days for the audit feed, and one topic — mastery state — retained forever by being compacted rather than time-boxed. None of these numbers are arbitrary defaults. Each one reflects how long a human or a downstream system plausibly needs to look backward before the data has done its job.</p>
+</div>
+<p>Two more topics carry data that never touched a browser at all. The <strong>Reconcile Task Topic</strong>, <code>lrs.reconcile</code>, keyed by <code>{textbook_id}</code> across 12 partitions with 7-day retention, carries the auto-provisioning tasks Chapter 8 introduced — a queue of work items produced whenever the processor encounters an activity IRI it does not yet recognize. The <strong>Audit Feed Topic</strong>, <code>lrs.audit</code>, keyed by <code>{district_id}</code> across 12 partitions, is retained for 400 days and feeds the meta-database's append-only audit log that later chapters on compliance depend on.</p>
+<p>The sixth topic behaves differently from all the others. The <strong>Mastery State Topic</strong>, <code>lrs.mastery.state</code>, is keyed by <code>{student_key}:{concept_id}</code> across 48 partitions, but its retention policy is not a number of days — it is <strong>compacted</strong>, meaning Kafka keeps only the single latest message for each key, forever, discarding every earlier value automatically. This is the exact mechanism behind Chapter 13's Compacted State Checkpoint: because BKT mastery is a running probability that only the newest value matters for, a compacted topic is a perfect fit — small forever, yet always able to rebuild the processor's in-memory mastery cache from scratch after a restart.</p>
+<p>The table below reinforces the six topics just introduced, now that each one's purpose and retention policy has been explained in prose.</p>
+<table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Key</th>
+<th>Partitions</th>
+<th>Retention</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>xapi.statements.raw</code></td>
+<td><code>{district_id}:{student_key}</code></td>
+<td>48</td>
+<td>7 days</td>
+<td>Live ingest</td>
+</tr>
+<tr>
+<td><code>xapi.statements.bulk</code></td>
+<td><code>{district_id}:{student_key}</code></td>
+<td>12</td>
+<td>7 days</td>
+<td>Backfill and replay, isolated from live traffic</td>
+</tr>
+<tr>
+<td><code>xapi.statements.dlq</code></td>
+<td><code>{district_id}</code></td>
+<td>12</td>
+<td>30 days</td>
+<td>Tier-1 rejects for the dead-letter inspector</td>
+</tr>
+<tr>
+<td><code>lrs.reconcile</code></td>
+<td><code>{textbook_id}</code></td>
+<td>12</td>
+<td>7 days</td>
+<td>Auto-provision and reconciliation tasks</td>
+</tr>
+<tr>
+<td><code>lrs.mastery.state</code></td>
+<td><code>{student_key}:{concept_id}</code></td>
+<td>48</td>
+<td>compacted</td>
+<td>BKT state checkpoint; survives Redis loss</td>
+</tr>
+<tr>
+<td><code>lrs.audit</code></td>
+<td><code>{district_id}</code></td>
+<td>12</td>
+<td>400 days</td>
+<td>Append-only audit feed to the meta-db</td>
+</tr>
+</tbody>
+</table>
+<h4 id="diagram-kafka-topic-map-for-the-lrs-event-backbone">Diagram: Kafka Topic Map for the LRS Event Backbone<a class="headerlink" href="#diagram-kafka-topic-map-for-the-lrs-event-backbone" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/kafka-topic-map/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Kafka Topic Map for the LRS Event Backbone</summary>
+<p>Type: infographic
+<strong>sim-id:</strong> kafka-topic-map<br/>
+<strong>Library:</strong> vis-network<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Understand (L2)
+Bloom Taxonomy Verb: explain, classify</p>
+<p>Learning objective: Let the learner classify each of the six Kafka topics by its key format, partition count, and retention policy, and explain why the compacted mastery-state topic differs structurally from the other five.</p>
+<p>Purpose: Show all six topics as nodes arranged around a central "Kafka / Redpanda Broker" hub node, so the learner can see the whole topic inventory at a glance before drilling into any one topic.</p>
+<p>Nodes: One central hub node "Kafka / Redpanda Broker". Six satellite nodes, one per topic, each labeled with its exact topic string: "xapi.statements.raw", "xapi.statements.bulk", "xapi.statements.dlq", "lrs.reconcile", "lrs.mastery.state", "lrs.audit". Each satellite node's size scales with its partition count (48-partition topics render larger than 12-partition topics) so partition count is visible without clicking.</p>
+<p>Interactive features: Clicking any satellite topic node opens an infobox showing that topic's key format, partition count, retention policy, and one-sentence purpose, matching the table already presented in this chapter. A toggle labeled "Group by retention family" re-colors nodes into three clusters — short-lived (7 days), long-lived (30-400 days), and compacted — so the learner can see the retention pattern structurally rather than by reading text.</p>
+<p>Color coding: The compacted mastery-state topic in the book's teal accent color to visually flag it as the one structural outlier; the other five topics in a shared neutral blue-gray, differentiated only by node size (partition count).</p>
+<p>Responsive design: Network graph resizes to the width of its containing element and re-centers on resize; on narrow viewports satellite nodes arrange in two rows instead of a full circle around the hub.</p>
+</details>
+<h2 id="the-clickhouse-event-log">The ClickHouse Event Log<a class="headerlink" href="#the-clickhouse-event-log" title="Permanent link">&para;</a></h2>
+<p>Every statement that clears tier-one validation and reaches a durable topic eventually lands as one row in a single ClickHouse table. Before looking at its full definition, three column types deserve a plain-language introduction, because the table's <code>CREATE TABLE</code> statement leans on all three.</p>
+<p>A column declared <strong><code>LowCardinality(String)</code></strong> tells ClickHouse that a text column has a small, repeating set of distinct values — a district ID or a verb ID repeats across millions of rows — so ClickHouse can store a compact dictionary of the distinct values once and reference them by a small integer everywhere else, shrinking both storage and query time. A column wrapped in <strong><code>CODEC(ZSTD(3))</code></strong> applies the <strong>ZSTD Compression Codec</strong>, a general-purpose compression algorithm, at compression level 3 (higher levels compress tighter at the cost of more CPU); ClickHouse applies this per-column rather than to the whole row, so a column that compresses unusually well — like the full raw JSON body of a statement — can use a stronger codec than a column that does not. And <strong><code>PARTITION BY toYYYYMM(timestamp)</code></strong> — the <strong>Partition By Month</strong> strategy — divides the table into one physical partition per calendar month of event time, which matters for a reason explained just after the DDL below.</p>
+<p>The bridging idea to hold before reading the DDL: this table, named <code>lrs.statements</code> — the <strong>Lrs Statements Table</strong> — is the system of record. Every other table and materialized view in this chapter is derived from it and could, in principle, be rebuilt by replaying it from scratch.</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">lrs</span><span class="p">.</span><span class="n">statements</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="p">(</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="n">district_id</span><span class="w">     </span><span class="n">LowCardinality</span><span class="p">(</span><span class="n">String</span><span class="p">),</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="n">statement_id</span><span class="w">    </span><span class="n">UUID</span><span class="p">,</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="n">student_key</span><span class="w">     </span><span class="n">String</span><span class="p">,</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="n">verb_id</span><span class="w">         </span><span class="n">LowCardinality</span><span class="p">(</span><span class="n">String</span><span class="p">),</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="n">object_type</span><span class="w">     </span><span class="n">LowCardinality</span><span class="p">(</span><span class="n">String</span><span class="p">),</span><span class="w">   </span><span class="c1">-- Page | MicroSim | Question | Concept</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="n">object_id</span><span class="w">       </span><span class="n">String</span><span class="p">,</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="n">textbook_id</span><span class="w">     </span><span class="n">LowCardinality</span><span class="p">(</span><span class="n">String</span><span class="p">),</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="n">version_id</span><span class="w">      </span><span class="n">LowCardinality</span><span class="p">(</span><span class="n">String</span><span class="p">),</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="n">section_id</span><span class="w">      </span><span class="n">String</span><span class="p">,</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="n">concept_ids</span><span class="w">     </span><span class="nb">Array</span><span class="p">(</span><span class="n">String</span><span class="p">),</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="n">result_score</span><span class="w">    </span><span class="k">Nullable</span><span class="p">(</span><span class="n">Float32</span><span class="p">),</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">    </span><span class="n">result_success</span><span class="w">  </span><span class="k">Nullable</span><span class="p">(</span><span class="n">UInt8</span><span class="p">),</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">    </span><span class="n">duration_ms</span><span class="w">     </span><span class="k">Nullable</span><span class="p">(</span><span class="n">UInt32</span><span class="p">),</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span><span class="n">voided_by</span><span class="w">       </span><span class="k">Nullable</span><span class="p">(</span><span class="n">UUID</span><span class="p">),</span><span class="w">           </span><span class="c1">-- spec F-3: retraction, never deletion</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">    </span><span class="n">provisional</span><span class="w">     </span><span class="n">UInt8</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">          </span><span class="c1">-- object not yet reconciled (spec §5.4)</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">    </span><span class="k">timestamp</span><span class="w">       </span><span class="n">DateTime64</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="w">            </span><span class="c1">-- event time, from the statement</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">    </span><span class="n">stored_at</span><span class="w">       </span><span class="n">DateTime64</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="w">            </span><span class="c1">-- arrival time, from the gateway</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">    </span><span class="n">raw</span><span class="w">             </span><span class="n">String</span><span class="w"> </span><span class="n">CODEC</span><span class="p">(</span><span class="n">ZSTD</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span><span class="w">     </span><span class="c1">-- the full original JSON, verbatim</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="p">)</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="n">ENGINE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ReplacingMergeTree</span><span class="p">(</span><span class="n">stored_at</span><span class="p">)</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">toYYYYMM</span><span class="p">(</span><span class="k">timestamp</span><span class="p">)</span>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="p">(</span><span class="n">district_id</span><span class="p">,</span><span class="w"> </span><span class="n">student_key</span><span class="p">,</span><span class="w"> </span><span class="k">timestamp</span><span class="p">,</span><span class="w"> </span><span class="n">statement_id</span><span class="p">)</span>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="n">SETTINGS</span><span class="w"> </span><span class="n">index_granularity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8192</span><span class="p">;</span>
+</span></code></pre></div>
+<p>Two design choices in that statement are worth pulling apart individually because they each solve a different problem. The <strong>ReplacingMergeTree Engine</strong> is a ClickHouse table engine that, given rows sharing the same <code>ORDER BY</code> key, keeps only the row with the highest value of the argument passed to it — here, <code>stored_at</code>. This is what makes the table tolerant of Kafka's at-least-once delivery guarantee: if the processor crashes after writing a batch but before committing its Kafka offset, the batch is redelivered and re-inserted, and <code>ReplacingMergeTree</code> quietly collapses the duplicate rows down to one during a background merge. That merge is eventual rather than immediate, which is why queries against this table read through a <code>FINAL</code>-equivalent view rather than trusting that duplicates have already been removed.</p>
+<p>The <code>ORDER BY</code> clause itself — <code>(district_id, student_key, timestamp, statement_id)</code> — is the table's primary key, and leading with <code>district_id</code> is deliberate: every tenant-scoped query prunes to one district's data block before scanning a single row, which is what makes Chapter 6's tenant isolation a property of the storage layer, not just the application layer. Combined with <strong>Partition By Month</strong>, retention becomes a partition <code>DROP</code> rather than a row-by-row <code>DELETE</code> — dropping an entire month's partition is nearly instantaneous, while ClickHouse's built-in <code>TTL</code> mechanism cannot express the kind of per-district retention windows Chapter 8 described, so a separate worker process drives retention against a district-to-policy table instead.</p>
+<div class="admonition mascot-tip">
+<p class="admonition-title">Why <code>raw</code> Is Kept Forever</p>
+<p><img alt="Rowan pointing helpfully" class="mascot-admonition-img" src="../../img/mascot/tip.png" />
+Notice the <code>raw</code> column holds the entire original statement JSON, compressed with the ZSTD Compression Codec, and it is never dropped within the retention window. That single column is what makes "every projection is reproducible by replaying the log" a fact rather than a promise — if a materialized view's logic ever changes, or a bug corrupts a summary vertex, the fix is to replay <code>raw</code>, not to reconstruct lost detail from an already-aggregated row.</p>
+</div>
+<h4 id="diagram-clickhouse-lrsstatements-table-anatomy">Diagram: ClickHouse <code>lrs.statements</code> Table Anatomy<a class="headerlink" href="#diagram-clickhouse-lrsstatements-table-anatomy" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/clickhouse-statements-anatomy/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>ClickHouse lrs.statements Table Anatomy</summary>
+<p>Type: infographic
+<strong>sim-id:</strong> clickhouse-statements-anatomy<br/>
+<strong>Library:</strong> p5.js<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Analyze (L4)
+Bloom Taxonomy Verb: differentiate, justify</p>
+<p>Learning objective: Let the learner click through each column group of the lrs.statements table and explain why the ORDER BY key leads with district_id and student_key rather than timestamp alone.</p>
+<p>Canvas layout:</p>
+<ul>
+<li>A vertical table diagram listing all eighteen columns in DDL order, grouped visually into four bands: "Identity &amp; Tenancy" (district_id, statement_id, student_key), "Statement Content" (verb_id, object_type, object_id, textbook_id, version_id, section_id, concept_ids, result_score, result_success, duration_ms), "Lifecycle Flags" (voided_by, provisional), and "Timing &amp; Raw Payload" (timestamp, stored_at, raw)</li>
+<li>A highlighted sidebar showing the ORDER BY tuple as four connected boxes: district_id -&gt; student_key -&gt; timestamp -&gt; statement_id, with an arrow showing "prune, then sort" order</li>
+</ul>
+<p>Interactive controls:</p>
+<ul>
+<li>Clicking any column name opens an infobox with its type, a one-sentence purpose, and whether it participates in the ORDER BY key</li>
+<li>A button "Highlight ORDER BY key" dims every column not in the primary key and traces the four-box sidebar sequence</li>
+<li>A button "Highlight compression" isolates the LowCardinality and ZSTD-coded columns and shows a small annotation explaining what each does to storage size</li>
+</ul>
+<p>Behavior: Default view shows all four bands at equal visual weight; clicking either highlight button re-renders with the relevant columns emphasized and the rest at reduced opacity.</p>
+<p>Color coding: The four column bands each get a distinct muted hue; the ORDER BY sidebar and any column inside it render in the book's teal accent color regardless of which band it belongs to, so the primary key reads as one visual thread through the whole table.</p>
+<p>Responsive design: Column bands stack in a single vertical scrolling list on narrow viewports; the ORDER BY sidebar collapses to a horizontal strip above the column list rather than sitting beside it.</p>
+</details>
+<h2 id="from-every-statement-to-one-number-per-grain">From Every Statement to One Number Per Grain<a class="headerlink" href="#from-every-statement-to-one-number-per-grain" title="Permanent link">&para;</a></h2>
+<p>The event log answers "what happened," but a dashboard needs "what is true right now" — a single mastery score per student and concept, not a scroll of a thousand raw attempts. ClickHouse gets there through a second table and three materialized views, each doing one specific rollup.</p>
+<p>The <strong>Lrs Concept Mastery Table</strong>, <code>lrs.concept_mastery</code>, holds the derived state a dashboard actually reads: one row per <code>(district_id, student_key, concept_id)</code>, carrying the Bayesian Knowledge Tracing probability Chapter 12 introduced as <code>mastery_score</code>, alongside an <code>evidence_count</code> and timestamps.</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">lrs</span><span class="p">.</span><span class="n">concept_mastery</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="p">(</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="n">district_id</span><span class="w">    </span><span class="n">LowCardinality</span><span class="p">(</span><span class="n">String</span><span class="p">),</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="n">student_key</span><span class="w">    </span><span class="n">String</span><span class="p">,</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="n">concept_id</span><span class="w">     </span><span class="n">String</span><span class="p">,</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="n">mastery_score</span><span class="w">  </span><span class="n">Float32</span><span class="p">,</span><span class="w">          </span><span class="c1">-- P(L) from BKT</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="n">evidence_count</span><span class="w"> </span><span class="n">UInt32</span><span class="p">,</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="n">last_seen</span><span class="w">      </span><span class="n">DateTime64</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="n">updated_at</span><span class="w">     </span><span class="n">DateTime64</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="p">)</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="n">ENGINE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ReplacingMergeTree</span><span class="p">(</span><span class="n">updated_at</span><span class="p">)</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="p">(</span><span class="n">district_id</span><span class="p">,</span><span class="w"> </span><span class="n">student_key</span><span class="p">,</span><span class="w"> </span><span class="n">concept_id</span><span class="p">);</span>
+</span></code></pre></div>
+<p>This table uses the same <strong>ReplacingMergeTree Engine</strong> as the raw event log, for the same reason: the processor writes a fresh <code>mastery_score</code> every time new evidence arrives for a student and concept, and only the most recently written row per key should survive.</p>
+<p>The three materialized views that follow use a different engine, because they are solving a different problem. A materialized view backed by the <strong>AggregatingMergeTree Engine</strong> does not merely discard duplicates the way <code>ReplacingMergeTree</code> does — it incrementally combines rows sharing the same <code>ORDER BY</code> key using aggregate functions like <code>countState()</code>, <code>sumState()</code>, and <code>avgState()</code>, so that as new source rows arrive, the view's aggregate rows update automatically without a full recomputation. The two engines solve related but distinct problems, which the table below makes explicit now that both have been described in prose.</p>
+<table>
+<thead>
+<tr>
+<th>Engine</th>
+<th>Dedup or aggregate?</th>
+<th>Used by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ReplacingMergeTree Engine</td>
+<td>Keeps only the newest row per key; older duplicates are discarded</td>
+<td><code>lrs.statements</code>, <code>lrs.concept_mastery</code></td>
+</tr>
+<tr>
+<td>AggregatingMergeTree Engine</td>
+<td>Incrementally combines rows per key using aggregate functions (count, sum, avg, uniq)</td>
+<td><code>mv_section_concept_daily</code>, <code>mv_student_concept_rollup</code>, <code>mv_student_page_rollup</code></td>
+</tr>
+</tbody>
+</table>
+<p>The first of the three views, the <strong>Section Concept Daily MV</strong> (<code>lrs.mv_section_concept_daily</code>), rolls raw statements up to one row per section, concept, and day — the grain a class-level heatmap reads from.</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="n">MATERIALIZED</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">lrs</span><span class="p">.</span><span class="n">mv_section_concept_daily</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">ENGINE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AggregatingMergeTree</span><span class="p">()</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">toYYYYMM</span><span class="p">(</span><span class="k">day</span><span class="p">)</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="p">(</span><span class="n">district_id</span><span class="p">,</span><span class="w"> </span><span class="n">section_id</span><span class="p">,</span><span class="w"> </span><span class="n">concept_id</span><span class="p">,</span><span class="w"> </span><span class="k">day</span><span class="p">)</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="k">AS</span><span class="w"> </span><span class="k">SELECT</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="n">district_id</span><span class="p">,</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="n">section_id</span><span class="p">,</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="n">arrayJoin</span><span class="p">(</span><span class="n">concept_ids</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">concept_id</span><span class="p">,</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="n">toDate</span><span class="p">(</span><span class="k">timestamp</span><span class="p">)</span><span class="w">      </span><span class="k">AS</span><span class="w"> </span><span class="k">day</span><span class="p">,</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">    </span><span class="n">countState</span><span class="p">()</span><span class="w">           </span><span class="k">AS</span><span class="w"> </span><span class="n">events</span><span class="p">,</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="n">avgState</span><span class="p">(</span><span class="n">result_score</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">mean_score</span><span class="p">,</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">    </span><span class="n">uniqState</span><span class="p">(</span><span class="n">student_key</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">students</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="k">FROM</span><span class="w"> </span><span class="n">lrs</span><span class="p">.</span><span class="n">statements</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">section_id</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s1">&#39;&#39;</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">district_id</span><span class="p">,</span><span class="w"> </span><span class="n">section_id</span><span class="p">,</span><span class="w"> </span><span class="n">concept_id</span><span class="p">,</span><span class="w"> </span><span class="k">day</span><span class="p">;</span>
+</span></code></pre></div>
+<p>The <code>uniqState(student_key)</code> column deserves a second look, because it is not there for descriptive convenience. It computes the distinct count of students contributing to a given section-concept-day grain at aggregation time, which is exactly the group-size figure Chapter 15's privacy filter needs to decide whether a cell is large enough to display safely — computing it here means the filter never has to fall back to scanning raw rows just to answer "how many students is this number based on?"</p>
+<p>The second view, the <strong>Student Concept Rollup MV</strong> (<code>lrs.mv_student_concept_rollup</code>), is the one that eventually becomes a single <code>ConceptMastery</code> vertex in Neo4j — one row per student and concept, with the same <code>countState()</code> pattern from Chapter 8 producing <code>statements_compressed</code> at no extra cost.</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="n">MATERIALIZED</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">lrs</span><span class="p">.</span><span class="n">mv_student_concept_rollup</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">ENGINE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AggregatingMergeTree</span><span class="p">()</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="p">(</span><span class="n">district_id</span><span class="p">,</span><span class="w"> </span><span class="n">student_key</span><span class="p">,</span><span class="w"> </span><span class="n">concept_id</span><span class="p">)</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">AS</span><span class="w"> </span><span class="k">SELECT</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="n">district_id</span><span class="p">,</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="n">student_key</span><span class="p">,</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="n">arrayJoin</span><span class="p">(</span><span class="n">concept_ids</span><span class="p">)</span><span class="w">     </span><span class="k">AS</span><span class="w"> </span><span class="n">concept_id</span><span class="p">,</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="n">countState</span><span class="p">()</span><span class="w">               </span><span class="k">AS</span><span class="w"> </span><span class="n">statements_compressed</span><span class="p">,</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="n">sumState</span><span class="p">(</span><span class="n">toUInt32</span><span class="p">(</span><span class="n">ifNull</span><span class="p">(</span><span class="n">result_success</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">successes</span><span class="p">,</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">    </span><span class="n">countIfState</span><span class="p">(</span><span class="n">result_success</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">)</span><span class="w">      </span><span class="k">AS</span><span class="w"> </span><span class="n">attempts</span><span class="p">,</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">    </span><span class="n">avgStateIf</span><span class="p">(</span><span class="n">result_score</span><span class="p">,</span><span class="w"> </span><span class="n">result_score</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">mean_score</span><span class="p">,</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">    </span><span class="n">minState</span><span class="p">(</span><span class="k">timestamp</span><span class="p">)</span><span class="w">        </span><span class="k">AS</span><span class="w"> </span><span class="n">first_seen</span><span class="p">,</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">    </span><span class="n">maxState</span><span class="p">(</span><span class="k">timestamp</span><span class="p">)</span><span class="w">        </span><span class="k">AS</span><span class="w"> </span><span class="n">last_seen</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="k">FROM</span><span class="w"> </span><span class="n">lrs</span><span class="p">.</span><span class="n">statements</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">voided_by</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">notEmpty</span><span class="p">(</span><span class="n">concept_ids</span><span class="p">)</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">district_id</span><span class="p">,</span><span class="w"> </span><span class="n">student_key</span><span class="p">,</span><span class="w"> </span><span class="n">concept_id</span><span class="p">;</span>
+</span></code></pre></div>
+<p>The third, the <strong>Student Page Rollup MV</strong> (<code>lrs.mv_student_page_rollup</code>), follows the identical pattern for reading engagement rather than concept mastery — one row per student and page, feeding what becomes a <code>PageEngagement</code> vertex.</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="n">MATERIALIZED</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">lrs</span><span class="p">.</span><span class="n">mv_student_page_rollup</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">ENGINE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AggregatingMergeTree</span><span class="p">()</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="p">(</span><span class="n">district_id</span><span class="p">,</span><span class="w"> </span><span class="n">student_key</span><span class="p">,</span><span class="w"> </span><span class="n">object_id</span><span class="p">)</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="k">AS</span><span class="w"> </span><span class="k">SELECT</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="n">district_id</span><span class="p">,</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="n">student_key</span><span class="p">,</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="n">object_id</span><span class="p">,</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="n">countState</span><span class="p">()</span><span class="w">                        </span><span class="k">AS</span><span class="w"> </span><span class="n">statements_compressed</span><span class="p">,</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="n">sumState</span><span class="p">(</span><span class="n">toUInt64</span><span class="p">(</span><span class="n">ifNull</span><span class="p">(</span><span class="n">duration_ms</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">dwell_ms_total</span><span class="p">,</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">    </span><span class="n">uniqState</span><span class="p">(</span><span class="n">toDate</span><span class="p">(</span><span class="k">timestamp</span><span class="p">))</span><span class="w">        </span><span class="k">AS</span><span class="w"> </span><span class="n">revisit_count</span><span class="p">,</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">    </span><span class="n">minState</span><span class="p">(</span><span class="k">timestamp</span><span class="p">)</span><span class="w">                 </span><span class="k">AS</span><span class="w"> </span><span class="n">first_seen</span><span class="p">,</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">    </span><span class="n">maxState</span><span class="p">(</span><span class="k">timestamp</span><span class="p">)</span><span class="w">                 </span><span class="k">AS</span><span class="w"> </span><span class="n">last_seen</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="k">FROM</span><span class="w"> </span><span class="n">lrs</span><span class="p">.</span><span class="n">statements</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">object_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Page&#39;</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">voided_by</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">district_id</span><span class="p">,</span><span class="w"> </span><span class="n">student_key</span><span class="p">,</span><span class="w"> </span><span class="n">object_id</span><span class="p">;</span>
+</span></code></pre></div>
+<p>Both rollups share a <code>WHERE voided_by IS NULL</code> clause worth calling out on its own. A voided statement — a retraction, never a deletion, per Chapter 8's F-3 rule — simply drops out of the aggregate on the next merge, and the summarizer's next sync writes the corrected, lower value. Retraction needs no special-case code path anywhere in this schema; it is just another input to what is, at every layer, a pure function of the immutable log.</p>
+<p>The list below reinforces the three materialized views just described, matched to the summary-vertex grain each one ultimately feeds.</p>
+<ul>
+<li><strong>Section Concept Daily MV</strong> — one row per (section, concept, day); feeds class-level heatmaps and the privacy filter's group-size check.</li>
+<li><strong>Student Concept Rollup MV</strong> — one row per (student, concept); becomes exactly one <code>ConceptMastery</code> vertex.</li>
+<li><strong>Student Page Rollup MV</strong> — one row per (student, page); becomes exactly one <code>PageEngagement</code> vertex.</li>
+</ul>
+<h4 id="diagram-materialized-views-to-summary-vertex-mapping">Diagram: Materialized Views to Summary Vertex Mapping<a class="headerlink" href="#diagram-materialized-views-to-summary-vertex-mapping" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/mv-to-vertex-mapping/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Materialized Views to Summary Vertex Mapping</summary>
+<p>Type: workflow
+<strong>sim-id:</strong> mv-to-vertex-mapping<br/>
+<strong>Library:</strong> Mermaid<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Analyze (L4)
+Bloom Taxonomy Verb: trace, differentiate</p>
+<p>Learning objective: Let the learner trace raw rows in lrs.statements through each of the three materialized views to the specific Neo4j summary vertex label each view feeds, and differentiate the aggregation grain of each path.</p>
+<p>Purpose: Show a Mermaid flowchart with one source node fanning out into three parallel aggregation paths that reconverge conceptually at "Summarizer" before terminating in three distinct vertex labels.</p>
+<p>Nodes: "lrs.statements (one row per statement)" fans out to three parallel nodes: "mv_section_concept_daily (AggregatingMergeTree, grain: section+concept+day)", "mv_student_concept_rollup (AggregatingMergeTree, grain: student+concept)", "mv_student_page_rollup (AggregatingMergeTree, grain: student+page)". Each feeds into "Summarizer reads changed rows via last_seen watermark" which fans back out to three terminal nodes: "SectionRollup vertex", "ConceptMastery vertex", "PageEngagement vertex".</p>
+<p>Interactive features: Every node has a Mermaid click directive opening an infobox with that view's ORDER BY key and the specific aggregate columns it computes. A toggle labeled "Show grain size" annotates each of the three paths with an approximate compression ratio (for example, "~600K statements to ~150K grains") drawn from the chapter's own worked numbers.</p>
+<p>Color coding: The three parallel paths render in three distinguishable tints of the book's teal accent color so the learner can visually keep each path separate from source to terminal vertex; the shared "lrs.statements" source and "Summarizer" nodes render in neutral gray to mark them as convergence points.</p>
+<p>Responsive design: The three parallel paths stack vertically rather than side-by-side on narrow viewports, each still reading left-to-right from source to vertex.</p>
+</details>
+<h2 id="neo4j-constraints-that-enforce-the-grain">Neo4j Constraints That Enforce the Grain<a class="headerlink" href="#neo4j-constraints-that-enforce-the-grain" title="Permanent link">&para;</a></h2>
+<p>Chapter 13 explained that summary vertices are upserted rather than inserted. This section shows the exact mechanism that makes that guarantee unbreakable rather than merely intended. A <strong>Grain Uniqueness Constraint</strong> is a Neo4j composite uniqueness constraint declared over the property pair that defines a summary vertex's grain — for <code>ConceptMastery</code>, that pair is <code>(student_key, concept_id)</code>.</p>
+<div class="language-cypher highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="n">CONSTRAINT</span><span class="w"> </span><span class="n">mastery_grain</span><span class="w"> </span><span class="n">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="n">EXISTS</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="n">FOR</span><span class="w"> </span><span class="p">(</span><span class="n">m</span><span class="p">:</span><span class="n">ConceptMastery</span><span class="p">)</span><span class="w">      </span><span class="n">REQUIRE</span><span class="w"> </span><span class="p">(</span><span class="n">m</span><span class="p">.</span><span class="n">student_key</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">concept_id</span><span class="p">)</span><span class="w">  </span><span class="k">IS</span><span class="w"> </span><span class="k">UNIQUE</span><span class="p">;</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="k">CREATE</span><span class="w"> </span><span class="n">CONSTRAINT</span><span class="w"> </span><span class="n">page_engagement_grain</span><span class="w"> </span><span class="n">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="n">EXISTS</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="n">FOR</span><span class="w"> </span><span class="p">(</span><span class="n">p</span><span class="p">:</span><span class="n">PageEngagement</span><span class="p">)</span><span class="w">      </span><span class="n">REQUIRE</span><span class="w"> </span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">student_key</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">page_id</span><span class="p">)</span><span class="w">     </span><span class="k">IS</span><span class="w"> </span><span class="k">UNIQUE</span><span class="p">;</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="k">CREATE</span><span class="w"> </span><span class="n">CONSTRAINT</span><span class="w"> </span><span class="n">microsim_engagement_grain</span><span class="w"> </span><span class="n">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="n">EXISTS</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">  </span><span class="n">FOR</span><span class="w"> </span><span class="p">(</span><span class="n">m</span><span class="p">:</span><span class="n">MicroSimEngagement</span><span class="p">)</span><span class="w">  </span><span class="n">REQUIRE</span><span class="w"> </span><span class="p">(</span><span class="n">m</span><span class="p">.</span><span class="n">student_key</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">microsim_id</span><span class="p">)</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">UNIQUE</span><span class="p">;</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="k">CREATE</span><span class="w"> </span><span class="n">CONSTRAINT</span><span class="w"> </span><span class="n">question_response_grain</span><span class="w"> </span><span class="n">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="n">EXISTS</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">  </span><span class="n">FOR</span><span class="w"> </span><span class="p">(</span><span class="n">q</span><span class="p">:</span><span class="n">QuestionResponse</span><span class="p">)</span><span class="w">    </span><span class="n">REQUIRE</span><span class="w"> </span><span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">student_key</span><span class="p">,</span><span class="w"> </span><span class="n">q</span><span class="p">.</span><span class="n">question_id</span><span class="p">)</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">UNIQUE</span><span class="p">;</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="k">CREATE</span><span class="w"> </span><span class="n">CONSTRAINT</span><span class="w"> </span><span class="n">section_rollup_grain</span><span class="w"> </span><span class="n">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="n">EXISTS</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">  </span><span class="n">FOR</span><span class="w"> </span><span class="p">(</span><span class="n">r</span><span class="p">:</span><span class="n">SectionRollup</span><span class="p">)</span><span class="w">       </span><span class="n">REQUIRE</span><span class="w"> </span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">section_id</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">concept_id</span><span class="p">)</span><span class="w">   </span><span class="k">IS</span><span class="w"> </span><span class="k">UNIQUE</span><span class="p">;</span>
+</span></code></pre></div>
+<p>Because <code>(student_key, concept_id)</code> is declared unique, the summarizer's <code>MERGE</code> clause — the Cypher operation that creates a node if no match exists or matches an existing one if it does — is physically incapable of creating a second <code>ConceptMastery</code> vertex for a student and concept it has already seen. A bug that somehow tried to write per-statement vertices would not silently grow the graph forever; it would violate the constraint and fail loudly on the very first offending write.</p>
+<p>That last sentence is not a hypothetical safeguard — it is the direct enforcement mechanism for the <strong>Statement Label Prohibition</strong>, the design rule stated plainly in the specification: there is deliberately no <code>:Statement</code> label and no <code>:Statement</code> constraint anywhere in the graph. The specification's C-1 requirement forbids per-statement vertices outright, and <code>lrs bootstrap --verify</code> — the deployment-time check Chapter 8 introduced — additionally scans for any node carrying a <code>:Statement</code> label and fails the deployment if it finds one. The grain constraints make the violation structurally impossible during normal writes; the bootstrap check catches anything that somehow got through anyway.</p>
+<div class="admonition mascot-warning">
+<p class="admonition-title">A Constraint Is Not the Same as a Convention</p>
+<p><img alt="Rowan waving a caution flag" class="mascot-admonition-img" src="../../img/mascot/warning.png" />
+It would be easy to read Chapter 8's "the graph never holds per-statement vertices" as a coding convention that a careful engineer simply follows. It is not. The Grain Uniqueness Constraint and the Statement Label Prohibition turn that promise into something Neo4j itself refuses to violate, regardless of what any future engineer's code tries to do. When a rule matters enough to protect against a mistake nobody has made yet, push it into the schema — don't leave it in a comment.</p>
+</div>
+<p>One more constraint-like check operates on a relationship type rather than a node label. The <code>DEPENDS_ON</code> edges between <code>Concept</code> vertices form the learning-graph DAG this entire book has referenced since Chapter 1, and a DAG, by definition, must contain no cycles — a concept cannot depend on itself, even transitively, without breaking every prerequisite computation downstream. The <strong>Concept DAG Acyclicity Check</strong> is the reconciler's responsibility: before it promotes any back-filled <code>DEPENDS_ON</code> edge into the graph, it checks whether adding that edge would introduce a cycle, and rejects the batch if it would. Unlike the grain constraints, Neo4j has no built-in syntax for "this relationship type must never form a cycle," so this check is enforced in application code at the one place new <code>DEPENDS_ON</code> edges are ever written, rather than at the database layer.</p>
+<h4 id="diagram-grain-constraints-and-the-statement-label-prohibition">Diagram: Grain Constraints and the Statement Label Prohibition<a class="headerlink" href="#diagram-grain-constraints-and-the-statement-label-prohibition" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/grain-constraint-enforcement/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Grain Constraints and the Statement Label Prohibition</summary>
+<p>Type: graph-model
+<strong>sim-id:</strong> grain-constraint-enforcement<br/>
+<strong>Library:</strong> vis-network<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Evaluate (L5)
+Bloom Taxonomy Verb: justify, critique</p>
+<p>Learning objective: Let the learner simulate a summarizer write attempt against a Grain Uniqueness Constraint and observe why a second write for the same grain upserts rather than duplicates, then contrast that outcome with a hypothetical write carrying a forbidden :Statement label.</p>
+<p>Canvas layout:</p>
+<ul>
+<li>A central graph view showing one ConceptMastery node for a sample (student_key, concept_id) pair</li>
+<li>A control panel with two buttons: "Simulate MERGE write (same grain)" and "Simulate write with :Statement label"</li>
+<li>An event log panel below the graph showing the outcome of each simulated write attempt</li>
+</ul>
+<p>Interactive controls:</p>
+<ul>
+<li>Button "Simulate MERGE write (same grain)" — animates a second write attempt for the identical (student_key, concept_id) pair; the graph shows the existing node's properties updating in place (mastery_score, evidence_count) rather than a new node appearing, and the event log records "MERGE matched existing grain — properties updated, no new vertex created"</li>
+<li>Button "Simulate write with :Statement label" — animates an attempted write of a per-statement node; the graph flashes the attempted node in red and it fails to attach, and the event log records "REJECTED — :Statement label is prohibited; lrs bootstrap --verify would fail this deployment"</li>
+<li>Button "Reset" — clears the event log and returns the graph to its single starting vertex</li>
+</ul>
+<p>Behavior: Each simulated write appends a timestamped line to the event log panel so the learner can review the sequence of attempts and outcomes after several clicks.</p>
+<p>Color coding: The legitimate ConceptMastery vertex in the book's teal accent color; the rejected hypothetical :Statement node flashes red before disappearing; the event log's successful entries in teal text and rejected entries in red text.</p>
+<p>Responsive design: Control panel and event log stack below the graph view on narrow viewports instead of beside it; the graph canvas resizes to the width of its containing element.</p>
+</details>
+<h2 id="two-postgresql-instances-one-hard-boundary">Two PostgreSQL Instances, One Hard Boundary<a class="headerlink" href="#two-postgresql-instances-one-hard-boundary" title="Permanent link">&para;</a></h2>
+<p>Not every piece of data in this system belongs in ClickHouse or Neo4j. Two small PostgreSQL databases round out the schema, and the design specification is explicit that they must be two separate running instances, not two schemas inside one shared instance.</p>
+<p>The <strong>Vault-Db Instance</strong> holds exactly the data that must never leak into an analytics query: the mapping from a roster-provided student identity to that student's pseudonymous <code>student_key</code>, the <strong>Per-District Salt</strong> Chapter 13 described, and consent records. It is reachable from exactly one place in the whole architecture — the identity service — and nothing else. The <strong>Meta-Db Instance</strong> holds everything administrative: RBAC grants, the audit log the Audit Feed Topic populates, experiment definitions, export jobs, and retention policy, and it is reachable from the admin API and the analytics API.</p>
+<p>Keeping these genuinely separate, rather than two schemas an operator must remember to permission correctly, is what the specification calls a <strong>Network Credential Boundary</strong> — isolation enforced by network reachability and database credentials, not application logic. A shared instance would put the vault one <code>GRANT</code> statement away from being readable by the analytics API; two instances require compromising a second, differently credentialed network path entirely.</p>
+<p>The table below reinforces the two instances just described, organized by what each one holds and who may reach it.</p>
+<table>
+<thead>
+<tr>
+<th>Instance</th>
+<th>Holds</th>
+<th>Reachable from</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>vault-db</code></td>
+<td>Roster ID ↔ <code>student_key</code> mapping, Per-District Salt, consent state</td>
+<td><code>lrs identity</code> only</td>
+</tr>
+<tr>
+<td><code>meta-db</code></td>
+<td>Admin config, RBAC grants, audit log, experiment definitions, export jobs, retention policy</td>
+<td>admin-api, analytics-api</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition mascot-encourage">
+<p class="admonition-title">Twenty-Two Names, One Structural Idea</p>
+<p><img alt="Rowan offering encouragement" class="mascot-admonition-img" src="../../img/mascot/encouraging.png" />
+If this chapter's density of exact names feels heavier than most, that is by design — this is the layer where an approximate answer is a wrong answer. But underneath all twenty-two names sits one repeated idea you already know from earlier chapters: raw evidence stays raw and complete in one place, gets compressed exactly once on the way to a second place, and every step in between is guarded by a name, a type, or a constraint that makes the wrong outcome impossible rather than merely unlikely.</p>
+</div>
+<h2 id="bringing-the-schema-together">Bringing the Schema Together<a class="headerlink" href="#bringing-the-schema-together" title="Permanent link">&para;</a></h2>
+<p>Follow one statement through everything this chapter named. A textbook's POST request lands on the <strong>Raw Statements Topic</strong>, or the <strong>Dead Letter Topic</strong> if malformed. A well-formed statement is consumed, pseudonymized, and inserted into the <strong>Lrs Statements Table</strong>, where the <strong>ReplacingMergeTree Engine</strong> absorbs any redelivery, <strong>LowCardinality Type</strong> columns keep repeated strings cheap, the <strong>ZSTD Compression Codec</strong> keeps the raw JSON affordable to retain, and <strong>Partition By Month</strong> makes retention a partition drop. Three views built on the <strong>AggregatingMergeTree Engine</strong> — the <strong>Section Concept Daily MV</strong>, <strong>Student Concept Rollup MV</strong>, and <strong>Student Page Rollup MV</strong> — continuously roll that row into durable grains alongside the <strong>Lrs Concept Mastery Table</strong> a dashboard actually queries. The summarizer writes exactly one summary vertex per grain into Neo4j, and a <strong>Grain Uniqueness Constraint</strong> — backed by the <strong>Statement Label Prohibition</strong> and the <strong>Concept DAG Acyclicity Check</strong> — makes that write structurally incapable of becoming a second vertex, a duplicate, or a cycle. Off to one side, the <strong>Vault-Db Instance</strong> and <strong>Meta-Db Instance</strong>, separated by a real <strong>Network Credential Boundary</strong>, hold the identity mapping and administrative record this pipeline never touches directly. Chapter 8's promise — every projection reproducible by replaying the log — is now a specific set of topic names, table definitions, and constraints, not an abstraction.</p>
+<h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The <strong>Raw Statements Topic</strong>, <strong>Bulk Statements Topic</strong>, <strong>Dead Letter Topic</strong>, <strong>Reconcile Task Topic</strong>, <strong>Mastery State Topic</strong>, and <strong>Audit Feed Topic</strong> are the six Kafka topics named in the design specification, each with its own key format, partition count, and retention policy.</li>
+<li>The <strong>Lrs Statements Table</strong> is the system of record: a <strong>ReplacingMergeTree Engine</strong> table using <strong>LowCardinality Type</strong> columns, the <strong>ZSTD Compression Codec</strong> on its raw payload, and <strong>Partition By Month</strong> for cheap, drop-based retention.</li>
+<li>The <strong>Lrs Concept Mastery Table</strong> holds the derived BKT score a dashboard reads; the <strong>Section Concept Daily MV</strong>, <strong>Student Concept Rollup MV</strong>, and <strong>Student Page Rollup MV</strong> — all built on the <strong>AggregatingMergeTree Engine</strong> — continuously roll raw statements up to their respective grains.</li>
+<li>A <strong>Grain Uniqueness Constraint</strong> on each summary-vertex label makes the summarizer's upsert structurally correct; the <strong>Statement Label Prohibition</strong> and <code>lrs bootstrap --verify</code> enforce that no per-statement vertex can ever exist.</li>
+<li>The <strong>Concept DAG Acyclicity Check</strong> is a reconciler-side check, not a database constraint, that rejects any <code>DEPENDS_ON</code> back-fill that would introduce a cycle.</li>
+<li>The <strong>Vault-Db Instance</strong> and <strong>Meta-Db Instance</strong> are two separate PostgreSQL instances, not two schemas, connected by a real <strong>Network Credential Boundary</strong> rather than an application-level convention.</li>
+</ul>
+<div class="admonition mascot-celebration">
+<p class="admonition-title">Every Name Now Has a Row</p>
+<p><img alt="Rowan celebrating with confetti" class="mascot-admonition-img" src="../../img/mascot/celebration.png" />
+Six topics, five tables and views, three engines, and a set of constraints that turn a promise into a physical fact — that is the whole physical schema, and you have now read every piece of it straight from the specification. What does the evidence show? A well-designed schema is the quietest part of a system precisely because it makes entire categories of bugs impossible before a single line of application code runs. In <a href="../15-privacy-and-dashboard-mechanics/">Chapter 15: Privacy Enforcement and Dashboard Mechanics</a>, we pick up the <code>uniqState(student_key)</code> column from this chapter's Section Concept Daily MV and follow it into the privacy filter that decides whether a dashboard cell is safe to show.</p>
+</div>
 
 
 
 
 
 
+
+  
+  
 
 
 
@@ -2025,13 +2330,10 @@
     </div>
     
     
-    
-      
-      
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
         <script src="../../js/katex.js"></script>
       

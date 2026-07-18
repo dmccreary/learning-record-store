@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="An intelligent textbook on Learning Record Stores: what they are, how xAPI statements work, and how to design, deploy, and query an LRS.">
+        <meta name="description" content="A walk through the Learning Record Store design specification's seven Architecture Decision Records and the capacity model — statement volume, disk sizing, and graph write rates — that justifies them.">
       
       
         <meta name="author" content="Dan McCreary">
@@ -21,22 +21,19 @@
         <link rel="next" href="../12-bayesian-knowledge-tracing/">
       
       
-        
-      
-      
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
     
     
       
-        <title>11. Architecture Decision Records and the Capacity Model - Learning Record Store</title>
+        <title>Architecture Decision Records and the Capacity Model - Learning Record Store</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -67,6 +64,7 @@
     
       
 
+    
     
     
   </head>
@@ -121,7 +119,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              11. Architecture Decision Records and the Capacity Model
+              Architecture Decision Records and the Capacity Model
             
           </span>
         </div>
@@ -133,13 +131,11 @@
     
     
     
-      
-      
-        <label class="md-header__button md-icon" for="__search">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        </label>
-        <div class="md-search" data-md-component="search" role="dialog">
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
@@ -178,14 +174,13 @@
     </div>
   </div>
 </div>
-      
     
     
       <div class="md-header__source">
         <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub Repo
@@ -230,7 +225,7 @@
       <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub Repo
@@ -250,16 +245,9 @@
       <a href="../.." class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Home
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -277,16 +265,9 @@
       <a href="../../about/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     About
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -304,16 +285,9 @@
       <a href="../../course-description/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Course Description
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -325,120 +299,6 @@
       
   
   
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-  
-    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
-      
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Specifications
-  
-
-    
-  </span>
-  
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-  
-    <a href="../../demo/graph-queries/" class="md-nav__link">
-      
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Demo
-  
-
-    
-  </span>
-  
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -451,70 +311,133 @@
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
-    
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
     
     
     
@@ -524,42 +447,32 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
+          
           
           <div class="md-nav__link md-nav__container">
             <a href="../" class="md-nav__link ">
               
   
-  
   <span class="md-ellipsis">
-    
-  
     Chapters
-  
-
-    
   </span>
-  
   
 
             </a>
             
               
-              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_6">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
-            
-  
-    Chapters
-  
-
+            Chapters
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -575,16 +488,9 @@
       <a href="../01-lms-to-experience-api/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     1. From Learning Management Systems to the Experience API
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -603,16 +509,9 @@
       <a href="../02-anatomy-of-xapi-statement/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     2. The Anatomy of an xAPI Statement
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -631,16 +530,9 @@
       <a href="../03-ieee-standardization-xapi-cmi5/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     3. IEEE Standardization of xAPI and cmi5
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -659,16 +551,9 @@
       <a href="../04-standards-governance-ecosystem/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     4. Standards Governance and the Wider Interoperability Ecosystem
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -687,16 +572,9 @@
       <a href="../05-system-context-architectural-planes/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     5. System Context and the Five Architectural Planes
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -715,16 +593,9 @@
       <a href="../06-multi-tenancy-rosters-identity/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     6. Multi-Tenancy, Rosters, and Pseudonymous Identity
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -743,16 +614,9 @@
       <a href="../07-property-graph-data-model/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     7. The Property Graph Data Model
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -771,16 +635,9 @@
       <a href="../08-summary-vertices-ingestion/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     8. Summary Vertices and Statement Ingestion Mechanics
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -799,16 +656,9 @@
       <a href="../09-twelve-core-lrs-functions/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     9. The Twelve Core LRS Functions
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -827,16 +677,9 @@
       <a href="../10-choosing-technology-stack/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     10. Choosing the Technology Stack
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -864,16 +707,9 @@
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
   
-  
   <span class="md-ellipsis">
-    
-  
     11. Architecture Decision Records and the Capacity Model
-  
-
-    
   </span>
-  
   
 
           <span class="md-nav__icon md-icon"></span>
@@ -882,16 +718,9 @@
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     11. Architecture Decision Records and the Capacity Model
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -914,9 +743,7 @@
         <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Summary
-      
+      Summary
     </span>
   </a>
   
@@ -925,9 +752,7 @@
         <li class="md-nav__item">
   <a href="#concepts-covered" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Concepts Covered
-      
+      Concepts Covered
     </span>
   </a>
   
@@ -936,9 +761,175 @@
         <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
       
-        Prerequisites
+        <li class="md-nav__item">
+  <a href="#adr-001-where-do-statements-live" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-001: Where Do Statements Live?
+    </span>
+  </a>
+  
+</li>
       
+        <li class="md-nav__item">
+  <a href="#adr-002-compress-in-clickhouse-sync-absolutes-to-the-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-002: Compress in ClickHouse, Sync Absolutes to the Graph
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-003-and-the-memgraph-alternative-keeping-the-graph-off-the-hot-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-003 and the Memgraph Alternative: Keeping the Graph Off the Hot Path
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-004-partitioning-without-a-hotspot" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-004: Partitioning Without a Hotspot
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-005-and-adr-007-one-image-one-language-two-different-kinds-of-discipline" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-005 and ADR-007: One Image, One Language, Two Different Kinds of Discipline
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-006-bayesian-knowledge-tracing-for-mastery" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-006: Bayesian Knowledge Tracing for Mastery
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ADR-006: Bayesian Knowledge Tracing for Mastery">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-statement-path-under-adr-001-and-adr-002" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Statement Path Under ADR-001 and ADR-002
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-capacity-model-from-peak-ingest-to-statements-per-day" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Capacity Model: From Peak Ingest to Statements Per Day
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disk-sizing-what-144-million-statements-a-day-cost-to-store" class="md-nav__link">
+    <span class="md-ellipsis">
+      Disk Sizing: What 144 Million Statements a Day Cost to Store
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Disk Sizing: What 144 Million Statements a Day Cost to Store">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-clickhouse-storage-growth-over-the-retention-window" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: ClickHouse Storage Growth Over the Retention Window
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requests-versus-statements-why-the-gateway-can-stay-in-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requests Versus Statements: Why the Gateway Can Stay in Python
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Requests Versus Statements: Why the Gateway Can Stay in Python">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-naive-vs-compressed-graph-write-rate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Naive vs. Compressed Graph Write Rate
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-compression-math-two-different-ratios" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Compression Math: Two Different Ratios
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Compression Math: Two Different Ratios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-sync-cadence-tradeoff-explorer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Sync Cadence Tradeoff Explorer
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bringing-the-two-halves-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bringing the Two Halves Together
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
     </span>
   </a>
   
@@ -963,16 +954,9 @@
       <a href="../12-bayesian-knowledge-tracing/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     12. Bayesian Knowledge Tracing for Mastery
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -991,16 +975,9 @@
       <a href="../13-component-design-in-depth/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     13. Component Design in Depth
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1019,16 +996,9 @@
       <a href="../14-kafka-clickhouse-graph-schema/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     14. Kafka Topics, ClickHouse Schema, and Graph Constraints
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1047,16 +1017,9 @@
       <a href="../15-privacy-and-dashboard-mechanics/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     15. Privacy Enforcement and Dashboard Mechanics
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1075,16 +1038,9 @@
       <a href="../16-container-image-and-cli/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     16. The Container Image and the Role Dispatcher CLI
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1103,16 +1059,9 @@
       <a href="../17-compose-makefile-supply-chain/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     17. Docker Compose, the Makefile, and the Image Supply Chain
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1131,16 +1080,9 @@
       <a href="../18-config-migration-backup-rollout/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     18. Configuration, Migration, Backup, and Rollout
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1159,16 +1101,9 @@
       <a href="../19-failure-modes-and-verification/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     19. Failure Modes and Verification
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1187,16 +1122,9 @@
       <a href="../20-deviations-roadmap-open-questions/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     20. Spec Deviations, the Delivery Roadmap, and Open Questions
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1215,16 +1143,9 @@
       <a href="../21-hardware-cost-dev-environment/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     21. Hardware Sizing, Cost, and the Development Environment
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1243,16 +1164,9 @@
       <a href="../22-proving-the-architecture-mvp/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     22. Proving the Architecture - the MVP Plan
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1271,16 +1185,9 @@
       <a href="../23-production-infrastructure-cloud/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     23. Production Infrastructure and Cloud Services
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1299,16 +1206,9 @@
       <a href="../24-three-personas-and-admin-uis/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     24. Meet the Three Personas and the Admin UI Surface
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1327,16 +1227,9 @@
       <a href="../25-district-admin-rosters-deployments/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     25. District Administrator - Rosters, Deployments, and Registries
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1355,16 +1248,9 @@
       <a href="../26-district-admin-access-control/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     26. District Administrator - Access Control and System Configuration
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1383,16 +1269,9 @@
       <a href="../27-compliance-and-district-reporting/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     27. Compliance, Privacy Law, and District-Level Reporting
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1411,16 +1290,9 @@
       <a href="../28-teacher-dashboards-student-reports/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     28. Teacher Dashboards and Student-Level Reports
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1439,16 +1311,9 @@
       <a href="../29-class-level-reports-and-tools/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     29. Class-Level Reports and Teacher Tools
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1467,16 +1332,9 @@
       <a href="../30-author-dashboards-content-reports/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     30. Textbook Author Dashboards and Content Reports
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1495,16 +1353,9 @@
       <a href="../31-designing-ab-experiments/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     31. Designing and Reading A/B Experiments
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1523,16 +1374,9 @@
       <a href="../32-producer-contract-conformant-statements/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     32. The Producer Contract - Writing Conformant Statements
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1576,7 +1420,6 @@
     
     
     
-    
       
         
         
@@ -1587,20 +1430,12 @@
         
   
   
-  
     <a href="../../learning-graph/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     Learning Graph
-  
-
-    
   </span>
-  
   
 
       
@@ -1628,18 +1463,29 @@
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
-    
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
     
     
     
@@ -1653,20 +1499,108 @@
         
   
   
-  
     <a href="../../sims/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     MicroSims
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
   
 
     
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Specifications
   </span>
   
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../demo/graph-queries/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Demo
+  </span>
   
 
       
@@ -1690,16 +1624,9 @@
       <a href="../../glossary/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Glossary
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1717,16 +1644,9 @@
       <a href="../../license/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     License
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1744,16 +1664,9 @@
       <a href="../../contact/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Contact
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1790,9 +1703,7 @@
         <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Summary
-      
+      Summary
     </span>
   </a>
   
@@ -1801,9 +1712,7 @@
         <li class="md-nav__item">
   <a href="#concepts-covered" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Concepts Covered
-      
+      Concepts Covered
     </span>
   </a>
   
@@ -1812,9 +1721,175 @@
         <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
       
-        Prerequisites
+        <li class="md-nav__item">
+  <a href="#adr-001-where-do-statements-live" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-001: Where Do Statements Live?
+    </span>
+  </a>
+  
+</li>
       
+        <li class="md-nav__item">
+  <a href="#adr-002-compress-in-clickhouse-sync-absolutes-to-the-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-002: Compress in ClickHouse, Sync Absolutes to the Graph
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-003-and-the-memgraph-alternative-keeping-the-graph-off-the-hot-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-003 and the Memgraph Alternative: Keeping the Graph Off the Hot Path
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-004-partitioning-without-a-hotspot" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-004: Partitioning Without a Hotspot
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-005-and-adr-007-one-image-one-language-two-different-kinds-of-discipline" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-005 and ADR-007: One Image, One Language, Two Different Kinds of Discipline
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-006-bayesian-knowledge-tracing-for-mastery" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-006: Bayesian Knowledge Tracing for Mastery
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ADR-006: Bayesian Knowledge Tracing for Mastery">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-statement-path-under-adr-001-and-adr-002" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Statement Path Under ADR-001 and ADR-002
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-capacity-model-from-peak-ingest-to-statements-per-day" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Capacity Model: From Peak Ingest to Statements Per Day
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disk-sizing-what-144-million-statements-a-day-cost-to-store" class="md-nav__link">
+    <span class="md-ellipsis">
+      Disk Sizing: What 144 Million Statements a Day Cost to Store
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Disk Sizing: What 144 Million Statements a Day Cost to Store">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-clickhouse-storage-growth-over-the-retention-window" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: ClickHouse Storage Growth Over the Retention Window
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requests-versus-statements-why-the-gateway-can-stay-in-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requests Versus Statements: Why the Gateway Can Stay in Python
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Requests Versus Statements: Why the Gateway Can Stay in Python">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-naive-vs-compressed-graph-write-rate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Naive vs. Compressed Graph Write Rate
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-compression-math-two-different-ratios" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Compression Math: Two Different Ratios
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Compression Math: Two Different Ratios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-sync-cadence-tradeoff-explorer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Sync Cadence Tradeoff Explorer
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bringing-the-two-halves-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bringing the Two Halves Together
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
     </span>
   </a>
   
@@ -1830,62 +1905,12 @@
           
           
             <div class="md-content" data-md-component="content">
-              
-                
-
-
-
-  
-
-
-  <nav class="md-path" aria-label="Navigation" >
-    <ol class="md-path__list">
-      
-        
-  
-  
-    <li class="md-path__item">
-      <a href="../.." class="md-path__link">
-        
-  <span class="md-ellipsis">
-    Home
-  </span>
-
-      </a>
-    </li>
-  
-
-      
-      
-        
-  
-  
-    
-    
-      <li class="md-path__item">
-        <a href="../" class="md-path__link">
-          
-  <span class="md-ellipsis">
-    Chapters
-  </span>
-
-        </a>
-      </li>
-    
-  
-
-      
-    </ol>
-  </nav>
-
-              
               <article class="md-content__inner md-typeset">
                 
                   
 
-
   
-    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/11-adrs-and-capacity-model/index.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/11-adrs-and-capacity-model/index.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1934,13 +1959,346 @@
 <li><a href="../10-choosing-technology-stack/">Chapter 10: Choosing the Technology Stack</a></li>
 </ul>
 <hr />
-<p>TODO: Generate Chapter Content</p>
+<div class="admonition mascot-welcome">
+<p class="admonition-title">The Arithmetic Behind the Names</p>
+<p><img alt="Rowan waving welcome" class="mascot-admonition-img" src="../../img/mascot/welcome.png" />
+Chapter 10 closed with a promise of its own: every technology name traces back to a number, and every number traces back to a written decision. This chapter opens both books at once — the project's Architecture Decision Records and the capacity model that justifies them. Let's follow the record.</p>
+</div>
+<p>Every nontrivial engineering choice has two parts: the decision itself, and the reasoning that made it the right one at the time. Most teams keep only the first part — the code that resulted — and lose the second the day the engineer who made the call leaves the room. This project keeps both, in a short written form called an <strong>Architecture Decision Record</strong>, or <strong>ADR</strong>: a document that states the context a decision responded to, the options considered, the choice made, and the consequences accepted. An ADR is deliberately small — usually a page or less — and it is never rewritten after the fact to look smarter than the moment it was written in. When a later engineer reads <code>ADR-004</code> and asks "why did they partition by student instead of by district?", the answer is not buried in a commit message or a Slack thread; it is a document with a name.</p>
+<p>The Learning Record Store's design specification, <code>lrs-design-v1.md</code>, records seven of these decisions. Two of them — where statements physically live, and how compression keeps that split correct — are the foundation the rest of the design stands on. The other five each resolve one specific tension the design ran into: how to avoid a queue hotspot, how to ship one deployable artifact instead of eight, which algorithm computes a student's mastery, and how long the ingestion gateway can stay written in Python before it has to become something else. This chapter walks through all seven, then derives the capacity model — the actual arithmetic of statement volume, disk growth, and request rate — that gives each decision its numbers.</p>
+<h2 id="adr-001-where-do-statements-live">ADR-001: Where Do Statements Live?<a class="headerlink" href="#adr-001-where-do-statements-live" title="Permanent link">&para;</a></h2>
+<p>The first and most consequential decision answers a question that sounds almost too simple to need an ADR: when an xAPI Statement arrives, which database is the one, authoritative copy of it? Chapter 8 already established that the graph must never hold a per-statement vertex — that a <code>Statement</code> label in Neo4j is a spec violation, not a stylistic choice. <strong>ADR-001</strong> is the decision that makes that prohibition workable: <strong>ClickHouse is the immutable system of record for every statement, at full fidelity, including the raw JSON</strong>, and Neo4j holds structure — tenancy, content, the concept DAG, deployments, experiments — plus the compressed summary vertices Chapter 8 introduced. Nothing else.</p>
+<p>The context behind ADR-001 is a number worth sitting with before this chapter derives it formally: at the specification's peak sustained ingest target, one-to-one materialization of every statement as a graph vertex would mean roughly 4.3 billion vertices for a <em>thirty-day window alone</em>, with a peak write rate near 50,000 graph mutations per second. No property-graph engine operates comfortably there, and nothing in the reporting catalog would even use it — every report the analytics plane serves is an aggregate, not a per-statement lookup. ClickHouse's columnar, append-only design is built exactly for ordered scans and group-by aggregates over billions of rows, which is the shape every report actually needs. The boundary ADR-001 draws is not a convention a future engineer could accidentally cross; the graph schema itself has no <code>Statement</code> label and no constraint that would admit one, so the prohibition is structural, not procedural.</p>
+<div class="admonition mascot-thinking">
+<p class="admonition-title">One Store of Record, One Structural Store</p>
+<p><img alt="Rowan thinking with a magnifying glass" class="mascot-admonition-img" src="../../img/mascot/thinking.png" />
+Notice the shape of ADR-001: it does not say "ClickHouse is fast and Neo4j is slow." It says each store gets exactly the job it is good at — ClickHouse for full-fidelity, high-volume append, Neo4j for structure and compressed summaries. Watch for that division of labor again in ADR-002 and ADR-003; the whole design is built on giving each engine only the work it was designed to do.</p>
+</div>
+<h2 id="adr-002-compress-in-clickhouse-sync-absolutes-to-the-graph">ADR-002: Compress in ClickHouse, Sync Absolutes to the Graph<a class="headerlink" href="#adr-002-compress-in-clickhouse-sync-absolutes-to-the-graph" title="Permanent link">&para;</a></h2>
+<p>ADR-001 decides <em>where</em> statements live. <strong>ADR-002</strong> decides <em>how</em> the compressed summary vertices Chapter 8 described get built and kept correct — and it exists because the obvious approach to that problem is a trap. The natural design is a windowed aggregator that emits deltas, applying each one to the graph with a Cypher statement shaped like <code>SET n.count = n.count + $delta</code>. That design breaks under Kafka's at-least-once delivery guarantee: if a stream processor crashes after emitting a delta but before committing its Kafka offset, the same delta is redelivered — and <strong>increments are not idempotent</strong>, so the counter silently inflates with no way to detect afterward that it happened.</p>
+<p>ADR-002's decision avoids the trap by never incrementing anything. ClickHouse <code>AggregatingMergeTree</code> materialized views maintain each summary grain incrementally as statements land, at zero application cost — the database does the rollup work the naive design tried to do by hand. A separate <code>summarizer</code> role then reads only the rows whose <code>last_seen</code> timestamp advanced since its last sync, and writes <strong>absolute values</strong>, never deltas, into the graph on a fixed cadence. Writing the same absolute value twice is a no-op, which means redelivery, retry, and full replay are all safe by construction rather than by careful bookkeeping. The following list connects each spec requirement from Chapter 8 to the specific mechanism in ADR-002 that satisfies it, now that both have been explained above.</p>
+<ul>
+<li><strong>Reproducibility</strong> — the materialized view is a pure function of the immutable log, so resetting the sync watermark to zero and letting the summarizer run rebuilds the entire graph from scratch.</li>
+<li><strong>Idempotency</strong> — an absolute <code>SET</code> applied twice changes nothing, so Kafka's at-least-once redelivery can never double-count.</li>
+<li><strong>Correctness under late arrival</strong> — a late statement updates the materialized view, which advances <code>last_seen</code>, which the next sync cycle picks up automatically; there is no window that can have already closed.</li>
+<li><strong>Freshness as a metric</strong> — the gap between "now" and the summarizer's watermark is the graph's staleness, directly observable rather than estimated.</li>
+</ul>
+<h2 id="adr-003-and-the-memgraph-alternative-keeping-the-graph-off-the-hot-path">ADR-003 and the Memgraph Alternative: Keeping the Graph Off the Hot Path<a class="headerlink" href="#adr-003-and-the-memgraph-alternative-keeping-the-graph-off-the-hot-path" title="Permanent link">&para;</a></h2>
+<p>Even after compression, the design specification's numbers show the <code>ConceptMastery</code> grain reaching roughly 400 million vertices at full fleet scale — five million students each touching on the order of eighty concepts. That is comfortable to <em>store</em> in Neo4j, but storing it is not the same question as computing with it on every request. <strong>ADR-003</strong> answers the second question: the concept dependency graph Chapter 7 introduced is small, on the order of two hundred nodes per textbook, so a prerequisite-gap report does not need a graph database to traverse two hundred nodes — it needs a single student's two-hundred-float mastery vector, which is one ClickHouse point lookup or one Redis hash hit, held alongside the tiny DAG in the API process's own memory.</p>
+<p>The decision, then, is a division of labor rather than a demotion of Neo4j: the graph is the <strong>authoring, exploration, and structural-integrity</strong> surface — the tool an instructional designer uses to browse the concept DAG, the surface reconciliation writes to, and the place a summary vertex answers a graph-shaped question like "how is my class doing on this concept?" Hot, per-student mastery math is served from ClickHouse and Redis instead, off the graph entirely. This is the same "each engine does only what it is built for" pattern ADR-001 established, applied one layer deeper.</p>
+<p>That division of labor is also why the design specification's own open-questions list flags a related, still-unresolved decision worth naming here: <strong>Neo4j 5 Community</strong>, the edition this project runs in development, cannot cluster, so it has no story for production high availability. Neo4j Enterprise or its managed Aura offering would supply that, but both carry real licensing cost at fleet scale. The specification names a <strong>Memgraph Alternative</strong> — Memgraph, a graph database with an Apache-2 licensed core — as a credible drop-in if that licensing cost lands badly, because ADR-003 already keeps hot per-student math off the graph entirely. Because nothing performance-critical runs through Neo4j, swapping the structural-and-summary store for a different graph engine changes a deployment configuration, not the shape of any query a report depends on. The specification defers a final call on this to before the project's second milestone.</p>
+<div class="admonition mascot-tip">
+<p class="admonition-title">A Decision That Pays for Itself Twice</p>
+<p><img alt="Rowan pointing helpfully" class="mascot-admonition-img" src="../../img/mascot/tip.png" />
+ADR-003 was written to solve a performance problem — keep per-request math off a database built for structure, not high-frequency reads. Notice it also quietly solved a <em>vendor</em> problem: because the graph was never on the hot path, a licensing surprise late in the project is a swap-the-backing-store decision, not a rewrite-the-query-layer decision. When you're the one arguing for an architectural boundary, it's worth asking whether it buys you more than the one problem you set out to solve.</p>
+</div>
+<h2 id="adr-004-partitioning-without-a-hotspot">ADR-004: Partitioning Without a Hotspot<a class="headerlink" href="#adr-004-partitioning-without-a-hotspot" title="Permanent link">&para;</a></h2>
+<p>The design specification's Kafka topics need a partition key, and the obvious choice — key every message by <code>district_id</code> — creates exactly the problem Chapter 6's multi-tenancy discussion warned against. A single Kafka partition takes all of one key's traffic, so keying by district alone would put an entire 200,000-student district's statement volume onto one partition: a guaranteed hotspot, and precisely the single-tenant traffic concentration the specification's scale-and-availability requirements forbid.</p>
+<p><strong>ADR-004</strong> resolves this by keying each message <code>{district_id}:{student_key}</code> instead of by district alone. Per-learner ordering — required so the Bayesian Knowledge Tracing update Chapter 8 previewed sees one student's evidence in the order it happened — is still guaranteed, because Kafka preserves order within a single partition, and this key still routes every statement from one student to the same partition every time. Traffic now spreads evenly across all partitions by construction, because the key space is students, not districts. Noisy-neighbor protection — stopping one district's traffic spike from starving another's — layers Kafka client quotas on top: a byte-rate ceiling enforced per district at the broker, stronger than partition isolation because it bounds a district's <em>throughput</em> directly rather than merely its placement.</p>
+<h2 id="adr-005-and-adr-007-one-image-one-language-two-different-kinds-of-discipline">ADR-005 and ADR-007: One Image, One Language, Two Different Kinds of Discipline<a class="headerlink" href="#adr-005-and-adr-007-one-image-one-language-two-different-kinds-of-discipline" title="Permanent link">&para;</a></h2>
+<p>Two more ADRs concern how the system is built and shipped rather than where data lives. <strong>ADR-005</strong> decides that every LRS process — gateway, stream processor, summarizer, dashboards — is <strong>one container image</strong>, with the specific role a running container plays chosen entirely by the command passed to it at startup. One build, one dependency resolution, one vulnerability scan, one artifact promoted from a laptop through to production; the gateway and the dashboards cannot silently drift onto different versions of the xAPI parser, because there is exactly one copy of it in the entire deployment.</p>
+<p><strong>ADR-007</strong> decides the language every one of those roles is written in: Python, across the gateway, the stream processors, the analytics API, and the dashboards, rather than splitting the stack per component. The decision carries an explicit numeric trigger rather than standing unconditionally — the capacity model below shows the gateway handling only a few hundred HTTP requests per second, comfortably within a Python framework's reach, but if real-world batching turns out smaller than assumed, pushing the request rate back toward the full statement rate, the gateway alone moves to a compiled language. Because the gateway is small and mostly logic-free — authenticate, validate, produce to a queue — that rewrite stays cheap to defer.</p>
+<h2 id="adr-006-bayesian-knowledge-tracing-for-mastery">ADR-006: Bayesian Knowledge Tracing for Mastery<a class="headerlink" href="#adr-006-bayesian-knowledge-tracing-for-mastery" title="Permanent link">&para;</a></h2>
+<p>The sixth decision answers a question Chapter 9's function catalog raised but did not resolve: given a mix of quiz scores, MicroSim interactions, and page-reading signals, how does the system maintain one number representing how well a student has mastered a concept? <strong>ADR-006</strong> selects <strong>Bayesian Knowledge Tracing</strong>, abbreviated <strong>BKT</strong> — a model, standard in intelligent tutoring systems, that tracks a probability of mastery and updates it as new evidence arrives. Weighed against a weighted moving average, an Elo-style rating, and Item Response Theory, BKT wins on three grounds: its update touches only a single stored float per student-concept pair, cheap enough for a stream processor at the rates this chapter derives below; its parameters are interpretable, backed by decades of published literature; and its output is a probability — "78% likely to have mastered this" is a teacher-legible number an unscaled rating score is not. Chapter 12 returns to BKT's update equations and worked examples in full; here it is named only as the accepted decision, placed correctly among the other six.</p>
+<p>Now that all seven decisions have been introduced in the order the design specification argues them, the table below collects them for quick reference — a summary of what has already been explained above, not a substitute for the reasoning.</p>
+<table>
+<thead>
+<tr>
+<th>ADR</th>
+<th>Decision</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ADR-001</td>
+<td>ClickHouse is the system of record for the statement log; the graph holds structure and compressed summaries only</td>
+<td>Accepted</td>
+</tr>
+<tr>
+<td>ADR-002</td>
+<td>Compression runs as a ClickHouse <code>AggregatingMergeTree</code> rollup plus a change-driven graph sync; absolute writes, never increments</td>
+<td>Accepted</td>
+</tr>
+<tr>
+<td>ADR-003</td>
+<td>Neo4j holds structure, the concept DAG, and summary vertices; the raw log and hot per-student math stay in ClickHouse and Redis</td>
+<td>Accepted</td>
+</tr>
+<tr>
+<td>ADR-004</td>
+<td>Queue partition key is <code>district_id:student_key</code>, not <code>district_id</code>; noisy-neighbor protection via client quotas</td>
+<td>Accepted</td>
+</tr>
+<tr>
+<td>ADR-005</td>
+<td>One container image, many roles, selected by the startup command</td>
+<td>Accepted</td>
+</tr>
+<tr>
+<td>ADR-006</td>
+<td>Bayesian Knowledge Tracing for concept mastery</td>
+<td>Accepted</td>
+</tr>
+<tr>
+<td>ADR-007</td>
+<td>Python across all planes; revisit the gateway above 100,000 statements/sec</td>
+<td>Accepted, with trigger</td>
+</tr>
+</tbody>
+</table>
+<h4 id="diagram-statement-path-under-adr-001-and-adr-002">Diagram: Statement Path Under ADR-001 and ADR-002<a class="headerlink" href="#diagram-statement-path-under-adr-001-and-adr-002" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/statement-path-adr-001-002/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Statement Path Under ADR-001 and ADR-002</summary>
+<p>Type: workflow
+<strong>sim-id:</strong> statement-path-adr-001-002<br/>
+<strong>Library:</strong> Mermaid<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Understand (L2)
+Bloom Taxonomy Verb: explain, trace</p>
+<p>Learning objective: Let the learner trace one xAPI statement's storage path and explain, node by node, which decision (ADR-001 or ADR-002) governs each hop, reinforcing that the graph never receives a per-statement write.</p>
+<p>Purpose: A single Mermaid flowchart showing one statement's journey from arrival to its two eventual resting places — full-fidelity storage and, much later, a compressed summary.</p>
+<p>Nodes: "Statement arrives at the gateway" leads to "Written to ClickHouse, full JSON, full fidelity (ADR-001)" leads to "AggregatingMergeTree materialized view rolls the statement into its grain, incrementally, at zero app cost (ADR-002)". A second branch from the materialized-view node leads to "Every 60s: summarizer reads only grains whose last_seen advanced" leads to "Summarizer writes an absolute value to Neo4j via MERGE + SET, never += (ADR-002)" leads to "One compressed summary vertex in Neo4j, per grain, never per statement (ADR-001)". A dead-end node off the ClickHouse node reads "No arrow from here ever reaches Neo4j directly — nothing per-statement is ever written to the graph."</p>
+<p>Interactive features: Every node has a Mermaid click directive. Clicking the ClickHouse node opens an infobox explaining ADR-001 in one paragraph, quoting "ClickHouse is the immutable system of record for every statement, at full fidelity." Clicking the materialized-view node or the summarizer node opens an infobox explaining ADR-002's absolute-write mechanism and why streaming deltas were rejected. Clicking the final Neo4j summary-vertex node opens an infobox reminding the learner that the graph schema has no Statement label at all. Clicking the dead-end node opens an infobox stating the C-1 constraint from Chapter 8 in one sentence.</p>
+<p>Color coding: The ClickHouse path in the book's teal accent color; the summarizer/graph path in a complementary amber to visually separate "every statement, immediately" from "one absolute value, every 60 seconds."</p>
+<p>Responsive design: Flowchart resizes to the width of its containing element; on narrow viewports the chain reflows top-to-bottom instead of left-to-right.</p>
+</details>
+<h2 id="the-capacity-model-from-peak-ingest-to-statements-per-day">The Capacity Model: From Peak Ingest to Statements Per Day<a class="headerlink" href="#the-capacity-model-from-peak-ingest-to-statements-per-day" title="Permanent link">&para;</a></h2>
+<p>Every ADR above answers a "how" question. The capacity model answers the "how much" question each ADR was actually responding to — and the specification is explicit that a naive calculation overstates the real number by roughly sixfold, because school telemetry is diurnal and bursty rather than flat across a full day. Multiplying a peak rate by the number of seconds in a day assumes that peak rate holds for twenty-four hours straight, which no classroom ever does.</p>
+<p>The specification's capacity model starts from two rates. <strong>Peak Sustained Ingest</strong> is the rate the system must sustain continuously during the busiest normal periods: <strong>10,000 statements per second</strong>. <strong>Burst Ingest Rate</strong> is higher and shorter-lived — <strong>50,000 statements per second</strong> — the spike that happens at period boundaries, when a school's bell rings and every student in every section submits a batch of statements within the same few seconds. Sustained and burst are deliberately different numbers: a system sized only for the sustained rate would fail exactly when it matters most, at the instant hundreds of classrooms change activities at once.</p>
+<p>Three more figures convert that peak rate into a daily volume. <strong>Mean Statement Size</strong> — the average size of one xAPI statement once it carries a realistic <code>context.contextActivities</code> block — is about <strong>1.5 KB</strong>. <strong>Active Ingestion Window</strong> is the portion of a day when U.S. classrooms, spread across four time zones, are actually in session and generating traffic: roughly <strong>10 hours per day</strong>. <strong>Duty Cycle</strong> is the fraction of that active window spent at or near peak rate rather than in the lulls between activities — about <strong>40% of peak</strong>, because statement traffic spikes at period boundaries and falls off between them, exactly the pattern that makes the naive full-day calculation wrong.</p>
+<p>Multiplying these together gives <strong>Statements Per Day</strong>:</p>
+<div class="arithmatex">\[
+10{,}000 \ \text{stmt/sec} \times 0.40 \times 36{,}000 \ \text{sec} \approx 144{,}000{,}000 \ \text{statements/day}
+\]</div>
+<p><strong>~144 million statements per day</strong> is the number every other figure in this chapter is derived from. At 1.5 KB each, that is roughly 216 GB of raw JSON generated across the fleet every single day — before any compression, replication, or retention policy touches it.</p>
+<div class="admonition mascot-warning">
+<p class="admonition-title">Don't Multiply Peak by a Full Day</p>
+<p><img alt="Rowan waving a caution flag" class="mascot-admonition-img" src="../../img/mascot/warning.png" />
+It is tempting to size a system by taking the peak rate and multiplying by 86,400 seconds — "10,000 statements/sec times a full day equals 864 million statements." That single mistake overstates the real daily volume by roughly six times, because it assumes every classroom, in every time zone, sustains peak load for twenty-four straight hours. Always ask what fraction of the day is actually active, and what fraction of that active window runs near peak, before you multiply a rate by anything.</p>
+</div>
+<p>The following list retraces that derivation chain as a self-check, useful before moving on to what those 144 million statements cost to store.</p>
+<ol>
+<li>Peak Sustained Ingest (10,000 stmt/sec) sets the ceiling the ingestion plane must hold continuously.</li>
+<li>Burst Ingest Rate (50,000 stmt/sec) sets the ceiling it must survive briefly, at period boundaries.</li>
+<li>Active Ingestion Window (~10 h/day) restricts that ceiling to the hours classrooms are actually in session.</li>
+<li>Duty Cycle (~40% of peak) restricts it further, to the fraction of the active window spent near peak rather than in the lulls.</li>
+<li>Statements Per Day (~144M) is the product of all four — the number every disk-sizing and request-rate figure below is built on.</li>
+</ol>
+<h2 id="disk-sizing-what-144-million-statements-a-day-cost-to-store">Disk Sizing: What 144 Million Statements a Day Cost to Store<a class="headerlink" href="#disk-sizing-what-144-million-statements-a-day-cost-to-store" title="Permanent link">&para;</a></h2>
+<p>Raw daily volume feeds two separate disk-sizing calculations, because a statement passes through two very different stores on its way to being durable, each with its own retention policy. <strong>Kafka Disk Sizing</strong> covers the durable queue's own storage: 216 GB of raw JSON per day compresses roughly fourfold under zstd, and every partition is replicated three times for durability, giving 216 GB ÷ 4 × 3 ≈ <strong>162 GB per day</strong>. Because the queue is a replay buffer, not the system of record ADR-001 establishes, it only holds seven days of traffic — <strong>Kafka Disk Sizing of roughly 1.1 TB</strong>, a figure that stays flat no matter how long the LRS has been running.</p>
+<p><strong>ClickHouse Disk Sizing</strong> is different, because ClickHouse <em>is</em> the long-term system of record, with a retention window measured in years. Columnar compression brings the same 216 GB down to roughly <strong>22 GB per day</strong> — about a tenfold reduction, matching the figure Chapter 10 named for ClickHouse. Over a 180-day school year that is roughly 4 TB, and at the specification's seven-year retention requirement, cumulative storage reaches <strong>roughly 28 TB</strong>, after data older than thirteen months tiers off to the object store (MinIO in development, Amazon S3 in production) rather than staying on primary disk indefinitely.</p>
+<h4 id="diagram-clickhouse-storage-growth-over-the-retention-window">Diagram: ClickHouse Storage Growth Over the Retention Window<a class="headerlink" href="#diagram-clickhouse-storage-growth-over-the-retention-window" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/clickhouse-storage-growth/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>ClickHouse Storage Growth Over the Retention Window</summary>
+<p>Type: chart
+<strong>sim-id:</strong> clickhouse-storage-growth<br/>
+<strong>Library:</strong> Chart.js<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Apply (L3)
+Bloom Taxonomy Verb: calculate, estimate</p>
+<p>Learning objective: Let the learner apply the ~22 GB/day ClickHouse ingest figure to project cumulative storage across a seven-year retention window, and observe where the tiering policy changes the growth curve's slope.</p>
+<p>Chart type: Line chart with one primary series and one annotated reference line</p>
+<p>Purpose: Show cumulative ClickHouse storage climbing from day zero to the seven-year retention ceiling, so the reader sees the ~28 TB figure as the endpoint of a calculable curve rather than an isolated fact.</p>
+<p>X-axis: Months since launch, 0 to 84 (seven years)
+Y-axis: Cumulative storage, terabytes, 0 to 30</p>
+<p>Data series:</p>
+<ol>
+<li>"ClickHouse primary-disk storage" (teal line): rises at approximately 0.66 TB/month (22 GB/day × 30) up to month 13, then the slope visibly flattens as data older than 13 months tiers to the object store, leveling toward the ~28 TB figure by month 84.</li>
+<li>Reference line (amber, dashed, horizontal): "Kafka disk, 7-day retention — always ~1.1 TB" — flat across the entire chart, to make the contrast explicit between a bounded replay buffer and a growing system of record.</li>
+</ol>
+<p>Annotations:</p>
+<ul>
+<li>A marker at month 13 labeled "Tiering to S3/MinIO begins — data older than 13 months moves off primary disk"</li>
+<li>A marker at month 84 labeled "~28 TB at 7-year retention"</li>
+</ul>
+<p>Interactive features: Hovering any point on either line reveals a tooltip with the exact month and cumulative GB/TB value. A toggle control lets the learner switch the X-axis between "Months" and "School years" (assuming a 180-day school year), recomputing the tick labels without changing the underlying data. Clicking the month-13 marker opens an infobox explaining the tiering policy in one sentence, matching this chapter's prose.</p>
+<p>Color scheme: ClickHouse growth line in the book's teal accent color; the flat Kafka reference line in amber, consistent with this chapter's other diagrams' color language for "bounded buffer" versus "growing store."</p>
+<p>Responsive design: Chart resizes to the width of its containing element and remains readable at tablet width, with the legend moving below the plot area on narrow viewports.</p>
+</details>
+<h2 id="requests-versus-statements-why-the-gateway-can-stay-in-python">Requests Versus Statements: Why the Gateway Can Stay in Python<a class="headerlink" href="#requests-versus-statements-why-the-gateway-can-stay-in-python" title="Permanent link">&para;</a></h2>
+<p>Chapter 10 mentioned in passing that batched xAPI delivery drops the request rate roughly a hundredfold below the statement rate; this chapter can now show the arithmetic. A textbook does not send one HTTP request per statement — it accumulates statements locally and sends them in batches, typically 25 to 100 per <code>POST</code>. Dividing the 10,000 statements/sec peak by a batch size in that range gives the <strong>HTTP Request Rate</strong>: roughly <strong>100 to 400 requests per second</strong> at peak, the figure ADR-007 leans on directly when arguing that a Python gateway is viable without an immediate rewrite.</p>
+<p>That gap is the single most load-bearing number in this chapter's second half. A few hundred requests per second across a handful of pods is unremarkable for FastAPI and Uvicorn; 10,000 individual requests per second — the number the gateway would face if every textbook fired one statement per request instead of batching — is a different engineering problem, and that is precisely the trigger condition ADR-007 names for moving the gateway to a compiled language.</p>
+<p>The same model also explains, in numbers, why ADR-001 and ADR-003 exist. <strong>Graph Write Rate Naive</strong> is what Neo4j would face if every statement were materialized as its own vertex and edges: roughly 10,000 statements/sec times about four edges each, or <strong>~50,000 graph writes per second</strong> — the number spec §5.6 exists specifically to prevent. <strong>Neo4j Structural Node Count</strong>, by contrast — counting only what the graph actually holds under ADR-001 and ADR-003: districts, schools, sections, students, content, and concepts — comes to roughly <strong>10 to 15 million nodes</strong>, comfortably inside what a single Neo4j Community instance handles. The gap between "50,000 writes/sec if compression didn't exist" and "10–15 million total structural nodes" is exactly the gap ADR-001 and ADR-002 were written to close.</p>
+<h4 id="diagram-naive-vs-compressed-graph-write-rate">Diagram: Naive vs. Compressed Graph Write Rate<a class="headerlink" href="#diagram-naive-vs-compressed-graph-write-rate" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/naive-vs-compressed-graph-write-rate/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Naive vs. Compressed Graph Write Rate</summary>
+<p>Type: graph-model
+<strong>sim-id:</strong> naive-vs-compressed-graph-write-rate<br/>
+<strong>Library:</strong> vis-network<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Analyze (L4)
+Bloom Taxonomy Verb: compare, differentiate</p>
+<p>Learning objective: Let the learner compare the naive per-statement graph write rate against the compressed summarizer write rate side by side, and attribute the ~20x reduction to the specific mechanism (ADR-001/ADR-002) that produces it.</p>
+<p>Purpose: Two clusters of nodes in one vis-network canvas, contrasting a rejected design against the accepted one, both grounded in this chapter's own figures.</p>
+<p>Nodes, left cluster "Naive (rejected)": "10,000 statements/sec" connects to "~4 edges per statement" connects to "~50,000 graph writes/sec" connects to a red-flagged node "Prohibited — spec §5.6 C-1, no property graph operates here."</p>
+<p>Nodes, right cluster "Compressed (ADR-001 + ADR-002, accepted)": "10,000 statements/sec" connects to "ClickHouse AggregatingMergeTree rollup (no app-level state)" connects to "~150,000 distinct active grains per 60s window" connects to "~2,500 batched graph upserts/sec via summarizer" connects to a green-flagged node "Comfortable for Neo4j via UNWIND."</p>
+<p>Interactive features: Clicking any node opens an infobox with that node's number and a one-sentence source (this chapter's capacity model or the ADR that produced it). Hovering an edge shows the multiplier or reduction it represents (e.g., hovering the edge into "~50,000 graph writes/sec" shows "10,000 × ~4"). A toggle labeled "Show burst scenario" re-labels the "10,000 statements/sec" nodes to "50,000 statements/sec (burst)" and updates the naive cluster's math to ~250,000 writes/sec while the compressed cluster's downstream numbers stay visibly unchanged — reinforcing that compression absorbs a 5x burst almost entirely.</p>
+<p>Color coding: The naive cluster in a muted red-gray to signal "rejected"; the compressed cluster in the book's teal accent color to signal "accepted design."</p>
+<p>Responsive design: vis-network's physics layout recalculates on window resize; clusters stack vertically below tablet width.</p>
+</details>
+<h2 id="the-compression-math-two-different-ratios">The Compression Math: Two Different Ratios<a class="headerlink" href="#the-compression-math-two-different-ratios" title="Permanent link">&para;</a></h2>
+<p>The capacity model's last piece is the one Chapter 8 gestured at without deriving: exactly how much compression happens, and at what rate. The design specification is careful to separate two ratios that are easy to conflate. <strong>Storage Compression Ratio</strong> measures how many statements collapse into a single summary vertex over that vertex's entire lifetime — an unbounded ratio, because a student's five-hundredth visit to the same page still updates the same <code>PageEngagement</code> vertex rather than creating a new one.</p>
+<p>Before the table below, it helps to name the five grains it covers, each already familiar from Chapter 8: <code>PageEngagement</code> tracks one student's activity on one page; <code>ConceptMastery</code> tracks one student's evidence for one concept; <code>MicroSimEngagement</code> tracks one student's interactions with one simulation; <code>QuestionResponse</code> tracks one student's attempts at one question; and <code>SectionRollup</code> aggregates an entire section's activity against one concept. The table below reinforces the ratios already described in this paragraph, now attached to real numbers.</p>
+<table>
+<thead>
+<tr>
+<th>Grain</th>
+<th>Statements per vertex</th>
+<th>Storage Compression Ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PageEngagement</code> (student, page)</td>
+<td>~20–60 views, scrolls, dwell pings</td>
+<td>~40:1</td>
+</tr>
+<tr>
+<td><code>ConceptMastery</code> (student, concept)</td>
+<td>~50–200 evidence events</td>
+<td>~100:1</td>
+</tr>
+<tr>
+<td><code>MicroSimEngagement</code> (student, microsim)</td>
+<td>~30–100 interactions</td>
+<td>~60:1</td>
+</tr>
+<tr>
+<td><code>QuestionResponse</code> (student, question)</td>
+<td>~1–5 attempts</td>
+<td>~3:1</td>
+</tr>
+<tr>
+<td><code>SectionRollup</code> (section, concept)</td>
+<td>30 students × ~100 events</td>
+<td>~3,000:1</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Write-Rate Compression</strong> is the second, distinct ratio, and it is the one that actually protects Neo4j from write overload — not how many statements a vertex ever absorbs, but how many graph upserts happen <em>per second</em>. That number depends on <strong>Distinct Active Grains</strong>: the count of unique (student, concept) or (student, page) pairs that receive at least one new statement within a single sync window. At the specification's peak, roughly 100,000 students are concurrently active, each touching about 1.5 distinct objects per minute, which is what produces the specific grain counts in the table below.</p>
+<p><strong>Sync Cadence Tradeoff</strong> is the design lever that turns distinct active grains into an actual write rate: the summarizer's sync interval controls how many statements get coalesced into each batch before it writes absolute values to the graph. A shorter cadence means fresher data and a higher write rate; a longer cadence means a lower write rate and more staleness.</p>
+<table>
+<thead>
+<tr>
+<th>Sync cadence</th>
+<th>Statements coalesced</th>
+<th>Distinct Active Grains</th>
+<th>Graph upserts/sec</th>
+<th>Graph lag</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5 s</td>
+<td>50 K</td>
+<td>~50 K</td>
+<td>~10,000</td>
+<td>5 s</td>
+</tr>
+<tr>
+<td>60 s (default)</td>
+<td>600 K</td>
+<td>~150 K</td>
+<td>~2,500</td>
+<td>60 s</td>
+</tr>
+<tr>
+<td>300 s</td>
+<td>3 M</td>
+<td>~300 K</td>
+<td>~1,000</td>
+<td>5 min</td>
+</tr>
+</tbody>
+</table>
+<p>The design specification settles on the 60-second default because ~2,500 batched upserts per second, delivered via a single <code>UNWIND</code> statement per sync cycle, is comfortable for Neo4j, and a minute of graph staleness is invisible on a dashboard nobody is refreshing every few seconds. The property that matters most here is not any one ratio — it is that the write rate barely moves under a burst. A spike to 50,000 statements/sec means each already-active student generates more events per second; it does not conjure five times as many distinct students. Distinct active grains stay close to flat, so <strong>the graph write rate holds near 2,500/sec through a full five-times ingestion burst</strong>, which is exactly why spec §5.6's burst target is survivable rather than merely aspirational.</p>
+<div class="admonition mascot-encourage">
+<p class="admonition-title">Two Ratios, Two Different Jobs</p>
+<p><img alt="Rowan offering encouragement" class="mascot-admonition-img" src="../../img/mascot/encouraging.png" />
+If Storage Compression Ratio and Write-Rate Compression are blurring together in your head, that is a completely normal place to be after one pass through this section. Hold onto the difference by what each one answers: storage compression answers "how much smaller is the graph than the raw log, over its whole life?" Write-rate compression answers "how fast does the graph actually have to write, right now, this second?" One is about size; the other is about speed. Re-reading the two tables side by side usually makes the split click.</p>
+</div>
+<h4 id="diagram-sync-cadence-tradeoff-explorer">Diagram: Sync Cadence Tradeoff Explorer<a class="headerlink" href="#diagram-sync-cadence-tradeoff-explorer" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/sync-cadence-tradeoff-explorer/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Sync Cadence Tradeoff Explorer</summary>
+<p>Type: microsim
+<strong>sim-id:</strong> sync-cadence-tradeoff-explorer<br/>
+<strong>Library:</strong> p5.js<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Apply (L3)
+Bloom Taxonomy Verb: calculate, experiment, apply</p>
+<p>Learning objective: Let the learner manipulate the summarizer's sync cadence and observe, with real computed numbers, how distinct active grains, graph upserts per second, and graph lag all move together — building intuition for why the design specification chose 60 seconds as the default.</p>
+<p>Canvas layout:</p>
+<ul>
+<li>Top area (400px): a horizontal slider labeled "Sync cadence (seconds)" ranging from 5 to 300, with tick marks at 5, 60, and 300 matching the three rows of this chapter's table</li>
+<li>Middle area: four large numeric readouts that update live as the slider moves — "Statements coalesced," "Distinct active grains," "Graph upserts/sec," and "Graph lag"</li>
+<li>Bottom area: a horizontal bar showing "Graph upserts/sec" scaled against a fixed reference line at "10,000/sec (naive, prohibited)" so the learner can see how far below the naive rate every cadence setting stays</li>
+</ul>
+<p>Visual elements:</p>
+<ul>
+<li>Slider track in the book's teal accent color, with a draggable handle</li>
+<li>The four numeric readouts in large, high-contrast text, each with a small icon (clock for cadence-dependent, database for grain count)</li>
+<li>The bottom comparison bar shrinks and grows in real time as the slider moves, always dwarfed by the fixed 10,000/sec reference line</li>
+</ul>
+<p>Interactive controls:</p>
+<ul>
+<li>Slider: "Sync cadence (seconds)," 5 to 300, default 60</li>
+<li>Toggle button: "Show burst scenario (50,000 stmt/sec)" — recomputes all four readouts using the burst ingest rate instead of the peak sustained rate, so the learner can see directly that upserts/sec barely changes even though ingest quintuples</li>
+<li>Button: "Reset to default (60s)"</li>
+</ul>
+<p>Default parameters:</p>
+<ul>
+<li>Cadence: 60 seconds</li>
+<li>Ingest scenario: peak sustained (10,000 stmt/sec)</li>
+</ul>
+<p>Behavior:</p>
+<ul>
+<li>Moving the slider recomputes all four readouts using this chapter's derivation: statements coalesced = ingest rate × cadence; distinct active grains scales sub-linearly toward a ceiling around 300K as cadence grows; graph upserts/sec = distinct active grains ÷ cadence; graph lag = cadence itself</li>
+<li>At the three tick marks (5s, 60s, 300s) the readouts snap to and display the exact figures from this chapter's Sync Cadence Tradeoff table, so the learner can verify the simulation against the printed numbers</li>
+<li>Toggling "Show burst scenario" visibly changes "Statements coalesced" a great deal while "Graph upserts/sec" changes only modestly, making the burst-insensitivity property directly observable rather than merely asserted in prose</li>
+</ul>
+<p>Instructional Rationale: An Apply-level objective calls for parameter exploration rather than a passive animation — the learner should be able to drag the cadence slider themselves and watch the tradeoff numbers respond, which builds the intuition that a longer cadence trades freshness for a gentler write rate, matching exactly the design decision ADR-002 and this chapter's prose describe.</p>
+<p>Implementation notes: Use p5.js <code>slider()</code> for the cadence control and redraw the four readouts and the comparison bar every frame based on the current slider value; interpolate distinct-active-grains between the three anchor points (50K at 5s, 150K at 60s, 300K at 300s) using a smooth curve rather than linear interpolation, since the underlying relationship saturates. Responsive design: canvas width tracks the containing element's width, with the readout panel reflowing beneath the slider on narrow viewports instead of beside it.</p>
+</details>
+<h2 id="bringing-the-two-halves-together">Bringing the Two Halves Together<a class="headerlink" href="#bringing-the-two-halves-together" title="Permanent link">&para;</a></h2>
+<p>The seven ADRs and the capacity model are really one argument told twice, in two different vocabularies. ADR-001 and ADR-002 say, in words, that statements live in ClickHouse and only compressed absolutes ever reach the graph; the capacity model says the same thing in numbers — 144 million statements a day would mean 50,000 naive graph writes per second, and the compression pipeline brings that down to roughly 2,500. ADR-003 says the graph is not on the hot path; the capacity model shows why, with a ~400-million-vertex <code>ConceptMastery</code> grain that is trivial to store but never meant to be traversed per request. ADR-004's partition key and ADR-007's Python gateway both trace back to the same request-rate arithmetic this chapter just derived. None of the seven decisions is arbitrary, and none of the six numbers in the capacity model exists without a decision it justifies.</p>
+<p>That is the whole point of writing an ADR down in the first place: not to record that a choice was made, but to leave behind the arithmetic that makes the choice checkable, years later, by someone who was not in the room when it happened.</p>
+<h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>ADR-001</strong> makes ClickHouse the immutable system of record for every statement; Neo4j holds only structure and compressed summaries, enforced by the graph schema itself.</li>
+<li><strong>ADR-002</strong> compresses in ClickHouse <code>AggregatingMergeTree</code> rollups and syncs absolute values — never increments — to the graph, which is what makes the pipeline idempotent under Kafka's at-least-once delivery.</li>
+<li><strong>ADR-003</strong> keeps the roughly 200-node concept DAG and per-student mastery math off the graph's hot path, and opens the door to the <strong>Memgraph Alternative</strong> if Neo4j's production licensing proves too costly.</li>
+<li><strong>ADR-004</strong> partitions Kafka by <code>district_id:student_key</code>, not district alone, to avoid a single-tenant hotspot while preserving per-learner ordering.</li>
+<li><strong>ADR-005</strong> and <strong>ADR-007</strong> ship one container image across every role and keep the whole stack in Python, with an explicit, numeric trigger for revisiting the gateway.</li>
+<li><strong>ADR-006</strong> selects Bayesian Knowledge Tracing for concept mastery, chosen for its O(1) update cost, its interpretability, and its probability-shaped output.</li>
+<li><strong>Peak Sustained Ingest</strong> (10,000 stmt/sec), <strong>Burst Ingest Rate</strong> (50,000 stmt/sec), <strong>Mean Statement Size</strong> (~1.5 KB), <strong>Active Ingestion Window</strong> (~10 h/day), and <strong>Duty Cycle</strong> (~40%) combine to produce <strong>Statements Per Day</strong> (~144M) — the single number every disk and rate figure in this chapter derives from.</li>
+<li><strong>Kafka Disk Sizing</strong> (~1.1 TB at 7-day retention) and <strong>ClickHouse Disk Sizing</strong> (~28 TB at 7-year retention) size two very differently-scoped stores from the same daily volume.</li>
+<li><strong>HTTP Request Rate</strong> (~100–400/sec) is roughly a hundredfold below the statement rate because of batching — the arithmetic behind ADR-007's Python decision.</li>
+<li><strong>Graph Write Rate Naive</strong> (~50,000/sec) is what compression prevents; <strong>Neo4j Structural Node Count</strong> (~10–15M) is what the graph actually holds instead.</li>
+<li><strong>Storage Compression Ratio</strong> (how much a vertex absorbs over its lifetime) and <strong>Write-Rate Compression</strong> (how fast the graph writes right now) are two different ratios, tied together by <strong>Distinct Active Grains</strong> and the <strong>Sync Cadence Tradeoff</strong> the summarizer's 60-second default resolves.</li>
+</ul>
+<div class="admonition mascot-celebration">
+<p class="admonition-title">Seven Decisions, One Set of Numbers</p>
+<p><img alt="Rowan celebrating with confetti" class="mascot-admonition-img" src="../../img/mascot/celebration.png" />
+You just read every Architecture Decision Record this project has accepted, and derived the capacity model that justifies every one of them from first principles. What does the evidence show? A design that can show its arithmetic is a design that can be checked, questioned, and trusted — which is a higher bar than merely "working." In <a href="../12-bayesian-knowledge-tracing/">Chapter 12: Bayesian Knowledge Tracing for Mastery</a>, we open up ADR-006's algorithm in full, with the update equations and worked examples this chapter deliberately left for later.</p>
+</div>
 
 
 
 
 
 
+
+  
+  
 
 
 
@@ -2026,13 +2384,10 @@
     </div>
     
     
-    
-      
-      
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
         <script src="../../js/katex.js"></script>
       

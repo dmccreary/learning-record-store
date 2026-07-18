@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="An intelligent textbook on Learning Record Stores: what they are, how xAPI statements work, and how to design, deploy, and query an LRS.">
+        <meta name="description" content="How this project's deploy/docker-compose.yml and root Makefile bring the whole LRS stack up on a laptop, and how the design specification's GitHub Actions pipeline builds, scans, signs, and ships the image that stack runs.">
       
       
         <meta name="author" content="Dan McCreary">
@@ -21,22 +21,19 @@
         <link rel="next" href="../18-config-migration-backup-rollout/">
       
       
-        
-      
-      
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
     
     
       
-        <title>17. Docker Compose, the Makefile, and the Image Supply Chain - Learning Record Store</title>
+        <title>Docker Compose, the Makefile, and the Image Supply Chain - Learning Record Store</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -67,6 +64,7 @@
     
       
 
+    
     
     
   </head>
@@ -121,7 +119,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              17. Docker Compose, the Makefile, and the Image Supply Chain
+              Docker Compose, the Makefile, and the Image Supply Chain
             
           </span>
         </div>
@@ -133,13 +131,11 @@
     
     
     
-      
-      
-        <label class="md-header__button md-icon" for="__search">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        </label>
-        <div class="md-search" data-md-component="search" role="dialog">
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
@@ -178,14 +174,13 @@
     </div>
   </div>
 </div>
-      
     
     
       <div class="md-header__source">
         <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub Repo
@@ -230,7 +225,7 @@
       <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub Repo
@@ -250,16 +245,9 @@
       <a href="../.." class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Home
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -277,16 +265,9 @@
       <a href="../../about/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     About
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -304,16 +285,9 @@
       <a href="../../course-description/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Course Description
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -325,120 +299,6 @@
       
   
   
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-  
-    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
-      
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Specifications
-  
-
-    
-  </span>
-  
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-  
-    <a href="../../demo/graph-queries/" class="md-nav__link">
-      
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Demo
-  
-
-    
-  </span>
-  
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -451,70 +311,133 @@
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
-    
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
     
     
     
@@ -524,42 +447,32 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
+          
           
           <div class="md-nav__link md-nav__container">
             <a href="../" class="md-nav__link ">
               
   
-  
   <span class="md-ellipsis">
-    
-  
     Chapters
-  
-
-    
   </span>
-  
   
 
             </a>
             
               
-              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_6">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
-            
-  
-    Chapters
-  
-
+            Chapters
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -575,16 +488,9 @@
       <a href="../01-lms-to-experience-api/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     1. From Learning Management Systems to the Experience API
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -603,16 +509,9 @@
       <a href="../02-anatomy-of-xapi-statement/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     2. The Anatomy of an xAPI Statement
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -631,16 +530,9 @@
       <a href="../03-ieee-standardization-xapi-cmi5/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     3. IEEE Standardization of xAPI and cmi5
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -659,16 +551,9 @@
       <a href="../04-standards-governance-ecosystem/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     4. Standards Governance and the Wider Interoperability Ecosystem
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -687,16 +572,9 @@
       <a href="../05-system-context-architectural-planes/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     5. System Context and the Five Architectural Planes
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -715,16 +593,9 @@
       <a href="../06-multi-tenancy-rosters-identity/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     6. Multi-Tenancy, Rosters, and Pseudonymous Identity
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -743,16 +614,9 @@
       <a href="../07-property-graph-data-model/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     7. The Property Graph Data Model
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -771,16 +635,9 @@
       <a href="../08-summary-vertices-ingestion/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     8. Summary Vertices and Statement Ingestion Mechanics
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -799,16 +656,9 @@
       <a href="../09-twelve-core-lrs-functions/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     9. The Twelve Core LRS Functions
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -827,16 +677,9 @@
       <a href="../10-choosing-technology-stack/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     10. Choosing the Technology Stack
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -855,16 +698,9 @@
       <a href="../11-adrs-and-capacity-model/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     11. Architecture Decision Records and the Capacity Model
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -883,16 +719,9 @@
       <a href="../12-bayesian-knowledge-tracing/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     12. Bayesian Knowledge Tracing for Mastery
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -911,16 +740,9 @@
       <a href="../13-component-design-in-depth/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     13. Component Design in Depth
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -939,16 +761,9 @@
       <a href="../14-kafka-clickhouse-graph-schema/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     14. Kafka Topics, ClickHouse Schema, and Graph Constraints
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -967,16 +782,9 @@
       <a href="../15-privacy-and-dashboard-mechanics/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     15. Privacy Enforcement and Dashboard Mechanics
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -995,16 +803,9 @@
       <a href="../16-container-image-and-cli/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     16. The Container Image and the Role Dispatcher CLI
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1032,16 +833,9 @@
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
   
-  
   <span class="md-ellipsis">
-    
-  
     17. Docker Compose, the Makefile, and the Image Supply Chain
-  
-
-    
   </span>
-  
   
 
           <span class="md-nav__icon md-icon"></span>
@@ -1050,16 +844,9 @@
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     17. Docker Compose, the Makefile, and the Image Supply Chain
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1082,9 +869,7 @@
         <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Summary
-      
+      Summary
     </span>
   </a>
   
@@ -1093,9 +878,7 @@
         <li class="md-nav__item">
   <a href="#concepts-covered" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Concepts Covered
-      
+      Concepts Covered
     </span>
   </a>
   
@@ -1104,9 +887,142 @@
         <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
       
-        Prerequisites
+        <li class="md-nav__item">
+  <a href="#from-one-image-to-a-running-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      From One Image to a Running Stack
+    </span>
+  </a>
+  
+</li>
       
+        <li class="md-nav__item">
+  <a href="#repetition-without-drift-yaml-anchor-reuse" class="md-nav__link">
+    <span class="md-ellipsis">
+      Repetition Without Drift: YAML Anchor Reuse
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gating-startup-the-compose-healthcheck-gate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gating Startup: The Compose Healthcheck Gate
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Gating Startup: The Compose Healthcheck Gate">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-compose-startup-dependency-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Compose Startup Dependency Graph
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compose-profile-turning-optional-services-on" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compose Profile: Turning Optional Services On
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-makefile-one-word-per-task" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Makefile: One Word per Task
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verifying-load-testing-and-recovering" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verifying, Load-Testing, and Recovering
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Verifying, Load-Testing, and Recovering">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-makefile-target-command-explorer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Makefile Target Command Explorer
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#from-a-laptop-to-a-signed-image-the-supply-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      From a Laptop to a Signed Image: The Supply Chain
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proving-what-shipped" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proving What Shipped
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Proving What Shipped">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-image-supply-chain-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Image Supply Chain Pipeline
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bringing-it-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bringing It Together
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
     </span>
   </a>
   
@@ -1131,16 +1047,9 @@
       <a href="../18-config-migration-backup-rollout/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     18. Configuration, Migration, Backup, and Rollout
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1159,16 +1068,9 @@
       <a href="../19-failure-modes-and-verification/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     19. Failure Modes and Verification
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1187,16 +1089,9 @@
       <a href="../20-deviations-roadmap-open-questions/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     20. Spec Deviations, the Delivery Roadmap, and Open Questions
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1215,16 +1110,9 @@
       <a href="../21-hardware-cost-dev-environment/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     21. Hardware Sizing, Cost, and the Development Environment
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1243,16 +1131,9 @@
       <a href="../22-proving-the-architecture-mvp/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     22. Proving the Architecture - the MVP Plan
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1271,16 +1152,9 @@
       <a href="../23-production-infrastructure-cloud/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     23. Production Infrastructure and Cloud Services
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1299,16 +1173,9 @@
       <a href="../24-three-personas-and-admin-uis/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     24. Meet the Three Personas and the Admin UI Surface
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1327,16 +1194,9 @@
       <a href="../25-district-admin-rosters-deployments/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     25. District Administrator - Rosters, Deployments, and Registries
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1355,16 +1215,9 @@
       <a href="../26-district-admin-access-control/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     26. District Administrator - Access Control and System Configuration
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1383,16 +1236,9 @@
       <a href="../27-compliance-and-district-reporting/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     27. Compliance, Privacy Law, and District-Level Reporting
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1411,16 +1257,9 @@
       <a href="../28-teacher-dashboards-student-reports/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     28. Teacher Dashboards and Student-Level Reports
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1439,16 +1278,9 @@
       <a href="../29-class-level-reports-and-tools/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     29. Class-Level Reports and Teacher Tools
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1467,16 +1299,9 @@
       <a href="../30-author-dashboards-content-reports/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     30. Textbook Author Dashboards and Content Reports
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1495,16 +1320,9 @@
       <a href="../31-designing-ab-experiments/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     31. Designing and Reading A/B Experiments
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1523,16 +1341,9 @@
       <a href="../32-producer-contract-conformant-statements/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     32. The Producer Contract - Writing Conformant Statements
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1576,7 +1387,6 @@
     
     
     
-    
       
         
         
@@ -1587,20 +1397,12 @@
         
   
   
-  
     <a href="../../learning-graph/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     Learning Graph
-  
-
-    
   </span>
-  
   
 
       
@@ -1628,18 +1430,29 @@
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
-    
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
     
     
     
@@ -1653,20 +1466,108 @@
         
   
   
-  
     <a href="../../sims/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     MicroSims
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
   
 
     
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Specifications
   </span>
   
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../demo/graph-queries/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Demo
+  </span>
   
 
       
@@ -1690,16 +1591,9 @@
       <a href="../../glossary/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Glossary
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1717,16 +1611,9 @@
       <a href="../../license/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     License
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1744,16 +1631,9 @@
       <a href="../../contact/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Contact
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1790,9 +1670,7 @@
         <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Summary
-      
+      Summary
     </span>
   </a>
   
@@ -1801,9 +1679,7 @@
         <li class="md-nav__item">
   <a href="#concepts-covered" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Concepts Covered
-      
+      Concepts Covered
     </span>
   </a>
   
@@ -1812,9 +1688,142 @@
         <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
       
-        Prerequisites
+        <li class="md-nav__item">
+  <a href="#from-one-image-to-a-running-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      From One Image to a Running Stack
+    </span>
+  </a>
+  
+</li>
       
+        <li class="md-nav__item">
+  <a href="#repetition-without-drift-yaml-anchor-reuse" class="md-nav__link">
+    <span class="md-ellipsis">
+      Repetition Without Drift: YAML Anchor Reuse
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gating-startup-the-compose-healthcheck-gate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gating Startup: The Compose Healthcheck Gate
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Gating Startup: The Compose Healthcheck Gate">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-compose-startup-dependency-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Compose Startup Dependency Graph
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compose-profile-turning-optional-services-on" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compose Profile: Turning Optional Services On
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-makefile-one-word-per-task" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Makefile: One Word per Task
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verifying-load-testing-and-recovering" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verifying, Load-Testing, and Recovering
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Verifying, Load-Testing, and Recovering">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-makefile-target-command-explorer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Makefile Target Command Explorer
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#from-a-laptop-to-a-signed-image-the-supply-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      From a Laptop to a Signed Image: The Supply Chain
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proving-what-shipped" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proving What Shipped
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Proving What Shipped">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-image-supply-chain-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Image Supply Chain Pipeline
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bringing-it-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bringing It Together
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
     </span>
   </a>
   
@@ -1830,62 +1839,12 @@
           
           
             <div class="md-content" data-md-component="content">
-              
-                
-
-
-
-  
-
-
-  <nav class="md-path" aria-label="Navigation" >
-    <ol class="md-path__list">
-      
-        
-  
-  
-    <li class="md-path__item">
-      <a href="../.." class="md-path__link">
-        
-  <span class="md-ellipsis">
-    Home
-  </span>
-
-      </a>
-    </li>
-  
-
-      
-      
-        
-  
-  
-    
-    
-      <li class="md-path__item">
-        <a href="../" class="md-path__link">
-          
-  <span class="md-ellipsis">
-    Chapters
-  </span>
-
-        </a>
-      </li>
-    
-  
-
-      
-    </ol>
-  </nav>
-
-              
               <article class="md-content__inner md-typeset">
                 
                   
 
-
   
-    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/17-compose-makefile-supply-chain/index.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/17-compose-makefile-supply-chain/index.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1934,13 +1893,301 @@
 <li><a href="../16-container-image-and-cli/">Chapter 16: The Container Image and the Role Dispatcher CLI</a></li>
 </ul>
 <hr />
-<p>TODO: Generate Chapter Content</p>
+<div class="admonition mascot-welcome">
+<p class="admonition-title">One Command, One Stack</p>
+<p><img alt="Rowan waving welcome" class="mascot-admonition-img" src="../../img/mascot/welcome.png" />
+Chapter 16 gave us one container image and one dispatcher CLI. That image is useless alone, though — the gateway needs a queue to write to, and every role needs the same passwords pointed at the same places. This chapter wires it all together into one file a developer runs with a single command, then follows that same image through the pipeline that builds, scans, and signs it before it ships. Let's follow the record.</p>
+</div>
+<h2 id="from-one-image-to-a-running-stack">From One Image to a Running Stack<a class="headerlink" href="#from-one-image-to-a-running-stack" title="Permanent link">&para;</a></h2>
+<p>A single <code>lrs</code> image can play any role, but a working Learning Record Store needs several roles running at once, each backed by the right database, queue, and cache, all reachable from one another by name. <strong>Docker Compose</strong> is a tool that reads a declarative YAML file describing a set of containers — their images, environment variables, networks, and startup order — and brings all of them up or down together with one command. The file itself is a <strong>Docker Compose Stack</strong>: the complete, versioned description of every container this project runs together, checked into the repository at <code>deploy/docker-compose.yml</code> rather than assembled by hand on each developer's machine.</p>
+<p>This project's stack divides into two groups. <strong>Backing services</strong> are off-the-shelf, pre-built images this project did not write: Redpanda for the event queue, ClickHouse for the event log, Neo4j for the summary graph, a dedicated PostgreSQL instance for the identity vault, and Redis for caching. <strong>Application roles</strong> are all the identical <code>lrs</code> image from Chapter 16, distinguished only by their startup subcommand.</p>
+<p>Before looking at the file itself, the roster it declares is worth laying out in one place, since the rest of this chapter refers back to it.</p>
+<ul>
+<li><strong>Backing services:</strong> <code>redpanda</code> (queue), <code>clickhouse</code> (event log), <code>neo4j</code> (summary graph), <code>vault-db</code> (pseudonym vault, PostgreSQL), <code>redis</code> (cache).</li>
+<li><strong>Bootstrap:</strong> <code>bootstrap</code> — a run-once, idempotent setup container that must finish successfully before any application role starts.</li>
+<li><strong>Application roles (all one image):</strong> <code>identity</code>, <code>gateway</code>, <code>processor</code>, <code>summarizer</code> — each started with a different <code>lrs</code> subcommand, exactly as Chapter 16 described.</li>
+<li><strong>Optional, profile-gated:</strong> <code>loadgen</code> — a synthetic-traffic generator that only starts when explicitly requested.</li>
+</ul>
+<h2 id="repetition-without-drift-yaml-anchor-reuse">Repetition Without Drift: YAML Anchor Reuse<a class="headerlink" href="#repetition-without-drift-yaml-anchor-reuse" title="Permanent link">&para;</a></h2>
+<p>Five of those containers — <code>bootstrap</code>, <code>identity</code>, <code>gateway</code>, <code>processor</code>, and <code>summarizer</code> — are the same image, need most of the same environment variables (the Kafka address, the ClickHouse URL, the Neo4j credentials), and must wait on the same backing services before starting. Copying that block five times would work, but every future change would need five identical edits, and a missed one would let a role silently point at a different Kafka broker than its siblings. <strong>YAML Anchor Reuse</strong> solves this at the file-format level: an anchor, written <code>&amp;name</code>, marks a block of configuration once, and an alias, written <code>*name</code>, inserts a full copy of it anywhere else in the file. The block is authored once, and every place that uses it stays byte-identical because there is only one place it is written.</p>
+<p>This project's compose file defines three such anchors near the top of the file, before any service is declared.</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">x-lrs-image</span><span class="p">:</span><span class="w"> </span><span class="nl">&amp;lrs-image</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${LRS_IMAGE:-lrs:dev}</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nt">build</span><span class="p">:</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="nt">context</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">..</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="nt">dockerfile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Dockerfile</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="nt">target</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">runtime</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="nt">args</span><span class="p">:</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">      </span><span class="nt">PYTHON_VERSION</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;3.12&quot;</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nt">x-lrs-env</span><span class="p">:</span><span class="w"> </span><span class="nl">&amp;lrs-env</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">  </span><span class="nt">LRS_ENV</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dev</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">  </span><span class="nt">LRS_LOG_LEVEL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${LRS_LOG_LEVEL:-INFO}</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">  </span><span class="nt">KAFKA_BOOTSTRAP</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redpanda:29092</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">  </span><span class="nt">CLICKHOUSE_URL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://lrs:${CLICKHOUSE_PASSWORD}@clickhouse:8123/lrs</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">  </span><span class="nt">NEO4J_URI</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bolt://neo4j:7687</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">  </span><span class="nt">NEO4J_USER</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">neo4j</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">  </span><span class="nt">NEO4J_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${NEO4J_PASSWORD}</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">  </span><span class="nt">REDIS_URL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis://:${REDIS_PASSWORD}@redis:6379/0</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">  </span><span class="nt">IDENTITY_URL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://identity:8086</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="nt">x-lrs-depends</span><span class="p">:</span><span class="w"> </span><span class="nl">&amp;lrs-depends</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">  </span><span class="nt">redpanda</span><span class="p">:</span><span class="w">   </span><span class="p p-Indicator">{</span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="nv">service_healthy</span><span class="p p-Indicator">}</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">  </span><span class="nt">clickhouse</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="nv">service_healthy</span><span class="p p-Indicator">}</span>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">  </span><span class="nt">neo4j</span><span class="p">:</span><span class="w">      </span><span class="p p-Indicator">{</span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="nv">service_healthy</span><span class="p p-Indicator">}</span>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="w">  </span><span class="nt">redis</span><span class="p">:</span><span class="w">      </span><span class="p p-Indicator">{</span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="nv">service_healthy</span><span class="p p-Indicator">}</span>
+</span></code></pre></div>
+<p>The <code>x-</code> prefix on each top-level key is a Compose convention for a block never itself started as a service — it exists only to be aliased. <code>&amp;lrs-image</code> builds every application role from the identical Dockerfile and <code>runtime</code> target Chapter 16 walked through, with <code>context: ..</code> pointing one directory up because this file lives in <code>deploy/</code> while the Dockerfile sits at the repo root. <code>&amp;lrs-env</code> bundles the shared connection strings every role needs — the <code>${VAR}</code> references are filled in from the <code>.env</code> file at the repo root. <code>&amp;lrs-depends</code> bundles the four backing-service health conditions a role typically waits on. A service picks up an entire anchor in one line: <code>&lt;&lt;: *lrs-image</code> merges the image block in; <code>environment: {&lt;&lt;: *lrs-env, LRS_ROLE: gateway}</code> merges the environment and adds one role-specific variable.</p>
+<div class="admonition mascot-thinking">
+<p class="admonition-title">The Anchor Is the Guarantee, Not the Discipline</p>
+<p><img alt="Rowan thinking with a magnifying glass" class="mascot-admonition-img" src="../../img/mascot/thinking.png" />
+Notice what YAML Anchor Reuse actually buys the project: it is not that a developer <em>remembers</em> to keep five services' configuration in sync — it is that keeping them in sync is no longer a task at all. There is one <code>KAFKA_BOOTSTRAP</code> value in the whole file. Five services alias it. A typo in one service's copy simply cannot happen, because there are not five copies to typo.</p>
+</div>
+<p>Before moving on to how the file orders startup, the table below reinforces what each of the three anchors defined above actually eliminates.</p>
+<table>
+<thead>
+<tr>
+<th>Anchor</th>
+<th>Aliased by</th>
+<th>What repeating it by hand would risk</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&amp;lrs-image</code></td>
+<td><code>bootstrap</code>, <code>identity</code>, <code>gateway</code>, <code>processor</code>, <code>summarizer</code></td>
+<td>Two roles quietly built from different Dockerfile targets or Python versions</td>
+</tr>
+<tr>
+<td><code>&amp;lrs-env</code></td>
+<td>Same five roles</td>
+<td>One role pointed at a stale Kafka broker or a different Neo4j password</td>
+</tr>
+<tr>
+<td><code>&amp;lrs-depends</code></td>
+<td><code>identity</code>, <code>processor</code>, <code>summarizer</code> (<code>gateway</code> and <code>bootstrap</code> intentionally use narrower dependency lists — see below)</td>
+<td>A role starting before the backing service it needs is actually healthy</td>
+</tr>
+</tbody>
+</table>
+<h2 id="gating-startup-the-compose-healthcheck-gate">Gating Startup: The Compose Healthcheck Gate<a class="headerlink" href="#gating-startup-the-compose-healthcheck-gate" title="Permanent link">&para;</a></h2>
+<p>A container that reports "started" is not the same as a container ready to do useful work — Neo4j's process can run for several seconds before it can accept a Cypher query. Compose's <code>depends_on</code> can express more than plain ordering: a <strong>Compose Healthcheck Gate</strong> is a <code>depends_on</code> entry written as <code>{condition: service_healthy}</code> rather than the bare service name, which holds a dependent container back not just until the service it depends on has <em>started</em>, but until that service's own <code>healthcheck</code> directive — the same kind of role-aware check Chapter 16 introduced for the <code>lrs</code> image — has reported passing at least once. A second condition, <code>service_completed_successfully</code>, is stricter still: it waits for the dependency to <em>exit with status 0</em>, exactly what a run-once setup container is supposed to do.</p>
+<p>That second condition is how <code>bootstrap</code> gates everything else. <code>bootstrap</code> runs <code>lrs bootstrap --create-topics --apply-ddl --apply-constraints --verify</code> — the run-once setup Chapter 16 named — and every application role lists <code>bootstrap: {condition: service_completed_successfully}</code> in its own <code>depends_on</code>. Until <code>bootstrap</code> exits 0, <code>identity</code>, <code>processor</code>, and <code>summarizer</code> do not start; Compose holds them rather than letting them race against topics and constraints that do not exist yet.</p>
+<p>One dependency line is deliberately the <em>narrowest</em> in the stack, and it is worth pausing on why. The <code>gateway</code> service's <code>depends_on</code> lists only <code>redpanda: {condition: service_healthy}</code> — not ClickHouse, not Neo4j. This is not an oversight; it is spec §5.4's non-blocking-onboarding guarantee made structural. A "helpful" <code>clickhouse</code> dependency would let a ClickHouse restart take the ingestion gateway down with it, losing a classroom's live telemetry every time the analytics store hiccups. The gateway's job is to accept a statement and hand it to the queue; it should never wait on a system three hops downstream of that job.</p>
+<div class="admonition mascot-warning">
+<p class="admonition-title">A Healthy <code>bootstrap</code> Container Is Not Guaranteed Today</p>
+<p><img alt="Rowan waving a caution flag" class="mascot-admonition-img" src="../../img/mascot/warning.png" />
+The compose file's <code>bootstrap</code> command already asks for <code>--apply-ddl</code> and <code>--apply-constraints</code>, but as of this writing those two flags are stubs that exit 2 rather than applying anything — the real setup still has to be run by hand, the way <code>dev-environment-setup.md</code>'s day-1 walkthrough does with <code>cypher-shell</code> directly. Because every application role is gated on <code>bootstrap: {condition: service_completed_successfully}</code>, a <code>bootstrap</code> that exits 2 means <code>identity</code>, <code>processor</code>, and <code>summarizer</code> never start — not a partial stack, a stuck one. If <code>make up</code> seems to hang with only backing services healthy, this is the first thing to check.</p>
+</div>
+<p>Seeing the gating logic as a graph is easier to hold in your head than <code>depends_on</code> blocks scattered across five service definitions.</p>
+<h4 id="diagram-compose-startup-dependency-graph">Diagram: Compose Startup Dependency Graph<a class="headerlink" href="#diagram-compose-startup-dependency-graph" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/compose-startup-dependency-graph/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Compose Startup Dependency Graph</summary>
+<p>Type: workflow
+<strong>sim-id:</strong> compose-startup-dependency-graph<br/>
+<strong>Library:</strong> Mermaid<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Analyze (L4)
+Bloom Taxonomy Verb: trace, differentiate</p>
+<p>Learning objective: Trace which services gate which other services at startup, and explain why the gateway's dependency list is deliberately narrower than every other application role's.</p>
+<p>Purpose: A Mermaid flowchart of five backing services, the bootstrap container, and four application roles, with edges representing depends_on conditions.</p>
+<p>Nodes and edges: redpanda, clickhouse, neo4j, redis, vault-db each feed into "bootstrap" labeled "service_healthy". "bootstrap" feeds into "identity", "processor", "summarizer" labeled "service_completed_successfully". redpanda, clickhouse, neo4j, redis also feed into those three roles labeled "service_healthy" (the lrs-depends anchor). redpanda ALONE feeds into "gateway", in a distinct color, with a callout reading "Deliberately narrow -- spec section 5.4".</p>
+<p>Interactive features: Every node has a Mermaid click directive opening an infobox with a one-sentence definition drawn from this chapter's prose. A toggle button "Highlight the narrow dependency" dims every edge except the single redpanda-to-gateway edge.</p>
+<p>Color coding: Backing services gray-blue, bootstrap amber (gate), application roles the book's teal accent, the gateway's single redpanda edge in a distinct highlight color.</p>
+<p>Responsive design: The graph reflows vertically (backing services top, bootstrap middle, roles bottom) on narrow viewports, preserving all click handlers.</p>
+</details>
+<h2 id="compose-profile-turning-optional-services-on">Compose Profile: Turning Optional Services On<a class="headerlink" href="#compose-profile-turning-optional-services-on" title="Permanent link">&para;</a></h2>
+<p>Not every developer needs every service running on every startup. A <strong>Compose Profile</strong> is a label attached to a service definition — <code>profiles: ["perf"]</code> — that keeps that service out of a plain <code>docker compose up</code> entirely; it only starts when its profile is explicitly requested with a <code>--profile</code> flag. This project's compose file uses exactly one profile today: <code>perf</code>.</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">loadgen</span><span class="p">:</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">&lt;&lt;</span><span class="p">:</span><span class="w"> </span><span class="nv">*lrs-image</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="nt">profiles</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;perf&quot;</span><span class="p p-Indicator">]</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;loadgen&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;--rate&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;200&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;--duration&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;300&quot;</span><span class="p p-Indicator">]</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="nt">environment</span><span class="p">:</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="nt">&lt;&lt;</span><span class="p">:</span><span class="w"> </span><span class="nv">*lrs-env</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="nt">LRS_ROLE</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">loadgen</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="nt">GATEWAY_URL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://gateway:8080</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="nt">LRS_DEV_INGEST_TOKEN</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${LRS_DEV_INGEST_TOKEN}</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">  </span><span class="nt">depends_on</span><span class="p">:</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="nt">gateway</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="nv">service_healthy</span><span class="p p-Indicator">}</span>
+</span></code></pre></div>
+<p>This is the <strong>Loadgen Profile Service</strong> — the compose-level home for the <code>lrs loadgen</code> operational command Chapter 16 introduced. It aliases <code>&amp;lrs-image</code> and <code>&amp;lrs-env</code> like every other application role, but it never starts on a plain <code>docker compose up</code>; it only runs when a developer or CI job asks for the <code>perf</code> profile by name, because a synthetic firehose of statements is exactly the kind of traffic you want running on purpose and never by accident.</p>
+<p>The design specification this repository is built from describes a fuller compose file with two more profiles this MVP has not yet built. The design's <code>obs</code> profile would add <strong>Redpanda Console</strong>, a web UI for inspecting Kafka-API topics, partitions, and consumer-group lag against Redpanda, and the <strong>OTel Collector Service</strong>, an OpenTelemetry Collector container that receives traces and metrics over <code>OTEL_EXPORTER_OTLP_ENDPOINT</code>. The design's <code>full</code> profile would add <strong>Full Profile Keycloak</strong> — a real OpenID Connect identity provider, used in place of the <code>LRS_DEV_INGEST_TOKEN</code> placeholder this dev stack currently authenticates with.</p>
+<p>None of the three — Redpanda Console, the OTel Collector, or Keycloak — appears in this repository's actual <code>deploy/docker-compose.yml</code> today. The file's own header comment says so: they are "scoped out (deferred, not forgotten)," alongside the <code>analytics-api</code>, <code>admin-api</code>, and <code>dashboards</code> roles Chapter 16 named. <code>.env.example</code> carries the same signal as commented-out lines for exactly this deferred set:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># --- Deferred for the architecture-proof MVP; kept here so the shape does not</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="c1"># --- change when they come back. See the plan&#39;s &quot;Deferred, explicitly&quot;.</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1"># KEYCLOAK_PASSWORD=change-me-keycloak   # OIDC (M3+)</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># GRAFANA_PASSWORD=change-me-grafana     # obs profile (M5)</span>
+</span></code></pre></div>
+<p>Those commented lines are a placeholder for a shape the file will grow back into, positioned so a later milestone can uncomment rather than redesign.</p>
+<div class="admonition mascot-tip">
+<p class="admonition-title">Read <code>--profile</code> Flags as a Question About Cost, Not Correctness</p>
+<p><img alt="Rowan pointing helpfully" class="mascot-admonition-img" src="../../img/mascot/tip.png" />
+When you see a service gated behind a Compose Profile, ask "what does running this cost me in RAM and startup time right now?" rather than "is this broken?" A profile is the file's way of saying a service is real and supported, just not free to everyone by default. The <code>perf</code> profile's <code>loadgen</code> is the clearest case: traffic you want on a burst-test afternoon, and never while debugging a processor bug.</p>
+</div>
+<p>The table below summarizes every profile this chapter has named, distinguishing what exists in this repository today from what the design specification describes for later milestones.</p>
+<table>
+<thead>
+<tr>
+<th>Profile</th>
+<th>Status in this repo</th>
+<th>Services</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(default, no profile)</td>
+<td>Implemented</td>
+<td><code>redpanda</code>, <code>clickhouse</code>, <code>neo4j</code>, <code>vault-db</code>, <code>redis</code>, <code>bootstrap</code>, <code>identity</code>, <code>gateway</code>, <code>processor</code>, <code>summarizer</code></td>
+<td>The core stack every <code>make up</code> brings up</td>
+</tr>
+<tr>
+<td><code>perf</code></td>
+<td>Implemented</td>
+<td><code>loadgen</code></td>
+<td>Synthetic traffic for baseline and burst load testing</td>
+</tr>
+<tr>
+<td><code>obs</code></td>
+<td>Deferred (design spec §8.4/§8.9)</td>
+<td>Redpanda Console, OTel Collector, Jaeger, Prometheus, Grafana</td>
+<td>Kafka-API topic inspection and distributed tracing/metrics</td>
+</tr>
+<tr>
+<td><code>full</code></td>
+<td>Deferred (design spec §8.4/§8.9)</td>
+<td>Keycloak</td>
+<td>Real OIDC login in place of the dev ingest token</td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-makefile-one-word-per-task">The Makefile: One Word per Task<a class="headerlink" href="#the-makefile-one-word-per-task" title="Permanent link">&para;</a></h2>
+<p>Typing the full <code>docker compose --env-file .env -f deploy/docker-compose.yml ...</code> invocation by hand for every task would be tedious and error-prone — a developer who forgets <code>--env-file .env</code> gets a stack with every password silently interpolated to empty, since Compose otherwise resolves its project directory from the first <code>-f</code> file and finds no <code>.env</code> inside <code>deploy/</code>. A <strong>Makefile</strong> is a plain-text file of short, named recipes — <code>make</code> targets — each expanding to one or more shell commands, so a developer types <code>make up</code> instead of memorizing the invocation. This project's root-level <code>Makefile</code> defines that invocation once as a variable, <code>COMPOSE</code>, and every target below builds on it.</p>
+<p>The everyday loop uses six targets. The <strong>Make Up Target</strong> builds the image if needed and starts the core stack — with <code>--scale processor=3</code>, so a fresh <code>make up</code> already runs three processor replicas rather than Compose's default single instance.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>make<span class="w"> </span>up<span class="w">            </span><span class="c1"># docker compose ... up -d --build --scale processor=3</span>
+</span></code></pre></div>
+<p>The <strong>Make Down Target</strong> stops every container but leaves the named volumes — the database files — untouched, so the next <code>make up</code> picks up where the stack left off. The <strong>Make Clean Target</strong> goes further and destroys those volumes too, for when the data itself needs to start over.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>make<span class="w"> </span>down<span class="w">           </span><span class="c1"># docker compose ... down            (stop, keep data)</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>make<span class="w"> </span>clean<span class="w">           </span><span class="c1"># docker compose ... down -v          (stop, drop data)</span>
+</span></code></pre></div>
+<p>The <strong>Make Logs Target</strong> streams combined output from the three roles a developer debugging ingestion cares about most — <code>gateway</code>, <code>processor</code>, <code>summarizer</code> — rather than every container at once. The <strong>Make Seed Target</strong> runs the <code>lrs seed --demo</code> operational command from inside a throwaway <code>bootstrap</code> container, loading the demo district, schools, and synthetic statements Chapter 16 described.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>make<span class="w"> </span>logs<span class="w">             </span><span class="c1"># docker compose ... logs -f gateway processor summarizer</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>make<span class="w"> </span>seed<span class="w">             </span><span class="c1"># docker compose ... run --rm bootstrap seed --demo</span>
+</span></code></pre></div>
+<p>Every target routes through the same <code>COMPOSE</code> variable, so every one carries <code>--env-file .env</code>. Only copy-pasting a bare <code>docker compose</code> command, skipping <code>make</code> entirely, can hit the empty-password trap this section opened with.</p>
+<h2 id="verifying-load-testing-and-recovering">Verifying, Load-Testing, and Recovering<a class="headerlink" href="#verifying-load-testing-and-recovering" title="Permanent link">&para;</a></h2>
+<p>Three targets answer "does the stack actually work," each proving a different claim. The <strong>Make Smoke Target</strong> runs <code>scripts/smoke.sh --tier=ingest</code>, the script that posts one xAPI statement and asserts it reaches every store it should — Chapter 19 covers what each tier actually asserts. The <strong>Make Perf Target</strong> runs the synthetic firehose at a fixed baseline rate through the <code>perf</code> profile's <code>loadgen</code> service, and its sibling <code>burst</code> target repeats the command at five times the rate to observe whether graph write volume stays flat under a burst, as Chapter 11's capacity model predicts. The <strong>Make Rebuild Target</strong> invokes the Replay CLI Command Chapter 16 introduced, from inside a fresh <code>bootstrap</code> container, to reconstruct the <code>concept_mastery</code> grain from the untouched event log rather than trusting the graph's current state.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>make<span class="w"> </span>smoke<span class="w">            </span><span class="c1"># ./scripts/smoke.sh --tier=ingest</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>make<span class="w"> </span>perf<span class="w">              </span><span class="c1"># loadgen --rate 200  --duration 300  (baseline)</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>make<span class="w"> </span>burst<span class="w">              </span><span class="c1"># loadgen --rate 1000 --duration 300  (5x burst)</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>make<span class="w"> </span>rebuild<span class="w">             </span><span class="c1"># bootstrap replay --rebuild-graph --grain concept_mastery</span>
+</span></code></pre></div>
+<p>Two more targets round out the file without touching Compose at all. The <strong>Make Test Target</strong> runs the Python integration test suite with <code>uv run pytest tests/ -v</code>, against the same images the compose stack uses rather than a separate mocked environment. A neighboring <code>lint</code> target runs <code>ruff</code> and <code>mypy</code>, the same two gates CLAUDE.md names as mandatory before any change ships.</p>
+<p>The design specification also documents a <strong>Make Obs Target</strong> — <code>make obs</code>, expanding to <code>docker compose --profile obs up -d</code> — bringing up the deferred Redpanda Console and OTel Collector Service alongside Jaeger, Prometheus, and Grafana in one step. Like the <code>obs</code> profile itself, it is not yet in the actual <code>Makefile</code>; it exists only as documentation of the shape the file will grow into.</p>
+<p>A dozen targets is a lot to hold in your head from prose alone. The infographic below lets you search by scenario instead.</p>
+<h4 id="diagram-makefile-target-command-explorer">Diagram: Makefile Target Command Explorer<a class="headerlink" href="#diagram-makefile-target-command-explorer" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/makefile-target-explorer/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Makefile Target Command Explorer</summary>
+<p>Type: infographic
+<strong>sim-id:</strong> makefile-target-explorer<br/>
+<strong>Library:</strong> p5.js<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Apply (L3)
+Bloom Taxonomy Verb: select, apply</p>
+<p>Learning objective: Given a development scenario, select the correct make target, distinguish implemented targets from the deferred obs target, and identify the underlying docker compose (or script) command each one expands to.</p>
+<p>Canvas layout: Left column, a scrollable list of eleven target tiles in monospace (up, down, clean, logs, seed, smoke, perf, burst, rebuild, test, obs). Right panel, a detail card populated on click showing the expanded command, a one-sentence description, and a status tag ("Implemented" or "Deferred"). Top strip: a search box and "Implemented only / Show all" toggle.</p>
+<p>Visual elements: Implemented-target tiles show a teal left border; the deferred obs tile shows a dashed amber border with a "deferred" badge. The selected tile has a highlighted outline; its detail card slides in from the right.</p>
+<p>Interactive controls: Click a tile to populate the detail panel. The search box keyword-matches each tile's tags (e.g. "burst" tagged "load test," "5x"; "obs" tagged "tracing," "not yet built") and highlights the best match. The filter toggle hides the obs tile when set to "Implemented only."</p>
+<p>Color coding: Teal left border for implemented targets, amber dashed border for the deferred target, matching this chapter's compose-profile table.</p>
+<p>Responsive design: The two-column layout collapses to a single stacked column on narrow viewports, with the detail card below the selected tile.</p>
+</details>
+<h2 id="from-a-laptop-to-a-signed-image-the-supply-chain">From a Laptop to a Signed Image: The Supply Chain<a class="headerlink" href="#from-a-laptop-to-a-signed-image-the-supply-chain" title="Permanent link">&para;</a></h2>
+<p>Everything so far in this chapter runs on one developer's machine, building the image locally with <code>docker build</code>. Getting that image safely into a shared or production environment is a different problem: many developers push code, but exactly one built, tested artifact per version should ever run anywhere. A <strong>GitHub Actions Release Workflow</strong> is an automated pipeline, defined in a YAML file under <code>.github/workflows/</code>, that GitHub triggers on an event — typically a push to a release tag — and that builds, scans, signs, and publishes the image without a human running <code>docker build</code> by hand. This project's design specification documents that pipeline even though the workflow file has not yet been written; the abridged version below is quoted from §8.12.</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># .github/workflows/release.yml (abridged, per lrs-design-v1.md §8.12)</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker/setup-buildx-action@v3</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker/build-push-action@v6</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">  </span><span class="nt">with</span><span class="p">:</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="nt">platforms</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">linux/amd64,linux/arm64</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="nt">push</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">    </span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">      </span><span class="no">ghcr.io/dmccreary/lrs:${{ github.sha }}</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">      </span><span class="no">ghcr.io/dmccreary/lrs:${{ github.ref_name }}</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">    </span><span class="nt">cache-from</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">type=gha</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">    </span><span class="nt">cache-to</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">type=gha,mode=max</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">    </span><span class="nt">provenance</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">    </span><span class="nt">sbom</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">aquasecurity/trivy-action@0.28.0</span>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="w">  </span><span class="nt">with</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">image-ref</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;ghcr.io/dmccreary/lrs:${{</span><span class="nv"> </span><span class="s">github.sha</span><span class="nv"> </span><span class="s">}}&#39;</span><span class="p p-Indicator">,</span><span class="nt"> severity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;CRITICAL,HIGH&#39;</span><span class="p p-Indicator">,</span><span class="nt"> exit-code</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;1&#39;</span><span class="p p-Indicator">}</span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cosign sign --yes ghcr.io/dmccreary/lrs@${DIGEST}</span>
+</span></code></pre></div>
+<p>Reading this pipeline top to bottom introduces five more concepts, each doing one job in sequence. <strong>Docker Buildx</strong> is Docker's extended build engine, invoked through <code>docker/setup-buildx-action</code>, that can produce images for processor architectures other than the one the build machine itself runs on. That capability is what makes a <strong>Multi-Arch Image Build</strong> possible: <code>platforms: linux/amd64,linux/arm64</code> asks Buildx to produce two complete images from one build step — <code>amd64</code> for cloud servers, <code>arm64</code> for Apple Silicon laptops — under the same tag, so the image an M-series Mac pulls is genuinely the build CI produced, not a second, separately-maintained one.</p>
+<p>The <strong>GHA Layer Cache</strong>, configured by <code>cache-from: type=gha</code> and <code>cache-to: type=gha,mode=max</code>, persists Docker build-layer cache between workflow runs inside GitHub's own storage — the CI equivalent of the Docker Build Cache Mount Chapter 16 described for <code>uv sync</code>, but shared across every run. Without it, a security patch to one dependency would force CI to rebuild every layer of the Dockerfile from scratch on every push.</p>
+<h2 id="proving-what-shipped">Proving What Shipped<a class="headerlink" href="#proving-what-shipped" title="Permanent link">&para;</a></h2>
+<p>Building the image quickly is only half the job; a district trusting this system with student records needs evidence, not just assurance. Three more lines in the workflow above produce that evidence. <code>provenance: true</code> generates a <strong>Provenance Attestation</strong> — a signed record of how the image was built: source commit, workflow run, build parameters — so a consumer can verify it was built by this project's own CI and not tampered with afterward. <code>sbom: true</code> generates an <strong>SBOM</strong>, a <strong>Software Bill of Materials</strong>: a machine-readable inventory of every package baked into the image, letting a security team check for a vulnerable library version without opening the image itself.</p>
+<p>The Trivy step that follows is a <strong>Trivy Vulnerability Scan</strong> — <code>aquasecurity/trivy-action</code> scans the built image against a database of known vulnerabilities, and <code>severity: 'CRITICAL,HIGH'</code> combined with <code>exit-code: '1'</code> fails the workflow, blocking the release, if any critical or high-severity vulnerability is found. This turns a scan from an advisory report into a gate nothing can bypass silently.</p>
+<div class="admonition mascot-encourage">
+<p class="admonition-title">Five New Terms, One Shared Question</p>
+<p><img alt="Rowan offering encouragement" class="mascot-admonition-img" src="../../img/mascot/encouraging.png" />
+Buildx, the GHA layer cache, provenance attestations, SBOMs, Trivy scans, and image signing can feel like a wall of unfamiliar names arriving at once. Notice they all answer one question a district administrator is entitled to ask: "prove this exact image is the one your team built, and nothing dangerous is hiding inside it." Hold that question in mind and each term is just one more way the pipeline answers it.</p>
+</div>
+<p>The final line, <code>cosign sign --yes ghcr.io/dmccreary/lrs@${DIGEST}</code>, is <strong>Cosign Image Signing</strong> — Cosign attaches a cryptographic signature to a container image, so a deployment can verify the image was signed by this project's own release pipeline and reject anything unsigned before a container starts. Notice the command signs <code>@${DIGEST}</code>, not a tag. A container image's <strong>digest</strong> is a cryptographic hash of its exact contents, and an <strong>Immutable Digest Reference</strong> — written as <code>name@sha256:...</code> rather than <code>name:tag</code> — cannot be silently repointed at different content the way a tag like <code>:latest</code> can be. A tag is a mutable label someone could push a new image under tomorrow with the same name; a digest is the content itself, addressed directly. The design specification is explicit that deployments should reference the digest, never a mutable tag, and that <code>:latest</code> should not exist in any manifest — the whole chain, from Buildx through Cosign, proves something about one unchangeable set of bytes, and a mutable tag would let that guarantee quietly stop meaning anything.</p>
+<p>Tracing one image through every stage named above is easier as a diagram than as prose.</p>
+<h4 id="diagram-image-supply-chain-pipeline">Diagram: Image Supply Chain Pipeline<a class="headerlink" href="#diagram-image-supply-chain-pipeline" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/image-supply-chain-pipeline/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Image Supply Chain Pipeline</summary>
+<p>Type: workflow
+<strong>sim-id:</strong> image-supply-chain-pipeline<br/>
+<strong>Library:</strong> Mermaid<br/>
+<strong>Status:</strong> Specified
+<strong>Template:</strong> https://github.com/dmccreary/infographics/tree/main/docs/sims/cicd-deployment-pipeline<br/></p>
+<p>Bloom Taxonomy: Analyze (L4)
+Bloom Taxonomy Verb: trace, differentiate</p>
+<p>Learning objective: Trace a single image from a release-tag push through build, cache, provenance/SBOM generation, vulnerability scanning, and signing, and explain why a deployment must reference the resulting digest rather than a mutable tag.</p>
+<p>Purpose: A left-to-right Mermaid flowchart tracing one release through the abridged workflow quoted in this chapter's prose.</p>
+<p>Nodes in order: "Push to release tag" -&gt; "Docker Buildx (multi-arch: amd64 + arm64)" -&gt; "GHA Layer Cache" -&gt; "Build image, attach Provenance Attestation + SBOM" -&gt; "Trivy Vulnerability Scan (CRITICAL/HIGH = block)" -&gt; two branches: "Vulnerabilities found" to a red "Release blocked, exit 1" end node; "Clean scan" onward to "Cosign Image Signing" -&gt; "Push ghcr.io/dmccreary/lrs@sha256:... (Immutable Digest Reference)" -&gt; "Deployment pulls by digest, never by tag".</p>
+<p>Interactive features: Every node has a Mermaid click directive opening an infobox with a one-sentence definition drawn from this chapter's prose. Clicking the Trivy node explains severity and exit-code gating. Clicking the final two nodes explains the difference between a mutable tag and an immutable digest reference.</p>
+<p>Color coding: Build-stage nodes in the book's teal accent color, security-gate nodes (Trivy, Cosign) in amber, the blocked-release branch in red, the final deploy-by-digest node in green.</p>
+<p>Responsive design: The flowchart stacks vertically on narrow viewports, preserving left-to-right order as top-to-bottom, with the two branch paths staying visually distinct.</p>
+</details>
+<h2 id="bringing-it-together">Bringing It Together<a class="headerlink" href="#bringing-it-together" title="Permanent link">&para;</a></h2>
+<p>Follow one change through everything this chapter named. A developer edits <code>src/lrs/</code>, runs <code>make up</code>, and Compose rebuilds only the layers Chapter 16's Dockerfile says changed, using the same anchors that keep <code>identity</code>, <code>gateway</code>, <code>processor</code>, and <code>summarizer</code> from drifting apart. <code>bootstrap</code> runs first and must exit 0 before any of those four roles starts — a Compose Healthcheck Gate, not a sleep loop — and the gateway alone skips waiting on ClickHouse or Neo4j, because spec §5.4 says ingestion must never block on the analytics store. <code>make seed</code> populates a demo district; <code>make smoke</code> and <code>make perf</code> — and <code>make burst</code> for the full claim — prove the ingest path and the capacity model hold on this machine. None of that touches the <code>obs</code> or <code>full</code> profiles this chapter also described, because neither is built yet.</p>
+<p>When that change ships beyond one laptop, a push to a release tag hands it to an automated version of the same idea: Buildx builds two architectures at once, the GHA layer cache keeps that fast, Trivy blocks the release or lets it through clean, Cosign signs the result, and every deployment pulls that exact, unchangeable digest — never a tag that could quietly point somewhere else tomorrow.</p>
+<ul>
+<li>One <code>docker-compose.yml</code>, reused blocks via YAML anchors, and healthcheck-gated startup keep every role from drifting apart or racing its own dependencies.</li>
+<li>Compose profiles keep optional services — a load generator today, observability tooling and a real identity provider once built — out of everyone's way until requested.</li>
+<li>A Makefile turns a long, easy-to-mistype Compose invocation into one memorable word per task.</li>
+<li>An automated image supply chain turns "we built an image" into "here is proof of exactly what we built and that nothing dangerous is hiding inside it."</li>
+</ul>
+<h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
+<ul>
+<li>A <strong>Docker Compose Stack</strong> declares every container this project runs together — backing services, a run-once bootstrap container, and application roles built from Chapter 16's single image — in one versioned YAML file.</li>
+<li><strong>YAML Anchor Reuse</strong> (<code>&amp;lrs-image</code>, <code>&amp;lrs-env</code>, <code>&amp;lrs-depends</code>) lets the application-role services share configuration by construction rather than discipline, so they cannot silently drift apart.</li>
+<li>A <strong>Compose Healthcheck Gate</strong> (<code>service_healthy</code> or <code>service_completed_successfully</code>) holds a dependent container back until its dependency is actually ready, not just started; the gateway's deliberately narrow dependency on <code>redpanda</code> alone protects spec §5.4's non-blocking guarantee.</li>
+<li>A <strong>Compose Profile</strong> keeps optional services — the implemented <strong>Loadgen Profile Service</strong>, and the design-specified but not-yet-built <strong>Redpanda Console</strong>, <strong>OTel Collector Service</strong>, and <strong>Full Profile Keycloak</strong> — out of the default startup until requested.</li>
+<li>The <strong>Makefile</strong>'s <strong>Up</strong>, <strong>Down</strong>, <strong>Clean</strong>, <strong>Logs</strong>, <strong>Seed</strong>, <strong>Smoke</strong>, <strong>Perf</strong>, <strong>Rebuild</strong>, and <strong>Test</strong> targets, plus the not-yet-built <strong>Obs</strong> target, turn a long Compose invocation into one word per task.</li>
+<li>A <strong>GitHub Actions Release Workflow</strong> uses <strong>Docker Buildx</strong> for a <strong>Multi-Arch Image Build</strong>, sped by a <strong>GHA Layer Cache</strong>, attaches a <strong>Provenance Attestation</strong> and an <strong>SBOM</strong>, then gates release on a <strong>Trivy Vulnerability Scan</strong>.</li>
+<li><strong>Cosign Image Signing</strong> attaches a verifiable signature, and deployments reference the image only by its <strong>Immutable Digest Reference</strong> — never a mutable tag — so the supply chain's guarantees stay attached to one unchangeable set of bytes.</li>
+</ul>
+<div class="admonition mascot-celebration">
+<p class="admonition-title">The Whole Stack, Start to Signed</p>
+<p><img alt="Rowan celebrating with confetti" class="mascot-admonition-img" src="../../img/mascot/celebration.png" />
+You can now read this project's actual <code>deploy/docker-compose.yml</code> and root <code>Makefile</code> line by line, explain why the gateway's dependency list looks deliberately thin, and trace an image from a release-tag push to a signed, digest-pinned deployment artifact. What does the evidence show? A trustworthy system is not just correct code — it is a pipeline that can prove what it shipped. In <a href="../18-config-migration-backup-rollout/">Chapter 18: Configuration, Migration, Backup, and Rollout</a>, we pick up right where the <code>.env</code> file and that immutable digest leave off.</p>
+</div>
 
 
 
 
 
 
+
+  
+  
 
 
 
@@ -2026,13 +2273,10 @@
     </div>
     
     
-    
-      
-      
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
         <script src="../../js/katex.js"></script>
       

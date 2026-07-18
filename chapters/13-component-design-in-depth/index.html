@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="An intelligent textbook on Learning Record Stores: what they are, how xAPI statements work, and how to design, deploy, and query an LRS.">
+        <meta name="description" content="A close reading of the design specification's four moving parts — gateway, identity service, processor, and summarizer — covering token caching, salted HMAC pseudonymization, deterministic experiment bucketing, and the cache-invalidation contract behind every dashboard response.">
       
       
         <meta name="author" content="Dan McCreary">
@@ -21,22 +21,19 @@
         <link rel="next" href="../14-kafka-clickhouse-graph-schema/">
       
       
-        
-      
-      
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
     
     
       
-        <title>13. Component Design in Depth - Learning Record Store</title>
+        <title>Component Design in Depth - Learning Record Store</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -67,6 +64,7 @@
     
       
 
+    
     
     
   </head>
@@ -121,7 +119,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              13. Component Design in Depth
+              Component Design in Depth
             
           </span>
         </div>
@@ -133,13 +131,11 @@
     
     
     
-      
-      
-        <label class="md-header__button md-icon" for="__search">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        </label>
-        <div class="md-search" data-md-component="search" role="dialog">
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
@@ -178,14 +174,13 @@
     </div>
   </div>
 </div>
-      
     
     
       <div class="md-header__source">
         <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub Repo
@@ -230,7 +225,7 @@
       <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub Repo
@@ -250,16 +245,9 @@
       <a href="../.." class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Home
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -277,16 +265,9 @@
       <a href="../../about/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     About
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -304,16 +285,9 @@
       <a href="../../course-description/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Course Description
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -325,120 +299,6 @@
       
   
   
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-  
-    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
-      
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Specifications
-  
-
-    
-  </span>
-  
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-  
-    <a href="../../demo/graph-queries/" class="md-nav__link">
-      
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Demo
-  
-
-    
-  </span>
-  
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -451,70 +311,133 @@
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
-    
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
     
     
     
@@ -524,42 +447,32 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
+          
           
           <div class="md-nav__link md-nav__container">
             <a href="../" class="md-nav__link ">
               
   
-  
   <span class="md-ellipsis">
-    
-  
     Chapters
-  
-
-    
   </span>
-  
   
 
             </a>
             
               
-              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_6">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
-            
-  
-    Chapters
-  
-
+            Chapters
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -575,16 +488,9 @@
       <a href="../01-lms-to-experience-api/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     1. From Learning Management Systems to the Experience API
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -603,16 +509,9 @@
       <a href="../02-anatomy-of-xapi-statement/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     2. The Anatomy of an xAPI Statement
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -631,16 +530,9 @@
       <a href="../03-ieee-standardization-xapi-cmi5/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     3. IEEE Standardization of xAPI and cmi5
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -659,16 +551,9 @@
       <a href="../04-standards-governance-ecosystem/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     4. Standards Governance and the Wider Interoperability Ecosystem
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -687,16 +572,9 @@
       <a href="../05-system-context-architectural-planes/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     5. System Context and the Five Architectural Planes
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -715,16 +593,9 @@
       <a href="../06-multi-tenancy-rosters-identity/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     6. Multi-Tenancy, Rosters, and Pseudonymous Identity
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -743,16 +614,9 @@
       <a href="../07-property-graph-data-model/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     7. The Property Graph Data Model
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -771,16 +635,9 @@
       <a href="../08-summary-vertices-ingestion/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     8. Summary Vertices and Statement Ingestion Mechanics
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -799,16 +656,9 @@
       <a href="../09-twelve-core-lrs-functions/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     9. The Twelve Core LRS Functions
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -827,16 +677,9 @@
       <a href="../10-choosing-technology-stack/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     10. Choosing the Technology Stack
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -855,16 +698,9 @@
       <a href="../11-adrs-and-capacity-model/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     11. Architecture Decision Records and the Capacity Model
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -883,16 +719,9 @@
       <a href="../12-bayesian-knowledge-tracing/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     12. Bayesian Knowledge Tracing for Mastery
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -920,16 +749,9 @@
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
   
-  
   <span class="md-ellipsis">
-    
-  
     13. Component Design in Depth
-  
-
-    
   </span>
-  
   
 
           <span class="md-nav__icon md-icon"></span>
@@ -938,16 +760,9 @@
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     13. Component Design in Depth
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -970,9 +785,7 @@
         <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Summary
-      
+      Summary
     </span>
   </a>
   
@@ -981,9 +794,7 @@
         <li class="md-nav__item">
   <a href="#concepts-covered" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Concepts Covered
-      
+      Concepts Covered
     </span>
   </a>
   
@@ -992,9 +803,154 @@
         <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
       
-        Prerequisites
+        <li class="md-nav__item">
+  <a href="#the-gateways-request-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Gateway's Request Path
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Gateway's Request Path">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-gateway-request-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Gateway Request Pipeline
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
+        <li class="md-nav__item">
+  <a href="#pseudonymization-at-the-processing-boundary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pseudonymization at the Processing Boundary
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pseudonymization at the Processing Boundary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-pseudonymization-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Pseudonymization Pipeline
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-processors-batch-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Processor's Batch Loop
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Processor's Batch Loop">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-processor-batch-loop-dedup-score-and-replay" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Processor Batch Loop — Dedup, Score, and Replay
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deterministic-bucketing-for-experiments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deterministic Bucketing for Experiments
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deterministic Bucketing for Experiments">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-deterministic-bucketing-and-the-ramping-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Deterministic Bucketing and the Ramping Rule
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-analytics-apis-cache-contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Analytics API's Cache Contract
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Analytics API's Cache Contract">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-analytics-cache-key-and-the-privacy-filter-choke-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Analytics Cache Key and the Privacy Filter Choke Point
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-dashboard-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Dashboard Layer
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bringing-the-components-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bringing the Components Together
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
     </span>
   </a>
   
@@ -1019,16 +975,9 @@
       <a href="../14-kafka-clickhouse-graph-schema/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     14. Kafka Topics, ClickHouse Schema, and Graph Constraints
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1047,16 +996,9 @@
       <a href="../15-privacy-and-dashboard-mechanics/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     15. Privacy Enforcement and Dashboard Mechanics
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1075,16 +1017,9 @@
       <a href="../16-container-image-and-cli/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     16. The Container Image and the Role Dispatcher CLI
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1103,16 +1038,9 @@
       <a href="../17-compose-makefile-supply-chain/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     17. Docker Compose, the Makefile, and the Image Supply Chain
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1131,16 +1059,9 @@
       <a href="../18-config-migration-backup-rollout/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     18. Configuration, Migration, Backup, and Rollout
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1159,16 +1080,9 @@
       <a href="../19-failure-modes-and-verification/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     19. Failure Modes and Verification
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1187,16 +1101,9 @@
       <a href="../20-deviations-roadmap-open-questions/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     20. Spec Deviations, the Delivery Roadmap, and Open Questions
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1215,16 +1122,9 @@
       <a href="../21-hardware-cost-dev-environment/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     21. Hardware Sizing, Cost, and the Development Environment
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1243,16 +1143,9 @@
       <a href="../22-proving-the-architecture-mvp/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     22. Proving the Architecture - the MVP Plan
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1271,16 +1164,9 @@
       <a href="../23-production-infrastructure-cloud/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     23. Production Infrastructure and Cloud Services
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1299,16 +1185,9 @@
       <a href="../24-three-personas-and-admin-uis/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     24. Meet the Three Personas and the Admin UI Surface
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1327,16 +1206,9 @@
       <a href="../25-district-admin-rosters-deployments/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     25. District Administrator - Rosters, Deployments, and Registries
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1355,16 +1227,9 @@
       <a href="../26-district-admin-access-control/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     26. District Administrator - Access Control and System Configuration
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1383,16 +1248,9 @@
       <a href="../27-compliance-and-district-reporting/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     27. Compliance, Privacy Law, and District-Level Reporting
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1411,16 +1269,9 @@
       <a href="../28-teacher-dashboards-student-reports/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     28. Teacher Dashboards and Student-Level Reports
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1439,16 +1290,9 @@
       <a href="../29-class-level-reports-and-tools/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     29. Class-Level Reports and Teacher Tools
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1467,16 +1311,9 @@
       <a href="../30-author-dashboards-content-reports/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     30. Textbook Author Dashboards and Content Reports
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1495,16 +1332,9 @@
       <a href="../31-designing-ab-experiments/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     31. Designing and Reading A/B Experiments
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1523,16 +1353,9 @@
       <a href="../32-producer-contract-conformant-statements/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     32. The Producer Contract - Writing Conformant Statements
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1576,7 +1399,6 @@
     
     
     
-    
       
         
         
@@ -1587,20 +1409,12 @@
         
   
   
-  
     <a href="../../learning-graph/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     Learning Graph
-  
-
-    
   </span>
-  
   
 
       
@@ -1628,18 +1442,29 @@
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
-    
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
     
     
     
@@ -1653,20 +1478,108 @@
         
   
   
-  
     <a href="../../sims/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     MicroSims
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
   
 
     
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Specifications
   </span>
   
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../demo/graph-queries/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Demo
+  </span>
   
 
       
@@ -1690,16 +1603,9 @@
       <a href="../../glossary/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Glossary
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1717,16 +1623,9 @@
       <a href="../../license/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     License
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1744,16 +1643,9 @@
       <a href="../../contact/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Contact
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1790,9 +1682,7 @@
         <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Summary
-      
+      Summary
     </span>
   </a>
   
@@ -1801,9 +1691,7 @@
         <li class="md-nav__item">
   <a href="#concepts-covered" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Concepts Covered
-      
+      Concepts Covered
     </span>
   </a>
   
@@ -1812,9 +1700,154 @@
         <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
       
-        Prerequisites
+        <li class="md-nav__item">
+  <a href="#the-gateways-request-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Gateway's Request Path
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Gateway's Request Path">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-gateway-request-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Gateway Request Pipeline
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
+        <li class="md-nav__item">
+  <a href="#pseudonymization-at-the-processing-boundary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pseudonymization at the Processing Boundary
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pseudonymization at the Processing Boundary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-pseudonymization-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Pseudonymization Pipeline
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-processors-batch-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Processor's Batch Loop
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Processor's Batch Loop">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-processor-batch-loop-dedup-score-and-replay" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Processor Batch Loop — Dedup, Score, and Replay
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deterministic-bucketing-for-experiments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deterministic Bucketing for Experiments
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deterministic Bucketing for Experiments">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-deterministic-bucketing-and-the-ramping-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Deterministic Bucketing and the Ramping Rule
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-analytics-apis-cache-contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Analytics API's Cache Contract
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Analytics API's Cache Contract">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-analytics-cache-key-and-the-privacy-filter-choke-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Analytics Cache Key and the Privacy Filter Choke Point
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-dashboard-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Dashboard Layer
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bringing-the-components-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bringing the Components Together
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
     </span>
   </a>
   
@@ -1830,62 +1863,12 @@
           
           
             <div class="md-content" data-md-component="content">
-              
-                
-
-
-
-  
-
-
-  <nav class="md-path" aria-label="Navigation" >
-    <ol class="md-path__list">
-      
-        
-  
-  
-    <li class="md-path__item">
-      <a href="../.." class="md-path__link">
-        
-  <span class="md-ellipsis">
-    Home
-  </span>
-
-      </a>
-    </li>
-  
-
-      
-      
-        
-  
-  
-    
-    
-      <li class="md-path__item">
-        <a href="../" class="md-path__link">
-          
-  <span class="md-ellipsis">
-    Chapters
-  </span>
-
-        </a>
-      </li>
-    
-  
-
-      
-    </ol>
-  </nav>
-
-              
               <article class="md-content__inner md-typeset">
                 
                   
 
-
   
-    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/13-component-design-in-depth/index.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/13-component-design-in-depth/index.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1937,13 +1920,263 @@
 <li><a href="../12-bayesian-knowledge-tracing/">Chapter 12: Bayesian Knowledge Tracing for Mastery</a></li>
 </ul>
 <hr />
-<p>TODO: Generate Chapter Content</p>
+<div class="admonition mascot-welcome">
+<p class="admonition-title">Inside the Four Moving Parts</p>
+<p><img alt="Rowan waving welcome" class="mascot-admonition-img" src="../../img/mascot/welcome.png" />
+Chapter 10 named the technologies. This chapter opens the boxes they run in. We are going component by component through the design specification's own §5 — gateway, identity service, processor, summarizer, reconciler, experiment service, analytics API, and dashboards — and looking at the specific mechanisms each one relies on to be fast, correct, and safe under failure. Let's follow the record.</p>
+</div>
+<p>Chapter 9 catalogued twelve functions the Learning Record Store must perform, and Chapter 10 named the seventeen products those functions run on. Neither chapter answered a narrower question: inside any one component, what is the actual sequence of steps a statement or a request goes through? This chapter answers that for the four components doing the heaviest lifting — gateway, identity service, processor, summarizer — plus the experiment service and the analytics-and-dashboard layer, whose internal mechanics matter as much as their already-named jobs.</p>
+<h2 id="the-gateways-request-path">The Gateway's Request Path<a class="headerlink" href="#the-gateways-request-path" title="Permanent link">&para;</a></h2>
+<p>The ingestion gateway, running as the <code>lrs gateway</code> role on FastAPI and Uvicorn (Chapter 10), does five things to every incoming request, in a fixed order, and the order is not incidental — each step exists to keep a slow or failing downstream system from ever touching the response the gateway sends back.</p>
+<p>The first step is authentication. Every request carries a bearer token scoped to a textbook or a district, and validating that token against a district mapping on every single request would add a network hop the gateway cannot afford at hundreds of requests per second. The design specification solves this with an <strong>AuthN Token Cache</strong> — a Redis-backed cache holding the token-to-<code>district_id</code> mapping with a short time-to-live, so the common case never leaves the gateway process's memory neighborhood. If Redis becomes unreachable, the gateway falls back to a local least-recently-used cache and keeps serving; authentication must never become an ingestion dependency.</p>
+<p>Once the token resolves, the gateway runs the tier-one structural validation Chapter 8 introduced — well-formed JSON, the required <code>actor</code>, <code>verb</code>, and <code>object</code> fields, a parseable timestamp — and, per xAPI conformance, treats a batch as all-or-nothing: one malformed statement in a batch of fifty rejects the whole request. Statements that still need an identifier get one from the <strong>UUIDv7 Statement ID</strong> scheme. Unlike a random UUIDv4, a UUIDv7 encodes a millisecond timestamp in its leading bits, so IDs minted close together in time sort close together in value — which is exactly the write pattern ClickHouse's storage engine rewards.</p>
+<p>The list below reinforces the gateway's fixed step order, now that each step has been introduced in prose.</p>
+<ol>
+<li>Look up the bearer token in the <strong>AuthN Token Cache</strong>, falling back to a local cache if Redis is unreachable.</li>
+<li>Run tier-one structural validation, all-or-nothing across the batch.</li>
+<li>Assign a <strong>UUIDv7 Statement ID</strong> to any statement that arrived without one.</li>
+<li>Produce the batch to the durable queue with <strong>Kafka Producer Acks All</strong>.</li>
+<li>Respond — or, under sustained backpressure, return <code>503</code>.</li>
+</ol>
+<div class="admonition mascot-thinking">
+<p class="admonition-title">Why the Queue, Not the Response, Is the Durability Boundary</p>
+<p><img alt="Rowan thinking with a magnifying glass" class="mascot-admonition-img" src="../../img/mascot/thinking.png" />
+Notice where the gateway's <code>200</code> response happens: after the durable queue acknowledges the write, never after a statement is projected into ClickHouse or Neo4j. That ordering is what makes the non-blocking-ingestion promise from Chapter 6 real rather than aspirational — the gateway's only hard dependency is the queue, and everything after the queue can be slow, backed up, or briefly down without a single statement being lost or a single textbook seeing an error.</p>
+</div>
+<p>The write itself uses <strong>Kafka Producer Acks All</strong>, a broker setting that waits for acknowledgment from every in-sync replica before treating the write as durable, not just the partition leader. This is slower than leader-only acknowledgment, and the design specification accepts that cost because a statement the producer believes is durable but a single-replica failure would erase is a data-loss bug wearing a success response. Each message is keyed <code>{district_id}:{student_key_raw}</code>, the partitioning choice Chapters 5 and 6 already justified for per-learner ordering and even load spread.</p>
+<p>What happens when the broker is briefly unreachable is governed by the <strong>Gateway Backpressure Queue</strong> — a local, in-process buffer inside the gateway's Kafka producer that absorbs a burst without rejecting the caller. Only when that buffer is full <em>and</em> the broker stays unreachable does the gateway return a <code>503</code> with <code>Retry-After</code>, and even then it emits a page-worthy alert rather than failing silently. Backpressure absorbs the burst in the producer's own queue; it never rejects a textbook's statements outright.</p>
+<h4 id="diagram-gateway-request-pipeline">Diagram: Gateway Request Pipeline<a class="headerlink" href="#diagram-gateway-request-pipeline" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/gateway-request-pipeline/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Gateway Request Pipeline</summary>
+<p>Type: workflow
+<strong>sim-id:</strong> gateway-request-pipeline<br/>
+<strong>Library:</strong> Mermaid<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Understand (L2)
+Bloom Taxonomy Verb: trace, explain</p>
+<p>Learning objective: Let the learner trace one xAPI statement batch through the gateway's five-step request path — token cache lookup, structural validation, statement ID assignment, durable-queue produce with acks=all, and response — and explain what each step protects against.</p>
+<p>Purpose: Show a single Mermaid flowchart tracing one POST request through the gateway's internal steps in order, ending at two possible outcomes.</p>
+<p>Nodes: "Textbook sends POST /xapi/statements (batch)" leads to "AuthN Token Cache lookup (Redis, 60s TTL; falls back to local LRU on Redis failure)" leads to "Tier-1 structural validation (all-or-nothing per batch)" leads to "Assign UUIDv7 Statement ID where missing" leads to "Produce to Kafka: Kafka Producer Acks All, key = district:student" then splits into two outcomes: "Broker acks → 200 with statement IDs" and "Gateway Backpressure Queue full AND broker unreachable → 503 with Retry-After + page alert".</p>
+<p>Interactive features: Every node has a Mermaid click directive opening an infobox with that step's one-sentence definition (cache fallback, UUIDv7 sortability, acks=all latency tradeoff, or the outcome condition). A toggle labeled "Show durability boundary" highlights every node before the Kafka produce step in one color and every node after it in another, reinforcing that the response happens only after the queue acknowledges.</p>
+<p>Color coding: Steps before the durability boundary (queue ack) in a neutral gray-blue; the Kafka produce node and everything after it in the book's teal accent color; the 503 outcome branch in amber to flag it as the exceptional path.</p>
+<p>Responsive design: Flowchart resizes to the width of its containing element; on narrow viewports the chain reflows top-to-bottom.</p>
+</details>
+<h2 id="pseudonymization-at-the-processing-boundary">Pseudonymization at the Processing Boundary<a class="headerlink" href="#pseudonymization-at-the-processing-boundary" title="Permanent link">&para;</a></h2>
+<p>Chapter 6 introduced the idea that a learner's raw identity must never reach the analytics stores. This chapter looks at the mechanism that enforces it. The stream processor, on its way to writing a statement to ClickHouse, computes <strong>HMAC-SHA256 Pseudonymization</strong> — a keyed cryptographic hash that turns a raw actor identifier into a fixed-length <code>student_key</code> that cannot practically be reversed back into the original name or email address without the key used to compute it.</p>
+<div class="arithmatex">\[\text{student\_key} = \text{base32}\left(\text{HMAC-SHA256}\left(\text{salt}_{district},\ \texttt{homePage} \,\|\, \texttt{name}\right)[0{:}16]\right)\]</div>
+<p>The "key" in that keyed hash is the <strong>Per-District Salt</strong> — a secret value unique to each district, stored in the PII vault Chapter 10 described as an isolated PostgreSQL instance. Because the salt differs per district, the same learner enrolled in two different districts derives two completely unrelated <code>student_key</code> values. That is what gives Chapter 6's "hard" district isolation teeth even against a compromised analytics reader: without vault access to the specific salt, there is no way to correlate one district's pseudonym with another's, and no way to work backward to a name.</p>
+<p>The processor computes the HMAC locally rather than calling the identity service per statement — at ten thousand statements a second, a network round trip each time would add ten thousand requests a second of pure overhead. Instead, it fetches each district's salt once, over a <strong>Mutual TLS Salt Fetch</strong> — a connection where both processor and identity service present certificates and verify each other's identity, not just the one-directional TLS where only the server proves who it is — then caches the salt in memory only, never on disk.</p>
+<div class="admonition mascot-tip">
+<p class="admonition-title">The Processor Already Sees the Raw Name — So Why the Ceremony?</p>
+<p><img alt="Rowan pointing helpfully" class="mascot-admonition-img" src="../../img/mascot/tip.png" />
+It can feel strange that the processor is trusted with the salt when the whole point of pseudonymization is hiding identity. Here is the reasoning the design specification gives: the processor already sees the raw actor identity, because it is sitting right there in the statement body it just consumed from the queue. Handing it the salt adds no exposure it did not already have. The privacy boundary that matters is downstream of the processor — nothing past this point, no analytics store, no dashboard, no export, ever sees anything but the derived <code>student_key</code>.</p>
+</div>
+<h4 id="diagram-pseudonymization-pipeline">Diagram: Pseudonymization Pipeline<a class="headerlink" href="#diagram-pseudonymization-pipeline" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/pseudonymization-pipeline/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Pseudonymization Pipeline</summary>
+<p>Type: workflow
+<strong>sim-id:</strong> pseudonymization-pipeline<br/>
+<strong>Library:</strong> Mermaid<br/>
+<strong>Status:</strong> Specified<br/>
+<strong>Template:</strong> https://github.com/dmccreary/xapi-course/tree/main/docs/sims/pseudonymization-pipeline</p>
+<p>Bloom Taxonomy: Understand (L2)
+Bloom Taxonomy Verb: trace, explain</p>
+<p>Learning objective: Let the learner trace how a raw actor identifier becomes an irreversible <code>student_key</code>, following the hop from the statement body through the Mutual TLS Salt Fetch and the HMAC-SHA256 Pseudonymization computation to the pseudonymous key written to ClickHouse.</p>
+<p>Purpose: Show a single Mermaid flowchart tracing one raw actor identifier from the statement body to its final pseudonymous form, adapted from the template's existing LMS-to-LRS identity flow to this chapter's specific mechanism.</p>
+<p>Nodes: "Raw actor identifier in statement body (homePage + name)" leads to "Processor fetches Per-District Salt via Mutual TLS Salt Fetch (once per district, cached in memory)" leads to "HMAC-SHA256 Pseudonymization computed locally in the processor" leads to "student_key (base32, first 16 bytes)" leads to "Written to ClickHouse and Neo4j — the only form any downstream store ever sees".</p>
+<p>Interactive features: Every node has a Mermaid click directive opening an infobox with that step's definition — mutual TLS and fetch frequency at the salt node, the formula and cross-district unrelatedness at the HMAC node, and the "nothing downstream sees raw identity" guarantee at the final node.</p>
+<p>Color coding: The raw-identity node in amber to flag it as sensitive; every node from the salt fetch onward in the book's teal accent color to show the boundary has been crossed.</p>
+<p>Responsive design: Flowchart resizes to the width of its containing element; on narrow viewports the chain reflows top-to-bottom.</p>
+</details>
+<p>The table below reinforces the two caching decisions this section and the previous one have already explained in prose — what each cache holds, where it lives, and what happens if it fails.</p>
+<table>
+<thead>
+<tr>
+<th>Cache</th>
+<th>Holds</th>
+<th>Failure behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AuthN Token Cache</td>
+<td>Bearer token → <code>district_id</code> mapping</td>
+<td>Falls back to a local LRU cache; authentication never blocks ingestion</td>
+</tr>
+<tr>
+<td>Per-district salt cache (processor-local)</td>
+<td>HMAC key fetched via Mutual TLS Salt Fetch</td>
+<td>Held in memory only; a restart re-fetches from the identity service</td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-processors-batch-loop">The Processor's Batch Loop<a class="headerlink" href="#the-processors-batch-loop" title="Permanent link">&para;</a></h2>
+<p>The stream processor consumes the raw statement topic in batches, and the size of that batch is bounded two ways at once: up to one thousand statements, or two hundred milliseconds of wall-clock time, whichever limit is hit first. That bound is the <strong>Kafka Consumer Batch Window</strong> — a small enough window that a burst of activity is absorbed without the processor falling meaningfully behind, and a large enough one that the processor is not paying per-message overhead on every single statement.</p>
+<p>Inside each batch, the processor pseudonymizes, resolves activity references, enriches with section and concept identifiers, and runs the <strong>BKT Streaming Update</strong> — a per-statement Bayesian Knowledge Tracing recalculation that conditions the learner's prior mastery probability on the new evidence and applies the learning-transition step, producing an updated probability in constant time. Because Kafka delivery is at-least-once, a processor can crash after writing a batch but before committing its offset, redelivering the batch. A <code>ReplacingMergeTree Dedup</code> — the same engine, keyed on <code>statement_id</code>, that Chapter 8 introduced — silently absorbs the redelivered rows, so a retried batch never double-counts evidence.</p>
+<p>BKT's update is sequential in a way a duplicate-row filter cannot fix by itself: the same evidence, conditioned in a different order, yields a different posterior. That is why mastery state — the running probability per (student, concept) pair — is checkpointed independently, to a <strong>Compacted State Checkpoint</strong>: a log-compacted Kafka topic that keeps only the latest value per key, staying small forever while surviving a Redis cache loss. If the in-memory mastery cache disappears, the processor rebuilds it by replaying the compacted topic from the start.</p>
+<div class="admonition mascot-warning">
+<p class="admonition-title">Order Matters More Here Than Anywhere Else in the Pipeline</p>
+<p><img alt="Rowan waving a caution flag" class="mascot-admonition-img" src="../../img/mascot/warning.png" />
+Most of this pipeline treats out-of-order arrival as a non-event, because ClickHouse projections are timestamp-driven rather than arrival-driven. BKT is the exception. Its update does not commute — the same two pieces of evidence, applied in a different sequence, yield a different mastery estimate. That is precisely why the partition key is <code>district_id:student_key</code>, not just <code>district_id</code>: it guarantees one learner's statements land on one partition and are consumed in the order they were produced. Do not assume every component in this system is indifferent to ordering just because most of them are.</p>
+</div>
+<p>Even a well-ordered partition cannot guarantee every statement arrives promptly — a mobile app might sync three hours after a lesson ended. The <strong>Late Arrival Detector</strong> watches for statements whose event timestamp falls meaningfully behind the processor's current watermark, and rather than patching the running estimate in place, it enqueues a <strong>Targeted Replay Command</strong>: an <code>lrs replay --student X --concept Y</code> invocation scoped narrowly to the affected learner and concept, recomputing the mastery trajectory in order directly from the immutable ClickHouse log. This is Chapter 8's replay mechanism, aimed at one (student, concept) pair rather than a whole district — cheap enough to run automatically every time a late arrival is detected.</p>
+<h4 id="diagram-processor-batch-loop-dedup-score-and-replay">Diagram: Processor Batch Loop — Dedup, Score, and Replay<a class="headerlink" href="#diagram-processor-batch-loop-dedup-score-and-replay" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/processor-batch-dedup-replay/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Processor Batch Loop — Dedup, Score, and Replay</summary>
+<p>Type: workflow
+<strong>sim-id:</strong> processor-batch-dedup-replay<br/>
+<strong>Library:</strong> Mermaid<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Analyze (L4)
+Bloom Taxonomy Verb: trace, differentiate</p>
+<p>Learning objective: Let the learner trace a batch of statements through the processor's Kafka Consumer Batch Window, ReplacingMergeTree Dedup, and BKT Streaming Update, then differentiate the ordinary redelivery path from the late-arrival path that triggers a Targeted Replay Command.</p>
+<p>Purpose: Show a Mermaid flowchart with a main loop and one branch for the late-arrival exception.</p>
+<p>Nodes: "Consume batch: up to 1,000 statements or 200ms (Kafka Consumer Batch Window)" leads to "Pseudonymize + resolve + enrich" leads to "BKT Streaming Update per (student, concept), in partition order" leads to "Write batch to ClickHouse; ReplacingMergeTree Dedup absorbs any redelivered rows" leads to "Checkpoint mastery state to Compacted State Checkpoint topic" leads to "Commit Kafka offset". A separate branch from "Consume batch": "Late Arrival Detector flags a statement far behind the watermark" leads to "Enqueue Targeted Replay Command scoped to (student, concept)" leads to "Recompute mastery trajectory in order, directly from the ClickHouse log" leads back into "Checkpoint mastery state".</p>
+<p>Interactive features: Every node has a Mermaid click directive opening a definition infobox, with the dedup and BKT nodes' infoboxes explicitly contrasting idempotent-by-construction against order-sensitive. A toggle labeled "Show why order matters" highlights the BKT node and the late-arrival branch in a shared color, dimming the rest of the diagram.</p>
+<p>Color coding: The main loop in the book's teal accent color; the late-arrival branch in amber to flag it as the exception path; the Compacted State Checkpoint node in a distinct violet since it is a durability mechanism rather than a processing step.</p>
+<p>Responsive design: Flowchart resizes to the width of its containing element; the late-arrival branch collapses beneath the main loop on narrow viewports rather than sitting beside it.</p>
+</details>
+<h2 id="deterministic-bucketing-for-experiments">Deterministic Bucketing for Experiments<a class="headerlink" href="#deterministic-bucketing-for-experiments" title="Permanent link">&para;</a></h2>
+<p>The experiment service does not run as its own standing process; it is served in-process by the analytics and admin APIs, and its core mechanism is a single deterministic calculation rather than a database lookup. Assigning a student to a control or treatment group uses <strong>xxhash64 Bucketing</strong>: a fast, non-cryptographic hash function applied to the experiment's identifier concatenated with the student's identifier, reduced to a number between 0 and 9,999.</p>
+<div class="arithmatex">\[\text{bucket} = \text{xxhash64}\left(\texttt{experiment\_id} \,\|\, \text{':'} \,\|\, \texttt{unit\_id}\right) \bmod 10{,}000\]</div>
+<p>Because this is a pure function — the same two inputs always produce the same bucket number, and nothing about the calculation is stored anywhere — a student's bucket assignment is permanent without a database row ever having to say so. What varies over the life of an experiment is not the bucket number itself but which variant that bucket number currently maps to, tracked by the <strong>Bucket To Variant Map</strong>: a versioned table that says, for example, "buckets 0 through 1,999 are treatment, the rest are control" at one point in the experiment and a different split later as the experiment ramps up.</p>
+<p>That ramping is governed by one hard rule, the <strong>Ramping Allocation Rule</strong>: an experiment's treatment range may only ever extend, never contract. A student whose bucket falls inside the treatment range at 10% allocation stays in treatment forever after, even once the experiment ramps to 50% and later students start being assigned differently. What a naive implementation gets wrong is letting a later re-balancing move a bucket from treatment back to control — which silently corrupts the analysis, because a student's early behavior belongs to one condition and their later behavior would appear to belong to the other.</p>
+<div class="admonition mascot-encourage">
+<p class="admonition-title">One Formula Carrying a Lot of Weight</p>
+<p><img alt="Rowan offering encouragement" class="mascot-admonition-img" src="../../img/mascot/encouraging.png" />
+A single modulo operation determining a student's entire experimental condition can feel almost too simple to trust. That simplicity is the point — the moment assignment depends on anything stored, mutable, or computed differently at different times, sample-ratio checks and stickiness guarantees both become fragile. Trust the math: xxhash64 Bucketing is deterministic by construction, and the Ramping Allocation Rule's one-directional constraint is what keeps a student's assigned condition stable for the life of the study.</p>
+</div>
+<p>The list below reinforces the three rules this section has already explained in prose, as a quick self-check before moving to the analytics layer that reads their output.</p>
+<ul>
+<li>A student's <strong>xxhash64 Bucketing</strong> result never changes — it is a pure function of the experiment ID and the student's key, recomputed on demand rather than stored.</li>
+<li>The <strong>Bucket To Variant Map</strong> — not the bucket number — is what changes as an experiment ramps, and it is versioned so past assignments remain reconstructable.</li>
+<li>The <strong>Ramping Allocation Rule</strong> allows a treatment range to grow but never shrink, so a student can move control → treatment but never treatment → control.</li>
+<li>If the experiment service errors for any reason, the caller serves control and records the event anyway — assignment logic never gates whether a statement gets processed.</li>
+</ul>
+<h4 id="diagram-deterministic-bucketing-and-the-ramping-rule">Diagram: Deterministic Bucketing and the Ramping Rule<a class="headerlink" href="#diagram-deterministic-bucketing-and-the-ramping-rule" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/experiment-bucketing-ramp/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Deterministic Bucketing and the Ramping Rule</summary>
+<p>Type: infographic
+<strong>sim-id:</strong> experiment-bucketing-ramp<br/>
+<strong>Library:</strong> p5.js<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Apply (L3)
+Bloom Taxonomy Verb: demonstrate, predict</p>
+<p>Learning objective: Let the learner manipulate an experiment's allocation percentage and observe that xxhash64 Bucketing keeps every student's bucket number fixed while only the Bucket To Variant Map's boundary moves, and that the Ramping Allocation Rule prevents the boundary from ever moving backward.</p>
+<p>Canvas layout:</p>
+<ul>
+<li>A horizontal strip of 10,000 small tick marks representing bucket numbers 0-9,999, compressed to roughly 200 visible segments</li>
+<li>A vertical boundary line separating "treatment" (left, teal) from "control" (right, neutral gray)</li>
+<li>A slider labeled "Treatment allocation %" ranging from 0 to 100</li>
+<li>A row of five labeled student dots at fixed bucket positions, each showing its current variant</li>
+</ul>
+<p>Interactive controls:</p>
+<ul>
+<li>Slider: "Treatment allocation %" — moving it right attempts to move the boundary right (more treatment)</li>
+<li>Checkbox: "Enforce Ramping Allocation Rule" — checked blocks any leftward boundary move with a red flash; unchecked lets the boundary move freely and flags in red any student dot that flips from treatment back to control, labeled "This is the bug the rule prevents"</li>
+<li>Button: "Reset"</li>
+</ul>
+<p>Behavior: Each student dot's bucket position is fixed for the session, computed once from a seeded hash so the layout is reproducible; only the boundary moves in response to the slider.</p>
+<p>Color coding: Treatment region and its student dots in the book's teal accent color; control region and its dots in neutral gray; the "bug" highlight in red, shown only when the rule checkbox is unchecked.</p>
+<p>Responsive design: Canvas width tracks its containing element; the tick strip and slider stack vertically below the student-dot row on narrow viewports.</p>
+</details>
+<h2 id="the-analytics-apis-cache-contract">The Analytics API's Cache Contract<a class="headerlink" href="#the-analytics-apis-cache-contract" title="Permanent link">&para;</a></h2>
+<p>The analytics API exposes one REST endpoint per report, following the <strong>Report ID Endpoint Pattern</strong>: <code>GET /v1/reports/R-201?section_id=…&amp;from=…&amp;to=…</code>, where the report's identifier is part of the URL path rather than a query parameter buried among others. That choice is what makes every response a fixed, predictable shape, and a fixed shape is what makes caching tractable at all.</p>
+<p>Every response is cached under an <strong>Analytics Cache Key</strong>, built from four parts: the report identifier, the tenant, the query parameters, and a <code>data_version</code> value. The first three are what you would expect of any cache key; the fourth is the interesting one. Rather than expiring entries after a fixed time-to-live and hoping that window matches actual freshness, the design specification uses <strong>Data Version Invalidation</strong> — <code>data_version</code> is bumped by the processor's own watermark, the same freshness marker Chapter 8's compression pipeline advances as statements land. A cache entry invalidates exactly when its underlying data changes, not on an arbitrary clock.</p>
+<p>The list below reinforces the four parts of the cache key just introduced, in the order they are concatenated.</p>
+<ul>
+<li><strong>Report ID</strong> — which fixed-shape report this is, from the <strong>Report ID Endpoint Pattern</strong>'s URL path.</li>
+<li><strong>Tenant</strong> — the district or section scope the caller is authorized to see.</li>
+<li><strong>Query parameters</strong> — the specific filters (date range, section, comparison group) applied.</li>
+<li><strong><code>data_version</code></strong> — the processor's watermark; this is what makes <strong>Data Version Invalidation</strong> work.</li>
+</ul>
+<p>Before a cached figure reaches a caller, it passes through the <strong>Privacy Filter Choke Point</strong> — the single place every analytics response is required to flow through on its way out. Chapter 7's suppression rules for small groups live here, enforced once rather than re-implemented inside every report's code. By construction, there is no path that can accidentally skip the filter, because there is only one path out of the API at all.</p>
+<p>All of this exists in service of the <strong>P95 Latency Budget</strong> — a requirement that ninety-five percent of dashboard requests return within two seconds. That budget holds because a dashboard's read path never touches raw statement rows; every figure reads a pre-aggregated ClickHouse materialized view or a Redis-cached mastery vector. Raw statement access is reserved for the Query Console and the export path, both explicitly asynchronous.</p>
+<h4 id="diagram-analytics-cache-key-and-the-privacy-filter-choke-point">Diagram: Analytics Cache Key and the Privacy Filter Choke Point<a class="headerlink" href="#diagram-analytics-cache-key-and-the-privacy-filter-choke-point" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/dashboard-request-cache-flow/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Analytics Cache Key and the Privacy Filter Choke Point</summary>
+<p>Type: workflow
+<strong>sim-id:</strong> dashboard-request-cache-flow<br/>
+<strong>Library:</strong> Mermaid<br/>
+<strong>Status:</strong> Specified<br/>
+<strong>Template:</strong> https://github.com/dmccreary/it-management-graph/tree/main/docs/sims/performance-monitoring-dashboard-workflow</p>
+<p>Bloom Taxonomy: Analyze (L4)
+Bloom Taxonomy Verb: trace, justify</p>
+<p>Learning objective: Let the learner trace a dashboard request from its Report ID Endpoint Pattern URL through an Analytics Cache Key lookup, a Data Version Invalidation check, and the single Privacy Filter Choke Point, to a response that meets the P95 Latency Budget.</p>
+<p>Purpose: Show a Mermaid flowchart tracing one dashboard request, adapted from the template's existing performance-dashboard workflow to this chapter's cache and privacy mechanisms.</p>
+<p>Nodes: "Dash callback calls GET /v1/reports/R-201?... (Report ID Endpoint Pattern)" leads to "Build Analytics Cache Key: report_id + tenant + params + data_version" then splits: "Cache hit" leads to "Skip straight to Privacy Filter Choke Point"; "Cache miss or Data Version Invalidation triggered" leads to "Query pre-aggregated ClickHouse view / Redis mastery vector" leads to "Privacy Filter Choke Point". Both paths converge at "Privacy Filter Choke Point (threshold + complementary suppression, always applied)" leads to "Response returned within P95 Latency Budget".</p>
+<p>Interactive features: Every node has a Mermaid click directive opening a definition infobox — the cache-key node lists all four key parts, the Data Version Invalidation node explains watermark-driven versus fixed-TTL invalidation, and the choke-point node stresses that both paths converge there so no response can bypass it.</p>
+<p>Color coding: The cache-hit path in the book's teal accent color; the cache-miss path in a lighter tint of the same hue; the shared Privacy Filter Choke Point node in amber to flag it as the mandatory convergence point.</p>
+<p>Responsive design: Flowchart resizes to the width of its containing element; the two branches stack vertically above their shared convergence node on narrow viewports.</p>
+</details>
+<h2 id="the-dashboard-layer">The Dashboard Layer<a class="headerlink" href="#the-dashboard-layer" title="Permanent link">&para;</a></h2>
+<p>Everything the analytics API guarantees would be wasted if the presentation layer bypassed it, so the dashboards are built as a <strong>Multi-Page Dash App</strong> — several distinct pages (a district overview, a section heatmap, a student detail view) sharing one running process, so a filter selected on one page carries into the next without a reload losing it. That persistence is handled by a <strong>Filter State Store</strong>, a <code>dcc.Store</code> component holding the selected section, date range, and comparison group in the browser session itself, surviving a tab switch.</p>
+<p>Every chart and table is driven by a callback that calls the analytics API — never a database directly — which keeps the Privacy Filter Choke Point unbypassable: no Dash callback can reach ClickHouse or Neo4j except through the one filtered endpoint. Some requests are not the kind a two-second budget was built for — a bulk CSV export can legitimately take thirty seconds. Those run as a <strong>Dash Background Callback</strong>, handing the work off to a task queue instead of blocking the request thread, backed by a <strong>Redis Celery Queue</strong> — Celery being a Python task-queue library using Redis as its message broker, so an export runs on a worker process entirely separate from interactive page loads.</p>
+<p>The table below reinforces the four dashboard-layer components this section has explained, by the specific job each one does.</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Job</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Multi-Page Dash App</td>
+<td>Hosts every report page in one running process, sharing state across pages</td>
+</tr>
+<tr>
+<td>Filter State Store</td>
+<td>Holds the active section, date range, and comparison group across page navigation</td>
+</tr>
+<tr>
+<td>Dash Background Callback</td>
+<td>Runs a long export or slow computation off the interactive request thread</td>
+</tr>
+<tr>
+<td>Redis Celery Queue</td>
+<td>The message broker a background callback's worker process reads from</td>
+</tr>
+</tbody>
+</table>
+<h2 id="bringing-the-components-together">Bringing the Components Together<a class="headerlink" href="#bringing-the-components-together" title="Permanent link">&para;</a></h2>
+<p>Every mechanism this chapter walked through answers a question Chapter 9 raised without answering: not <em>what</em> each component does, but <em>how</em> it stays fast and correct while doing it. The gateway's caching and backpressure keep a slow downstream from becoming the caller's problem. HMAC-SHA256 Pseudonymization with a per-district salt makes Chapter 6's privacy boundary a cryptographic fact, not a policy. The processor's batching, dedup, and checkpointing make mastery scoring correct under redelivery, crash, and late arrival at once. Deterministic bucketing gives experimentation a stability guarantee with no database row required. And the analytics API's cache key, invalidation rule, and choke point are what let a dashboard meet its latency budget without ever showing stale or unfiltered data.</p>
+<p>None of these are independent tricks. Each exists because an earlier chapter's promise — non-blocking ingestion, hard district isolation, correct mastery, a stable experimental condition, a fast and private dashboard — needed a specific mechanism to hold. Chapter 14 goes one layer deeper, into the exact Kafka topic names, partition counts, and ClickHouse table definitions these components read and write.</p>
+<h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The <strong>AuthN Token Cache</strong> and <strong>Gateway Backpressure Queue</strong> keep authentication and downstream slowness from ever blocking the gateway's response.</li>
+<li>The <strong>UUIDv7 Statement ID</strong> sorts by time and is minted whenever a client omits its own; <strong>Kafka Producer Acks All</strong> waits for every in-sync replica before the gateway treats a write as durable.</li>
+<li><strong>HMAC-SHA256 Pseudonymization</strong> with a <strong>Per-District Salt</strong>, fetched by the processor over a <strong>Mutual TLS Salt Fetch</strong>, turns a raw actor identity into an irreversible <code>student_key</code>.</li>
+<li>The processor's <strong>Kafka Consumer Batch Window</strong> bounds batches by count and time; <strong>ReplacingMergeTree Dedup</strong> absorbs redelivery, while the <strong>BKT Streaming Update</strong> stays correct only because per-learner partitioning preserves order.</li>
+<li>A <strong>Compacted State Checkpoint</strong> lets mastery state survive a cache loss; a <strong>Late Arrival Detector</strong> triggers a <strong>Targeted Replay Command</strong> scoped to one student and concept.</li>
+<li><strong>xxhash64 Bucketing</strong> assigns a permanent, storage-free bucket; the <strong>Bucket To Variant Map</strong> and the one-directional <strong>Ramping Allocation Rule</strong> are what let an experiment ramp without ever flipping a student's condition.</li>
+<li>The <strong>Report ID Endpoint Pattern</strong>, <strong>Analytics Cache Key</strong>, and <strong>Data Version Invalidation</strong> make dashboard responses fast and correctly fresh; the <strong>Privacy Filter Choke Point</strong> makes every response safe.</li>
+<li>A <strong>Multi-Page Dash App</strong> with a <strong>Filter State Store</strong> keeps navigation state; a <strong>Dash Background Callback</strong> on a <strong>Redis Celery Queue</strong> handles the requests too slow for the <strong>P95 Latency Budget</strong>.</li>
+</ul>
+<div class="admonition mascot-celebration">
+<p class="admonition-title">Every Component Now Has Its Mechanism</p>
+<p><img alt="Rowan celebrating with confetti" class="mascot-admonition-img" src="../../img/mascot/celebration.png" />
+Twenty-five mechanisms, eight components, and every one of them traced back to a promise an earlier chapter made and this chapter kept. What does the evidence show? Naming a component's job is the easy half; the mechanism that makes the job survive a crash, a redelivery, or a burst is the hard half — and you have now seen every one of them. In <a href="../14-kafka-clickhouse-graph-schema/">Chapter 14: Kafka Topics, ClickHouse Schema, and Graph Constraints</a>, we go one layer deeper still, into the exact topic names, table definitions, and constraints these mechanisms are built on.</p>
+</div>
 
 
 
 
 
 
+
+  
+  
 
 
 
@@ -2029,13 +2262,10 @@
     </div>
     
     
-    
-      
-      
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
         <script src="../../js/katex.js"></script>
       

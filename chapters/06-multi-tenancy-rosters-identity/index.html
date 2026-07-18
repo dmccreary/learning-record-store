@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="An intelligent textbook on Learning Record Stores: what they are, how xAPI statements work, and how to design, deploy, and query an LRS.">
+        <meta name="description" content="How this Learning Record Store keeps thousands of districts, schools, and students cleanly separated, how rosters arrive from a district's own systems, and how a real student becomes a pseudonymous account before anything durable is written.">
       
       
         <meta name="author" content="Dan McCreary">
@@ -21,22 +21,19 @@
         <link rel="next" href="../07-property-graph-data-model/">
       
       
-        
-      
-      
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
     
     
       
-        <title>6. Multi-Tenancy, Rosters, and Pseudonymous Identity - Learning Record Store</title>
+        <title>Multi-Tenancy, Rosters, and Pseudonymous Identity - Learning Record Store</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -67,6 +64,7 @@
     
       
 
+    
     
     
   </head>
@@ -121,7 +119,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              6. Multi-Tenancy, Rosters, and Pseudonymous Identity
+              Multi-Tenancy, Rosters, and Pseudonymous Identity
             
           </span>
         </div>
@@ -133,13 +131,11 @@
     
     
     
-      
-      
-        <label class="md-header__button md-icon" for="__search">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        </label>
-        <div class="md-search" data-md-component="search" role="dialog">
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
@@ -178,14 +174,13 @@
     </div>
   </div>
 </div>
-      
     
     
       <div class="md-header__source">
         <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub Repo
@@ -230,7 +225,7 @@
       <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub Repo
@@ -250,16 +245,9 @@
       <a href="../.." class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Home
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -277,16 +265,9 @@
       <a href="../../about/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     About
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -304,16 +285,9 @@
       <a href="../../course-description/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Course Description
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -325,120 +299,6 @@
       
   
   
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-  
-    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
-      
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Specifications
-  
-
-    
-  </span>
-  
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-  
-    <a href="../../demo/graph-queries/" class="md-nav__link">
-      
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Demo
-  
-
-    
-  </span>
-  
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -451,70 +311,133 @@
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
-    
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
     
     
     
@@ -524,42 +447,32 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
+          
           
           <div class="md-nav__link md-nav__container">
             <a href="../" class="md-nav__link ">
               
   
-  
   <span class="md-ellipsis">
-    
-  
     Chapters
-  
-
-    
   </span>
-  
   
 
             </a>
             
               
-              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_6">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
-            
-  
-    Chapters
-  
-
+            Chapters
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -575,16 +488,9 @@
       <a href="../01-lms-to-experience-api/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     1. From Learning Management Systems to the Experience API
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -603,16 +509,9 @@
       <a href="../02-anatomy-of-xapi-statement/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     2. The Anatomy of an xAPI Statement
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -631,16 +530,9 @@
       <a href="../03-ieee-standardization-xapi-cmi5/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     3. IEEE Standardization of xAPI and cmi5
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -659,16 +551,9 @@
       <a href="../04-standards-governance-ecosystem/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     4. Standards Governance and the Wider Interoperability Ecosystem
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -687,16 +572,9 @@
       <a href="../05-system-context-architectural-planes/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     5. System Context and the Five Architectural Planes
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -724,16 +602,9 @@
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
   
-  
   <span class="md-ellipsis">
-    
-  
     6. Multi-Tenancy, Rosters, and Pseudonymous Identity
-  
-
-    
   </span>
-  
   
 
           <span class="md-nav__icon md-icon"></span>
@@ -742,16 +613,9 @@
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     6. Multi-Tenancy, Rosters, and Pseudonymous Identity
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -774,9 +638,7 @@
         <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Summary
-      
+      Summary
     </span>
   </a>
   
@@ -785,9 +647,7 @@
         <li class="md-nav__item">
   <a href="#concepts-covered" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Concepts Covered
-      
+      Concepts Covered
     </span>
   </a>
   
@@ -796,9 +656,148 @@
         <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
       
-        Prerequisites
+        <li class="md-nav__item">
+  <a href="#the-tenant-who-owns-this-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Tenant: Who Owns This Data?
+    </span>
+  </a>
+  
+</li>
       
+        <li class="md-nav__item">
+  <a href="#the-tenancy-hierarchy-district-down-to-student" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Tenancy Hierarchy: District Down to Student
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Tenancy Hierarchy: District Down to Student">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-this-projects-tenancy-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: This Project's Tenancy Hierarchy
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hard-isolation-and-soft-isolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hard Isolation and Soft Isolation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hard Isolation and Soft Isolation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-sort-each-level-into-hard-or-soft-isolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Sort Each Level into Hard or Soft Isolation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rosters-how-enrollment-data-actually-gets-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rosters: How Enrollment Data Actually Gets In
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rosters: How Enrollment Data Actually Gets In">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-from-student-information-system-to-enrollment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: From Student Information System to Enrollment
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-student-node-present-in-the-graph-absent-as-a-person" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Student Node: Present in the Graph, Absent as a Person
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#from-a-pseudonymous-account-to-a-student-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      From a Pseudonymous Account to a Student Key
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-pii-vault-where-the-real-mapping-lives" class="md-nav__link">
+    <span class="md-ellipsis">
+      The PII Vault: Where the Real Mapping Lives
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The PII Vault: Where the Real Mapping Lives">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-from-pseudonymous-account-to-student-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: From Pseudonymous Account to Student Key
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#one-statements-journey-through-tenancy-and-identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      One Statement's Journey Through Tenancy and Identity
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
     </span>
   </a>
   
@@ -823,16 +822,9 @@
       <a href="../07-property-graph-data-model/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     7. The Property Graph Data Model
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -851,16 +843,9 @@
       <a href="../08-summary-vertices-ingestion/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     8. Summary Vertices and Statement Ingestion Mechanics
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -879,16 +864,9 @@
       <a href="../09-twelve-core-lrs-functions/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     9. The Twelve Core LRS Functions
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -907,16 +885,9 @@
       <a href="../10-choosing-technology-stack/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     10. Choosing the Technology Stack
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -935,16 +906,9 @@
       <a href="../11-adrs-and-capacity-model/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     11. Architecture Decision Records and the Capacity Model
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -963,16 +927,9 @@
       <a href="../12-bayesian-knowledge-tracing/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     12. Bayesian Knowledge Tracing for Mastery
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -991,16 +948,9 @@
       <a href="../13-component-design-in-depth/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     13. Component Design in Depth
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1019,16 +969,9 @@
       <a href="../14-kafka-clickhouse-graph-schema/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     14. Kafka Topics, ClickHouse Schema, and Graph Constraints
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1047,16 +990,9 @@
       <a href="../15-privacy-and-dashboard-mechanics/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     15. Privacy Enforcement and Dashboard Mechanics
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1075,16 +1011,9 @@
       <a href="../16-container-image-and-cli/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     16. The Container Image and the Role Dispatcher CLI
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1103,16 +1032,9 @@
       <a href="../17-compose-makefile-supply-chain/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     17. Docker Compose, the Makefile, and the Image Supply Chain
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1131,16 +1053,9 @@
       <a href="../18-config-migration-backup-rollout/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     18. Configuration, Migration, Backup, and Rollout
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1159,16 +1074,9 @@
       <a href="../19-failure-modes-and-verification/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     19. Failure Modes and Verification
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1187,16 +1095,9 @@
       <a href="../20-deviations-roadmap-open-questions/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     20. Spec Deviations, the Delivery Roadmap, and Open Questions
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1215,16 +1116,9 @@
       <a href="../21-hardware-cost-dev-environment/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     21. Hardware Sizing, Cost, and the Development Environment
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1243,16 +1137,9 @@
       <a href="../22-proving-the-architecture-mvp/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     22. Proving the Architecture - the MVP Plan
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1271,16 +1158,9 @@
       <a href="../23-production-infrastructure-cloud/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     23. Production Infrastructure and Cloud Services
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1299,16 +1179,9 @@
       <a href="../24-three-personas-and-admin-uis/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     24. Meet the Three Personas and the Admin UI Surface
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1327,16 +1200,9 @@
       <a href="../25-district-admin-rosters-deployments/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     25. District Administrator - Rosters, Deployments, and Registries
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1355,16 +1221,9 @@
       <a href="../26-district-admin-access-control/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     26. District Administrator - Access Control and System Configuration
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1383,16 +1242,9 @@
       <a href="../27-compliance-and-district-reporting/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     27. Compliance, Privacy Law, and District-Level Reporting
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1411,16 +1263,9 @@
       <a href="../28-teacher-dashboards-student-reports/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     28. Teacher Dashboards and Student-Level Reports
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1439,16 +1284,9 @@
       <a href="../29-class-level-reports-and-tools/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     29. Class-Level Reports and Teacher Tools
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1467,16 +1305,9 @@
       <a href="../30-author-dashboards-content-reports/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     30. Textbook Author Dashboards and Content Reports
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1495,16 +1326,9 @@
       <a href="../31-designing-ab-experiments/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     31. Designing and Reading A/B Experiments
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1523,16 +1347,9 @@
       <a href="../32-producer-contract-conformant-statements/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     32. The Producer Contract - Writing Conformant Statements
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1576,7 +1393,6 @@
     
     
     
-    
       
         
         
@@ -1587,20 +1403,12 @@
         
   
   
-  
     <a href="../../learning-graph/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     Learning Graph
-  
-
-    
   </span>
-  
   
 
       
@@ -1628,18 +1436,29 @@
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
-    
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
     
     
     
@@ -1653,20 +1472,108 @@
         
   
   
-  
     <a href="../../sims/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     MicroSims
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
   
 
     
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Specifications
   </span>
   
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../demo/graph-queries/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Demo
+  </span>
   
 
       
@@ -1690,16 +1597,9 @@
       <a href="../../glossary/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Glossary
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1717,16 +1617,9 @@
       <a href="../../license/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     License
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1744,16 +1637,9 @@
       <a href="../../contact/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Contact
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1790,9 +1676,7 @@
         <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Summary
-      
+      Summary
     </span>
   </a>
   
@@ -1801,9 +1685,7 @@
         <li class="md-nav__item">
   <a href="#concepts-covered" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Concepts Covered
-      
+      Concepts Covered
     </span>
   </a>
   
@@ -1812,9 +1694,148 @@
         <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
       
-        Prerequisites
+        <li class="md-nav__item">
+  <a href="#the-tenant-who-owns-this-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Tenant: Who Owns This Data?
+    </span>
+  </a>
+  
+</li>
       
+        <li class="md-nav__item">
+  <a href="#the-tenancy-hierarchy-district-down-to-student" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Tenancy Hierarchy: District Down to Student
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Tenancy Hierarchy: District Down to Student">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-this-projects-tenancy-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: This Project's Tenancy Hierarchy
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hard-isolation-and-soft-isolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hard Isolation and Soft Isolation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hard Isolation and Soft Isolation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-sort-each-level-into-hard-or-soft-isolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Sort Each Level into Hard or Soft Isolation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rosters-how-enrollment-data-actually-gets-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rosters: How Enrollment Data Actually Gets In
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rosters: How Enrollment Data Actually Gets In">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-from-student-information-system-to-enrollment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: From Student Information System to Enrollment
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-student-node-present-in-the-graph-absent-as-a-person" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Student Node: Present in the Graph, Absent as a Person
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#from-a-pseudonymous-account-to-a-student-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      From a Pseudonymous Account to a Student Key
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-pii-vault-where-the-real-mapping-lives" class="md-nav__link">
+    <span class="md-ellipsis">
+      The PII Vault: Where the Real Mapping Lives
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The PII Vault: Where the Real Mapping Lives">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-from-pseudonymous-account-to-student-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: From Pseudonymous Account to Student Key
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#one-statements-journey-through-tenancy-and-identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      One Statement's Journey Through Tenancy and Identity
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
     </span>
   </a>
   
@@ -1830,62 +1851,12 @@
           
           
             <div class="md-content" data-md-component="content">
-              
-                
-
-
-
-  
-
-
-  <nav class="md-path" aria-label="Navigation" >
-    <ol class="md-path__list">
-      
-        
-  
-  
-    <li class="md-path__item">
-      <a href="../.." class="md-path__link">
-        
-  <span class="md-ellipsis">
-    Home
-  </span>
-
-      </a>
-    </li>
-  
-
-      
-      
-        
-  
-  
-    
-    
-      <li class="md-path__item">
-        <a href="../" class="md-path__link">
-          
-  <span class="md-ellipsis">
-    Chapters
-  </span>
-
-        </a>
-      </li>
-    
-  
-
-      
-    </ol>
-  </nav>
-
-              
               <article class="md-content__inner md-typeset">
                 
                   
 
-
   
-    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/06-multi-tenancy-rosters-identity/index.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/06-multi-tenancy-rosters-identity/index.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1922,13 +1893,258 @@
 <li><a href="../05-system-context-architectural-planes/">Chapter 5: System Context and the Five Architectural Planes</a></li>
 </ul>
 <hr />
-<p>TODO: Generate Chapter Content</p>
+<div class="admonition mascot-welcome">
+<p class="admonition-title">Whose evidence is this, exactly?</p>
+<p><img alt="Rowan waving welcome" class="mascot-admonition-img" src="../../img/mascot/welcome.png" />
+Chapter 5 traced a statement's path through five architectural planes, from an intelligent textbook to a rendered dashboard. This chapter asks a different question about that same statement: which district does it belong to, which class was it produced in, and whose learner produced it — without this Learning Record Store ever storing that learner's real name? Let's follow the record.</p>
+</div>
+<p>This Learning Record Store does not serve one school. It serves <strong>many school districts at once</strong>, each running its own courses, each course delivered through one or more intelligent textbooks, and each textbook producing a steady stream of xAPI Statements from every student using it. That arrangement — one system, many independent customers sharing it — has a name in software architecture: <strong>multi-tenancy</strong>. This chapter grounds every claim in this project's own specification, <code>lrs-spec-v1.md</code> §3 ("Multi-Tenancy Model") and <code>lrs-design-v1.md</code> §5.2 ("Identity Service &amp; Pseudonymization"), because from here forward the book describes one particular system's actual design choices, not general industry practice.</p>
+<h2 id="the-tenant-who-owns-this-data">The Tenant: Who Owns This Data?<a class="headerlink" href="#the-tenant-who-owns-this-data" title="Permanent link">&para;</a></h2>
+<p>In this project's specification, a <strong>Tenant</strong> is defined precisely: it is a <strong>school district</strong> — the top-level unit whose data must never leak into another tenant's view, and the boundary every isolation guarantee in this chapter is drawn around. The word "tenant" comes from multi-tenant software architecture generally, where many customers share one running system the way many renters share one building — each tenant's space is theirs alone, even though the plumbing and wiring underneath are shared. In this LRS, the <strong>District</strong> node is the concrete, named thing that plays the Tenant role: every other structural entity you will meet in this chapter — a school, a course, a section, a student — exists <em>underneath</em> some specific district, and the district is what makes "underneath" a hard, enforceable boundary rather than just an organizing label.</p>
+<p>Why build the whole system around district-level tenancy rather than, say, school-level or even student-level isolation? Because a district is the real-world unit that already has legal and administrative authority over student data: it is the district that signs a data-privacy agreement, the district that chooses which textbooks its schools use, and the district that a family's rights under FERPA or COPPA are ultimately exercised against. Tying the system's hardest isolation boundary to the district lines the architecture up with where accountability for that data already sits.</p>
+<div class="admonition mascot-thinking">
+<p class="admonition-title">One word, two jobs</p>
+<p><img alt="Rowan thinking with a magnifying glass" class="mascot-admonition-img" src="../../img/mascot/thinking.png" />
+Notice that "Tenant" and "District" name the same real-world thing from two different angles. <strong>Tenant</strong> is the architectural role — "the top-level isolation boundary," a term you would recognize in any multi-tenant system, from an email provider to a payroll platform. <strong>District</strong> is what that role is called <em>in this LRS specifically</em>, with its own graph properties (<code>district_id</code>, <code>name</code>, <code>state</code>, <code>timezone</code>). Every district is a tenant; the word you will actually see in this project's diagrams, tables, and code is District.</p>
+</div>
+<h2 id="the-tenancy-hierarchy-district-down-to-student">The Tenancy Hierarchy: District Down to Student<a class="headerlink" href="#the-tenancy-hierarchy-district-down-to-student" title="Permanent link">&para;</a></h2>
+<p>A single district is not flat. It contains schools, each school offers courses, each course runs in one or more sections, and each section has students enrolled in it. This project's specification names that nested structure the <strong>Tenancy Hierarchy</strong>, and defines it explicitly, level by level:</p>
+<ul>
+<li>A <strong>District</strong> sits at the top as the tenant root.</li>
+<li>A <strong>School</strong> belongs to exactly one district and represents one physical or virtual school building.</li>
+<li>A <strong>Course</strong> belongs to a school and represents a subject offering — "Biology 101," for instance — independent of any particular group of students taking it.</li>
+<li>A <strong>Section</strong> belongs to a course and represents one actual class period or cohort of students taking that course together, such as "Biology 101, Period 3, Fall term."</li>
+<li>An <strong>Enrollment</strong> is not another level so much as the <em>link</em> that connects a student to a section — it is the fact that a specific student belongs to a specific section, and it carries its own properties (when the enrollment began, and its current status).</li>
+</ul>
+<p>Reading that list top to bottom traces exactly how this project's specification draws the hierarchy: <code>District → School → Course → Section → Enrollment</code>. Every one of those entities is stored as structure in the LRS's property graph — the same graph Chapter 5 mentioned as one of the two systems living in the Storage Plane — though this chapter only needs the names and relationships, not the underlying graph mechanics; Chapter 7 covers exactly how the graph represents structure like this.</p>
+<h4 id="diagram-this-projects-tenancy-hierarchy">Diagram: This Project's Tenancy Hierarchy<a class="headerlink" href="#diagram-this-projects-tenancy-hierarchy" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/tenancy-hierarchy-tree/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>This Project's Tenancy Hierarchy</summary>
+<p>Type: graph-model
+<strong>sim-id:</strong> tenancy-hierarchy-tree<br/>
+<strong>Library:</strong> Mermaid<br/>
+<strong>Status:</strong> Specified<br/>
+<strong>Template:</strong> https://github.com/dmccreary/data-science-course/tree/main/docs/sims/data-structure-hierarchy<br/></p>
+<p>Bloom Taxonomy: Understand (L2)
+Bloom Taxonomy Verb: identify, describe</p>
+<p>Learning objective: Let the learner identify each level of this project's Tenancy Hierarchy, in order, and describe in one sentence what each level represents and which entities live directly beneath it.</p>
+<p>Purpose: Render the roster side of the Tenancy Hierarchy from spec §3.1 as a single top-to-bottom Mermaid flowchart, one node per level plus a node representing the Enrollment link between Section and Student.</p>
+<p>Nodes, top to bottom:</p>
+<ul>
+<li>"District — the Tenant (hard isolation boundary)"</li>
+<li>"School"</li>
+<li>"Course"</li>
+<li>"Section (a class period / cohort)"</li>
+<li>"Enrollment (Student ↔ Section)" — drawn as a diamond/rhombus node to visually distinguish a relationship from an entity</li>
+<li>"Student (pseudonymous)"</li>
+</ul>
+<p>Edges: District to School labeled "HAS_SCHOOL"; School to Course labeled "OFFERS"; Course to Section labeled "HAS_SECTION"; Section to Enrollment and Enrollment to Student both labeled "ENROLLED_IN", showing Enrollment as the connective relationship rather than a strict tree node.</p>
+<p>Interactive features: Every node has a Mermaid <code>click</code> directive. Clicking "District" opens an infobox defining Tenant and District together, and naming the hard isolation guarantee. Clicking "School," "Course," or "Section" opens an infobox with that level's one-sentence definition and its key graph properties (e.g., Section: <code>section_id</code>, <code>period</code>, <code>term</code>, <code>academic_year</code>). Clicking "Enrollment" opens an infobox explaining that it is a relationship, not a level, carrying <code>enrolled_at</code> and <code>status</code>. Clicking "Student" opens an infobox noting that the Student node is pseudonymous and holds no PII, previewing the identity section later in this chapter.</p>
+<p>Color coding: A single top-to-bottom gradient in the book's teal accent color, darkest at District and lightest at Student, echoing the gradient convention established in Chapter 5's System Context Diagram.</p>
+<p>Implementation: Mermaid flowchart, top-to-bottom orientation, full click-to-infobox coverage on every node. Responsive width tracking the containing element.</p>
+</details>
+<p>Two details in that diagram are easy to skim past but matter a great deal. First, a Course is not the same thing as a Section: a course is the <em>offering</em> ("Biology 101" as a subject), while a section is one specific <em>running</em> of it with real students in real seats. A district can reuse one course definition across a dozen sections without duplicating anything about the course itself. Second, Enrollment is drawn as a relationship rather than another box in the stack, because that is what it structurally is — the fact that connects one Student to one Section, not a level with its own children underneath it.</p>
+<h2 id="hard-isolation-and-soft-isolation">Hard Isolation and Soft Isolation<a class="headerlink" href="#hard-isolation-and-soft-isolation" title="Permanent link">&para;</a></h2>
+<p>Naming the hierarchy is only half the story; the other half is what the hierarchy <em>guarantees</em>. This project's specification assigns a different isolation guarantee to different levels, and the two guarantees are deliberately not the same strength.</p>
+<p><strong>Hard Isolation</strong> applies at exactly one level: the District. The specification is direct about what this means — no query may cross district boundaries, except by explicit system-admin action for cross-district benchmarking, and even then only over de-identified aggregates above a privacy threshold. Hard isolation is not merely a permission check that a developer could accidentally omit; later in this book (Chapter 13) you will see that every query in this system is built through a request-scoped context object that makes it structurally impossible to construct a query with no tenant boundary at all. A district's data does not merely <em>look</em> separate from another district's — there is no code path capable of returning it mixed together.</p>
+<p><strong>Soft Isolation</strong> applies to everything nested inside a district: School, Course, and Section. This isolation is enforced by role-based access control rather than a hard architectural wall — a teacher's account is scoped to see only the sections that teacher actually teaches, a school administrator's account is scoped to their one school, and so on. The distinction is not that soft isolation is weaker security; it is that soft isolation is a <em>policy</em> enforced by roles and permissions, while hard isolation is a <em>structural property</em> of the boundary itself. Two teachers in the same district could, in principle, be granted overlapping section access if a school chose to configure it that way — two districts can never be granted overlapping access to each other's data by any configuration at all.</p>
+<div class="admonition mascot-warning">
+<p class="admonition-title">Soft does not mean weak</p>
+<p><img alt="Rowan waving a caution flag" class="mascot-admonition-img" src="../../img/mascot/warning.png" />
+A natural but wrong reading of "soft isolation" is that school- and section-level boundaries are somehow less secure than the district boundary. They are not insecure — they are enforced differently. Hard isolation is a wall that cannot be reconfigured away. Soft isolation is a fence with gates, and role-based access control decides who holds a key to which gate. Both stop unauthorized access; only one of them makes cross-boundary access architecturally impossible rather than merely unpermitted.</p>
+</div>
+<p>The table below organizes the isolation guarantees for every level named in this chapter, now that hard and soft isolation have both been defined in the prose above.</p>
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Isolation Guarantee</th>
+<th>Enforcement Mechanism</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>District (Tenant)</td>
+<td><strong>Hard</strong></td>
+<td>No query can cross district boundaries; structurally enforced, not merely permission-checked</td>
+</tr>
+<tr>
+<td>School</td>
+<td><strong>Soft</strong></td>
+<td>Role-based access control — an account is scoped to its school</td>
+</tr>
+<tr>
+<td>Course</td>
+<td><strong>Soft</strong></td>
+<td>Role-based access control, inherited from the school scope</td>
+</tr>
+<tr>
+<td>Section</td>
+<td><strong>Soft</strong></td>
+<td>Role-based access control — a teacher sees only their own sections</td>
+</tr>
+</tbody>
+</table>
+<p>With hard versus soft isolation defined and tabulated, the sorting exercise below is a quick way to check that the distinction has actually landed before moving on to how rosters populate this hierarchy in the first place.</p>
+<h4 id="diagram-sort-each-level-into-hard-or-soft-isolation">Diagram: Sort Each Level into Hard or Soft Isolation<a class="headerlink" href="#diagram-sort-each-level-into-hard-or-soft-isolation" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/hard-vs-soft-isolation-sorter/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Sort Each Level into Hard or Soft Isolation</summary>
+<p>Type: microsim
+<strong>sim-id:</strong> hard-vs-soft-isolation-sorter<br/>
+<strong>Library:</strong> p5.js<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Apply (L3)
+Bloom Taxonomy Verb: classify, sort</p>
+<p>Learning objective: Let the learner apply the definitions of Hard Isolation and Soft Isolation by sorting the four Tenancy Hierarchy levels (District, School, Course, Section) into the correct isolation-guarantee bucket.</p>
+<p>Canvas layout:</p>
+<ul>
+<li>Top strip: four shuffled draggable tiles, one per level name — "District", "School", "Course", "Section"</li>
+<li>Middle: two labeled drop zones side by side — "Hard Isolation" (left, darkest teal) and "Soft Isolation" (right, lighter teal)</li>
+<li>Bottom strip: score readout ("Sorted: 0 / 4") and a "Check All" button</li>
+</ul>
+<p>Visual elements:</p>
+<ul>
+<li>Tiles in a neutral cream color with the level name printed on them</li>
+<li>A tile dropped in its correct zone locks in place with a green outline and a brief checkmark animation</li>
+<li>A tile dropped in the wrong zone bounces back to the top strip with a half-second red flash</li>
+</ul>
+<p>Interactive controls:</p>
+<ul>
+<li>Drag-and-drop: drag any tile onto either isolation zone</li>
+<li>Button: "Check All" — validates every placed tile and reveals a one-sentence explanation for any incorrect placement, matching this chapter's prose</li>
+<li>Button: "Reset" — returns all tiles to the top strip</li>
+</ul>
+<p>Default parameters: all four tiles unplaced at start, shuffled via a seeded index so the layout is reproducible within a session.</p>
+<p>Behavior: on a correct drop, increment "Sorted" and lock the tile; when all four are sorted correctly, display "All four levels sorted — District is the only hard boundary." Clicking any locked tile re-opens an infobox with that level's isolation guarantee and enforcement mechanism, matching the table above.</p>
+<p>Implementation notes: p5.js mouse-press/mouse-release drag-and-drop, matching the pattern used in this book's other sorting MicroSims. Responsive design: canvas width tracks the containing element's width; the two drop zones stack vertically at narrow (mobile) widths.</p>
+</details>
+<h2 id="rosters-how-enrollment-data-actually-gets-in">Rosters: How Enrollment Data Actually Gets In<a class="headerlink" href="#rosters-how-enrollment-data-actually-gets-in" title="Permanent link">&para;</a></h2>
+<p>Everything in the Tenancy Hierarchy below District — schools, courses, sections, and enrollments — has to come from somewhere, and this project's specification is explicit that it does not come from this LRS itself. A district already keeps its official enrollment records in a <strong>Student Information System</strong>, universally abbreviated <strong>SIS</strong>: the system of record a school or district uses for enrollment, scheduling, grades, and other administrative student records, entirely separate from any learning-content platform. Every school district already runs one, long before it adopts any intelligent textbook, and that system — not the Learning Record Store — remains the authoritative source of who is enrolled in what.</p>
+<p>This project's specification states that constraint directly: rosters are ingested via <strong>OneRoster</strong> (Comma-Separated Values, or CSV, files, or a Representational State Transfer, or REST, feed) or other SIS integrations, and the LRS never becomes the authoritative source of student identity. OneRoster is a data-interchange standard, maintained by 1EdTech, purpose-built for exactly this problem: letting a Student Information System hand off its enrollment structure — schools, courses, sections, and who belongs to which section — to another piece of educational software in a predictable, vendor-neutral format. Rather than this project inventing its own roster format and asking every district's SIS vendor to support it, this project speaks a format the SIS side already knows.</p>
+<p>That roster data flows in through the <strong>Roster API</strong>, the inbound member of the Analytics Plane's five APIs that Chapter 5 named but did not detail. Where the Analytics, Admin, Experiment, and Export APIs all answer questions by reading what the system already knows, the Roster API's entire job is accepting organizational facts the system cannot infer from statements alone — because no xAPI statement ever says "this student transferred into Section 4," a roster sync does.</p>
+<div class="admonition mascot-tip">
+<p class="admonition-title">The LRS is a reader of rosters, never their author</p>
+<p><img alt="Rowan pointing helpfully" class="mascot-admonition-img" src="../../img/mascot/tip.png" />
+If you are ever unsure whether a piece of enrollment data should be edited directly inside this LRS, the answer from the specification is almost always no. A district administrator can review a sync before it applies and can manually override an enrollment with a logged reason, but the <em>source of truth</em> stays the district's own SIS. Treat any enrollment record you see in this system as a faithful copy, not an original.</p>
+</div>
+<h4 id="diagram-from-student-information-system-to-enrollment">Diagram: From Student Information System to Enrollment<a class="headerlink" href="#diagram-from-student-information-system-to-enrollment" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/roster-ingestion-workflow/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>From Student Information System to Enrollment</summary>
+<p>Type: workflow
+<strong>sim-id:</strong> roster-ingestion-workflow<br/>
+<strong>Library:</strong> Mermaid<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Apply (L3)
+Bloom Taxonomy Verb: trace, demonstrate</p>
+<p>Learning objective: Let the learner trace how roster data travels from a district's Student Information System, through the OneRoster standard and the Roster API, into School, Course, Section, and Enrollment structure inside this LRS.</p>
+<p>Purpose: Show a five-step, left-to-right Mermaid flowchart tracing one roster sync from the district's system of record to materialized Tenancy Hierarchy structure, with a branch showing the dry-run safety check.</p>
+<p>Steps:</p>
+<ol>
+<li>"District's Student Information System holds the official enrollment records" — the authoritative source, entirely outside this LRS</li>
+<li>"District admin configures a roster source" — a OneRoster REST or CSV endpoint, or another SIS connector, with credentials stored in a secret manager</li>
+<li>"Roster sync runs on a schedule" — data is exported in OneRoster format</li>
+<li>"Roster API ingests the sync" — the inbound member of the Analytics Plane's five APIs</li>
+<li>"School, Course, Section, and Enrollment nodes are created or updated in the Tenancy Hierarchy"</li>
+</ol>
+<p>Branch: from step 3, a dashed arrow to a side node "Dry-run diff preview" leading to "District admin reviews added/removed enrollments before the sync is applied — nothing is overwritten silently."</p>
+<p>Interactive features: Every node has a Mermaid <code>click</code> directive. Clicking step 1 opens an infobox defining Student Information System and stating that the LRS never becomes the authoritative source of student identity. Clicking step 3 opens an infobox defining OneRoster as a 1EdTech data-interchange standard (CSV or REST). Clicking step 4 opens an infobox connecting back to the Roster API's role from Chapter 5. Clicking step 5 opens an infobox listing which Tenancy Hierarchy levels get created or refreshed. Clicking the dry-run branch node opens an infobox explaining the diff-preview safety check.</p>
+<p>Color coding: Steps 1-2 (district-owned systems) in a neutral gray to signal "outside this LRS"; steps 3-5 (this LRS's own ingestion path) in the book's teal accent color, consistent with the gradient used in this chapter's other diagrams.</p>
+<p>Implementation: Mermaid flowchart, left-to-right orientation, one dashed branch node, full click-to-infobox coverage on every node. Responsive width tracking the containing element.</p>
+</details>
+<h2 id="the-student-node-present-in-the-graph-absent-as-a-person">The Student Node: Present in the Graph, Absent as a Person<a class="headerlink" href="#the-student-node-present-in-the-graph-absent-as-a-person" title="Permanent link">&para;</a></h2>
+<p>Once a roster sync has run, the Tenancy Hierarchy has a Section with real enrolled learners in it — but this project's specification is careful about exactly what "real" means once that data lands inside the LRS. The <strong>Student</strong> node that appears in the graph is deliberately thin: it holds a <code>student_key</code>, which is pseudonymous, and a <code>grade_level</code>, and this project's specification states plainly that no PII is stored there. Nothing about the Student node — not a name, not an email address, not a roster ID — could, on its own, identify the actual person behind it. The colloquial "student" you picture — a specific twelve-year-old in a specific classroom — and the <code>Student</code> node in this LRS's graph are related but not identical: the graph node is a pseudonymized <em>shadow</em> of that person, deliberately stripped of anything that would let a reader work backward to who they are.</p>
+<p>That design choice did not happen by accident once the system was already built; it is one of the design principles this project committed to from the start, stated as plainly as any other requirement: student identifiers are pseudonymized, and Personally Identifiable Information lives behind a separate access boundary. The rest of this chapter is about the mechanism that makes that principle actually true, statement by statement.</p>
+<h2 id="from-a-pseudonymous-account-to-a-student-key">From a Pseudonymous Account to a Student Key<a class="headerlink" href="#from-a-pseudonymous-account-to-a-student-key" title="Permanent link">&para;</a></h2>
+<p>Every xAPI Statement, as Chapter 1 explained, has an Actor — the learner who performed the experience. But the Actor field that actually arrives at this LRS's Ingestion Gateway is never a student's real name. This project's specification calls what arrives a <strong>Pseudonymous Account</strong>: every actor on the event stream carries an account made of two parts, <code>account.homePage</code> and <code>account.name</code>, where <code>homePage</code> identifies the issuing system (the specific textbook or platform that produced the statement) and <code>name</code> is an opaque identifier that system uses for that learner — not a real name, not an email address, just a label the sending system already keeps internally. In other words, the <em>sending</em> Learning Record Provider has already agreed never to put a real identity directly on the wire.</p>
+<p>That is the first layer of privacy, and this LRS adds a second, independent one. The identity service resolves every incoming Pseudonymous Account to an internal <strong>Student Key</strong> — the pseudonymous identifier this project's specification calls <code>student_key</code>, the same value stored on the Student node. The derivation is exact, and this project's design specification states the formula directly:</p>
+<div class="arithmatex">\[\text{student\_key} = \text{base32}\left(\text{HMAC-SHA256}\left(\text{salt}_{district},\ \texttt{homePage} \,\|\, \texttt{name}\right)[0{:}16]\right)\]</div>
+<p>Read in words rather than notation: take the incoming account's <code>homePage</code> and <code>name</code>, concatenate them, and run them through the Hash-Based Message Authentication Code (HMAC) algorithm keyed by a secret value unique to that one district — the district's <strong>salt</strong>. The first sixteen bytes of that result, encoded in base32, become the <code>student_key</code>. Two properties of that formula matter more than the cryptographic detail: it is deterministic (the same learner always derives the same key within one district, so their statements stay linked to one Student node), and it is one-way (there is no formula that runs backward from a <code>student_key</code> to recover the original account).</p>
+<p>The <strong>per-district salt</strong> is what turns "one-way" into "isolated across districts" as well. Because every district has its own distinct salt, the same physical learner enrolled in two different districts — a student who transfers schools, say — derives two completely unrelated <code>student_key</code> values, one per district. Nobody holding only the analytics data, not even someone with a compromised read-only account, could correlate that one learner's activity across two districts, because the two derived keys share no discoverable relationship. This is the concrete mechanism underneath the Hard Isolation guarantee from earlier in this chapter: it holds even against a reader who somehow gained illegitimate access to derived data, not just against an honest query that respects the tenant boundary.</p>
+<div class="admonition mascot-encourage">
+<p class="admonition-title">You do not need to compute an HMAC by hand</p>
+<p><img alt="Rowan offering encouragement" class="mascot-admonition-img" src="../../img/mascot/encouraging.png" />
+That formula can look intimidating the first time you see cryptographic notation on a textbook page, but the idea underneath it is simple: scramble the learner's identity with a district-specific secret, keep only the scrambled result, and throw away nothing except the ability to reverse it. You do not need to run HMAC-SHA256 by hand to understand this system — you need to remember what goes in (a pseudonymous account, plus a district's own salt) and what comes out (a <code>student_key</code> that is consistent, but never reversible).</p>
+</div>
+<p>Where does the raw account information go, then, if not into the event store or the graph? It goes to exactly one place, built to hold it and nothing else.</p>
+<h2 id="the-pii-vault-where-the-real-mapping-lives">The PII Vault: Where the Real Mapping Lives<a class="headerlink" href="#the-pii-vault-where-the-real-mapping-lives" title="Permanent link">&para;</a></h2>
+<p>The <strong>PII Vault</strong> is a separate, access-restricted store holding the mapping between a district's roster identity and each learner's <code>student_key</code>, along with the per-district salt itself and consent state. This project's design specification is emphatic that this is not merely a separate database schema but a <strong>separate instance</strong> — its own PostgreSQL deployment, its own credentials, its own network policy — because a shared instance would put the entire privacy boundary one accidental permission grant away from collapsing. The only component in this whole system permitted to read from it is the identity service itself; not the Analytics API, not any dashboard, not any report a teacher or administrator can view.</p>
+<p>That separation is what makes the earlier claim about the Student node literally true: PII lives behind a separate access boundary means the boundary is architectural, not a promise about how a shared table is queried. It is also what makes the system's right-to-erasure obligation actually achievable. When a district exercises erasure on behalf of a student, the process deletes that student's row from the PII Vault's mapping table and purges the matching event-store rows — and because the salt is per-district and the mapping row is now gone, that student's <code>student_key</code> becomes permanently un-derivable. Nobody, including the operators of this LRS, can reconstruct which pseudonymous statements belonged to that learner after that point. What survives are only de-identified aggregates that no longer resolve to any one person.</p>
+<p>The list below reinforces the boundary just described, sorting what lives on each side of it now that both halves have been introduced in the prose above.</p>
+<ul>
+<li><strong>Inside the PII Vault (identity service only):</strong> roster identity records, the district-to-salt mapping, and consent state — the raw material an actual name or roster ID could be recovered from.</li>
+<li><strong>Inside the graph and event store (everything downstream of the processor):</strong> <code>student_key</code> values, <code>grade_level</code>, section and enrollment structure, and every statement's pseudonymized actor — nothing an outside reader could use to work backward to a real identity.</li>
+<li><strong>Never written anywhere durable:</strong> a learner's real name, email address, or raw roster ID, once the identity service has finished resolving a statement's actor.</li>
+<li><strong>Deleted together on erasure:</strong> the vault mapping row and the matching event-store rows, leaving only de-identified aggregates behind.</li>
+</ul>
+<h4 id="diagram-from-pseudonymous-account-to-student-key">Diagram: From Pseudonymous Account to Student Key<a class="headerlink" href="#diagram-from-pseudonymous-account-to-student-key" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/pseudonymization-pipeline/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>From Pseudonymous Account to Student Key</summary>
+<p>Type: infographic
+<strong>sim-id:</strong> pseudonymization-pipeline<br/>
+<strong>Library:</strong> Mermaid<br/>
+<strong>Status:</strong> Specified<br/>
+<strong>Template:</strong> https://github.com/dmccreary/xapi-course/tree/main/docs/sims/pseudonymization-pipeline<br/></p>
+<p>Bloom Taxonomy: Understand (L2)
+Bloom Taxonomy Verb: trace, explain</p>
+<p>Learning objective: Let the learner trace how a raw learner identity becomes an irreversible pseudonymous Student Key before anything durable is written, and explain why the PII Vault and the event store never share access.</p>
+<p>Purpose: Show a six-step, left-to-right Mermaid flowchart tracing one statement's actor from arrival to its two separate destinations — the derived key going one way, the raw mapping going the other.</p>
+<p>Steps:</p>
+<ol>
+<li>"Learning Record Provider sends a Statement whose Actor is a Pseudonymous Account (<code>homePage</code> + <code>name</code>)"</li>
+<li>"Stream Processor's identity step fetches this district's salt over mTLS, cached in memory only"</li>
+<li>"student_key = base32(HMAC-SHA256(salt, homePage | name)[0:16])"</li>
+<li>"student_key is written to the event store and the graph — the account itself never is"</li>
+</ol>
+<p>Branch A (from step 1, parallel to step 2): "Raw roster identity ↔ student_key mapping is written to the PII Vault" leading to "PII Vault: separate PostgreSQL instance, identity service only"</p>
+<p>Branch B (from the PII Vault node): "Erasure request" leading to "Vault mapping row deleted → student_key permanently un-derivable"</p>
+<p>Interactive features: Every node has a Mermaid <code>click</code> directive. Clicking steps 1-4 opens an infobox matching this chapter's prose explanation of Pseudonymous Account and Student Key. Clicking the PII Vault node opens an infobox stating it is a separate instance, not a separate schema, reachable only by the identity service. Clicking the erasure node opens an infobox explaining the right-to-erasure mechanism.</p>
+<p>Color coding: The derived-key path (steps 1-4) in the book's teal accent color; the PII Vault branch in a contrasting amber to visually flag that it is a separate, restricted-access path, consistent with the amber-for-inbound convention used for the Roster API in Chapter 5.</p>
+<p>Implementation: Mermaid flowchart, left-to-right orientation with one branching path, full click-to-infobox coverage on every node. Responsive width tracking the containing element.</p>
+</details>
+<h2 id="one-statements-journey-through-tenancy-and-identity">One Statement's Journey Through Tenancy and Identity<a class="headerlink" href="#one-statements-journey-through-tenancy-and-identity" title="Permanent link">&para;</a></h2>
+<p>With every concept in this chapter now introduced, it helps to trace one statement's complete path as a self-check before moving to Chapter 7 — the same kind of cause-and-effect walkthrough Chapters 1 and 5 both closed with.</p>
+<ol>
+<li>A district's Student Information System is the authoritative source of who is enrolled where; a OneRoster sync copies that structure — School, Course, Section, Enrollment — into this LRS through the Roster API.</li>
+<li>A student in that section opens an intelligent textbook, which constructs an xAPI Statement whose Actor is a Pseudonymous Account: a <code>homePage</code> and an opaque <code>name</code>, never the student's real identity.</li>
+<li>The Ingestion Gateway accepts the statement structurally, without resolving the actor at all, and queues it — exactly as Chapter 5 described.</li>
+<li>The Stream Processor's identity step resolves the Pseudonymous Account to a Student Key using that district's own salt; the raw account, separately, is recorded only in the PII Vault.</li>
+<li>Everything written to the event store and the graph from this point forward — the enriched statement, the Student node, any later summary — carries the Student Key and nothing that could identify the learner directly.</li>
+<li>Because the District is a Hard Isolation boundary and every district's salt is unique, this student's activity can never be correlated with the same student's activity in a different district without vault access.</li>
+</ol>
+<h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
+<ul>
+<li>A <strong>Tenant</strong> is the top-level isolation boundary in this LRS, and a <strong>District</strong> is the concrete entity that plays that role.</li>
+<li>The <strong>Tenancy Hierarchy</strong> nests <code>District → School → Course → Section</code>, with <strong>Enrollment</strong> as the relationship linking a Student to a Section.</li>
+<li><strong>Hard Isolation</strong> applies only at the District level — no query can cross it; <strong>Soft Isolation</strong> governs School, Course, and Section through role-based access control.</li>
+<li>A <strong>Student Information System (SIS)</strong> remains the authoritative source of enrollment; this LRS never displaces it.</li>
+<li><strong>OneRoster</strong> is the standard format — CSV or REST — that carries roster structure from a district's SIS into this LRS's Roster API.</li>
+<li>The <strong>Student</strong> node in the graph is pseudonymous by design and stores no PII, even though it represents a real learner.</li>
+<li>A <strong>Pseudonymous Account</strong> (<code>homePage</code> + <code>name</code>) is what actually arrives on the event stream — never a real identity.</li>
+<li>A <strong>Student Key</strong> is the district-salted, one-way HMAC derivation of that account — consistent for one learner within one district, unrecoverable outside it.</li>
+<li>The <strong>PII Vault</strong> is a separate, access-restricted store holding the real roster-identity mapping, reachable only by the identity service, and is what makes right-to-erasure actually possible.</li>
+</ul>
+<div class="admonition mascot-celebration">
+<p class="admonition-title">You just watched a real name disappear on purpose</p>
+<p><img alt="Rowan celebrating with confetti" class="mascot-admonition-img" src="../../img/mascot/celebration.png" />
+That is exactly what this chapter was building toward: a real student, in a real district, producing real evidence of learning — while this LRS itself never durably stores who they are. What does the evidence show? The tenancy hierarchy and the pseudonymization pipeline together answer "whose data is this" and "who can never be re-identified from it" at the same time. Next, in <a href="../07-property-graph-data-model/">Chapter 7: The Property Graph Data Model</a>, we open up the graph itself and see exactly how District, School, Section, Student, and everything else in this chapter is actually represented as nodes and relationships.</p>
+</div>
 
 
 
 
 
 
+
+  
+  
 
 
 
@@ -2014,13 +2230,10 @@
     </div>
     
     
-    
-      
-      
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
         <script src="../../js/katex.js"></script>
       

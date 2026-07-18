@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="An intelligent textbook on Learning Record Stores: what they are, how xAPI statements work, and how to design, deploy, and query an LRS.">
+        <meta name="description" content="A tour of the concrete technology choices behind the Learning Record Store's five architectural planes — FastAPI and Redpanda for ingestion, ClickHouse and Neo4j for storage, Keycloak for identity, and the OpenTelemetry, Jaeger, Prometheus, and Grafana observability stack — grounded in the design specification's own technology-selection table and rationale.">
       
       
         <meta name="author" content="Dan McCreary">
@@ -21,22 +21,19 @@
         <link rel="next" href="../11-adrs-and-capacity-model/">
       
       
-        
-      
-      
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
     
     
       
-        <title>10. Choosing the Technology Stack - Learning Record Store</title>
+        <title>Choosing the Technology Stack - Learning Record Store</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -67,6 +64,7 @@
     
       
 
+    
     
     
   </head>
@@ -121,7 +119,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              10. Choosing the Technology Stack
+              Choosing the Technology Stack
             
           </span>
         </div>
@@ -133,13 +131,11 @@
     
     
     
-      
-      
-        <label class="md-header__button md-icon" for="__search">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        </label>
-        <div class="md-search" data-md-component="search" role="dialog">
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
@@ -178,14 +174,13 @@
     </div>
   </div>
 </div>
-      
     
     
       <div class="md-header__source">
         <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub Repo
@@ -230,7 +225,7 @@
       <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub Repo
@@ -250,16 +245,9 @@
       <a href="../.." class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Home
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -277,16 +265,9 @@
       <a href="../../about/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     About
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -304,16 +285,9 @@
       <a href="../../course-description/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Course Description
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -325,120 +299,6 @@
       
   
   
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-  
-    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
-      
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Specifications
-  
-
-    
-  </span>
-  
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-  
-    <a href="../../demo/graph-queries/" class="md-nav__link">
-      
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Demo
-  
-
-    
-  </span>
-  
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -451,70 +311,133 @@
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
-    
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
     
     
     
@@ -524,42 +447,32 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
+          
           
           <div class="md-nav__link md-nav__container">
             <a href="../" class="md-nav__link ">
               
   
-  
   <span class="md-ellipsis">
-    
-  
     Chapters
-  
-
-    
   </span>
-  
   
 
             </a>
             
               
-              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_6">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
-            
-  
-    Chapters
-  
-
+            Chapters
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -575,16 +488,9 @@
       <a href="../01-lms-to-experience-api/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     1. From Learning Management Systems to the Experience API
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -603,16 +509,9 @@
       <a href="../02-anatomy-of-xapi-statement/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     2. The Anatomy of an xAPI Statement
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -631,16 +530,9 @@
       <a href="../03-ieee-standardization-xapi-cmi5/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     3. IEEE Standardization of xAPI and cmi5
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -659,16 +551,9 @@
       <a href="../04-standards-governance-ecosystem/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     4. Standards Governance and the Wider Interoperability Ecosystem
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -687,16 +572,9 @@
       <a href="../05-system-context-architectural-planes/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     5. System Context and the Five Architectural Planes
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -715,16 +593,9 @@
       <a href="../06-multi-tenancy-rosters-identity/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     6. Multi-Tenancy, Rosters, and Pseudonymous Identity
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -743,16 +614,9 @@
       <a href="../07-property-graph-data-model/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     7. The Property Graph Data Model
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -771,16 +635,9 @@
       <a href="../08-summary-vertices-ingestion/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     8. Summary Vertices and Statement Ingestion Mechanics
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -799,16 +656,9 @@
       <a href="../09-twelve-core-lrs-functions/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     9. The Twelve Core LRS Functions
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -836,16 +686,9 @@
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
   
-  
   <span class="md-ellipsis">
-    
-  
     10. Choosing the Technology Stack
-  
-
-    
   </span>
-  
   
 
           <span class="md-nav__icon md-icon"></span>
@@ -854,16 +697,9 @@
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     10. Choosing the Technology Stack
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -886,9 +722,7 @@
         <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Summary
-      
+      Summary
     </span>
   </a>
   
@@ -897,9 +731,7 @@
         <li class="md-nav__item">
   <a href="#concepts-covered" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Concepts Covered
-      
+      Concepts Covered
     </span>
   </a>
   
@@ -908,9 +740,130 @@
         <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
       
-        Prerequisites
+        <li class="md-nav__item">
+  <a href="#the-ingestion-plane-one-fast-path-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Ingestion Plane: One Fast Path In
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Ingestion Plane: One Fast Path In">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-the-ingestion-plane-technology-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: The Ingestion Plane Technology Stack
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
+        <li class="md-nav__item">
+  <a href="#the-storage-plane-different-data-different-engines" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Storage Plane: Different Data, Different Engines
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Storage Plane: Different Data, Different Engines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-the-storage-plane-which-technology-holds-what" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: The Storage Plane, Which Technology Holds What
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#human-identity-vs-learner-identity-keycloak-and-oidc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Human Identity vs. Learner Identity: Keycloak and OIDC
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Human Identity vs. Learner Identity: Keycloak and OIDC">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-two-kinds-of-identity-in-this-learning-record-store" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Two Kinds of Identity in This Learning Record Store
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-analytics-plane-rest-not-graphql" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Analytics Plane: REST, Not GraphQL
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-observability-stack-seeing-across-the-whole-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Observability Stack: Seeing Across the Whole Pipeline
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Observability Stack: Seeing Across the Whole Pipeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-the-observability-pipeline-from-statement-to-screen" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: The Observability Pipeline, From Statement to Screen
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seeing-the-full-stack-at-once" class="md-nav__link">
+    <span class="md-ellipsis">
+      Seeing the Full Stack at Once
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
     </span>
   </a>
   
@@ -935,16 +888,9 @@
       <a href="../11-adrs-and-capacity-model/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     11. Architecture Decision Records and the Capacity Model
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -963,16 +909,9 @@
       <a href="../12-bayesian-knowledge-tracing/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     12. Bayesian Knowledge Tracing for Mastery
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -991,16 +930,9 @@
       <a href="../13-component-design-in-depth/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     13. Component Design in Depth
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1019,16 +951,9 @@
       <a href="../14-kafka-clickhouse-graph-schema/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     14. Kafka Topics, ClickHouse Schema, and Graph Constraints
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1047,16 +972,9 @@
       <a href="../15-privacy-and-dashboard-mechanics/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     15. Privacy Enforcement and Dashboard Mechanics
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1075,16 +993,9 @@
       <a href="../16-container-image-and-cli/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     16. The Container Image and the Role Dispatcher CLI
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1103,16 +1014,9 @@
       <a href="../17-compose-makefile-supply-chain/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     17. Docker Compose, the Makefile, and the Image Supply Chain
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1131,16 +1035,9 @@
       <a href="../18-config-migration-backup-rollout/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     18. Configuration, Migration, Backup, and Rollout
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1159,16 +1056,9 @@
       <a href="../19-failure-modes-and-verification/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     19. Failure Modes and Verification
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1187,16 +1077,9 @@
       <a href="../20-deviations-roadmap-open-questions/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     20. Spec Deviations, the Delivery Roadmap, and Open Questions
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1215,16 +1098,9 @@
       <a href="../21-hardware-cost-dev-environment/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     21. Hardware Sizing, Cost, and the Development Environment
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1243,16 +1119,9 @@
       <a href="../22-proving-the-architecture-mvp/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     22. Proving the Architecture - the MVP Plan
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1271,16 +1140,9 @@
       <a href="../23-production-infrastructure-cloud/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     23. Production Infrastructure and Cloud Services
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1299,16 +1161,9 @@
       <a href="../24-three-personas-and-admin-uis/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     24. Meet the Three Personas and the Admin UI Surface
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1327,16 +1182,9 @@
       <a href="../25-district-admin-rosters-deployments/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     25. District Administrator - Rosters, Deployments, and Registries
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1355,16 +1203,9 @@
       <a href="../26-district-admin-access-control/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     26. District Administrator - Access Control and System Configuration
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1383,16 +1224,9 @@
       <a href="../27-compliance-and-district-reporting/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     27. Compliance, Privacy Law, and District-Level Reporting
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1411,16 +1245,9 @@
       <a href="../28-teacher-dashboards-student-reports/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     28. Teacher Dashboards and Student-Level Reports
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1439,16 +1266,9 @@
       <a href="../29-class-level-reports-and-tools/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     29. Class-Level Reports and Teacher Tools
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1467,16 +1287,9 @@
       <a href="../30-author-dashboards-content-reports/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     30. Textbook Author Dashboards and Content Reports
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1495,16 +1308,9 @@
       <a href="../31-designing-ab-experiments/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     31. Designing and Reading A/B Experiments
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1523,16 +1329,9 @@
       <a href="../32-producer-contract-conformant-statements/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     32. The Producer Contract - Writing Conformant Statements
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1576,7 +1375,6 @@
     
     
     
-    
       
         
         
@@ -1587,20 +1385,12 @@
         
   
   
-  
     <a href="../../learning-graph/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     Learning Graph
-  
-
-    
   </span>
-  
   
 
       
@@ -1628,18 +1418,29 @@
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
-    
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
     
     
     
@@ -1653,20 +1454,108 @@
         
   
   
-  
     <a href="../../sims/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     MicroSims
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
   
 
     
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Specifications
   </span>
   
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../demo/graph-queries/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Demo
+  </span>
   
 
       
@@ -1690,16 +1579,9 @@
       <a href="../../glossary/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Glossary
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1717,16 +1599,9 @@
       <a href="../../license/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     License
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1744,16 +1619,9 @@
       <a href="../../contact/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Contact
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1790,9 +1658,7 @@
         <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Summary
-      
+      Summary
     </span>
   </a>
   
@@ -1801,9 +1667,7 @@
         <li class="md-nav__item">
   <a href="#concepts-covered" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Concepts Covered
-      
+      Concepts Covered
     </span>
   </a>
   
@@ -1812,9 +1676,130 @@
         <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
       
-        Prerequisites
+        <li class="md-nav__item">
+  <a href="#the-ingestion-plane-one-fast-path-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Ingestion Plane: One Fast Path In
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Ingestion Plane: One Fast Path In">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-the-ingestion-plane-technology-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: The Ingestion Plane Technology Stack
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
+        <li class="md-nav__item">
+  <a href="#the-storage-plane-different-data-different-engines" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Storage Plane: Different Data, Different Engines
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Storage Plane: Different Data, Different Engines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-the-storage-plane-which-technology-holds-what" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: The Storage Plane, Which Technology Holds What
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#human-identity-vs-learner-identity-keycloak-and-oidc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Human Identity vs. Learner Identity: Keycloak and OIDC
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Human Identity vs. Learner Identity: Keycloak and OIDC">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-two-kinds-of-identity-in-this-learning-record-store" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Two Kinds of Identity in This Learning Record Store
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-analytics-plane-rest-not-graphql" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Analytics Plane: REST, Not GraphQL
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-observability-stack-seeing-across-the-whole-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Observability Stack: Seeing Across the Whole Pipeline
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Observability Stack: Seeing Across the Whole Pipeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-the-observability-pipeline-from-statement-to-screen" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: The Observability Pipeline, From Statement to Screen
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seeing-the-full-stack-at-once" class="md-nav__link">
+    <span class="md-ellipsis">
+      Seeing the Full Stack at Once
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
     </span>
   </a>
   
@@ -1830,62 +1815,12 @@
           
           
             <div class="md-content" data-md-component="content">
-              
-                
-
-
-
-  
-
-
-  <nav class="md-path" aria-label="Navigation" >
-    <ol class="md-path__list">
-      
-        
-  
-  
-    <li class="md-path__item">
-      <a href="../.." class="md-path__link">
-        
-  <span class="md-ellipsis">
-    Home
-  </span>
-
-      </a>
-    </li>
-  
-
-      
-      
-        
-  
-  
-    
-    
-      <li class="md-path__item">
-        <a href="../" class="md-path__link">
-          
-  <span class="md-ellipsis">
-    Chapters
-  </span>
-
-        </a>
-      </li>
-    
-  
-
-      
-    </ol>
-  </nav>
-
-              
               <article class="md-content__inner md-typeset">
                 
                   
 
-
   
-    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/10-choosing-technology-stack/index.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/10-choosing-technology-stack/index.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1925,13 +1860,296 @@
 <li><a href="../07-property-graph-data-model/">Chapter 7: The Property Graph Data Model</a></li>
 </ul>
 <hr />
-<p>TODO: Generate Chapter Content</p>
+<div class="admonition mascot-welcome">
+<p class="admonition-title">From Twelve Functions to Seventeen Products</p>
+<p><img alt="Rowan waving welcome" class="mascot-admonition-img" src="../../img/mascot/welcome.png" />
+Chapter 9 closed with a promise: every one of those twelve functions rests on specific technology choices. This chapter is where the design specification finally names them — the actual databases, queues, frameworks, and dashboards a developer would type into a terminal. Let's follow the record.</p>
+</div>
+<p>Chapter 5 named five architectural planes — ingestion, processing, storage, analytics, and presentation — and Chapters 6 through 9 filled each plane with jobs: pseudonymize an actor, resolve an activity, compress a million statements into one vertex. None of that required naming a single piece of software. A plane is an abstraction; a job is a function. Somewhere underneath both, an actual database has to store the actual bytes, and an actual web framework has to answer the actual HTTP request. This chapter is where the abstractions get names.</p>
+<p>This project's design specification, <code>lrs-design-v1.md</code>, dedicates its own technology-selection table to exactly this question — plane by plane, component by component, choice by choice — and the choices are not arbitrary. Each one traces back to a requirement this book has already met: the throughput target from Chapter 5, the immutable-log promise from Chapter 8, the pseudonymization boundary from Chapter 6. The design specification also records the reasoning behind each choice in a short written form called an <strong>Architecture Decision Record</strong>, or <strong>ADR</strong> — a practice Chapter 11 opens up in full, with the specific ADRs this project has accepted. For now, treat every technology name below as the answer to a question this book has already asked.</p>
+<h2 id="the-ingestion-plane-one-fast-path-in">The Ingestion Plane: One Fast Path In<a class="headerlink" href="#the-ingestion-plane-one-fast-path-in" title="Permanent link">&para;</a></h2>
+<p>The ingestion plane's job, from Chapter 5, is simple to state and hard to build: accept an xAPI statement and get out of the way. The design specification builds that gateway in <strong>FastAPI</strong>, a Python web framework chosen specifically because xAPI statements typically arrive batched — a textbook sends fifty statements in one HTTP request rather than fifty separate requests — which drops the request rate roughly a hundredfold below the statement rate. That gap is what makes a Python gateway fast enough at all; a framework written in a compiled language would not strictly need the gap, but Python does, and batching supplies it. FastAPI itself does not listen on a network socket; it defines routes, validates incoming JSON, and shapes responses. <strong>Uvicorn</strong> is the ASGI server that actually accepts a connection and hands each request to FastAPI's routing layer — the two names are almost always mentioned together, because one is not useful in production without the other.</p>
+<p>Once the gateway accepts a statement, it has to land somewhere durable before the gateway can answer <code>200</code> back to the textbook that sent it — the non-blocking-ingestion promise from Chapter 8 depends on that queue being fast to write to and never the reason a statement is lost. The design specification names two products for that role, not one. <strong>Redpanda</strong> is a single-binary, Kafka-API-compatible message broker that a developer can start on a laptop in about a second, with no separate coordination service to run alongside it. <strong>Apache Kafka</strong> is the durable, partitioned, ordered, replayable log Chapter 5's Durable Event Queue was modeled on in the first place. Redpanda speaks Kafka's wire protocol without being Kafka's codebase, which is what lets the design specification run Redpanda in development and Apache Kafka in production without changing a line of application code. Whichever broker is actually running, the stream processors that pull statements back off the queue and run Chapter 9's pseudonymize–resolve–map sequence read that queue using the <strong>Confluent-Kafka Library</strong>, a Python client built on the same underlying C library the Kafka project itself relies on internally — which is why a plain consumer loop written against it can keep pace with the queue without needing a heavier stream-processing framework layered on top of it.</p>
+<p>The list below reinforces the role each ingestion-plane technology plays, now that each has been introduced above.</p>
+<ul>
+<li><strong>FastAPI</strong> — defines the <code>POST /xapi/statements</code> route, runs structural validation, and shapes the response.</li>
+<li><strong>Uvicorn</strong> — the ASGI server that actually accepts the HTTP connection and calls FastAPI's code.</li>
+<li><strong>Redpanda</strong> — the development-environment message broker: Kafka-API-compatible, single-binary, fast to start.</li>
+<li><strong>Apache Kafka</strong> — the production message broker Redpanda emulates: partitioned, durable, ordered, replayable.</li>
+<li><strong>Confluent-Kafka Library</strong> — the Python client the stream processors use to consume statements from either broker.</li>
+</ul>
+<div class="admonition mascot-thinking">
+<p class="admonition-title">A Pattern Worth Watching For</p>
+<p><img alt="Rowan thinking with a magnifying glass" class="mascot-admonition-img" src="../../img/mascot/thinking.png" />
+Notice that Redpanda and Apache Kafka are not two options the team is still choosing between — they are the same interface running in two different places, one tuned for a laptop and one for production. Watch for that shape again: MinIO and Amazon S3 later in this chapter, and Keycloak and a customer's own identity provider after that, are both the same pattern. A component chosen for local development speaks the same protocol as its production counterpart, so nothing about the application code needs to know which one is actually running underneath it.</p>
+</div>
+<h4 id="diagram-the-ingestion-plane-technology-stack">Diagram: The Ingestion Plane Technology Stack<a class="headerlink" href="#diagram-the-ingestion-plane-technology-stack" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/ingestion-plane-technology-stack/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>The Ingestion Plane Technology Stack</summary>
+<p>Type: workflow
+<strong>sim-id:</strong> ingestion-plane-technology-stack<br/>
+<strong>Library:</strong> Mermaid<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Understand (L2)
+Bloom Taxonomy Verb: explain, trace</p>
+<p>Learning objective: Let the learner trace a single xAPI statement's path through the ingestion plane's actual technology stack — FastAPI, Uvicorn, Redpanda/Apache Kafka, and the Confluent-Kafka Library — and explain what each product is responsible for.</p>
+<p>Purpose: Show a single Mermaid flowchart tracing one statement from an intelligent textbook through the concrete technology stack, mirroring Chapter 5's ingestion-plane diagram but naming products instead of planes.</p>
+<p>Nodes: "Intelligent Textbook" leads to "Uvicorn (ASGI server, accepts the HTTP connection)" leads to "FastAPI (routes the request, runs structural validation)" leads to "Redpanda (dev) / Apache Kafka (prod) — durable partitioned queue" leads to "Confluent-Kafka Library (Python client used by Stream Processors to consume the queue)" leads to "Stream Processor (Chapter 9's pseudonymize/resolve/map sequence)".</p>
+<p>Interactive features: Every node has a Mermaid click directive. Clicking "Uvicorn" or "FastAPI" opens an infobox distinguishing the ASGI server from the web framework it runs, matching this chapter's prose. Clicking the Redpanda/Kafka node opens an infobox explaining the dev/prod pairing and linking to Chapter 5's Durable Event Queue and Chapter 8's non-blocking ingestion. Clicking "Confluent-Kafka Library" opens an infobox naming it as the Python client used inside the Stream Processor role. A toggle labeled "Show dev environment" / "Show production environment" swaps the queue node's label and color between Redpanda and Apache Kafka without changing the rest of the diagram, reinforcing that the interface is identical either way.</p>
+<p>Color coding: The book's teal accent color for every node that is identical in dev and production; a two-tone split fill (teal/amber) on the Redpanda/Apache Kafka node to visually flag it as the one node that differs by environment.</p>
+<p>Responsive design: Flowchart resizes to the width of its containing element; on narrow viewports the chain reflows top-to-bottom instead of left-to-right.</p>
+</details>
+<h2 id="the-storage-plane-different-data-different-engines">The Storage Plane: Different Data, Different Engines<a class="headerlink" href="#the-storage-plane-different-data-different-engines" title="Permanent link">&para;</a></h2>
+<p>Chapter 5's storage plane split into two systems of record — the event store and the property graph — and Chapters 7 and 8 explained why: an event store built for billions of append-only rows and a graph built for tens of millions of structural nodes are different engineering problems, and no single database is the right answer to both. The design specification's technology-selection table resolves that split with <strong>ClickHouse</strong> for the event store: a columnar database that appends new rows quickly, compresses them roughly tenfold, and answers aggregate queries over billions of rows in well under a second — exactly the shape of the compression rollups Chapter 8 walked through in detail. The structural graph runs on <strong>Neo4j 5 Community</strong>, the same labeled property graph Chapter 7 introduced, sized for tenancy, content, the concept DAG, deployments, and experiments rather than for raw events.</p>
+<p>Two more relational stores handle data that does not belong in either the event log or the graph. <strong>PostgreSQL 16</strong> runs twice, as two separate, isolated database instances rather than as two schemas on one shared server: one instance holds nothing but the roster-identity-to-pseudonym mapping the identity service reads (Chapter 6's PII vault), reachable from no other component, and a second, entirely separate instance holds admin configuration, role assignments, the audit log, and experiment definitions. Running two instances instead of one shared server with two schemas turns Chapter 6's privacy boundary into a network-and-credential boundary rather than a permission setting a future engineer could loosen by accident.</p>
+<p>Two more stores round out the plane. <strong>Redis 7</strong> is the in-memory cache that keeps the gateway's token lookups, the processor's per-district salt cache, and the analytics API's response cache fast enough to stay off the critical path of every request. And bulk exports, archival copies, and the event store's cold tier land in an object store — <strong>MinIO</strong> in development, <strong>Amazon S3</strong> in production — the same Redpanda-and-Apache-Kafka pairing pattern applied to blob storage: identical interface, different place the bytes actually live.</p>
+<div class="admonition mascot-tip">
+<p class="admonition-title">A Technique Worth Borrowing</p>
+<p><img alt="Rowan pointing helpfully" class="mascot-admonition-img" src="../../img/mascot/tip.png" />
+Running two PostgreSQL 16 instances instead of two schemas on one server is a move you can reuse in your own projects any time one dataset needs a harder privacy boundary than the data sitting next to it. A schema boundary is one <code>GRANT</code> statement away from disappearing; a separate instance with separate credentials on a separate network policy is not. When the cost of a mistake is a learner's real name leaking into an analytics query, pay for the second instance.</p>
+</div>
+<h4 id="diagram-the-storage-plane-which-technology-holds-what">Diagram: The Storage Plane, Which Technology Holds What<a class="headerlink" href="#diagram-the-storage-plane-which-technology-holds-what" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/storage-plane-technology-map/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>The Storage Plane, Which Technology Holds What</summary>
+<p>Type: graph-model
+<strong>sim-id:</strong> storage-plane-technology-map<br/>
+<strong>Library:</strong> vis-network<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Analyze (L4)
+Bloom Taxonomy Verb: classify, differentiate</p>
+<p>Learning objective: Let the learner classify each storage-plane technology — ClickHouse, Neo4j 5 Community, PostgreSQL 16 (×2), Redis 7, MinIO, and Amazon S3 — by the specific kind of data it is responsible for, differentiating the event store from the graph from the two isolated PostgreSQL instances.</p>
+<p>Purpose: Show a vis-network graph with six technology nodes, each connected to a short label describing what it holds, colored by whether the technology is a system of record, a cache, or an object store.</p>
+<p>Nodes: "ClickHouse — system of record for every statement, at full fidelity" (system of record). "Neo4j 5 Community — structure and compressed summary vertices only, never raw events" (system of record). "PostgreSQL 16 — vault-db, PII vault, reachable only from the identity service" (system of record, isolated). "PostgreSQL 16 — meta-db, admin config, RBAC, audit log, experiment definitions" (system of record, isolated). "Redis 7 — token cache, salt cache, analytics response cache, rate limits" (cache). "MinIO (dev) / Amazon S3 (prod) — bulk exports, archival, event-store cold tier" (object store).</p>
+<p>Interactive features: Clicking any node opens an infobox with that technology's one-sentence definition from this chapter's prose and the specific data it holds. A toggle labeled "Group by role" clusters the six nodes into three groups — system of record, cache, object store — instead of a flat list, letting the learner see that the two PostgreSQL 16 instances share a role cluster while remaining visually separate nodes, because they are isolated at the network level.</p>
+<p>Color coding: System-of-record nodes in the book's teal accent color; the cache node in a lighter tint of the same hue; the object-store node in a neutral gray, consistent with Chapter 7's storage-plane color language.</p>
+<p>Responsive design: Graph layout recalculates via vis-network's physics engine on window resize; below tablet width, nodes stack into a scrollable single column grouped by role.</p>
+</details>
+<h2 id="human-identity-vs-learner-identity-keycloak-and-oidc">Human Identity vs. Learner Identity: Keycloak and OIDC<a class="headerlink" href="#human-identity-vs-learner-identity-keycloak-and-oidc" title="Permanent link">&para;</a></h2>
+<p>One more identity system belongs in this chapter, and it is easy to confuse with the one Chapter 6 already covered. Chapter 6's identity service resolves a <em>learner's</em> raw actor identity into a pseudonymous <code>student_key</code> using a per-district HMAC salt — it runs inside the processing plane, it never issues a login session, and no human ever authenticates against it directly. The system this chapter adds is a different kind of identity altogether: <strong>Keycloak</strong>, an open-source identity and access management server that gives <em>humans</em> — district admins, teachers, authors, auditors — a real login. Keycloak runs in the development stack as a stand-in for whatever identity provider a customer district already operates in production, speaking the same OpenID Connect protocol either way — the same dev/prod pairing pattern the ingestion and storage planes already showed with Redpanda and Apache Kafka, and MinIO and Amazon S3.</p>
+<p>OpenID Connect, often abbreviated OIDC, is a standard way for one system to prove to another who a logged-in user is, without that second system ever handling the user's password directly. When a district administrator opens one of the administrative UIs Chapter 9's function catalog assumed exists, Keycloak — or the district's own identity provider, in production — is what authenticates them and hands back a token the Admin API trusts. That token carries the role — district admin, instructor, author, auditor — that role-based access control enforces at the API layer, not merely hidden behind a UI button that anyone could still reach directly.</p>
+<div class="admonition mascot-warning">
+<p class="admonition-title">Two Systems, One Word</p>
+<p><img alt="Rowan waving a caution flag" class="mascot-admonition-img" src="../../img/mascot/warning.png" />
+It is tempting to hear "identity" once and assume the whole system means one thing, but this project deliberately has two identity systems doing unrelated jobs. Chapter 6's identity service pseudonymizes learners so their raw names never reach the analytics stores. Keycloak authenticates the humans — teachers, admins, authors — who log in to look at the results. A compromised Keycloak session could let someone view dashboards they should not; it could never re-identify a student, because Keycloak never touches the pseudonym mapping at all. Keep the two apart.</p>
+</div>
+<h4 id="diagram-two-kinds-of-identity-in-this-learning-record-store">Diagram: Two Kinds of Identity in This Learning Record Store<a class="headerlink" href="#diagram-two-kinds-of-identity-in-this-learning-record-store" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/two-kinds-of-identity/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Two Kinds of Identity in This Learning Record Store</summary>
+<p>Type: infographic
+<strong>sim-id:</strong> two-kinds-of-identity<br/>
+<strong>Library:</strong> vis-network<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Understand (L2)
+Bloom Taxonomy Verb: distinguish, contrast</p>
+<p>Learning objective: Let the learner distinguish the Chapter 6 pseudonymization identity service from Keycloak's human single-sign-on role, so the two systems that both use the word "identity" are never conflated.</p>
+<p>Purpose: Show a two-branch vis-network graph contrasting "Learner Identity (Chapter 6)" against "Human Identity (this chapter)" side by side.</p>
+<p>Nodes: Root splits into two branches. Branch 1, "Learner Identity": "Raw actor in an xAPI statement" leads to "identity service — per-district HMAC salt" leads to "student_key (pseudonymous)" leads to "Used by: Stream Processor, analytics stores. Never a login.". Branch 2, "Human Identity": "District admin / teacher / author logs in" leads to "Keycloak (dev) / customer identity provider (prod) — OpenID Connect" leads to "Signed token carrying a role" leads to "Used by: Admin API, Analytics API, Dash dashboards. Enforces RBAC.".</p>
+<p>Interactive features: Clicking any node opens an infobox with that node's one-sentence role. Clicking either branch's header opens an infobox contrasting it directly against the other branch, quoting this chapter's "keep the two apart" framing. A toggle labeled "Show what a breach would expose" annotates each branch's leaf node with the consequence of that specific system being compromised, reinforcing why the separation matters for privacy.</p>
+<p>Color coding: Learner Identity branch in the book's teal accent color, matching Chapter 6's existing identity-service diagrams; Human Identity branch in a distinct violet, signaling this is a different system entirely.</p>
+<p>Responsive design: Branches stack vertically on narrow viewports; vis-network physics layout recalculates on window resize.</p>
+</details>
+<h2 id="the-analytics-plane-rest-not-graphql">The Analytics Plane: REST, Not GraphQL<a class="headerlink" href="#the-analytics-plane-rest-not-graphql" title="Permanent link">&para;</a></h2>
+<p>The analytics plane answers every report Chapter 9's Progress Projection and Mastery Computation functions feed — dozens of fixed-shape queries like "this section's mastery heatmap" or "this student's progress overview." The design specification builds that plane's API in <strong>FastAPI</strong> again, the same framework chosen for the ingestion gateway, this time exposing a conventional REST interface rather than xAPI's specialized one. REST — an architectural style built around a fixed set of operations, like retrieving or creating a resource, each with a predictable, cacheable response shape — is the style behind most web APIs. The alternative the design specification explicitly considered and rejected is <strong>GraphQL</strong>, a query language that lets a client ask for exactly the fields it wants across multiple linked resources in a single request, trading a fixed response shape for a flexible one the client controls.</p>
+<p>GraphQL's flexibility is a real advantage when a client's data needs vary unpredictably from request to request. The analytics plane's needs do not vary that way: every report in the specification's catalog — the mastery heatmap, the completion funnel, the engagement calendar — already has one fixed shape, decided in advance by the report's own definition, not by whatever a caller happens to ask for that day. A fixed shape is also a cacheable one: the design specification builds a cache key directly from the report identifier, the tenant, and the query parameters, something straightforward with REST's one-shape-per-endpoint model and considerably harder to get right against GraphQL's client-decided response shapes. Choosing REST here is not a rejection of GraphQL as a technology — it is a recognition that GraphQL's flexibility would cost caching and rate-limiting cleanliness this particular plane never needed to spend.</p>
+<p>The table below collects this decision alongside three more from the design specification, so the pattern of "an alternative was considered, and here is exactly why it lost" is visible across the stack rather than argued once and forgotten.</p>
+<table>
+<thead>
+<tr>
+<th>Decision</th>
+<th>Alternative(s) Considered</th>
+<th>Chosen</th>
+<th>Why (from the design specification)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Analytics API query style</td>
+<td>GraphQL</td>
+<td>REST, via FastAPI</td>
+<td>Every report already has a fixed, cacheable shape; REST caches and rate-limits cleanly.</td>
+</tr>
+<tr>
+<td>Stream-processing framework</td>
+<td>Heavier windowing/shuffle frameworks</td>
+<td>Plain Python consumer loops, via the Confluent-Kafka Library</td>
+<td>The work is per-statement enrichment, not a shuffle — a windowing framework buys nothing here.</td>
+</tr>
+<tr>
+<td>Compression mechanism</td>
+<td>Streaming counter deltas (<code>SET n.count = n.count + $delta</code>)</td>
+<td>Recomputed absolute values, via ClickHouse materialized views</td>
+<td>Increments are not idempotent under Kafka's at-least-once delivery; a redelivered delta silently inflates a counter with no way to detect it afterward.</td>
+</tr>
+<tr>
+<td>Development identity provider</td>
+<td>A stubbed or mocked login</td>
+<td>Keycloak</td>
+<td>Gives the dev stack a real OpenID Connect provider, so the authentication code path is tested honestly instead of faked.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-observability-stack-seeing-across-the-whole-pipeline">The Observability Stack: Seeing Across the Whole Pipeline<a class="headerlink" href="#the-observability-stack-seeing-across-the-whole-pipeline" title="Permanent link">&para;</a></h2>
+<p>Every technology named so far answers "where does the data live" or "how does a request get served." One plane's job is different: watching the whole pipeline work, end to end, so a slow report or a stuck statement can be diagnosed instead of guessed at. Chapter 9's function catalog already implied the non-functional requirement this answers — the specification requires end-to-end tracing from the moment a statement is received to the moment it is projected into a summary vertex. The design specification meets that requirement with four products working as a chain rather than four independent choices.</p>
+<p><strong>OpenTelemetry</strong> is the instrumentation layer: a vendor-neutral standard for generating traces and metrics, built into the gateway, the stream processor, and every other role, so that a single trace ID, minted the moment a statement reaches the gateway, rides along inside the message's Kafka header and attaches itself to the eventual ClickHouse and Neo4j writes. OpenTelemetry does not store or display anything by itself — it produces the signal and hands it off. <strong>Jaeger</strong> is where the traces go: a distributed-tracing backend that lets an engineer look up one trace ID and see every hop a single statement took, from the gateway through the queue through the processor to its final write, as one connected timeline. <strong>Prometheus</strong> takes the other kind of signal OpenTelemetry produces — metrics, like queue depth or processing lag, rather than the story of one specific statement — and scrapes them at a regular interval from every running role, building a time series a query language can search. <strong>Grafana</strong> is the dashboard layer built on top of Prometheus's stored metrics (and, for some panels, Jaeger's traces): the screen a system administrator actually watches, with panels for the same processing-lag and dead-letter-rate figures the system's Data Quality Monitor report renders for a district administrator, but tuned for a systems audience instead.</p>
+<div class="admonition mascot-encourage">
+<p class="admonition-title">Four New Names, One Simple Shape</p>
+<p><img alt="Rowan offering encouragement" class="mascot-admonition-img" src="../../img/mascot/encouraging.png" />
+OpenTelemetry, Jaeger, Prometheus, and Grafana arriving in one paragraph can feel like a lot, especially this late in a chapter already carrying thirteen other technology names. Hold onto the shape instead of the list: something has to generate the signal (OpenTelemetry), something has to store each of the two kinds of signal it produces (Jaeger for traces, Prometheus for metrics), and something has to put it on a screen a person can read (Grafana). Four names, one pipeline, in that order every time.</p>
+</div>
+<h4 id="diagram-the-observability-pipeline-from-statement-to-screen">Diagram: The Observability Pipeline, From Statement to Screen<a class="headerlink" href="#diagram-the-observability-pipeline-from-statement-to-screen" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/observability-pipeline-trace-flow/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>The Observability Pipeline, From Statement to Screen</summary>
+<p>Type: workflow
+<strong>sim-id:</strong> observability-pipeline-trace-flow<br/>
+<strong>Library:</strong> Mermaid<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Understand (L2)
+Bloom Taxonomy Verb: trace, explain</p>
+<p>Learning objective: Let the learner trace how a single trace ID and a separate metrics stream flow through OpenTelemetry, Jaeger, Prometheus, and Grafana, from statement receipt to a screen a system administrator actually watches.</p>
+<p>Purpose: Show a single Mermaid flowchart with two parallel paths sharing a common source, reflecting that traces and metrics are two different signals produced by the same instrumentation.</p>
+<p>Nodes: Common source: "Gateway mints a trace ID on statement receipt". Path A (traces): leads to "OpenTelemetry instrumentation attaches the trace ID at every hop (gateway, queue, processor, ClickHouse write, Neo4j write)" leads to "Jaeger stores the full trace as one connected timeline" leads to "Engineer looks up one statement's entire journey". Path B (metrics): "Every role emits metrics (queue depth, processing lag, dead-letter rate) via OpenTelemetry" leads to "Prometheus scrapes and stores the metrics as a time series" leads to "Grafana renders dashboards a system administrator watches" leads to "Same numbers back the Data Quality Monitor report for a district administrator".</p>
+<p>Interactive features: Every node has a Mermaid click directive. Clicking "OpenTelemetry" opens an infobox defining it as the vendor-neutral instrumentation standard, distinguishing it from the three products that consume its output. Clicking "Jaeger" or "Prometheus" opens an infobox naming which signal type each stores (traces vs. metrics). Clicking "Grafana" opens an infobox naming its role as the presentation layer for both. Clicking the shared "trace ID" node reinforces the end-to-end-tracing requirement named in this chapter's prose.</p>
+<p>Color coding: The trace path in the book's teal accent color; the metrics path in a complementary amber; the shared source node in a neutral color to show it is the common origin of both.</p>
+<p>Responsive design: The two paths stack vertically at narrow widths, remaining independently readable; the flowchart resizes to the width of its containing element.</p>
+</details>
+<h2 id="seeing-the-full-stack-at-once">Seeing the Full Stack at Once<a class="headerlink" href="#seeing-the-full-stack-at-once" title="Permanent link">&para;</a></h2>
+<p>Seventeen names now sit behind the five planes Chapter 5 introduced with no products attached to them at all. The table below places every one of them the way the design specification's own technology-selection table does — plane by plane, job by job — so the whole stack can be read in a single pass rather than five separate sections' worth of prose.</p>
+<table>
+<thead>
+<tr>
+<th>Plane</th>
+<th>Component</th>
+<th>Technology</th>
+<th>Dev / Prod</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ingestion</td>
+<td>Gateway framework</td>
+<td>FastAPI + Uvicorn</td>
+<td>Same both</td>
+</tr>
+<tr>
+<td>Ingestion</td>
+<td>Durable queue</td>
+<td>Redpanda / Apache Kafka</td>
+<td>Redpanda (dev), Apache Kafka (prod)</td>
+</tr>
+<tr>
+<td>Processing</td>
+<td>Stream-processor client</td>
+<td>Confluent-Kafka Library</td>
+<td>Same both</td>
+</tr>
+<tr>
+<td>Storage</td>
+<td>Event store</td>
+<td>ClickHouse</td>
+<td>Same both</td>
+</tr>
+<tr>
+<td>Storage</td>
+<td>Structural graph</td>
+<td>Neo4j 5 Community</td>
+<td>Same both</td>
+</tr>
+<tr>
+<td>Storage</td>
+<td>PII vault</td>
+<td>PostgreSQL 16 (vault-db)</td>
+<td>Same both</td>
+</tr>
+<tr>
+<td>Storage</td>
+<td>Metadata store</td>
+<td>PostgreSQL 16 (meta-db)</td>
+<td>Same both</td>
+</tr>
+<tr>
+<td>Storage</td>
+<td>Cache / hot state</td>
+<td>Redis 7</td>
+<td>Same both</td>
+</tr>
+<tr>
+<td>Storage</td>
+<td>Object store</td>
+<td>MinIO / Amazon S3</td>
+<td>MinIO (dev), Amazon S3 (prod)</td>
+</tr>
+<tr>
+<td>Analytics</td>
+<td>API style</td>
+<td>FastAPI, REST (not GraphQL)</td>
+<td>Same both</td>
+</tr>
+<tr>
+<td>Identity</td>
+<td>Human single sign-on</td>
+<td>Keycloak / customer identity provider</td>
+<td>Keycloak (dev), customer IdP (prod)</td>
+</tr>
+<tr>
+<td>Observability</td>
+<td>Instrumentation</td>
+<td>OpenTelemetry</td>
+<td>Same both</td>
+</tr>
+<tr>
+<td>Observability</td>
+<td>Trace storage</td>
+<td>Jaeger</td>
+<td>Same both</td>
+</tr>
+<tr>
+<td>Observability</td>
+<td>Metrics storage</td>
+<td>Prometheus</td>
+<td>Same both</td>
+</tr>
+<tr>
+<td>Observability</td>
+<td>Dashboards</td>
+<td>Grafana</td>
+<td>Same both</td>
+</tr>
+</tbody>
+</table>
+<p>Every choice in that table has a name in the design specification too — an Architecture Decision Record — and a number behind it, from the capacity model that explains why 100–400 requests per second lets a Python gateway work at all to the compression math that keeps Neo4j's write rate survivable through a five-times ingest burst. This chapter told you what was chosen. Chapter 11 shows the arithmetic and the argument that chose it.</p>
+<h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>FastAPI</strong> and <strong>Uvicorn</strong> together form the ingestion gateway and the analytics API, chosen because batched xAPI delivery keeps the request rate far below the statement rate.</li>
+<li><strong>Redpanda</strong> (development) and <strong>Apache Kafka</strong> (production) are the same Kafka-API-compatible durable queue, read by stream processors through the <strong>Confluent-Kafka Library</strong>.</li>
+<li><strong>ClickHouse</strong> is the event store's columnar engine; <strong>Neo4j 5 Community</strong> holds structure and compressed summaries only, never raw events.</li>
+<li><strong>PostgreSQL 16</strong> runs as two isolated instances — one for the PII vault, one for admin metadata — turning Chapter 6's privacy boundary into a network-and-credential boundary.</li>
+<li><strong>Redis 7</strong> caches hot state; <strong>MinIO</strong> (development) and <strong>Amazon S3</strong> (production) hold bulk exports and archival objects.</li>
+<li>The analytics API chose REST over <strong>GraphQL</strong> because every report already has a fixed, cacheable shape.</li>
+<li><strong>Keycloak</strong> authenticates humans via OpenID Connect and must never be confused with Chapter 6's learner-pseudonymization identity service.</li>
+<li><strong>OpenTelemetry</strong> instruments the whole pipeline; <strong>Jaeger</strong> stores traces, <strong>Prometheus</strong> stores metrics, and <strong>Grafana</strong> renders both for a system administrator.</li>
+</ul>
+<div class="admonition mascot-celebration">
+<p class="admonition-title">Every Name Now Has a Job</p>
+<p><img alt="Rowan celebrating with confetti" class="mascot-admonition-img" src="../../img/mascot/celebration.png" />
+Seventeen technology names, five planes, and not one of them arbitrary — every choice traced back to a requirement this book already justified. What does the evidence show? Naming a technology is the easy half of an engineering decision; the hard half is writing down why, in a form that survives the person who made the choice leaving the room. In <a href="../11-adrs-and-capacity-model/">Chapter 11: Architecture Decision Records and the Capacity Model</a>, we open the design specification's own ADRs and the arithmetic behind them.</p>
+</div>
 
 
 
 
 
 
+
+  
+  
 
 
 
@@ -2017,13 +2235,10 @@
     </div>
     
     
-    
-      
-      
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
         <script src="../../js/katex.js"></script>
       

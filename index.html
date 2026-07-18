@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="An intelligent textbook on Learning Record Stores: what they are, how xAPI statements work, and how to design, deploy, and query an LRS.">
+        <meta name="description" content="Follow an xAPI learning record from the experience that creates it through ingestion, storage, graph compression, and the decisions it supports.">
       
       
         <meta name="author" content="Dan McCreary">
@@ -19,11 +19,8 @@
         <link rel="next" href="about/">
       
       
-        
-      
-      
       <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
     
     
       
@@ -31,10 +28,10 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.0253249f.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -65,6 +62,7 @@
     
       
 
+    
     
     
     <meta property="og:image" content="https://dmccreary.github.io/learning-record-store/img/cover.png">
@@ -133,13 +131,11 @@
     
     
     
-      
-      
-        <label class="md-header__button md-icon" for="__search">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        </label>
-        <div class="md-search" data-md-component="search" role="dialog">
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
@@ -178,14 +174,13 @@
     </div>
   </div>
 </div>
-      
     
     
       <div class="md-header__source">
         <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub Repo
@@ -209,6 +204,8 @@
           
             
               
+                
+              
               <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
@@ -230,7 +227,7 @@
       <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub Repo
@@ -259,16 +256,9 @@
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
   
-  
   <span class="md-ellipsis">
-    
-  
     Home
-  
-
-    
   </span>
-  
   
 
           <span class="md-nav__icon md-icon"></span>
@@ -277,16 +267,9 @@
       <a href="." class="md-nav__link md-nav__link--active">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Home
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -307,55 +290,78 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#choose-your-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      Choose Your Path
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Choose Your Path">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#understand-the-standards" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understand the standards
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examine-the-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examine the architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-the-evidence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use the evidence
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#follow-one-record-end-to-end" class="md-nav__link">
+    <span class="md-ellipsis">
+      Follow One Record End to End
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explore-the-textbook" class="md-nav__link">
+    <span class="md-ellipsis">
+      Explore the Textbook
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#who-this-book-is-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      Who This Book Is For
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#getting-started" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Getting Started
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#front-matter" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Front Matter
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#chapters" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Chapters
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#learning-graph" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Learning Graph
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#microsims" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        MicroSims
-      
+      Getting Started
     </span>
   </a>
   
@@ -379,16 +385,9 @@
       <a href="about/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     About
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -406,16 +405,9 @@
       <a href="course-description/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Course Description
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -433,188 +425,137 @@
     
       
         
-      
+          
         
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-  
-    <a href="specs/lrs-spec-v1/" class="md-nav__link">
-      
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Specifications
-  
-
-    
-  </span>
-  
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-  
-    <a href="demo/graph-queries/" class="md-nav__link">
-      
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Demo
-  
-
-    
-  </span>
-  
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
       
         
           
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
-    
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
     
     
     
@@ -626,22 +567,14 @@
     <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
       
         
-  
   
   
     <a href="chapters/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     Chapters
-  
-
-    
   </span>
-  
   
 
       
@@ -683,7 +616,6 @@
     
     
     
-    
       
         
         
@@ -692,22 +624,14 @@
     <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
       
         
-  
   
   
     <a href="learning-graph/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     Learning Graph
-  
-
-    
   </span>
-  
   
 
       
@@ -735,18 +659,29 @@
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
-    
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
     
     
     
@@ -760,20 +695,108 @@
         
   
   
-  
     <a href="sims/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     MicroSims
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
   
 
     
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="specs/lrs-spec-v1/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Specifications
   </span>
   
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="demo/graph-queries/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Demo
+  </span>
   
 
       
@@ -797,16 +820,9 @@
       <a href="glossary/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Glossary
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -824,16 +840,9 @@
       <a href="license/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     License
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -851,16 +860,9 @@
       <a href="contact/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Contact
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -876,7 +878,9 @@
             
             
               
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" hidden>
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -895,55 +899,78 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#choose-your-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      Choose Your Path
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Choose Your Path">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#understand-the-standards" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understand the standards
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examine-the-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examine the architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-the-evidence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use the evidence
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#follow-one-record-end-to-end" class="md-nav__link">
+    <span class="md-ellipsis">
+      Follow One Record End to End
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explore-the-textbook" class="md-nav__link">
+    <span class="md-ellipsis">
+      Explore the Textbook
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#who-this-book-is-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      Who This Book Is For
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#getting-started" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Getting Started
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#front-matter" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Front Matter
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#chapters" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Chapters
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#learning-graph" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Learning Graph
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#microsims" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        MicroSims
-      
+      Getting Started
     </span>
   </a>
   
@@ -959,22 +986,12 @@
           
           
             <div class="md-content" data-md-component="content">
-              
-                
-
-
-
-  
-
-
-              
               <article class="md-content__inner md-typeset">
                 
                   
 
-
   
-    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/index.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/index.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -982,30 +999,88 @@
   
 
 
+<style>
+.md-content__inner h1 { display: none !important; }
+</style>
+
 <h1 id="learning-record-store">Learning Record Store<a class="headerlink" href="#learning-record-store" title="Permanent link">&para;</a></h1>
-<figure>
-<p><img alt="Learning Record Store cover" src="img/cover.png" width="100%" /></p>
-</figure>
-<p>An intelligent textbook on Learning Record Stores: what they are, how xAPI statements work, and how to design, deploy, and query an LRS.</p>
-<h2 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
-<p>This is an intelligent textbook built with MkDocs Material. Use the navigation
-sidebar on the left to explore chapters, the learning graph, MicroSims, and
-supporting reference content.</p>
-<h2 id="front-matter">Front Matter<a class="headerlink" href="#front-matter" title="Permanent link">&para;</a></h2>
+<p><a href="chapters/01-lms-to-experience-api/"><img alt="Learning Record Store — xAPI records flowing through ingestion and storage into a compressed learning graph" src="img/cover.png" width="100%" /></a></p>
+<p>A learning experience becomes useful evidence only when its record can be trusted,
+moved between systems, and interpreted in context. This intelligent textbook follows
+that evidence from a learner's interaction, through a standards-based Learning Record
+Store (LRS), to the reports that help educators make better decisions.</p>
+<p>You will begin with the plain-language story behind xAPI and interoperability, then
+examine the architecture of the LRS being built in this repository. Finally, you will
+use the same underlying record through the eyes of a district administrator, a
+classroom teacher, and an intelligent-textbook author.</p>
+<div class="admonition mascot-welcome">
+<p class="admonition-title">Let's follow the record.</p>
+<p><img alt="Rowan welcoming readers" class="mascot-admonition-img" src="img/mascot/welcome.png" />
+Start with one learning event. Follow where it goes, what evidence it preserves,
+and which decisions it can support.</p>
+</div>
+<h2 id="choose-your-path">Choose Your Path<a class="headerlink" href="#choose-your-path" title="Permanent link">&para;</a></h2>
+<h3 id="understand-the-standards">Understand the standards<a class="headerlink" href="#understand-the-standards" title="Permanent link">&para;</a></h3>
+<p>Learn why education moved beyond LMS-bound records, how an xAPI statement expresses
+"someone did something with a learning object," and how IEEE standards make those
+records portable across tools and institutions.</p>
+<p><a href="chapters/01-lms-to-experience-api/">Begin with Chapter 1: From LMSs to xAPI</a></p>
+<h3 id="examine-the-architecture">Examine the architecture<a class="headerlink" href="#examine-the-architecture" title="Permanent link">&para;</a></h3>
+<p>Trace a statement through accept-first ingestion, a durable event queue, the event
+store, and a compression pipeline that produces queryable summary vertices without
+placing every raw event in the graph.</p>
+<p><a href="chapters/05-system-context-architectural-planes/">Explore Chapter 5: The Five Architectural Planes</a></p>
+<h3 id="use-the-evidence">Use the evidence<a class="headerlink" href="#use-the-evidence" title="Permanent link">&para;</a></h3>
+<p>See how one standards-based statement log supports district adoption and compliance,
+teacher mastery and prerequisite analysis, and author experiments on content
+effectiveness.</p>
+<p><a href="chapters/24-three-personas-and-admin-uis/">Meet the Three Personas in Chapter 24</a></p>
+<h2 id="follow-one-record-end-to-end">Follow One Record End to End<a class="headerlink" href="#follow-one-record-end-to-end" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Experience:</strong> A learner reads a page, answers a question, or explores a MicroSim.</li>
+<li><strong>Statement:</strong> The learning tool describes that event as a conformant xAPI record.</li>
+<li><strong>Ingestion:</strong> The LRS accepts the record quickly and preserves it in the event
+   stream and event store.</li>
+<li><strong>Compression:</strong> Processing converts repeated evidence into bounded summary
+   vertices such as concept mastery and page engagement.</li>
+<li><strong>Decision:</strong> A role-specific report turns the summaries into a question an
+   administrator, teacher, or author can act on.</li>
+</ol>
+<h2 id="explore-the-textbook">Explore the Textbook<a class="headerlink" href="#explore-the-textbook" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>About</strong> — audience, prerequisites, and how to read the book</li>
-<li><strong>Course Description</strong> — the seed document used to generate the learning graph</li>
+<li><strong><a href="chapters/">Chapters</a></strong> — the complete 32-chapter path from foundations
+  and standards through architecture, operations, and persona workflows.</li>
+<li><strong><a href="sims/graph-viewer/">Interactive Learning Graph</a></strong> — explore the concepts
+  and prerequisite connections that organize the book.</li>
+<li><strong><a href="sims/lrs-data-model/">LRS Data Model Explorer</a></strong> — inspect tenancy,
+  content, experiment, and compressed-summary structures from the specification.</li>
+<li><strong><a href="sims/">MicroSims</a></strong> — learn by manipulating interactive models and
+  observing the xAPI records they emit.</li>
+<li><strong><a href="glossary/">Glossary</a></strong> — look up the standards, architecture, analytics, and
+  privacy vocabulary used throughout the course.</li>
+<li><strong><a href="specs/lrs-spec-v1/">Specifications</a></strong> — read the authoritative LRS
+  specification and follow its links to the design and producer contract.</li>
+<li><strong><a href="demo/graph-queries/">Live Graph Demo</a></strong> — explore example Neo4j queries over
+  the seeded demonstration graph.</li>
 </ul>
-<h2 id="chapters">Chapters<a class="headerlink" href="#chapters" title="Permanent link">&para;</a></h2>
-<p>The main body of the book lives under <a href="chapters/">Chapters</a>. Each
-chapter has its own folder with a two-digit prefix (e.g. <code>01-introduction</code>).</p>
-<h2 id="learning-graph">Learning Graph<a class="headerlink" href="#learning-graph" title="Permanent link">&para;</a></h2>
-<p>The <a href="learning-graph/">Learning Graph</a> shows how concepts depend on each
-other. Concepts are introduced in dependency order so prerequisites are always
-covered before they are used.</p>
-<h2 id="microsims">MicroSims<a class="headerlink" href="#microsims" title="Permanent link">&para;</a></h2>
-<p>Interactive simulations live under <a href="sims/">MicroSims</a>. Each MicroSim
-focuses on one concept and is embeddable as an iframe inside chapter content.</p>
+<h2 id="who-this-book-is-for">Who This Book Is For<a class="headerlink" href="#who-this-book-is-for" title="Permanent link">&para;</a></h2>
+<p>The book is written first for the people who operate or use an LRS day to day:</p>
+<ul>
+<li>district administrators managing rollout, access, and compliance;</li>
+<li>classroom teachers interpreting mastery and prerequisite evidence; and</li>
+<li>intelligent-textbook authors measuring how content supports learning.</li>
+</ul>
+<p>It also serves software engineers, learning-technology architects, standards and
+compliance specialists, and upper-level students in computer science, instructional
+design, or educational technology. Part 1 assumes only general computer literacy;
+the architecture chapters introduce the required xAPI vocabulary from first
+principles before moving into system detail.</p>
+<h2 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
+<p>Start with <a href="chapters/01-lms-to-experience-api/">Chapter 1: From Learning Management Systems to the Experience
+API</a>, or read the <a href="course-description/">course
+description</a> for the full scope, prerequisites, and learning
+outcomes.</p>
+<p><strong>One event at a time.</strong></p>
 
 
 
@@ -1018,6 +1093,8 @@ focuses on one concept and is embeddable as an iframe inside chapter content.</p
 
 
 
+
+  
 
 
 
@@ -1040,6 +1117,8 @@ focuses on one concept and is embeddable as an iframe inside chapter content.</p
         <footer class="md-footer">
   
     
+      
+        
       
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
@@ -1084,13 +1163,10 @@ focuses on one concept and is embeddable as an iframe inside chapter content.</p
     </div>
     
     
-    
-      
-      
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    <script id="__config" type="application/json">{"base": ".", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="assets/javascripts/bundle.83f73b43.min.js"></script>
       
         <script src="js/katex.js"></script>
       

@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="An intelligent textbook on Learning Record Stores: what they are, how xAPI statements work, and how to design, deploy, and query an LRS.">
+        <meta name="description" content="How this project's Learning Record Store validates, queues, and non-blockingly onboards xAPI statements, and how its compression pipeline turns millions of them into the six summary-vertex grains the graph actually stores.">
       
       
         <meta name="author" content="Dan McCreary">
@@ -21,22 +21,19 @@
         <link rel="next" href="../09-twelve-core-lrs-functions/">
       
       
-        
-      
-      
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
     
     
       
-        <title>8. Summary Vertices and Statement Ingestion Mechanics - Learning Record Store</title>
+        <title>Summary Vertices and Statement Ingestion Mechanics - Learning Record Store</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -67,6 +64,7 @@
     
       
 
+    
     
     
   </head>
@@ -121,7 +119,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              8. Summary Vertices and Statement Ingestion Mechanics
+              Summary Vertices and Statement Ingestion Mechanics
             
           </span>
         </div>
@@ -133,13 +131,11 @@
     
     
     
-      
-      
-        <label class="md-header__button md-icon" for="__search">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        </label>
-        <div class="md-search" data-md-component="search" role="dialog">
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
@@ -178,14 +174,13 @@
     </div>
   </div>
 </div>
-      
     
     
       <div class="md-header__source">
         <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub Repo
@@ -230,7 +225,7 @@
       <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub Repo
@@ -250,16 +245,9 @@
       <a href="../.." class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Home
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -277,16 +265,9 @@
       <a href="../../about/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     About
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -304,16 +285,9 @@
       <a href="../../course-description/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Course Description
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -325,120 +299,6 @@
       
   
   
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-  
-    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
-      
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Specifications
-  
-
-    
-  </span>
-  
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-  
-    <a href="../../demo/graph-queries/" class="md-nav__link">
-      
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Demo
-  
-
-    
-  </span>
-  
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -451,70 +311,133 @@
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
-    
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
     
     
     
@@ -524,42 +447,32 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
+          
           
           <div class="md-nav__link md-nav__container">
             <a href="../" class="md-nav__link ">
               
   
-  
   <span class="md-ellipsis">
-    
-  
     Chapters
-  
-
-    
   </span>
-  
   
 
             </a>
             
               
-              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_6">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
-            
-  
-    Chapters
-  
-
+            Chapters
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -575,16 +488,9 @@
       <a href="../01-lms-to-experience-api/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     1. From Learning Management Systems to the Experience API
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -603,16 +509,9 @@
       <a href="../02-anatomy-of-xapi-statement/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     2. The Anatomy of an xAPI Statement
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -631,16 +530,9 @@
       <a href="../03-ieee-standardization-xapi-cmi5/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     3. IEEE Standardization of xAPI and cmi5
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -659,16 +551,9 @@
       <a href="../04-standards-governance-ecosystem/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     4. Standards Governance and the Wider Interoperability Ecosystem
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -687,16 +572,9 @@
       <a href="../05-system-context-architectural-planes/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     5. System Context and the Five Architectural Planes
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -715,16 +593,9 @@
       <a href="../06-multi-tenancy-rosters-identity/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     6. Multi-Tenancy, Rosters, and Pseudonymous Identity
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -743,16 +614,9 @@
       <a href="../07-property-graph-data-model/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     7. The Property Graph Data Model
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -780,16 +644,9 @@
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
   
-  
   <span class="md-ellipsis">
-    
-  
     8. Summary Vertices and Statement Ingestion Mechanics
-  
-
-    
   </span>
-  
   
 
           <span class="md-nav__icon md-icon"></span>
@@ -798,16 +655,9 @@
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     8. Summary Vertices and Statement Ingestion Mechanics
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -830,9 +680,7 @@
         <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Summary
-      
+      Summary
     </span>
   </a>
   
@@ -841,9 +689,7 @@
         <li class="md-nav__item">
   <a href="#concepts-covered" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Concepts Covered
-      
+      Concepts Covered
     </span>
   </a>
   
@@ -852,9 +698,139 @@
         <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
       
-        Prerequisites
+        <li class="md-nav__item">
+  <a href="#what-a-summary-vertex-actually-compresses" class="md-nav__link">
+    <span class="md-ellipsis">
+      What a Summary Vertex Actually Compresses
+    </span>
+  </a>
+  
+</li>
       
+        <li class="md-nav__item">
+  <a href="#the-six-grains-this-deployment-materializes" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Six Grains This Deployment Materializes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-much-compression-buys-you" class="md-nav__link">
+    <span class="md-ellipsis">
+      How Much Compression Buys You
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How Much Compression Buys You">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-storage-compression-ratio-by-summary-vertex-grain" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Storage Compression Ratio by Summary-Vertex Grain
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-a-statement-actually-arrives" class="md-nav__link">
+    <span class="md-ellipsis">
+      How a Statement Actually Arrives
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#delivery-guarantees-redelivered-but-never-duplicated" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delivery Guarantees: Redelivered but Never Duplicated
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Delivery Guarantees: Redelivered but Never Duplicated">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-statement-ingestion-pipeline-from-statement-to-summary-vertex" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Statement Ingestion Pipeline — From Statement to Summary Vertex
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shipping-a-textbook-before-it-is-registered" class="md-nav__link">
+    <span class="md-ellipsis">
+      Shipping a Textbook Before It Is Registered
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Shipping a Textbook Before It Is Registered">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-accept-first-ingestion-and-reconciliation-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Accept-First Ingestion and Reconciliation Flow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#turning-rollups-into-graph-writes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Turning Rollups Into Graph Writes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Turning Rollups Into Graph Writes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-graph-write-rate-vs-compression-sync-cadence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Graph Write Rate vs. Compression Sync Cadence
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
     </span>
   </a>
   
@@ -879,16 +855,9 @@
       <a href="../09-twelve-core-lrs-functions/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     9. The Twelve Core LRS Functions
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -907,16 +876,9 @@
       <a href="../10-choosing-technology-stack/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     10. Choosing the Technology Stack
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -935,16 +897,9 @@
       <a href="../11-adrs-and-capacity-model/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     11. Architecture Decision Records and the Capacity Model
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -963,16 +918,9 @@
       <a href="../12-bayesian-knowledge-tracing/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     12. Bayesian Knowledge Tracing for Mastery
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -991,16 +939,9 @@
       <a href="../13-component-design-in-depth/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     13. Component Design in Depth
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1019,16 +960,9 @@
       <a href="../14-kafka-clickhouse-graph-schema/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     14. Kafka Topics, ClickHouse Schema, and Graph Constraints
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1047,16 +981,9 @@
       <a href="../15-privacy-and-dashboard-mechanics/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     15. Privacy Enforcement and Dashboard Mechanics
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1075,16 +1002,9 @@
       <a href="../16-container-image-and-cli/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     16. The Container Image and the Role Dispatcher CLI
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1103,16 +1023,9 @@
       <a href="../17-compose-makefile-supply-chain/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     17. Docker Compose, the Makefile, and the Image Supply Chain
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1131,16 +1044,9 @@
       <a href="../18-config-migration-backup-rollout/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     18. Configuration, Migration, Backup, and Rollout
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1159,16 +1065,9 @@
       <a href="../19-failure-modes-and-verification/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     19. Failure Modes and Verification
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1187,16 +1086,9 @@
       <a href="../20-deviations-roadmap-open-questions/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     20. Spec Deviations, the Delivery Roadmap, and Open Questions
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1215,16 +1107,9 @@
       <a href="../21-hardware-cost-dev-environment/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     21. Hardware Sizing, Cost, and the Development Environment
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1243,16 +1128,9 @@
       <a href="../22-proving-the-architecture-mvp/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     22. Proving the Architecture - the MVP Plan
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1271,16 +1149,9 @@
       <a href="../23-production-infrastructure-cloud/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     23. Production Infrastructure and Cloud Services
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1299,16 +1170,9 @@
       <a href="../24-three-personas-and-admin-uis/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     24. Meet the Three Personas and the Admin UI Surface
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1327,16 +1191,9 @@
       <a href="../25-district-admin-rosters-deployments/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     25. District Administrator - Rosters, Deployments, and Registries
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1355,16 +1212,9 @@
       <a href="../26-district-admin-access-control/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     26. District Administrator - Access Control and System Configuration
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1383,16 +1233,9 @@
       <a href="../27-compliance-and-district-reporting/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     27. Compliance, Privacy Law, and District-Level Reporting
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1411,16 +1254,9 @@
       <a href="../28-teacher-dashboards-student-reports/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     28. Teacher Dashboards and Student-Level Reports
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1439,16 +1275,9 @@
       <a href="../29-class-level-reports-and-tools/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     29. Class-Level Reports and Teacher Tools
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1467,16 +1296,9 @@
       <a href="../30-author-dashboards-content-reports/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     30. Textbook Author Dashboards and Content Reports
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1495,16 +1317,9 @@
       <a href="../31-designing-ab-experiments/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     31. Designing and Reading A/B Experiments
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1523,16 +1338,9 @@
       <a href="../32-producer-contract-conformant-statements/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     32. The Producer Contract - Writing Conformant Statements
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1576,7 +1384,6 @@
     
     
     
-    
       
         
         
@@ -1587,20 +1394,12 @@
         
   
   
-  
     <a href="../../learning-graph/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     Learning Graph
-  
-
-    
   </span>
-  
   
 
       
@@ -1628,18 +1427,29 @@
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
-    
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
     
     
     
@@ -1653,20 +1463,108 @@
         
   
   
-  
     <a href="../../sims/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     MicroSims
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
   
 
     
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Specifications
   </span>
   
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../demo/graph-queries/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Demo
+  </span>
   
 
       
@@ -1690,16 +1588,9 @@
       <a href="../../glossary/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Glossary
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1717,16 +1608,9 @@
       <a href="../../license/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     License
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1744,16 +1628,9 @@
       <a href="../../contact/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Contact
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1790,9 +1667,7 @@
         <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Summary
-      
+      Summary
     </span>
   </a>
   
@@ -1801,9 +1676,7 @@
         <li class="md-nav__item">
   <a href="#concepts-covered" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Concepts Covered
-      
+      Concepts Covered
     </span>
   </a>
   
@@ -1812,9 +1685,139 @@
         <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
       
-        Prerequisites
+        <li class="md-nav__item">
+  <a href="#what-a-summary-vertex-actually-compresses" class="md-nav__link">
+    <span class="md-ellipsis">
+      What a Summary Vertex Actually Compresses
+    </span>
+  </a>
+  
+</li>
       
+        <li class="md-nav__item">
+  <a href="#the-six-grains-this-deployment-materializes" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Six Grains This Deployment Materializes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-much-compression-buys-you" class="md-nav__link">
+    <span class="md-ellipsis">
+      How Much Compression Buys You
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How Much Compression Buys You">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-storage-compression-ratio-by-summary-vertex-grain" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Storage Compression Ratio by Summary-Vertex Grain
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-a-statement-actually-arrives" class="md-nav__link">
+    <span class="md-ellipsis">
+      How a Statement Actually Arrives
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#delivery-guarantees-redelivered-but-never-duplicated" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delivery Guarantees: Redelivered but Never Duplicated
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Delivery Guarantees: Redelivered but Never Duplicated">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-statement-ingestion-pipeline-from-statement-to-summary-vertex" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Statement Ingestion Pipeline — From Statement to Summary Vertex
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shipping-a-textbook-before-it-is-registered" class="md-nav__link">
+    <span class="md-ellipsis">
+      Shipping a Textbook Before It Is Registered
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Shipping a Textbook Before It Is Registered">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-accept-first-ingestion-and-reconciliation-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Accept-First Ingestion and Reconciliation Flow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#turning-rollups-into-graph-writes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Turning Rollups Into Graph Writes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Turning Rollups Into Graph Writes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-graph-write-rate-vs-compression-sync-cadence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Graph Write Rate vs. Compression Sync Cadence
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
     </span>
   </a>
   
@@ -1830,62 +1833,12 @@
           
           
             <div class="md-content" data-md-component="content">
-              
-                
-
-
-
-  
-
-
-  <nav class="md-path" aria-label="Navigation" >
-    <ol class="md-path__list">
-      
-        
-  
-  
-    <li class="md-path__item">
-      <a href="../.." class="md-path__link">
-        
-  <span class="md-ellipsis">
-    Home
-  </span>
-
-      </a>
-    </li>
-  
-
-      
-      
-        
-  
-  
-    
-    
-      <li class="md-path__item">
-        <a href="../" class="md-path__link">
-          
-  <span class="md-ellipsis">
-    Chapters
-  </span>
-
-        </a>
-      </li>
-    
-  
-
-      
-    </ol>
-  </nav>
-
-              
               <article class="md-content__inner md-typeset">
                 
                   
 
-
   
-    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/08-summary-vertices-ingestion/index.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/08-summary-vertices-ingestion/index.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1934,13 +1887,249 @@
 <li><a href="../07-property-graph-data-model/">Chapter 7: The Property Graph Data Model</a></li>
 </ul>
 <hr />
-<p>TODO: Generate Chapter Content</p>
+<div class="admonition mascot-welcome">
+<p class="admonition-title">Opening the Compression Pipeline</p>
+<p><img alt="Rowan waving welcome" class="mascot-admonition-img" src="../../img/mascot/welcome.png" />
+Chapter 7 left you holding two edges — <code>HAS_MASTERY</code> and <code>TOUCHED</code> — pointing at vertices you were told to trust without ever seeing how they were built. This chapter builds them, end to end: from the moment a single xAPI statement leaves a textbook page to the moment its evidence lands, compressed, on a <code>ConceptMastery</code> vertex. Let's follow the record.</p>
+</div>
+<p>Every chapter so far has treated an xAPI statement as something that simply "arrives" at this project's Learning Record Store. Chapter 1 defined what a Statement contains — Actor, Verb, Object, Result, Context. Chapter 5 named the components a statement passes through — the Ingestion Gateway, the Durable Event Queue, the Stream Processor, the Event Store. Chapter 7 showed where the compressed evidence about a student ends up in the graph. None of those chapters closed the distance between "a statement was sent" and "a graph vertex changed." That distance — millions of statements, arriving continuously from thousands of concurrent intelligent textbooks, becoming a small, stable set of vertices a teacher's dashboard can query in milliseconds — is this chapter's whole subject.</p>
+<p>This project's specification states the governing requirement bluntly: the graph database must not store one vertex per xAPI statement. Everything below follows from that one sentence — first the shape it leaves in the graph, then the mechanics that get a statement there safely, and finally the pipeline that does the actual compressing.</p>
+<h2 id="what-a-summary-vertex-actually-compresses">What a Summary Vertex Actually Compresses<a class="headerlink" href="#what-a-summary-vertex-actually-compresses" title="Permanent link">&para;</a></h2>
+<p>A <strong>Summary Vertex</strong> is a single graph node that stands in for every statement relevant to one specific combination of dimensions — one student's evidence for one concept, one student's engagement with one page, one section's mastery distribution for one concept. This project's specification calls that combination of dimensions the vertex's <strong>Analytical Grain</strong>: the key a summary is computed at, such as (student, concept) or (section, concept). A grain is not a rounding choice — it is the exact unit the graph is willing to answer questions about. Ask the graph "what is this student's mastery of Photosynthesis?" and it can answer directly, because (student, concept) is a grain the pipeline materializes. Ask it "what did this student type into the third practice box on page 12 at 2:47 p.m.?" and it cannot — that level of detail was never a grain, and it lives only in the Event Store Chapter 5 introduced, one query away but never duplicated into the graph.</p>
+<div class="admonition mascot-thinking">
+<p class="admonition-title">One vertex, many statements, forever</p>
+<p><img alt="Rowan thinking with a magnifying glass" class="mascot-admonition-img" src="../../img/mascot/thinking.png" />
+Hold onto one detail before you meet the six grains below: a grain's vertex count is set by how many <em>distinct</em> (student, concept) or (student, page) pairs have ever existed — never by how many statements were sent about them. A student's five-hundredth visit to a page updates the same <code>PageEngagement</code> vertex the first visit created; it does not create a 500th one. That is why the graph can stop growing in vertex count even while statement ingestion never stops.</p>
+</div>
+<h2 id="the-six-grains-this-deployment-materializes">The Six Grains This Deployment Materializes<a class="headerlink" href="#the-six-grains-this-deployment-materializes" title="Permanent link">&para;</a></h2>
+<p>This project's specification defines exactly six summary-vertex labels, and Chapter 7 already introduced two of them by name — <code>ConceptMastery</code> and <code>LearningSession</code> — without describing their properties. This section completes the picture, moving from the simplest grain to the broadest.</p>
+<p>The <strong>Question Response Vertex</strong>, written <code>QuestionResponse</code> in the graph, compresses every attempt a student has made at one quiz question, at the (student, question) grain. Its properties are <code>attempts</code>, <code>successes</code>, <code>mean_score</code>, <code>first_success_attempt</code>, and <code>last_seen</code>.</p>
+<p>The <strong>Page Engagement Vertex</strong>, <code>PageEngagement</code>, compresses a student's reading behavior on one page — views, scroll events, dwell-time pings — at the (student, page) grain, carrying <code>dwell_ms_total</code>, <code>revisit_count</code>, <code>scroll_depth_max</code>, <code>first_seen</code>, and <code>last_seen</code>.</p>
+<p>The <strong>MicroSim Engagement Vertex</strong>, <code>MicroSimEngagement</code>, does the same job for one interactive simulation at the (student, microsim) grain: <code>interaction_count</code>, <code>dwell_ms_total</code>, a <code>completed</code> flag, and <code>last_seen</code>.</p>
+<p>The <strong>Concept Mastery Vertex</strong>, <code>ConceptMastery</code>, is the broadest single-student grain: it compresses every piece of evidence one student has produced about one concept — quiz attempts, MicroSim interactions, page engagement that touches the concept — at the (student, concept) grain, carrying <code>mastery_score</code>, <code>evidence_count</code>, <code>attempts</code>, <code>successes</code>, <code>first_seen</code>, and <code>last_seen</code>.</p>
+<p>The <strong>Learning Session Vertex</strong>, <code>LearningSession</code>, changes shape entirely. Rather than compressing evidence about one piece of content, it compresses one contiguous burst of a student's activity at the (student, session) grain: <code>started_at</code>, <code>ended_at</code>, <code>duration_ms</code>, <code>event_count</code>, and <code>objects_touched</code>.</p>
+<p>The <strong>Section Rollup Vertex</strong>, <code>SectionRollup</code>, sits one level above every other grain in this list: it aggregates across an entire class of students rather than within one student's evidence, at the (section, concept) grain, carrying <code>mastery_distribution</code>, <code>mean_score</code>, <code>student_count</code>, and <code>last_computed</code>.</p>
+<p>Before organizing all six together, one property deserves its own introduction, because it is what makes every number above trustworthy rather than merely plausible. Four of the six grains — <code>ConceptMastery</code>, <code>PageEngagement</code>, <code>MicroSimEngagement</code>, and <code>QuestionResponse</code> — carry a property named literally <strong>Statements Compressed</strong> (<code>statements_compressed</code> in the graph): the exact count of statements folded into that one vertex. The other two grains carry an equivalent count under a name that fits their shape instead: <code>LearningSession</code> already has <code>event_count</code>, and <code>SectionRollup</code> aggregates already-compressed <code>ConceptMastery</code> evidence across a class through <code>student_count</code>, so counting raw statements a second time would be redundant. Every summary vertex, in other words, carries some explicit evidence count — the property name just changes to fit the grain — and that count is what lets a report say not just <em>what</em> a student's mastery score is, but <em>how much evidence it rests on</em>.</p>
+<p>The table below organizes all six grains now that each one has been explained in the prose above.</p>
+<table>
+<thead>
+<tr>
+<th>Vertex Label</th>
+<th>Analytical Grain</th>
+<th>Evidence-Count Property</th>
+<th>What It Compresses</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>QuestionResponse</code></td>
+<td>(student, question)</td>
+<td><code>statements_compressed</code></td>
+<td>Every attempt at one quiz question</td>
+</tr>
+<tr>
+<td><code>PageEngagement</code></td>
+<td>(student, page)</td>
+<td><code>statements_compressed</code></td>
+<td>Views, scrolls, and dwell time on one page</td>
+</tr>
+<tr>
+<td><code>MicroSimEngagement</code></td>
+<td>(student, microsim)</td>
+<td><code>statements_compressed</code></td>
+<td>Interactions with one simulation</td>
+</tr>
+<tr>
+<td><code>ConceptMastery</code></td>
+<td>(student, concept)</td>
+<td><code>statements_compressed</code></td>
+<td>Every piece of mastery evidence for one concept</td>
+</tr>
+<tr>
+<td><code>LearningSession</code></td>
+<td>(student, session)</td>
+<td><code>event_count</code></td>
+<td>One contiguous burst of activity</td>
+</tr>
+<tr>
+<td><code>SectionRollup</code></td>
+<td>(section, concept)</td>
+<td><code>student_count</code></td>
+<td>A class's mastery distribution for one concept</td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-much-compression-buys-you">How Much Compression Buys You<a class="headerlink" href="#how-much-compression-buys-you" title="Permanent link">&para;</a></h2>
+<p>This project's specification requires that the <strong>Statement Compression Ratio</strong> — statements divided by summary vertices — be observable per district and per grain. That ratio is not a single number; it depends entirely on the grain, because some grains see far more redundant evidence per pair than others.</p>
+<p>Across the grains, the ratios differ by more than three orders of magnitude. A <code>QuestionResponse</code> vertex compresses only about 1 to 5 attempts, because most students only attempt a given question a handful of times — roughly a 3:1 ratio. A <code>PageEngagement</code> vertex compresses roughly 20 to 60 views, scrolls, and dwell-time pings — about 40:1. A <code>MicroSimEngagement</code> vertex, because a simulation invites more back-and-forth interaction than a static page, compresses roughly 30 to 100 interactions — about 60:1. A <code>ConceptMastery</code> vertex, drawing evidence from every quiz, MicroSim, and page that touches a concept, compresses roughly 50 to 200 evidence events — about 100:1. And a <code>SectionRollup</code> vertex, because it aggregates thirty students' worth of <code>ConceptMastery</code> evidence into one class-level figure, reaches roughly 3,000:1. This ratio is unbounded over time — it keeps climbing as long as a pair keeps generating evidence, because the vertex count is fixed at one per grain while the statement count behind it keeps growing, exactly the property the thinking callout above named.</p>
+<p>The bar chart below makes these five ratios directly comparable at a glance, with the exact evidence range behind each one available on hover.</p>
+<h4 id="diagram-storage-compression-ratio-by-summary-vertex-grain">Diagram: Storage Compression Ratio by Summary-Vertex Grain<a class="headerlink" href="#diagram-storage-compression-ratio-by-summary-vertex-grain" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/compression-ratio-by-grain/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Storage Compression Ratio by Summary-Vertex Grain</summary>
+<p>Type: chart
+<strong>sim-id:</strong> compression-ratio-by-grain<br/>
+<strong>Library:</strong> Chart.js<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Analyze (L4)
+Bloom Taxonomy Verb: compare, evaluate</p>
+<p>Learning objective: Let the learner compare the storage compression ratio across the five grains that compress within-student evidence (QuestionResponse, PageEngagement, MicroSimEngagement, ConceptMastery, SectionRollup) and evaluate why SectionRollup's ratio is so much larger than the others.</p>
+<p>Purpose: Render the five storage-compression ratios from this section's prose as a single interactive bar chart, using a logarithmic y-axis so the ~3:1 and ~3,000:1 bars are both readable on one chart.</p>
+<p>Data: Five bars, one per grain, x-axis labeled with the vertex label and y-axis labeled "Statements per summary vertex (log scale)". Values: QuestionResponse ≈ 3, PageEngagement ≈ 40, MicroSimEngagement ≈ 60, ConceptMastery ≈ 100, SectionRollup ≈ 3000.</p>
+<p>Interactive features: Hovering any bar shows a tooltip with that grain's exact evidence-range text from this chapter's prose (e.g. "ConceptMastery: ~50-200 evidence events -&gt; 1 vertex, ~100:1") plus its Analytical Grain key. Clicking a bar opens a side panel repeating that grain's evidence-count property name from the table above. A toggle switches the y-axis between logarithmic and linear scale, so the learner can see both how compressed SectionRollup is (log view) and how small QuestionResponse looks by comparison (linear view).</p>
+<p>Color scheme: Bars colored on a single-hue gradient from the book's teal accent color (lightest for QuestionResponse, the smallest ratio) to the darkest teal (SectionRollup, the largest ratio), so color intensity visually tracks compression strength.</p>
+<p>Responsive design: Chart canvas resizes to the width of its containing element on window resize, using Chart.js's built-in responsive option; bar labels rotate to a vertical orientation below 500px width to remain legible.</p>
+</details>
+<h2 id="how-a-statement-actually-arrives">How a Statement Actually Arrives<a class="headerlink" href="#how-a-statement-actually-arrives" title="Permanent link">&para;</a></h2>
+<p>Everything so far described what a summary vertex looks like once it exists. The rest of this chapter answers a more basic question: how does a single xAPI statement, sent by one intelligent textbook page, get into this project's Learning Record Store safely enough to eventually be compressed?</p>
+<p>Every statement enters through a single, conformant endpoint this project's specification calls the <strong>xAPI Statement Resource</strong>: <code>POST /xapi/statements</code>, which accepts either one statement or a batched array of them. The endpoint also accepts <code>PUT</code> requests carrying a client-supplied <code>statementId</code>, a detail this chapter returns to shortly. Crucially, the endpoint returns its <code>200</code> or <code>204</code> response immediately after the statement is durably queued — not after it has been validated end to end or projected into the graph. That design choice is what keeps a slow or backed-up graph from ever becoming the reason a textbook page's request hangs.</p>
+<p>Chapter 5 already previewed the first checkpoint a statement passes through: the Ingestion Gateway performs "only structural validation" before queuing. This chapter names that checkpoint formally and introduces the second one behind it. <strong>Structural Validation</strong> happens synchronously, right at the Ingestion Gateway: is the body well-formed JSON, does it carry the required <code>actor</code>, <code>verb</code>, and <code>object</code> fields, does it carry a parseable timestamp? A statement that fails this tier is rejected outright with a <code>400</code> response and logged to a dead-letter stream — nothing partial is stored. Because xAPI conformance requires an all-or-nothing batch, a single malformed statement inside a batch of twenty rejects the whole batch.</p>
+<p>Everything that survives Structural Validation is queued in the Durable Event Queue, and only then does it meet the second tier, inside the Stream Processor. <strong>Semantic Validation</strong> happens asynchronously: is this verb one the LRS already recognizes, is this activity IRI one it has already resolved, is this textbook version one it has already provisioned? Here the specification makes a deliberate choice that Chapter 7's Verb Controlled Vocabulary might make you expect the opposite of: an unrecognized verb, activity, or textbook version is not rejected. It is accepted, recorded, and flagged for later reconciliation. This project's specification names that behavior directly — <strong>Schema On Read</strong>: unknown activities, verbs, and textbook versions are accepted, buffered, and back-filled into the graph rather than rejected at the door.</p>
+<div class="admonition mascot-tip">
+<p class="admonition-title">Two gates, two different jobs</p>
+<p><img alt="Rowan pointing helpfully" class="mascot-admonition-img" src="../../img/mascot/tip.png" />
+Keep the two validation tiers separate in your head by what each one protects against. Structural Validation exists to protect the Durable Event Queue from garbage — a statement missing an <code>actor</code> field cannot be processed by anything downstream, so it never gets that far. Semantic Validation exists to protect the reader's experience from surprise rejections — a brand-new verb a textbook author just invented is exactly the kind of thing this system is built to absorb, not bounce.</p>
+</div>
+<p>The following list summarizes the two tiers now that both have been explained.</p>
+<ul>
+<li><strong>Structural Validation</strong> — synchronous, at the Ingestion Gateway; checks well-formed JSON and the required <code>actor</code>, <code>verb</code>, <code>object</code> fields, plus a parseable timestamp; failure returns <code>400</code> and logs to a dead-letter stream.</li>
+<li><strong>Semantic Validation</strong> — asynchronous, in the Stream Processor; checks whether the verb, activity, or textbook version is already known; failure never rejects the statement — it is accepted under <strong>Schema On Read</strong> and flagged for reconciliation instead.</li>
+</ul>
+<h2 id="delivery-guarantees-redelivered-but-never-duplicated">Delivery Guarantees: Redelivered but Never Duplicated<a class="headerlink" href="#delivery-guarantees-redelivered-but-never-duplicated" title="Permanent link">&para;</a></h2>
+<p>Once a statement is queued, this project's specification makes two promises about how reliably it reaches the Stream Processor, and the two promises only work together. The queue delivers with <strong>At-Least-Once Delivery</strong>: every statement is guaranteed to reach a processor at least once, but the same statement can legitimately be delivered more than once — after a processor crashes and restarts, for example, before it had a chance to confirm it had already handled a batch. At-least-once is a deliberately weaker guarantee than "exactly once," because exactly-once delivery across a distributed queue is expensive to build and easy to get subtly wrong.</p>
+<p>What makes at-least-once safe rather than a data-corruption risk is <strong>Idempotent Delivery</strong>: processing the same statement twice must leave the system in exactly the state it would have reached processing it once. This project's specification achieves it through the statement's own identifier — every statement carries a <code>statement_id</code>, supplied by the client or minted by the gateway, and the storage layer treats that identifier as a uniqueness key, so a redelivered statement simply overwrites its own prior copy rather than creating a duplicate. Idempotency is also why a Learning Record Provider is allowed to <code>PUT</code> a statement with a client-supplied <code>statementId</code>: if the same request is retried after a timeout — the client never learning whether the first attempt succeeded — retrying is always safe.</p>
+<p>The queue can also fall behind if statements arrive faster than processors can consume them, and this project's specification has a specific answer for what happens then, called <strong>Backpressure</strong>. Backpressure is applied entirely at the queue — never by rejecting the producer outright. Under ordinary overload, a producer that keeps sending receives a <code>202 Accepted</code> response carrying a retry hint, so the textbook page's own code can slow down gracefully. Only in the extreme case — the gateway's local queue is full and the Durable Event Queue itself is unreachable — does the endpoint return a <code>503</code> with a <code>Retry-After</code> header, and that specific condition is treated as significant enough to page an on-call engineer. The design choice underneath both responses is the same one that shaped the endpoint's fast-return behavior: ingestion must never be the layer that decides a classroom's telemetry gets dropped.</p>
+<div class="admonition mascot-warning">
+<p class="admonition-title">At-least-once without idempotency is where duplicates live</p>
+<p><img alt="Rowan waving a caution flag" class="mascot-admonition-img" src="../../img/mascot/warning.png" />
+If you ever design a new producer that talks to this LRS, do not assume delivery is exactly-once just because failures are rare in testing. At-Least-Once Delivery means redelivery <em>will</em> happen eventually, at scale, across enough traffic. The system's entire safety net is Idempotent Delivery — the <code>statement_id</code> uniqueness check — so always send a stable, deterministic <code>statementId</code> rather than minting a new random one on every retry. A new ID on every retry defeats the very guarantee that makes retries safe.</p>
+</div>
+<p>The table below reinforces the three mechanisms just explained, now that each one's role has been described in the prose above.</p>
+<table>
+<thead>
+<tr>
+<th>Mechanism</th>
+<th>Guarantee</th>
+<th>What Breaks Without It</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>At-Least-Once Delivery</td>
+<td>Every statement reaches a processor at least once</td>
+<td>A crash between processing and offset commit could silently drop a statement</td>
+</tr>
+<tr>
+<td>Idempotent Delivery</td>
+<td>Redelivering the same statement is a no-op</td>
+<td>Reprocessing a redelivered statement would double-count evidence</td>
+</tr>
+<tr>
+<td>Backpressure</td>
+<td>Overload slows producers instead of dropping or rejecting them</td>
+<td>A traffic spike could crash the queue or silently discard statements</td>
+</tr>
+</tbody>
+</table>
+<p>With every stage from the endpoint through delivery guarantees now defined, the diagram below traces one statement's full journey — from the moment a textbook sends it to the moment its evidence is compressed onto a summary vertex.</p>
+<h4 id="diagram-statement-ingestion-pipeline-from-statement-to-summary-vertex">Diagram: Statement Ingestion Pipeline — From Statement to Summary Vertex<a class="headerlink" href="#diagram-statement-ingestion-pipeline-from-statement-to-summary-vertex" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/statement-ingestion-pipeline/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Statement Ingestion Pipeline — From Statement to Summary Vertex</summary>
+<p>Type: workflow
+<strong>sim-id:</strong> statement-ingestion-pipeline<br/>
+<strong>Library:</strong> Mermaid<br/>
+<strong>Status:</strong> Specified<br/>
+<strong>Template:</strong> https://github.com/dmccreary/context-graph/tree/main/docs/sims/graph-etl-pipeline<br/></p>
+<p>Bloom Taxonomy: Understand (L2)
+Bloom Taxonomy Verb: trace, sequence</p>
+<p>Learning objective: Let the learner trace a single xAPI statement's full path from the xAPI Statement Resource through the Ingestion Gateway, the Durable Event Queue, the Stream Processor, the Event Store, and the Compression Pipeline, to a Summary Vertex, and explain what each stage is responsible for.</p>
+<p>Purpose: Show a seven-node, left-to-right Mermaid flowchart tracing one statement's complete journey, reusing the component names this book has already established in Chapter 5 and this chapter, so the learner sees the two chapters' vocabulary as one continuous pipeline rather than two separate diagrams.</p>
+<p>Nodes, in order: "xAPI Statement Resource (POST /xapi/statements)"; "Ingestion Gateway (Structural Validation)"; "Durable Event Queue (At-Least-Once Delivery)"; "Stream Processor (Semantic Validation, Schema On Read)"; "Event Store (immutable statement log)"; "Compression Pipeline (Change-Driven Materialization)"; "Summary Vertex (Absolute Value Write)". Edges connect each node to the next in a single left-to-right chain.</p>
+<p>Interactive features: Every node has a Mermaid <code>click</code> directive opening an infobox with that node's definition from this chapter's prose (Structural Validation, At-Least-Once Delivery, Semantic Validation plus Schema On Read, the Event Store recalled from Chapter 5, Change-Driven Materialization, and Absolute Value Write, in node order).</p>
+<p>Color coding: Nodes 1-3 (Ingestion Plane and the queue) in the darkest teal from Chapter 5's plane-gradient palette; node 4 (Processing Plane) in a mid-teal; nodes 5-7 (Storage Plane and the compression pipeline) in the lightest teal.</p>
+<p>Implementation: Mermaid flowchart, single left-to-right chain, full click-to-infobox coverage on every node. Responsive width tracking the containing element; on narrow viewports the chain reflows top-to-bottom.</p>
+</details>
+<h2 id="shipping-a-textbook-before-it-is-registered">Shipping a Textbook Before It Is Registered<a class="headerlink" href="#shipping-a-textbook-before-it-is-registered" title="Permanent link">&para;</a></h2>
+<p>Semantic Validation's willingness to accept an unknown textbook version raises a practical question Chapter 7 deferred: what actually happens in the graph the first time this LRS ever sees a brand-new textbook? Chapter 5 already previewed the answer in passing — "a brand-new textbook nobody has configured yet is still accepted rather than rejected" — without naming the mechanism. This section names it and walks through it in full.</p>
+<p>This project's specification answers with a design principle it calls <strong>Non-Blocking Ingestion</strong>: a newly published textbook, a new version of an existing one, or a brand-new MicroSim must be able to start emitting statements immediately, with no pre-registration step that could block or drop the stream.</p>
+<p>The mechanism that delivers on that principle is called <strong>Accept-First Ingestion</strong>, and it runs in four steps. First, the Ingestion Gateway accepts any statement whose context names a <code>textbook_id</code>/<code>version_id</code> combination it has never seen — accept first, ask questions later. Second, the Stream Processor auto-provisions placeholder nodes for whatever structure the statement references: <code>Textbook</code>, <code>TextbookVersion</code>, <code>MicroSim</code>, and <code>Concept</code> nodes are created on first sight. Each of these placeholders is a <strong>Provisional Node</strong> — the specification marks it with the property <code>provisional: true</code> to record that it exists only because a statement mentioned it, not because anyone has confirmed it against the textbook's real metadata yet. Third, a background component called the <strong>Reconciliation Worker</strong> later matches each provisional node against the textbook's actual published metadata — its learning graph, its MicroSim registry — by <code>git_sha</code>, then by IRI path, then by title similarity, and promotes a confident match to <code>provisional: false</code>, back-filling the <code>COVERS</code>, <code>EMBEDS</code>, and <code>DEPENDS_ON</code> edges Chapter 7 catalogued. Fourth, and most important: no data is lost while any of this is in flight. Statements about not-yet-reconciled activities are fully retained in the Event Store, and because events are immutable and re-projectable, they become richly queryable the instant reconciliation completes — retroactively, without anyone having to resend them.</p>
+<div class="admonition mascot-encourage">
+<p class="admonition-title">You do not need to track every provisional node by hand</p>
+<p><img alt="Rowan offering encouragement" class="mascot-admonition-img" src="../../img/mascot/encouraging.png" />
+Accept-First Ingestion, Provisional Node stubs, and the Reconciliation Worker can feel like a lot of moving parts stacked on top of each other on a first read. The reassuring part is that none of it is your problem as a Learning Record Provider: you send a statement the moment a student does something, and this project's LRS handles every stage of getting that statement recognized, matched, and backfilled without ever asking you to wait. <a href="../32-producer-contract-conformant-statements/">Chapter 32</a> returns to exactly what a well-behaved producer looks like from the outside.</p>
+</div>
+<p>The four steps above are easier to hold in mind as a sequence than as a paragraph. The diagram below traces one provisional node from creation to promotion.</p>
+<h4 id="diagram-accept-first-ingestion-and-reconciliation-flow">Diagram: Accept-First Ingestion and Reconciliation Flow<a class="headerlink" href="#diagram-accept-first-ingestion-and-reconciliation-flow" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/accept-first-reconciliation-flow/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Accept-First Ingestion and Reconciliation Flow</summary>
+<p>Type: workflow
+<strong>sim-id:</strong> accept-first-reconciliation-flow<br/>
+<strong>Library:</strong> Mermaid<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Understand (L2)
+Bloom Taxonomy Verb: explain, sequence</p>
+<p>Learning objective: Let the learner explain how a newly published textbook can emit statements before its metadata is registered, and sequence the four steps of Accept-First Ingestion from a statement's arrival to a Provisional Node's promotion.</p>
+<p>Purpose: Show a six-node, left-to-right Mermaid flowchart tracing one never-before-seen textbook's first statement from arrival through reconciliation, matching the four numbered steps described in this chapter's prose.</p>
+<p>Nodes, in order: "Statement arrives naming an unknown textbook_id/version_id"; "Ingestion Gateway accepts it (Accept-First Ingestion)"; "Stream Processor auto-provisions a stub (Provisional Node, provisional: true)"; "Event Store retains the statement immutably"; "Reconciliation Worker matches the stub against published metadata (git_sha, then IRI path, then title similarity)"; "Node promoted (provisional: false), COVERS/EMBEDS/DEPENDS_ON back-filled — earlier statements become richly queryable retroactively". Edges connect each node to the next in sequence.</p>
+<p>Interactive features: Every node has a Mermaid <code>click</code> directive opening an infobox with that node's definition from this chapter's prose — Schema On Read, Accept-First Ingestion, Provisional Node and its <code>provisional: true</code> property, the no-data-loss guarantee, the Reconciliation Worker's three-tier matching order, and retroactive queryability with a link back to Chapter 7's <code>COVERS</code>, <code>EMBEDS</code>, and <code>DEPENDS_ON</code> relationship types, in node order.</p>
+<p>Color coding: The three "accept immediately" nodes in the book's teal accent color; the three "reconciled later" nodes in a complementary amber — visually separating what happens instantly from what happens eventually.</p>
+<p>Implementation: Mermaid flowchart, single left-to-right chain, full click-to-infobox coverage on every node. Responsive width tracking the containing element; on narrow viewports the chain reflows top-to-bottom.</p>
+</details>
+<h2 id="turning-rollups-into-graph-writes">Turning Rollups Into Graph Writes<a class="headerlink" href="#turning-rollups-into-graph-writes" title="Permanent link">&para;</a></h2>
+<p>Every mechanism described so far explains how a statement gets recorded safely. None of it yet explains how the six summary vertices from earlier in this chapter actually get their values. That is the job of the Compression Pipeline itself, and it rests on two more principles.</p>
+<p>The Compression Pipeline does not recompute a grain's whole history every time a new statement lands for it. Instead it practices <strong>Change-Driven Materialization</strong>: on a fixed, configurable cadence, the Event Store maintains incremental rollups for every grain as statements land, and the pipeline reads only the rollups whose values have changed since the last sync — the grains with new evidence — and writes just those to the graph. A <code>ConceptMastery</code> vertex that has not received a new statement since the previous sync is left untouched; only the grains that changed generate a graph write at all.</p>
+<p>When a changed rollup is written, it is written as an <strong>Absolute Value Write</strong>: the pipeline sets each property to its freshly recomputed total, never as an increment on top of whatever value was already there. This single rule is what makes the whole pipeline safe under the At-Least-Once Delivery guarantee from earlier in this chapter. An incremented counter is not idempotent — replaying the same update twice would silently inflate it, and there would be no way to detect that afterward. An absolute value is idempotent by construction: writing the same total a second time is a no-op, so redelivery, retry, and even a full replay of the statement log all leave the graph in the same correct state — the same property, in a different form, that made Idempotent Delivery safe two sections ago.</p>
+<p>The sync cadence is configurable, and choosing it trades two things against each other: how quickly a change becomes visible in the graph, and how many writes per second the graph absorbs. A shorter cadence syncs more often but touches more distinct grains per cycle, which raises the write rate; a longer cadence batches more statements into fewer, larger writes but leaves the graph more stale. This project's design specification derives concrete numbers for a fleet at peak load — roughly 100,000 concurrently active students, each touching about 1.5 distinct objects per minute — and the chart below plots the resulting graph-write rate and graph lag against three candidate cadences, with the 60-second default marked.</p>
+<h4 id="diagram-graph-write-rate-vs-compression-sync-cadence">Diagram: Graph Write Rate vs. Compression Sync Cadence<a class="headerlink" href="#diagram-graph-write-rate-vs-compression-sync-cadence" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/write-rate-vs-sync-cadence/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Graph Write Rate vs. Compression Sync Cadence</summary>
+<p>Type: chart
+<strong>sim-id:</strong> write-rate-vs-sync-cadence<br/>
+<strong>Library:</strong> Chart.js<br/>
+<strong>Status:</strong> Specified<br/>
+<strong>Template:</strong> https://github.com/dmccreary/it-management-graph/tree/main/docs/sims/native-graph-storage-vs-graph-layer-performance-comparison<br/></p>
+<p>Bloom Taxonomy: Analyze (L4)
+Bloom Taxonomy Verb: evaluate, predict</p>
+<p>Learning objective: Let the learner evaluate the tradeoff between sync cadence, graph write rate, and graph lag in Change-Driven Materialization, and predict how each candidate cadence would behave during an ingestion burst.</p>
+<p>Purpose: Render the three sync-cadence scenarios from this section's prose as a grouped bar-and-line chart so the tradeoff is visible at a glance rather than read out of a table.</p>
+<p>Data: Three x-axis categories — "5 s", "60 s (default)", "300 s". Bar series "Graph upserts/sec" (left y-axis, linear): 10000, 2500, 1000. Dashed line series "Graph lag" (right y-axis, labeled in seconds, log scale): 5, 60, 300.</p>
+<p>Interactive features: Hovering any bar or line point shows a tooltip with that cadence's exact statements-coalesced and distinct-active-grain figures (e.g. "60 s: ~600K statements coalesced into ~150K distinct active grains -&gt; ~2,500 upserts/sec"). A toggle labeled "Simulate 5x ingest burst" recomputes the statement-count figures upward five-fold in the tooltip while holding the "Graph upserts/sec" bars nearly constant, demonstrating the insensitivity property described below the chart. The "60 s (default)" bar carries a highlight border.</p>
+<p>Color scheme: Bars in the book's teal accent color, with the default-cadence bar in the darkest shade; the graph-lag line in a contrasting amber dashed stroke so the two series stay visually distinct on shared axes.</p>
+<p>Responsive design: Chart canvas resizes to the width of its containing element on window resize, using Chart.js's built-in responsive option; the legend moves below the chart on narrow viewports.</p>
+</details>
+<p>The property worth remembering is not any single number in that chart — it is that the write rate barely moves during an ingestion burst. A five-fold spike in statements per second means each already-active student sends more events, not that five times as many students suddenly appear; the count of distinct active grains barely changes, so the Compression Pipeline absorbs the burst and the graph write rate stays close to its steady-state value throughout. That insensitivity, not the raw ratio, is what actually protects the graph.</p>
+<h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
+<ul>
+<li>A <strong>Summary Vertex</strong> compresses every statement relevant to one <strong>Analytical Grain</strong> into a single graph node, never one vertex per statement.</li>
+<li>This deployment materializes six grains: the <strong>Question Response Vertex</strong>, <strong>Page Engagement Vertex</strong>, <strong>MicroSim Engagement Vertex</strong>, and <strong>Concept Mastery Vertex</strong> compress evidence within one student's relationship to one piece of content; the <strong>Learning Session Vertex</strong> compresses one burst of activity; the <strong>Section Rollup Vertex</strong> aggregates across a whole class.</li>
+<li>Four of the six grains carry an explicit <strong>Statements Compressed</strong> count; the other two carry an equivalent count under a name that fits their grain (<code>event_count</code>, <code>student_count</code>).</li>
+<li>The <strong>Statement Compression Ratio</strong> — statements divided by summary vertices — ranges from about 3:1 at the <code>QuestionResponse</code> grain to about 3,000:1 at the <code>SectionRollup</code> grain, and only grows as evidence accumulates.</li>
+<li>Every statement enters through the <strong>xAPI Statement Resource</strong> and passes two gates: synchronous <strong>Structural Validation</strong> at the Ingestion Gateway, then asynchronous <strong>Semantic Validation</strong> in the Stream Processor, governed by <strong>Schema On Read</strong> rather than outright rejection.</li>
+<li><strong>At-Least-Once Delivery</strong> guarantees a statement is never silently dropped; <strong>Idempotent Delivery</strong> makes redelivery safe; <strong>Backpressure</strong> slows producers under overload instead of rejecting them.</li>
+<li><strong>Non-Blocking Ingestion</strong>, delivered by <strong>Accept-First Ingestion</strong>, lets a brand-new textbook emit statements immediately behind <strong>Provisional Node</strong> stubs that a <strong>Reconciliation Worker</strong> later promotes and back-fills.</li>
+<li>The Compression Pipeline itself runs on <strong>Change-Driven Materialization</strong> — syncing only changed grains — writing each one as an <strong>Absolute Value Write</strong>, which is what keeps the whole system idempotent and safely replayable.</li>
+</ul>
+<div class="admonition mascot-celebration">
+<p class="admonition-title">You just watched a statement become evidence</p>
+<p><img alt="Rowan celebrating with confetti" class="mascot-admonition-img" src="../../img/mascot/celebration.png" />
+From <code>POST /xapi/statements</code> all the way to an absolute value sitting on a <code>ConceptMastery</code> vertex — you have now traced the entire distance this book kept promising to close. What does the evidence show? Every number a teacher's dashboard will ever display rests on the pipeline you just read. Next, in <a href="../09-twelve-core-lrs-functions/">Chapter 9: The Twelve Core LRS Functions</a>, we catalog everything this LRS actually does with that evidence, function by function.</p>
+</div>
 
 
 
 
 
 
+
+  
+  
 
 
 
@@ -2026,13 +2215,10 @@
     </div>
     
     
-    
-      
-      
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
         <script src="../../js/katex.js"></script>
       

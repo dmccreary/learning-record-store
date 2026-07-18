@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="An intelligent textbook on Learning Record Stores: what they are, how xAPI statements work, and how to design, deploy, and query an LRS.">
+        <meta name="description" content="Introduces the district administrator, teacher, and textbook author who use this LRS day to day, the three additional named roles the specification defines, and a survey-level tour of the nine administrative user interfaces.">
       
       
         <meta name="author" content="Dan McCreary">
@@ -21,22 +21,19 @@
         <link rel="next" href="../25-district-admin-rosters-deployments/">
       
       
-        
-      
-      
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
     
     
       
-        <title>24. Meet the Three Personas and the Admin UI Surface - Learning Record Store</title>
+        <title>Meet the Three Personas and the Admin UI Surface - Learning Record Store</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -67,6 +64,7 @@
     
       
 
+    
     
     
   </head>
@@ -121,7 +119,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              24. Meet the Three Personas and the Admin UI Surface
+              Meet the Three Personas and the Admin UI Surface
             
           </span>
         </div>
@@ -133,13 +131,11 @@
     
     
     
-      
-      
-        <label class="md-header__button md-icon" for="__search">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        </label>
-        <div class="md-search" data-md-component="search" role="dialog">
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
@@ -178,14 +174,13 @@
     </div>
   </div>
 </div>
-      
     
     
       <div class="md-header__source">
         <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub Repo
@@ -230,7 +225,7 @@
       <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub Repo
@@ -250,16 +245,9 @@
       <a href="../.." class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Home
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -277,16 +265,9 @@
       <a href="../../about/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     About
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -304,16 +285,9 @@
       <a href="../../course-description/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Course Description
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -325,120 +299,6 @@
       
   
   
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-  
-    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
-      
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Specifications
-  
-
-    
-  </span>
-  
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-  
-    <a href="../../demo/graph-queries/" class="md-nav__link">
-      
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Demo
-  
-
-    
-  </span>
-  
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -451,70 +311,133 @@
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
-    
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
     
     
     
@@ -524,42 +447,32 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
+          
           
           <div class="md-nav__link md-nav__container">
             <a href="../" class="md-nav__link ">
               
   
-  
   <span class="md-ellipsis">
-    
-  
     Chapters
-  
-
-    
   </span>
-  
   
 
             </a>
             
               
-              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_6">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
-            
-  
-    Chapters
-  
-
+            Chapters
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -575,16 +488,9 @@
       <a href="../01-lms-to-experience-api/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     1. From Learning Management Systems to the Experience API
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -603,16 +509,9 @@
       <a href="../02-anatomy-of-xapi-statement/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     2. The Anatomy of an xAPI Statement
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -631,16 +530,9 @@
       <a href="../03-ieee-standardization-xapi-cmi5/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     3. IEEE Standardization of xAPI and cmi5
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -659,16 +551,9 @@
       <a href="../04-standards-governance-ecosystem/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     4. Standards Governance and the Wider Interoperability Ecosystem
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -687,16 +572,9 @@
       <a href="../05-system-context-architectural-planes/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     5. System Context and the Five Architectural Planes
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -715,16 +593,9 @@
       <a href="../06-multi-tenancy-rosters-identity/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     6. Multi-Tenancy, Rosters, and Pseudonymous Identity
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -743,16 +614,9 @@
       <a href="../07-property-graph-data-model/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     7. The Property Graph Data Model
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -771,16 +635,9 @@
       <a href="../08-summary-vertices-ingestion/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     8. Summary Vertices and Statement Ingestion Mechanics
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -799,16 +656,9 @@
       <a href="../09-twelve-core-lrs-functions/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     9. The Twelve Core LRS Functions
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -827,16 +677,9 @@
       <a href="../10-choosing-technology-stack/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     10. Choosing the Technology Stack
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -855,16 +698,9 @@
       <a href="../11-adrs-and-capacity-model/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     11. Architecture Decision Records and the Capacity Model
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -883,16 +719,9 @@
       <a href="../12-bayesian-knowledge-tracing/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     12. Bayesian Knowledge Tracing for Mastery
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -911,16 +740,9 @@
       <a href="../13-component-design-in-depth/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     13. Component Design in Depth
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -939,16 +761,9 @@
       <a href="../14-kafka-clickhouse-graph-schema/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     14. Kafka Topics, ClickHouse Schema, and Graph Constraints
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -967,16 +782,9 @@
       <a href="../15-privacy-and-dashboard-mechanics/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     15. Privacy Enforcement and Dashboard Mechanics
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -995,16 +803,9 @@
       <a href="../16-container-image-and-cli/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     16. The Container Image and the Role Dispatcher CLI
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1023,16 +824,9 @@
       <a href="../17-compose-makefile-supply-chain/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     17. Docker Compose, the Makefile, and the Image Supply Chain
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1051,16 +845,9 @@
       <a href="../18-config-migration-backup-rollout/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     18. Configuration, Migration, Backup, and Rollout
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1079,16 +866,9 @@
       <a href="../19-failure-modes-and-verification/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     19. Failure Modes and Verification
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1107,16 +887,9 @@
       <a href="../20-deviations-roadmap-open-questions/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     20. Spec Deviations, the Delivery Roadmap, and Open Questions
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1135,16 +908,9 @@
       <a href="../21-hardware-cost-dev-environment/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     21. Hardware Sizing, Cost, and the Development Environment
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1163,16 +929,9 @@
       <a href="../22-proving-the-architecture-mvp/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     22. Proving the Architecture - the MVP Plan
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1191,16 +950,9 @@
       <a href="../23-production-infrastructure-cloud/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     23. Production Infrastructure and Cloud Services
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1228,16 +980,9 @@
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
   
-  
   <span class="md-ellipsis">
-    
-  
     24. Meet the Three Personas and the Admin UI Surface
-  
-
-    
   </span>
-  
   
 
           <span class="md-nav__icon md-icon"></span>
@@ -1246,16 +991,9 @@
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     24. Meet the Three Personas and the Admin UI Surface
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1278,9 +1016,7 @@
         <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Summary
-      
+      Summary
     </span>
   </a>
   
@@ -1289,9 +1025,7 @@
         <li class="md-nav__item">
   <a href="#concepts-covered" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Concepts Covered
-      
+      Concepts Covered
     </span>
   </a>
   
@@ -1300,9 +1034,112 @@
         <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
       
-        Prerequisites
+        <li class="md-nav__item">
+  <a href="#three-people-three-goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Three People, Three Goals
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Three People, Three Goals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-three-personas-one-statement-log" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Three Personas, One Statement Log
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
+        <li class="md-nav__item">
+  <a href="#naming-the-roles-precisely" class="md-nav__link">
+    <span class="md-ellipsis">
+      Naming the Roles Precisely
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Naming the Roles Precisely">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-role-hierarchy-and-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Role Hierarchy and Scope
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-survey-of-the-nine-admin-uis" class="md-nav__link">
+    <span class="md-ellipsis">
+      A Survey of the Nine Admin UIs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A Survey of the Nine Admin UIs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-the-nine-admin-uis-at-a-glance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: The Nine Admin UIs at a Glance
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#one-statement-three-reports-a-cross-persona-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      One Statement, Three Reports: A Cross-Persona Workflow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="One Statement, Three Reports: A Cross-Persona Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-cross-persona-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Cross-Persona Workflow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
     </span>
   </a>
   
@@ -1327,16 +1164,9 @@
       <a href="../25-district-admin-rosters-deployments/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     25. District Administrator - Rosters, Deployments, and Registries
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1355,16 +1185,9 @@
       <a href="../26-district-admin-access-control/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     26. District Administrator - Access Control and System Configuration
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1383,16 +1206,9 @@
       <a href="../27-compliance-and-district-reporting/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     27. Compliance, Privacy Law, and District-Level Reporting
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1411,16 +1227,9 @@
       <a href="../28-teacher-dashboards-student-reports/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     28. Teacher Dashboards and Student-Level Reports
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1439,16 +1248,9 @@
       <a href="../29-class-level-reports-and-tools/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     29. Class-Level Reports and Teacher Tools
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1467,16 +1269,9 @@
       <a href="../30-author-dashboards-content-reports/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     30. Textbook Author Dashboards and Content Reports
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1495,16 +1290,9 @@
       <a href="../31-designing-ab-experiments/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     31. Designing and Reading A/B Experiments
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1523,16 +1311,9 @@
       <a href="../32-producer-contract-conformant-statements/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     32. The Producer Contract - Writing Conformant Statements
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1576,7 +1357,6 @@
     
     
     
-    
       
         
         
@@ -1587,20 +1367,12 @@
         
   
   
-  
     <a href="../../learning-graph/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     Learning Graph
-  
-
-    
   </span>
-  
   
 
       
@@ -1628,18 +1400,29 @@
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
-    
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
     
     
     
@@ -1653,20 +1436,108 @@
         
   
   
-  
     <a href="../../sims/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     MicroSims
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
   
 
     
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Specifications
   </span>
   
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../demo/graph-queries/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Demo
+  </span>
   
 
       
@@ -1690,16 +1561,9 @@
       <a href="../../glossary/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Glossary
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1717,16 +1581,9 @@
       <a href="../../license/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     License
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1744,16 +1601,9 @@
       <a href="../../contact/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Contact
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1790,9 +1640,7 @@
         <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Summary
-      
+      Summary
     </span>
   </a>
   
@@ -1801,9 +1649,7 @@
         <li class="md-nav__item">
   <a href="#concepts-covered" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Concepts Covered
-      
+      Concepts Covered
     </span>
   </a>
   
@@ -1812,9 +1658,112 @@
         <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
       
-        Prerequisites
+        <li class="md-nav__item">
+  <a href="#three-people-three-goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Three People, Three Goals
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Three People, Three Goals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-three-personas-one-statement-log" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Three Personas, One Statement Log
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
+        <li class="md-nav__item">
+  <a href="#naming-the-roles-precisely" class="md-nav__link">
+    <span class="md-ellipsis">
+      Naming the Roles Precisely
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Naming the Roles Precisely">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-role-hierarchy-and-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Role Hierarchy and Scope
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-survey-of-the-nine-admin-uis" class="md-nav__link">
+    <span class="md-ellipsis">
+      A Survey of the Nine Admin UIs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A Survey of the Nine Admin UIs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-the-nine-admin-uis-at-a-glance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: The Nine Admin UIs at a Glance
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#one-statement-three-reports-a-cross-persona-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      One Statement, Three Reports: A Cross-Persona Workflow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="One Statement, Three Reports: A Cross-Persona Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-cross-persona-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Cross-Persona Workflow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
     </span>
   </a>
   
@@ -1830,62 +1779,12 @@
           
           
             <div class="md-content" data-md-component="content">
-              
-                
-
-
-
-  
-
-
-  <nav class="md-path" aria-label="Navigation" >
-    <ol class="md-path__list">
-      
-        
-  
-  
-    <li class="md-path__item">
-      <a href="../.." class="md-path__link">
-        
-  <span class="md-ellipsis">
-    Home
-  </span>
-
-      </a>
-    </li>
-  
-
-      
-      
-        
-  
-  
-    
-    
-      <li class="md-path__item">
-        <a href="../" class="md-path__link">
-          
-  <span class="md-ellipsis">
-    Chapters
-  </span>
-
-        </a>
-      </li>
-    
-  
-
-      
-    </ol>
-  </nav>
-
-              
               <article class="md-content__inner md-typeset">
                 
                   
 
-
   
-    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/24-three-personas-and-admin-uis/index.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/24-three-personas-and-admin-uis/index.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1925,13 +1824,267 @@
 <li><a href="../15-privacy-and-dashboard-mechanics/">Chapter 15: Privacy Enforcement and Dashboard Mechanics</a></li>
 </ul>
 <hr />
-<p>TODO: Generate Chapter Content</p>
+<div class="admonition mascot-welcome">
+<p class="admonition-title">Who Actually Opens This Software?</p>
+<p><img alt="Rowan waving welcome" class="mascot-admonition-img" src="../../img/mascot/welcome.png" />
+Part 2 spent nineteen chapters on gateways, queues, and clustered databases — the architecture had to be right before anyone could trust what it produces. Part 3 asks the question that architecture exists to answer: who logs in, what are they trying to decide, and what does this system show them? This chapter introduces the people first and the software second. Let's follow the record.</p>
+</div>
+<p>Every chapter so far has described a system built to survive load, compress statements, and stay available through a zone outage. None of that infrastructure matters to the people who use it unless it answers real questions on a Monday morning: <em>Is this textbook rolled out to every section that needs it? Which of my students is falling behind, and on what concept? Did the simulation I rewrote last month actually help anyone learn faster?</em> Those three questions belong to three different people, and this book is organized around them deliberately.</p>
+<h2 id="three-people-three-goals">Three People, Three Goals<a class="headerlink" href="#three-people-three-goals" title="Permanent link">&para;</a></h2>
+<p>The course description that frames this whole book names three <strong>operational personas</strong> — people who use this project's Learning Record Store (LRS) as part of their ordinary work, not people who build or maintain it. A <strong>persona</strong> here is a role defined by the decisions a person needs to make, not by a job title alone; two people with different titles at different districts can share a persona if they are trying to answer the same kind of question.</p>
+<p>The <strong>District Administrator</strong> runs a rollout across an entire school system. Their goal is coverage and compliance: knowing which schools have adopted which textbooks, whether a deployment is on schedule, and whether the district's privacy obligations are actually being met rather than merely assumed. The <strong>Teacher</strong> runs one or more sections of students day to day. Their goal is intervention: knowing which student is stuck on which concept early enough to help, not after a report card already says so. The <strong>Textbook Author</strong> writes and revises the intelligent-textbook content itself — chapters, quizzes, and MicroSims. Their goal is evidence: knowing whether a specific page, question, or simulation actually improved learning, rather than assuming a rewrite helped just because it feels better.</p>
+<div class="admonition mascot-thinking">
+<p class="admonition-title">Same Data, Three Different Questions</p>
+<p><img alt="Rowan thinking with a magnifying glass" class="mascot-admonition-img" src="../../img/mascot/thinking.png" />
+Notice that none of these three goals require a different database, a different ingestion pipeline, or a different statement format. Every statement this LRS has ingested since Chapter 1 — an Actor performing a Verb on an Object Activity — already contains everything a district administrator, a teacher, and a textbook author each need. What differs is the <em>lens</em>: which slice of the statement log each person is shown, aggregated to which level, and filtered by which access boundary. That lens is exactly what the rest of Part 3 builds.</p>
+</div>
+<p>Before naming the software each persona touches, it helps to fix the goals in plain language, because every later chapter refers back to these three sentences rather than restating them.</p>
+<ul>
+<li>The <strong>District Administrator</strong> wants to know: is every school covered, on schedule, and compliant?</li>
+<li>The <strong>Teacher</strong> wants to know: which of my students needs help right now, and on what?</li>
+<li>The <strong>Textbook Author</strong> wants to know: did my change to this content actually work?</li>
+</ul>
+<p>Chapters 25 through 27 return to the District Administrator in depth, Chapters 28 and 29 to the Teacher, and Chapter 30 to the Textbook Author — this chapter previews all three at survey level so the rest of Part 3 has a map to work from.</p>
+<h4 id="diagram-three-personas-one-statement-log">Diagram: Three Personas, One Statement Log<a class="headerlink" href="#diagram-three-personas-one-statement-log" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/three-personas-one-statement-log/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Three Personas, One Statement Log</summary>
+<p>Type: workflow
+<strong>sim-id:</strong> three-personas-one-statement-log<br/>
+<strong>Library:</strong> Mermaid<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Understand (L2)
+Bloom Taxonomy Verb: explain, summarize</p>
+<p>Learning objective: Explain how the District Administrator, Teacher, and Textbook Author each draw on the same underlying xAPI statement log, filtered through a different aggregation and access lens, rather than three separate data sources.</p>
+<p>Purpose: A single Mermaid flowchart with one shared source node fanning out into three persona-specific paths, so the learner sees structurally that the fan-out happens after ingestion, not before it.</p>
+<p>Shared source node: "Statement Log (every ingested xAPI Statement, this project's system of record)."</p>
+<p>Three outgoing paths from the shared node:</p>
+<ul>
+<li>Path 1 "District Administrator": Statement Log -&gt; "Aggregated by school and district" -&gt; "Adoption and deployment coverage view" -&gt; "Answers: is every school covered and compliant?"</li>
+<li>Path 2 "Teacher": Statement Log -&gt; "Aggregated by section and student, scoped to sections this teacher teaches" -&gt; "Classroom mastery and at-risk view" -&gt; "Answers: which student needs help, and on what?"</li>
+<li>Path 3 "Textbook Author": Statement Log -&gt; "Aggregated by content version and MicroSim, no student identity" -&gt; "Content-effectiveness and experiment view" -&gt; "Answers: did my content change actually help?"</li>
+</ul>
+<p>Interactive features: Every node has a Mermaid click directive. Clicking the shared "Statement Log" node opens an infobox recapping Chapter 1's Actor/Verb/Object Activity model and noting this single log is the only source for all three paths. Clicking any aggregation node opens an infobox naming the access boundary enforced at that step (district/school scope, section/roster scope, or de-identified content scope). Clicking any "Answers:" node opens an infobox restating that persona's goal sentence from this chapter's prose.</p>
+<p>Color coding: The shared source node in the book's teal accent color; the District Administrator path in amber, the Teacher path in violet, the Textbook Author path in green — three distinct hues so a learner can trace one path at a glance without following arrows carefully.</p>
+<p>Responsive design: The three paths stack vertically below the shared source node on narrow viewports instead of fanning out horizontally; click targets stay tap-sized.</p>
+</details>
+<h2 id="naming-the-roles-precisely">Naming the Roles Precisely<a class="headerlink" href="#naming-the-roles-precisely" title="Permanent link">&para;</a></h2>
+<p>The course description's plain-language names — district administrator, teacher, textbook author — are the ones this book uses in prose. The specification that governs this project's actual permissions, however, defines its access-control roles using slightly different, more formal names, and a reader moving between the book and the specification needs the mapping between them made explicit rather than left implicit.</p>
+<p>The specification calls the person running a district's rollout the <strong>District Administrator</strong> — same name, no translation needed. It calls the person teaching a section the <strong>Instructor</strong>; this book uses <strong>Teacher</strong> for that same role throughout, because that is the word the people who fill it use about themselves every day. It calls the person who writes and revises textbook content <strong>Author / Curriculum</strong>; this book uses <strong>Textbook Author</strong>, again matching the vocabulary the role's own occupants would recognize. Both pairs name exactly one role each — nothing is lost or split in translation, only relabeled for a non-technical reader.</p>
+<p>Three further roles exist in the specification's access-control model but do not appear in the course description's persona list, because they are not the primary audience this book is written for — they are the roles that make the primary three trustworthy. The <strong>System Administrator</strong> has global scope: this is the one role that can create new districts, configure retention defaults across the whole platform, and see cross-district benchmarks no single district administrator is allowed to see. The <strong>School Administrator</strong> has a narrower scope than the District Administrator — one school rather than an entire district — and manages sections and teacher assignments within that single building. The <strong>Auditor Role</strong> is deliberately the most limited of all six: read-only access to audit logs and access records, with no ability to view student data, change a configuration, or approve anything. An auditor's job is to verify that everyone else followed the rules, not to exercise any power themselves.</p>
+<div class="admonition mascot-tip">
+<p class="admonition-title">Enforcement Lives at the API, Not the Screen</p>
+<p><img alt="Rowan pointing helpfully" class="mascot-admonition-img" src="../../img/mascot/tip.png" />
+A tempting but wrong mental model is "a role just decides which buttons a person sees." Chapter 15 already established that this project's Role-Based Access Control (RBAC) is enforced at the API layer — the same layer every admin UI in this chapter calls — not merely hidden in a screen's layout. Hiding a button from a School Administrator would not stop a School Administrator from calling the underlying Admin API directly. The permission has to be checked where the data actually moves, which is exactly what every admin action's audit-log entry (introduced later in this chapter) is proof of.</p>
+</div>
+<p>Now that all six roles have names, a table can do what a table does best: organize scope and capability side by side for a reader who already understands each role from the prose above.</p>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Scope</th>
+<th>Capabilities</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>System Administrator</td>
+<td>Global, across every district</td>
+<td>Everything: creates districts, configures ingestion and retention defaults, sees cross-district benchmarks</td>
+</tr>
+<tr>
+<td>District Administrator</td>
+<td>One district</td>
+<td>Manages schools, courses, sections, deployments, users, and privacy policy within that district</td>
+</tr>
+<tr>
+<td>School Administrator</td>
+<td>One school</td>
+<td>Manages sections and teacher (Instructor) assignments within that school</td>
+</tr>
+<tr>
+<td>Teacher (Instructor)</td>
+<td>Only sections this person teaches</td>
+<td>Views analytics for owned sections; no administrative configuration</td>
+</tr>
+<tr>
+<td>Textbook Author (Author / Curriculum)</td>
+<td>Textbook definitions and experiments</td>
+<td>Views content-effectiveness reports and runs experiments; never sees student-identifying data</td>
+</tr>
+<tr>
+<td>Auditor Role</td>
+<td>Read-only, platform-wide</td>
+<td>Views audit logs and access records only; cannot change anything</td>
+</tr>
+</tbody>
+</table>
+<p>Reading down that table traces a hierarchy of scope even though the table itself doesn't draw it as one: a System Administrator's authority contains a District Administrator's, which contains a School Administrator's. The Teacher, Textbook Author, and Auditor Role sit outside that vertical chain — each is scoped to a different slice of the system (a set of sections, a set of content, or the audit log itself) rather than to a nested administrative territory. Seeing that shape laid out visually, rather than inferred from a table, is worth a dedicated diagram.</p>
+<h4 id="diagram-role-hierarchy-and-scope">Diagram: Role Hierarchy and Scope<a class="headerlink" href="#diagram-role-hierarchy-and-scope" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/lrs-role-hierarchy-scope/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Role Hierarchy and Scope</summary>
+<p>Type: graph-model
+<strong>sim-id:</strong> lrs-role-hierarchy-scope<br/>
+<strong>Library:</strong> vis-network<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Analyze (L4)
+Bloom Taxonomy Verb: compare, differentiate</p>
+<p>Learning objective: Differentiate the three nested administrative roles (System Administrator, District Administrator, School Administrator) from the three scope-bound roles (Teacher, Textbook Author, Auditor Role) by tracing each role's scope boundary in a single graph.</p>
+<p>Purpose: A vis-network graph with two visually distinct clusters sharing one root, so the learner can see the nested-authority chain and the scope-bound roles as structurally different shapes rather than read them off a flat list.</p>
+<p>Nodes: One root node "LRS Access Control." Three nested-authority nodes in a vertical chain below the root: "System Administrator" (global) -&gt; "District Administrator" (one district) -&gt; "School Administrator" (one school), each connected by a "contains" edge pointing from the broader role to the narrower one. Three scope-bound nodes attached directly to the root, drawn off to one side rather than in the vertical chain: "Teacher" (own sections only), "Textbook Author" (content and experiments, no student identity), "Auditor Role" (read-only, audit log only).</p>
+<p>Interactive features: Clicking any role node opens an infobox with that role's scope and capabilities, matching the table above. Clicking a "contains" edge opens an infobox explaining that a broader role's authority is a superset — a District Administrator can do everything a School Administrator in their district can do, plus more, but the reverse never holds. Hovering any scope-bound node (Teacher, Textbook Author, Auditor Role) highlights that its edge to the root is a single, non-nested scope line, visually distinguishing it from the vertical chain.</p>
+<p>Color coding: The nested-authority chain (System Administrator, District Administrator, School Administrator) shaded in graduated teal, darkest at System Administrator; the three scope-bound roles (Teacher, Textbook Author, Auditor Role) each in a distinct accent color to signal they are not ranked relative to one another.</p>
+<p>Responsive design: Graph re-centers and node spacing adjusts on window resize using vis-network's built-in physics layout; on narrow viewports, the nested chain renders vertically and the scope-bound roles collapse into a horizontal row beneath it.</p>
+</details>
+<h2 id="a-survey-of-the-nine-admin-uis">A Survey of the Nine Admin UIs<a class="headerlink" href="#a-survey-of-the-nine-admin-uis" title="Permanent link">&para;</a></h2>
+<p>Every role in the table above needs somewhere to actually exercise its capabilities, and that somewhere is one of nine <strong>administrative user interfaces</strong>, or <strong>admin UIs</strong> — screens gated by an elevated role and kept deliberately separate from the analytics dashboards Chapter 9 and Chapter 15 already introduced. That separation matters: a dashboard shows a teacher or an author what the data says, while an admin UI lets a District Administrator, School Administrator, or System Administrator change how the system itself is configured — who has access, which textbook is deployed where, and what a district's privacy policy actually permits. The next nine chapters-in-miniature give each UI one or two sentences; Chapters 25 through 27 return to several of them in operational depth.</p>
+<p>The <strong>District Management UI</strong> is where a System Administrator creates and configures districts themselves — timezone, privacy-policy profile, and roster-source connection — the single highest-scope screen in the whole surface. The specification's full name for the next one is the <strong>School / Course / Section Management UI</strong>; this book shortens that to the <strong>School Course Section UI</strong>, and it is where a District Administrator or School Administrator manages the actual schools, courses, and sections a roster sync produces, including enrollment edits and teacher assignments. The specification calls the third the <strong>Textbook &amp; Deployment Management UI</strong>; shortened here to the <strong>Textbook Deployment UI</strong>, it is where a District Administrator binds a textbook version to specific sections and works through the queue of provisionally auto-registered textbooks Chapter 8 described.</p>
+<p>The specification's <strong>xAPI Endpoint &amp; Credentials UI</strong> — shortened to the <strong>xAPI Credentials UI</strong> — is where ingestion credentials for a textbook or district are issued, rotated, and inspected, including a view of any dead-lettered statements Chapter 23 explained. The <strong>Experiment Administration UI</strong> is where a Textbook Author designs, launches, and stops a controlled experiment comparing two versions of a chapter or MicroSim — Chapter 31 covers reading its results in depth. The specification's <strong>User &amp; Access Management UI</strong>, shortened to the <strong>User Access Management UI</strong>, is where accounts are created and roles assigned, and where a periodic access review flags stale permissions that should be revoked.</p>
+<p>The specification's <strong>Privacy &amp; Compliance UI</strong> — the <strong>Privacy Compliance UI</strong> in this book's shorthand — is where a District Administrator configures a FERPA/COPPA/GDPR policy profile and, when legally required, executes a data-subject access or erasure request. The specification's <strong>Audit &amp; Monitoring UI</strong>, the <strong>Audit Monitoring UI</strong> here, is the Auditor Role's home screen: an immutable, filterable log of every administrative action alongside live ingestion health metrics. Finally, the <strong>System Configuration UI</strong> is the System Administrator's platform-wide control panel for retention defaults, feature flags, and rate limits that apply everywhere at once.</p>
+<p>That prose covered nine names in dense sequence, so before going further, it is worth reading them back as a plain list — a summary of what was just explained, not new information.</p>
+<ol>
+<li>District Management UI — create and configure districts (System Administrator).</li>
+<li>School Course Section UI — manage schools, courses, sections, enrollment, and teacher assignment.</li>
+<li>Textbook Deployment UI — bind textbook versions to sections; reconcile provisional registrations.</li>
+<li>xAPI Credentials UI — issue and rotate ingest credentials; inspect dead-lettered statements.</li>
+<li>Experiment Administration UI — design, launch, and stop controlled content experiments.</li>
+<li>User Access Management UI — create accounts, assign roles, review stale access.</li>
+<li>Privacy Compliance UI — configure policy profiles; execute data-subject requests.</li>
+<li>Audit Monitoring UI — browse the immutable admin-action log; watch ingestion health.</li>
+<li>System Configuration UI — set platform-wide defaults, feature flags, and rate limits.</li>
+</ol>
+<div class="admonition mascot-warning">
+<p class="admonition-title">An Admin UI Is Not a Dashboard</p>
+<p><img alt="Rowan waving a caution flag" class="mascot-admonition-img" src="../../img/mascot/warning.png" />
+It is easy to blur these nine screens together with the analytics dashboards from Chapter 9 — both are web interfaces a person logs into, after all. The specification is explicit that they are architecturally separate: dashboards answer "what does the data show," gated by ordinary role scope, while admin UIs answer "how is the system configured," gated by an elevated role and backed by an audit trail. A Teacher's <strong>My Classes</strong> dashboard and a District Administrator's <strong>District Management UI</strong> are not two views of one screen — they are two different systems built for two different kinds of decision.</p>
+</div>
+<p>Because six roles map onto nine UIs in a pattern that is easier to see than to read as prose, the table below organizes exactly which roles can open which screen — reinforcing, not introducing, the role and UI names already explained above.</p>
+<table>
+<thead>
+<tr>
+<th>Admin UI</th>
+<th>Roles that use it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>District Management UI</td>
+<td>System Administrator</td>
+</tr>
+<tr>
+<td>School Course Section UI</td>
+<td>District Administrator, School Administrator</td>
+</tr>
+<tr>
+<td>Textbook Deployment UI</td>
+<td>District Administrator</td>
+</tr>
+<tr>
+<td>xAPI Credentials UI</td>
+<td>District Administrator, System Administrator</td>
+</tr>
+<tr>
+<td>Experiment Administration UI</td>
+<td>Textbook Author</td>
+</tr>
+<tr>
+<td>User Access Management UI</td>
+<td>District Administrator, School Administrator, System Administrator</td>
+</tr>
+<tr>
+<td>Privacy Compliance UI</td>
+<td>District Administrator</td>
+</tr>
+<tr>
+<td>Audit Monitoring UI</td>
+<td>Auditor Role, System Administrator</td>
+</tr>
+<tr>
+<td>System Configuration UI</td>
+<td>System Administrator</td>
+</tr>
+</tbody>
+</table>
+<p>Reading the table by column rather than by row reveals the same hierarchy the earlier role diagram showed: the System Administrator row is checked more often than any other, because global scope means access to nearly every configuration screen, while the Teacher never appears in this table at all — teaching does not require administrative access to anything. A reader scanning for "everything a District Administrator can touch" is doing exactly the kind of lookup this table exists for, which is also exactly what the clickable infographic below lets a reader do interactively rather than by scanning rows.</p>
+<h4 id="diagram-the-nine-admin-uis-at-a-glance">Diagram: The Nine Admin UIs at a Glance<a class="headerlink" href="#diagram-the-nine-admin-uis-at-a-glance" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/nine-admin-uis-survey/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>The Nine Admin UIs at a Glance</summary>
+<p>Type: infographic
+<strong>sim-id:</strong> nine-admin-uis-survey<br/>
+<strong>Library:</strong> p5.js<br/>
+<strong>Status:</strong> Specified
+<strong>Template:</strong> https://github.com/dmccreary/automating-instructional-design/tree/main/docs/sims/xapi-data-flow<br/></p>
+<p>Bloom Taxonomy: Remember (L1)
+Bloom Taxonomy Verb: identify, recall</p>
+<p>Learning objective: Identify each of the nine admin UIs, its one-line purpose, and which of the six roles from this chapter can open it, as a quick-reference survey before Chapters 25 through 27 cover several of them in depth.</p>
+<p>Canvas layout: A 3x3 grid of nine tiles, one per admin UI, each labeled with its short name (District Management, School Course Section, Textbook Deployment, xAPI Credentials, Experiment Administration, User Access Management, Privacy Compliance, Audit Monitoring, System Configuration).</p>
+<p>Visual elements: Each tile shows the UI's short name in bold and a small icon suggesting its function (a building for District Management, a roster grid for School Course Section, a package for Textbook Deployment, a key for xAPI Credentials, a flask for Experiment Administration, a badge for User Access Management, a shield for Privacy Compliance, a magnifying glass for Audit Monitoring, a set of dials for System Configuration). Tiles are colored by which chapter covers them in depth: three tiles destined for Chapter 25 in one hue, two for Chapter 26 in a second hue, one for Chapter 27 in a third hue, and the remaining three (xAPI Credentials, Experiment Administration, Audit Monitoring) in a neutral hue since they are introduced here but revisited more briefly elsewhere in the book.</p>
+<p>Interactive controls: Clicking any tile expands it into a detail panel showing the UI's full one- or two-sentence description from this chapter's prose, plus a chip for each role permitted to use it (matching the roles-to-UIs table above). A "Filter by role" dropdown (p5.js <code>createSelect()</code>) lets the reader choose one of the six roles and dims every tile that role cannot access, leaving only that role's accessible UIs at full opacity — a direct, exploratory version of reading one column of the table above.</p>
+<p>Default state: All nine tiles shown at full opacity, no role filter applied, no tile expanded.</p>
+<p>Behavior: Selecting a role from the dropdown dims inaccessible tiles to 30% opacity with a smooth 300ms transition; selecting "All roles" (the default option) restores full opacity to every tile. Clicking an expanded tile a second time collapses it back to its compact form.</p>
+<p>Implementation notes: Use p5.js <code>createSelect()</code> for the role-filter control, per this project's convention of always using p5.js's built-in controls rather than hand-drawn UI. Store the nine UI-to-roles mappings as a simple array of objects so the filter logic is a single lookup rather than nine hardcoded conditionals.</p>
+<p>Responsive design: Grid collapses from 3x3 to a single scrollable column of nine tiles on narrow viewports; the role-filter dropdown remains pinned above the grid at every width.</p>
+</details>
+<h2 id="one-statement-three-reports-a-cross-persona-workflow">One Statement, Three Reports: A Cross-Persona Workflow<a class="headerlink" href="#one-statement-three-reports-a-cross-persona-workflow" title="Permanent link">&para;</a></h2>
+<p>The clearest way to see why one statement log can serve three personas without three separate pipelines is to follow a single statement through the system and watch it surface in three unrelated places. Suppose a student in a ninth-grade biology section opens an intelligent-textbook chapter, works through an embedded MicroSim on cellular respiration, and submits an answer that the MicroSim scores as correct. That single interaction produces an xAPI Statement — an Actor, a Verb, an Object Activity, and a Result, exactly the vocabulary Chapter 1 introduced — and that one Statement is ingested exactly once.</p>
+<p>From there, three independent aggregations read the same ingested Statement without touching each other. The Teacher's classroom mastery view, scoped to the sections that Teacher owns, rolls this Statement into that one student's per-concept mastery estimate using the Bayesian Knowledge Tracing model Chapter 12 described — if the student is now correct on cellular respiration three times running, their mastery estimate for that concept rises, and the Teacher's at-risk roster may quietly drop that student from its list. The District Administrator's adoption view, aggregated at the school and district level with no individual student ever named, counts this Statement only as one more sign that this textbook's cellular-respiration chapter is actively in use in this section, contributing to a coverage percentage. The Textbook Author's content-effectiveness view, scoped to the MicroSim itself rather than to any student or section, adds this Statement's correctness outcome to the running effectiveness estimate for that specific MicroSim version — evidence that feeds directly into the kind of controlled experiment the Experiment Administration UI manages.</p>
+<div class="admonition mascot-encourage">
+<p class="admonition-title">Nine Names Is a Lot; One Pattern Is Not</p>
+<p><img alt="Rowan offering encouragement" class="mascot-admonition-img" src="../../img/mascot/encouraging.png" />
+If the last few sections felt like a wall of new proper nouns — six roles, nine admin UIs, three personas — that reaction is entirely reasonable on a first pass. But notice that every one of those eighteen names answers exactly one of two questions: "who is this person" or "what screen do they use." You do not need all eighteen memorized before Chapter 25; you need the shape — one shared log, six roles with clearly bounded scope, nine UIs each doing one job — and the names will stick as each gets its own chapter.</p>
+</div>
+<p>Chapter 15 already showed the mechanics that make this fan-out safe rather than chaotic: server-side aggregation so raw per-statement rows never reach a browser, cross-filtering and drill-down within a single dashboard, and the aggregation-threshold rule that keeps any group below ten students from being shown disaggregated. Every one of the three views in the workflow above is built on exactly that same enforcement layer — the difference between the District Administrator's, the Teacher's, and the Textbook Author's screens is entirely in the query each one is authorized to run, not in the underlying data or the mechanics that protect it.</p>
+<h4 id="diagram-cross-persona-workflow">Diagram: Cross-Persona Workflow<a class="headerlink" href="#diagram-cross-persona-workflow" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/cross-persona-workflow/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Cross-Persona Workflow</summary>
+<p>Type: workflow
+<strong>sim-id:</strong> cross-persona-workflow<br/>
+<strong>Library:</strong> Mermaid<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Analyze (L4)
+Bloom Taxonomy Verb: trace, analyze</p>
+<p>Learning objective: Trace one ingested xAPI Statement through three independent, simultaneously-updated aggregations, and analyze why no persona's view requires a separate data pipeline from the others.</p>
+<p>Purpose: A single Mermaid flowchart tracing one concrete Statement (a student's correct MicroSim answer on cellular respiration) from ingestion into three parallel, non-interfering outcomes.</p>
+<p>Flow: "Student answers MicroSim question correctly" -&gt; "xAPI Statement ingested once (Actor, Verb, Object Activity, Result)" -&gt; three parallel branches.</p>
+<p>Branch A "Teacher": -&gt; "Bayesian Knowledge Tracing update for this student's cellular-respiration mastery" -&gt; "At-risk roster re-evaluated for this student."</p>
+<p>Branch B "District Administrator": -&gt; "Counted toward this section's textbook-usage coverage, no student named" -&gt; "District adoption percentage updated."</p>
+<p>Branch C "Textbook Author": -&gt; "Added to this MicroSim version's running effectiveness estimate, no student named" -&gt; "Feeds the Experiment Administration UI's readout if an experiment is running."</p>
+<p>Interactive features: Every node has a Mermaid click directive. Clicking the shared ingestion node opens an infobox recapping that this is the same non-blocking ingestion path Chapter 8 described. Clicking any Branch A node opens an infobox linking to Chapter 12's Bayesian Knowledge Tracing explanation. Clicking any Branch B node opens an infobox naming the aggregation-threshold rule from Chapter 15 that would suppress this count if the group were smaller than ten. Clicking any Branch C node opens an infobox previewing Chapter 30 and Chapter 31's content-effectiveness and experiment coverage.</p>
+<p>Color coding: Shared ingestion node in teal; Teacher branch in violet; District Administrator branch in amber; Textbook Author branch in green — matching the same three persona colors used in the "Three Personas, One Statement Log" diagram earlier in this chapter, so a reader recognizes the color scheme as a running convention.</p>
+<p>Responsive design: The three branches stack vertically below the shared node on narrow viewports; click targets stay tap-sized.</p>
+</details>
+<h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The <strong>District Administrator</strong> runs a district-wide rollout and needs to know whether every school is covered, on schedule, and compliant.</li>
+<li>The <strong>Teacher</strong> owns one or more sections and needs to know which student needs help right now, and on which concept.</li>
+<li>The <strong>Textbook Author</strong> writes and revises content and needs evidence about whether a specific change actually improved learning.</li>
+<li>The <strong>System Administrator</strong> has global, cross-district scope and is the only role that can create new districts or set platform-wide defaults.</li>
+<li>The <strong>School Administrator</strong> manages sections and teacher assignments within a single school, one level narrower than a District Administrator.</li>
+<li>The <strong>Auditor Role</strong> is read-only by design, limited to reviewing the audit log and access records without the power to change anything.</li>
+<li>Nine <strong>administrative user interfaces</strong> — the District Management UI, School Course Section UI, Textbook Deployment UI, xAPI Credentials UI, Experiment Administration UI, User Access Management UI, Privacy Compliance UI, Audit Monitoring UI, and System Configuration UI — are architecturally separate from analytics dashboards and gated by these six roles.</li>
+<li>All three personas, and all six roles, draw from a single ingested statement log; what differs between them is the aggregation, scope, and access boundary applied to the same underlying evidence.</li>
+</ul>
+<div class="admonition mascot-celebration">
+<p class="admonition-title">The Map Is Drawn</p>
+<p><img alt="Rowan celebrating with confetti" class="mascot-admonition-img" src="../../img/mascot/celebration.png" />
+Six roles, nine UIs, three personas, one shared log — that's the whole surface of Part 3 laid out at a glance. What does the evidence show? You now know exactly where each later chapter fits before you read it. In <a href="../25-district-admin-rosters-deployments/">Chapter 25: District Administrator - Rosters, Deployments, and Registries</a>, we go deep on the first three admin UIs this chapter only surveyed.</p>
+</div>
 
 
 
 
 
 
+
+  
+  
 
 
 
@@ -2017,13 +2170,10 @@
     </div>
     
     
-    
-      
-      
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
         <script src="../../js/katex.js"></script>
       

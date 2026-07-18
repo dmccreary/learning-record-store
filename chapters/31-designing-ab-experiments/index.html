@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="An intelligent textbook on Learning Record Stores: what they are, how xAPI statements work, and how to design, deploy, and query an LRS.">
+        <meta name="description" content="How the Experiment Designer turns a correlational lead into a randomized A/B test, and how an author reads the resulting effect size, confidence interval, and guardrail checks to trust a verdict.">
       
       
         <meta name="author" content="Dan McCreary">
@@ -21,22 +21,19 @@
         <link rel="next" href="../32-producer-contract-conformant-statements/">
       
       
-        
-      
-      
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
     
     
       
-        <title>31. Designing and Reading A/B Experiments - Learning Record Store</title>
+        <title>Designing and Reading A/B Experiments - Learning Record Store</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -67,6 +64,7 @@
     
       
 
+    
     
     
   </head>
@@ -121,7 +119,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              31. Designing and Reading A/B Experiments
+              Designing and Reading A/B Experiments
             
           </span>
         </div>
@@ -133,13 +131,11 @@
     
     
     
-      
-      
-        <label class="md-header__button md-icon" for="__search">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        </label>
-        <div class="md-search" data-md-component="search" role="dialog">
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
@@ -178,14 +174,13 @@
     </div>
   </div>
 </div>
-      
     
     
       <div class="md-header__source">
         <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub Repo
@@ -230,7 +225,7 @@
       <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub Repo
@@ -250,16 +245,9 @@
       <a href="../.." class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Home
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -277,16 +265,9 @@
       <a href="../../about/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     About
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -304,16 +285,9 @@
       <a href="../../course-description/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Course Description
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -325,120 +299,6 @@
       
   
   
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-  
-    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
-      
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Specifications
-  
-
-    
-  </span>
-  
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-  
-    <a href="../../demo/graph-queries/" class="md-nav__link">
-      
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Demo
-  
-
-    
-  </span>
-  
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -451,70 +311,133 @@
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
-    
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
     
     
     
@@ -524,42 +447,32 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
+          
           
           <div class="md-nav__link md-nav__container">
             <a href="../" class="md-nav__link ">
               
   
-  
   <span class="md-ellipsis">
-    
-  
     Chapters
-  
-
-    
   </span>
-  
   
 
             </a>
             
               
-              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_6">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
-            
-  
-    Chapters
-  
-
+            Chapters
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -575,16 +488,9 @@
       <a href="../01-lms-to-experience-api/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     1. From Learning Management Systems to the Experience API
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -603,16 +509,9 @@
       <a href="../02-anatomy-of-xapi-statement/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     2. The Anatomy of an xAPI Statement
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -631,16 +530,9 @@
       <a href="../03-ieee-standardization-xapi-cmi5/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     3. IEEE Standardization of xAPI and cmi5
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -659,16 +551,9 @@
       <a href="../04-standards-governance-ecosystem/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     4. Standards Governance and the Wider Interoperability Ecosystem
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -687,16 +572,9 @@
       <a href="../05-system-context-architectural-planes/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     5. System Context and the Five Architectural Planes
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -715,16 +593,9 @@
       <a href="../06-multi-tenancy-rosters-identity/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     6. Multi-Tenancy, Rosters, and Pseudonymous Identity
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -743,16 +614,9 @@
       <a href="../07-property-graph-data-model/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     7. The Property Graph Data Model
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -771,16 +635,9 @@
       <a href="../08-summary-vertices-ingestion/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     8. Summary Vertices and Statement Ingestion Mechanics
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -799,16 +656,9 @@
       <a href="../09-twelve-core-lrs-functions/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     9. The Twelve Core LRS Functions
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -827,16 +677,9 @@
       <a href="../10-choosing-technology-stack/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     10. Choosing the Technology Stack
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -855,16 +698,9 @@
       <a href="../11-adrs-and-capacity-model/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     11. Architecture Decision Records and the Capacity Model
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -883,16 +719,9 @@
       <a href="../12-bayesian-knowledge-tracing/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     12. Bayesian Knowledge Tracing for Mastery
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -911,16 +740,9 @@
       <a href="../13-component-design-in-depth/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     13. Component Design in Depth
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -939,16 +761,9 @@
       <a href="../14-kafka-clickhouse-graph-schema/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     14. Kafka Topics, ClickHouse Schema, and Graph Constraints
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -967,16 +782,9 @@
       <a href="../15-privacy-and-dashboard-mechanics/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     15. Privacy Enforcement and Dashboard Mechanics
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -995,16 +803,9 @@
       <a href="../16-container-image-and-cli/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     16. The Container Image and the Role Dispatcher CLI
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1023,16 +824,9 @@
       <a href="../17-compose-makefile-supply-chain/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     17. Docker Compose, the Makefile, and the Image Supply Chain
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1051,16 +845,9 @@
       <a href="../18-config-migration-backup-rollout/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     18. Configuration, Migration, Backup, and Rollout
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1079,16 +866,9 @@
       <a href="../19-failure-modes-and-verification/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     19. Failure Modes and Verification
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1107,16 +887,9 @@
       <a href="../20-deviations-roadmap-open-questions/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     20. Spec Deviations, the Delivery Roadmap, and Open Questions
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1135,16 +908,9 @@
       <a href="../21-hardware-cost-dev-environment/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     21. Hardware Sizing, Cost, and the Development Environment
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1163,16 +929,9 @@
       <a href="../22-proving-the-architecture-mvp/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     22. Proving the Architecture - the MVP Plan
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1191,16 +950,9 @@
       <a href="../23-production-infrastructure-cloud/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     23. Production Infrastructure and Cloud Services
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1219,16 +971,9 @@
       <a href="../24-three-personas-and-admin-uis/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     24. Meet the Three Personas and the Admin UI Surface
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1247,16 +992,9 @@
       <a href="../25-district-admin-rosters-deployments/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     25. District Administrator - Rosters, Deployments, and Registries
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1275,16 +1013,9 @@
       <a href="../26-district-admin-access-control/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     26. District Administrator - Access Control and System Configuration
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1303,16 +1034,9 @@
       <a href="../27-compliance-and-district-reporting/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     27. Compliance, Privacy Law, and District-Level Reporting
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1331,16 +1055,9 @@
       <a href="../28-teacher-dashboards-student-reports/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     28. Teacher Dashboards and Student-Level Reports
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1359,16 +1076,9 @@
       <a href="../29-class-level-reports-and-tools/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     29. Class-Level Reports and Teacher Tools
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1387,16 +1097,9 @@
       <a href="../30-author-dashboards-content-reports/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     30. Textbook Author Dashboards and Content Reports
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1424,16 +1127,9 @@
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
   
-  
   <span class="md-ellipsis">
-    
-  
     31. Designing and Reading A/B Experiments
-  
-
-    
   </span>
-  
   
 
           <span class="md-nav__icon md-icon"></span>
@@ -1442,16 +1138,9 @@
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     31. Designing and Reading A/B Experiments
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1474,9 +1163,7 @@
         <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Summary
-      
+      Summary
     </span>
   </a>
   
@@ -1485,9 +1172,7 @@
         <li class="md-nav__item">
   <a href="#concepts-covered" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Concepts Covered
-      
+      Concepts Covered
     </span>
   </a>
   
@@ -1496,9 +1181,121 @@
         <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
       
-        Prerequisites
+        <li class="md-nav__item">
+  <a href="#anatomy-of-an-experiment-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Anatomy of an Experiment Definition
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Anatomy of an Experiment Definition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-anatomy-of-an-experiment-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Anatomy of an Experiment Definition
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
+        <li class="md-nav__item">
+  <a href="#assigning-students-to-variants" class="md-nav__link">
+    <span class="md-ellipsis">
+      Assigning Students to Variants
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Assigning Students to Variants">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-deterministic-sticky-assignment-and-district-opt-out" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Deterministic Sticky Assignment and District Opt-Out
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reading-the-statistical-readout" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reading the Statistical Readout
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reading the Statistical Readout">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-reading-the-experiment-readout-dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Reading the Experiment Readout Dashboard
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#registries-variants-and-the-life-of-an-experiment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Registries, Variants, and the Life of an Experiment
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Registries, Variants, and the Life of an Experiment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-the-ab-test-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: The AB Test Lifecycle
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#one-loop-three-personas" class="md-nav__link">
+    <span class="md-ellipsis">
+      One Loop, Three Personas
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
     </span>
   </a>
   
@@ -1523,16 +1320,9 @@
       <a href="../32-producer-contract-conformant-statements/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     32. The Producer Contract - Writing Conformant Statements
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1576,7 +1366,6 @@
     
     
     
-    
       
         
         
@@ -1587,20 +1376,12 @@
         
   
   
-  
     <a href="../../learning-graph/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     Learning Graph
-  
-
-    
   </span>
-  
   
 
       
@@ -1628,18 +1409,29 @@
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
-    
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
     
     
     
@@ -1653,20 +1445,108 @@
         
   
   
-  
     <a href="../../sims/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     MicroSims
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
   
 
     
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Specifications
   </span>
   
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../demo/graph-queries/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Demo
+  </span>
   
 
       
@@ -1690,16 +1570,9 @@
       <a href="../../glossary/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Glossary
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1717,16 +1590,9 @@
       <a href="../../license/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     License
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1744,16 +1610,9 @@
       <a href="../../contact/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Contact
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1790,9 +1649,7 @@
         <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Summary
-      
+      Summary
     </span>
   </a>
   
@@ -1801,9 +1658,7 @@
         <li class="md-nav__item">
   <a href="#concepts-covered" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Concepts Covered
-      
+      Concepts Covered
     </span>
   </a>
   
@@ -1812,9 +1667,121 @@
         <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
       
-        Prerequisites
+        <li class="md-nav__item">
+  <a href="#anatomy-of-an-experiment-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Anatomy of an Experiment Definition
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Anatomy of an Experiment Definition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-anatomy-of-an-experiment-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Anatomy of an Experiment Definition
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
+        <li class="md-nav__item">
+  <a href="#assigning-students-to-variants" class="md-nav__link">
+    <span class="md-ellipsis">
+      Assigning Students to Variants
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Assigning Students to Variants">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-deterministic-sticky-assignment-and-district-opt-out" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Deterministic Sticky Assignment and District Opt-Out
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reading-the-statistical-readout" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reading the Statistical Readout
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reading the Statistical Readout">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-reading-the-experiment-readout-dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Reading the Experiment Readout Dashboard
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#registries-variants-and-the-life-of-an-experiment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Registries, Variants, and the Life of an Experiment
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Registries, Variants, and the Life of an Experiment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-the-ab-test-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: The AB Test Lifecycle
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#one-loop-three-personas" class="md-nav__link">
+    <span class="md-ellipsis">
+      One Loop, Three Personas
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
     </span>
   </a>
   
@@ -1830,62 +1797,12 @@
           
           
             <div class="md-content" data-md-component="content">
-              
-                
-
-
-
-  
-
-
-  <nav class="md-path" aria-label="Navigation" >
-    <ol class="md-path__list">
-      
-        
-  
-  
-    <li class="md-path__item">
-      <a href="../.." class="md-path__link">
-        
-  <span class="md-ellipsis">
-    Home
-  </span>
-
-      </a>
-    </li>
-  
-
-      
-      
-        
-  
-  
-    
-    
-      <li class="md-path__item">
-        <a href="../" class="md-path__link">
-          
-  <span class="md-ellipsis">
-    Chapters
-  </span>
-
-        </a>
-      </li>
-    
-  
-
-      
-    </ol>
-  </nav>
-
-              
               <article class="md-content__inner md-typeset">
                 
                   
 
-
   
-    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/31-designing-ab-experiments/index.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/31-designing-ab-experiments/index.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1935,13 +1852,263 @@
 <li><a href="../30-author-dashboards-content-reports/">Chapter 30: Textbook Author Dashboards and Content Reports</a></li>
 </ul>
 <hr />
-<p>TODO: Generate Chapter Content</p>
+<div class="admonition mascot-welcome">
+<p class="admonition-title">From a Lead to a Real Answer</p>
+<p><img alt="Rowan waving welcome" class="mascot-admonition-img" src="../../img/mascot/welcome.png" />
+Chapter 30 left you holding a lead, not an answer. The MicroSim Impact Report showed a mastery gap, and the Correlation Explorer showed a relationship between two metrics — but neither one could rule out a hidden third factor doing the real work. This chapter opens the Experiment Designer for real and shows you how to turn a lead like that into a result you can actually trust. Let's follow the record.</p>
+</div>
+<p>Every report and tool covered in the previous chapter shares the same limitation: it observes what already happened to students who made their own choices about what to read, click, or skip. A student who opens a MicroSim was never randomly assigned to open it, so any mastery difference between MicroSim users and everyone else might be caused by the MicroSim — or it might simply reflect that more prepared students were the ones who opened it in the first place. The only way to support a genuine causal claim — "this change <em>caused</em> better outcomes," not merely "this change is <em>associated with</em> better outcomes" — is to randomly assign students to different versions of content and compare what happens next. That is exactly what the <strong>experimentation subsystem</strong>, specified in §8 of the LRS specification, is built to do.</p>
+<h2 id="anatomy-of-an-experiment-definition">Anatomy of an Experiment Definition<a class="headerlink" href="#anatomy-of-an-experiment-definition" title="Permanent link">&para;</a></h2>
+<p>Every A/B test in this system starts as an <strong>Experiment Definition</strong>: a single node that gathers everything needed to run a controlled comparison in one place. Rather than treating a hypothesis, a metric, and a set of variants as separate scattered settings, the Experiment Definition binds them together so the whole test can be reviewed, approved, started, and later audited as one coherent object.</p>
+<p>An Experiment Definition is built from six parts, and it helps to introduce each one in the order an author would actually fill them in:</p>
+<ul>
+<li><strong>Experiment Hypothesis</strong> — a free-text statement of what the author expects to happen and why, such as "adding worked examples to Chapter 3 will raise concept mastery on the underlying photosynthesis concepts." It anchors the test to a specific, falsifiable claim rather than a vague hope that "the new version is better."</li>
+<li><strong>Primary Outcome Metric</strong> — the single metric the experiment will be judged on, decided before the test starts: almost always downstream concept mastery, a quiz success rate, or a completion rate, never chosen after the fact from whichever metric happened to move the most.</li>
+<li><strong>Unit Of Randomization</strong> — the thing randomly assigned to a variant. Usually <code>student_key</code>, so two students in the same class can see two different versions of a page. Sometimes <code>section_id</code> instead, meaning every student in a section is assigned together as one cluster.</li>
+<li><strong>Experiment Variant</strong> — one arm of the test, mapped to a specific <code>TextbookVersion</code> or <code>MicroSimVersion</code>. Every experiment needs at least a control and a treatment, and each variant carries an <strong>Allocation Weight</strong>, the share of randomized units it should receive, such as 50% control and 50% treatment.</li>
+<li><strong>Guardrail Metric</strong> — a metric that must not get meaningfully worse while the experiment runs, even if it isn't the thing being tested — engagement and disengagement-alert rates are typical examples.</li>
+<li><strong>Eligibility Predicate</strong> — a rule deciding which districts, courses, or sections may participate at all. This is also where a district's opt-out of experimentation is enforced: opted-out students are excluded from randomization and always receive the control arm, a rule no author can override.</li>
+</ul>
+<p>Having named all six parts in the order they get authored, the following table reinforces the same six as a quick-reference summary — useful once you already understand what each one means, not as a substitute for the explanations above.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Answers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Experiment Hypothesis</td>
+<td>What do we expect to happen, and why?</td>
+</tr>
+<tr>
+<td>Primary Outcome Metric</td>
+<td>What single metric decides whether the experiment "worked"?</td>
+</tr>
+<tr>
+<td>Unit Of Randomization</td>
+<td>What gets randomly assigned — a student or a whole section?</td>
+</tr>
+<tr>
+<td>Experiment Variant + Allocation Weight</td>
+<td>What are the arms, and what share of units does each get?</td>
+</tr>
+<tr>
+<td>Guardrail Metric</td>
+<td>What must not get worse, even if it isn't the thing being tested?</td>
+</tr>
+<tr>
+<td>Eligibility Predicate</td>
+<td>Who is even allowed to be randomized into this experiment?</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition mascot-thinking">
+<p class="admonition-title">Why Randomize a Whole Section Sometimes?</p>
+<p><img alt="Rowan thinking with a magnifying glass" class="mascot-admonition-img" src="../../img/mascot/thinking.png" />
+If the Unit Of Randomization were always <code>student_key</code>, two students sitting side by side in the same class could be assigned to different variants — and if they compare notes, or the teacher accidentally references content from one variant while helping the whole class, the comparison gets contaminated. Randomizing by <code>section_id</code> instead keeps an entire class on one arm, trading a little statistical power (whole sections behave more similarly to each other than individual students do) for a cleaner separation between the two groups being compared.</p>
+</div>
+<h4 id="diagram-anatomy-of-an-experiment-definition">Diagram: Anatomy of an Experiment Definition<a class="headerlink" href="#diagram-anatomy-of-an-experiment-definition" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/experiment-definition-anatomy/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Anatomy of an Experiment Definition</summary>
+<p>Type: infographic
+<strong>sim-id:</strong> experiment-definition-anatomy<br/>
+<strong>Library:</strong> Mermaid<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Understand (L2)
+Bloom Taxonomy Verb: classify, exemplify</p>
+<p>Learning objective: Let the learner map the six named parts of an Experiment Definition (Experiment Hypothesis, Primary Outcome Metric, Unit Of Randomization, Experiment Variant, Allocation Weight, Guardrail Metric, Eligibility Predicate) onto one concrete worked example, reinforcing the plain-language definitions given in this section's prose.</p>
+<p>Purpose: A central node labeled "Experiment Definition: Chapter 3 Worked Examples Test" with six labeled child nodes branching outward, each populated with a concrete filled-in example value: Experiment Hypothesis ("Worked examples raise mastery on Chapter 3 concepts"), Primary Outcome Metric ("Chapter 3 concept mastery"), Unit Of Randomization ("student_key"), Experiment Variant ×2 ("Control: v2.3" and "Treatment: v2.4 with worked examples", each showing its Allocation Weight of 50%), Guardrail Metric ("Engagement must not drop by more than 5%"), and Eligibility Predicate ("Districts that have not opted out of experimentation").</p>
+<p>Interactive features: Clicking any of the six child nodes opens an infobox with that field's one-sentence definition, matching this section's prose, plus the worked example's specific value. A "Reset view" button collapses all open infoboxes.</p>
+<p>Color coding: The central Experiment Definition node in the book's teal accent color; the two Experiment Variant nodes distinguished as control (gray-blue) versus treatment (amber) so the reader can see the comparison at a glance.</p>
+<p>Responsive design: The diagram re-flows from a radial layout on wide viewports to a vertical stacked layout on narrow viewports, with all six child nodes remaining independently clickable at any width.</p>
+</details>
+<h2 id="assigning-students-to-variants">Assigning Students to Variants<a class="headerlink" href="#assigning-students-to-variants" title="Permanent link">&para;</a></h2>
+<p>Once an Experiment Definition exists and is approved to start, the system has to decide, for every eligible unit, which variant it sees — and it has to keep giving that same unit the same answer for as long as the experiment runs. This is handled through <strong>Deterministic Sticky Assignment</strong>: rather than flipping a fresh coin every time a student loads a page, the system computes assignment as a pure function of two fixed inputs, the experiment and the unit being assigned.</p>
+<div class="arithmatex">\[
+\text{variant} = h(\text{experiment\_id}, \text{unit\_id}) \bmod k
+\]</div>
+<p>Here <span class="arithmatex">\( h \)</span> is a hash function — a calculation that turns its two inputs into a number that looks random but is always the same for the same inputs — and <span class="arithmatex">\( k \)</span> is the number of allocation buckets, sized to match the variants' Allocation Weights. Because the same <code>experiment_id</code> and <code>unit_id</code> always hash to the same bucket, a student assigned to the treatment arm on day one is still there on day thirty, with no lookup table required; the result is recorded as an <code>ASSIGNED_TO</code> edge for later audit, but the assignment itself is reproducible from the formula alone.</p>
+<ul>
+<li>Deterministic: the same experiment and unit always produce the same variant.</li>
+<li>Sticky: a student never flips between arms mid-experiment, which is what makes a before/after comparison meaningful.</li>
+<li>Tenancy-respecting: an opted-out district's students are excluded, via the Eligibility Predicate, before the hash is ever computed.</li>
+<li>Non-blocking: assignment is computed at serve time; if the assignment service is unreachable, the control arm is served and the statement is still recorded, so an experiment can never become a single point of failure for the textbook it is testing.</li>
+</ul>
+<p>Assignment quality itself needs a check, because a buggy eligibility filter or a subtle bug in how buckets map to variants can silently skew who ends up where. The <strong>Sample-Ratio Mismatch (SRM)</strong> check exists exactly for this: it compares the actual split of units across arms against the intended Allocation Weight and flags a mismatch too large to be chance. An experiment designed for an even 50/50 split that actually lands at 55/45 has failed its SRM check — and once that happens, every other statistic the experiment produces becomes suspect.</p>
+<div class="admonition mascot-tip">
+<p class="admonition-title">Check Sample-Ratio Mismatch First, Every Time</p>
+<p><img alt="Rowan pointing helpfully" class="mascot-admonition-img" src="../../img/mascot/tip.png" />
+Before you read an effect size or a confidence interval on any experiment readout, glance at the Sample-Ratio Mismatch check. A clean SRM check doesn't guarantee the rest of the results are meaningful, but a failed one means the rest of the readout isn't worth reading yet — fix the assignment bug first, then re-run.</p>
+</div>
+<h4 id="diagram-deterministic-sticky-assignment-and-district-opt-out">Diagram: Deterministic Sticky Assignment and District Opt-Out<a class="headerlink" href="#diagram-deterministic-sticky-assignment-and-district-opt-out" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/sticky-assignment-and-opt-out/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Deterministic Sticky Assignment and District Opt-Out</summary>
+<p>Type: workflow
+<strong>sim-id:</strong> sticky-assignment-and-opt-out<br/>
+<strong>Library:</strong> Mermaid<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Apply (L3)
+Bloom Taxonomy Verb: trace, apply</p>
+<p>Learning objective: Let the learner trace a single student's request through the eligibility check, the hash-based assignment formula, and the non-blocking fallback path, applying the deterministic sticky assignment rule to a concrete decision.</p>
+<p>Purpose: A Mermaid flowchart beginning at "Student requests a page covered by an active experiment," branching first on "Is the student's district opted out of experimentation?" — Yes leads directly to "Serve control arm (excluded from randomization)"; No proceeds to "Is the assignment service reachable?" — No leads to "Serve control arm (non-blocking fallback); statement still recorded"; Yes leads to "Compute variant = hash(experiment_id, unit_id) mod k" which leads to "Look up ASSIGNED_TO edge, or create it on first assignment" and finally to "Serve the assigned variant; assignment is now sticky for this student."</p>
+<p>Interactive features: Every node is wired with a Mermaid <code>click</code> directive. Clicking the opt-out decision node opens an infobox explaining that eligibility is enforced through the Eligibility Predicate and cannot be overridden by an author. Clicking the hash-formula node opens an infobox restating the formula from this section's prose in plain language. Clicking either "Serve control arm" outcome opens an infobox distinguishing the two reasons a student might land in control: policy exclusion versus a temporary service outage.</p>
+<p>Color coding: The two decision (branch) nodes in the book's amber accent color; the two control-arm outcomes in muted gray-blue; the "sticky assignment" terminal node in teal to mark the normal, successful path.</p>
+<p>Responsive design: The flowchart resizes to the containing element's width and stacks its branches vertically rather than horizontally on narrow viewports, preserving click targets at mobile widths.</p>
+</details>
+<h2 id="reading-the-statistical-readout">Reading the Statistical Readout<a class="headerlink" href="#reading-the-statistical-readout" title="Permanent link">&para;</a></h2>
+<p>Once an experiment has run long enough to accumulate meaningful data, the question shifts from "who got which variant" to "did it matter, and how sure are we?" Answering that requires a small vocabulary of statistical terms — each one worth defining in plain language before it appears in the readout dashboard below.</p>
+<p><strong>Effect Size</strong> is a way of expressing how large a difference is between two variants, on a scale that stays meaningful regardless of the metric's original units. A raw score difference of "3 points" means very little on its own — three points out of what, and how much do scores normally vary? <strong>Cohen's d</strong> is the specific effect-size statistic this system reports: it divides the difference between two variants' average outcomes by the pooled standard deviation, a measure of how spread out the results normally are.</p>
+<div class="arithmatex">\[
+d = \frac{\bar{x}_{\text{treatment}} - \bar{x}_{\text{control}}}{s_{\text{pooled}}}
+\]</div>
+<p>Here <span class="arithmatex">\( \bar{x}_{\text{treatment}} \)</span> and <span class="arithmatex">\( \bar{x}_{\text{control}} \)</span> are the average outcome in each arm, and <span class="arithmatex">\( s_{\text{pooled}} \)</span> is the standard deviation shared by both. A Cohen's d of 0.2 is conventionally considered a small effect, 0.5 a medium effect, and 0.8 or higher a large one — so a d of 0.5 means the treatment arm's average outcome sits about half a standard deviation above the control arm's, a useful, unit-free way to compare effect sizes across completely different metrics and experiments.</p>
+<ul>
+<li>Cohen's d around 0.2: a small effect — noticeable in large samples, but a small practical shift.</li>
+<li>Cohen's d around 0.5: a medium effect — the kind of change most curriculum revisions hope to see.</li>
+<li>Cohen's d around 0.8 or higher: a large effect — substantial enough to be obvious without statistical tools.</li>
+</ul>
+<p>An effect size on its own does not say how confident the readout is that the true effect isn't zero. That is the job of the <strong>Confidence Interval (CI)</strong>: a range of plausible values for the true effect, computed so that, under repeated sampling, an interval built this way would contain the true value a stated percentage of the time — typically 95%. Reporting "mastery improved by 7% ± 2%" is a plain-language way of expressing a 95% confidence interval of roughly 5% to 9%. A wide interval signals not enough data yet; a narrow interval signals a more confident estimate.</p>
+<p>Alongside the confidence interval sits the <strong>Two-Sided Significance Test</strong>, which asks whether the observed difference is large enough to be surprising by chance alone if there were truly no effect in either direction — "two-sided" because the treatment could turn out better <em>or</em> worse than control. The test produces a p-value, conventionally compared against a threshold such as <span class="arithmatex">\( \alpha = 0.05 \)</span>; a smaller p-value means the observed gap would be rarer under the assumption of no true effect.</p>
+<p>One subtlety trips up even careful readers: checking a p-value once a day while an experiment is still collecting data — "peeking" — inflates the chance of a false positive, because each extra look is another chance for random noise to briefly cross the threshold. The <strong>Sequential Testing Correction</strong> makes repeated peeking statistically safe by spending the allowed false-positive rate gradually across multiple looks instead of all at once, so an author can check a running experiment daily without secretly increasing the odds of a false "win."</p>
+<div class="admonition mascot-warning">
+<p class="admonition-title">Don't Stop an Experiment the Moment It Looks Significant</p>
+<p><img alt="Rowan waving a caution flag" class="mascot-admonition-img" src="../../img/mascot/warning.png" />
+The most common mistake with a live experiment is stopping it the instant the p-value first dips below the threshold — that first dip is exactly when uncorrected peeking is most likely to produce a false positive. Trust the readout's corrected verdict, not a raw p-value glanced at mid-experiment.</p>
+</div>
+<p>Two more pieces round out a trustworthy readout. <strong>Segmentation Analysis</strong> breaks the primary result down by subgroup — grade band, prior-mastery band, or district — with the same privacy aggregation threshold from Chapter 15 still applying, so no segment smaller than the threshold is ever shown broken out on its own. And a <strong>Guardrail Regression Flag</strong> fires automatically whenever a guardrail metric moves the wrong way beyond its configured tolerance, regardless of what the primary outcome metric shows — a treatment arm can win decisively on its primary metric and still get flagged if it quietly damages engagement.</p>
+<div class="admonition mascot-encourage">
+<p class="admonition-title">This Is a Lot of New Vocabulary at Once</p>
+<p><img alt="Rowan offering encouragement" class="mascot-admonition-img" src="../../img/mascot/encouraging.png" />
+Effect size, confidence interval, significance test, sequential correction, segmentation, guardrail flag — that is a lot of new terms at once, even at a college reading level. You do not need to compute any of these by hand. Recognize what each is <em>for</em>: effect size answers "how big," the confidence interval answers "how sure," the significance test answers "how surprising," and the guardrail flag answers "did we break anything else."</p>
+</div>
+<p>All of these pieces converge on one screen: the <strong>Experiment Readout Dashboard</strong>, a per-experiment Dash view built from the same reactive-layout skeleton every other dashboard in this book follows. Rather than describing its layout in prose alone, the table below organizes what appears on it, now that every term inside it has already been defined.</p>
+<table>
+<thead>
+<tr>
+<th>Panel</th>
+<th>Shows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Allocation</td>
+<td>The Experiment Variants and their Allocation Weights, plus the current Sample-Ratio Mismatch check</td>
+</tr>
+<tr>
+<td>Enrollment over time</td>
+<td>A running count of units assigned per arm since the experiment started</td>
+</tr>
+<tr>
+<td>Primary metric with CI band</td>
+<td>The Primary Outcome Metric's per-arm mean, effect size (Cohen's d), and confidence interval</td>
+</tr>
+<tr>
+<td>Guardrails</td>
+<td>Every Guardrail Metric's current status, with any Guardrail Regression Flag surfaced prominently</td>
+</tr>
+<tr>
+<td>Segment table</td>
+<td>Segmentation Analysis broken down by grade band, prior-mastery band, or district, above the privacy threshold</td>
+</tr>
+<tr>
+<td>Verdict</td>
+<td>A plain-language summary, such as "Variant B improved mastery by 7% ± 2%, p &lt; 0.01"</td>
+</tr>
+</tbody>
+</table>
+<h4 id="diagram-reading-the-experiment-readout-dashboard">Diagram: Reading the Experiment Readout Dashboard<a class="headerlink" href="#diagram-reading-the-experiment-readout-dashboard" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/experiment-readout-dashboard-mockup/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Reading the Experiment Readout Dashboard</summary>
+<p>Type: chart
+<strong>sim-id:</strong> experiment-readout-dashboard-mockup<br/>
+<strong>Library:</strong> p5.js<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Evaluate (L5)
+Bloom Taxonomy Verb: judge, justify</p>
+<p>Learning objective: Let the learner practice judging, from a single mocked-up readout, whether an experiment's result is trustworthy enough to act on — weighing effect size, confidence interval width, sample-ratio mismatch status, and guardrail flags together rather than looking at any one number in isolation.</p>
+<p>Canvas layout: A single dashboard mockup with four stacked panels matching the table in this section: (1) a small allocation bar showing 50/50 planned versus 52/48 actual with an SRM status badge; (2) a bar chart of mean primary-metric outcome for control versus treatment, each bar with a vertical confidence-interval whisker; (3) a row of guardrail metric badges (green "OK" or red "Regression Flag"); (4) a text verdict line that updates based on the controls below.</p>
+<p>Interactive controls: A <code>createSlider()</code> control lets the learner drag the treatment arm's mean outcome up or down, which live-redraws the confidence-interval whiskers and recomputes a simplified Cohen's d shown beside the chart. A <code>createCheckbox()</code> toggles "Trigger sample-ratio mismatch" (shifts the allocation bar and flips the SRM badge to a failure state). A second <code>createCheckbox()</code> toggles "Trigger guardrail regression" (flips one guardrail badge to red). The verdict text at the bottom changes dynamically: a clean, significant, guardrail-safe result reads "Ready to ship"; an SRM failure reads "Investigate assignment before trusting this result"; a guardrail regression reads "Primary metric improved, but a guardrail regressed — do not ship without review."</p>
+<p>Default parameters: Treatment mean set 0.3 standard deviations above control (Cohen's d ≈ 0.3), both mismatch and guardrail toggles off at start, so the default view shows a clean, shippable result.</p>
+<p>Color coding: Control arm in gray-blue, treatment arm in the book's teal accent color, guardrail badges in green/red, verdict text background shifting from green to amber to red depending on which toggles are active.</p>
+<p>Responsive design: Panels stack vertically at any width; on narrow viewports the sliders and checkboxes move below the chart rather than beside it, and the canvas width tracks its containing element.</p>
+</details>
+<h2 id="registries-variants-and-the-life-of-an-experiment">Registries, Variants, and the Life of an Experiment<a class="headerlink" href="#registries-variants-and-the-life-of-an-experiment" title="Permanent link">&para;</a></h2>
+<p>An Experiment Variant is only as good as the exact content it points to, which is why every variant is bound to a specific, named version rather than "whatever is currently live." The <strong>Textbook Registry</strong> is the authoritative list of every <code>Textbook</code> definition and its <code>TextbookVersion</code>s, each carrying a reconciliation status of provisional or reconciled. The <strong>MicroSim Registry</strong> does the same job one level down, listing every MicroSim and its versions per textbook, with a build status of scaffold, built, or approved. Defining a variant means picking a specific row out of one of these registries — "v2.3" or "v2.4," "the static diagram" or "<code>microsim-ohms-law</code>" — so the comparison is anchored to exact content, not a moving target.</p>
+<p>An experiment itself moves through a small, well-defined set of states the specification calls the <strong>AB Test Lifecycle</strong>: <strong>draft</strong> (editable, unapproved), <strong>running</strong> (assignment and data collection active), <strong>paused</strong> (triggered by a guardrail regression, a sample-ratio mismatch, or author judgment, without losing collected data), <strong>concluded</strong> (stopping serves the control arm to everyone going forward, whichever arm "won"), and <strong>archived</strong> for long-term record-keeping. Every start and stop is logged, and higher-stakes experiments require a second approver before a stop takes effect — the same governance guardrail Chapter 26 introduced for district configuration, now applied to experimentation.</p>
+<h4 id="diagram-the-ab-test-lifecycle">Diagram: The AB Test Lifecycle<a class="headerlink" href="#diagram-the-ab-test-lifecycle" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/ab-test-lifecycle-states/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>The AB Test Lifecycle</summary>
+<p>Type: workflow
+<strong>sim-id:</strong> ab-test-lifecycle-states<br/>
+<strong>Library:</strong> Mermaid<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Understand (L2)
+Bloom Taxonomy Verb: sequence, summarize</p>
+<p>Learning objective: Let the learner sequence the states an experiment moves through — draft, running, paused, concluded, archived — and identify which transitions are reversible versus terminal.</p>
+<p>Purpose: A Mermaid state diagram with five nodes: "Draft" → "Running" (on approval), "Running" → "Paused" (on guardrail regression, SRM failure, or author judgment), "Paused" → "Running" (on resume once the issue is resolved), "Running" → "Concluded" (on stop; control arm served to everyone from this point forward), "Concluded" → "Archived" (terminal).</p>
+<p>Interactive features: Every state node is wired with a Mermaid <code>click</code> directive. Clicking "Draft" opens an infobox noting the Experiment Definition is still editable and unapproved. Clicking "Running" opens an infobox noting assignment and data collection are both active. Clicking "Paused" opens an infobox listing the three common triggers (guardrail regression, SRM failure, author judgment) and noting no data is lost. Clicking "Concluded" opens an infobox emphasizing that stopping serves the control arm to everyone going forward, regardless of which arm the readout favored. Clicking "Archived" opens an infobox noting this is a terminal, read-only state kept for audit history.</p>
+<p>Color coding: Draft in neutral gray, Running in teal, Paused in amber, Concluded in a deeper teal, Archived in muted gray-blue — a progression from "not yet active" through "active" to "done," with Paused visually distinct as an interruption rather than an ending.</p>
+<p>Responsive design: The state diagram resizes to the containing element's width; on narrow viewports the states stack top-to-bottom in sequence rather than arranging left-to-right.</p>
+</details>
+<h2 id="one-loop-three-personas">One Loop, Three Personas<a class="headerlink" href="#one-loop-three-personas" title="Permanent link">&para;</a></h2>
+<p>Step back from any single experiment, and a larger pattern comes into view — one that ties this chapter back to every persona this book has introduced. The specification calls this pattern the <strong>Content Effectiveness Loop</strong>: the Content Insights Dashboard and its Correlation Explorer surface a correlational lead, the Experiment Designer turns that lead into a randomized test, the Experiment Readout Dashboard delivers a verdict, and an author who ships a winning variant feeds a better-performing version straight back into Content Insights — where the cycle surfaces its next lead. This is an ongoing feedback mechanism, not a one-time process; it keeps a textbook improving after it ships, not just at launch.</p>
+<p>That loop only works because it crosses persona boundaries without breaking any of them — a pattern the specification calls a <strong>Cross-Persona Workflow</strong>. A district administrator's opt-out policy is enforced automatically at assignment time without any author action. A teacher's classroom keeps functioning normally throughout an experiment — dashboards, rosters, and reports work identically no matter which arm a student was assigned to, since sticky assignment is invisible at the point of daily teaching. And the textbook author is the one persona who designs the experiment and reads its verdict.</p>
+<ul>
+<li>A <strong>Textbook Author</strong> designs the Experiment Definition, chooses variants from the Textbook and MicroSim Registries, and reads the readout dashboard's verdict.</li>
+<li>A <strong>District Administrator</strong>'s district-level opt-out flag is enforced automatically at assignment time and cannot be overridden by an author.</li>
+<li>A <strong>Teacher</strong>'s day-to-day dashboards and reports continue to function normally for every student, regardless of which experiment arm that student was assigned to.</li>
+</ul>
+<p>Underneath all three personas sits one fact this book has repeated since its earliest chapters: every persona-facing report — the administrator's adoption dashboard, the teacher's class mastery heatmap, the author's experiment readout — reads from the same <strong>Shared Statement Log</strong>, the compressed summary-vertex layer built from the raw xAPI Event Store first introduced in Chapter 1. Running an experiment requires no separate data pipeline; an Experiment Variant assignment is just one more piece of context attached to statements already flowing through that same log. Any dashboard or report scoped to a persona's role and permissions is, in the specification's own general term, a <strong>Persona-Facing Report</strong>: the same underlying evidence, reshaped to answer the question that persona is allowed to ask.</p>
+<h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
+<ul>
+<li>An <strong>Experiment Definition</strong> gathers a hypothesis, primary metric, unit of randomization, variants, guardrails, and eligibility rules into one reviewable object.</li>
+<li>The <strong>Experiment Hypothesis</strong> is a free-text, falsifiable statement of what the author expects a change to do.</li>
+<li>The <strong>Primary Outcome Metric</strong> is the single metric an experiment is judged on, fixed before the experiment starts.</li>
+<li>The <strong>Unit Of Randomization</strong> is what gets assigned to a variant — usually a student, sometimes a whole section to avoid contamination.</li>
+<li>An <strong>Experiment Variant</strong> is one arm of the test, bound to a specific TextbookVersion or MicroSimVersion.</li>
+<li>The <strong>Allocation Weight</strong> is the share of randomized units each variant is meant to receive.</li>
+<li>A <strong>Guardrail Metric</strong> must not regress meaningfully while an experiment runs, even if it isn't the metric being tested.</li>
+<li>The <strong>Eligibility Predicate</strong> decides who can be randomized at all, and is where district opt-out is enforced.</li>
+<li><strong>Deterministic Sticky Assignment</strong> computes a student's variant from a reproducible hash formula, so it never changes mid-experiment.</li>
+<li>A <strong>Sample-Ratio Mismatch</strong> flags an assignment skew serious enough to make the rest of an experiment's results suspect.</li>
+<li><strong>Effect Size</strong>, and specifically <strong>Cohen's d</strong>, expresses how large a difference is between two variants in standard-deviation units.</li>
+<li>A <strong>Confidence Interval</strong> gives a range of plausible values for the true effect, not just a single point estimate.</li>
+<li>A <strong>Two-Sided Significance Test</strong> checks whether an observed gap is surprising under the assumption of no true effect in either direction.</li>
+<li>A <strong>Sequential Testing Correction</strong> makes it statistically safe to check a running experiment's results more than once.</li>
+<li><strong>Segmentation Analysis</strong> breaks a result down by subgroup, still bounded by the privacy aggregation threshold.</li>
+<li>A <strong>Guardrail Regression Flag</strong> fires automatically when a guardrail metric moves the wrong way beyond tolerance.</li>
+<li>The <strong>Experiment Readout Dashboard</strong> brings allocation, enrollment, the primary metric, guardrails, segments, and a plain-language verdict together on one screen.</li>
+<li>The <strong>Textbook Registry</strong> and <strong>MicroSim Registry</strong> are the authoritative sources of the exact versions an Experiment Variant can be bound to.</li>
+<li>The <strong>AB Test Lifecycle</strong> moves an experiment through draft, running, paused, concluded, and archived states.</li>
+<li>The <strong>Content Effectiveness Loop</strong> connects observational leads to randomized tests to shipped improvements, on an ongoing cycle.</li>
+<li>A <strong>Cross-Persona Workflow</strong> lets one experiment respect a district administrator's opt-out, a teacher's undisturbed classroom view, and an author's design and readout, all at once.</li>
+<li>The <strong>Shared Statement Log</strong> is the single compressed evidence base every persona-facing report and every experiment reads from.</li>
+<li>A <strong>Persona-Facing Report</strong> is any report or dashboard reshaped from that shared evidence to answer the specific question one persona's role is allowed to ask.</li>
+</ul>
+<div class="admonition mascot-celebration">
+<p class="admonition-title">You Can Now Read a Real Experiment</p>
+<p><img alt="Rowan celebrating with confetti" class="mascot-admonition-img" src="../../img/mascot/celebration.png" />
+What does the evidence show? You now know how to define an experiment, trust its assignment mechanism, and read its verdict without being fooled by a stopped-too-early p-value or a hidden guardrail regression. That closes the loop this book has been building since Chapter 24 — three personas, one shared log, and now one way to test a change instead of just guessing at it. Next, in <a href="../32-producer-contract-conformant-statements/">Chapter 32: The Producer Contract - Writing Conformant Statements</a>, we turn to the other end of that shared log: what it takes to write a Statement worth trusting in the first place.</p>
+</div>
 
 
 
 
 
 
+
+  
+  
 
 
 
@@ -2027,13 +2194,10 @@
     </div>
     
     
-    
-      
-      
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
         <script src="../../js/katex.js"></script>
       

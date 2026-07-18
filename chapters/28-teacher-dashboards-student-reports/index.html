@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="An intelligent textbook on Learning Record Stores: what they are, how xAPI statements work, and how to design, deploy, and query an LRS.">
+        <meta name="description" content="How the My Classes and Student Detail dashboards give a teacher a per-student lens on the same statement log, and the nine student-level reports — progress, mastery, timing, struggle, prerequisites, quiz items, disengagement, velocity, and reading-versus-doing balance — that answer which student needs help today.">
       
       
         <meta name="author" content="Dan McCreary">
@@ -21,22 +21,19 @@
         <link rel="next" href="../29-class-level-reports-and-tools/">
       
       
-        
-      
-      
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
     
     
       
-        <title>28. Teacher Dashboards and Student-Level Reports - Learning Record Store</title>
+        <title>Teacher Dashboards and Student-Level Reports - Learning Record Store</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -67,6 +64,7 @@
     
       
 
+    
     
     
   </head>
@@ -121,7 +119,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              28. Teacher Dashboards and Student-Level Reports
+              Teacher Dashboards and Student-Level Reports
             
           </span>
         </div>
@@ -133,13 +131,11 @@
     
     
     
-      
-      
-        <label class="md-header__button md-icon" for="__search">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        </label>
-        <div class="md-search" data-md-component="search" role="dialog">
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
@@ -178,14 +174,13 @@
     </div>
   </div>
 </div>
-      
     
     
       <div class="md-header__source">
         <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub Repo
@@ -230,7 +225,7 @@
       <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub Repo
@@ -250,16 +245,9 @@
       <a href="../.." class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Home
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -277,16 +265,9 @@
       <a href="../../about/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     About
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -304,16 +285,9 @@
       <a href="../../course-description/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Course Description
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -325,120 +299,6 @@
       
   
   
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-  
-    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
-      
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Specifications
-  
-
-    
-  </span>
-  
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-  
-    <a href="../../demo/graph-queries/" class="md-nav__link">
-      
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Demo
-  
-
-    
-  </span>
-  
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -451,70 +311,133 @@
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
-    
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
     
     
     
@@ -524,42 +447,32 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
+          
           
           <div class="md-nav__link md-nav__container">
             <a href="../" class="md-nav__link ">
               
   
-  
   <span class="md-ellipsis">
-    
-  
     Chapters
-  
-
-    
   </span>
-  
   
 
             </a>
             
               
-              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_6">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
-            
-  
-    Chapters
-  
-
+            Chapters
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -575,16 +488,9 @@
       <a href="../01-lms-to-experience-api/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     1. From Learning Management Systems to the Experience API
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -603,16 +509,9 @@
       <a href="../02-anatomy-of-xapi-statement/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     2. The Anatomy of an xAPI Statement
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -631,16 +530,9 @@
       <a href="../03-ieee-standardization-xapi-cmi5/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     3. IEEE Standardization of xAPI and cmi5
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -659,16 +551,9 @@
       <a href="../04-standards-governance-ecosystem/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     4. Standards Governance and the Wider Interoperability Ecosystem
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -687,16 +572,9 @@
       <a href="../05-system-context-architectural-planes/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     5. System Context and the Five Architectural Planes
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -715,16 +593,9 @@
       <a href="../06-multi-tenancy-rosters-identity/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     6. Multi-Tenancy, Rosters, and Pseudonymous Identity
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -743,16 +614,9 @@
       <a href="../07-property-graph-data-model/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     7. The Property Graph Data Model
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -771,16 +635,9 @@
       <a href="../08-summary-vertices-ingestion/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     8. Summary Vertices and Statement Ingestion Mechanics
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -799,16 +656,9 @@
       <a href="../09-twelve-core-lrs-functions/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     9. The Twelve Core LRS Functions
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -827,16 +677,9 @@
       <a href="../10-choosing-technology-stack/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     10. Choosing the Technology Stack
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -855,16 +698,9 @@
       <a href="../11-adrs-and-capacity-model/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     11. Architecture Decision Records and the Capacity Model
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -883,16 +719,9 @@
       <a href="../12-bayesian-knowledge-tracing/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     12. Bayesian Knowledge Tracing for Mastery
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -911,16 +740,9 @@
       <a href="../13-component-design-in-depth/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     13. Component Design in Depth
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -939,16 +761,9 @@
       <a href="../14-kafka-clickhouse-graph-schema/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     14. Kafka Topics, ClickHouse Schema, and Graph Constraints
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -967,16 +782,9 @@
       <a href="../15-privacy-and-dashboard-mechanics/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     15. Privacy Enforcement and Dashboard Mechanics
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -995,16 +803,9 @@
       <a href="../16-container-image-and-cli/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     16. The Container Image and the Role Dispatcher CLI
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1023,16 +824,9 @@
       <a href="../17-compose-makefile-supply-chain/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     17. Docker Compose, the Makefile, and the Image Supply Chain
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1051,16 +845,9 @@
       <a href="../18-config-migration-backup-rollout/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     18. Configuration, Migration, Backup, and Rollout
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1079,16 +866,9 @@
       <a href="../19-failure-modes-and-verification/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     19. Failure Modes and Verification
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1107,16 +887,9 @@
       <a href="../20-deviations-roadmap-open-questions/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     20. Spec Deviations, the Delivery Roadmap, and Open Questions
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1135,16 +908,9 @@
       <a href="../21-hardware-cost-dev-environment/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     21. Hardware Sizing, Cost, and the Development Environment
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1163,16 +929,9 @@
       <a href="../22-proving-the-architecture-mvp/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     22. Proving the Architecture - the MVP Plan
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1191,16 +950,9 @@
       <a href="../23-production-infrastructure-cloud/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     23. Production Infrastructure and Cloud Services
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1219,16 +971,9 @@
       <a href="../24-three-personas-and-admin-uis/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     24. Meet the Three Personas and the Admin UI Surface
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1247,16 +992,9 @@
       <a href="../25-district-admin-rosters-deployments/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     25. District Administrator - Rosters, Deployments, and Registries
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1275,16 +1013,9 @@
       <a href="../26-district-admin-access-control/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     26. District Administrator - Access Control and System Configuration
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1303,16 +1034,9 @@
       <a href="../27-compliance-and-district-reporting/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     27. Compliance, Privacy Law, and District-Level Reporting
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1340,16 +1064,9 @@
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
   
-  
   <span class="md-ellipsis">
-    
-  
     28. Teacher Dashboards and Student-Level Reports
-  
-
-    
   </span>
-  
   
 
           <span class="md-nav__icon md-icon"></span>
@@ -1358,16 +1075,9 @@
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     28. Teacher Dashboards and Student-Level Reports
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1390,9 +1100,7 @@
         <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Summary
-      
+      Summary
     </span>
   </a>
   
@@ -1401,9 +1109,7 @@
         <li class="md-nav__item">
   <a href="#concepts-covered" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Concepts Covered
-      
+      Concepts Covered
     </span>
   </a>
   
@@ -1412,9 +1118,166 @@
         <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
       
-        Prerequisites
+        <li class="md-nav__item">
+  <a href="#two-dashboards-one-drill-down" class="md-nav__link">
+    <span class="md-ellipsis">
+      Two Dashboards, One Drill-Down
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Two Dashboards, One Drill-Down">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-my-classes-to-student-detail-one-click-nine-reports" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: My Classes to Student Detail — One Click, Nine Reports
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
+        <li class="md-nav__item">
+  <a href="#student-progress-overview-the-checklist-a-teacher-opens-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      Student Progress Overview: The Checklist a Teacher Opens First
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#concept-mastery-radar-mastery-grouped-and-shaped" class="md-nav__link">
+    <span class="md-ellipsis">
+      Concept Mastery Radar: Mastery, Grouped and Shaped
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Concept Mastery Radar: Mastery, Grouped and Shaped">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-concept-mastery-radar-for-one-student" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Concept Mastery Radar for One Student
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reading-vs-doing-balance-a-quick-verb-ratio-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reading vs. Doing Balance: A Quick Verb-Ratio Check
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#time-on-task-timeline-when-the-student-actually-worked" class="md-nav__link">
+    <span class="md-ellipsis">
+      Time-on-Task Timeline: When the Student Actually Worked
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Time-on-Task Timeline: When the Student Actually Worked">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-one-students-time-on-task-timeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: One Student's Time-on-Task Timeline
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-velocity-report-speeding-up-or-stalling-out" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learning Velocity Report: Speeding Up or Stalling Out
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quiz-item-analysis-performance-at-the-question-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quiz Item Analysis: Performance at the Question Level
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#struggle-detector-composing-the-signals-into-a-ranked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Struggle Detector: Composing the Signals Into a Ranked List
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisite-gap-analysis-walking-upstream-from-the-struggle" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisite Gap Analysis: Walking Upstream From the Struggle
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prerequisite Gap Analysis: Walking Upstream From the Struggle">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-prerequisite-gap-analysis-walking-upstream-from-a-weak-concept" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Prerequisite Gap Analysis — Walking Upstream From a Weak Concept
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#idle-disengagement-alert-the-report-that-reaches-back-to-my-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Idle Disengagement Alert: The Report That Reaches Back to My Classes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
     </span>
   </a>
   
@@ -1439,16 +1302,9 @@
       <a href="../29-class-level-reports-and-tools/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     29. Class-Level Reports and Teacher Tools
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1467,16 +1323,9 @@
       <a href="../30-author-dashboards-content-reports/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     30. Textbook Author Dashboards and Content Reports
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1495,16 +1344,9 @@
       <a href="../31-designing-ab-experiments/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     31. Designing and Reading A/B Experiments
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1523,16 +1365,9 @@
       <a href="../32-producer-contract-conformant-statements/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     32. The Producer Contract - Writing Conformant Statements
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1576,7 +1411,6 @@
     
     
     
-    
       
         
         
@@ -1587,20 +1421,12 @@
         
   
   
-  
     <a href="../../learning-graph/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     Learning Graph
-  
-
-    
   </span>
-  
   
 
       
@@ -1628,18 +1454,29 @@
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
-    
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
     
     
     
@@ -1653,20 +1490,108 @@
         
   
   
-  
     <a href="../../sims/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     MicroSims
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
   
 
     
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Specifications
   </span>
   
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../demo/graph-queries/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Demo
+  </span>
   
 
       
@@ -1690,16 +1615,9 @@
       <a href="../../glossary/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Glossary
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1717,16 +1635,9 @@
       <a href="../../license/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     License
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1744,16 +1655,9 @@
       <a href="../../contact/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Contact
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1790,9 +1694,7 @@
         <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Summary
-      
+      Summary
     </span>
   </a>
   
@@ -1801,9 +1703,7 @@
         <li class="md-nav__item">
   <a href="#concepts-covered" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Concepts Covered
-      
+      Concepts Covered
     </span>
   </a>
   
@@ -1812,9 +1712,166 @@
         <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
       
-        Prerequisites
+        <li class="md-nav__item">
+  <a href="#two-dashboards-one-drill-down" class="md-nav__link">
+    <span class="md-ellipsis">
+      Two Dashboards, One Drill-Down
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Two Dashboards, One Drill-Down">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-my-classes-to-student-detail-one-click-nine-reports" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: My Classes to Student Detail — One Click, Nine Reports
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
+        <li class="md-nav__item">
+  <a href="#student-progress-overview-the-checklist-a-teacher-opens-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      Student Progress Overview: The Checklist a Teacher Opens First
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#concept-mastery-radar-mastery-grouped-and-shaped" class="md-nav__link">
+    <span class="md-ellipsis">
+      Concept Mastery Radar: Mastery, Grouped and Shaped
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Concept Mastery Radar: Mastery, Grouped and Shaped">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-concept-mastery-radar-for-one-student" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Concept Mastery Radar for One Student
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reading-vs-doing-balance-a-quick-verb-ratio-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reading vs. Doing Balance: A Quick Verb-Ratio Check
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#time-on-task-timeline-when-the-student-actually-worked" class="md-nav__link">
+    <span class="md-ellipsis">
+      Time-on-Task Timeline: When the Student Actually Worked
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Time-on-Task Timeline: When the Student Actually Worked">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-one-students-time-on-task-timeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: One Student's Time-on-Task Timeline
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-velocity-report-speeding-up-or-stalling-out" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learning Velocity Report: Speeding Up or Stalling Out
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quiz-item-analysis-performance-at-the-question-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quiz Item Analysis: Performance at the Question Level
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#struggle-detector-composing-the-signals-into-a-ranked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Struggle Detector: Composing the Signals Into a Ranked List
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisite-gap-analysis-walking-upstream-from-the-struggle" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisite Gap Analysis: Walking Upstream From the Struggle
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prerequisite Gap Analysis: Walking Upstream From the Struggle">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-prerequisite-gap-analysis-walking-upstream-from-a-weak-concept" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Prerequisite Gap Analysis — Walking Upstream From a Weak Concept
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#idle-disengagement-alert-the-report-that-reaches-back-to-my-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Idle Disengagement Alert: The Report That Reaches Back to My Classes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
     </span>
   </a>
   
@@ -1830,62 +1887,12 @@
           
           
             <div class="md-content" data-md-component="content">
-              
-                
-
-
-
-  
-
-
-  <nav class="md-path" aria-label="Navigation" >
-    <ol class="md-path__list">
-      
-        
-  
-  
-    <li class="md-path__item">
-      <a href="../.." class="md-path__link">
-        
-  <span class="md-ellipsis">
-    Home
-  </span>
-
-      </a>
-    </li>
-  
-
-      
-      
-        
-  
-  
-    
-    
-      <li class="md-path__item">
-        <a href="../" class="md-path__link">
-          
-  <span class="md-ellipsis">
-    Chapters
-  </span>
-
-        </a>
-      </li>
-    
-  
-
-      
-    </ol>
-  </nav>
-
-              
               <article class="md-content__inner md-typeset">
                 
                   
 
-
   
-    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/28-teacher-dashboards-student-reports/index.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/28-teacher-dashboards-student-reports/index.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1921,13 +1928,257 @@
 <li><a href="../24-three-personas-and-admin-uis/">Chapter 24: Meet the Three Personas and the Admin UI Surface</a></li>
 </ul>
 <hr />
-<p>TODO: Generate Chapter Content</p>
+<div class="admonition mascot-welcome">
+<p class="admonition-title">From the District's Ledger to One Student's Screen</p>
+<p><img alt="Rowan waving welcome" class="mascot-admonition-img" src="../../img/mascot/welcome.png" />
+Chapter 27 closed out the district administrator's arc with laws, audits, and a rollout plan signed off on paper. This chapter puts down that paperwork and opens a laptop most teachers actually keep open all day: the classroom view. Same statement log, same ingestion pipeline, same mastery engine — but the question changes from "is this rollout compliant?" to "which of my students needs help right now, and on what?" Let's follow the record.</p>
+</div>
+<p>Recall from <a href="../24-three-personas-and-admin-uis/">Chapter 24</a> that the <strong>Teacher</strong> persona's goal sentence is short on purpose: <em>which of my students needs help right now, and on what?</em> Everything in this chapter exists to answer exactly that sentence, one student at a time. A district administrator reads coverage percentages and audit logs; a teacher reads a roster of names they already know, and the software's entire job is to turn a firehose of xAPI Statements into something that fits on one screen without losing the one student who is quietly falling behind.</p>
+<h2 id="two-dashboards-one-drill-down">Two Dashboards, One Drill-Down<a class="headerlink" href="#two-dashboards-one-drill-down" title="Permanent link">&para;</a></h2>
+<p>The specification's Dashboard Catalog assigns a teacher exactly two dashboards. The <strong>My Classes Dashboard</strong> is a teacher's landing page — a section-level view built from a class mastery heatmap, a completion funnel, an at-risk roster, and a rolled-up disengagement alert, so a teacher can scan an entire section for trouble spots in one glance. The <strong>Student Detail Dashboard</strong> is where a teacher lands after clicking one name on that roster — a single-student view built from all nine of the reports this chapter covers in depth. My Classes answers "which section, which concept, which student" at a glance; Student Detail answers "what exactly is going on with this one student."</p>
+<p>This chapter is deliberately narrow about My Classes: the class-level mechanics behind its heatmap and at-risk roster — how a whole section's mastery gets aggregated, and how a composite risk score is computed across many students at once — are <a href="../29-class-level-reports-and-tools/">Chapter 29</a>'s subject, not this one. What matters here is only the <em>drill-down</em> itself: My Classes is the door, and the nine reports below are the room behind it.</p>
+<p>The dashboard mechanics that make either screen work at all are not new. <a href="../15-privacy-and-dashboard-mechanics/">Chapter 15</a> already established that every dashboard in this project follows one shared anatomy — a header with breadcrumb and filters, a left-rail report menu, a main canvas of KPI tiles and figures, and a footer with export and refresh controls — and that clicking a row in one figure cross-filters every other figure on the same screen without a page reload. This chapter does not re-explain that mechanism; it shows where a teacher's two dashboards sit inside it.</p>
+<table>
+<thead>
+<tr>
+<th>Dashboard</th>
+<th>Audience</th>
+<th>Backing Reports</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>My Classes Dashboard</strong></td>
+<td>Teacher</td>
+<td>Class Mastery Heatmap, Completion Funnel, At-Risk Roster, Idle Disengagement Alert</td>
+</tr>
+<tr>
+<td><strong>Student Detail Dashboard</strong></td>
+<td>Teacher</td>
+<td>All nine student-level reports covered in this chapter</td>
+</tr>
+</tbody>
+</table>
+<p>Reading that table top to bottom traces the exact click a teacher makes every morning: scan My Classes for a name that stands out on the at-risk roster or the disengagement alert, then click through to that student's own Student Detail Dashboard for the full nine-report picture. The diagram below walks that same click as an interactive sequence, distinguishing what each screen shows before and after the drill-down.</p>
+<h4 id="diagram-my-classes-to-student-detail-one-click-nine-reports">Diagram: My Classes to Student Detail — One Click, Nine Reports<a class="headerlink" href="#diagram-my-classes-to-student-detail-one-click-nine-reports" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/my-classes-student-detail-drilldown/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>My Classes to Student Detail — One Click, Nine Reports</summary>
+<p>Type: workflow
+<strong>sim-id:</strong> my-classes-student-detail-drilldown<br/>
+<strong>Library:</strong> Mermaid<br/>
+<strong>Status:</strong> Specified
+<strong>Template:</strong> https://github.com/dmccreary/search-microsims/tree/main/docs/sims/dashboard-patterns<br/></p>
+<p>Bloom Taxonomy: Understand (L2)
+Bloom Taxonomy Verb: explain, sequence</p>
+<p>Learning objective: Explain how a teacher moves from a section-level roster on My Classes to a single student's nine-report Student Detail view, carrying filter context (the selected date range and textbook version) across the click.</p>
+<p>Purpose: A two-lane Mermaid flowchart. Lane 1, "My Classes Dashboard," contains four boxes: Class Mastery Heatmap, Completion Funnel, At-Risk Roster, Idle Disengagement Alert. Lane 2, "Student Detail Dashboard," contains nine boxes, one per student-level report named later in this chapter (Student Progress Overview, Concept Mastery Radar, Time-on-Task Timeline, Reading vs. Doing Balance, Learning Velocity Report, Quiz Item Analysis, Struggle Detector, Prerequisite Gap Analysis, Idle Disengagement Alert). One labeled arrow, "click a student row," crosses from the At-Risk Roster box in Lane 1 to the whole Lane 2 group, annotated "filter context (date range, textbook version) carried across."</p>
+<p>Interactive features: Every box in both lanes has a Mermaid click directive opening an infobox with that report's one-sentence purpose. Clicking the crossing arrow opens an infobox explaining server-side aggregation: the browser never re-fetches raw statements on drill-down, only a narrower pre-aggregated query for the one selected student.</p>
+<p>Color coding: Lane 1 (My Classes) in the book's amber accent color; Lane 2 (Student Detail) in teal; the crossing arrow in a bold outline to draw the eye to the drill-down moment.</p>
+<p>Implementation: Mermaid flowchart with two subgraphs and full click-to-infobox coverage, adapted from the referenced template's dashboard-composition layout. Responsive width tracking the containing element; on narrow viewports the two lanes stack vertically instead of side by side.</p>
+</details>
+<div class="admonition mascot-thinking">
+<p class="admonition-title">One Log, Two Numbering Schemes, No New Data</p>
+<p><img alt="Rowan thinking with a magnifying glass" class="mascot-admonition-img" src="../../img/mascot/thinking.png" />
+The specification numbers a teacher's reports in two bands — a low band for student-level reports and a higher band for section-level ones, exactly mirroring the split you just saw between Student Detail and My Classes. Don't read that numbering as two different pipelines. It is the same idea Chapter 24 introduced with three personas sharing one statement log, now repeated one level down: a teacher's own reports split into "one student" and "one section" by aggregation grain alone, not by data source.</p>
+</div>
+<h2 id="student-progress-overview-the-checklist-a-teacher-opens-first">Student Progress Overview: The Checklist a Teacher Opens First<a class="headerlink" href="#student-progress-overview-the-checklist-a-teacher-opens-first" title="Permanent link">&para;</a></h2>
+<p>The simplest of the nine student-level reports is also usually the first one a teacher opens. The <strong>Student Progress Overview</strong> is a progress bar paired with a concept checklist: it compares the concepts a student has evidence of mastering against the full concept set the textbook defines, and renders the gap as a percentage-complete bar plus a scrollable list of concept names with a checkmark or an empty box next to each. Mechanically, it walks the graph from a <code>Student</code> vertex to that student's <code>ConceptMastery</code> summary vertices and matches the result against the textbook's full concept catalog — the same <code>Concept</code> vertices and <code>DEPENDS_ON</code> edges <a href="../07-property-graph-data-model/">Chapter 7</a> introduced as the property graph's backbone.</p>
+<p>Because this report answers "how far along is this student, overall" rather than "how well," it deliberately does not distinguish a concept mastered with high confidence from one mastered barely above threshold — that finer distinction belongs to the next report.</p>
+<h2 id="concept-mastery-radar-mastery-grouped-and-shaped">Concept Mastery Radar: Mastery, Grouped and Shaped<a class="headerlink" href="#concept-mastery-radar-mastery-grouped-and-shaped" title="Permanent link">&para;</a></h2>
+<p>Where the Progress Overview asks "mastered or not," the <strong>Concept Mastery Radar</strong> asks "mastered how well, and in which areas." It is a radar (spider) chart with one spoke per taxonomy category from the textbook's own concept taxonomy, each spoke's length set by the average mastery score of that student's concepts within that category. A student strong in vocabulary-heavy categories but weak in a category demanding multi-step reasoning shows up as a lopsided shape rather than a single flat number — exactly the kind of pattern a progress bar alone cannot reveal.</p>
+<p>The mastery score behind every spoke is the same <code>mastery_score</code> property that <a href="../12-bayesian-knowledge-tracing/">Chapter 12</a> introduced as Bayesian Knowledge Tracing's output: a probability, updated after every relevant statement, that a given student has mastered a given concept. That reuse matters pedagogically as much as technically — a teacher reading this radar chart is looking at the identical number Chapter 12 explained how to compute, just aggregated by category and rendered as a shape instead of read one concept at a time.</p>
+<h4 id="diagram-concept-mastery-radar-for-one-student">Diagram: Concept Mastery Radar for One Student<a class="headerlink" href="#diagram-concept-mastery-radar-for-one-student" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/concept-mastery-radar/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Concept Mastery Radar for One Student</summary>
+<p>Type: chart
+<strong>sim-id:</strong> concept-mastery-radar<br/>
+<strong>Library:</strong> p5.js<br/>
+<strong>Status:</strong> Specified
+<strong>Template:</strong> https://github.com/dmccreary/blockchain/tree/main/docs/sims/quality-attribute-radar<br/></p>
+<p>Bloom Taxonomy: Understand (L2)
+Bloom Taxonomy Verb: interpret, compare</p>
+<p>Learning objective: Let the learner interpret a radar chart of one student's Bayesian Knowledge Tracing mastery scores grouped by taxonomy category, identifying the category where that student is weakest.</p>
+<p>Purpose: A radar/spider chart with five to seven spokes, one per taxonomy category (e.g., Vocabulary, Procedures, Analysis, Application, Synthesis), each spoke scaled 0 to 1 to match the BKT mastery-score range.</p>
+<p>Data: A sample student's per-category average mastery scores plotted as a filled polygon; a faint dashed reference polygon at 0.75 mastery marks the textbook's default "likely mastered" line so the learner can see at a glance which spokes fall short of it.</p>
+<p>Interactive features: Clicking any spoke's label opens an infobox naming that taxonomy category and listing the two or three concepts within it that pull the average down the most. A slider (p5.js <code>createSlider()</code>) lets the learner switch between three sample students to see how the same chart shape changes with a different mastery profile.</p>
+<p>Color coding: The filled mastery polygon in the book's teal accent color; the 0.75 reference line in a neutral dashed gray so it reads as a threshold, not a second data series.</p>
+<p>Implementation: p5.js canvas rendering a polar/radar plot from an array of category-score pairs, adapted from the referenced template's radar-chart structure. Responsive width tracking the containing element; spoke labels rotate to remain horizontal and legible at narrow widths.</p>
+</details>
+<div class="admonition mascot-tip">
+<p class="admonition-title">A Mastery Score Is a Probability, Not a Percentage Grade</p>
+<p><img alt="Rowan pointing helpfully" class="mascot-admonition-img" src="../../img/mascot/tip.png" />
+It is tempting to read a 0.62 mastery score the way you would read a 62% quiz grade — as "more than half right." Chapter 12 was precise about why that reading is wrong: 0.62 means the model estimates a 62% <em>chance</em> this student has actually mastered the concept, not that they answered 62% of questions correctly. A teacher who treats the Concept Mastery Radar's spokes as percentage grades will misjudge exactly the students sitting near the 0.75 reference line — which is precisely where a teacher's judgment matters most.</p>
+</div>
+<h2 id="reading-vs-doing-balance-a-quick-verb-ratio-check">Reading vs. Doing Balance: A Quick Verb-Ratio Check<a class="headerlink" href="#reading-vs-doing-balance-a-quick-verb-ratio-check" title="Permanent link">&para;</a></h2>
+<p>Not every useful report requires a chart with multiple axes. The <strong>Reading vs. Doing Balance</strong> report is a single stacked bar built from a ratio of two xAPI verb families already familiar from <a href="../01-lms-to-experience-api/">Chapter 1</a>: <code>experienced</code> statements, which record a student reading a passage or watching a walkthrough, against <code>interacted</code> and <code>answered</code> statements, which record a student actively doing something — dragging a MicroSim's slider, submitting a quiz answer, working a practice problem. The ratio between the two segments tells a teacher, at a glance, whether a given student is spending a chapter mostly reading or mostly doing.</p>
+<p>Neither extreme is automatically bad — a student previewing a chapter before lab time might reasonably show all reading and no doing yet — but a student who is <em>only</em> ever reading, chapter after chapter, is a student a teacher may want to nudge toward the interactive material the textbook actually provides.</p>
+<table>
+<thead>
+<tr>
+<th>Student (sample)</th>
+<th>Reading Statements</th>
+<th>Doing Statements</th>
+<th>Reading:Doing Ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Amara</td>
+<td>42</td>
+<td>38</td>
+<td>roughly 1:1</td>
+</tr>
+<tr>
+<td>Devon</td>
+<td>61</td>
+<td>9</td>
+<td>roughly 7:1</td>
+</tr>
+<tr>
+<td>Priya</td>
+<td>18</td>
+<td>55</td>
+<td>roughly 1:3</td>
+</tr>
+</tbody>
+</table>
+<p>Reading down that table, Devon's 7:1 ratio is the one worth a teacher's attention — not because reading is wrong, but because a ratio that lopsided, chapter after chapter, usually means the interactive material is being skipped rather than merely deferred.</p>
+<h2 id="time-on-task-timeline-when-the-student-actually-worked">Time-on-Task Timeline: When the Student Actually Worked<a class="headerlink" href="#time-on-task-timeline-when-the-student-actually-worked" title="Permanent link">&para;</a></h2>
+<p>The <strong>Time-on-Task Timeline</strong> answers a question none of the reports above can: not <em>what</em> a student did, but <em>when</em>, and for how long in one sitting. It renders as a Gantt-style timeline built from <code>LearningSession</code> summary vertices and the <code>TOUCHED</code> edges connecting a session to the concepts it covered — each session appears as a horizontal bar positioned at its start time and stretched to its duration, with a click available to drill into the individual statements inside that session down at the event-store level.</p>
+<p>This report exists because two students can reach an identical mastery score by two very different paths — one steady fifteen minutes every evening, another a single three-hour cram session the night before a deadline — and that difference in <em>pattern</em>, not just outcome, is often exactly what a teacher needs to see before deciding how to intervene.</p>
+<h4 id="diagram-one-students-time-on-task-timeline">Diagram: One Student's Time-on-Task Timeline<a class="headerlink" href="#diagram-one-students-time-on-task-timeline" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/time-on-task-timeline/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>One Student's Time-on-Task Timeline</summary>
+<p>Type: timeline
+<strong>sim-id:</strong> time-on-task-timeline<br/>
+<strong>Library:</strong> vis-timeline<br/>
+<strong>Status:</strong> Specified
+<strong>Template:</strong> https://github.com/dmccreary/learning-graphs/tree/main/docs/sims/goal-horizon-timeline<br/></p>
+<p>Bloom Taxonomy: Understand (L2)
+Bloom Taxonomy Verb: interpret, distinguish</p>
+<p>Learning objective: Let the learner interpret a Gantt-style timeline of one student's learning sessions across a week, distinguishing a steady engagement pattern from a single last-minute cram session.</p>
+<p>Time period: One sample week, Monday through Sunday</p>
+<p>Orientation: Horizontal, left to right, one row per day</p>
+<p>Events: Six to eight session bars of varying length and time of day placed across the week, including one deliberately long bar the night before a sample "quiz due" marker to illustrate a cram pattern, and several short, evenly spaced bars earlier in the week to illustrate steady engagement for comparison.</p>
+<p>Interactive features: Clicking any session bar opens an infobox listing the concepts touched during that session (drawn from that session's <code>TOUCHED</code> edges) and a link labeled "view individual statements," representing the drill-down into the event store. A toggle switches between two sample students — one steady, one cram-pattern — so the learner can compare timeline shapes directly.</p>
+<p>Visual style: Session bars colored by duration (short sessions in a lighter shade, long sessions in a darker shade of the book's teal accent color) so a cram session visually stands out without needing to read the bar's length precisely.</p>
+<p>Responsive design: Timeline resizes to the width of its containing element; on narrow viewports the day labels abbreviate and bars remain tap-sized for the click-to-infobox interaction.</p>
+</details>
+<h2 id="learning-velocity-report-speeding-up-or-stalling-out">Learning Velocity Report: Speeding Up or Stalling Out<a class="headerlink" href="#learning-velocity-report-speeding-up-or-stalling-out" title="Permanent link">&para;</a></h2>
+<p>The <strong>Learning Velocity Report</strong> takes the same mastery scores the radar chart displayed and asks a different question: is this student's rate of progress increasing, holding steady, or stalling? It renders as a simple line chart — concepts mastered per week — computed as the slope of a student's cumulative mastery count over time. A rising line means a student is gaining ground; a flattening line, even at a respectable overall mastery level, is often the earliest warning sign a teacher gets, well before a Struggle Detector alert fires on any single concept.</p>
+<p>Velocity and the Progress Overview answer related but distinct questions worth keeping straight: the Progress Overview is a snapshot ("how far along is this student right now"), while Learning Velocity is a trend ("is that snapshot getting better or worse over time"). A student can have a middling Progress Overview and a strongly rising Velocity line — a student catching up — or a strong Progress Overview and a flattening Velocity line — a student who was ahead and has since stopped moving.</p>
+<h2 id="quiz-item-analysis-performance-at-the-question-level">Quiz Item Analysis: Performance at the Question Level<a class="headerlink" href="#quiz-item-analysis-performance-at-the-question-level" title="Permanent link">&para;</a></h2>
+<p>Where the reports so far have looked at whole concepts, the <strong>Quiz Item Analysis</strong> report drops down one more level, to the individual question. It renders as a table — one row per question the student has attempted — with a small sparkline showing the sequence of attempts on that question, backed by <code>QuestionResponse</code> summary vertices that track each question's attempt count and success count for that student, with a drill-down available to the individual attempts in the event store.</p>
+<p>This is the report a teacher reaches for when a concept-level score looks fine but something still feels off about a specific assignment — Quiz Item Analysis is where a teacher can see, for example, that a student is only ever getting the <em>last</em> question in a set wrong, a pattern invisible at the concept-mastery level because the concept's overall score still looks acceptable.</p>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Attempts</th>
+<th>Successes</th>
+<th>Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cellular Respiration Q3</td>
+<td>4</td>
+<td>1</td>
+<td>Struggling — mostly incorrect across attempts</td>
+</tr>
+<tr>
+<td>Cellular Respiration Q7</td>
+<td>2</td>
+<td>2</td>
+<td>Solid — correct on first or second try</td>
+</tr>
+<tr>
+<td>Cellular Respiration Q9</td>
+<td>5</td>
+<td>4</td>
+<td>Recovering — early misses, now consistent</td>
+</tr>
+</tbody>
+</table>
+<p>Reading that table row by row shows exactly the kind of detail a concept-level mastery score would average away: Q3's pattern is worth a teacher's attention even if the concept's overall mastery score looks merely "adequate."</p>
+<h2 id="struggle-detector-composing-the-signals-into-a-ranked-list">Struggle Detector: Composing the Signals Into a Ranked List<a class="headerlink" href="#struggle-detector-composing-the-signals-into-a-ranked-list" title="Permanent link">&para;</a></h2>
+<p>Several of the reports above each answer one narrow question. The <strong>Struggle Detector</strong> is the first report in this chapter to combine signals: it is a ranked list, each entry tagged with a severity chip, built from concepts where a student shows a high attempt count paired with a low result score — evidence of real effort without matching success — cross-checked against prerequisite gaps found by walking the <code>DEPENDS_ON</code> edges upstream from each struggling concept.</p>
+<p>That last clause matters: the Struggle Detector does not just flag "low mastery here" — it flags low mastery <em>combined with</em> effort already spent, which is what separates "hasn't gotten to this concept yet" from "is actively stuck on this concept." A concept a student has never attempted does not appear on this list at all; a concept attempted five times with little to show for it appears near the top, tagged with the highest severity chip.</p>
+<h2 id="prerequisite-gap-analysis-walking-upstream-from-the-struggle">Prerequisite Gap Analysis: Walking Upstream From the Struggle<a class="headerlink" href="#prerequisite-gap-analysis-walking-upstream-from-the-struggle" title="Permanent link">&para;</a></h2>
+<p>The Struggle Detector's ranked list names a symptom; the <strong>Prerequisite Gap Analysis</strong> report traces it back to a cause. For any concept the Struggle Detector flags, this report walks the same <code>DEPENDS_ON</code> edges upstream through the learning graph and highlights every prerequisite concept the student has not yet mastered — rendering the result as a subgraph of the full learning graph with the weak concept and its unmastered ancestors visually distinguished from the surrounding, already-mastered graph.</p>
+<p>This is often the single most actionable report in the whole set, because it turns "student is struggling with cellular respiration" into something a teacher can actually act on: "student is struggling with cellular respiration because they never solidified ATP synthesis, three concepts upstream." Re-teaching the downstream concept directly rarely works as well as filling the actual gap it depends on.</p>
+<h4 id="diagram-prerequisite-gap-analysis-walking-upstream-from-a-weak-concept">Diagram: Prerequisite Gap Analysis — Walking Upstream From a Weak Concept<a class="headerlink" href="#diagram-prerequisite-gap-analysis-walking-upstream-from-a-weak-concept" title="Permanent link">&para;</a></h4>
+<iframe src="https://dmccreary.github.io/automating-instructional-design/sims/concept-dependencies/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<p><a class="md-button" href="https://dmccreary.github.io/automating-instructional-design/sims/concept-dependencies/main.html">Run the Concept Dependencies Graph MicroSim fullscreen</a></p>
+<details>
+<summary>Prerequisite Gap Analysis — Walking Upstream From a Weak Concept (reused MicroSim)</summary>
+<p>Type: graph-model
+<strong>sim-id:</strong> concept-dependencies<br/>
+<strong>Library:</strong> vis-network<br/>
+<strong>Status:</strong> Reused<br/>
+<strong>Source:</strong> https://dmccreary.github.io/automating-instructional-design/sims/concept-dependencies/<br/>
+<strong>Source Repo:</strong> https://github.com/dmccreary/automating-instructional-design/tree/main/docs/sims/concept-dependencies</p>
+<p>Reused from the MicroSim catalog (WHAT match score 0.7919). Learning objective: let the learner trace upstream prerequisite concepts from a student's flagged weak concept, distinguishing already-mastered ancestors from unmastered ones that are the likely root cause of the struggle. The reused sim's existing REQUIRES/SUPPORTS dependency-edge model and click-to-highlight-upstream-and-downstream interaction map directly onto this report's "walk <code>DEPENDS_ON</code> upstream and flag unmastered prerequisites" behavior — a weak concept plays the role of the clicked node, and its unmastered ancestors are the highlighted upstream set.</p>
+</details>
+<div class="admonition mascot-encourage">
+<p class="admonition-title">Nine Reports Is a Lot to Hold at Once</p>
+<p><img alt="Rowan offering encouragement" class="mascot-admonition-img" src="../../img/mascot/encouraging.png" />
+If Progress Overview, Mastery Radar, Reading vs. Doing Balance, Time-on-Task, Velocity, Quiz Item Analysis, Struggle Detector, and Prerequisite Gap Analysis are starting to blur together, that is a completely normal reaction to eight reports in one sitting — and there is one more still to come. You do not need to recite each report's exact backing query from memory. You need the shape: some reports describe <em>how much</em> (Progress Overview, Velocity), some describe <em>how well</em> (Mastery Radar, Quiz Item Analysis), some describe <em>when</em> (Time-on-Task), and the last two — Struggle Detector and Prerequisite Gap Analysis — combine those signals into "where to intervene, and why."</p>
+</div>
+<h2 id="idle-disengagement-alert-the-report-that-reaches-back-to-my-classes">Idle Disengagement Alert: The Report That Reaches Back to My Classes<a class="headerlink" href="#idle-disengagement-alert-the-report-that-reaches-back-to-my-classes" title="Permanent link">&para;</a></h2>
+<p>The ninth and final student-level report is also the one that appears on both of a teacher's dashboards. The <strong>Idle Disengagement Alert</strong> is a simple alert card, triggered when a student has produced no statements at all in the trailing N days for an otherwise-active textbook deployment — no reading, no quiz attempts, nothing. Unlike every other report in this chapter, it does not require the student to have done anything poorly; the absence of activity is itself the signal.</p>
+<p>Because a whole section's worth of silent students is exactly what a teacher needs to catch at a glance, the Idle Disengagement Alert is one of the four reports pulled directly into the My Classes Dashboard alongside the Class Mastery Heatmap, the Completion Funnel, and the At-Risk Roster — the same table shown earlier in this chapter. A teacher does not have to open nine separate Student Detail dashboards looking for silence; the section-level rollup of this one report surfaces it directly on the landing page.</p>
+<div class="admonition mascot-warning">
+<p class="admonition-title">Why Doesn't the Group-of-Ten Rule Blank Out a Single Student's Report?</p>
+<p><img alt="Rowan waving a caution flag" class="mascot-admonition-img" src="../../img/mascot/warning.png" />
+<a href="../15-privacy-and-dashboard-mechanics/">Chapter 15</a> and <a href="../27-compliance-and-district-reporting/">Chapter 27</a> both established a default privacy rule: no report may show a disaggregated result for a group smaller than ten. A Student Detail Dashboard is a group of exactly one — so why isn't every report in this chapter blank on day one? The threshold's real purpose is to stop re-identification by parties <em>without</em> a legitimate relationship to the student, and a teacher viewing their own rostered student already knows that student by name; showing them nothing new. So the threshold applies to cross-group, de-identified, and benchmark views — a district's School Comparison Report, say — and is explicitly exempted for a role's own directly-rostered scope. Don't mistake that exemption for a loophole: it is the documented, deliberate reason a teacher's own students' reports are visible at all.</p>
+</div>
+<p>The following list recaps all nine student-level reports together, now that each has been explained in full — a summary of what this chapter already covered, not new information.</p>
+<ul>
+<li><strong>Student Progress Overview</strong> — how far along, overall: a progress bar and concept checklist.</li>
+<li><strong>Concept Mastery Radar</strong> — how well, by category: a radar chart of BKT mastery scores.</li>
+<li><strong>Reading vs. Doing Balance</strong> — reading verbs versus doing verbs, as a stacked bar.</li>
+<li><strong>Time-on-Task Timeline</strong> — when and how long, as a session-level Gantt timeline.</li>
+<li><strong>Learning Velocity Report</strong> — speeding up or stalling, as a slope of cumulative mastery.</li>
+<li><strong>Quiz Item Analysis</strong> — performance at the individual question level, with drill-down.</li>
+<li><strong>Struggle Detector</strong> — high effort, low success, ranked by severity.</li>
+<li><strong>Prerequisite Gap Analysis</strong> — the likely upstream cause behind a flagged struggle.</li>
+<li><strong>Idle Disengagement Alert</strong> — no activity at all in the trailing window, shared with My Classes.</li>
+</ul>
+<h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The <strong>My Classes Dashboard</strong> is a teacher's section-level landing page; the <strong>Student Detail Dashboard</strong> is the single-student view reached by clicking one name on it — the same drill-down mechanic Chapter 15 already described.</li>
+<li><strong>Student Progress Overview</strong> measures how far a student has come against the textbook's full concept set, without judging confidence.</li>
+<li><strong>Concept Mastery Radar</strong> groups a student's Bayesian Knowledge Tracing mastery scores by taxonomy category into a shape a teacher can read at a glance.</li>
+<li><strong>Reading Vs Doing Balance</strong> compares reading-verb statements against doing-verb statements to flag students who are only ever consuming content passively.</li>
+<li><strong>Time-On-Task Timeline</strong> shows session-level timing, distinguishing steady engagement from a single cram session with the same eventual mastery score.</li>
+<li><strong>Learning Velocity Report</strong> tracks whether a student's rate of progress is rising, flat, or falling over time.</li>
+<li><strong>Quiz Item Analysis</strong> drops to the individual-question level, catching patterns a concept-level score would average away.</li>
+<li><strong>Struggle Detector</strong> combines high attempt count with low success to flag concepts a student is actively stuck on, not merely hasn't reached yet.</li>
+<li><strong>Prerequisite Gap Analysis</strong> walks the learning graph upstream from a flagged struggle to name the likely root-cause concept.</li>
+<li><strong>Idle Disengagement Alert</strong> flags total inactivity and is the one student-level report that also rolls up into My Classes.</li>
+</ul>
+<div class="admonition mascot-celebration">
+<p class="admonition-title">You Can Now Read a Student's Whole Story</p>
+<p><img alt="Rowan celebrating with confetti" class="mascot-admonition-img" src="../../img/mascot/celebration.png" />
+What does the evidence show? You can now open a single student's Student Detail Dashboard and read a complete, evidence-backed story — how far they've come, how well, when they worked, where they're stuck, and why. In <a href="../29-class-level-reports-and-tools/">Chapter 29: Class-Level Reports and Teacher Tools</a>, the lens widens from one student back to the whole section — the Class Mastery Heatmap, the At-Risk Roster, and the rest of My Classes, covered in the depth this chapter reserved for a single learner.</p>
+</div>
 
 
 
 
 
 
+
+  
+  
 
 
 
@@ -2013,13 +2264,10 @@
     </div>
     
     
-    
-      
-      
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
         <script src="../../js/katex.js"></script>
       

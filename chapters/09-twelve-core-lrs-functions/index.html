@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="An intelligent textbook on Learning Record Stores: what they are, how xAPI statements work, and how to design, deploy, and query an LRS.">
+        <meta name="description" content="A reference walk-through of this project's specification's twelve core functions, F-1 through F-12, from statement storage and retrieval through mastery computation, experimentation, reconciliation, export, and retention.">
       
       
         <meta name="author" content="Dan McCreary">
@@ -21,22 +21,19 @@
         <link rel="next" href="../10-choosing-technology-stack/">
       
       
-        
-      
-      
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
     
     
       
-        <title>9. The Twelve Core LRS Functions - Learning Record Store</title>
+        <title>The Twelve Core LRS Functions - Learning Record Store</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -67,6 +64,7 @@
     
       
 
+    
     
     
   </head>
@@ -121,7 +119,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              9. The Twelve Core LRS Functions
+              The Twelve Core LRS Functions
             
           </span>
         </div>
@@ -133,13 +131,11 @@
     
     
     
-      
-      
-        <label class="md-header__button md-icon" for="__search">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        </label>
-        <div class="md-search" data-md-component="search" role="dialog">
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
@@ -178,14 +174,13 @@
     </div>
   </div>
 </div>
-      
     
     
       <div class="md-header__source">
         <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub Repo
@@ -230,7 +225,7 @@
       <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub Repo
@@ -250,16 +245,9 @@
       <a href="../.." class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Home
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -277,16 +265,9 @@
       <a href="../../about/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     About
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -304,16 +285,9 @@
       <a href="../../course-description/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Course Description
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -325,120 +299,6 @@
       
   
   
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-  
-    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
-      
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Specifications
-  
-
-    
-  </span>
-  
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-  
-    <a href="../../demo/graph-queries/" class="md-nav__link">
-      
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Demo
-  
-
-    
-  </span>
-  
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -451,70 +311,133 @@
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
-    
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
     
     
     
@@ -524,42 +447,32 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
+          
           
           <div class="md-nav__link md-nav__container">
             <a href="../" class="md-nav__link ">
               
   
-  
   <span class="md-ellipsis">
-    
-  
     Chapters
-  
-
-    
   </span>
-  
   
 
             </a>
             
               
-              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_6">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
-            
-  
-    Chapters
-  
-
+            Chapters
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -575,16 +488,9 @@
       <a href="../01-lms-to-experience-api/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     1. From Learning Management Systems to the Experience API
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -603,16 +509,9 @@
       <a href="../02-anatomy-of-xapi-statement/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     2. The Anatomy of an xAPI Statement
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -631,16 +530,9 @@
       <a href="../03-ieee-standardization-xapi-cmi5/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     3. IEEE Standardization of xAPI and cmi5
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -659,16 +551,9 @@
       <a href="../04-standards-governance-ecosystem/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     4. Standards Governance and the Wider Interoperability Ecosystem
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -687,16 +572,9 @@
       <a href="../05-system-context-architectural-planes/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     5. System Context and the Five Architectural Planes
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -715,16 +593,9 @@
       <a href="../06-multi-tenancy-rosters-identity/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     6. Multi-Tenancy, Rosters, and Pseudonymous Identity
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -743,16 +614,9 @@
       <a href="../07-property-graph-data-model/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     7. The Property Graph Data Model
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -771,16 +635,9 @@
       <a href="../08-summary-vertices-ingestion/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     8. Summary Vertices and Statement Ingestion Mechanics
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -808,16 +665,9 @@
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
   
-  
   <span class="md-ellipsis">
-    
-  
     9. The Twelve Core LRS Functions
-  
-
-    
   </span>
-  
   
 
           <span class="md-nav__icon md-icon"></span>
@@ -826,16 +676,9 @@
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     9. The Twelve Core LRS Functions
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -858,9 +701,7 @@
         <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Summary
-      
+      Summary
     </span>
   </a>
   
@@ -869,9 +710,7 @@
         <li class="md-nav__item">
   <a href="#concepts-covered" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Concepts Covered
-      
+      Concepts Covered
     </span>
   </a>
   
@@ -880,9 +719,121 @@
         <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
       
-        Prerequisites
+        <li class="md-nav__item">
+  <a href="#the-record-keeping-core-storage-retrieval-and-voiding" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Record-Keeping Core: Storage, Retrieval, and Voiding
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Record-Keeping Core: Storage, Retrieval, and Voiding">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-one-statement-three-ways-to-touch-the-record" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: One Statement, Three Ways to Touch the Record
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
+        <li class="md-nav__item">
+  <a href="#turning-raw-statements-into-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Turning Raw Statements into Structure
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#turning-structure-into-insight" class="md-nav__link">
+    <span class="md-ellipsis">
+      Turning Structure into Insight
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Turning Structure into Insight">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-two-summary-building-functions-mastery-and-progress" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Two Summary-Building Functions — Mastery and Progress
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#functions-at-the-systems-edges" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functions at the System's Edges
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions at the System's Edges">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-four-functions-at-the-systems-edges" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Four Functions at the System's Edges
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seeing-all-twelve-at-once" class="md-nav__link">
+    <span class="md-ellipsis">
+      Seeing All Twelve at Once
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Seeing All Twelve at Once">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-the-twelve-core-functions-explorer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: The Twelve Core Functions Explorer
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
     </span>
   </a>
   
@@ -907,16 +858,9 @@
       <a href="../10-choosing-technology-stack/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     10. Choosing the Technology Stack
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -935,16 +879,9 @@
       <a href="../11-adrs-and-capacity-model/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     11. Architecture Decision Records and the Capacity Model
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -963,16 +900,9 @@
       <a href="../12-bayesian-knowledge-tracing/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     12. Bayesian Knowledge Tracing for Mastery
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -991,16 +921,9 @@
       <a href="../13-component-design-in-depth/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     13. Component Design in Depth
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1019,16 +942,9 @@
       <a href="../14-kafka-clickhouse-graph-schema/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     14. Kafka Topics, ClickHouse Schema, and Graph Constraints
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1047,16 +963,9 @@
       <a href="../15-privacy-and-dashboard-mechanics/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     15. Privacy Enforcement and Dashboard Mechanics
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1075,16 +984,9 @@
       <a href="../16-container-image-and-cli/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     16. The Container Image and the Role Dispatcher CLI
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1103,16 +1005,9 @@
       <a href="../17-compose-makefile-supply-chain/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     17. Docker Compose, the Makefile, and the Image Supply Chain
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1131,16 +1026,9 @@
       <a href="../18-config-migration-backup-rollout/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     18. Configuration, Migration, Backup, and Rollout
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1159,16 +1047,9 @@
       <a href="../19-failure-modes-and-verification/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     19. Failure Modes and Verification
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1187,16 +1068,9 @@
       <a href="../20-deviations-roadmap-open-questions/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     20. Spec Deviations, the Delivery Roadmap, and Open Questions
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1215,16 +1089,9 @@
       <a href="../21-hardware-cost-dev-environment/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     21. Hardware Sizing, Cost, and the Development Environment
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1243,16 +1110,9 @@
       <a href="../22-proving-the-architecture-mvp/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     22. Proving the Architecture - the MVP Plan
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1271,16 +1131,9 @@
       <a href="../23-production-infrastructure-cloud/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     23. Production Infrastructure and Cloud Services
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1299,16 +1152,9 @@
       <a href="../24-three-personas-and-admin-uis/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     24. Meet the Three Personas and the Admin UI Surface
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1327,16 +1173,9 @@
       <a href="../25-district-admin-rosters-deployments/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     25. District Administrator - Rosters, Deployments, and Registries
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1355,16 +1194,9 @@
       <a href="../26-district-admin-access-control/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     26. District Administrator - Access Control and System Configuration
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1383,16 +1215,9 @@
       <a href="../27-compliance-and-district-reporting/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     27. Compliance, Privacy Law, and District-Level Reporting
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1411,16 +1236,9 @@
       <a href="../28-teacher-dashboards-student-reports/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     28. Teacher Dashboards and Student-Level Reports
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1439,16 +1257,9 @@
       <a href="../29-class-level-reports-and-tools/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     29. Class-Level Reports and Teacher Tools
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1467,16 +1278,9 @@
       <a href="../30-author-dashboards-content-reports/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     30. Textbook Author Dashboards and Content Reports
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1495,16 +1299,9 @@
       <a href="../31-designing-ab-experiments/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     31. Designing and Reading A/B Experiments
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1523,16 +1320,9 @@
       <a href="../32-producer-contract-conformant-statements/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     32. The Producer Contract - Writing Conformant Statements
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1576,7 +1366,6 @@
     
     
     
-    
       
         
         
@@ -1587,20 +1376,12 @@
         
   
   
-  
     <a href="../../learning-graph/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     Learning Graph
-  
-
-    
   </span>
-  
   
 
       
@@ -1628,18 +1409,29 @@
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
-    
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
     
     
     
@@ -1653,20 +1445,108 @@
         
   
   
-  
     <a href="../../sims/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     MicroSims
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
   
 
     
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Specifications
   </span>
   
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../demo/graph-queries/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Demo
+  </span>
   
 
       
@@ -1690,16 +1570,9 @@
       <a href="../../glossary/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Glossary
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1717,16 +1590,9 @@
       <a href="../../license/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     License
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1744,16 +1610,9 @@
       <a href="../../contact/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Contact
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1790,9 +1649,7 @@
         <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Summary
-      
+      Summary
     </span>
   </a>
   
@@ -1801,9 +1658,7 @@
         <li class="md-nav__item">
   <a href="#concepts-covered" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Concepts Covered
-      
+      Concepts Covered
     </span>
   </a>
   
@@ -1812,9 +1667,121 @@
         <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
       
-        Prerequisites
+        <li class="md-nav__item">
+  <a href="#the-record-keeping-core-storage-retrieval-and-voiding" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Record-Keeping Core: Storage, Retrieval, and Voiding
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Record-Keeping Core: Storage, Retrieval, and Voiding">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-one-statement-three-ways-to-touch-the-record" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: One Statement, Three Ways to Touch the Record
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
+        <li class="md-nav__item">
+  <a href="#turning-raw-statements-into-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Turning Raw Statements into Structure
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#turning-structure-into-insight" class="md-nav__link">
+    <span class="md-ellipsis">
+      Turning Structure into Insight
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Turning Structure into Insight">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-two-summary-building-functions-mastery-and-progress" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Two Summary-Building Functions — Mastery and Progress
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#functions-at-the-systems-edges" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functions at the System's Edges
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions at the System's Edges">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-four-functions-at-the-systems-edges" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Four Functions at the System's Edges
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seeing-all-twelve-at-once" class="md-nav__link">
+    <span class="md-ellipsis">
+      Seeing All Twelve at Once
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Seeing All Twelve at Once">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-the-twelve-core-functions-explorer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: The Twelve Core Functions Explorer
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
     </span>
   </a>
   
@@ -1830,62 +1797,12 @@
           
           
             <div class="md-content" data-md-component="content">
-              
-                
-
-
-
-  
-
-
-  <nav class="md-path" aria-label="Navigation" >
-    <ol class="md-path__list">
-      
-        
-  
-  
-    <li class="md-path__item">
-      <a href="../.." class="md-path__link">
-        
-  <span class="md-ellipsis">
-    Home
-  </span>
-
-      </a>
-    </li>
-  
-
-      
-      
-        
-  
-  
-    
-    
-      <li class="md-path__item">
-        <a href="../" class="md-path__link">
-          
-  <span class="md-ellipsis">
-    Chapters
-  </span>
-
-        </a>
-      </li>
-    
-  
-
-      
-    </ol>
-  </nav>
-
-              
               <article class="md-content__inner md-typeset">
                 
                   
 
-
   
-    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/09-twelve-core-lrs-functions/index.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/09-twelve-core-lrs-functions/index.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1922,13 +1839,268 @@
 <li><a href="../08-summary-vertices-ingestion/">Chapter 8: Summary Vertices and Statement Ingestion Mechanics</a></li>
 </ul>
 <hr />
-<p>TODO: Generate Chapter Content</p>
+<div class="admonition mascot-welcome">
+<p class="admonition-title">Cataloging the Machine You Just Watched Run</p>
+<p><img alt="Rowan waving welcome" class="mascot-admonition-img" src="../../img/mascot/welcome.png" />
+Chapter 8 closed by promising a catalog: everything this Learning Record Store actually does with the evidence it collects, function by function. This chapter is that catalog. Let's follow the record.</p>
+</div>
+<p>This project's specification lists its complete set of core capabilities in a single table — <code>lrs-spec-v1.md</code> §6, "Core LRS Functions." Read that table closely and you will count thirteen rows, not twelve: a row labeled F-7b sits between F-7 and F-8. That row is <strong>Statement compression</strong> — the function that turns millions of raw statements into a small set of summary vertices, one per analytical grain — and Chapter 8 already covered it in full, from the compression ratio to the sync cadence that keeps a graph write rate stable during an ingestion burst. This chapter's title counts the other twelve, because F-7b earned an entire chapter of its own and needs no further explanation here; it is simply function seven-and-a-half, sitting exactly where the pipeline puts it, between the function that scores a student's mastery and the function that projects their broader progress.</p>
+<p>The remaining twelve functions fall into four natural groups, and this chapter walks through them in that order rather than in strict numeric order: three functions that keep the raw record honest, three that turn a raw statement into something the graph can use, two that build the summary vertices Chapter 8 introduced, and four that run at the system's edges — occasionally, asynchronously, or only on request. Every one of the twelve rests on a small set of design commitments this book has already met piece by piece.</p>
+<p>Before meeting the functions individually, it is worth naming the design principles that shape every one of them, because each principle already has a home earlier in this book:</p>
+<ul>
+<li><strong>Non-blocking ingestion by default</strong> — a statement is never held up waiting for anything downstream to catch up (Chapter 8).</li>
+<li><strong>Schema-on-read</strong> — an unfamiliar verb, activity, or textbook version is accepted and reconciled later, never rejected at the door (Chapter 8).</li>
+<li><strong>Immutability of the event log</strong> — nothing in the Event Store is ever edited or deleted; corrections are new statements (Chapter 5, and this chapter's own Voiding Function).</li>
+<li><strong>Compress before materializing</strong> — the graph stores summaries, never one vertex per statement (Chapter 8, F-7b).</li>
+<li><strong>Graph-native analytics</strong> — progress and mastery questions are graph traversals over compressed summaries, not scans over raw events (Chapter 7).</li>
+<li><strong>Privacy by design</strong> — student identifiers are pseudonymous everywhere outside the PII Vault (Chapter 6).</li>
+</ul>
+<p>Keep these six commitments in view. Every function below is really just one of these principles, made concrete as a specific promise about specific data.</p>
+<h2 id="the-record-keeping-core-storage-retrieval-and-voiding">The Record-Keeping Core: Storage, Retrieval, and Voiding<a class="headerlink" href="#the-record-keeping-core-storage-retrieval-and-voiding" title="Permanent link">&para;</a></h2>
+<p>The most basic promise any Learning Record Store makes is to be an honest record. Three functions carry that promise, and all three act on the same Event Store Chapter 5 introduced and Chapter 8 fed. F-1 is the <strong>Statement Storage Function</strong>: a durable, immutable, queryable record of every xAPI event, held in the Event Store rather than the graph. This chapter has almost nothing new to add to it, because Chapters 5 and 8 already described exactly how a statement gets there — through the xAPI Statement Resource, past Structural Validation and Semantic Validation, into the Durable Event Queue, and finally into the Event Store as an append-only row. The specification is direct about what makes this function trustworthy: the Event Store is the system of record, "not the graph," and every other function in this chapter — including the eleven still to come — either reads from it or writes an entry into it. Nothing in this Learning Record Store is true unless it is true in the Event Store first.</p>
+<p>F-2 is the <strong>Statement Retrieval Function</strong>: a conformant <code>GET /xapi/statements</code> endpoint that filters by actor, verb, activity, time range, and registration. Where the Statement Storage Function is about getting data in, this is the specification's answer to getting it back out in raw form — not through a report or a dashboard figure, but as the original statements themselves. A <strong>registration</strong> is a standard xAPI identifier: a single UUID that groups every statement produced during one continuous attempt at an activity, so a query can ask for "every statement from this one attempt" rather than "every statement about this activity, ever." Filtering by actor answers "what did this specific student do"; filtering by verb answers "show me every <em>completed</em> event"; filtering by time range answers "what happened last Tuesday." Retrieval is deliberately narrow — a raw list of statements, not an aggregate — because aggregation is a different function's job entirely, one this book meets properly in its later report catalog.</p>
+<p>F-3 is the <strong>Voiding Function</strong>: support for <code>voided</code> statements that retract a prior event without ever deleting it. This is the specification's answer to a question every record-keeping system eventually faces: what happens when a Learning Record Provider sends a statement it later discovers was wrong — the wrong score, the wrong learner, a duplicate submitted by a flaky network retry? The Event Store's immutability rule from Chapter 5 forbids editing or removing that original row. Instead, xAPI defines a specific verb, <code>voided</code>, and a producer corrects a mistake by sending a brand-new statement whose Object references the <code>statement_id</code> of the one being retracted. This project's Learning Record Store marks the original row with the retracting statement's identifier — the design specification calls that property <code>voided_by</code> — rather than deleting anything. A voided statement still exists, permanently, as a fact: "this event was recorded, and it was later retracted." What changes is only how the rest of the system treats it going forward.</p>
+<div class="admonition mascot-thinking">
+<p class="admonition-title">One Log, Three Different Questions</p>
+<p><img alt="Rowan thinking with a magnifying glass" class="mascot-admonition-img" src="../../img/mascot/thinking.png" />
+Notice that all three of these functions act on exactly the same Event Store — there is no separate "voiding database" or "retrieval database" sitting beside it. Storage asks "can I trust that this row exists tomorrow." Retrieval asks "can I get this row back out, filtered the way I need it." Voiding asks "can I correct this row without ever pretending it never happened." Same log, three different questions.</p>
+</div>
+<p>Voiding's effect reaches further than the Event Store alone. Chapter 8's compression rollups read directly from the log, and this project's design specification excludes voided rows from every rollup query automatically — a voided statement simply drops out of whatever <code>ConceptMastery</code> or <code>PageEngagement</code> vertex it would otherwise have fed, and the next scheduled sync writes the corrected total. Retraction needs no special-case code anywhere in the compression pipeline; it is just another input a rollup query already knows how to handle. The diagram below traces all three record-keeping functions against the one log they share.</p>
+<h4 id="diagram-one-statement-three-ways-to-touch-the-record">Diagram: One Statement, Three Ways to Touch the Record<a class="headerlink" href="#diagram-one-statement-three-ways-to-touch-the-record" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/statement-storage-retrieval-voiding-flow/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>One Statement, Three Ways to Touch the Record</summary>
+<p>Type: workflow
+<strong>sim-id:</strong> statement-storage-retrieval-voiding-flow<br/>
+<strong>Library:</strong> Mermaid<br/>
+<strong>Status:</strong> Specified<br/>
+<strong>Template:</strong> https://github.com/dmccreary/ai-strategy-for-education/tree/main/docs/sims/xapi-statement-anatomy<br/></p>
+<p>Bloom Taxonomy: Understand (L2)
+Bloom Taxonomy Verb: distinguish, trace</p>
+<p>Learning objective: Let the learner distinguish the Statement Storage Function, the Statement Retrieval Function, and the Voiding Function as three separate operations against one shared Event Store, and trace how a voided statement is retracted without ever being deleted.</p>
+<p>Purpose: Show a single Mermaid flowchart with the Event Store as a central node and three labeled operations arranged around it, each drawn as its own path rather than a strict left-to-right chain.</p>
+<p>Nodes: "Event Store (immutable log)" as the central node. Path A: "POST /xapi/statements" leads to "Statement Storage Function (F-1): new row appended". Path B: "GET /xapi/statements?actor=...&amp;verb=...&amp;since=..." leads to "Statement Retrieval Function (F-2): matching rows returned, none modified". Path C: "A later statement with Verb: voided, Object: {statementId}" leads to "Voiding Function (F-3): original row's voided_by field set" leads to "Row still exists; excluded from future rollups and default retrieval".</p>
+<p>Interactive features: Every node has a Mermaid click directive. Clicking "Event Store" opens an infobox recalling its definition from Chapter 5. Clicking any Storage, Retrieval, or Voiding node opens an infobox with that function's one-sentence definition from this chapter's prose, plus its F-number. Clicking the final "excluded from future rollups" node opens an infobox naming the voided_by property and linking back to Chapter 8's compression rollups.</p>
+<p>Color coding: Path A (storage) in the book's teal accent color; Path B (retrieval) in a neutral gray-blue; Path C (voiding) in a contrasting amber to visually flag it as a correction path rather than a normal read/write path.</p>
+<p>Responsive design: Flowchart resizes to the width of its containing element; on narrow viewports the three paths stack vertically instead of radiating from the center.</p>
+</details>
+<h2 id="turning-raw-statements-into-structure">Turning Raw Statements into Structure<a class="headerlink" href="#turning-raw-statements-into-structure" title="Permanent link">&para;</a></h2>
+<p>Three more functions run inside the Stream Processor Chapter 5 introduced, and they run in a fixed order on every single statement between the moment it leaves the Durable Event Queue and the moment it is written to the Event Store. This project's design specification lists that order explicitly, and the three functions covered in this section are the first three steps of it. F-4 is the <strong>Actor Pseudonymization Function</strong>: resolve every incoming actor to a <code>student_key</code>, keeping any personally identifiable information behind the PII Vault Chapter 6 described in full. This chapter adds nothing new to the mechanism — the identity service's per-district salt, the HMAC derivation, the reason a compromised analytics reader still cannot re-identify a learner — because Chapter 6 already walked through every piece of it. What matters here is only the function's place in the sequence: pseudonymization runs first, before any other enrichment step touches the statement, so nothing downstream of it ever sees a raw learner identity again.</p>
+<p>F-5 is the <strong>Activity Resolution Function</strong>: map an object's IRI to a graph node, auto-provisioning one on first sight if it does not exist yet. Chapter 8 covered this function's full mechanics under a different name — Accept-First Ingestion and the Provisional Node stubs it creates — so this chapter only needs to name it formally as F-5 and place it in the processing sequence: it runs second, immediately after an actor has been pseudonymized, resolving the statement's Object against a cached lookup and falling back to a provisional stub rather than blocking when the lookup misses.</p>
+<p>F-6 is the <strong>Concept Mapping Function</strong>: attach a statement to the concepts it addresses through the <code>COVERS</code> graph, so mastery can eventually be computed from it. Chapter 7 described <code>COVERS</code> as a structural relationship — an edge running from a <code>Page</code>, <code>MicroSim</code>, or <code>Question</code> to the <code>Concept</code> it addresses — but stopped short of saying when or how that edge gets consulted at ingestion time. This is that answer: as the third enrichment step, the Stream Processor looks up which concepts the statement's Object already covers in the structural graph and stamps the resulting <code>concept_ids</code> directly onto the enriched record. Without this step, a completed quiz question would simply be "an event about question 47" with no path back to any concept at all — Concept Mapping is what turns "question 47" into "evidence about Photosynthesis."</p>
+<div class="admonition mascot-tip">
+<p class="admonition-title">Order Is Not an Accident</p>
+<p><img alt="Rowan pointing helpfully" class="mascot-admonition-img" src="../../img/mascot/tip.png" />
+If you ever need to reason about why a mastery figure looks the way it does, remember that these three functions run in a fixed sequence for a reason: pseudonymize, then resolve the activity, then map it to concepts. Concept Mapping depends on Activity Resolution having already found (or provisionally stubbed) the object, and everything downstream — including the Mastery Computation Function two sections from now — depends on Concept Mapping having already run. Skip a step out of order and the ones after it have nothing to work from.</p>
+</div>
+<p>The table below reinforces the three functions now that each has been explained above, alongside the exact Stream Processor step it corresponds to.</p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Stream Processor Step</th>
+<th>What It Resolves</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Actor Pseudonymization Function (F-4)</td>
+<td>1st: Pseudonymize</td>
+<td>Raw actor identity → <code>student_key</code></td>
+</tr>
+<tr>
+<td>Activity Resolution Function (F-5)</td>
+<td>2nd: Resolve activities</td>
+<td>Object IRI → graph node (or a provisional stub)</td>
+</tr>
+<tr>
+<td>Concept Mapping Function (F-6)</td>
+<td>3rd: Enrich</td>
+<td>Resolved object → <code>concept_ids</code> via <code>COVERS</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="turning-structure-into-insight">Turning Structure into Insight<a class="headerlink" href="#turning-structure-into-insight" title="Permanent link">&para;</a></h2>
+<p>Once a statement carries a pseudonymous actor, a resolved activity, and a set of <code>concept_ids</code>, two more functions turn that enriched record into the summary vertices Chapter 8 catalogued in detail. F-7 is the <strong>Mastery Computation Function</strong>: maintain a <code>ConceptMastery</code> vertex from evidence — quiz results, MicroSim interactions, dwell time — for every (student, concept) pair with any evidence at all. Chapter 8 already described what that vertex holds once it exists: <code>mastery_score</code>, <code>evidence_count</code>, <code>attempts</code>, <code>successes</code>, and the rest. What this function names is the ongoing, ordered process that keeps <code>mastery_score</code> current as new evidence arrives — a process detailed enough to earn its own later chapter, where the exact scoring model is introduced by name. For now, the important fact is only that Mastery Computation is a distinct function with a distinct grain: one vertex per (student, concept), and nothing coarser.</p>
+<p>F-8 is the <strong>Progress Projection Function</strong>: maintain per-student, per-section, and per-textbook progress rollups — everything in Chapter 8's six-grain catalog other than <code>ConceptMastery</code> itself. <code>PageEngagement</code> and <code>MicroSimEngagement</code> project a student's progress through individual pieces of content; <code>QuestionResponse</code> projects their progress on individual questions; <code>LearningSession</code> projects the shape of one sitting's activity; <code>SectionRollup</code> projects an entire class's progress at once. Where Mastery Computation answers "how well does this student know this concept," Progress Projection answers a broader family of questions — "how far has this student gotten," "how engaged were they," "how is the whole section doing" — none of which is really about mastery at all.</p>
+<div class="admonition mascot-warning">
+<p class="admonition-title">Mastery and Progress Are Not the Same Word</p>
+<p><img alt="Rowan waving a caution flag" class="mascot-admonition-img" src="../../img/mascot/warning.png" />
+It is tempting to use "mastery" and "progress" interchangeably in casual conversation about a student's dashboard, but this project's specification treats them as two separate functions maintaining different vertices. A student can have extensive <code>PageEngagement</code> — long dwell times, many revisits — recorded by the Progress Projection Function while still showing a low <code>mastery_score</code> on the very same concept, computed by the Mastery Computation Function. Progress is not evidence of mastery by itself; it is evidence that a student showed up.</p>
+</div>
+<h4 id="diagram-two-summary-building-functions-mastery-and-progress">Diagram: Two Summary-Building Functions — Mastery and Progress<a class="headerlink" href="#diagram-two-summary-building-functions-mastery-and-progress" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/mastery-vs-progress-rollup/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Two Summary-Building Functions — Mastery and Progress</summary>
+<p>Type: infographic
+<strong>sim-id:</strong> mastery-vs-progress-rollup<br/>
+<strong>Library:</strong> vis-network<br/>
+<strong>Status:</strong> Specified<br/>
+<strong>Template:</strong> https://github.com/dmccreary/intelligent-textbooks/tree/main/docs/sims/question-color-update<br/></p>
+<p>Bloom Taxonomy: Analyze (L4)
+Bloom Taxonomy Verb: differentiate, classify</p>
+<p>Learning objective: Let the learner differentiate the Mastery Computation Function's single grain (ConceptMastery) from the Progress Projection Function's five grains (PageEngagement, MicroSimEngagement, QuestionResponse, LearningSession, SectionRollup), classifying each of Chapter 8's six summary-vertex labels under the correct function.</p>
+<p>Purpose: Show a two-branch vis-network graph rooted at "Enriched Statement (concept_ids attached)", splitting into a "Mastery Computation Function (F-7)" branch and a "Progress Projection Function (F-8)" branch.</p>
+<p>Nodes: Root: "Enriched Statement". Branch F-7: single child node "ConceptMastery — (student, concept)". Branch F-8: five child nodes "PageEngagement — (student, page)", "MicroSimEngagement — (student, microsim)", "QuestionResponse — (student, question)", "LearningSession — (student, session)", "SectionRollup — (section, concept)".</p>
+<p>Interactive features: Clicking "Mastery Computation Function" or "Progress Projection Function" opens an infobox with that function's definition from this chapter's prose and its F-number. Clicking any of the six grain nodes opens an infobox recalling that vertex's key properties from Chapter 8's grain table. A toggle labeled "Show statement compression ratio" annotates each leaf node with its approximate compression ratio from Chapter 8 (e.g. ConceptMastery ~100:1, SectionRollup ~3,000:1) when enabled.</p>
+<p>Color coding: The F-7 branch in the book's teal accent color; the F-8 branch in a complementary amber, matching the two-function color language established for the "accept immediately / reconciled later" split in Chapter 8's Accept-First diagram.</p>
+<p>Responsive design: Graph layout recalculates on window resize using vis-network's physics engine; on narrow viewports the two branches stack vertically rather than side by side.</p>
+</details>
+<h2 id="functions-at-the-systems-edges">Functions at the System's Edges<a class="headerlink" href="#functions-at-the-systems-edges" title="Permanent link">&para;</a></h2>
+<p>The remaining four functions do not run on every statement the way the previous six do. Each one runs on its own trigger — some scheduled, some on demand — separate from the main path a statement takes from arrival to compressed summary. F-9 is the <strong>Experiment Assignment Function</strong>: sticky, deterministic variant assignment for A/B tests. Chapter 7 introduced the <code>Experiment</code> and <code>Variant</code> nodes this function assigns students to, and this project's specification states the assignment rule plainly: once a student is assigned to a <code>Variant</code>, they see that same arm for the entire life of the experiment, and the assignment never blocks the event stream — if the assignment mechanism is ever unavailable, a student simply receives the control arm and their statement is still recorded normally. <a href="../31-designing-ab-experiments/">Chapter 31</a> returns to exactly how that assignment is computed and how the resulting experiments are read. Immediately next to it in the specification's numbering, F-10 is the <strong>Reconciliation Function</strong>: promote provisional nodes and back-fill structure asynchronously. This chapter has nothing new to add here — it is the same Reconciliation Worker Chapter 8 walked through in full, matching provisional stubs against a textbook's published metadata by <code>git_sha</code>, then IRI path, then title similarity, and back-filling <code>COVERS</code>, <code>EMBEDS</code>, and <code>DEPENDS_ON</code> edges on a confident match. Naming it F-10 here only completes the numbered catalog.</p>
+<p>F-11 is the <strong>Export Function</strong>: bulk export of statements, per district, for archival and external analysis. Where the Statement Retrieval Function answers narrow, filtered questions about a handful of statements, the Export Function answers a much bigger one — "give me everything this district has ever recorded" — and it does so as an asynchronous job rather than a live query, because a district-scale export can take minutes to assemble. A district administrator or system administrator requests an export through the Export API Chapter 5 named; the job runs in the background, and when it finishes, the requester receives a signed, time-limited download URL rather than the data itself streamed directly back. That design choice keeps a slow, heavyweight export from ever competing with the fast dashboard queries the Analytics API serves on the same infrastructure.</p>
+<p>F-12 is the function this book's concept list calls the <strong>Retention Purge Function</strong>, and the specification itself calls "Retention &amp; purge": policy-driven retention with FERPA (the Family Educational Rights and Privacy Act) and COPPA (the Children's Online Privacy Protection Act) compliant purge on request. Every district chooses its own retention window, and this project's design specification stores statements partitioned by month specifically so that enforcing that window is a matter of dropping an entire partition rather than editing individual rows. On top of that scheduled retention, a district can trigger retention on demand — the same erasure mechanism Chapter 6 described for a single learner, extended here to a full compliance purge. A later chapter covers the compliance obligations behind this function in much greater depth; this chapter's job is only to place it correctly as F-12 in the twelve-function catalog.</p>
+<div class="admonition mascot-encourage">
+<p class="admonition-title">These Four Can Feel Like a Grab Bag — They Are Not</p>
+<p><img alt="Rowan offering encouragement" class="mascot-admonition-img" src="../../img/mascot/encouraging.png" />
+Experiment assignment, reconciliation, export, and retention do not obviously belong together the way the record-keeping trio or the enrichment trio do, and it is fine if they still feel like four separate topics rather than one unit. What actually unites them is simpler than it looks: none of the four sits on the path a statement takes to get durably stored. Every one of them runs on its own schedule, off to the side, precisely so that none of them can ever become the reason a statement is slow to arrive.</p>
+</div>
+<h4 id="diagram-four-functions-at-the-systems-edges">Diagram: Four Functions at the System's Edges<a class="headerlink" href="#diagram-four-functions-at-the-systems-edges" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/functions-at-the-edges/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Four Functions at the System's Edges</summary>
+<p>Type: workflow
+<strong>sim-id:</strong> functions-at-the-edges<br/>
+<strong>Library:</strong> Mermaid<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Understand (L2)
+Bloom Taxonomy Verb: explain, classify</p>
+<p>Learning objective: Let the learner explain what triggers each of the four functions that run off the main statement pipeline — Experiment Assignment, Reconciliation, Export, and Retention Purge — and classify each by whether its trigger is per-statement, scheduled, or on-demand.</p>
+<p>Purpose: Show four independent Mermaid flowchart branches, each rooted at a distinct trigger rather than a shared starting node, visually reinforcing that these functions do not share one pipeline.</p>
+<p>Nodes, one branch per function: Branch 1: "A student reaches an experiment's eligibility check" leads to "Experiment Assignment Function (F-9): deterministic, sticky variant assignment" leads to "Chapter 31: full assignment and readout mechanics". Branch 2: "Scheduled scan of provisional nodes" leads to "Reconciliation Function (F-10): match + promote + back-fill" leads to "Chapter 8: full reconciliation mechanics". Branch 3: "District or system admin requests a bulk export" leads to "Export Function (F-11): async job, signed download URL". Branch 4: "Scheduled partition drop, or an on-demand erasure request" leads to "Retention Purge Function (F-12): policy-driven retention, FERPA/COPPA-compliant purge" leads to "A later chapter: full compliance treatment".</p>
+<p>Interactive features: Every node has a Mermaid click directive. Clicking a trigger node opens an infobox stating whether the trigger is per-statement, scheduled, or on-demand. Clicking a function node opens an infobox with that function's one-sentence definition and F-number from this chapter's prose. Clicking a "full mechanics" reference node opens an infobox naming which earlier or later chapter covers that function in depth.</p>
+<p>Color coding: Scheduled-trigger branches (Reconciliation, the retention half of F-12) in a muted slate color; on-demand/per-statement branches (Experiment Assignment, Export, the erasure half of F-12) in the book's teal accent color, distinguishing "runs on a timer" from "runs because someone asked."</p>
+<p>Responsive design: The four branches stack vertically and remain independently readable at any viewport width; each branch's internal flow remains left-to-right down to tablet width, then reflows top-to-bottom below it.</p>
+</details>
+<h2 id="seeing-all-twelve-at-once">Seeing All Twelve at Once<a class="headerlink" href="#seeing-all-twelve-at-once" title="Permanent link">&para;</a></h2>
+<p>With every function now defined, it helps to step back and see the full catalog at once — not grouped into the four sections this chapter used to teach them, but organized the way the specification itself organizes the system: by which architectural plane and which component actually implements each one. Chapter 5 named five planes and their components; Chapters 6 through 8 added the identity service, the Reconciliation Worker, and the Compression Pipeline to that map. The explorer below places all twelve functions onto that same map at once.</p>
+<h4 id="diagram-the-twelve-core-functions-explorer">Diagram: The Twelve Core Functions Explorer<a class="headerlink" href="#diagram-the-twelve-core-functions-explorer" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/twelve-core-functions-explorer/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>The Twelve Core Functions Explorer</summary>
+<p>Type: infographic
+<strong>sim-id:</strong> twelve-core-functions-explorer<br/>
+<strong>Library:</strong> vis-network<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Analyze (L4)
+Bloom Taxonomy Verb: classify, organize</p>
+<p>Learning objective: Let the learner classify all twelve core LRS functions by the architectural plane and specific component that implements each one, using a single explorable network rather than twelve separate diagrams.</p>
+<p>Purpose: Show a clustered vis-network graph with four plane-cluster hubs — "Ingestion Plane", "Processing Plane", "Storage Plane", "Analytics Plane" (reusing Chapter 5's plane names and color language) — and twelve function nodes attached to whichever plane cluster implements them.</p>
+<p>Nodes and cluster assignment: Storage Plane cluster: "Statement Storage Function (F-1)", "Statement Retrieval Function (F-2)", "Voiding Function (F-3)". Processing Plane cluster: "Actor Pseudonymization Function (F-4)", "Activity Resolution Function (F-5)", "Concept Mapping Function (F-6)", "Mastery Computation Function (F-7)", "Progress Projection Function (F-8)", "Reconciliation Function (F-10)". Analytics Plane cluster: "Experiment Assignment Function (F-9)", "Export Function (F-11)". A fifth, unclustered node off to the side: "Retention Purge Function (F-12)", connected by a dashed edge to both the Storage Plane and Analytics Plane clusters, reflecting that it acts on stored data but is administered through the Analytics Plane's Admin API.</p>
+<p>Interactive features: Clicking a plane-cluster hub opens an infobox recalling that plane's definition from Chapter 5. Clicking any function node opens an infobox with its full specification-language description (from <code>lrs-spec-v1.md</code> §6), its F-number, and the specific component that implements it (e.g. "F-7, Mastery Computation Function — implemented in the Stream Processor's mastery-scoring step"). A search box above the canvas lets the learner type an F-number or function name to highlight and center that node. A "Group by component" toggle re-clusters the same twelve nodes by implementing component (Ingestion Gateway, identity service, Stream Processor, Compression Pipeline, Reconciliation Worker, Experiment Service, Analytics API, Export API) instead of by plane, so the learner can explore the same catalog two different ways.</p>
+<p>Color coding: Cluster hubs colored using Chapter 5's existing plane gradient (darkest teal for Ingestion Plane through lightest for Presentation-adjacent planes); function nodes colored to match their parent cluster; the unclustered Retention Purge Function node in the contrasting amber used for cross-cutting, compliance-adjacent elements throughout this book.</p>
+<p>Responsive design: Network layout recalculates via vis-network's physics engine on window resize; below tablet width, cluster hubs collapse to a simple accordion list with function nodes as expandable children, preserving full interactivity without requiring precise clicking on a small canvas.</p>
+</details>
+<p>Now that all twelve functions have been placed on the map, the table below gives the same catalog in a scannable, sequential form — the rows of <code>lrs-spec-v1.md</code> §6 this whole chapter has been walking through, F-7b included for completeness even though it belongs to Chapter 8.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Function</th>
+<th>Implementing Component</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F-1</td>
+<td>Statement Storage Function</td>
+<td>Event Store</td>
+</tr>
+<tr>
+<td>F-2</td>
+<td>Statement Retrieval Function</td>
+<td>Event Store, via the xAPI Statement Resource</td>
+</tr>
+<tr>
+<td>F-3</td>
+<td>Voiding Function</td>
+<td>Event Store (<code>voided_by</code>)</td>
+</tr>
+<tr>
+<td>F-4</td>
+<td>Actor Pseudonymization Function</td>
+<td>identity service, inside the Stream Processor</td>
+</tr>
+<tr>
+<td>F-5</td>
+<td>Activity Resolution Function</td>
+<td>Stream Processor</td>
+</tr>
+<tr>
+<td>F-6</td>
+<td>Concept Mapping Function</td>
+<td>Stream Processor, via <code>COVERS</code></td>
+</tr>
+<tr>
+<td>F-7</td>
+<td>Mastery Computation Function</td>
+<td>Stream Processor</td>
+</tr>
+<tr>
+<td>F-7b</td>
+<td>Statement compression (Chapter 8)</td>
+<td>Compression Pipeline</td>
+</tr>
+<tr>
+<td>F-8</td>
+<td>Progress Projection Function</td>
+<td>Compression Pipeline</td>
+</tr>
+<tr>
+<td>F-9</td>
+<td>Experiment Assignment Function</td>
+<td>Experiment Service</td>
+</tr>
+<tr>
+<td>F-10</td>
+<td>Reconciliation Function</td>
+<td>Reconciliation Worker</td>
+</tr>
+<tr>
+<td>F-11</td>
+<td>Export Function</td>
+<td>Export API</td>
+</tr>
+<tr>
+<td>F-12</td>
+<td>Retention Purge Function</td>
+<td>Event Store partitions, identity service (erasure)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The <strong>Statement Storage Function (F-1)</strong> keeps a durable, immutable, queryable record of every xAPI event in the Event Store, never in the graph.</li>
+<li>The <strong>Statement Retrieval Function (F-2)</strong> answers narrow, filtered questions — by actor, verb, activity, time range, or registration — against that same store.</li>
+<li>The <strong>Voiding Function (F-3)</strong> retracts a prior statement with a new <code>voided</code> statement rather than ever deleting or editing the original.</li>
+<li>The <strong>Actor Pseudonymization Function (F-4)</strong> resolves every incoming actor to a <code>student_key</code> before any other enrichment step runs.</li>
+<li>The <strong>Activity Resolution Function (F-5)</strong> maps an object's IRI to a graph node, falling back to a provisional stub rather than blocking on a miss.</li>
+<li>The <strong>Concept Mapping Function (F-6)</strong> attaches a statement to the concepts it addresses through <code>COVERS</code>, making mastery computation possible.</li>
+<li>The <strong>Mastery Computation Function (F-7)</strong> maintains one <code>ConceptMastery</code> vertex per (student, concept) from quiz, MicroSim, and engagement evidence.</li>
+<li>The <strong>Progress Projection Function (F-8)</strong> maintains the remaining five summary grains — engagement, response, session, and section-level rollups.</li>
+<li>The <strong>Experiment Assignment Function (F-9)</strong> gives every student a sticky, deterministic variant that never blocks the event stream.</li>
+<li>The <strong>Reconciliation Function (F-10)</strong> promotes provisional nodes and back-fills structure once a textbook's real metadata is matched.</li>
+<li>The <strong>Export Function (F-11)</strong> produces asynchronous, per-district bulk exports delivered through a signed download URL.</li>
+<li>The <strong>Retention Purge Function (F-12)</strong> enforces policy-driven, FERPA/COPPA-compliant retention windows and purge-on-request.</li>
+</ul>
+<div class="admonition mascot-celebration">
+<p class="admonition-title">Twelve Functions, One Coherent System</p>
+<p><img alt="Rowan celebrating with confetti" class="mascot-admonition-img" src="../../img/mascot/celebration.png" />
+You now have every function this Learning Record Store performs, named, numbered, and placed on the architecture you already knew. What does the evidence show? A system this capable did not happen by accident — every one of those twelve functions rests on specific technology choices. In <a href="../10-choosing-technology-stack/">Chapter 10: Choosing the Technology Stack</a>, we open the design specification's own reasoning for why this system is built the way it is.</p>
+</div>
 
 
 
 
 
 
+
+  
+  
 
 
 
@@ -2014,13 +2186,10 @@
     </div>
     
     
-    
-      
-      
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
         <script src="../../js/katex.js"></script>
       

@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="An intelligent textbook on Learning Record Stores: what they are, how xAPI statements work, and how to design, deploy, and query an LRS.">
+        <meta name="description" content="How a whole section's mastery, pace, and risk get aggregated from the same statement log into ten class-level reports and six interactive tools a teacher can use beyond fixed dashboards.">
       
       
         <meta name="author" content="Dan McCreary">
@@ -21,22 +21,19 @@
         <link rel="next" href="../30-author-dashboards-content-reports/">
       
       
-        
-      
-      
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
     
     
       
-        <title>29. Class-Level Reports and Teacher Tools - Learning Record Store</title>
+        <title>Class-Level Reports and Teacher Tools - Learning Record Store</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -67,6 +64,7 @@
     
       
 
+    
     
     
   </head>
@@ -121,7 +119,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              29. Class-Level Reports and Teacher Tools
+              Class-Level Reports and Teacher Tools
             
           </span>
         </div>
@@ -133,13 +131,11 @@
     
     
     
-      
-      
-        <label class="md-header__button md-icon" for="__search">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        </label>
-        <div class="md-search" data-md-component="search" role="dialog">
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
@@ -178,14 +174,13 @@
     </div>
   </div>
 </div>
-      
     
     
       <div class="md-header__source">
         <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub Repo
@@ -230,7 +225,7 @@
       <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub Repo
@@ -250,16 +245,9 @@
       <a href="../.." class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Home
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -277,16 +265,9 @@
       <a href="../../about/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     About
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -304,16 +285,9 @@
       <a href="../../course-description/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Course Description
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -325,120 +299,6 @@
       
   
   
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-  
-    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
-      
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Specifications
-  
-
-    
-  </span>
-  
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-  
-    <a href="../../demo/graph-queries/" class="md-nav__link">
-      
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Demo
-  
-
-    
-  </span>
-  
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -451,70 +311,133 @@
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
-    
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
     
     
     
@@ -524,42 +447,32 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
+          
           
           <div class="md-nav__link md-nav__container">
             <a href="../" class="md-nav__link ">
               
   
-  
   <span class="md-ellipsis">
-    
-  
     Chapters
-  
-
-    
   </span>
-  
   
 
             </a>
             
               
-              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_6">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
-            
-  
-    Chapters
-  
-
+            Chapters
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -575,16 +488,9 @@
       <a href="../01-lms-to-experience-api/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     1. From Learning Management Systems to the Experience API
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -603,16 +509,9 @@
       <a href="../02-anatomy-of-xapi-statement/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     2. The Anatomy of an xAPI Statement
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -631,16 +530,9 @@
       <a href="../03-ieee-standardization-xapi-cmi5/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     3. IEEE Standardization of xAPI and cmi5
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -659,16 +551,9 @@
       <a href="../04-standards-governance-ecosystem/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     4. Standards Governance and the Wider Interoperability Ecosystem
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -687,16 +572,9 @@
       <a href="../05-system-context-architectural-planes/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     5. System Context and the Five Architectural Planes
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -715,16 +593,9 @@
       <a href="../06-multi-tenancy-rosters-identity/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     6. Multi-Tenancy, Rosters, and Pseudonymous Identity
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -743,16 +614,9 @@
       <a href="../07-property-graph-data-model/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     7. The Property Graph Data Model
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -771,16 +635,9 @@
       <a href="../08-summary-vertices-ingestion/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     8. Summary Vertices and Statement Ingestion Mechanics
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -799,16 +656,9 @@
       <a href="../09-twelve-core-lrs-functions/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     9. The Twelve Core LRS Functions
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -827,16 +677,9 @@
       <a href="../10-choosing-technology-stack/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     10. Choosing the Technology Stack
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -855,16 +698,9 @@
       <a href="../11-adrs-and-capacity-model/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     11. Architecture Decision Records and the Capacity Model
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -883,16 +719,9 @@
       <a href="../12-bayesian-knowledge-tracing/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     12. Bayesian Knowledge Tracing for Mastery
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -911,16 +740,9 @@
       <a href="../13-component-design-in-depth/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     13. Component Design in Depth
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -939,16 +761,9 @@
       <a href="../14-kafka-clickhouse-graph-schema/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     14. Kafka Topics, ClickHouse Schema, and Graph Constraints
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -967,16 +782,9 @@
       <a href="../15-privacy-and-dashboard-mechanics/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     15. Privacy Enforcement and Dashboard Mechanics
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -995,16 +803,9 @@
       <a href="../16-container-image-and-cli/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     16. The Container Image and the Role Dispatcher CLI
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1023,16 +824,9 @@
       <a href="../17-compose-makefile-supply-chain/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     17. Docker Compose, the Makefile, and the Image Supply Chain
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1051,16 +845,9 @@
       <a href="../18-config-migration-backup-rollout/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     18. Configuration, Migration, Backup, and Rollout
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1079,16 +866,9 @@
       <a href="../19-failure-modes-and-verification/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     19. Failure Modes and Verification
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1107,16 +887,9 @@
       <a href="../20-deviations-roadmap-open-questions/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     20. Spec Deviations, the Delivery Roadmap, and Open Questions
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1135,16 +908,9 @@
       <a href="../21-hardware-cost-dev-environment/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     21. Hardware Sizing, Cost, and the Development Environment
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1163,16 +929,9 @@
       <a href="../22-proving-the-architecture-mvp/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     22. Proving the Architecture - the MVP Plan
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1191,16 +950,9 @@
       <a href="../23-production-infrastructure-cloud/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     23. Production Infrastructure and Cloud Services
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1219,16 +971,9 @@
       <a href="../24-three-personas-and-admin-uis/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     24. Meet the Three Personas and the Admin UI Surface
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1247,16 +992,9 @@
       <a href="../25-district-admin-rosters-deployments/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     25. District Administrator - Rosters, Deployments, and Registries
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1275,16 +1013,9 @@
       <a href="../26-district-admin-access-control/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     26. District Administrator - Access Control and System Configuration
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1303,16 +1034,9 @@
       <a href="../27-compliance-and-district-reporting/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     27. Compliance, Privacy Law, and District-Level Reporting
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1331,16 +1055,9 @@
       <a href="../28-teacher-dashboards-student-reports/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     28. Teacher Dashboards and Student-Level Reports
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1368,16 +1085,9 @@
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
   
-  
   <span class="md-ellipsis">
-    
-  
     29. Class-Level Reports and Teacher Tools
-  
-
-    
   </span>
-  
   
 
           <span class="md-nav__icon md-icon"></span>
@@ -1386,16 +1096,9 @@
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     29. Class-Level Reports and Teacher Tools
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1418,9 +1121,7 @@
         <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Summary
-      
+      Summary
     </span>
   </a>
   
@@ -1429,9 +1130,7 @@
         <li class="md-nav__item">
   <a href="#concepts-covered" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Concepts Covered
-      
+      Concepts Covered
     </span>
   </a>
   
@@ -1440,9 +1139,148 @@
         <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
       
-        Prerequisites
+        <li class="md-nav__item">
+  <a href="#before-you-can-aggregate-a-class-you-need-one" class="md-nav__link">
+    <span class="md-ellipsis">
+      Before You Can Aggregate a Class, You Need One
+    </span>
+  </a>
+  
+</li>
       
+        <li class="md-nav__item">
+  <a href="#from-one-students-mastery-to-a-whole-sections" class="md-nav__link">
+    <span class="md-ellipsis">
+      From One Student's Mastery to a Whole Section's
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="From One Student's Mastery to a Whole Section's">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-how-concept-mastery-rolls-up-to-a-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: How Concept Mastery Rolls Up to a Section
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-class-mastery-heatmap-where-the-trouble-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Class Mastery Heatmap: Where the Trouble Is
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Class Mastery Heatmap: Where the Trouble Is">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-class-mastery-heatmap-for-one-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Class Mastery Heatmap for One Section
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#four-more-section-level-views" class="md-nav__link">
+    <span class="md-ellipsis">
+      Four More Section-Level Views
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#measuring-the-content-itself-item-and-tool-level-reports" class="md-nav__link">
+    <span class="md-ellipsis">
+      Measuring the Content Itself: Item and Tool-Level Reports
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#at-risk-roster-where-every-signal-converges" class="md-nav__link">
+    <span class="md-ellipsis">
+      At-Risk Roster: Where Every Signal Converges
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="At-Risk Roster: Where Every Signal Converges">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-at-risk-roster-how-the-composite-score-is-built" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: At-Risk Roster — How the Composite Score Is Built
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#standards-coverage-concepts-meet-external-frameworks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Standards Coverage: Concepts Meet External Frameworks
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#six-tools-for-when-a-fixed-report-isnt-enough" class="md-nav__link">
+    <span class="md-ellipsis">
+      Six Tools for When a Fixed Report Isn't Enough
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Six Tools for When a Fixed Report Isn't Enough">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-learning-graph-explorer-for-class-mastery" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Learning Graph Explorer for Class Mastery
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
     </span>
   </a>
   
@@ -1467,16 +1305,9 @@
       <a href="../30-author-dashboards-content-reports/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     30. Textbook Author Dashboards and Content Reports
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1495,16 +1326,9 @@
       <a href="../31-designing-ab-experiments/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     31. Designing and Reading A/B Experiments
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1523,16 +1347,9 @@
       <a href="../32-producer-contract-conformant-statements/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     32. The Producer Contract - Writing Conformant Statements
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1576,7 +1393,6 @@
     
     
     
-    
       
         
         
@@ -1587,20 +1403,12 @@
         
   
   
-  
     <a href="../../learning-graph/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     Learning Graph
-  
-
-    
   </span>
-  
   
 
       
@@ -1628,18 +1436,29 @@
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
-    
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
     
     
     
@@ -1653,20 +1472,108 @@
         
   
   
-  
     <a href="../../sims/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     MicroSims
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
   
 
     
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Specifications
   </span>
   
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../demo/graph-queries/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Demo
+  </span>
   
 
       
@@ -1690,16 +1597,9 @@
       <a href="../../glossary/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Glossary
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1717,16 +1617,9 @@
       <a href="../../license/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     License
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1744,16 +1637,9 @@
       <a href="../../contact/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Contact
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1790,9 +1676,7 @@
         <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Summary
-      
+      Summary
     </span>
   </a>
   
@@ -1801,9 +1685,7 @@
         <li class="md-nav__item">
   <a href="#concepts-covered" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Concepts Covered
-      
+      Concepts Covered
     </span>
   </a>
   
@@ -1812,9 +1694,148 @@
         <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
       
-        Prerequisites
+        <li class="md-nav__item">
+  <a href="#before-you-can-aggregate-a-class-you-need-one" class="md-nav__link">
+    <span class="md-ellipsis">
+      Before You Can Aggregate a Class, You Need One
+    </span>
+  </a>
+  
+</li>
       
+        <li class="md-nav__item">
+  <a href="#from-one-students-mastery-to-a-whole-sections" class="md-nav__link">
+    <span class="md-ellipsis">
+      From One Student's Mastery to a Whole Section's
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="From One Student's Mastery to a Whole Section's">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-how-concept-mastery-rolls-up-to-a-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: How Concept Mastery Rolls Up to a Section
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-class-mastery-heatmap-where-the-trouble-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Class Mastery Heatmap: Where the Trouble Is
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Class Mastery Heatmap: Where the Trouble Is">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-class-mastery-heatmap-for-one-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Class Mastery Heatmap for One Section
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#four-more-section-level-views" class="md-nav__link">
+    <span class="md-ellipsis">
+      Four More Section-Level Views
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#measuring-the-content-itself-item-and-tool-level-reports" class="md-nav__link">
+    <span class="md-ellipsis">
+      Measuring the Content Itself: Item and Tool-Level Reports
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#at-risk-roster-where-every-signal-converges" class="md-nav__link">
+    <span class="md-ellipsis">
+      At-Risk Roster: Where Every Signal Converges
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="At-Risk Roster: Where Every Signal Converges">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-at-risk-roster-how-the-composite-score-is-built" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: At-Risk Roster — How the Composite Score Is Built
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#standards-coverage-concepts-meet-external-frameworks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Standards Coverage: Concepts Meet External Frameworks
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#six-tools-for-when-a-fixed-report-isnt-enough" class="md-nav__link">
+    <span class="md-ellipsis">
+      Six Tools for When a Fixed Report Isn't Enough
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Six Tools for When a Fixed Report Isn't Enough">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-learning-graph-explorer-for-class-mastery" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Learning Graph Explorer for Class Mastery
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
     </span>
   </a>
   
@@ -1830,62 +1851,12 @@
           
           
             <div class="md-content" data-md-component="content">
-              
-                
-
-
-
-  
-
-
-  <nav class="md-path" aria-label="Navigation" >
-    <ol class="md-path__list">
-      
-        
-  
-  
-    <li class="md-path__item">
-      <a href="../.." class="md-path__link">
-        
-  <span class="md-ellipsis">
-    Home
-  </span>
-
-      </a>
-    </li>
-  
-
-      
-      
-        
-  
-  
-    
-    
-      <li class="md-path__item">
-        <a href="../" class="md-path__link">
-          
-  <span class="md-ellipsis">
-    Chapters
-  </span>
-
-        </a>
-      </li>
-    
-  
-
-      
-    </ol>
-  </nav>
-
-              
               <article class="md-content__inner md-typeset">
                 
                   
 
-
   
-    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/29-class-level-reports-and-tools/index.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/29-class-level-reports-and-tools/index.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1930,13 +1901,210 @@
 <li><a href="../28-teacher-dashboards-student-reports/">Chapter 28: Teacher Dashboards and Student-Level Reports</a></li>
 </ul>
 <hr />
-<p>TODO: Generate Chapter Content</p>
+<div class="admonition mascot-welcome">
+<p class="admonition-title">From One Name to a Whole Roster</p>
+<p><img alt="Rowan waving welcome" class="mascot-admonition-img" src="../../img/mascot/welcome.png" />
+Chapter 28 handed you nine reports and a single student's whole story. This chapter widens the lens back out to the section — thirty names on a roster instead of one — and asks a harder question: how do you compress thirty stories into one screen without losing the student who needs help most? Let's follow the record.</p>
+</div>
+<p>The nine reports covered in <a href="../28-teacher-dashboards-student-reports/">Chapter 28</a> all answer questions about one learner at a time. A teacher rarely has time to open thirty separate Student Detail Dashboards before first period, though, so the <strong>My Classes Dashboard</strong> — introduced in that chapter as a teacher's landing page — exists to answer a section-wide version of the same question first: which students, and which concepts, deserve attention today? This chapter is where that dashboard's class-level mechanics finally get the depth Chapter 28 deferred: ten reports that describe a whole section at once, followed by six interactive tools that let a teacher go beyond whatever a fixed report happens to show.</p>
+<h2 id="before-you-can-aggregate-a-class-you-need-one">Before You Can Aggregate a Class, You Need One<a class="headerlink" href="#before-you-can-aggregate-a-class-you-need-one" title="Permanent link">&para;</a></h2>
+<p>Every class-level report in this chapter assumes a simple fact already exists: a specific, current list of which students belong to which section, and which instructor is responsible for it. That fact is not computed from statements — it is administrative data, maintained through the same School / Course / Section UI that <a href="../25-district-admin-rosters-deployments/">Chapter 25</a> covered from a District Administrator's chair. <strong>Section Enrollment</strong> is the graph relationship connecting a <code>Student</code> vertex to a <code>Section</code> vertex, carrying an enrollment date and a status; it is almost always populated automatically by a roster sync, the same mechanism Chapter 25 described feeding the Enrollment Editor. A teacher does not usually create Section Enrollment records directly, but every class-level report in this chapter reads that boundary before it reads a single statement — it is the fence around "my class."</p>
+<p>The second administrative fact a class-level report depends on is who the "my" in "my class" refers to. <strong>Co-Teacher Assignment</strong> is the graph relationship connecting an <code>Instructor</code> vertex to a <code>Section</code> vertex, and the specification explicitly allows more than one instructor to hold that relationship for the same section at once — a co-taught biology class with a lead teacher and a special-education co-teacher, for instance, where both need the identical My Classes view for the identical roster. Neither instructor is recorded as a subordinate "assistant" role; both simply hold the same relationship to the same section, and both see the same class-level reports built from the same statement log.</p>
+<p>Before moving to the reports themselves, it helps to be precise about what these two administrative facts do and do not do, since every report that follows assumes them without re-explaining them.</p>
+<ul>
+<li>Section Enrollment defines the exact roster of students a class-level report aggregates over — add or remove a student here, and every report in this chapter reflects that change on its next refresh.</li>
+<li>Co-Teacher Assignment defines which instructors see a section's reports at all — it grants viewing scope, not a different or filtered version of the data.</li>
+<li>Neither relationship is itself a report; both are prerequisites that the ten reports below silently depend on.</li>
+<li>Both are ordinarily roster-driven and change rarely mid-term, unlike the statement log underneath the reports, which changes continuously.</li>
+</ul>
+<h2 id="from-one-students-mastery-to-a-whole-sections">From One Student's Mastery to a Whole Section's<a class="headerlink" href="#from-one-students-mastery-to-a-whole-sections" title="Permanent link">&para;</a></h2>
+<p>With the roster boundary settled, the next question is mechanical: how does a whole section's worth of individual mastery scores turn into one class-level number? The answer runs through a summary vertex Chapter 28 did not need — <code>SectionRollup</code>, a vertex materialized once per (section, concept) pair, holding a <code>mastery_distribution</code>, a <code>mean_score</code>, a <code>student_count</code>, and a timestamp for when it was last computed. A <code>ConceptMastery</code> vertex — the same per-student, per-concept summary Chapter 28's Concept Mastery Radar read directly — feeds into its section's <code>SectionRollup</code> through a <code>ROLLS_UP_TO</code> edge; the <code>SectionRollup</code> itself connects to its <code>Section</code> through a <code>FOR_SECTION</code> edge. Every class-level report in this chapter is, underneath, a different view onto that one aggregate vertex, or onto sibling aggregates built the same way from other summary types.</p>
+<p>That mechanism is worth seeing as a diagram before the reports built on top of it start piling up, since every one of them will refer back to this same rollup step.</p>
+<h4 id="diagram-how-concept-mastery-rolls-up-to-a-section">Diagram: How Concept Mastery Rolls Up to a Section<a class="headerlink" href="#diagram-how-concept-mastery-rolls-up-to-a-section" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/section-rollup-aggregation/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>How Concept Mastery Rolls Up to a Section</summary>
+<p>Type: workflow
+<strong>sim-id:</strong> section-rollup-aggregation<br/>
+<strong>Library:</strong> Mermaid<br/>
+<strong>Status:</strong> Specified
+<strong>Template:</strong> https://github.com/dmccreary/microsims/tree/main/docs/sims/learning-graph-v1<br/></p>
+<p>Bloom Taxonomy: Understand (L2)
+Bloom Taxonomy Verb: explain, trace</p>
+<p>Learning objective: Explain how many students' individual ConceptMastery vertices aggregate, through a ROLLS_UP_TO edge, into one SectionRollup vertex per concept, which the ten class-level reports in this chapter all read from.</p>
+<p>Purpose: A Mermaid flowchart showing three sample <code>ConceptMastery</code> boxes (one per sample student: Amara, Devon, Priya), each with a small mastery-score label, each connected by a <code>ROLLS_UP_TO</code> arrow into one central <code>SectionRollup</code> box labeled with its key properties (<code>mastery_distribution</code>, <code>mean_score</code>, <code>student_count</code>, <code>last_computed</code>). A <code>FOR_SECTION</code> arrow connects the <code>SectionRollup</code> box to a <code>Section</code> box. A dashed arrow fans out from <code>SectionRollup</code> to three placeholder report boxes labeled "Class Mastery Heatmap," "Concept Difficulty Ranking," and "other class-level reports."</p>
+<p>Interactive features: Clicking any <code>ConceptMastery</code> box opens an infobox recapping that it is the same per-student mastery score Chapter 28 introduced. Clicking the <code>SectionRollup</code> box opens an infobox listing its four key properties and stating it refreshes incrementally, not by re-scanning every statement. Clicking the <code>Section</code> box opens an infobox defining Section Enrollment as the boundary that determines which students' ConceptMastery vertices feed this particular rollup.</p>
+<p>Color coding: The three student-level ConceptMastery boxes in a light neutral tone to signal "already covered in Chapter 28"; the SectionRollup box in the book's teal accent color to signal "new in this chapter"; the fan-out to report boxes in a muted gray dashed line.</p>
+<p>Implementation: Mermaid flowchart adapted from the referenced template's node/edge layout conventions, with full click-to-infobox coverage on every node. Responsive width tracking the containing element; on narrow viewports the three ConceptMastery boxes stack vertically above the SectionRollup box instead of side by side.</p>
+</details>
+<div class="admonition mascot-thinking">
+<p class="admonition-title">Same Data, Different Grain</p>
+<p><img alt="Rowan thinking with a magnifying glass" class="mascot-admonition-img" src="../../img/mascot/thinking.png" />
+Notice that no new statements were needed to get here. <code>SectionRollup</code> is built entirely from <code>ConceptMastery</code> vertices that already existed for Chapter 28's reports — the aggregation is a change in grain, not a change in source. That is the same idea <a href="../24-three-personas-and-admin-uis/">Chapter 24</a> established for all three personas sharing one statement log, now showing up one level down: a teacher's own two dashboards share the identical underlying evidence, aggregated differently.</p>
+</div>
+<h2 id="the-class-mastery-heatmap-where-the-trouble-is">The Class Mastery Heatmap: Where the Trouble Is<a class="headerlink" href="#the-class-mastery-heatmap-where-the-trouble-is" title="Permanent link">&para;</a></h2>
+<p>The most-used of the ten class-level reports is also the simplest to read at a glance. The <strong>Class Mastery Heatmap</strong> renders as a grid — one row per student, one column per concept — with each cell shaded by that student's mastery score for that concept, built directly from the <code>SectionRollup</code> mastery distribution just described. A teacher scanning this grid is looking for two different patterns: a whole column shaded dark, meaning most of the class is struggling with one specific concept (a signal the <em>content</em> may need re-teaching to everyone), versus a whole row shaded dark, meaning one specific student is struggling broadly (a signal that student, specifically, needs attention).</p>
+<h4 id="diagram-class-mastery-heatmap-for-one-section">Diagram: Class Mastery Heatmap for One Section<a class="headerlink" href="#diagram-class-mastery-heatmap-for-one-section" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/class-mastery-heatmap/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Class Mastery Heatmap for One Section</summary>
+<p>Type: chart
+<strong>sim-id:</strong> class-mastery-heatmap<br/>
+<strong>Library:</strong> p5.js<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Analyze (L4)
+Bloom Taxonomy Verb: differentiate, distinguish</p>
+<p>Learning objective: Let the learner distinguish a concept-wide weakness (a dark column across most students) from a student-specific weakness (a dark row across most concepts) in a class mastery heatmap, and identify which pattern calls for whole-class re-teaching versus individual attention.</p>
+<p>Canvas layout: A grid of roughly 24 rows (sample students, labeled by first name and last initial) by 8 columns (sample concepts, labeled along the top, rotated diagonally to fit). Each cell is a filled rectangle shaded on a single-hue color scale from light (high mastery, near 1.0) to dark (low mastery, near 0.0), matching the book's teal accent hue so meaning is never carried by color alone.</p>
+<p>Data: A synthetic mastery-score matrix with one deliberately dark column (a concept most of the class is weak on) and one deliberately dark row (a single student weak across most concepts), so both patterns are visible in the default view.</p>
+<p>Interactive features: Hovering any cell reveals a tooltip with the exact mastery score and the student/concept pair. Clicking a column header highlights that entire column and opens an infobox stating the class-wide mean score for that concept. Clicking a row label highlights that entire row and opens a "View Student Detail" link representing the drill-down into that student's nine-report dashboard from Chapter 28. A <code>createSlider()</code> control lets the learner filter the grid to only students below a chosen mastery threshold.</p>
+<p>Color coding: Single-hue sequential scale (light-to-dark teal) rather than a red-green scale, so the chart remains legible for color-vision-deficient readers; a numeric label appears on hover as a redundant, non-color-dependent cue.</p>
+<p>Implementation: p5.js canvas rendering a grid of colored rectangles from a 2D array of scores, with mouse-position hit-testing for hover and click. Responsive design: canvas width tracks the containing element's width; at narrow viewports column headers abbreviate to two-letter concept codes and cell size shrinks rather than the grid overflowing horizontally.</p>
+</details>
+<h2 id="four-more-section-level-views">Four More Section-Level Views<a class="headerlink" href="#four-more-section-level-views" title="Permanent link">&para;</a></h2>
+<p>Four more reports describe the same section from angles the heatmap cannot show. The <strong>Concept Difficulty Ranking</strong> takes the same mean scores behind the heatmap's columns and sorts them into a horizontal bar chart, ascending from hardest to easiest, so a teacher can name the single hardest concept in the section without scanning a whole grid for the darkest column. The <strong>Completion Funnel</strong> counts how many students in the section have reached each chapter or page in order, rendered as a classic funnel narrowing from "started" at the top to "reached the final page" at the bottom — the same funnel-chart component this book's Chapter 1 dashboard-mapping table already named as <code>go.Funnel</code>. The <strong>Pace Distribution</strong> shows, per chapter, a box plot of how many days each student took to complete it, revealing whether a chapter's pacing is tight and consistent across the class or wildly spread out. The <strong>Class Engagement Calendar</strong> renders a calendar heatmap — one cell per day across the whole term — shaded by how many statements the section produced that day, making patterns like "engagement drops every weekend" or "nobody touched the textbook during winter break" visible at a glance.</p>
+<p>Having explained what each of these four reports shows, it is worth pausing on how they complement each other, since a teacher rarely reads just one in isolation.</p>
+<table>
+<thead>
+<tr>
+<th>Report</th>
+<th>Unit of Analysis</th>
+<th>What It Answers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Concept Difficulty Ranking</td>
+<td>Section, per concept</td>
+<td>Which single concept is hardest for this class, ranked</td>
+</tr>
+<tr>
+<td>Completion Funnel</td>
+<td>Section, per chapter/page</td>
+<td>How many students have reached each point in the sequence</td>
+</tr>
+<tr>
+<td>Pace Distribution</td>
+<td>Section, per chapter</td>
+<td>Is this chapter's completion time tight or spread out across students</td>
+</tr>
+<tr>
+<td>Class Engagement Calendar</td>
+<td>Section, per day</td>
+<td>When did the class engage, and when did engagement go quiet</td>
+</tr>
+</tbody>
+</table>
+<p>Reading that table top to bottom traces four different axes of the same section: difficulty (which concept), progress (how far), pace (how long), and rhythm (when) — four questions the Class Mastery Heatmap alone cannot answer, because it only shows the current mastery snapshot.</p>
+<div class="admonition mascot-tip">
+<p class="admonition-title">A Box Plot's Outliers Are Often the Real Story</p>
+<p><img alt="Rowan pointing helpfully" class="mascot-admonition-img" src="../../img/mascot/tip.png" />
+When reading the Pace Distribution, resist the urge to look only at the median line. A tight box with two or three dots far outside it means most of the class paced a chapter normally, but a handful of students took dramatically longer — exactly the students the Class Mastery Heatmap's darkest rows and the At-Risk Roster later in this chapter are also likely to flag. A wide, evenly spread box with no outliers, by contrast, usually means the chapter's pacing itself needs attention, not any particular student.</p>
+</div>
+<h2 id="measuring-the-content-itself-item-and-tool-level-reports">Measuring the Content Itself: Item and Tool-Level Reports<a class="headerlink" href="#measuring-the-content-itself-item-and-tool-level-reports" title="Permanent link">&para;</a></h2>
+<p>Three more class-level reports drop below the concept level to look at individual questions, individual MicroSims, and one section compared against another. The <strong>Question Discrimination</strong> report is a scatter plot — difficulty on one axis, discrimination on the other — built from classic item-analysis statistics over a section's <code>Question</code> statements. Difficulty here means how many students answered correctly; discrimination means how well a question separates students who mastered the surrounding concept from students who did not. A question that everyone gets right, or everyone gets wrong regardless of their overall mastery, has low discrimination and is a weak question no matter how "hard" it looks on paper.</p>
+<p>The <strong>MicroSim Utilization Report</strong> shifts from questions to interactive simulations, rendering as a bar chart of interaction counts paired with a dwell-time distribution per MicroSim — which simulations a section actually opened and lingered on, versus which ones nobody touched. The <strong>Cohort Comparison Report</strong> is the one report in this set that looks outside a single section entirely: a grouped bar chart or small-multiples layout comparing two sections the same teacher owns on whatever concepts they share, useful for a teacher running two sections of the same course back to back.</p>
+<div class="admonition mascot-warning">
+<p class="admonition-title">Two Sections Are Not a Controlled Experiment</p>
+<p><img alt="Rowan waving a caution flag" class="mascot-admonition-img" src="../../img/mascot/warning.png" />
+It is tempting to read the Cohort Comparison Report as proof that whatever a teacher changed between two sections — a different pacing, a different in-class activity — <em>caused</em> the difference in scores. It doesn't prove that. The two sections likely differ in ways having nothing to do with the change: time of day, which students enrolled, what else was happening that week. A real answer to "did this change work" requires a properly randomized comparison, which is a different topic this book returns to later. Read the Cohort Comparison Report as a prompt for a question, not as the answer to one.</p>
+</div>
+<h2 id="at-risk-roster-where-every-signal-converges">At-Risk Roster: Where Every Signal Converges<a class="headerlink" href="#at-risk-roster-where-every-signal-converges" title="Permanent link">&para;</a></h2>
+<p>Most of the reports so far each isolate one signal. The <strong>At-Risk Roster</strong> is the first class-level report to combine several: a ranked table of students, each tagged with a composite risk score built from three ingredients Chapter 28 already explained one at a time — the Idle Disengagement Alert's inactivity signal, a student's low overall mastery, and the Prerequisite Gap Analysis's evidence of unmastered upstream concepts. A student flagged near the top of this roster is not necessarily the student with the single lowest test score; it is the student where multiple independent warning signs point in the same direction at once.</p>
+<p>Because the At-Risk Roster draws on the exact same three signals from Chapter 28, seeing how they combine is more useful as an interactive breakdown than as another paragraph of description.</p>
+<h4 id="diagram-at-risk-roster-how-the-composite-score-is-built">Diagram: At-Risk Roster — How the Composite Score Is Built<a class="headerlink" href="#diagram-at-risk-roster-how-the-composite-score-is-built" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/at-risk-roster-composite-score/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>At-Risk Roster — How the Composite Score Is Built</summary>
+<p>Type: workflow
+<strong>sim-id:</strong> at-risk-roster-composite-score<br/>
+<strong>Library:</strong> Mermaid<br/>
+<strong>Status:</strong> Specified
+<strong>Template:</strong> https://github.com/dmccreary/atam/tree/main/docs/sims/risk-register-explorer<br/></p>
+<p>Bloom Taxonomy: Analyze (L4)
+Bloom Taxonomy Verb: decompose, justify</p>
+<p>Learning objective: Let the learner decompose one student's composite at-risk score into its three contributing signals (disengagement, low mastery, prerequisite gaps) and justify why a student flagged on all three ranks higher than a student flagged on only one.</p>
+<p>Purpose: A Mermaid flowchart with three input boxes — "Idle Disengagement Alert" (no statements in N days), "Low Overall Mastery" (below-threshold ConceptMastery average), "Prerequisite Gap Analysis" (unmastered upstream concepts) — each with a labeled weight arrow flowing into one central "Composite Risk Score" box, which itself flows into a ranked "At-Risk Roster" table box showing three sample rows with different score compositions (one flagged on all three signals, ranked highest; one flagged on only disengagement, ranked lower; one flagged on only prerequisite gaps, ranked lowest of the three).</p>
+<p>Interactive features: Clicking any of the three input boxes opens an infobox recapping that signal's definition from Chapter 28 (Idle Disengagement Alert, Struggle Detector's low-mastery evidence, Prerequisite Gap Analysis). Clicking the "Composite Risk Score" box opens an infobox explaining that the score is a weighted combination, not a simple count, and that a student can rank highly on strength of one severe signal alone. Clicking any roster row opens an infobox showing that student's individual signal breakdown.</p>
+<p>Color coding: The three input boxes each in a distinct muted hue; the composite box in the book's amber accent color to mark it as the point of convergence; the roster rows shaded darkest-to-lightest by rank to reinforce the ranking visually.</p>
+<p>Implementation: Mermaid flowchart adapted from the referenced template's factor-to-composite-score layout, with full click-to-infobox coverage. Responsive width tracking the containing element; on narrow viewports the three input boxes stack vertically above the composite box instead of fanning in from the sides.</p>
+</details>
+<h2 id="standards-coverage-concepts-meet-external-frameworks">Standards Coverage: Concepts Meet External Frameworks<a class="headerlink" href="#standards-coverage-concepts-meet-external-frameworks" title="Permanent link">&para;</a></h2>
+<p>The tenth and last class-level report looks outward rather than at the class's own performance. The <strong>Standards Coverage Report</strong> renders as a coverage matrix mapping the section's concepts to external standards frameworks, when a standards graph is present in the deployment — letting a teacher or curriculum lead see, at a glance, which state or national standards a given chapter's concepts actually satisfy, and which standards remain uncovered by anything in the current textbook.</p>
+<p>With all ten class-level reports now explained, the following recap organizes them the same way the Concept Difficulty Ranking through Class Engagement Calendar table did earlier — by what question each one answers — as a single reference, not new material.</p>
+<ul>
+<li><strong>Class Mastery Heatmap</strong> — where the trouble is, student by concept, all at once.</li>
+<li><strong>Concept Difficulty Ranking</strong> — the single hardest concept in the section, sorted.</li>
+<li><strong>Completion Funnel</strong> — how many students have reached each point in the sequence.</li>
+<li><strong>Pace Distribution</strong> — whether a chapter's completion time is tight or spread out.</li>
+<li><strong>Class Engagement Calendar</strong> — when the class engaged, and when it went quiet.</li>
+<li><strong>Question Discrimination</strong> — which individual questions separate strong from weak students well.</li>
+<li><strong>MicroSim Utilization Report</strong> — which simulations the section actually used.</li>
+<li><strong>Cohort Comparison Report</strong> — how two of a teacher's own sections compare on shared concepts.</li>
+<li><strong>At-Risk Roster</strong> — a ranked list combining disengagement, low mastery, and prerequisite gaps.</li>
+<li><strong>Standards Coverage Report</strong> — which external standards the section's concepts satisfy.</li>
+</ul>
+<div class="admonition mascot-encourage">
+<p class="admonition-title">Ten Reports Plus Six Tools Is a Full Toolbox</p>
+<p><img alt="Rowan offering encouragement" class="mascot-admonition-img" src="../../img/mascot/encouraging.png" />
+If that list of ten is starting to blend together, that is a normal reaction — Chapter 28 already asked you to hold nine student-level reports in mind, and this chapter just added ten more at a different grain. You do not need perfect recall of each report's exact backing query. You need the shape: most of these ten reports view the same <code>SectionRollup</code> and its sibling aggregates from a different angle — by concept, by student, by day, by question, by simulation — and the At-Risk Roster is the one report built by combining several of those angles at once.</p>
+</div>
+<h2 id="six-tools-for-when-a-fixed-report-isnt-enough">Six Tools for When a Fixed Report Isn't Enough<a class="headerlink" href="#six-tools-for-when-a-fixed-report-isnt-enough" title="Permanent link">&para;</a></h2>
+<p>Every report covered so far is fixed: its layout, its grouping, its chart type are all decided in advance. Sometimes a teacher's actual question does not match any of the ten reports exactly — "show me only the students who scored below 70% on the midterm <em>and</em> are in my third-period section" is a perfectly reasonable question that no single fixed report answers directly. The specification's answer is a set of six interactive tools that let a teacher construct a view on demand rather than wait for a new report to be built.</p>
+<p>The <strong>Ad-Hoc Cohort Builder</strong> lets a teacher define a custom group of students by predicates — grade level, section, a mastery band — and then run any of the ten reports above against just that custom group instead of an entire section. The <strong>Learning Graph Explorer</strong> is an interactive version of the concept dependency graph Chapter 7 introduced as the property graph's backbone: a teacher clicks any concept node and sees that concept's class-wide mastery, its prerequisite chain, and the content linked to it, all without leaving the graph view.</p>
+<h4 id="diagram-learning-graph-explorer-for-class-mastery">Diagram: Learning Graph Explorer for Class Mastery<a class="headerlink" href="#diagram-learning-graph-explorer-for-class-mastery" title="Permanent link">&para;</a></h4>
+<iframe src="https://dmccreary.github.io/signal-processing/sims/graph-viewer/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<p><a class="md-button" href="https://dmccreary.github.io/signal-processing/sims/graph-viewer/main.html">Run the Learning Graph Viewer MicroSim fullscreen</a></p>
+<details>
+<summary>Learning Graph Explorer for Class Mastery (reused MicroSim)</summary>
+<p>Type: graph-model
+<strong>sim-id:</strong> graph-viewer<br/>
+<strong>Library:</strong> vis-network<br/>
+<strong>Status:</strong> Reused<br/>
+<strong>Source:</strong> https://dmccreary.github.io/signal-processing/sims/graph-viewer/<br/>
+<strong>Source Repo:</strong> https://github.com/dmccreary/signal-processing/tree/main/docs/sims/graph-viewer</p>
+<p>Reused from the MicroSim catalog (WHAT match score 0.8296). Learning objective: let the learner use an interactive learning-graph explorer to click a concept node and inspect its prerequisite chain and linked content, applying the same DEPENDS_ON traversal Chapter 7 introduced to a class-level "why is this concept hard" question. The reused sim's existing search, taxonomy filtering, and node-click interaction map directly onto the Learning Graph Explorer's specified behavior — clicking a concept plays the role of surfacing its class mastery and prerequisite chain, and the taxonomy filter lets a teacher narrow the graph to one category at a time.</p>
+</details>
+<p>Four more tools round out the set. The <strong>Statement Query Console</strong> is a guided filter builder over the raw statement log itself — no query language required — letting a teacher construct a filter (this verb, this date range, this activity) and export the matching statements directly, for the rare case where even the Ad-Hoc Cohort Builder's predicates are not specific enough. The <strong>Funnel Builder</strong> lets a teacher drag content nodes into a custom order to define a progression funnel of their own choosing, rather than relying on the fixed chapter-by-chapter sequence the Completion Funnel report assumes. The <strong>Alert Rule Builder</strong> lets a teacher define a threshold — "notify me when a student is idle five days" is the specification's own example — that pushes a notification to the teacher automatically instead of requiring them to check the At-Risk Roster manually every morning. The <strong>Report Scheduler</strong> takes any of the ten fixed reports, or any custom view built with the tools above, and schedules it to email or export on a recurring cadence, so a report a teacher checks every Monday morning does not require opening the dashboard at all.</p>
+<p>The following list recaps all six tools together, now that each has been explained, organized by what kind of flexibility each one adds beyond a fixed report.</p>
+<ul>
+<li><strong>Ad-Hoc Cohort Builder</strong> — define a custom student group by predicate, then run any report against it.</li>
+<li><strong>Learning Graph Explorer</strong> — click any concept to see its class mastery, prerequisite chain, and linked content.</li>
+<li><strong>Statement Query Console</strong> — a guided, non-query-language filter builder over the raw statement log, with export.</li>
+<li><strong>Funnel Builder</strong> — drag content nodes to define a custom progression funnel.</li>
+<li><strong>Alert Rule Builder</strong> — define a threshold that pushes a notification instead of waiting to be checked.</li>
+<li><strong>Report Scheduler</strong> — schedule any report or custom view to email or export on a recurring cadence.</li>
+</ul>
+<h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Section Enrollment</strong> is the roster boundary that determines exactly which students a class-level report aggregates over.</li>
+<li><strong>Co-Teacher Assignment</strong> lets more than one instructor hold the same viewing relationship to a section without either being a subordinate role.</li>
+<li>A <code>SectionRollup</code> vertex aggregates many students' <code>ConceptMastery</code> vertices through a <code>ROLLS_UP_TO</code> edge — the same underlying evidence Chapter 28 used, viewed at a coarser grain.</li>
+<li>The <strong>Class Mastery Heatmap</strong> distinguishes a concept-wide weakness (a dark column) from a student-specific weakness (a dark row).</li>
+<li>The <strong>Concept Difficulty Ranking</strong>, <strong>Completion Funnel</strong>, <strong>Pace Distribution</strong>, and <strong>Class Engagement Calendar</strong> each describe a different axis of the same section — difficulty, progress, pace, and rhythm.</li>
+<li><strong>Question Discrimination</strong>, the <strong>MicroSim Utilization Report</strong>, and the <strong>Cohort Comparison Report</strong> drop to the item, simulation, and cross-section level respectively — with cohort comparisons read as correlational prompts, not causal proof.</li>
+<li>The <strong>At-Risk Roster</strong> combines disengagement, low mastery, and prerequisite gaps into one composite, ranked score.</li>
+<li>The <strong>Standards Coverage Report</strong> maps a section's concepts against external standards frameworks.</li>
+<li>Six tools — the <strong>Ad-Hoc Cohort Builder</strong>, <strong>Learning Graph Explorer</strong>, <strong>Statement Query Console</strong>, <strong>Funnel Builder</strong>, <strong>Alert Rule Builder</strong>, and <strong>Report Scheduler</strong> — let a teacher build a custom view when none of the ten fixed reports fits the exact question being asked.</li>
+</ul>
+<div class="admonition mascot-celebration">
+<p class="admonition-title">You Can Now Read a Whole Section, Not Just One Student</p>
+<p><img alt="Rowan celebrating with confetti" class="mascot-admonition-img" src="../../img/mascot/celebration.png" />
+What does the evidence show? You can now open My Classes and read a whole section's story at once — where the trouble concentrates, who is falling through the cracks, and which of six tools to reach for when a fixed report doesn't quite fit. In <a href="../30-author-dashboards-content-reports/">Chapter 30: Textbook Author Dashboards and Content Reports</a>, the lens shifts one more time — from the teacher watching students to the author watching the textbook itself.</p>
+</div>
 
 
 
 
 
 
+
+  
+  
 
 
 
@@ -2022,13 +2190,10 @@
     </div>
     
     
-    
-      
-      
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
         <script src="../../js/katex.js"></script>
       

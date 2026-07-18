@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="An intelligent textbook on Learning Record Stores: what they are, how xAPI statements work, and how to design, deploy, and query an LRS.">
+        <meta name="description" content="How the Stewardship Transition pattern behind xAPI's governance generalizes, how 1EdTech's Caliper Analytics and Learning Object Metadata compare to xAPI, and how Data Verifiability, Data Transparency, Learner Data Portability, and Vendor Interoperability depend on standards that a Learning Ecosystem shares.">
       
       
         <meta name="author" content="Dan McCreary">
@@ -21,22 +21,19 @@
         <link rel="next" href="../05-system-context-architectural-planes/">
       
       
-        
-      
-      
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
     
     
       
-        <title>4. Standards Governance and the Wider Interoperability Ecosystem - Learning Record Store</title>
+        <title>Standards Governance and the Wider Interoperability Ecosystem - Learning Record Store</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -67,6 +64,7 @@
     
       
 
+    
     
     
   </head>
@@ -121,7 +119,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              4. Standards Governance and the Wider Interoperability Ecosystem
+              Standards Governance and the Wider Interoperability Ecosystem
             
           </span>
         </div>
@@ -133,13 +131,11 @@
     
     
     
-      
-      
-        <label class="md-header__button md-icon" for="__search">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        </label>
-        <div class="md-search" data-md-component="search" role="dialog">
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
@@ -178,14 +174,13 @@
     </div>
   </div>
 </div>
-      
     
     
       <div class="md-header__source">
         <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub Repo
@@ -230,7 +225,7 @@
       <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub Repo
@@ -250,16 +245,9 @@
       <a href="../.." class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Home
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -277,16 +265,9 @@
       <a href="../../about/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     About
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -304,16 +285,9 @@
       <a href="../../course-description/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Course Description
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -325,120 +299,6 @@
       
   
   
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-  
-    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
-      
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Specifications
-  
-
-    
-  </span>
-  
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-  
-    <a href="../../demo/graph-queries/" class="md-nav__link">
-      
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Demo
-  
-
-    
-  </span>
-  
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -451,70 +311,133 @@
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
-    
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
     
     
     
@@ -524,42 +447,32 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
+          
           
           <div class="md-nav__link md-nav__container">
             <a href="../" class="md-nav__link ">
               
   
-  
   <span class="md-ellipsis">
-    
-  
     Chapters
-  
-
-    
   </span>
-  
   
 
             </a>
             
               
-              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_6">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
-            
-  
-    Chapters
-  
-
+            Chapters
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -575,16 +488,9 @@
       <a href="../01-lms-to-experience-api/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     1. From Learning Management Systems to the Experience API
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -603,16 +509,9 @@
       <a href="../02-anatomy-of-xapi-statement/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     2. The Anatomy of an xAPI Statement
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -631,16 +530,9 @@
       <a href="../03-ieee-standardization-xapi-cmi5/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     3. IEEE Standardization of xAPI and cmi5
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -668,16 +560,9 @@
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
   
-  
   <span class="md-ellipsis">
-    
-  
     4. Standards Governance and the Wider Interoperability Ecosystem
-  
-
-    
   </span>
-  
   
 
           <span class="md-nav__icon md-icon"></span>
@@ -686,16 +571,9 @@
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     4. Standards Governance and the Wider Interoperability Ecosystem
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -718,9 +596,7 @@
         <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Summary
-      
+      Summary
     </span>
   </a>
   
@@ -729,9 +605,7 @@
         <li class="md-nav__item">
   <a href="#concepts-covered" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Concepts Covered
-      
+      Concepts Covered
     </span>
   </a>
   
@@ -740,9 +614,157 @@
         <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
       
-        Prerequisites
+        <li class="md-nav__item">
+  <a href="#from-one-standards-governance-to-a-general-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      From One Standard's Governance to a General Pattern
+    </span>
+  </a>
+  
+</li>
       
+        <li class="md-nav__item">
+  <a href="#a-second-standards-body-1edtech-consortium" class="md-nav__link">
+    <span class="md-ellipsis">
+      A Second Standards Body: 1EdTech Consortium
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#an-older-idea-cataloging-content-instead-of-recording-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      An Older Idea: Cataloging Content Instead of Recording Events
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="An Older Idea: Cataloging Content Instead of Recording Events">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-anatomy-of-an-activity-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Anatomy of an Activity Definition
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-second-way-to-record-events-caliper-analytics" class="md-nav__link">
+    <span class="md-ellipsis">
+      A Second Way to Record Events: Caliper Analytics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A Second Way to Record Events: Caliper Analytics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-the-wider-standards-ecosystem-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: The Wider Standards Ecosystem Map
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#open-source-infrastructure-trust-you-can-inspect" class="md-nav__link">
+    <span class="md-ellipsis">
+      Open Source Infrastructure: Trust You Can Inspect
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proving-a-record-is-real-data-verifiability" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proving a Record Is Real: Data Verifiability
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Proving a Record Is Real: Data Verifiability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-statement-timestamp-and-the-verifiability-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Statement Timestamp and the Verifiability Chain
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#from-one-store-to-a-whole-ecosystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      From One Store to a Whole Ecosystem
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="From One Store to a Whole Ecosystem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-learning-ecosystem-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Learning Ecosystem Map
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-any-of-this-matters-three-more-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why Any of This Matters: Three More Properties
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bringing-the-wider-ecosystem-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bringing the Wider Ecosystem Together
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
     </span>
   </a>
   
@@ -767,16 +789,9 @@
       <a href="../05-system-context-architectural-planes/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     5. System Context and the Five Architectural Planes
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -795,16 +810,9 @@
       <a href="../06-multi-tenancy-rosters-identity/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     6. Multi-Tenancy, Rosters, and Pseudonymous Identity
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -823,16 +831,9 @@
       <a href="../07-property-graph-data-model/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     7. The Property Graph Data Model
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -851,16 +852,9 @@
       <a href="../08-summary-vertices-ingestion/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     8. Summary Vertices and Statement Ingestion Mechanics
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -879,16 +873,9 @@
       <a href="../09-twelve-core-lrs-functions/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     9. The Twelve Core LRS Functions
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -907,16 +894,9 @@
       <a href="../10-choosing-technology-stack/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     10. Choosing the Technology Stack
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -935,16 +915,9 @@
       <a href="../11-adrs-and-capacity-model/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     11. Architecture Decision Records and the Capacity Model
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -963,16 +936,9 @@
       <a href="../12-bayesian-knowledge-tracing/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     12. Bayesian Knowledge Tracing for Mastery
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -991,16 +957,9 @@
       <a href="../13-component-design-in-depth/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     13. Component Design in Depth
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1019,16 +978,9 @@
       <a href="../14-kafka-clickhouse-graph-schema/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     14. Kafka Topics, ClickHouse Schema, and Graph Constraints
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1047,16 +999,9 @@
       <a href="../15-privacy-and-dashboard-mechanics/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     15. Privacy Enforcement and Dashboard Mechanics
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1075,16 +1020,9 @@
       <a href="../16-container-image-and-cli/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     16. The Container Image and the Role Dispatcher CLI
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1103,16 +1041,9 @@
       <a href="../17-compose-makefile-supply-chain/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     17. Docker Compose, the Makefile, and the Image Supply Chain
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1131,16 +1062,9 @@
       <a href="../18-config-migration-backup-rollout/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     18. Configuration, Migration, Backup, and Rollout
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1159,16 +1083,9 @@
       <a href="../19-failure-modes-and-verification/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     19. Failure Modes and Verification
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1187,16 +1104,9 @@
       <a href="../20-deviations-roadmap-open-questions/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     20. Spec Deviations, the Delivery Roadmap, and Open Questions
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1215,16 +1125,9 @@
       <a href="../21-hardware-cost-dev-environment/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     21. Hardware Sizing, Cost, and the Development Environment
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1243,16 +1146,9 @@
       <a href="../22-proving-the-architecture-mvp/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     22. Proving the Architecture - the MVP Plan
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1271,16 +1167,9 @@
       <a href="../23-production-infrastructure-cloud/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     23. Production Infrastructure and Cloud Services
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1299,16 +1188,9 @@
       <a href="../24-three-personas-and-admin-uis/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     24. Meet the Three Personas and the Admin UI Surface
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1327,16 +1209,9 @@
       <a href="../25-district-admin-rosters-deployments/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     25. District Administrator - Rosters, Deployments, and Registries
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1355,16 +1230,9 @@
       <a href="../26-district-admin-access-control/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     26. District Administrator - Access Control and System Configuration
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1383,16 +1251,9 @@
       <a href="../27-compliance-and-district-reporting/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     27. Compliance, Privacy Law, and District-Level Reporting
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1411,16 +1272,9 @@
       <a href="../28-teacher-dashboards-student-reports/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     28. Teacher Dashboards and Student-Level Reports
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1439,16 +1293,9 @@
       <a href="../29-class-level-reports-and-tools/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     29. Class-Level Reports and Teacher Tools
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1467,16 +1314,9 @@
       <a href="../30-author-dashboards-content-reports/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     30. Textbook Author Dashboards and Content Reports
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1495,16 +1335,9 @@
       <a href="../31-designing-ab-experiments/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     31. Designing and Reading A/B Experiments
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1523,16 +1356,9 @@
       <a href="../32-producer-contract-conformant-statements/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     32. The Producer Contract - Writing Conformant Statements
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1576,7 +1402,6 @@
     
     
     
-    
       
         
         
@@ -1587,20 +1412,12 @@
         
   
   
-  
     <a href="../../learning-graph/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     Learning Graph
-  
-
-    
   </span>
-  
   
 
       
@@ -1628,18 +1445,29 @@
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
-    
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
     
     
     
@@ -1653,20 +1481,108 @@
         
   
   
-  
     <a href="../../sims/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     MicroSims
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
   
 
     
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Specifications
   </span>
   
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../demo/graph-queries/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Demo
+  </span>
   
 
       
@@ -1690,16 +1606,9 @@
       <a href="../../glossary/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Glossary
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1717,16 +1626,9 @@
       <a href="../../license/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     License
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1744,16 +1646,9 @@
       <a href="../../contact/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Contact
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1790,9 +1685,7 @@
         <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Summary
-      
+      Summary
     </span>
   </a>
   
@@ -1801,9 +1694,7 @@
         <li class="md-nav__item">
   <a href="#concepts-covered" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Concepts Covered
-      
+      Concepts Covered
     </span>
   </a>
   
@@ -1812,9 +1703,157 @@
         <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
       
-        Prerequisites
+        <li class="md-nav__item">
+  <a href="#from-one-standards-governance-to-a-general-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      From One Standard's Governance to a General Pattern
+    </span>
+  </a>
+  
+</li>
       
+        <li class="md-nav__item">
+  <a href="#a-second-standards-body-1edtech-consortium" class="md-nav__link">
+    <span class="md-ellipsis">
+      A Second Standards Body: 1EdTech Consortium
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#an-older-idea-cataloging-content-instead-of-recording-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      An Older Idea: Cataloging Content Instead of Recording Events
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="An Older Idea: Cataloging Content Instead of Recording Events">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-anatomy-of-an-activity-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Anatomy of an Activity Definition
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-second-way-to-record-events-caliper-analytics" class="md-nav__link">
+    <span class="md-ellipsis">
+      A Second Way to Record Events: Caliper Analytics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A Second Way to Record Events: Caliper Analytics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-the-wider-standards-ecosystem-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: The Wider Standards Ecosystem Map
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#open-source-infrastructure-trust-you-can-inspect" class="md-nav__link">
+    <span class="md-ellipsis">
+      Open Source Infrastructure: Trust You Can Inspect
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proving-a-record-is-real-data-verifiability" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proving a Record Is Real: Data Verifiability
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Proving a Record Is Real: Data Verifiability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-statement-timestamp-and-the-verifiability-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Statement Timestamp and the Verifiability Chain
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#from-one-store-to-a-whole-ecosystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      From One Store to a Whole Ecosystem
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="From One Store to a Whole Ecosystem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-learning-ecosystem-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: Learning Ecosystem Map
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-any-of-this-matters-three-more-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why Any of This Matters: Three More Properties
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bringing-the-wider-ecosystem-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bringing the Wider Ecosystem Together
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
     </span>
   </a>
   
@@ -1830,62 +1869,12 @@
           
           
             <div class="md-content" data-md-component="content">
-              
-                
-
-
-
-  
-
-
-  <nav class="md-path" aria-label="Navigation" >
-    <ol class="md-path__list">
-      
-        
-  
-  
-    <li class="md-path__item">
-      <a href="../.." class="md-path__link">
-        
-  <span class="md-ellipsis">
-    Home
-  </span>
-
-      </a>
-    </li>
-  
-
-      
-      
-        
-  
-  
-    
-    
-      <li class="md-path__item">
-        <a href="../" class="md-path__link">
-          
-  <span class="md-ellipsis">
-    Chapters
-  </span>
-
-        </a>
-      </li>
-    
-  
-
-      
-    </ol>
-  </nav>
-
-              
               <article class="md-content__inner md-typeset">
                 
                   
 
-
   
-    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/04-standards-governance-ecosystem/index.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/04-standards-governance-ecosystem/index.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1922,13 +1911,249 @@
 <li><a href="../03-ieee-standardization-xapi-cmi5/">Chapter 3: IEEE Standardization of xAPI and cmi5</a></li>
 </ul>
 <hr />
-<p>TODO: Generate Chapter Content</p>
+<div class="admonition mascot-welcome">
+<p class="admonition-title">Who else is minding the standards?</p>
+<p><img alt="Rowan waving welcome" class="mascot-admonition-img" src="../../img/mascot/welcome.png" />
+Welcome back! Chapter 3 told one governance story in detail: how xAPI itself moved from the ADL Initiative to IEEE LTSC to I2IDL. This chapter asks whether that story is a one-time event or a repeatable pattern, then looks past xAPI entirely to the standards bodies, competing specifications, and ecosystem-wide guarantees a Learning Record Store has to coexist with. Let's follow the record.</p>
+</div>
+<h2 id="from-one-standards-governance-to-a-general-pattern">From One Standard's Governance to a General Pattern<a class="headerlink" href="#from-one-standards-governance-to-a-general-pattern" title="Permanent link">&para;</a></h2>
+<p>Chapter 3 traced a specific chain of custody: the ADL Initiative originated xAPI, IEEE LTSC balloted it into IEEE 9274.1.1-2023, and I2IDL now operates the tooling that proves implementations conform. That sequence is not unique to xAPI — it is one instance of a pattern most mature technical standards eventually follow. <strong>Standards Governance</strong> is the general term for the organizational structures, decision-making processes, and assigned roles that determine how a specification is created, revised, retired, and enforced over time. Good governance answers questions a single vendor's internal roadmap never has to: who gets a vote on the next revision, what happens if the founding organization loses funding or interest, and how an implementer outside the founding organization gets a fair hearing.</p>
+<p>Within that general pattern, the 2019 move from the ADL Initiative to IEEE LTSC was a specific example worth naming on its own. A <strong>Stewardship Transition</strong> is the deliberate handoff of responsibility for a specification's ongoing development from one governing organization to another — typically moving from a single organization with a direct stake in the specification's original use case toward a broader, more neutral body with an open balloting process. The goal is not to erase the originating organization's contribution; the ADL Initiative still develops cmi5, as Chapter 3 covered. The goal is to separate "who invented this" from "who now controls whether it changes," so that no single organization's business decisions can silently break a standard thousands of other implementers depend on.</p>
+<p>The steps below summarize the general shape of a Stewardship Transition, using the ADL-to-IEEE-LTSC handoff from Chapter 3 as the concrete illustration of each step.</p>
+<ol>
+<li>A specification originates inside one organization solving its own immediate problem — the ADL Initiative building xAPI to outgrow SCORM's limitations.</li>
+<li>Outside adoption grows past what the originating organization can govern alone — many independent textbooks, apps, and vendors began building on xAPI beyond ADL's own use cases.</li>
+<li>Responsibility for the specification's formal text moves to an independent standards body with an open ballot process — IEEE LTSC taking over in 2019.</li>
+<li>Day-to-day operational tooling — test suites, registries, reference code — moves to a dedicated operating organization — I2IDL taking on that role starting in 2025.</li>
+<li>The originating organization keeps developing specific applications built on top of the now-independently-governed core — the ADL Initiative continuing to develop cmi5 on top of IEEE 9274.1.1-2023.</li>
+</ol>
+<h2 id="a-second-standards-body-1edtech-consortium">A Second Standards Body: 1EdTech Consortium<a class="headerlink" href="#a-second-standards-body-1edtech-consortium" title="Permanent link">&para;</a></h2>
+<p>IEEE LTSC and the ADL Initiative are not the only organizations writing learning-technology standards, and it is worth being precise about which body governs which specification before comparing xAPI to its neighbors. The <strong>1EdTech Consortium</strong> — known for most of its history as IMS Global Learning Consortium, and renamed in 2022 — is a member-based, nonprofit standards organization independent of IEEE LTSC, developing its own family of specifications for how learning tools exchange data. Where IEEE LTSC balloted the core xAPI standard through a formal international process, 1EdTech develops specifications through its own consortium of universities, K-12 districts, and ed-tech vendors, then publishes many of them freely and offers a certification program so a product can advertise conformance.</p>
+<p>1EdTech's specification portfolio solves problems adjacent to, but distinct from, the Statement-recording job xAPI does. Learning Tools Interoperability (LTI) lets one platform launch and securely authenticate into a tool built by a different vendor — the plumbing that makes "click this link inside your LMS to open a third-party simulation" work without a custom integration for every tool-platform pair. Question and Test Interoperability (QTI) standardizes how assessment items and results are packaged so a quiz built in one authoring tool can be delivered inside a different testing platform. Neither one records the rich learner-experience Statement Chapters 1 and 2 introduced; both solve narrower plumbing problems a Learning Record Store never has to solve itself, but that often sit right next to one in a real deployment.</p>
+<div class="admonition mascot-thinking">
+<p class="admonition-title">Two standards families, two different jobs</p>
+<p><img alt="Rowan thinking with a magnifying glass" class="mascot-admonition-img" src="../../img/mascot/thinking.png" />
+It is tempting to lump every acronym in this chapter into one undifferentiated "ed-tech standards" bucket. Resist that. IEEE LTSC and the ADL Initiative govern xAPI, cmi5, and the Total Learning Architecture — specifications built around recording what a learner did. The 1EdTech Consortium governs a separate family — LTI, QTI, and two more specifications introduced next — built mostly around launching tools and describing content. A real Learning Record Store deployment typically touches both families at once.</p>
+</div>
+<h2 id="an-older-idea-cataloging-content-instead-of-recording-events">An Older Idea: Cataloging Content Instead of Recording Events<a class="headerlink" href="#an-older-idea-cataloging-content-instead-of-recording-events" title="Permanent link">&para;</a></h2>
+<p>Before xAPI existed, the field already had a standard for describing learning content, and understanding it sharpens exactly what xAPI adds. <strong>Learning Object Metadata</strong>, abbreviated <strong>LOM</strong> and formalized as IEEE 1484.12.1 in 2002, defines a fixed set of metadata elements that describe a reusable piece of learning content — its title, author, format, language, intended educational level, and typical learning time — so that content catalogs and repositories can be searched and compared consistently. LOM answers "what is this resource, and is it suitable for my learners?" It says nothing about whether any particular learner ever opened it, finished it, or struggled with it. That is precisely the gap Chapter 1 described xAPI filling: a Statement records that an experience <em>happened</em>, while a LOM record describes a resource that <em>might</em> be experienced.</p>
+<p>That contrast gives xAPI's own content-description field a clear job. Every Object Activity in a Statement, recall from Chapter 1, carries an Activity Type classifying what kind of thing it is. Alongside that, the <strong>Activity Definition</strong> is the JSON object attached to an Object Activity that carries the activity's own descriptive metadata — a human-readable <code>name</code>, a <code>description</code>, its Activity Type, and an optional <code>moreInfo</code> URL pointing to a fuller resource. An Activity Definition is deliberately a small slice of what LOM catalogs in full: it exists to make one Statement self-explanatory to a person reading it, not to replace a content repository's complete catalog record. A district that wants LOM's full depth of content cataloging and xAPI's record of what learners actually did with that content typically runs both standards side by side, cross-referencing a Statement's Object Activity identifier against the matching LOM entry in its content repository.</p>
+<h4 id="diagram-anatomy-of-an-activity-definition">Diagram: Anatomy of an Activity Definition<a class="headerlink" href="#diagram-anatomy-of-an-activity-definition" title="Permanent link">&para;</a></h4>
+<iframe src="https://dmccreary.github.io/xapi-course/sims/activity-naming-and-occurrence-fields/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Anatomy of an Activity Definition (reused MicroSim)</summary>
+<p>Type: infographic
+<strong>sim-id:</strong> activity-naming-and-occurrence-fields<br/>
+<strong>Library:</strong> HTML/CSS/JavaScript<br/>
+<strong>Status:</strong> Reused<br/>
+<strong>Source:</strong> https://dmccreary.github.io/xapi-course/sims/activity-naming-and-occurrence-fields/<br/>
+<strong>Source Repo:</strong> https://github.com/dmccreary/xapi-course/tree/main/docs/sims/activity-naming-and-occurrence-fields</p>
+<p>Reused from the MicroSim catalog (WHAT match score 0.76). Learning objective: Understand (L2) — classify the fields of an Activity Definition (object id, definition type, revision) alongside related Context fields (registration, platform) by hovering or clicking each colored field of an annotated Statement to see which question it answers, reinforcing the distinction this chapter draws between a Statement's descriptive Activity Definition and a full Learning Object Metadata record.</p>
+</details>
+<h2 id="a-second-way-to-record-events-caliper-analytics">A Second Way to Record Events: Caliper Analytics<a class="headerlink" href="#a-second-way-to-record-events-caliper-analytics" title="Permanent link">&para;</a></h2>
+<p>1EdTech does not limit itself to launching tools and cataloging content. <strong>Caliper Analytics</strong> is 1EdTech's own standard for recording learning events, built to solve much the same problem xAPI solves — capturing what a learner did, not just what content exists — but structured differently. Where xAPI defines one flexible Actor-Verb-Object sentence and leaves most vocabulary choices to the implementer (constrained, as Chapter 3 covered, only by whichever Application Profile it follows), Caliper Analytics ships with a fixed family of <strong>Metric Profiles</strong>, each one defining the exact Actions and Entities allowed for one activity type — a Reading Profile, an Assessment Profile, a Video Profile — so two Caliper implementations describing the same kind of activity are structurally identical by construction rather than by voluntary agreement to a shared Profile. A tool emits Caliper events through a <strong>Sensor</strong>, an embedded component that watches learner interactions and sends conformant events to a receiving Event Store, the rough Caliper counterpart to a Learning Record Store. Caliper is written in JSON-LD, the same linked-data format Chapter 3 introduced for xAPI Profiles, so the two standards share more machinery under the hood than their different vocabularies might suggest.</p>
+<p>Three specifications have now been placed side by side against the two-part contrast — content metadata versus recorded events — that opened this section. The table below organizes them now that each has been explained in the prose above.</p>
+<table>
+<thead>
+<tr>
+<th>Standard</th>
+<th>Governing Body</th>
+<th>What It Describes</th>
+<th>Structural Approach</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Experience API (xAPI)</td>
+<td>IEEE LTSC (core standard); ADL Initiative and other Application Profile authors</td>
+<td>Learner events, as flexible Actor-Verb-Object Statements</td>
+<td>Open vocabulary, constrained by voluntary Application Profiles</td>
+</tr>
+<tr>
+<td>Caliper Analytics</td>
+<td>1EdTech Consortium</td>
+<td>Learner events, as fixed-vocabulary Metric Profiles</td>
+<td>Closed, pre-defined Actions and Entities per Metric Profile</td>
+</tr>
+<tr>
+<td>Learning Object Metadata (LOM)</td>
+<td>IEEE (1484.12.1, 2002)</td>
+<td>Content resources themselves, not learner activity</td>
+<td>Fixed catalog fields: title, author, format, educational level</td>
+</tr>
+</tbody>
+</table>
+<h4 id="diagram-the-wider-standards-ecosystem-map">Diagram: The Wider Standards Ecosystem Map<a class="headerlink" href="#diagram-the-wider-standards-ecosystem-map" title="Permanent link">&para;</a></h4>
+<iframe src="https://dmccreary.github.io/intelligent-textbooks/sims/standards-ecosystem/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>The Wider Standards Ecosystem Map</summary>
+<p>Type: graph-model
+<strong>sim-id:</strong> standards-ecosystem-map<br/>
+<strong>Library:</strong> vis-network<br/>
+<strong>Status:</strong> Specified<br/>
+<strong>Template:</strong> https://github.com/dmccreary/intelligent-textbooks/tree/main/docs/sims/standards-ecosystem<br/></p>
+<p>Bloom Taxonomy: Analyze (L4)
+Bloom Taxonomy Verb: analyze, relate</p>
+<p>Learning objective: Let the learner analyze how IEEE LTSC, the ADL Initiative, I2IDL, and the 1EdTech Consortium relate to one another and to the specifications each governs, correctly attributing xAPI, cmi5, and the Total Learning Architecture to one governance family and LTI, QTI, Caliper Analytics, and Learning Object Metadata to the other.</p>
+<p>Purpose: Show a two-cluster vis-network graph with governing-body nodes as hubs and specification nodes as spokes, so the learner can trace every named specification back to exactly one governing body.</p>
+<p>Nodes:</p>
+<ul>
+<li>Hub: "IEEE LTSC" — spokes to "IEEE 9274.1.1-2023 (xAPI core)" and "Learning Object Metadata (IEEE 1484.12.1)"</li>
+<li>Hub: "ADL Initiative" — spokes to "xAPI (origin)," "cmi5," and "Total Learning Architecture"</li>
+<li>Hub: "I2IDL" — spokes to "xAPI Conformance Suite," "xAPI Profile Server," and "TLA Reference Implementation"</li>
+<li>Hub: "1EdTech Consortium" — spokes to "Learning Tools Interoperability (LTI)," "Question and Test Interoperability (QTI)," and "Caliper Analytics"</li>
+</ul>
+<p>Interactive features: Every node is clickable via vis-network's built-in click event. Clicking a hub node opens an infobox with that organization's one-sentence governance role, matching the definitions given in this chapter and Chapter 3. Clicking a spoke node opens an infobox with that specification's one-sentence purpose and which chapter first defined it.</p>
+<p>Color coding: The xAPI/ADL/IEEE LTSC/I2IDL cluster in the book's teal accent color (matching Chapter 3's governance diagram); the 1EdTech Consortium cluster in a contrasting amber, so the two governance families are visually distinct at a glance.</p>
+<p>Implementation: vis-network graph with physics-based layout, two hub-and-spoke clusters. Responsive width and height tracking the containing element, with layout re-stabilizing on resize.</p>
+</details>
+<h2 id="open-source-infrastructure-trust-you-can-inspect">Open Source Infrastructure: Trust You Can Inspect<a class="headerlink" href="#open-source-infrastructure-trust-you-can-inspect" title="Permanent link">&para;</a></h2>
+<p>Chapter 3 named three tools I2IDL operates — the xAPI Conformance Suite, the xAPI Profile Server, and the TLA Reference Implementation — without dwelling on why an implementer should trust them. The answer is a property those tools share with 1EdTech's own certification tooling: <strong>Open Source Infrastructure</strong> is publicly available source code and openly operated services, released under a license that lets anyone inspect, run, and independently verify how the tool actually behaves, rather than trusting a vendor's word for it. A Learning Record Store vendor could, in principle, publish its own private conformance checker and simply claim it passes. Open Source Infrastructure removes the need for that claim: any district, auditor, or competing vendor can read the Conformance Suite's actual test code, run it themselves, and confirm the result independently.</p>
+<div class="admonition mascot-tip">
+<p class="admonition-title">Check whether the tool is open before you trust the result</p>
+<p><img alt="Rowan pointing helpfully" class="mascot-admonition-img" src="../../img/mascot/tip.png" />
+A working practitioner's habit worth adopting: before accepting "this product passed conformance testing" as evidence, ask whether the test suite itself is Open Source Infrastructure you could run yourself. A closed, vendor-operated test is still useful information, but it carries far less weight than a result anyone can reproduce against publicly available code — which is exactly why I2IDL and 1EdTech both operate their conformance tooling in the open rather than behind a login.</p>
+</div>
+<h2 id="proving-a-record-is-real-data-verifiability">Proving a Record Is Real: Data Verifiability<a class="headerlink" href="#proving-a-record-is-real-data-verifiability" title="Permanent link">&para;</a></h2>
+<p>Open, inspectable tooling checks whether a Learning Record Store behaves correctly in general. A separate, narrower question is whether one specific stored record is genuine. <strong>Data Verifiability</strong> is the property that lets a downstream consumer — an auditor, a researcher, a district reviewing a vendor's claims — confirm that a stored record is authentic and accurately reflects what actually happened, rather than something fabricated, altered, or backdated after the fact.</p>
+<p>xAPI gives Data Verifiability a concrete mechanism to check. Every Statement carries a <strong>Statement Timestamp</strong>: the <code>timestamp</code> field, an ISO 8601 datetime that a Learning Record Provider sets to record when the described experience actually occurred. A Learning Record Store separately sets its own field, <code>stored</code>, the moment it receives and persists the Statement — a timestamp the Provider never controls. Because Statement Immutability, introduced in Chapter 2, guarantees neither field can be edited once written, the two together become a permanent, checkable pair: a small gap between <code>timestamp</code> and <code>stored</code> is ordinary (the network took a moment), a larger gap might reflect a mobile app that recorded an experience offline and synced later, and a pattern of implausibly large or suspicious gaps across many Statements is a signal worth investigating rather than a stored fact to take at face value.</p>
+<h4 id="diagram-statement-timestamp-and-the-verifiability-chain">Diagram: Statement Timestamp and the Verifiability Chain<a class="headerlink" href="#diagram-statement-timestamp-and-the-verifiability-chain" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/statement-timestamp-verifiability-chain/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Statement Timestamp and the Verifiability Chain</summary>
+<p>Type: workflow
+<strong>sim-id:</strong> statement-timestamp-verifiability-chain<br/>
+<strong>Library:</strong> Mermaid<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Apply (L3)
+Bloom Taxonomy Verb: trace, demonstrate</p>
+<p>Learning objective: Let the learner apply their understanding of Statement Timestamp and Statement Immutability by tracing how the two combine to produce a verifiable audit trail, and predict what an auditor would flag as suspicious versus ordinary.</p>
+<p>Purpose: Show a five-step, top-to-bottom Mermaid flowchart tracing one Statement from the moment its experience occurs to the moment an auditor reviews it.</p>
+<p>Steps:</p>
+<ol>
+<li>"Learner experience occurs" — the real-world moment a Statement will describe</li>
+<li>"Learning Record Provider sets timestamp" — the <code>timestamp</code> field, recording when the experience happened, chosen by the Provider</li>
+<li>"Learning Record Store sets stored" — the <code>stored</code> field, recording when the LRS received the Statement, chosen by the LRS itself and never editable by the Provider</li>
+<li>"Statement Immutability locks both fields" — neither field can be changed after this point, per Chapter 2's rule</li>
+<li>"Auditor compares timestamp and stored" — branches to two outcomes: "Small or explainable gap: ordinary" and "Large or implausible gap: flag for review"</li>
+</ol>
+<p>Interactive features: Every node has a Mermaid <code>click</code> directive. Clicking steps 1-2 opens an infobox distinguishing <code>timestamp</code> from <code>stored</code>. Clicking step 4 opens an infobox restating Statement Immutability from Chapter 2. Clicking step 5's two branch outcomes opens an infobox with a worked example of each (an offline mobile app syncing an hour later versus a Statement claiming an experience three months before it was stored).</p>
+<p>Color coding: The real-world event and Provider-controlled step (1-2) in amber; the LRS-controlled and immutability steps (3-4) in the book's teal accent color; the auditor's two outcome branches in green (ordinary) and red (flagged).</p>
+<p>Implementation: Mermaid flowchart, top-to-bottom orientation, full click-to-infobox coverage on every node. Responsive width tracking the containing element.</p>
+</details>
+<div class="admonition mascot-warning">
+<p class="admonition-title">timestamp and stored are not the same field</p>
+<p><img alt="Rowan waving a caution flag" class="mascot-admonition-img" src="../../img/mascot/warning.png" />
+A common early mistake is treating a Statement's <code>timestamp</code> as if it were automatically trustworthy proof of when something happened. It isn't, by itself — a Learning Record Provider sets that field, so a misconfigured clock or a deliberately backdated value is possible. <code>stored</code>, set independently by the Learning Record Store on receipt, is what makes the pair verifiable. Don't audit with only one of the two fields; the comparison is where the evidence lives.</p>
+</div>
+<h2 id="from-one-store-to-a-whole-ecosystem">From One Store to a Whole Ecosystem<a class="headerlink" href="#from-one-store-to-a-whole-ecosystem" title="Permanent link">&para;</a></h2>
+<p>Every mechanism this chapter has covered so far — governance, Open Source Infrastructure, verifiable timestamps — exists in service of a bigger goal than making one Learning Record Store trustworthy in isolation. A <strong>Learning Ecosystem</strong> is the full set of interoperating systems — Learning Management Systems, Learning Record Stores, content repositories cataloged with standards like Learning Object Metadata, competency registries, analytics dashboards, and recommendation engines — that exchange data through shared standards such as xAPI, Caliper Analytics, LTI, and LOM, so that one learner's activity can flow across tools and organizations instead of being trapped inside a single vendor's walled garden. Chapter 3's Total Learning Architecture described one reference blueprint for such a system; Learning Ecosystem is the general term for any real deployment that actually achieves that kind of interoperation.</p>
+<p>One recurring piece of that ecosystem deserves its own definition. Chapter 3's Total Learning Architecture diagram included a "Competency and Skills Registry" node without fully explaining what it holds. A <strong>Competency Framework</strong> is a structured, often hierarchical list of named competencies or skills that an organization wants to track mastery against, with each competency assigned a unique, stable identifier so a Learning Record Store's Statements can reference it consistently — for example, tagging a quiz's Object Activity with the identifier for "interprets a data visualization" rather than only with the quiz's own title. A Competency Framework is what lets a district ask "which students have demonstrated this specific skill," across many different textbooks and MicroSims that each cover the skill in their own way, rather than only "which students finished this specific quiz."</p>
+<h4 id="diagram-learning-ecosystem-map">Diagram: Learning Ecosystem Map<a class="headerlink" href="#diagram-learning-ecosystem-map" title="Permanent link">&para;</a></h4>
+<iframe src="https://dmccreary.github.io/automating-instructional-design/sims/ed-tech-ecosystem/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>Learning Ecosystem Map</summary>
+<p>Type: graph-model
+<strong>sim-id:</strong> learning-ecosystem-map<br/>
+<strong>Library:</strong> vis-network<br/>
+<strong>Status:</strong> Specified<br/>
+<strong>Template:</strong> https://github.com/dmccreary/automating-instructional-design/tree/main/docs/sims/ed-tech-ecosystem<br/></p>
+<p>Bloom Taxonomy: Analyze (L4)
+Bloom Taxonomy Verb: analyze, relate</p>
+<p>Learning objective: Let the learner analyze how a Learning Record Store, a Competency Framework, a content repository, and analytics tools interoperate within a Learning Ecosystem, in a general, vendor-neutral form that generalizes Chapter 3's Total Learning Architecture map.</p>
+<p>Purpose: Show a central "Learner" node surrounded by concentric rings of connected component nodes representing a general Learning Ecosystem.</p>
+<p>Nodes:</p>
+<ul>
+<li>Center: "Learner"</li>
+<li>Inner ring: "Learning Record Store" — edge to Learner labeled "stores Statements about"</li>
+<li>Inner ring: "Competency Framework" — edge to Learning Record Store labeled "supplies identifiers Statements reference"</li>
+<li>Outer ring: "Content Repository (cataloged with Learning Object Metadata)" — edge to Learning Record Store labeled "describes the resources Statements reference"</li>
+<li>Outer ring: "Analytics Dashboard" — edge to Learning Record Store labeled "reads Statement history"</li>
+<li>Outer ring: "Federated Learning Record Store (different vendor)" — edge to Learning Record Store labeled "may exchange records when a learner moves organizations"</li>
+</ul>
+<p>Interactive features: Every node is clickable via vis-network's built-in click event. Clicking any node opens an infobox with its one-sentence role in the ecosystem, and, where relevant, which earlier chapter concept it corresponds to (for example, clicking "Content Repository" reiterates the Learning Object Metadata definition from earlier in this chapter).</p>
+<p>Color coding: "Learner" in a neutral center color; "Learning Record Store" and "Competency Framework" in the book's teal accent color as the inner, most tightly coupled ring; the outer-ring nodes in a lighter gray-blue to signal looser, standards-mediated coupling.</p>
+<p>Implementation: vis-network graph with physics-based layout (learner at center, components arranged in rings around it), full click-to-infobox coverage on every node. Responsive width and height tracking the containing element, with layout re-stabilizing on resize.</p>
+</details>
+<h2 id="why-any-of-this-matters-three-more-properties">Why Any of This Matters: Three More Properties<a class="headerlink" href="#why-any-of-this-matters-three-more-properties" title="Permanent link">&para;</a></h2>
+<p>Standards Governance, Open Source Infrastructure, and Data Verifiability each solve a piece of a larger promise this whole chapter has been building toward. <strong>Data Transparency</strong> is the practice — and the resulting property of a system — of making clear to stakeholders, including learners, families, auditors, and regulators, what data is being collected, in what form, and how it will be used. A standardized, human-readable Statement format contributes to Data Transparency almost automatically: an Actor, Verb, and Object Activity, spelled out in a documented, publicly specified structure, is far easier for a family to understand and question than an opaque, proprietary log format only the vendor who wrote it can interpret.</p>
+<p><strong>Learner Data Portability</strong> is the ability for a learner's records to move with them, or be shared meaningfully, across organizations and vendor systems, so switching schools, districts, or platforms does not strand a learning history inside one vendor's database. Portability depends directly on the shared vocabulary this chapter and Chapter 3 have described: a Statement built from Chapter 1's core vocabulary, following an Application Profile from Chapter 3, and referencing a shared Competency Framework, means something identical whether it is read by its original Learning Record Store or a new one a learner's next school happens to use.</p>
+<p><strong>Vendor Interoperability</strong> is the ability of tools and platforms built by different vendors, all implementing the same standards, to exchange data and work together correctly without custom, point-to-point integration work for every pair of systems. This is the outcome the xAPI Conformance Suite from Chapter 3 exists to verify, and the outcome 1EdTech's own certification program pursues for LTI, QTI, and Caliper Analytics: not "these two specific products happen to work together today," but "any conformant product will work with any other conformant product, by construction."</p>
+<p>Four properties have now been named across this chapter, each dependent on a mechanism described earlier. The table below organizes them together, now that each has been explained on its own.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>What It Means</th>
+<th>What Enables It</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Data Verifiability</td>
+<td>A downstream consumer can confirm a record is authentic</td>
+<td>Statement Timestamp compared against <code>stored</code>, protected by Statement Immutability</td>
+</tr>
+<tr>
+<td>Data Transparency</td>
+<td>Stakeholders can see what data is collected and how it is used</td>
+<td>A standardized, human-readable Statement structure, openly documented</td>
+</tr>
+<tr>
+<td>Learner Data Portability</td>
+<td>A learner's records move meaningfully across organizations</td>
+<td>Shared vocabulary — Statements, Application Profiles, and Competency Framework identifiers</td>
+</tr>
+<tr>
+<td>Vendor Interoperability</td>
+<td>Different vendors' conformant products work together without custom integration</td>
+<td>Open Source Infrastructure like the xAPI Conformance Suite and 1EdTech certification</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition mascot-encourage">
+<p class="admonition-title">That is a lot of ecosystem to hold at once</p>
+<p><img alt="Rowan offering encouragement" class="mascot-admonition-img" src="../../img/mascot/encouraging.png" />
+Between this chapter and Chapter 3, you have now met two governance families, three overlapping event and metadata standards, and four properties that all sound similar on a first read — verifiability, transparency, portability, interoperability. That overlap is normal; these words describe different angles on the same underlying goal. What matters is that you can now name, for any one of them, the specific mechanism in this book's Statement format that makes it possible, rather than treating them as marketing language.</p>
+</div>
+<h2 id="bringing-the-wider-ecosystem-together">Bringing the Wider Ecosystem Together<a class="headerlink" href="#bringing-the-wider-ecosystem-together" title="Permanent link">&para;</a></h2>
+<p>This chapter widened the lens from one specification's governance to the whole field it sits inside. The chain of reasoning below is a quick self-check before moving to Chapter 5, which turns from standards and governance to this project's own architecture.</p>
+<ol>
+<li>A single organization controlling a specification indefinitely is a structural risk → Standards Governance names the general problem, and a Stewardship Transition — like ADL Initiative to IEEE LTSC — is the field's general solution.</li>
+<li>Trusting a vendor's word about conformance does not scale → Open Source Infrastructure, operated by I2IDL and 1EdTech alike, lets any implementer independently verify the claim.</li>
+<li>xAPI is not the only way to describe learning technology → the 1EdTech Consortium governs LTI, QTI, and Caliper Analytics, while IEEE's older Learning Object Metadata standard catalogs content rather than events; a Statement's own Activity Definition is xAPI's small, event-scoped answer to LOM's fuller content record.</li>
+<li>A stored record's authenticity has to be checkable, not assumed → Data Verifiability is achieved by comparing a Statement Timestamp against the Learning Record Store's own <code>stored</code> field, protected by Statement Immutability.</li>
+<li>No single Learning Record Store is the whole picture → a Learning Ecosystem connects it to content repositories, a Competency Framework, and other systems through shared standards.</li>
+<li>Governance, open tooling, and verifiable records all exist to deliver three outcomes a district, a family, or a vendor can actually rely on → Data Transparency, Learner Data Portability, and Vendor Interoperability.</li>
+</ol>
+<h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Standards Governance</strong> names the general structures and processes that keep a specification trustworthy over time; a <strong>Stewardship Transition</strong>, like ADL Initiative to IEEE LTSC, is the field's recurring pattern for moving that responsibility to a broader body.</li>
+<li><strong>Open Source Infrastructure</strong> — publicly inspectable code and services, like I2IDL's and 1EdTech's conformance tooling — lets implementers verify conformance claims independently rather than trusting a vendor's word.</li>
+<li>The <strong>1EdTech Consortium</strong> governs a separate specification family — including LTI, QTI, and <strong>Caliper Analytics</strong> — distinct from the IEEE LTSC/ADL Initiative family that governs xAPI, cmi5, and the Total Learning Architecture.</li>
+<li><strong>Learning Object Metadata (LOM)</strong> catalogs content resources themselves; a Statement's own <strong>Activity Definition</strong> is xAPI's much smaller, event-scoped equivalent.</li>
+<li><strong>Data Verifiability</strong> lets a stored record's authenticity be checked, largely through comparing a Statement's <strong>Statement Timestamp</strong> against the Learning Record Store's own <code>stored</code> field.</li>
+<li>A <strong>Learning Ecosystem</strong> connects a Learning Record Store to content repositories, a <strong>Competency Framework</strong>, and other systems through shared standards.</li>
+<li><strong>Data Transparency</strong>, <strong>Learner Data Portability</strong>, and <strong>Vendor Interoperability</strong> are the practical outcomes that Standards Governance, Open Source Infrastructure, and Data Verifiability all exist to deliver.</li>
+</ul>
+<div class="admonition mascot-celebration">
+<p class="admonition-title">Part 1 complete — you can place any piece of this field in context</p>
+<p><img alt="Rowan celebrating with confetti" class="mascot-admonition-img" src="../../img/mascot/celebration.png" />
+From the Statement vocabulary in Chapters 1 and 2, through IEEE's formal standardization in Chapter 3, to the wider ecosystem of governance, competing standards, and portability guarantees in this chapter — you now have the whole Part 1 map. What does the evidence show? It's time to turn from <em>why</em> every intelligent educational system needs an LRS to <em>how</em> this project builds one. In <a href="../05-system-context-architectural-planes/">Chapter 5: System Context and the Five Architectural Planes</a>, we open up this project's own Learning Record Store and start with its architecture.</p>
+</div>
 
 
 
 
 
 
+
+  
+  
 
 
 
@@ -2014,13 +2239,10 @@
     </div>
     
     
-    
-      
-      
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
         <script src="../../js/katex.js"></script>
       

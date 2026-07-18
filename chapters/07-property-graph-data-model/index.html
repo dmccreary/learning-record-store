@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="An intelligent textbook on Learning Record Stores: what they are, how xAPI statements work, and how to design, deploy, and query an LRS.">
+        <meta name="description" content="A complete tour of this project's Neo4j property graph — every node label from Textbook and Chapter down to Concept, Verb, and Question, and every relationship type that connects them, grounded in the graph data model and Neo4j DDL specs.">
       
       
         <meta name="author" content="Dan McCreary">
@@ -21,22 +21,19 @@
         <link rel="next" href="../08-summary-vertices-ingestion/">
       
       
-        
-      
-      
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
     
     
       
-        <title>7. The Property Graph Data Model - Learning Record Store</title>
+        <title>The Property Graph Data Model - Learning Record Store</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -67,6 +64,7 @@
     
       
 
+    
     
     
   </head>
@@ -121,7 +119,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              7. The Property Graph Data Model
+              The Property Graph Data Model
             
           </span>
         </div>
@@ -133,13 +131,11 @@
     
     
     
-      
-      
-        <label class="md-header__button md-icon" for="__search">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        </label>
-        <div class="md-search" data-md-component="search" role="dialog">
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
@@ -178,14 +174,13 @@
     </div>
   </div>
 </div>
-      
     
     
       <div class="md-header__source">
         <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub Repo
@@ -230,7 +225,7 @@
       <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub Repo
@@ -250,16 +245,9 @@
       <a href="../.." class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Home
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -277,16 +265,9 @@
       <a href="../../about/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     About
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -304,16 +285,9 @@
       <a href="../../course-description/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Course Description
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -325,120 +299,6 @@
       
   
   
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-  
-    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
-      
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Specifications
-  
-
-    
-  </span>
-  
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-  
-    <a href="../../demo/graph-queries/" class="md-nav__link">
-      
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Demo
-  
-
-    
-  </span>
-  
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -451,70 +311,133 @@
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
-    
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
     
     
     
@@ -524,42 +447,32 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
+          
           
           <div class="md-nav__link md-nav__container">
             <a href="../" class="md-nav__link ">
               
   
-  
   <span class="md-ellipsis">
-    
-  
     Chapters
-  
-
-    
   </span>
-  
   
 
             </a>
             
               
-              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_6">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
-            
-  
-    Chapters
-  
-
+            Chapters
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -575,16 +488,9 @@
       <a href="../01-lms-to-experience-api/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     1. From Learning Management Systems to the Experience API
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -603,16 +509,9 @@
       <a href="../02-anatomy-of-xapi-statement/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     2. The Anatomy of an xAPI Statement
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -631,16 +530,9 @@
       <a href="../03-ieee-standardization-xapi-cmi5/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     3. IEEE Standardization of xAPI and cmi5
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -659,16 +551,9 @@
       <a href="../04-standards-governance-ecosystem/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     4. Standards Governance and the Wider Interoperability Ecosystem
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -687,16 +572,9 @@
       <a href="../05-system-context-architectural-planes/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     5. System Context and the Five Architectural Planes
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -715,16 +593,9 @@
       <a href="../06-multi-tenancy-rosters-identity/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     6. Multi-Tenancy, Rosters, and Pseudonymous Identity
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -752,16 +623,9 @@
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
   
-  
   <span class="md-ellipsis">
-    
-  
     7. The Property Graph Data Model
-  
-
-    
   </span>
-  
   
 
           <span class="md-nav__icon md-icon"></span>
@@ -770,16 +634,9 @@
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     7. The Property Graph Data Model
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -802,9 +659,7 @@
         <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Summary
-      
+      Summary
     </span>
   </a>
   
@@ -813,9 +668,7 @@
         <li class="md-nav__item">
   <a href="#concepts-covered" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Concepts Covered
-      
+      Concepts Covered
     </span>
   </a>
   
@@ -824,9 +677,124 @@
         <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
       
-        Prerequisites
+        <li class="md-nav__item">
+  <a href="#the-content-tree-textbook-down-to-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Content Tree: Textbook Down to Page
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Content Tree: Textbook Down to Page">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-the-content-tree-from-textbook-to-concept" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: The Content Tree — From Textbook to Concept
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
+        <li class="md-nav__item">
+  <a href="#the-concept-node-and-the-learning-graph-dag" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Concept Node and the Learning Graph DAG
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Concept Node and the Learning Graph DAG">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-dag-viewer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: DAG Viewer
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#from-evidence-to-summary-vertices" class="md-nav__link">
+    <span class="md-ellipsis">
+      From Evidence to Summary Vertices
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="From Evidence to Summary Vertices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-from-compressed-evidence-to-graph-edges" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: From Compressed Evidence to Graph Edges
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-verb-controlled-vocabulary" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Verb Controlled Vocabulary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#experiments-comparing-two-versions-in-the-wild" class="md-nav__link">
+    <span class="md-ellipsis">
+      Experiments: Comparing Two Versions in the Wild
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constraints-what-keeps-the-graph-honest" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constraints: What Keeps the Graph Honest
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tracing-the-whole-model-in-one-pass" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tracing the Whole Model in One Pass
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
     </span>
   </a>
   
@@ -851,16 +819,9 @@
       <a href="../08-summary-vertices-ingestion/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     8. Summary Vertices and Statement Ingestion Mechanics
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -879,16 +840,9 @@
       <a href="../09-twelve-core-lrs-functions/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     9. The Twelve Core LRS Functions
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -907,16 +861,9 @@
       <a href="../10-choosing-technology-stack/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     10. Choosing the Technology Stack
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -935,16 +882,9 @@
       <a href="../11-adrs-and-capacity-model/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     11. Architecture Decision Records and the Capacity Model
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -963,16 +903,9 @@
       <a href="../12-bayesian-knowledge-tracing/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     12. Bayesian Knowledge Tracing for Mastery
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -991,16 +924,9 @@
       <a href="../13-component-design-in-depth/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     13. Component Design in Depth
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1019,16 +945,9 @@
       <a href="../14-kafka-clickhouse-graph-schema/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     14. Kafka Topics, ClickHouse Schema, and Graph Constraints
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1047,16 +966,9 @@
       <a href="../15-privacy-and-dashboard-mechanics/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     15. Privacy Enforcement and Dashboard Mechanics
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1075,16 +987,9 @@
       <a href="../16-container-image-and-cli/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     16. The Container Image and the Role Dispatcher CLI
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1103,16 +1008,9 @@
       <a href="../17-compose-makefile-supply-chain/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     17. Docker Compose, the Makefile, and the Image Supply Chain
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1131,16 +1029,9 @@
       <a href="../18-config-migration-backup-rollout/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     18. Configuration, Migration, Backup, and Rollout
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1159,16 +1050,9 @@
       <a href="../19-failure-modes-and-verification/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     19. Failure Modes and Verification
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1187,16 +1071,9 @@
       <a href="../20-deviations-roadmap-open-questions/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     20. Spec Deviations, the Delivery Roadmap, and Open Questions
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1215,16 +1092,9 @@
       <a href="../21-hardware-cost-dev-environment/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     21. Hardware Sizing, Cost, and the Development Environment
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1243,16 +1113,9 @@
       <a href="../22-proving-the-architecture-mvp/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     22. Proving the Architecture - the MVP Plan
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1271,16 +1134,9 @@
       <a href="../23-production-infrastructure-cloud/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     23. Production Infrastructure and Cloud Services
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1299,16 +1155,9 @@
       <a href="../24-three-personas-and-admin-uis/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     24. Meet the Three Personas and the Admin UI Surface
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1327,16 +1176,9 @@
       <a href="../25-district-admin-rosters-deployments/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     25. District Administrator - Rosters, Deployments, and Registries
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1355,16 +1197,9 @@
       <a href="../26-district-admin-access-control/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     26. District Administrator - Access Control and System Configuration
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1383,16 +1218,9 @@
       <a href="../27-compliance-and-district-reporting/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     27. Compliance, Privacy Law, and District-Level Reporting
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1411,16 +1239,9 @@
       <a href="../28-teacher-dashboards-student-reports/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     28. Teacher Dashboards and Student-Level Reports
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1439,16 +1260,9 @@
       <a href="../29-class-level-reports-and-tools/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     29. Class-Level Reports and Teacher Tools
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1467,16 +1281,9 @@
       <a href="../30-author-dashboards-content-reports/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     30. Textbook Author Dashboards and Content Reports
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1495,16 +1302,9 @@
       <a href="../31-designing-ab-experiments/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     31. Designing and Reading A/B Experiments
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1523,16 +1323,9 @@
       <a href="../32-producer-contract-conformant-statements/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     32. The Producer Contract - Writing Conformant Statements
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1576,7 +1369,6 @@
     
     
     
-    
       
         
         
@@ -1587,20 +1379,12 @@
         
   
   
-  
     <a href="../../learning-graph/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     Learning Graph
-  
-
-    
   </span>
-  
   
 
       
@@ -1628,18 +1412,29 @@
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
-    
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
     
     
     
@@ -1653,20 +1448,108 @@
         
   
   
-  
     <a href="../../sims/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     MicroSims
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
   
 
     
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Specifications
   </span>
   
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../demo/graph-queries/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Demo
+  </span>
   
 
       
@@ -1690,16 +1573,9 @@
       <a href="../../glossary/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Glossary
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1717,16 +1593,9 @@
       <a href="../../license/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     License
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1744,16 +1613,9 @@
       <a href="../../contact/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Contact
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1790,9 +1652,7 @@
         <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Summary
-      
+      Summary
     </span>
   </a>
   
@@ -1801,9 +1661,7 @@
         <li class="md-nav__item">
   <a href="#concepts-covered" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Concepts Covered
-      
+      Concepts Covered
     </span>
   </a>
   
@@ -1812,9 +1670,124 @@
         <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
       
-        Prerequisites
+        <li class="md-nav__item">
+  <a href="#the-content-tree-textbook-down-to-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Content Tree: Textbook Down to Page
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Content Tree: Textbook Down to Page">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-the-content-tree-from-textbook-to-concept" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: The Content Tree — From Textbook to Concept
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
+        <li class="md-nav__item">
+  <a href="#the-concept-node-and-the-learning-graph-dag" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Concept Node and the Learning Graph DAG
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Concept Node and the Learning Graph DAG">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-dag-viewer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: DAG Viewer
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#from-evidence-to-summary-vertices" class="md-nav__link">
+    <span class="md-ellipsis">
+      From Evidence to Summary Vertices
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="From Evidence to Summary Vertices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-from-compressed-evidence-to-graph-edges" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: From Compressed Evidence to Graph Edges
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-verb-controlled-vocabulary" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Verb Controlled Vocabulary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#experiments-comparing-two-versions-in-the-wild" class="md-nav__link">
+    <span class="md-ellipsis">
+      Experiments: Comparing Two Versions in the Wild
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constraints-what-keeps-the-graph-honest" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constraints: What Keeps the Graph Honest
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tracing-the-whole-model-in-one-pass" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tracing the Whole Model in One Pass
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
     </span>
   </a>
   
@@ -1830,62 +1803,12 @@
           
           
             <div class="md-content" data-md-component="content">
-              
-                
-
-
-
-  
-
-
-  <nav class="md-path" aria-label="Navigation" >
-    <ol class="md-path__list">
-      
-        
-  
-  
-    <li class="md-path__item">
-      <a href="../.." class="md-path__link">
-        
-  <span class="md-ellipsis">
-    Home
-  </span>
-
-      </a>
-    </li>
-  
-
-      
-      
-        
-  
-  
-    
-    
-      <li class="md-path__item">
-        <a href="../" class="md-path__link">
-          
-  <span class="md-ellipsis">
-    Chapters
-  </span>
-
-        </a>
-      </li>
-    
-  
-
-      
-    </ol>
-  </nav>
-
-              
               <article class="md-content__inner md-typeset">
                 
                   
 
-
   
-    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/07-property-graph-data-model/index.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/07-property-graph-data-model/index.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1929,13 +1852,275 @@
 <li><a href="../06-multi-tenancy-rosters-identity/">Chapter 6: Multi-Tenancy, Rosters, and Pseudonymous Identity</a></li>
 </ul>
 <hr />
-<p>TODO: Generate Chapter Content</p>
+<div class="admonition mascot-welcome">
+<p class="admonition-title">What does District actually look like in the graph?</p>
+<p><img alt="Rowan waving welcome" class="mascot-admonition-img" src="../../img/mascot/welcome.png" />
+Chapter 6 gave you District, School, Section, and Student as names in a hierarchy, and told you the graph was where that hierarchy actually lives. This chapter opens the graph itself and shows you exactly what a District, a Concept, or a Student looks like once it is stored — down to the property names. Let's follow the record.</p>
+</div>
+<p>This project's Learning Record Store stores its structural knowledge — districts, textbooks, concepts, and everything that connects them — as a <strong>labeled property graph</strong>. A labeled property graph is a data model built from two kinds of thing only: nodes and relationships. A node represents one entity — one district, one page, one student — and carries a small set of named attributes called properties. A relationship connects exactly two nodes and, just like a node, can carry its own properties. Nothing else exists in this model; every fact you will meet in this chapter is either a node or a relationship between two nodes.</p>
+<p>This project's specification, <code>lrs-spec-v1.md</code> §4, is explicit about the naming convention that makes the graph readable at a glance: every <strong>Node Label</strong> — the tag that names what kind of entity a node is — is written in PascalCase, such as <code>District</code> or <code>TextbookVersion</code>, while every property on a node or relationship is written in <code>snake_case</code>, such as <code>district_id</code> or <code>mastery_score</code>. A <strong>Relationship Type</strong> is the analogous tag for a connection between two nodes, also written in capital letters with underscores, such as <code>HAS_SCHOOL</code> or <code>DEPENDS_ON</code>. Once you know that convention, you can read any diagram in this chapter — or any Cypher query later in the book — and immediately tell nodes apart from relationships just by their capitalization.</p>
+<p>Before looking at a diagram, it helps to see the two primitives named side by side, since everything else in this chapter is one or the other.</p>
+<ul>
+<li><strong>Node Label</strong> — a PascalCase tag naming an entity type, such as <code>Concept</code> or <code>MicroSim</code>. A single node can carry more than one label, though this project's graph does not currently use that feature.</li>
+<li><strong>Relationship Type</strong> — a SCREAMING_SNAKE_CASE tag naming a connection between exactly two nodes, such as <code>COVERS</code> or <code>TOUCHED</code>. Every relationship has a direction — a <code>from</code> node and a <code>to</code> node — even when the real-world fact it represents feels symmetrical.</li>
+</ul>
+<div class="admonition mascot-thinking">
+<p class="admonition-title">Two kinds of thing, one whole graph</p>
+<p><img alt="Rowan thinking with a magnifying glass" class="mascot-admonition-img" src="../../img/mascot/thinking.png" />
+This project's design specification draws one more line worth holding onto before you meet any individual node label: the graph holds exactly two kinds of thing — <strong>structure</strong> (the tenancy hierarchy, the content tree, the concept dependency graph, experiments) and <strong>compressed summaries</strong> of learner activity. It does not hold the statement log itself; every raw event lives in the event store, and only a compressed trace of it ever reaches the graph. Keep that boundary in mind as you read — it explains why several node labels in this chapter feel like <em>evidence about</em> a student rather than a record <em>of</em> something a student did.</p>
+</div>
+<h2 id="the-content-tree-textbook-down-to-page">The Content Tree: Textbook Down to Page<a class="headerlink" href="#the-content-tree-textbook-down-to-page" title="Permanent link">&para;</a></h2>
+<p>Every intelligent textbook this LRS ingests statements from has a structure of its own, entirely separate from the district-and-classroom structure Chapter 6 covered. This project's specification names that structure the content tree, and it starts with the <strong>Textbook</strong> node label: a <code>textbook_id</code>, a <code>title</code>, and a <code>repo_url</code>, representing one textbook as a <em>definition</em> — independent of any district that happens to deploy it. A single Textbook can be assigned to courses in many different districts at once, which is why the specification calls it "district-independent": the definition is shared, even though (as Chapter 6 established) each district's event stream stays isolated.</p>
+<p>A Textbook, though, is not a fixed, unchanging thing — it gets revised. That is what the <strong>Textbook Version</strong> node label represents: <code>version_id</code>, <code>semver</code>, <code>git_sha</code>, and <code>published_at</code>, one node per published revision of a textbook, connected back to its parent Textbook through the <code>VERSION_OF</code> relationship. Keeping every version as its own node, rather than overwriting a Textbook's properties in place, is what lets this system run two different textbook versions side by side for the same course — the mechanism Chapter 31 returns to when it covers A/B experiments in depth.</p>
+<p>Below the textbook level, the tree narrows into familiar reading-order structure. A <strong>Chapter</strong> node (<code>chapter_id</code>, <code>order</code>, <code>title</code>) belongs to a Textbook, and a <strong>Page</strong> node (<code>page_id</code>, <code>path</code>, <code>title</code>, <code>word_count</code>) belongs to a Chapter. This project's specification connects both levels with the same relationship type, <code>CONTAINS</code>, read as "Textbook contains Chapter, Chapter contains Page" — one relationship type doing structural duty at two different levels of the tree, exactly the way <code>HAS_SCHOOL</code>, <code>OFFERS</code>, and <code>HAS_SECTION</code> each did one job at one level of Chapter 6's Tenancy Hierarchy.</p>
+<p>A Page is rarely just prose. It can embed an interactive element or a graded check, and this project's graph has a node label for each. A <strong>MicroSim</strong> node (<code>microsim_id</code>, <code>type</code>, <code>title</code>, <code>status</code>) represents one interactive simulation embedded on a page — the graph's record that "this page has a p5.js sketch, and here is its build status," not the sketch's actual code or content. The <code>status</code> property takes one of three values: scaffold, built, or approved, tracking the interactive element through its own production lifecycle.</p>
+<div class="admonition mascot-tip">
+<p class="admonition-title">Two different things share the word 'MicroSim'</p>
+<p><img alt="Rowan pointing helpfully" class="mascot-admonition-img" src="../../img/mascot/tip.png" />
+Keep two senses of "MicroSim" apart as you read this book. Every interactive diagram, chart, or simulation you have clicked through in this textbook — including the ones in this very chapter — is a MicroSim in the everyday, authoring sense: an actual p5.js or vis-network file living under <code>docs/sims/</code>. The <code>MicroSim</code> <strong>node label</strong> described here is different: it is the graph's structural record <em>about</em> one of those interactive elements — an ID, a title, a status flag — not the interactive element itself. When this chapter says "a MicroSim node," it always means the graph entity; everything else in this book that says "MicroSim" means the interactive file a student actually clicks on.</p>
+</div>
+<p>Just as a Textbook can have multiple published versions, a MicroSim can have multiple published revisions of its own code, tracked by the <strong>MicroSim Version</strong> node label (<code>msv_id</code>, <code>semver</code>, <code>git_sha</code>), connected to its parent MicroSim through <code>HAS_VERSION</code>. This exists for the same reason Textbook Version does: it lets a specific version of an interactive element be assigned to one experimental arm and a different version to another, which Chapter 31 uses directly.</p>
+<p>A Page can also embed a <strong>Quiz</strong> node (<code>quiz_id</code>, <code>title</code>), which in turn contains one or more <strong>Question</strong> nodes (<code>question_id</code>, <code>bloom_level</code>, <code>concept_ref</code>) through the same <code>CONTAINS</code> relationship type used higher up the tree. Notice that a Question already carries a <code>bloom_level</code> property and a <code>concept_ref</code> — a first hint that questions are not just content, they are also evidence, tagged against both a cognitive level and a concept before a single student has ever answered one. The relationship connecting a Page to the MicroSim or Quiz it embeds is <code>EMBEDS</code>, distinct from <code>CONTAINS</code>: containment is about hierarchy (a Chapter belongs inside a Textbook), while embedding is about one page pulling in an interactive or assessment element that could, in principle, be reused elsewhere.</p>
+<p>The table below organizes every content-tree node label just introduced, now that each one has been explained in the prose above.</p>
+<table>
+<thead>
+<tr>
+<th>Node Label</th>
+<th>Key Properties</th>
+<th>What It Represents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Textbook</code></td>
+<td><code>textbook_id</code>, <code>title</code>, <code>repo_url</code></td>
+<td>A textbook definition, shared across districts</td>
+</tr>
+<tr>
+<td><code>TextbookVersion</code></td>
+<td><code>version_id</code>, <code>semver</code>, <code>git_sha</code>, <code>published_at</code></td>
+<td>One published revision of a Textbook</td>
+</tr>
+<tr>
+<td><code>Chapter</code></td>
+<td><code>chapter_id</code>, <code>order</code>, <code>title</code></td>
+<td>One chapter within a Textbook</td>
+</tr>
+<tr>
+<td><code>Page</code></td>
+<td><code>page_id</code>, <code>path</code>, <code>title</code>, <code>word_count</code></td>
+<td>One page within a Chapter</td>
+</tr>
+<tr>
+<td><code>MicroSim</code></td>
+<td><code>microsim_id</code>, <code>type</code>, <code>title</code>, <code>status</code></td>
+<td>The graph's record of one interactive element</td>
+</tr>
+<tr>
+<td><code>MicroSimVersion</code></td>
+<td><code>msv_id</code>, <code>semver</code>, <code>git_sha</code></td>
+<td>One published revision of a MicroSim</td>
+</tr>
+<tr>
+<td><code>Quiz</code></td>
+<td><code>quiz_id</code>, <code>title</code></td>
+<td>A graded check embedded on a Page</td>
+</tr>
+<tr>
+<td><code>Question</code></td>
+<td><code>question_id</code>, <code>bloom_level</code>, <code>concept_ref</code></td>
+<td>One item within a Quiz</td>
+</tr>
+</tbody>
+</table>
+<p>With every content-tree node label defined and organized above, the diagram below renders the whole tree as an actual graph, so you can see the labels and relationship types working together rather than as isolated table rows.</p>
+<h4 id="diagram-the-content-tree-from-textbook-to-concept">Diagram: The Content Tree — From Textbook to Concept<a class="headerlink" href="#diagram-the-content-tree-from-textbook-to-concept" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/content-tree-graph-model/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>The Content Tree — From Textbook to Concept</summary>
+<p>Type: graph-model
+<strong>sim-id:</strong> content-tree-graph-model<br/>
+<strong>Library:</strong> vis-network<br/>
+<strong>Status:</strong> Specified<br/>
+<strong>Template:</strong> https://github.com/dmccreary/learning-graphs/tree/main/docs/sims/concept-to-content-viewer<br/></p>
+<p>Bloom Taxonomy: Understand (L2)
+Bloom Taxonomy Verb: identify, describe</p>
+<p>Learning objective: Let the learner identify every content-tree node label from Textbook down to Concept, and describe which relationship type connects each pair, exactly as cataloged in this project's specification §4.1–§4.2.</p>
+<p>Purpose: Render the full content-tree portion of the graph data model as an interactive vis-network diagram, using this project's actual node labels and relationship types, so the learner can see the tree from the spec as a real graph rather than a table.</p>
+<p>Nodes (colored by node label, one color per label): <code>Textbook</code>, <code>TextbookVersion</code>, <code>Chapter</code>, <code>Page</code>, <code>MicroSim</code>, <code>MicroSimVersion</code>, <code>Quiz</code>, <code>Question</code>, <code>Concept</code>. Layout: hierarchical, top to bottom, Textbook at the top.</p>
+<p>Edges, each labeled with its relationship type and drawn as a directed arrow: <code>TextbookVersion</code> → <code>Textbook</code> (<code>VERSION_OF</code>); <code>Textbook</code> → <code>Chapter</code> (<code>CONTAINS</code>); <code>Chapter</code> → <code>Page</code> (<code>CONTAINS</code>); <code>Page</code> → <code>MicroSim</code> (<code>EMBEDS</code>); <code>Page</code> → <code>Quiz</code> (<code>EMBEDS</code>); <code>MicroSim</code> → <code>MicroSimVersion</code> (<code>HAS_VERSION</code>); <code>Quiz</code> → <code>Question</code> (<code>CONTAINS</code>); <code>Page</code> → <code>Concept</code> (<code>COVERS</code>); <code>MicroSim</code> → <code>Concept</code> (<code>COVERS</code>); <code>Question</code> → <code>Concept</code> (<code>COVERS</code>).</p>
+<p>Interactive features: Clicking any node opens an infobox listing that node label's key properties, matching the table in this chapter's prose exactly. Clicking any edge opens an infobox naming the relationship type, its direction (from → to), and a one-sentence description of what it structurally means. Hovering over a node highlights all of its direct edges and dims the rest of the graph so the learner can trace one node's connections in isolation.</p>
+<p>Color scheme: Each node label gets a distinct, consistent color from the book's palette (Textbook and TextbookVersion in one hue-pair, Chapter and Page in a second, MicroSim/MicroSimVersion/Quiz/Question in a third, Concept in the book's teal accent color to visually mark it as the bridge into the learning graph proper).</p>
+<p>Responsive design: The network canvas resizes to the width of its containing element on window resize, using vis-network's built-in responsive container option; on narrow (mobile) viewports the hierarchical layout switches from top-to-bottom to left-to-right to make better use of vertical scroll space.</p>
+</details>
+<h2 id="the-concept-node-and-the-learning-graph-dag">The Concept Node and the Learning Graph DAG<a class="headerlink" href="#the-concept-node-and-the-learning-graph-dag" title="Permanent link">&para;</a></h2>
+<p>Every content-tree node label you just met eventually points toward the same destination: a <strong>Concept</strong> node (<code>concept_id</code>, <code>label</code>, <code>taxonomy_category</code>). This is not a new idea introduced for the graph's sake — it is the literal graph representation of the same learning graph this book's own chapter-by-chapter structure is built from. Every numbered item you have seen in a chapter's "Concepts Covered" list corresponds, in this LRS, to one <code>Concept</code> node.</p>
+<p>A Page, a MicroSim, or a Question does not exist in isolation from the concepts it teaches or tests. This project's specification connects each of them to the concepts they address through the <strong>Covers Relationship</strong> — written <code>COVERS</code> in the graph, running from <code>{Page, MicroSim, Question}</code> to <code>Concept</code>. Reading a <code>COVERS</code> edge answers a concrete question: "which concepts does this page, this simulation, or this quiz question actually address?" That mapping is what eventually lets a dashboard say "this student has seen material covering Photosynthesis three times" instead of just "this student visited three pages."</p>
+<p>Concepts do not stand alone from each other, either. This project's specification defines the <strong>Learning Graph DAG</strong> — a directed acyclic graph built entirely from Concept nodes and one relationship type connecting them, the <strong>Depends On Relationship</strong>, written <code>DEPENDS_ON</code> in the graph. A <code>DEPENDS_ON</code> edge runs from a concept to the concept it depends on — the same dependency direction used throughout this book's own learning graphs — so a <code>DEPENDS_ON</code> edge from Photosynthesis to Cellular Respiration means "Photosynthesis depends on Cellular Respiration," not the other way around. "Acyclic" is not a decorative adjective here: this project's design specification requires the concept graph to stay free of cycles, because a cycle would make it impossible to answer "what should a student learn first" — the reconciliation worker checks every newly added <code>DEPENDS_ON</code> edge for cycles before promoting it, and rejects the whole batch if one would be introduced.</p>
+<div class="admonition mascot-warning">
+<p class="admonition-title">DEPENDS_ON points toward the prerequisite, not away from it</p>
+<p><img alt="Rowan waving a caution flag" class="mascot-admonition-img" src="../../img/mascot/warning.png" />
+It is tempting to read a <code>DEPENDS_ON</code> arrow the way you might read a syllabus — as pointing forward, from an easier concept toward a harder one it unlocks. This project's graph does the opposite: the arrow starts at the <em>dependent</em> concept and points at its <em>prerequisite</em>. If you ever write a query and get every student's mastery gaps backwards, check whether you followed the arrow in the direction it is actually drawn rather than the direction that feels intuitive.</p>
+</div>
+<h4 id="diagram-dag-viewer">Diagram: DAG Viewer<a class="headerlink" href="#diagram-dag-viewer" title="Permanent link">&para;</a></h4>
+<iframe src="https://dmccreary.github.io/graph-algorithms/sims/dag-viewer/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>DAG Viewer (reused MicroSim)</summary>
+<p>Type: graph-model
+<strong>sim-id:</strong> dag-viewer<br/>
+<strong>Library:</strong> vis-network<br/>
+<strong>Status:</strong> Reused<br/>
+<strong>Source:</strong> https://dmccreary.github.io/graph-algorithms/sims/dag-viewer/main.html<br/>
+<strong>Source Repo:</strong> https://github.com/dmccreary/graph-algorithms/tree/main/docs/sims/dag-viewer</p>
+<p>Reused from the MicroSim catalog (WHAT match score 0.7818). Learning objective: Let the learner explore a hierarchical, left-to-right rendering of a concept dependency graph built from <code>DEPENDS_ON</code> edges, and see how nodes with no outgoing edges sit at the foundation of the graph while nodes with many outgoing edges depend on several prerequisites at once — directly illustrating the Learning Graph DAG structure this project's Concept nodes form.</p>
+</details>
+<h2 id="from-evidence-to-summary-vertices">From Evidence to Summary Vertices<a class="headerlink" href="#from-evidence-to-summary-vertices" title="Permanent link">&para;</a></h2>
+<p>The content tree and the Learning Graph DAG are both <strong>structure</strong> — they describe what a textbook contains and how its concepts relate, and neither one changes when a student clicks a page. The rest of this chapter's relationship types are different: they connect a Student to <em>evidence about that student</em>, and every one of them points at a node label this project's specification calls a <strong>materialized summary vertex</strong> — a compressed record built from many raw statements, never from one. Chapter 8 covers exactly how that compression happens; this chapter only needs the shape it leaves behind in the graph.</p>
+<p>The clearest example is mastery. This project's specification connects a Student to a <code>ConceptMastery</code> vertex through the <strong>Has Mastery Relationship</strong>, written <code>HAS_MASTERY</code> in the graph — one edge per concept a student has any evidence for at all. That <code>ConceptMastery</code> vertex is, in turn, tied back into the Learning Graph DAG through the <strong>Of Concept Relationship</strong>, written <code>OF_CONCEPT</code>, which points from the <code>ConceptMastery</code> vertex to the specific <code>Concept</code> it summarizes evidence for. Read the two edges together and you get a complete sentence: "this Student has mastery evidence, of this Concept." Neither edge, by itself, tells you <em>how</em> that mastery evidence was computed — that mechanism belongs to Chapter 8.</p>
+<p>A parallel pattern covers engagement rather than mastery. Every burst of activity a student produces in one sitting is compressed into a <code>LearningSession</code> vertex, and this project's specification connects that session to whatever content the student actually interacted with through the <strong>Touched Relationship</strong>, written <code>TOUCHED</code> in the graph, running from <code>LearningSession</code> to <code>{Page, MicroSim, Question}</code>. A <code>TOUCHED</code> edge carries its own properties directly — <code>event_count</code> and <code>dwell_ms</code> — so the edge itself answers "how many events, and how much time" without requiring a separate lookup.</p>
+<div class="admonition mascot-encourage">
+<p class="admonition-title">You do not need Chapter 8's mechanics yet</p>
+<p><img alt="Rowan offering encouragement" class="mascot-admonition-img" src="../../img/mascot/encouraging.png" />
+<code>HAS_MASTERY</code>, <code>OF_CONCEPT</code>, and <code>TOUCHED</code> can feel like they are hinting at something bigger just out of view — and they are. This chapter deliberately stops at "here is the shape these edges take in the graph" and leaves "here is exactly how thousands of raw statements become one <code>ConceptMastery</code> vertex" for Chapter 8. You have everything you need from this chapter alone to read a graph query and know what each edge means; the compression pipeline behind it is the next chapter's whole subject.</p>
+</div>
+<h4 id="diagram-from-compressed-evidence-to-graph-edges">Diagram: From Compressed Evidence to Graph Edges<a class="headerlink" href="#diagram-from-compressed-evidence-to-graph-edges" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/compressed-evidence-graph-edges/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>From Compressed Evidence to Graph Edges</summary>
+<p>Type: infographic
+<strong>sim-id:</strong> compressed-evidence-graph-edges<br/>
+<strong>Library:</strong> Mermaid<br/>
+<strong>Status:</strong> Specified<br/>
+<strong>Template:</strong> https://github.com/dmccreary/learning-graphs/tree/main/docs/sims/graph-viewer<br/></p>
+<p>Bloom Taxonomy: Understand (L2)
+Bloom Taxonomy Verb: trace, explain</p>
+<p>Learning objective: Let the learner trace how a Student node connects to compressed summary vertices through the Has Mastery, Of Concept, and Touched relationships, and explain what question each edge answers, without needing the compression mechanics Chapter 8 covers.</p>
+<p>Purpose: Show two short, parallel Mermaid flowchart branches, both starting from a single "Student" node, so the learner can see the mastery path and the engagement path as structurally similar patterns.</p>
+<p>Branch A (mastery path): "Student" —<code>HAS_MASTERY</code>→ "ConceptMastery (summary vertex)" —<code>OF_CONCEPT</code>→ "Concept".</p>
+<p>Branch B (engagement path): "Student" —<code>HAD_SESSION</code>→ "LearningSession (summary vertex)" —<code>TOUCHED</code>→ "Page / MicroSim / Question", with a small annotation box off the <code>TOUCHED</code> edge reading "carries event_count, dwell_ms".</p>
+<p>Interactive features: Every node has a Mermaid <code>click</code> directive. Clicking "Student" opens an infobox recalling the pseudonymous Student node from Chapter 6. Clicking "ConceptMastery" or "LearningSession" opens an infobox stating that both are materialized summary vertices — compressed from many statements into one — with a note "full compression mechanics: Chapter 8." Clicking "Concept" opens an infobox tying back to the Learning Graph DAG. Clicking the <code>HAS_MASTERY</code>, <code>OF_CONCEPT</code>, or <code>TOUCHED</code> edge label opens an infobox naming the relationship type and its from → to direction, matching this chapter's prose.</p>
+<p>Color coding: The mastery branch in the book's teal accent color; the engagement branch in a complementary amber, so the two parallel paths stay visually distinguishable at a glance.</p>
+<p>Implementation: Mermaid flowchart with two branches sharing a root node, full click-to-infobox coverage on every node and edge label. Responsive width tracking the containing element.</p>
+</details>
+<h2 id="the-verb-controlled-vocabulary">The Verb Controlled Vocabulary<a class="headerlink" href="#the-verb-controlled-vocabulary" title="Permanent link">&para;</a></h2>
+<p>One node label in this catalog behaves differently from every other one you have met so far. This project's specification defines a <strong>Verb</strong> node (<code>verb_id</code>, <code>iri</code>, <code>display</code>) representing the controlled set of action words — <em>completed</em>, <em>attempted</em>, <em>answered</em>, <em>practiced</em>, <em>read</em>, and the rest — that Chapter 1 introduced as the Verb component of an xAPI Statement. Together, these Verb nodes form this project's <strong>Verb Controlled Vocabulary</strong>: a governed, non-arbitrary list of the actions this LRS recognizes, each with a stable IRI so that "completed" means the exact same thing no matter which Learning Record Provider sent the statement.</p>
+<p>What makes the Verb node unusual is what it is <em>not</em> connected to. Every other node label in this chapter participates in at least one relationship type — a Textbook contains Chapters, a Student has mastery of Concepts. A Verb node does not. This project's specification states the exception directly: statements reference a verb by its <code>verb_id</code> from the event store, but the Verb node itself is not edged to from the graph at all. It exists purely as a lookup table — maintained so that an administrative vocabulary browser can list every recognized verb and its display text, without ever needing a relationship type to connect it to anything else.</p>
+<h2 id="experiments-comparing-two-versions-in-the-wild">Experiments: Comparing Two Versions in the Wild<a class="headerlink" href="#experiments-comparing-two-versions-in-the-wild" title="Permanent link">&para;</a></h2>
+<p>The final pair of node labels in this project's graph model supports a capability Chapter 31 covers in full: running a controlled comparison between two versions of the same content. This project's specification defines an <strong>Experiment Node</strong> (<code>experiment_id</code>, <code>hypothesis</code>, <code>status</code>) representing one A/B test definition — for example, "does MicroSim Version 2 improve mastery faster than Version 1?" — and a <strong>Variant Node</strong> (<code>variant_id</code>, <code>arm_label</code>, <code>allocation</code>) representing one arm of that test, such as "Version 1 (control)" or "Version 2 (treatment)."</p>
+<p>An Experiment connects to each of its arms through the <code>HAS_VARIANT</code> relationship, and — though it falls outside this chapter's concept list — it is worth knowing that a Student later connects to whichever Variant they were assigned through a separate relationship, keeping that assignment sticky for the life of the experiment. Chapter 31 examines exactly how that assignment is made and how results are analyzed; this chapter's job is only to place Experiment and Variant correctly on the map as two more node labels the graph tracks structure for.</p>
+<p>The list below reinforces the three node labels just introduced in this section, now that each one's properties have been explained above.</p>
+<ul>
+<li><strong>Verb</strong> — <code>verb_id</code>, <code>iri</code>, <code>display</code>; the only node label with no relationship type connecting it to the rest of the graph, existing purely as a lookup table for the vocabulary browser.</li>
+<li><strong>Experiment</strong> — <code>experiment_id</code>, <code>hypothesis</code>, <code>status</code>; one A/B test definition, connected to its arms through <code>HAS_VARIANT</code>.</li>
+<li><strong>Variant</strong> — <code>variant_id</code>, <code>arm_label</code>, <code>allocation</code>; one arm of an experiment, such as a control or treatment group.</li>
+</ul>
+<h2 id="constraints-what-keeps-the-graph-honest">Constraints: What Keeps the Graph Honest<a class="headerlink" href="#constraints-what-keeps-the-graph-honest" title="Permanent link">&para;</a></h2>
+<p>A data model is only as trustworthy as its enforcement. This project's design specification, <code>lrs-design-v1.md</code> §6.3, defines the Neo4j Data Definition Language (DDL) that makes every identifier property you have met in this chapter genuinely unique — not by convention, but by a constraint the database itself refuses to violate. A short excerpt shows the pattern:</p>
+<div class="language-cypher highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="n">CONSTRAINT</span><span class="w"> </span><span class="n">concept_id</span><span class="w"> </span><span class="n">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="n">EXISTS</span><span class="w"> </span><span class="n">FOR</span><span class="w"> </span><span class="p">(</span><span class="n">c</span><span class="p">:</span><span class="n">Concept</span><span class="p">)</span><span class="w"> </span><span class="n">REQUIRE</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="n">concept_id</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">UNIQUE</span><span class="p">;</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">CREATE</span><span class="w"> </span><span class="n">CONSTRAINT</span><span class="w"> </span><span class="n">microsim_id</span><span class="w"> </span><span class="n">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="n">EXISTS</span><span class="w"> </span><span class="n">FOR</span><span class="w"> </span><span class="p">(</span><span class="n">m</span><span class="p">:</span><span class="n">MicroSim</span><span class="p">)</span><span class="w"> </span><span class="n">REQUIRE</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">microsim_id</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">UNIQUE</span><span class="p">;</span>
+</span></code></pre></div>
+<p>Every entity node label this chapter introduced — District, School, Section, and Student from Chapter 6, plus Textbook, TextbookVersion, Page, MicroSim, and Concept from this chapter — has exactly this kind of single-property uniqueness constraint in the DDL. Attempting to create a second <code>Concept</code> node with a <code>concept_id</code> that already exists does not silently succeed; Neo4j rejects the write.</p>
+<p>The summary vertices this chapter introduced — <code>ConceptMastery</code> and <code>LearningSession</code> among them — get a stricter kind of constraint: a <strong>composite</strong> uniqueness constraint spanning two properties at once, such as <code>(student_key, concept_id)</code> for <code>ConceptMastery</code>. That composite key is what this project's specification calls the vertex's <em>grain</em> — the exact combination of dimensions one summary vertex represents. Because the grain itself is the unique key, the compression pipeline Chapter 8 describes can only ever update one <code>ConceptMastery</code> vertex per student-concept pair; it can never accidentally create a second one. The design specification is direct about what this guards against: there is deliberately no <code>:Statement</code> constraint and no <code>:Statement</code> label at all, because this graph is never supposed to hold one node per raw event — only structure, and compressed summaries built from many events at once.</p>
+<p>With every relationship type from this chapter now explained in prose, the table below organizes all of them together as a single reference, mirroring the structure of this project's own specification §4.2.</p>
+<table>
+<thead>
+<tr>
+<th>Relationship Type</th>
+<th>From → To</th>
+<th>What It Connects</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CONTAINS</code></td>
+<td>Textbook → Chapter → Page; Quiz → Question</td>
+<td>Structural containment in the content tree</td>
+</tr>
+<tr>
+<td><code>EMBEDS</code></td>
+<td MicroSim_="MicroSim," Quiz="Quiz">Page →</td>
+<td>A page pulling in an interactive element or a graded check</td>
+</tr>
+<tr>
+<td><code>HAS_VERSION</code></td>
+<td>MicroSim → MicroSimVersion</td>
+<td>One MicroSim's published revisions</td>
+</tr>
+<tr>
+<td><code>VERSION_OF</code></td>
+<td>TextbookVersion → Textbook</td>
+<td>One textbook's published revisions</td>
+</tr>
+<tr>
+<td><code>COVERS</code></td>
+<td>{Page, MicroSim, Question} → Concept</td>
+<td>Concept coverage mapping</td>
+</tr>
+<tr>
+<td><code>DEPENDS_ON</code></td>
+<td>Concept → Concept</td>
+<td>The Learning Graph DAG's prerequisite edges</td>
+</tr>
+<tr>
+<td><code>HAS_MASTERY</code></td>
+<td>Student → ConceptMastery</td>
+<td>A student's mastery evidence for one concept</td>
+</tr>
+<tr>
+<td><code>OF_CONCEPT</code></td>
+<td>ConceptMastery → Concept</td>
+<td>Ties a mastery summary back to the Learning Graph DAG</td>
+</tr>
+<tr>
+<td><code>TOUCHED</code></td>
+<td MicroSim_="MicroSim," Page_="Page," Question="Question">LearningSession →</td>
+<td>What content one session of activity touched</td>
+</tr>
+<tr>
+<td><code>HAS_VARIANT</code></td>
+<td>Experiment → Variant</td>
+<td>One arm of an A/B test</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tracing-the-whole-model-in-one-pass">Tracing the Whole Model in One Pass<a class="headerlink" href="#tracing-the-whole-model-in-one-pass" title="Permanent link">&para;</a></h2>
+<p>Having met every node label and relationship type this chapter covers, it helps to trace the model end to end once, the same way Chapters 1 and 6 both closed with a cause-and-effect walkthrough.</p>
+<ol>
+<li>This project's LRS represents structure and compressed evidence as a <strong>labeled property graph</strong>, where every fact is either a <strong>Node Label</strong> or a <strong>Relationship Type</strong> — nothing else.</li>
+<li>The content tree nests <code>Textbook → TextbookVersion → Chapter → Page → {MicroSim, MicroSimVersion, Quiz, Question}</code>, connected by <code>CONTAINS</code>, <code>EMBEDS</code>, <code>HAS_VERSION</code>, and <code>VERSION_OF</code>.</li>
+<li>Every Page, MicroSim, and Question that teaches or tests something connects to a <code>Concept</code> through <code>COVERS</code>; every Concept connects to its prerequisites through <code>DEPENDS_ON</code>, together forming the <strong>Learning Graph DAG</strong>.</li>
+<li>A Student's compressed evidence reaches the graph through two parallel paths — <code>HAS_MASTERY</code> and <code>OF_CONCEPT</code> for concept mastery, <code>TOUCHED</code> for session-level engagement — both pointing at materialized summary vertices, never at raw statements.</li>
+<li>The <strong>Verb</strong> node catalogs this project's controlled vocabulary of xAPI verbs but connects to nothing else in the graph; <strong>Experiment</strong> and <strong>Variant</strong> nodes track A/B tests through <code>HAS_VARIANT</code>.</li>
+<li>Every identifier property is protected by a uniqueness constraint from <code>lrs-design-v1.md</code> §6.3, and every summary vertex's grain is protected by a composite constraint that makes per-statement nodes structurally impossible.</li>
+</ol>
+<h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
+<ul>
+<li>A <strong>Labeled Property Graph</strong> represents every fact in this LRS as either a node with a <strong>Node Label</strong> or a connection between two nodes carrying a <strong>Relationship Type</strong>.</li>
+<li>The content tree nests <strong>Textbook</strong>, <strong>Textbook Version</strong>, <strong>Chapter</strong>, and <strong>Page</strong>, with a <strong>MicroSim</strong> and its <strong>MicroSim Version</strong> — the graph's structural record, distinct from the interactive files this book calls MicroSims — embedded alongside a <strong>Quiz</strong> and its <strong>Question</strong> nodes.</li>
+<li>Every <strong>Concept</strong> node connects to the content that teaches it through the <strong>Covers Relationship</strong>, and to its prerequisites through the <strong>Depends On Relationship</strong>, together forming the <strong>Learning Graph DAG</strong>, which must stay acyclic.</li>
+<li>Mastery evidence reaches the graph through the <strong>Has Mastery Relationship</strong> and the <strong>Of Concept Relationship</strong>, connecting a Student to a compressed <code>ConceptMastery</code> vertex and back to the Concept it summarizes — full compression mechanics arrive in Chapter 8.</li>
+<li>Session-level engagement reaches the graph through the <strong>Touched Relationship</strong>, connecting a compressed <code>LearningSession</code> vertex to whatever content it touched.</li>
+<li>The <strong>Verb Controlled Vocabulary</strong> catalogs recognized xAPI verbs as Verb nodes that connect to nothing else in the graph.</li>
+<li>The <strong>Experiment Node</strong> and <strong>Variant Node</strong> track A/B test definitions and their arms, which Chapter 31 builds on directly.</li>
+<li>Every identifier is protected by a uniqueness constraint, and every summary vertex's grain by a composite constraint, both defined in <code>lrs-design-v1.md</code> §6.3 and enforced by Neo4j itself.</li>
+</ul>
+<div class="admonition mascot-celebration">
+<p class="admonition-title">You just read the whole graph model</p>
+<p><img alt="Rowan celebrating with confetti" class="mascot-admonition-img" src="../../img/mascot/celebration.png" />
+Every node label and every relationship type this LRS defines has now crossed your desk — the tenancy hierarchy from Chapter 6, and the content tree, the Learning Graph DAG, and the evidence edges from this chapter. What does the evidence show? The shape of every answer this book gives from here forward. Next, in <a href="../08-summary-vertices-ingestion/">Chapter 8: Summary Vertices and Statement Ingestion Mechanics</a>, we open the compression pipeline itself and see exactly how a flood of raw statements becomes the tidy <code>ConceptMastery</code> and <code>LearningSession</code> vertices you met in this chapter.</p>
+</div>
 
 
 
 
 
 
+
+  
+  
 
 
 
@@ -2021,13 +2206,10 @@
     </div>
     
     
-    
-      
-      
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
         <script src="../../js/katex.js"></script>
       

@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="An intelligent textbook on Learning Record Stores: what they are, how xAPI statements work, and how to design, deploy, and query an LRS.">
+        <meta name="description" content="How learning technology moved from SCORM/AICC content packages inside a single LMS to the Experience API and the Learning Record Store, and the core vocabulary xAPI statements are built from.">
       
       
         <meta name="author" content="Dan McCreary">
@@ -21,22 +21,19 @@
         <link rel="next" href="../02-anatomy-of-xapi-statement/">
       
       
-        
-      
-      
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
     
     
       
-        <title>1. From Learning Management Systems to the Experience API - Learning Record Store</title>
+        <title>From Learning Management Systems to the Experience API - Learning Record Store</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -67,6 +64,7 @@
     
       
 
+    
     
     
   </head>
@@ -121,7 +119,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              1. From Learning Management Systems to the Experience API
+              From Learning Management Systems to the Experience API
             
           </span>
         </div>
@@ -133,13 +131,11 @@
     
     
     
-      
-      
-        <label class="md-header__button md-icon" for="__search">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        </label>
-        <div class="md-search" data-md-component="search" role="dialog">
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
@@ -178,14 +174,13 @@
     </div>
   </div>
 </div>
-      
     
     
       <div class="md-header__source">
         <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub Repo
@@ -230,7 +225,7 @@
       <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub Repo
@@ -250,16 +245,9 @@
       <a href="../.." class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Home
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -277,16 +265,9 @@
       <a href="../../about/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     About
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -304,16 +285,9 @@
       <a href="../../course-description/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Course Description
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -325,120 +299,6 @@
       
   
   
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-  
-    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
-      
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Specifications
-  
-
-    
-  </span>
-  
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-  
-    <a href="../../demo/graph-queries/" class="md-nav__link">
-      
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Demo
-  
-
-    
-  </span>
-  
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -451,70 +311,133 @@
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
-    
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
     
     
     
@@ -524,42 +447,32 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
+          
           
           <div class="md-nav__link md-nav__container">
             <a href="../" class="md-nav__link ">
               
   
-  
   <span class="md-ellipsis">
-    
-  
     Chapters
-  
-
-    
   </span>
-  
   
 
             </a>
             
               
-              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_6">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
-            
-  
-    Chapters
-  
-
+            Chapters
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -584,16 +497,9 @@
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
   
-  
   <span class="md-ellipsis">
-    
-  
     1. From Learning Management Systems to the Experience API
-  
-
-    
   </span>
-  
   
 
           <span class="md-nav__icon md-icon"></span>
@@ -602,16 +508,9 @@
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     1. From Learning Management Systems to the Experience API
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -634,9 +533,7 @@
         <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Summary
-      
+      Summary
     </span>
   </a>
   
@@ -645,9 +542,7 @@
         <li class="md-nav__item">
   <a href="#concepts-covered" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Concepts Covered
-      
+      Concepts Covered
     </span>
   </a>
   
@@ -656,9 +551,130 @@
         <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
       
-        Prerequisites
+        <li class="md-nav__item">
+  <a href="#the-scorm-era-packaging-content-for-portability" class="md-nav__link">
+    <span class="md-ellipsis">
+      The SCORM Era: Packaging Content for Portability
+    </span>
+  </a>
+  
+</li>
       
+        <li class="md-nav__item">
+  <a href="#aicc-a-parallel-path-to-the-same-goal" class="md-nav__link">
+    <span class="md-ellipsis">
+      AICC: A Parallel Path to the Same Goal
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AICC: A Parallel Path to the Same Goal">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-a-timeline-of-learning-interoperability-standards" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: A Timeline of Learning Interoperability Standards
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-the-lms-centric-model-broke-down" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why the LMS-Centric Model Broke Down
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Why the LMS-Centric Model Broke Down">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-lms-centric-versus-lrs-centric-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: LMS-Centric versus LRS-Centric Architecture
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#anatomy-of-an-xapi-statement-the-first-look" class="md-nav__link">
+    <span class="md-ellipsis">
+      Anatomy of an xAPI Statement: The First Look
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Anatomy of an xAPI Statement: The First Look">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-xapi-statement-building-blocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: xAPI Statement Building Blocks
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice-matching-terms-to-definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Practice: Matching Terms to Definitions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Practice: Matching Terms to Definitions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-xapi-vocabulary-matching-pairs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: xAPI Vocabulary Matching Pairs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bringing-the-vocabulary-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bringing the Vocabulary Together
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
     </span>
   </a>
   
@@ -683,16 +699,9 @@
       <a href="../02-anatomy-of-xapi-statement/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     2. The Anatomy of an xAPI Statement
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -711,16 +720,9 @@
       <a href="../03-ieee-standardization-xapi-cmi5/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     3. IEEE Standardization of xAPI and cmi5
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -739,16 +741,9 @@
       <a href="../04-standards-governance-ecosystem/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     4. Standards Governance and the Wider Interoperability Ecosystem
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -767,16 +762,9 @@
       <a href="../05-system-context-architectural-planes/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     5. System Context and the Five Architectural Planes
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -795,16 +783,9 @@
       <a href="../06-multi-tenancy-rosters-identity/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     6. Multi-Tenancy, Rosters, and Pseudonymous Identity
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -823,16 +804,9 @@
       <a href="../07-property-graph-data-model/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     7. The Property Graph Data Model
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -851,16 +825,9 @@
       <a href="../08-summary-vertices-ingestion/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     8. Summary Vertices and Statement Ingestion Mechanics
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -879,16 +846,9 @@
       <a href="../09-twelve-core-lrs-functions/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     9. The Twelve Core LRS Functions
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -907,16 +867,9 @@
       <a href="../10-choosing-technology-stack/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     10. Choosing the Technology Stack
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -935,16 +888,9 @@
       <a href="../11-adrs-and-capacity-model/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     11. Architecture Decision Records and the Capacity Model
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -963,16 +909,9 @@
       <a href="../12-bayesian-knowledge-tracing/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     12. Bayesian Knowledge Tracing for Mastery
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -991,16 +930,9 @@
       <a href="../13-component-design-in-depth/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     13. Component Design in Depth
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1019,16 +951,9 @@
       <a href="../14-kafka-clickhouse-graph-schema/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     14. Kafka Topics, ClickHouse Schema, and Graph Constraints
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1047,16 +972,9 @@
       <a href="../15-privacy-and-dashboard-mechanics/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     15. Privacy Enforcement and Dashboard Mechanics
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1075,16 +993,9 @@
       <a href="../16-container-image-and-cli/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     16. The Container Image and the Role Dispatcher CLI
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1103,16 +1014,9 @@
       <a href="../17-compose-makefile-supply-chain/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     17. Docker Compose, the Makefile, and the Image Supply Chain
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1131,16 +1035,9 @@
       <a href="../18-config-migration-backup-rollout/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     18. Configuration, Migration, Backup, and Rollout
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1159,16 +1056,9 @@
       <a href="../19-failure-modes-and-verification/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     19. Failure Modes and Verification
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1187,16 +1077,9 @@
       <a href="../20-deviations-roadmap-open-questions/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     20. Spec Deviations, the Delivery Roadmap, and Open Questions
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1215,16 +1098,9 @@
       <a href="../21-hardware-cost-dev-environment/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     21. Hardware Sizing, Cost, and the Development Environment
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1243,16 +1119,9 @@
       <a href="../22-proving-the-architecture-mvp/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     22. Proving the Architecture - the MVP Plan
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1271,16 +1140,9 @@
       <a href="../23-production-infrastructure-cloud/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     23. Production Infrastructure and Cloud Services
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1299,16 +1161,9 @@
       <a href="../24-three-personas-and-admin-uis/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     24. Meet the Three Personas and the Admin UI Surface
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1327,16 +1182,9 @@
       <a href="../25-district-admin-rosters-deployments/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     25. District Administrator - Rosters, Deployments, and Registries
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1355,16 +1203,9 @@
       <a href="../26-district-admin-access-control/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     26. District Administrator - Access Control and System Configuration
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1383,16 +1224,9 @@
       <a href="../27-compliance-and-district-reporting/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     27. Compliance, Privacy Law, and District-Level Reporting
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1411,16 +1245,9 @@
       <a href="../28-teacher-dashboards-student-reports/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     28. Teacher Dashboards and Student-Level Reports
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1439,16 +1266,9 @@
       <a href="../29-class-level-reports-and-tools/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     29. Class-Level Reports and Teacher Tools
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1467,16 +1287,9 @@
       <a href="../30-author-dashboards-content-reports/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     30. Textbook Author Dashboards and Content Reports
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1495,16 +1308,9 @@
       <a href="../31-designing-ab-experiments/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     31. Designing and Reading A/B Experiments
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1523,16 +1329,9 @@
       <a href="../32-producer-contract-conformant-statements/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     32. The Producer Contract - Writing Conformant Statements
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1576,7 +1375,6 @@
     
     
     
-    
       
         
         
@@ -1587,20 +1385,12 @@
         
   
   
-  
     <a href="../../learning-graph/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     Learning Graph
-  
-
-    
   </span>
-  
   
 
       
@@ -1628,18 +1418,29 @@
         
       
         
-      
+          
         
       
         
-      
+          
         
       
         
-      
+          
         
       
-    
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
     
     
     
@@ -1653,20 +1454,108 @@
         
   
   
-  
     <a href="../../sims/" class="md-nav__link">
       
   
-  
   <span class="md-ellipsis">
-    
-  
     MicroSims
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
   
 
     
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../specs/lrs-spec-v1/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Specifications
   </span>
   
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../demo/graph-queries/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Demo
+  </span>
   
 
       
@@ -1690,16 +1579,9 @@
       <a href="../../glossary/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Glossary
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1717,16 +1599,9 @@
       <a href="../../license/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     License
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1744,16 +1619,9 @@
       <a href="../../contact/" class="md-nav__link">
         
   
-  
   <span class="md-ellipsis">
-    
-  
     Contact
-  
-
-    
   </span>
-  
   
 
       </a>
@@ -1790,9 +1658,7 @@
         <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Summary
-      
+      Summary
     </span>
   </a>
   
@@ -1801,9 +1667,7 @@
         <li class="md-nav__item">
   <a href="#concepts-covered" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Concepts Covered
-      
+      Concepts Covered
     </span>
   </a>
   
@@ -1812,9 +1676,130 @@
         <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
       
-        Prerequisites
+        <li class="md-nav__item">
+  <a href="#the-scorm-era-packaging-content-for-portability" class="md-nav__link">
+    <span class="md-ellipsis">
+      The SCORM Era: Packaging Content for Portability
+    </span>
+  </a>
+  
+</li>
       
+        <li class="md-nav__item">
+  <a href="#aicc-a-parallel-path-to-the-same-goal" class="md-nav__link">
+    <span class="md-ellipsis">
+      AICC: A Parallel Path to the Same Goal
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AICC: A Parallel Path to the Same Goal">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-a-timeline-of-learning-interoperability-standards" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: A Timeline of Learning Interoperability Standards
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-the-lms-centric-model-broke-down" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why the LMS-Centric Model Broke Down
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Why the LMS-Centric Model Broke Down">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-lms-centric-versus-lrs-centric-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: LMS-Centric versus LRS-Centric Architecture
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#anatomy-of-an-xapi-statement-the-first-look" class="md-nav__link">
+    <span class="md-ellipsis">
+      Anatomy of an xAPI Statement: The First Look
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Anatomy of an xAPI Statement: The First Look">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-xapi-statement-building-blocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: xAPI Statement Building Blocks
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice-matching-terms-to-definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Practice: Matching Terms to Definitions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Practice: Matching Terms to Definitions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-xapi-vocabulary-matching-pairs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagram: xAPI Vocabulary Matching Pairs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bringing-the-vocabulary-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bringing the Vocabulary Together
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
     </span>
   </a>
   
@@ -1830,62 +1815,12 @@
           
           
             <div class="md-content" data-md-component="content">
-              
-                
-
-
-
-  
-
-
-  <nav class="md-path" aria-label="Navigation" >
-    <ol class="md-path__list">
-      
-        
-  
-  
-    <li class="md-path__item">
-      <a href="../.." class="md-path__link">
-        
-  <span class="md-ellipsis">
-    Home
-  </span>
-
-      </a>
-    </li>
-  
-
-      
-      
-        
-  
-  
-    
-    
-      <li class="md-path__item">
-        <a href="../" class="md-path__link">
-          
-  <span class="md-ellipsis">
-    Chapters
-  </span>
-
-        </a>
-      </li>
-    
-  
-
-      
-    </ol>
-  </nav>
-
-              
               <article class="md-content__inner md-typeset">
                 
                   
 
-
   
-    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/01-lms-to-experience-api/index.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/01-lms-to-experience-api/index.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1918,13 +1853,276 @@
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <p>This chapter assumes only the prerequisites listed in the <a href="../../course-description/">course description</a>.</p>
 <hr />
-<p>TODO: Generate Chapter Content</p>
+<div class="admonition mascot-welcome">
+<p class="admonition-title">Hi! I'm Rowan.</p>
+<p><img alt="Rowan waving welcome" class="mascot-admonition-img" src="../../img/mascot/welcome.png" />
+Welcome to <em>Learning Record Store: IEEE Standards, Architecture, and Practice</em>! I'm <strong>Rowan</strong>, a red panda who keeps a satchel of learning records slung over one shoulder and a pair of teal glasses for reading the fine print in specifications. I'll be popping into the margins all the way through this book, but I do not show up randomly. I have exactly <strong>six jobs</strong>, and you'll learn to recognize me by which one I'm doing:</p>
+<ol>
+<li><strong>Welcome you</strong> at the start of every chapter — that's what I'm doing right now.</li>
+<li><strong>Help you think things through</strong> when an idea is the kind that clicks better once you see the pieces laid side by side.</li>
+<li><strong>Give you tips</strong> — the moves a working learning-technology practitioner would make that nobody writes down in the spec.</li>
+<li><strong>Warn you gently</strong> about the places where smart students and smart projects get into trouble.</li>
+<li><strong>Encourage you</strong> when a concept looks scary on first contact.</li>
+<li><strong>Celebrate with you</strong> at the end of each chapter when you've earned it.</li>
+</ol>
+<p>That's it. If I'm not doing one of those six things, I'm not in the chapter. Let's follow the record.</p>
+</div>
+<p>Every intelligent educational system — a single interactive textbook, a district-wide simulation library, a corporate training catalog — eventually has to answer the same question: <em>how do we know what a learner actually did?</em> For three decades, the software industry answered that question with a <strong>Learning Management System</strong>, or <strong>LMS</strong>: a platform that hosts courses, enrolls learners, tracks their progress through those courses, and records completion. An LMS is the single place instructors upload content, students log in to take it, and administrators pull reports. If you have ever logged into a corporate training portal to watch a compliance video and click "Mark Complete," you have used an LMS.</p>
+<p>This book cares about that question more than most, because the system it describes is built for <strong>intelligent textbooks</strong> — textbooks instrumented so finely that nearly everything a student does inside them becomes a record. A traditional printed textbook produces no data at all: a student reads a page, and the book learns nothing from the reading. An intelligent textbook is different by design. Every page a student opens, every interactive simulation they run, every practice question they answer becomes an event. Multiply that by a classroom, then a school, then a district, and what starts as a trickle of activity becomes a firehose of evidence. The rest of this chapter, and much of this book, is really one long answer to a single question: what kind of record-keeping can stand in front of that firehose without losing what matters?</p>
+<p>The LMS model worked well for a specific shape of problem: one organization, one catalog of courses, one system tracking completion. But it carried a structural assumption that would eventually strain under the weight of modern learning technology — that a learner's entire educational record could live inside a single piece of software. This chapter traces what happened when that assumption broke, and what replaced it.</p>
+<h2 id="the-scorm-era-packaging-content-for-portability">The SCORM Era: Packaging Content for Portability<a class="headerlink" href="#the-scorm-era-packaging-content-for-portability" title="Permanent link">&para;</a></h2>
+<p>By the late 1990s, a new problem emerged: organizations wanted to buy training content from one vendor and run it inside an LMS from a different vendor. Without a shared format, every course had to be rebuilt for every LMS it ran on. The <strong>Sharable Content Object Reference Model</strong>, universally known by its acronym <strong>SCORM</strong>, solved this by defining a standard way to package and launch e-learning content so it would run inside <em>any</em> SCORM-conformant LMS.</p>
+<p>SCORM achieved portability through two connected ideas:</p>
+<ul>
+<li><strong>Content Packaging</strong> — a specification for bundling a course's HTML, images, scripts, and a manifest file (<code>imsmanifest.xml</code>) into a single <code>.zip</code> file that any conformant LMS could import and understand.</li>
+<li><strong>Sharable Content Object</strong>, or <strong>SCO</strong> — the smallest unit of content inside that package capable of communicating with the LMS. A SCO reports its own launch, its completion status, and a score back to the LMS using a small JavaScript API defined by SCORM.</li>
+</ul>
+<p>Before we look at how SCORM's communication actually worked, it helps to name what it could <em>not</em> do. SCORM's <code>imsmanifest.xml</code> describes what content exists and how it is organized, which is why we call this piece <strong>Content Packaging</strong> — it is about the shape of the container, not the events happening inside it. A <strong>Sharable Content Object</strong> is deliberately narrow: it can tell the LMS "I started," "I finished," and "the learner scored 82%," and almost nothing else. It cannot describe a learner practicing a skill in a flight simulator, discussing a case study with a mentor, or reading a physical book with a QR code — because SCORM was designed around one specific interaction: a single learner, inside a single browser window, inside a single LMS.</p>
+<div class="admonition mascot-thinking">
+<p class="admonition-title">Two standards, one gap</p>
+<p><img alt="Rowan thinking with a magnifying glass" class="mascot-admonition-img" src="../../img/mascot/thinking.png" />
+Notice the shape of the limitation: SCORM's SCO can only talk to the one LMS that launched it. If a learner closes that browser tab and picks up a physical lab kit, or opens a mobile app, or joins a study group, none of that activity has anywhere to go. The record lives and dies inside the LMS session. Keep that gap in mind — everything else in this chapter is the industry's answer to it.</p>
+</div>
+<h2 id="aicc-a-parallel-path-to-the-same-goal">AICC: A Parallel Path to the Same Goal<a class="headerlink" href="#aicc-a-parallel-path-to-the-same-goal" title="Permanent link">&para;</a></h2>
+<p>SCORM was not the only attempt to standardize communication between content and a launching system. The <strong>Aviation Industry Computer-Based Training Committee</strong>, known by its acronym <strong>AICC</strong>, developed its own specification years earlier, originally for aviation and defense training. AICC used a different technical mechanism — the <strong>HTTP AICC Communication Protocol (HACP)</strong>, which exchanged data through HTTP requests rather than SCORM's in-browser JavaScript calls — but it solved essentially the same problem: letting a course report launch, progress, and completion data back to whatever system launched it.</p>
+<p>AICC and SCORM coexisted for years, and many learning platforms supported both to maximize compatibility with the training content their customers already owned. Both shared the same underlying constraint, though: a course could describe <em>that</em> it happened and <em>whether it was completed</em>, but not the rich, varied texture of <em>what actually happened</em> during the learning experience.</p>
+<p>The following table summarizes the three standards we have discussed so far, now that each one has been explained in the text above.</p>
+<table>
+<thead>
+<tr>
+<th>Standard</th>
+<th>Era</th>
+<th>Communication Mechanism</th>
+<th>What It Can Record</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SCORM</td>
+<td>1999–2011</td>
+<td>In-browser JavaScript API between a SCO and its launching LMS</td>
+<td>Launch, completion status, single score, session time</td>
+</tr>
+<tr>
+<td>AICC</td>
+<td>1993–2010s</td>
+<td>HTTP AICC Communication Protocol (HACP)</td>
+<td>Launch, completion status, single score, session time</td>
+</tr>
+<tr>
+<td>Experience API (xAPI)</td>
+<td>2013–present</td>
+<td>RESTful HTTP API to any conformant Learning Record Store</td>
+<td>Any actor performing any verb on any object, anywhere, with rich results and context</td>
+</tr>
+</tbody>
+</table>
+<h4 id="diagram-a-timeline-of-learning-interoperability-standards">Diagram: A Timeline of Learning Interoperability Standards<a class="headerlink" href="#diagram-a-timeline-of-learning-interoperability-standards" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/learning-standards-timeline/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>A Timeline of Learning Interoperability Standards</summary>
+<p>Type: timeline
+<strong>sim-id:</strong> learning-standards-timeline<br/>
+<strong>Library:</strong> vis-timeline<br/>
+<strong>Status:</strong> Specified
+<strong>Template:</strong> https://github.com/dmccreary/xapi-course/tree/main/docs/sims/learning-standards-timeline<br/></p>
+<p>Bloom Taxonomy: Understand (L2)
+Bloom Taxonomy Verb: summarize</p>
+<p>Learning objective: Help the learner place SCORM, AICC, and xAPI in chronological order and see that xAPI did not replace the others overnight — it emerged from documented limitations in the SCORM/AICC model.</p>
+<p>Time period: 1988–present</p>
+<p>Orientation: Horizontal, left to right</p>
+<p>Events:</p>
+<ul>
+<li>1988: AICC formed to standardize aviation computer-based training</li>
+<li>1999: SCORM 1.0 released by the Advanced Distributed Learning (ADL) Initiative</li>
+<li>2004: SCORM 2004 adds sequencing and navigation rules</li>
+<li>2010: ADL begins the "Project Tin Can" research into SCORM's limitations</li>
+<li>2013: Experience API (xAPI) 1.0 released</li>
+<li>2019: Stewardship of xAPI begins transitioning to IEEE LTSC</li>
+<li>2023: IEEE 9274.1.1-2023 published as the formal xAPI core standard</li>
+<li>2025: Institute for Infrastructure and Interoperable Data in Learning (I2IDL) established</li>
+</ul>
+<p>Interactive features: Clicking any milestone opens an infobox with a one-paragraph description of what changed and why, plus a "Related term" link into the chapter glossary.</p>
+<p>Visual style: Color-coded by standards family (AICC in one hue, SCORM in a second, xAPI/IEEE/I2IDL in a third) so the learner can visually trace which organization owned each era.</p>
+<p>Responsive design: The timeline must resize to the width of its containing element and remain readable on a tablet-width viewport.</p>
+</details>
+<h2 id="why-the-lms-centric-model-broke-down">Why the LMS-Centric Model Broke Down<a class="headerlink" href="#why-the-lms-centric-model-broke-down" title="Permanent link">&para;</a></h2>
+<p>SCORM and AICC both assumed that a single system — the LMS — was the hub through which every learning interaction had to pass. That assumption held up reasonably well when "learning" meant "click through a slideshow and take a quiz." It stopped holding up as learning technology diversified. Consider a few interactions a modern learner might have that no LMS launches directly: practicing a procedure inside a virtual-reality simulator, working through problems in a mobile app on a bus, running an experiment in a Docker-based coding lab, or exploring an interactive simulation embedded in an intelligent textbook page. None of these fit inside a SCO's narrow "launched, completed, scored" vocabulary, and none of them necessarily run inside an LMS at all. Some are not even a single event to begin with — a student dragging a slider back and forth on an interactive simulation, trying different values to see what changes, produces a whole stream of small events, not one final score. A SCO has no vocabulary for a <em>stream</em>; it only knows how to report a launch, a completion flag, and a score.</p>
+<p>The Advanced Distributed Learning (ADL) Initiative, the same U.S. Department of Defense-affiliated organization that had originally created SCORM, recognized this gap and began a research effort — nicknamed "Project Tin Can" — to design something more flexible. The result was the <strong>Experience API</strong>, universally abbreviated <strong>xAPI</strong>. Rather than packaging content so it could report back to one specific LMS, xAPI defines a simple, general-purpose sentence format — <em>someone did something, with some object, optionally producing some result, in some context</em> — and a RESTful web API for sending and retrieving those sentences from a <strong>Learning Record Store (LRS)</strong>: a dedicated system of record built to store xAPI data, independent of any single LMS, course, or vendor.</p>
+<div class="admonition mascot-tip">
+<p class="admonition-title">The word 'Experience' is doing real work</p>
+<p><img alt="Rowan pointing helpfully" class="mascot-admonition-img" src="../../img/mascot/tip.png" />
+Don't read "Experience API" as a synonym for "online course API." The whole point of the name is that it covers <em>any</em> learning experience — a lab, a conversation, a badge earned, a book chapter read — not just the narrow slice that happens to run inside a browser-based course player. If you catch yourself assuming xAPI only applies to quizzes, that's a sign to re-read this section.</p>
+</div>
+<p>Where a SCO could only talk to the LMS that launched it, any piece of software that can format a valid xAPI sentence and make an HTTP request can talk to <em>any</em> conformant LRS. The industry has a name for software that does this: a <strong>Learning Record Provider (LRP)</strong>. An LRP is simply the sender — a MicroSim, a mobile app, a VR simulator, a physical kiosk, or an intelligent textbook page — that constructs xAPI statements and submits them to a Learning Record Store. This project's own LRS, described starting in Part 2 of this book, ingests statements from many different intelligent textbooks acting as Learning Record Providers.</p>
+<p>Before comparing the two architectures visually, it is worth being precise about the two systems now on the table. A <strong>Learning Management System</strong> hosts courses and is usually both the place content runs <em>and</em> the place completion is recorded — content and record-keeping are bundled together. A <strong>Learning Record Store</strong> does only the second job — recording experiences as statements — and deliberately does not care what software produced them or where that software ran. That separation of concerns is what makes many independent Learning Record Providers able to feed one shared store of record.</p>
+<h4 id="diagram-lms-centric-versus-lrs-centric-architecture">Diagram: LMS-Centric versus LRS-Centric Architecture<a class="headerlink" href="#diagram-lms-centric-versus-lrs-centric-architecture" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/lms-vs-lrs-architecture/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>LMS-Centric versus LRS-Centric Architecture</summary>
+<p>Type: workflow
+<strong>sim-id:</strong> lms-vs-lrs-architecture<br/>
+<strong>Library:</strong> Mermaid<br/>
+<strong>Status:</strong> Specified
+<strong>Template:</strong> https://github.com/dmccreary/intelligent-textbooks/tree/main/docs/sims/standards-ecosystem<br/></p>
+<p>Bloom Taxonomy: Analyze (L4)
+Bloom Taxonomy Verb: compare, differentiate</p>
+<p>Learning objective: Let the learner compare a single-hub LMS-centric architecture against a hub-and-spoke LRS-centric architecture, and see structurally why the second scales to many kinds of Learning Record Providers while the first does not.</p>
+<p>Purpose: Show two side-by-side diagrams — "Before: LMS-Centric" and "After: LRS-Centric" — as a single Mermaid flowchart with two subgraphs.</p>
+<p>Left subgraph "LMS-Centric (SCORM/AICC era)":</p>
+<ul>
+<li>One box: "Learning Management System"</li>
+<li>Three boxes labeled "SCO 1", "SCO 2", "SCO 3" each with an arrow pointing only to the LMS box (one-way, tightly coupled)</li>
+<li>No other system can receive data from the SCOs</li>
+</ul>
+<p>Right subgraph "LRS-Centric (xAPI era)":</p>
+<ul>
+<li>One central box: "Learning Record Store"</li>
+<li>Five surrounding boxes, each with an arrow pointing to the LRS box: "Intelligent Textbook", "Mobile App", "VR Simulator", "Coding Lab", "Physical Kiosk" — each labeled with the small tag "Learning Record Provider"</li>
+<li>One additional box below the LRS labeled "Dashboards &amp; Reports" with an arrow FROM the LRS (data flows out for analysis)</li>
+</ul>
+<p>Interactive features: Every node in both subgraphs is clickable via a Mermaid <code>click</code> directive. Clicking "Learning Management System" opens an infobox defining LMS; clicking any "SCO" node opens an infobox defining Sharable Content Object; clicking "Learning Record Store" opens an infobox defining LRS; clicking any Learning Record Provider node opens an infobox explaining that term generally, then names the specific example (e.g., "VR Simulator — a Learning Record Provider might be flight-training software that emits a statement each time a trainee completes a maneuver").</p>
+<p>Color coding: LMS-centric subgraph in a muted gray-blue to signal "legacy"; LRS-centric subgraph in the book's teal accent color to signal "current architecture."</p>
+<p>Implementation: Mermaid flowchart with two subgraphs and full click-to-infobox coverage on every node.</p>
+</details>
+<h2 id="anatomy-of-an-xapi-statement-the-first-look">Anatomy of an xAPI Statement: The First Look<a class="headerlink" href="#anatomy-of-an-xapi-statement-the-first-look" title="Permanent link">&para;</a></h2>
+<p>Everything an xAPI-conformant system sends to a Learning Record Store is called a <strong>Statement</strong> — a single, self-contained record of one learning experience. A Statement is built from a small set of required and optional parts. This chapter introduces each part in plain language; <a href="../02-anatomy-of-xapi-statement/">Chapter 2</a> returns to the full technical structure, including how each part is expressed as JSON.</p>
+<p>Every Statement answers, at minimum, three questions: <em>who</em> did something, <em>what</em> did they do, and <em>to or with what</em>. These three required parts have names:</p>
+<ul>
+<li><strong>Actor</strong> — the person or agent who performed the experience. Almost always a learner, though it can be a group or even a piece of software acting on someone's behalf.</li>
+<li><strong>Verb</strong> — the action the Actor performed, expressed as a single word or short phrase: <em>completed</em>, <em>attempted</em>, <em>answered</em>, <em>practiced</em>, <em>read</em>.</li>
+<li><strong>Object</strong> — the thing the action was performed on. In the simplest and most common case, this is an <strong>Object Activity</strong>: a learning activity such as a specific chapter, quiz question, or simulation. (An Object can also be another Actor or another Statement, but Object Activity is by far the most frequent case, and the only one this chapter covers.)</li>
+</ul>
+<p>Every Object Activity carries an <strong>Activity Type</strong> — a URI that classifies <em>what kind</em> of thing the activity is, such as "this is a quiz," "this is a simulation," or "this is a reading." The Activity Type is what lets a dashboard later group "all the simulations a class completed" separately from "all the quizzes a class completed," even across statements produced by completely different Learning Record Providers.</p>
+<p>Two more parts round out a Statement, and both are optional:</p>
+<ul>
+<li><strong>Result</strong> — the outcome of the experience: a score, a pass/fail completion flag, a duration, or a free-text response. Not every Statement has a Result — "read chapter 3" might not produce one, while "completed the end-of-chapter quiz" almost always does.</li>
+<li><strong>Context</strong> — the circumstances surrounding the experience: which course or section it happened in, what platform or app version generated it, or which other Statement it is a follow-up to. Context is what lets an LRS answer questions like "was this attempt part of a graded assignment or a practice run?"</li>
+</ul>
+<div class="admonition mascot-warning">
+<p class="admonition-title">Actor, Verb, Object is not optional — Result and Context are</p>
+<p><img alt="Rowan waving a caution flag" class="mascot-admonition-img" src="../../img/mascot/warning.png" />
+A common early mistake is assuming every Statement needs a score or a course context to be meaningful. It doesn't. "Maya (Actor) read (Verb) Chapter 3 (Object)" is a complete, valid Statement all by itself — no Result, no Context required. Don't wait for a "big" outcome before recording a Statement; small, frequent statements are exactly what make an LRS useful.</p>
+</div>
+<p>Before looking at the interactive breakdown below, hold onto one more idea: <strong>Statement</strong> is the umbrella term for the whole record, while Actor, Verb, Object, Result, and Context are its components. When people informally call something "an xAPI event," they mean a Statement.</p>
+<h4 id="diagram-xapi-statement-building-blocks">Diagram: xAPI Statement Building Blocks<a class="headerlink" href="#diagram-xapi-statement-building-blocks" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/xapi-statement-triple/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>xAPI Statement Building Blocks</summary>
+<p>Type: infographic
+<strong>sim-id:</strong> xapi-statement-triple<br/>
+<strong>Library:</strong> Mermaid<br/>
+<strong>Status:</strong> Specified
+<strong>Template:</strong> https://dmccreary.github.io/xapi-course/sims/xapi-statement-triple/<br/></p>
+<p>Bloom Taxonomy: Understand (L2)
+Bloom Taxonomy Verb: exemplify, classify</p>
+<p>Learning objective: Give the learner a first, plain-language mental model of the five Statement components (Actor, Verb, Object Activity, Result, Context) using one worked example, before Chapter 2 formalizes the JSON structure.</p>
+<p>Purpose: Show a single example Statement broken into its labeled parts, so the reader can see the vocabulary just introduced in the prose applied to one concrete sentence.</p>
+<p>Layout: A horizontal sentence strip reading "Maya | completed | the Photosynthesis Quiz" with the words "Actor", "Verb", "Object Activity" as labels beneath each phrase, plus two additional connected boxes below labeled "Result: scored 9/10" and "Context: Biology 101, Section 2".</p>
+<p>Data Visibility Requirements:
+Stage 1: Show the plain English sentence "Maya completed the Photosynthesis Quiz, scoring 9 out of 10, in Biology 101."
+Stage 2: Highlight and label "Maya" as Actor.
+Stage 3: Highlight and label "completed" as Verb.
+Stage 4: Highlight and label "the Photosynthesis Quiz" as Object Activity, with its Activity Type ("quiz") shown as a small sub-tag.
+Stage 5: Reveal the Result box: "scored 9/10."
+Stage 6: Reveal the Context box: "Biology 101, Section 2."</p>
+<p>Interactive features: Each of the five labeled parts (Actor, Verb, Object Activity, Result, Context) is clickable. Clicking opens an infobox with that term's one-sentence definition, matching the definition given in this chapter's prose, plus the note "Required" or "Optional."</p>
+<p>Instructional Rationale: A step-through, data-visible worked example is appropriate for this Understand-level objective because the learner needs to trace one concrete Statement piece by piece before generalizing. Continuous animation or particle effects would obscure exactly which words map to which component.</p>
+<p>Implementation: Mermaid diagram (or equivalent static-layout HTML/CSS) with click handlers wired to an infobox panel, matching the reused template's existing interaction pattern.</p>
+</details>
+<h2 id="practice-matching-terms-to-definitions">Practice: Matching Terms to Definitions<a class="headerlink" href="#practice-matching-terms-to-definitions" title="Permanent link">&para;</a></h2>
+<p>With five new vocabulary terms introduced in this chapter's final section — Actor, Verb, Object Activity, Activity Type, Result, and Context — it helps to practice recalling them before moving on. The MicroSim below is a low-stakes matching exercise: no scoring pressure, just repetition to help the vocabulary stick before Chapter 2 builds on it.</p>
+<h4 id="diagram-xapi-vocabulary-matching-pairs">Diagram: xAPI Vocabulary Matching Pairs<a class="headerlink" href="#diagram-xapi-vocabulary-matching-pairs" title="Permanent link">&para;</a></h4>
+<iframe src="../../sims/xapi-vocabulary-matching-pairs/main.html" width="100%" height="500px" scrolling="no"></iframe>
+
+<details>
+<summary>xAPI Vocabulary Matching Pairs</summary>
+<p>Type: microsim
+<strong>sim-id:</strong> xapi-vocabulary-matching-pairs<br/>
+<strong>Library:</strong> p5.js<br/>
+<strong>Status:</strong> Specified</p>
+<p>Bloom Taxonomy: Remember (L1)
+Bloom Taxonomy Verb: recall, identify, match</p>
+<p>Learning objective: Reinforce recall of the six terms introduced in this chapter's statement-anatomy section (Actor, Verb, Object Activity, Activity Type, Result, Context) by matching each term to its one-sentence definition.</p>
+<p>Canvas layout:</p>
+<ul>
+<li>Left column (six draggable term tiles): Actor, Verb, Object Activity, Activity Type, Result, Context</li>
+<li>Right column (six definition tiles in scrambled order)</li>
+<li>Bottom strip: score readout ("Matched: 0 / 6") and a "Shuffle" button</li>
+</ul>
+<p>Visual elements:</p>
+<ul>
+<li>Term tiles in the book's teal accent color</li>
+<li>Definition tiles in a neutral cream color</li>
+<li>A correct match locks both tiles together with a green outline and a brief checkmark animation</li>
+<li>An incorrect match flashes red for half a second and the tiles bounce back to their original position</li>
+</ul>
+<p>Interactive controls:</p>
+<ul>
+<li>Drag-and-drop: drag a term tile onto a definition tile to attempt a match</li>
+<li>Button: "Shuffle" — re-randomizes definition tile order and clears progress</li>
+<li>Button: "Reveal All" — shows all correct pairings for review, disabled until at least one attempt has been made</li>
+</ul>
+<p>Default parameters:</p>
+<ul>
+<li>All six terms unmatched at start</li>
+<li>Definitions shown in random order (re-randomized via a seeded index, not JavaScript's raw Math.random, so the layout is reproducible for a given session)</li>
+</ul>
+<p>Behavior:</p>
+<ul>
+<li>On correct match, increment the "Matched" counter and lock the pair</li>
+<li>When all six are matched, display "All matched! You know the vocabulary." and enable a small "Try Again" reset button</li>
+<li>Track each drag-and-drop attempt (success or failure) as an interaction event</li>
+</ul>
+<p>Implementation notes:</p>
+<ul>
+<li>Use p5.js mouse-press and mouse-release events to implement drag-and-drop</li>
+<li>Store term/definition pairs as a simple array of objects so the same MicroSim shell can be reused for future chapters' vocabulary sets</li>
+<li>Responsive design: canvas width tracks the containing element's width; tile size and column layout adjust at narrow (mobile) widths by stacking columns vertically instead of side-by-side</li>
+</ul>
+</details>
+<h2 id="bringing-the-vocabulary-together">Bringing the Vocabulary Together<a class="headerlink" href="#bringing-the-vocabulary-together" title="Permanent link">&para;</a></h2>
+<p>Every piece introduced in this chapter fits into one coherent story. Learning technology started with the <strong>Learning Management System</strong> as the single hub for hosting and tracking courses. <strong>SCORM</strong> and <strong>AICC</strong> made course content portable between LMS products through <strong>Content Packaging</strong> and the narrow, LMS-bound reporting of a <strong>Sharable Content Object</strong>. When learning moved beyond single-course, single-browser interactions, the <strong>Experience API</strong> replaced content packages with a simple, general <strong>Statement</strong> format — <em>Actor, Verb, Object Activity</em>, with optional <em>Result</em> and <em>Context</em> — and replaced the LMS's built-in tracking with a dedicated <strong>Learning Record Store</strong> that any <strong>Learning Record Provider</strong> can write to.</p>
+<p>That is the vocabulary this project's own Learning Record Store is built on top of. Recall the firehose from the start of this chapter: because a single student exploring one intelligent-textbook page can generate many small Statements in a single sitting, most of the rest of this book is about what a Learning Record Store must do to turn that many small sentences into something a district administrator, a teacher, or a textbook author can actually use.</p>
+<p>The following list summarizes the chain of reasoning as a set of cause-and-effect steps, useful as a quick self-check before moving to Chapter 2:</p>
+<ol>
+<li>Organizations needed training content portable across different LMS products → SCORM and AICC defined Content Packaging and SCO-based reporting.</li>
+<li>SCOs could only report to the one LMS that launched them → learning experiences outside a browser-based course had nowhere to go.</li>
+<li>ADL's "Project Tin Can" research generalized "reported to an LMS" into "sent as a Statement to an LRS" → the Experience API was born.</li>
+<li>Any software that can format a Statement is a Learning Record Provider → many different kinds of learning tools can now feed one shared record store.</li>
+<li>Every Statement is built from Actor, Verb, and Object Activity, with optional Result and Context → this vocabulary is the foundation for the detailed statement structure in Chapter 2.</li>
+</ol>
+<div class="admonition mascot-encourage">
+<p class="admonition-title">If this still feels like a lot of new vocabulary...</p>
+<p><img alt="Rowan offering encouragement" class="mascot-admonition-img" src="../../img/mascot/encouraging.png" />
+...that's completely normal for a first chapter. You now have six acronyms (LMS, SCORM, AICC, SCO, xAPI, LRS) and six statement-vocabulary terms in your head at once. You don't need to memorize definitions cold — you need to recognize the <em>shape</em> of the story: content-bound reporting gave way to a portable statement format. Everything else in this book adds detail to that one shape.</p>
+</div>
+<h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
+<ul>
+<li>A <strong>Learning Management System (LMS)</strong> hosts courses and tracks completion within a single platform.</li>
+<li><strong>SCORM</strong> and <strong>AICC</strong> are two historical standards that let e-learning content packages run across different LMS products, using <strong>Content Packaging</strong> and a <strong>Sharable Content Object (SCO)</strong> that reports narrowly back to its launching LMS.</li>
+<li>The <strong>Experience API (xAPI)</strong> replaced content-bound reporting with a general-purpose <strong>Statement</strong> format that any software can send over a RESTful HTTP API.</li>
+<li>A <strong>Learning Record Store (LRS)</strong> is a dedicated system of record for xAPI Statements, independent of any single LMS or vendor.</li>
+<li>A <strong>Learning Record Provider (LRP)</strong> is any software — a textbook, an app, a simulator — that constructs and sends Statements to an LRS.</li>
+<li>Every Statement has an <strong>Actor</strong>, a <strong>Verb</strong>, and an <strong>Object</strong> (typically an <strong>Object Activity</strong> with an <strong>Activity Type</strong>), plus optional <strong>Result</strong> and <strong>Context</strong>.</li>
+</ul>
+<div class="admonition mascot-celebration">
+<p class="admonition-title">You just read your first xAPI statement</p>
+<p><img alt="Rowan celebrating with confetti" class="mascot-admonition-img" src="../../img/mascot/celebration.png" />
+Seriously — "Maya completed the Photosynthesis Quiz, scoring 9/10, in Biology 101" is a real xAPI Statement in plain English. In <a href="../02-anatomy-of-xapi-statement/">Chapter 2</a>, we'll take that same sentence and turn it into the actual JSON an LRS accepts. What does the evidence show? You're ready to find out.</p>
+</div>
 
 
 
 
 
 
+
+  
+  
 
 
 
@@ -2010,13 +2208,10 @@
     </div>
     
     
-    
-      
-      
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
         <script src="../../js/katex.js"></script>
       
