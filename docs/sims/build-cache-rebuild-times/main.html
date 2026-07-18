@@ -3,111 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
-    <title>Rebuild Time by Scenario and Cache State</title>
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Build Cache Rebuild Times</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
+        * { box-sizing: border-box; }
+        html, body { margin: 0; font-family: Arial, Helvetica, sans-serif; background: #fff; color: #222; }
+        .wrap { padding: 8px 12px; }
+        h2 { font-size: 16px; color: #1a3a5c; text-align: center; margin: 4px 0 8px; }
+        .chart-box { position: relative; height: 340px; }
+        .controls { text-align: center; margin: 8px 0; }
+        button { font-size: 13px; padding: 6px 12px; border: 1px solid #2a9d8f; background: #fff; color: #1f7a6f; border-radius: 5px; cursor: pointer; margin: 0 4px; }
+        button.active { background: #2a9d8f; color: #fff; }
+        .caption { font-size: 13px; color: #555; text-align: center; max-width: 700px; margin: 6px auto; line-height: 1.4; }
     </style>
 </head>
 <body>
-    <div id="container">
-        <h1>Rebuild Time by Scenario and Cache State</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
+    <div class="wrap">
+        <h2>Rebuild Time: With vs Without the uv Cache Mount</h2>
+        <div class="chart-box"><canvas id="c"></canvas></div>
+        <div class="controls">
+            <button id="absBtn" class="active">Absolute seconds</button>
+            <button id="mulBtn">Multiple of fastest</button>
         </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> build-cache-rebuild-times</p>
-            <p><strong>Library:</strong> Chart.js</p>
-            <p><strong>Bloom Level:</strong> Evaluate (L5)</p>
-            <p><strong>Learning Objective:</strong> Given three rebuild scenarios, determine which of ordinary layer caching versus the build cache mount is responsible for the time saved in each case.</p>
-        </div>
+        <p class="caption">The cache mount's payoff is Scenario 2: reusing already-downloaded packages cuts 65&nbsp;s to 12&nbsp;s. In Scenario 1 ordinary layer-skipping already does the work; in Scenario 3 nothing is cached yet, so the mount cannot help. (Illustrative figures.)</p>
     </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: chart
-    **sim-id:** build-cache-rebuild-times<br/>
-    **Library:** Chart.js<br/>
-    **Status:** Specified
-    
-    Bloom Taxonomy: Evaluate (L5)
-    Bloom Taxonomy Verb: determine, justify
-    
-    Learning objective: Given three rebuild scenarios, determine which of ordinary layer caching versus the build cache mount is responsible for the time saved in each case.
-    
-    Purpose: A grouped bar chart comparing simulated rebuild wall-clock time across three scenarios, each with and without the uv cache mount, isolating the mount's effect from ordinary layer-skipping.
-    
-    Data (illustrative, labeled as representative, not measured): Scenario 1 "Code only changed (layer skip applies)" -- with mount 8s, without 9s (dependency layer is skipped entirely either way). Scenario 2 "uv.lock changed (dependency layer reruns)" -- with mount 12s, without 65s (mount reuses already-downloaded packages). Scenario 3 "Cold machine, no prior cache" -- with mount 70s, without 70s (nothing cached yet to reuse).
-    
-    Controls: Toggle "Absolute seconds / Multiple of fastest"; dropdown to highlight one scenario's bars while the others dim to 40% opacity.
-    
-    Interactive features: Hovering or clicking a bar opens a tooltip explaining, in one sentence, why that bar has its value. Scenario 3's tooltip notes a cache mount cannot help a build with nothing cached yet.
-    
-    Color coding: "With cache mount" bars in the book's teal accent color; "without" bars in muted gray, so Scenario 2's size difference reads immediately as the mount's payoff.
-    
-    Responsive design: Legend moves below the plot on narrow viewports; bar labels rotate rather than overlap.
-    -->
+    <script>
+        const labels = [['Code only changed', '(layer skip applies)'], ['uv.lock changed', '(dependency layer reruns)'], ['Cold machine', '(no prior cache)']];
+        const withMount = [8, 12, 70];
+        const without = [9, 65, 70];
+        const why = {
+            withMount: ['Dependency layer is skipped entirely; mount barely matters here.', 'The mount reuses already-downloaded packages instead of re-fetching them.', 'A cache mount cannot help a build with nothing cached yet.'],
+            without: ['Layer cache already skips the dependency layer.', 'Without the mount, every package is downloaded again from scratch.', 'Nothing cached yet to reuse either way.']
+        };
+        let mode = 'abs';
+        function dataFor(arr) { return mode === 'abs' ? arr : arr.map(function (v) { return +(v / 8).toFixed(2); }); }
+        const chart = new Chart(document.getElementById('c'), {
+            type: 'bar',
+            data: { labels: labels, datasets: [
+                { label: 'With cache mount', data: withMount.slice(), backgroundColor: '#2a9d8f' },
+                { label: 'Without cache mount', data: without.slice(), backgroundColor: '#9aa7b4' }
+            ] },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { tooltip: { callbacks: { afterLabel: function (ctx) { const k = ctx.datasetIndex === 0 ? 'withMount' : 'without'; return why[k][ctx.dataIndex]; } } } },
+                scales: { y: { beginAtZero: true, title: { display: true, text: 'Rebuild time (seconds)' } } }
+            }
+        });
+        function apply() {
+            chart.data.datasets[0].data = dataFor(withMount);
+            chart.data.datasets[1].data = dataFor(without);
+            chart.options.scales.y.title.text = mode === 'abs' ? 'Rebuild time (seconds)' : 'Multiple of the fastest build (8 s)';
+            chart.update();
+        }
+        document.getElementById('absBtn').onclick = function () { mode = 'abs'; apply(); this.classList.add('active'); document.getElementById('mulBtn').classList.remove('active'); };
+        document.getElementById('mulBtn').onclick = function () { mode = 'mul'; apply(); this.classList.add('active'); document.getElementById('absBtn').classList.remove('active'); };
+    </script>
 </body>
 </html>

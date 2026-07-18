@@ -3,122 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
-    <title>ClickHouse Storage Growth Over the Retention Window</title>
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>ClickHouse Storage Growth</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
+        * { box-sizing: border-box; }
+        html, body { margin: 0; font-family: Arial, Helvetica, sans-serif; background: #fff; color: #222; }
+        .wrap { padding: 8px 12px; }
+        h2 { font-size: 16px; color: #1a3a5c; text-align: center; margin: 4px 0 8px; }
+        .chart-box { position: relative; height: 350px; }
+        .controls { text-align: center; margin: 8px 0; }
+        button { font-size: 13px; padding: 6px 12px; border: 1px solid #2a9d8f; background: #fff; color: #1f7a6f; border-radius: 5px; cursor: pointer; margin: 0 4px; }
+        button.active { background: #2a9d8f; color: #fff; }
+        .caption { font-size: 13px; color: #555; text-align: center; max-width: 680px; margin: 6px auto; line-height: 1.4; }
     </style>
 </head>
 <body>
-    <div id="container">
-        <h1>ClickHouse Storage Growth Over the Retention Window</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
+    <div class="wrap">
+        <h2>ClickHouse Cumulative Storage (7-Year Retention)</h2>
+        <div class="chart-box"><canvas id="c"></canvas></div>
+        <div class="controls">
+            <button id="mBtn" class="active">Months</button>
+            <button id="yBtn">School years</button>
         </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> clickhouse-storage-growth</p>
-            <p><strong>Library:</strong> Chart.js</p>
-            <p><strong>Bloom Level:</strong> Apply (L3)</p>
-            <p><strong>Learning Objective:</strong> Let the learner apply the ~22 GB/day ClickHouse ingest figure to project cumulative storage across a seven-year retention window, and observe where the tiering policy changes the growth curve's slope.</p>
-        </div>
+        <p class="caption">At ~22 GB/day (~0.66 TB/month), primary disk grows steeply until month 13, when data older than 13 months tiers to S3/MinIO and the slope flattens toward ~28 TB. Kafka's 7-day buffer stays flat at ~1.1 TB.</p>
     </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: chart
-    **sim-id:** clickhouse-storage-growth<br/>
-    **Library:** Chart.js<br/>
-    **Status:** Specified
-    
-    Bloom Taxonomy: Apply (L3)
-    Bloom Taxonomy Verb: calculate, estimate
-    
-    Learning objective: Let the learner apply the ~22 GB/day ClickHouse ingest figure to project cumulative storage across a seven-year retention window, and observe where the tiering policy changes the growth curve's slope.
-    
-    Chart type: Line chart with one primary series and one annotated reference line
-    
-    Purpose: Show cumulative ClickHouse storage climbing from day zero to the seven-year retention ceiling, so the reader sees the ~28 TB figure as the endpoint of a calculable curve rather than an isolated fact.
-    
-    X-axis: Months since launch, 0 to 84 (seven years)
-    Y-axis: Cumulative storage, terabytes, 0 to 30
-    
-    Data series:
-    
-    1. "ClickHouse primary-disk storage" (teal line): rises at approximately 0.66 TB/month (22 GB/day × 30) up to month 13, then the slope visibly flattens as data older than 13 months tiers to the object store, leveling toward the ~28 TB figure by month 84.
-    2. Reference line (amber, dashed, horizontal): "Kafka disk, 7-day retention — always ~1.1 TB" — flat across the entire chart, to make the contrast explicit between a bounded replay buffer and a growing system of record.
-    
-    Annotations:
-    
-    - A marker at month 13 labeled "Tiering to S3/MinIO begins — data older than 13 months moves off primary disk"
-    - A marker at month 84 labeled "~28 TB at 7-year retention"
-    
-    Interactive features: Hovering any point on either line reveals a tooltip with the exact month and cumulative GB/TB value. A toggle control lets the learner switch the X-axis between "Months" and "School years" (assuming a 180-day school year), recomputing the tick labels without changing the underlying data. Clicking the month-13 marker opens an infobox explaining the tiering policy in one sentence, matching this chapter's prose.
-    
-    Color scheme: ClickHouse growth line in the book's teal accent color; the flat Kafka reference line in amber, consistent with this chapter's other diagrams' color language for "bounded buffer" versus "growing store."
-    
-    Responsive design: Chart resizes to the width of its containing element and remains readable at tablet width, with the legend moving below the plot area on narrow viewports.
-    -->
+    <script>
+        // Build cumulative curve: 0.66 TB/month to month 13, then tiering flattens growth.
+        const months = [];
+        const chStore = [];
+        let cum = 0;
+        for (let m = 0; m <= 84; m++) {
+            months.push(m);
+            if (m > 0) { cum += (m <= 13) ? 0.66 : 0.20; }   // slope flattens after tiering
+            chStore.push(Math.round(cum * 100) / 100);
+        }
+        const kafka = months.map(function () { return 1.1; });
+        let unit = 'months';
+        const chart = new Chart(document.getElementById('c'), {
+            type: 'line',
+            data: {
+                labels: months,
+                datasets: [
+                    { label: 'ClickHouse primary-disk storage (TB)', data: chStore, borderColor: '#2a9d8f', backgroundColor: 'rgba(42,157,143,0.12)', fill: true, pointRadius: 0, tension: 0.2 },
+                    { label: 'Kafka disk, 7-day retention (~1.1 TB)', data: kafka, borderColor: '#e9a23b', borderDash: [6, 4], pointRadius: 0 }
+                ]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { tooltip: { callbacks: {
+                    title: function (items) { const m = +items[0].label; return unit === 'months' ? ('Month ' + m) : ('School year ' + (m / 6).toFixed(1)); },
+                    afterBody: function (items) { const m = +items[0].label; if (m === 13) return 'Tiering to S3/MinIO begins here'; if (m === 84) return '~28 TB at 7-year retention'; return ''; }
+                } } },
+                scales: {
+                    y: { min: 0, max: 30, title: { display: true, text: 'Cumulative storage (TB)' } },
+                    x: { title: { display: true, text: 'Months since launch' }, ticks: { callback: function (v) { return unit === 'months' ? v : (v % 6 === 0 ? ('Y' + v / 6) : ''); } } }
+                }
+            }
+        });
+        document.getElementById('mBtn').onclick = function () { unit = 'months'; chart.options.scales.x.title.text = 'Months since launch'; chart.update(); this.classList.add('active'); document.getElementById('yBtn').classList.remove('active'); };
+        document.getElementById('yBtn').onclick = function () { unit = 'years'; chart.options.scales.x.title.text = 'School years (180-day year, ~6 months each)'; chart.update(); this.classList.add('active'); document.getElementById('mBtn').classList.remove('active'); };
+    </script>
 </body>
 </html>

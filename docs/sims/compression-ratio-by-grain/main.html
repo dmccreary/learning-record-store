@@ -3,109 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
-    <title>Storage Compression Ratio by Summary-Vertex Grain</title>
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Compression Ratio by Grain</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
+        * { box-sizing: border-box; }
+        html, body { margin: 0; font-family: Arial, Helvetica, sans-serif; background: #fff; color: #222; }
+        .wrap { padding: 8px 12px; }
+        h2 { font-size: 16px; color: #1a3a5c; text-align: center; margin: 4px 0 8px; }
+        .chart-box { position: relative; height: 340px; }
+        .controls { text-align: center; margin: 8px 0; }
+        button { font-size: 13px; padding: 6px 12px; border: 1px solid #2a9d8f; background: #fff; color: #1f7a6f; border-radius: 5px; cursor: pointer; margin: 0 4px; }
+        button.active { background: #2a9d8f; color: #fff; }
+        .caption { font-size: 13px; color: #555; text-align: center; max-width: 660px; margin: 6px auto; line-height: 1.4; }
     </style>
 </head>
 <body>
-    <div id="container">
-        <h1>Storage Compression Ratio by Summary-Vertex Grain</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
+    <div class="wrap">
+        <h2>Storage Compression Ratio by Grain</h2>
+        <div class="chart-box"><canvas id="c"></canvas></div>
+        <div class="controls">
+            <button id="logBtn" class="active">Log scale</button>
+            <button id="linBtn">Linear scale</button>
         </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> compression-ratio-by-grain</p>
-            <p><strong>Library:</strong> Chart.js</p>
-            <p><strong>Bloom Level:</strong> Analyze (L4)</p>
-            <p><strong>Learning Objective:</strong> Let the learner compare the storage compression ratio across the five grains that compress within-student evidence (QuestionResponse, PageEngagement, MicroSimEngagement, ConceptMastery, SectionRollup) and evaluate why SectionRollup's ratio is so much larger than the others.</p>
-        </div>
+        <p class="caption">Statements coalesced into one summary vertex. SectionRollup compresses ~3,000:1 because one section+concept grain absorbs every enrolled student's evidence &mdash; far more than a per-student grain.</p>
     </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: chart
-    **sim-id:** compression-ratio-by-grain<br/>
-    **Library:** Chart.js<br/>
-    **Status:** Specified
-    
-    Bloom Taxonomy: Analyze (L4)
-    Bloom Taxonomy Verb: compare, evaluate
-    
-    Learning objective: Let the learner compare the storage compression ratio across the five grains that compress within-student evidence (QuestionResponse, PageEngagement, MicroSimEngagement, ConceptMastery, SectionRollup) and evaluate why SectionRollup's ratio is so much larger than the others.
-    
-    Purpose: Render the five storage-compression ratios from this section's prose as a single interactive bar chart, using a logarithmic y-axis so the ~3:1 and ~3,000:1 bars are both readable on one chart.
-    
-    Data: Five bars, one per grain, x-axis labeled with the vertex label and y-axis labeled "Statements per summary vertex (log scale)". Values: QuestionResponse ≈ 3, PageEngagement ≈ 40, MicroSimEngagement ≈ 60, ConceptMastery ≈ 100, SectionRollup ≈ 3000.
-    
-    Interactive features: Hovering any bar shows a tooltip with that grain's exact evidence-range text from this chapter's prose (e.g. "ConceptMastery: ~50-200 evidence events -> 1 vertex, ~100:1") plus its Analytical Grain key. Clicking a bar opens a side panel repeating that grain's evidence-count property name from the table above. A toggle switches the y-axis between logarithmic and linear scale, so the learner can see both how compressed SectionRollup is (log view) and how small QuestionResponse looks by comparison (linear view).
-    
-    Color scheme: Bars colored on a single-hue gradient from the book's teal accent color (lightest for QuestionResponse, the smallest ratio) to the darkest teal (SectionRollup, the largest ratio), so color intensity visually tracks compression strength.
-    
-    Responsive design: Chart canvas resizes to the width of its containing element on window resize, using Chart.js's built-in responsive option; bar labels rotate to a vertical orientation below 500px width to remain legible.
-    -->
+    <script>
+        const labels = ['QuestionResponse', 'PageEngagement', 'MicroSimEngagement', 'ConceptMastery', 'SectionRollup'];
+        const values = [3, 40, 60, 100, 3000];
+        const ranges = [
+            'QuestionResponse: ~1-5 responses -> 1 vertex, ~3:1. Grain key: (student, question)',
+            'PageEngagement: ~20-60 events -> 1 vertex, ~40:1. Grain key: (student, page)',
+            'MicroSimEngagement: ~30-90 events -> 1 vertex, ~60:1. Grain key: (student, microsim)',
+            'ConceptMastery: ~50-200 evidence events -> 1 vertex, ~100:1. Grain key: (student, concept)',
+            'SectionRollup: ~1,000-5,000 events -> 1 vertex, ~3,000:1. Grain key: (section, concept)'
+        ];
+        const colors = ['#a7ddd5', '#5cbcb0', '#3bab9d', '#2a9d8f', '#12695f'];
+        const chart = new Chart(document.getElementById('c'), {
+            type: 'bar',
+            data: { labels: labels, datasets: [{ label: 'Statements per summary vertex', data: values, backgroundColor: colors, borderColor: '#1f7a6f', borderWidth: 1 }] },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { callbacks: { label: function (ctx) { return ranges[ctx.dataIndex]; } } }
+                },
+                scales: {
+                    y: { type: 'logarithmic', title: { display: true, text: 'Statements per summary vertex (log scale)' } },
+                    x: { title: { display: true, text: 'Summary vertex (grain)' } }
+                }
+            }
+        });
+        function setScale(type) {
+            chart.options.scales.y.type = type;
+            chart.options.scales.y.title.text = 'Statements per summary vertex (' + (type === 'logarithmic' ? 'log' : 'linear') + ' scale)';
+            chart.update();
+            document.getElementById('logBtn').classList.toggle('active', type === 'logarithmic');
+            document.getElementById('linBtn').classList.toggle('active', type === 'linear');
+        }
+        document.getElementById('logBtn').onclick = function () { setScale('logarithmic'); };
+        document.getElementById('linBtn').onclick = function () { setScale('linear'); };
+    </script>
 </body>
 </html>

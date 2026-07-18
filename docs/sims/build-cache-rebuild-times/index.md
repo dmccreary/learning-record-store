@@ -1,7 +1,7 @@
 ---
 title: Rebuild Time by Scenario and Cache State
 description: Given three rebuild scenarios, determine which of ordinary layer caching versus the build cache mount is responsible for the time saved in each case.
-status: scaffold
+status: implemented
 library: Chart.js
 bloom_level: Evaluate (L5)
 ---
@@ -10,7 +10,7 @@ bloom_level: Evaluate (L5)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="472"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

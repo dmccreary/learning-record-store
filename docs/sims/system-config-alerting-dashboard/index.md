@@ -1,7 +1,7 @@
 ---
 title: System Configuration and Alerting Dashboard
 description: Interpret a live-style processing-lag chart against a configurable Alerting Configuration threshold line, and relate that threshold to the platform-wide Retention Defaults Config, Feature Flag Config, and Rate Limit Config panels a System Administrator manages on the same screen.
-status: scaffold
+status: implemented
 library: Chart.js
 bloom_level: Analyze (L4)
 ---
@@ -10,7 +10,7 @@ bloom_level: Analyze (L4)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="542"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

@@ -15,9 +15,10 @@
   "library": "Chart.js",
   "bloomLevel": "Apply (L3)",
   "bloomVerb": "calculate, estimate",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 11,
   "chapter_title": "Architecture Decision Records and the Capacity Model",
   "chapter_dir": "11-adrs-and-capacity-model",
-  "chapter_rel_dir": "chapters/11-adrs-and-capacity-model"
+  "chapter_rel_dir": "chapters/11-adrs-and-capacity-model",
+  "canvasHeight": 480
 }

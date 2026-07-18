@@ -1,7 +1,7 @@
 ---
 title: Storage Compression Ratio by Summary-Vertex Grain
 description: Let the learner compare the storage compression ratio across the five grains that compress within-student evidence (QuestionResponse, PageEngagement, MicroSimEngagement, ConceptMastery, SectionRollup) and evaluate why SectionRollup's ratio is so much larger than the others.
-status: scaffold
+status: implemented
 library: Chart.js
 bloom_level: Analyze (L4)
 ---
@@ -10,7 +10,7 @@ bloom_level: Analyze (L4)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="472"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

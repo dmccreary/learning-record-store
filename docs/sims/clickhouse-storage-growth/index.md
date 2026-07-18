@@ -1,7 +1,7 @@
 ---
 title: ClickHouse Storage Growth Over the Retention Window
 description: Let the learner apply the ~22 GB/day ClickHouse ingest figure to project cumulative storage across a seven-year retention window, and observe where the tiering policy changes the growth curve's slope.
-status: scaffold
+status: implemented
 library: Chart.js
 bloom_level: Apply (L3)
 ---
@@ -10,7 +10,7 @@ bloom_level: Apply (L3)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="482"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

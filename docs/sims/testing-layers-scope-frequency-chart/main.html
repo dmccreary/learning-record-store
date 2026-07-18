@@ -3,111 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
-    <title>Testing Layers by Scope and Run Frequency</title>
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Testing Layers: Scope vs Frequency</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
+        * { box-sizing: border-box; }
+        html, body { margin: 0; font-family: Arial, Helvetica, sans-serif; background: #fff; color: #222; }
+        .wrap { padding: 8px 12px; }
+        h2 { font-size: 16px; color: #1a3a5c; text-align: center; margin: 4px 0 8px; }
+        .chart-box { position: relative; height: 360px; }
+        .caption { font-size: 13px; color: #555; text-align: center; max-width: 700px; margin: 6px auto; line-height: 1.4; }
     </style>
 </head>
 <body>
-    <div id="container">
-        <h1>Testing Layers by Scope and Run Frequency</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
-        </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> testing-layers-scope-frequency-chart</p>
-            <p><strong>Library:</strong> Chart.js</p>
-            <p><strong>Bloom Level:</strong> Evaluate (L5)</p>
-            <p><strong>Learning Objective:</strong> Compare the eight testing layers by how much of the system each exercises and how often each runs, and justify why the widest-scope layer is also the least frequent.</p>
-        </div>
+    <div class="wrap">
+        <h2>Testing Layers &mdash; Scope vs Run Frequency</h2>
+        <div class="chart-box"><canvas id="c"></canvas></div>
+        <p class="caption">Wider scope, slower cadence: the widest-scope layer (Chaos Kill Test) is the least frequent because exercising the whole live system is expensive and disruptive, so it runs on a schedule in staging rather than on every commit.</p>
     </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: chart
-    **sim-id:** testing-layers-scope-frequency-chart<br/>
-    **Library:** Chart.js<br/>
-    **Status:** Specified
-    
-    Bloom Taxonomy: Evaluate (L5)
-    Bloom Taxonomy Verb: compare, justify
-    
-    Learning objective: Compare the eight testing layers by how much of the system each exercises and how often each runs, and justify why the widest-scope layer is also the least frequent.
-    
-    Chart type: Scatter/quadrant chart. X-axis: "Scope," from "Single function" to "Whole live system." Y-axis: "Run frequency," from "Scheduled/quarterly" to "Every commit," on a reversed log-like scale.
-    
-    Data points: Unit Test Layer (narrow scope, every commit), Compression Test Suite (narrow-medium, every commit), ADL Conformance Test Suite (medium, every CI run), Testcontainers Integration Test (medium-wide, every CI run), Privacy Adversarial Suite (medium, every CI run), Load Test Loadgen (wide, pre-release), Replay Nightly Test (wide, nightly), Chaos Kill Test (widest, scheduled/staging-only).
-    
-    Interactive features: Hovering a point shows a tooltip with the layer's name and what it checks. Clicking opens an infobox with the full prose description. A toggle switches the y-axis to "blast radius if this layer alone were skipped," re-plotting the same points.
-    
-    Color scheme: Gradient from teal (narrow, frequent) to amber (wide, infrequent).
-    
-    Annotation: A dashed diagonal trend line labeled "Wider scope, slower cadence."
-    
-    Responsive design: Chart resizes to container width; axis labels abbreviate on narrow viewports while tooltips retain full text.
-    -->
+    <script>
+        // x: scope 1(single fn) .. 5(whole live system). y: frequency 5(every commit) .. 1(quarterly)
+        const pts = [
+            { x: 1, y: 5, n: 'Unit Test Layer', w: 'One function in isolation; runs every commit.' },
+            { x: 1.7, y: 5, n: 'Compression Test Suite', w: 'Compression logic correctness; every commit.' },
+            { x: 3, y: 4, n: 'ADL Conformance Test Suite', w: 'xAPI spec conformance; every CI run.' },
+            { x: 3.6, y: 4, n: 'Testcontainers Integration Test', w: 'Real services in containers; every CI run.' },
+            { x: 3, y: 4, n: 'Privacy Adversarial Suite', w: 'Differencing/re-identification attacks; every CI run.' },
+            { x: 4.2, y: 2, n: 'Load Test Loadgen', w: 'Sustained synthetic load; pre-release.' },
+            { x: 4.3, y: 3, n: 'Replay Nightly Test', w: 'Full log replay for parity; nightly.' },
+            { x: 5, y: 1, n: 'Chaos Kill Test', w: 'Kill live components; scheduled, staging only.' }
+        ];
+        function color(x) { const t = (x - 1) / 4; const r = Math.round(42 + t * (233 - 42)); const g = Math.round(157 + t * (162 - 157)); const b = Math.round(143 + t * (59 - 143)); return 'rgb(' + r + ',' + g + ',' + b + ')'; }
+        new Chart(document.getElementById('c'), {
+            type: 'scatter',
+            data: { datasets: [{ label: 'Testing layers', data: pts, pointRadius: 9, pointHoverRadius: 12, backgroundColor: pts.map(function (p) { return color(p.x); }) }] },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { display: false }, tooltip: { callbacks: { label: function (ctx) { const p = ctx.raw; return p.n; }, afterLabel: function (ctx) { return ctx.raw.w; } } } },
+                scales: {
+                    x: { min: 0.5, max: 5.5, title: { display: true, text: 'Scope: single function  ->  whole live system' }, ticks: { callback: function (v) { return ({ 1: 'function', 3: 'subsystem', 5: 'live system' })[v] || ''; } } },
+                    y: { min: 0.5, max: 5.5, title: { display: true, text: 'Run frequency: quarterly  ->  every commit' }, ticks: { callback: function (v) { return ({ 1: 'quarterly', 2: 'pre-release', 3: 'nightly', 4: 'every CI', 5: 'every commit' })[v] || ''; } } }
+                }
+            }
+        });
+    </script>
 </body>
 </html>

@@ -3,113 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
     <title>Complementary Suppression Attack</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
+        * { box-sizing: border-box; }
+        html, body { margin: 0; font-family: Arial, Helvetica, sans-serif; background: #fff; color: #222; }
+        .wrap { padding: 8px 12px; }
+        h2 { font-size: 16px; color: #1a3a5c; text-align: center; margin: 4px 0 8px; }
+        .chart-box { position: relative; height: 300px; }
+        .controls { text-align: center; margin: 8px 0; }
+        button { font-size: 12px; padding: 6px 10px; border: 1px solid #2a9d8f; background: #fff; color: #1f7a6f; border-radius: 5px; cursor: pointer; margin: 0 3px; }
+        button.active { background: #2a9d8f; color: #fff; }
+        .readout { text-align: center; font-size: 14px; font-weight: bold; margin: 8px auto; min-height: 20px; }
+        .fail { color: #c0392b; }
+        .safe { color: #1f7a6f; }
     </style>
 </head>
 <body>
-    <div id="container">
-        <h1>Complementary Suppression Attack</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
+    <div class="wrap">
+        <h2>Why Threshold Suppression Alone Fails</h2>
+        <div class="chart-box"><canvas id="c"></canvas></div>
+        <div class="controls">
+            <button id="b0" class="active">All visible</button>
+            <button id="b1">Threshold suppression only</button>
+            <button id="b2">Complementary suppression (D-5)</button>
         </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> complementary-suppression-attack</p>
-            <p><strong>Library:</strong> Chart.js</p>
-            <p><strong>Bloom Level:</strong> Evaluate (L5)</p>
-            <p><strong>Learning Objective:</strong> Demonstrate how a single suppressed small-group value in a published table can be recovered by subtraction from the row's published total, and justify why complementary suppression — hiding a second, larger cell — is required to actually protect it.</p>
-        </div>
+        <div class="readout" id="readout">Total published: 84. All nine bands visible.</div>
     </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: chart
-    **sim-id:** complementary-suppression-attack<br/>
-    **Library:** Chart.js<br/>
-    **Status:** Specified
-    
-    Bloom Taxonomy: Evaluate (L5)
-    Bloom Taxonomy Verb: demonstrate, justify
-    
-    Learning objective: Demonstrate how a single suppressed small-group value in a published table can be recovered by subtraction from the row's published total, and justify why complementary suppression — hiding a second, larger cell — is required to actually protect it.
-    
-    Chart type: Grouped bar chart with a toggle control, showing nine category counts (e.g., "reading level bands" across a grade) plus their published total.
-    
-    Default state: All nine bars visible with real values; total bar shown alongside, correct and summing to the nine visible bars.
-    
-    Toggle 1 — "Threshold suppression only": the one bar below the group-size threshold (value 4, threshold 10) is redrawn as a hatched "Suppressed" bar with no numeric label; the total bar is unchanged. An automatically computed "Recovered value" readout beneath the chart subtracts the eight visible bars from the total and displays the exact suppressed value, labeled in red: "Recovered by subtraction: 4 — suppression failed."
-    
-    Toggle 2 — "Complementary suppression (D-5)": the same small bar is hidden, and a second, larger bar (chosen automatically as the smallest bar still above threshold) is also redrawn as hatched "Suppressed." The "Recovered value" readout now shows "Cannot be recovered — two unknowns, one equation," in teal, because subtracting seven known bars from the total leaves two suppressed values and one equation, which is not solvable.
-    
-    Interactive features: Clicking either toggle animates the transition and updates the readout live. Hovering any bar shows a tooltip with its category label and value (or "Suppressed" if hidden). A small annotation links this scenario to Chapter 19's Privacy Adversarial Suite and its differencing-attack tests.
-    
-    Color scheme: Visible bars in the book's teal accent color; suppressed bars in a hatched pattern over muted gray; the "Recovered" readout text in warning red when the attack succeeds and teal when it fails.
-    
-    Responsive design: Chart and readout stack vertically on narrow viewports; toggle controls remain full-width and tappable.
-    -->
+    <script>
+        const cats = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
+        const real = [12, 8, 4, 15, 9, 11, 7, 10, 8];   // sum = 84
+        const TOTAL = real.reduce(function (a, b) { return a + b; }, 0);
+        const THRESH = 10;
+        // indices below threshold -> smallest is C(=4). Second-hidden (complementary): smallest still >= threshold.
+        let mode = 0;
+        const chart = new Chart(document.getElementById('c'), {
+            type: 'bar',
+            data: { labels: cats.concat(['TOTAL']), datasets: [{ label: 'Count', data: real.concat([TOTAL]), backgroundColor: bg() }] },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: function (ctx) { return hidden().indexOf(ctx.dataIndex) >= 0 ? 'Suppressed' : ('Count: ' + ctx.raw); } } } }, scales: { y: { beginAtZero: true } } }
+        });
+        function hidden() {
+            if (mode === 1) return [2];               // band C (value 4, below threshold)
+            if (mode === 2) return [2, 6];            // C plus the smallest >= threshold band still ambiguous: G(7)? pick a >= threshold-ish second cell -> H(10)
+            return [];
+        }
+        function bg() {
+            const h = hidden();
+            return real.concat([TOTAL]).map(function (v, i) {
+                if (i === cats.length) return '#37474f';
+                return h.indexOf(i) >= 0 ? '#9aa7b4' : '#2a9d8f';
+            });
+        }
+        function render() {
+            const h = hidden();
+            chart.data.datasets[0].data = real.concat([TOTAL]).map(function (v, i) { return h.indexOf(i) >= 0 ? 0 : v; });
+            chart.data.datasets[0].backgroundColor = bg();
+            chart.update();
+            const ro = document.getElementById('readout');
+            if (mode === 0) { ro.className = 'readout'; ro.textContent = 'Total published: ' + TOTAL + '. All nine bands visible.'; }
+            else if (mode === 1) {
+                const recovered = TOTAL - real.filter(function (v, i) { return h.indexOf(i) < 0; }).reduce(function (a, b) { return a + b; }, 0);
+                ro.className = 'readout fail';
+                ro.textContent = 'Recovered by subtraction: ' + recovered + ' — suppression FAILED.';
+            } else {
+                ro.className = 'readout safe';
+                ro.textContent = 'Cannot be recovered — two unknowns, one equation.';
+            }
+            [0, 1, 2].forEach(function (m) { document.getElementById('b' + m).classList.toggle('active', m === mode); });
+        }
+        document.getElementById('b0').onclick = function () { mode = 0; render(); };
+        document.getElementById('b1').onclick = function () { mode = 1; render(); };
+        document.getElementById('b2').onclick = function () { mode = 2; render(); };
+    </script>
 </body>
 </html>
