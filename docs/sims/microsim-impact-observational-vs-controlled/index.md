@@ -1,7 +1,7 @@
 ---
 title: MicroSim Impact — Observational Delta vs. a Controlled Effect
 description: Let the learner evaluate why an observational mastery delta between MicroSim users and non-users can be confounded by a hidden third factor, and justify why only a controlled experiment can support a causal claim about the MicroSim's effect.
-status: scaffold
+status: implemented
 library: p5.js
 bloom_level: Evaluate (L5)
 ---
@@ -10,7 +10,7 @@ bloom_level: Evaluate (L5)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="462"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

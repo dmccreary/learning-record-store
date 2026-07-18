@@ -1,7 +1,7 @@
 ---
 title: Concept Mastery Radar for One Student
 description: Let the learner interpret a radar chart of one student's Bayesian Knowledge Tracing mastery scores grouped by taxonomy category, identifying the category where that student is weakest.
-status: scaffold
+status: implemented
 library: p5.js
 bloom_level: Understand (L2)
 ---
@@ -10,7 +10,7 @@ bloom_level: Understand (L2)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="472"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

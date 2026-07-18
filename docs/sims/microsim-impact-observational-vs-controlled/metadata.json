@@ -1,5 +1,5 @@
 {
-  "title": "MicroSim Impact — Observational Delta vs. a Controlled Effect",
+  "title": "MicroSim Impact \u2014 Observational Delta vs. a Controlled Effect",
   "description": "Let the learner evaluate why an observational mastery delta between MicroSim users and non-users can be confounded by a hidden third factor, and justify why only a controlled experiment can support a causal claim about the MicroSim's effect.",
   "creator": "Learning Record Store",
   "author": "Dan McCreary",
@@ -15,9 +15,10 @@
   "library": "p5.js",
   "bloomLevel": "Evaluate (L5)",
   "bloomVerb": "judge, justify",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 30,
   "chapter_title": "Textbook Author Dashboards and Content Reports",
   "chapter_dir": "30-author-dashboards-content-reports",
-  "chapter_rel_dir": "chapters/30-author-dashboards-content-reports"
+  "chapter_rel_dir": "chapters/30-author-dashboards-content-reports",
+  "canvasHeight": 460
 }

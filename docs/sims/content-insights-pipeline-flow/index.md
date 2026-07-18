@@ -1,7 +1,7 @@
 ---
 title: How Eight Content Reports Read Four Summary Vertices
 description: Explain how the four summary vertices already introduced in this book (PageEngagement, MicroSimEngagement, QuestionResponse, ConceptMastery) feed into the eight Content Insights reports, so the reports read as different views of the same evidence rather than eight separate data sources.
-status: scaffold
+status: implemented
 library: p5.js
 bloom_level: Understand (L2)
 ---
@@ -10,7 +10,7 @@ bloom_level: Understand (L2)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="502"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

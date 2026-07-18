@@ -15,9 +15,10 @@
   "library": "p5.js",
   "bloomLevel": "Analyze (L4)",
   "bloomVerb": "differentiate, distinguish",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 29,
   "chapter_title": "Class-Level Reports and Teacher Tools",
   "chapter_dir": "29-class-level-reports-and-tools",
-  "chapter_rel_dir": "chapters/29-class-level-reports-and-tools"
+  "chapter_rel_dir": "chapters/29-class-level-reports-and-tools",
+  "canvasHeight": 500
 }

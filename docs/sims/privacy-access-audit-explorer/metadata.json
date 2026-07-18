@@ -15,9 +15,10 @@
   "library": "p5.js",
   "bloomLevel": "Analyze (L4)",
   "bloomVerb": "examine, distinguish",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 27,
   "chapter_title": "Compliance, Privacy Law, and District-Level Reporting",
   "chapter_dir": "27-compliance-and-district-reporting",
-  "chapter_rel_dir": "chapters/27-compliance-and-district-reporting"
+  "chapter_rel_dir": "chapters/27-compliance-and-district-reporting",
+  "canvasHeight": 470
 }

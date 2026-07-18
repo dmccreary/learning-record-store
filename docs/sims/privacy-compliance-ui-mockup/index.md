@@ -1,7 +1,7 @@
 ---
 title: Privacy and Compliance UI Mockup
 description: Operate a realistic mock-up of the Privacy & Compliance UI, locating each of the four fields this section explains — Policy Profile Preset, Data Subject Request, Consent Status, and Aggregation Threshold — within a plausible screen layout rather than a bulleted description.
-status: scaffold
+status: implemented
 library: p5.js
 bloom_level: Apply (L3)
 ---
@@ -10,7 +10,7 @@ bloom_level: Apply (L3)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="502"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

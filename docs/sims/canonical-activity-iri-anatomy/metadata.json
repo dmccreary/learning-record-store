@@ -15,9 +15,10 @@
   "library": "p5.js",
   "bloomLevel": "Understand (L2)",
   "bloomVerb": "classify, distinguish",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 32,
   "chapter_title": "The Producer Contract: Writing Conformant Statements",
   "chapter_dir": "32-producer-contract-conformant-statements",
-  "chapter_rel_dir": "chapters/32-producer-contract-conformant-statements"
+  "chapter_rel_dir": "chapters/32-producer-contract-conformant-statements",
+  "canvasHeight": 460
 }

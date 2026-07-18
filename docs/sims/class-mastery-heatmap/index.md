@@ -1,7 +1,7 @@
 ---
 title: Class Mastery Heatmap for One Section
 description: Let the learner distinguish a concept-wide weakness (a dark column across most students) from a student-specific weakness (a dark row across most concepts) in a class mastery heatmap, and identify which pattern calls for whole-class re-teaching versus individual attention.
-status: scaffold
+status: implemented
 library: p5.js
 bloom_level: Analyze (L4)
 ---
@@ -10,7 +10,7 @@ bloom_level: Analyze (L4)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="502"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

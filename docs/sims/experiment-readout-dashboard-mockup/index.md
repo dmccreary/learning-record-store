@@ -1,7 +1,7 @@
 ---
 title: Reading the Experiment Readout Dashboard
 description: Let the learner practice judging, from a single mocked-up readout, whether an experiment's result is trustworthy enough to act on — weighing effect size, confidence interval width, sample-ratio mismatch status, and guardrail flags together rather than looking at any one number in isolation.
-status: scaffold
+status: implemented
 library: p5.js
 bloom_level: Evaluate (L5)
 ---
@@ -10,7 +10,7 @@ bloom_level: Evaluate (L5)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="502"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

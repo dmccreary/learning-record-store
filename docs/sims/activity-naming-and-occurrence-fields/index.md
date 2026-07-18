@@ -1,7 +1,7 @@
 ---
 title: Anatomy of an Activity Definition
 description: Anatomy of an Activity Definition
-status: scaffold
+status: implemented
 library: HTML/CSS/JavaScript
 bloom_level: TBD
 ---
@@ -10,7 +10,7 @@ bloom_level: TBD
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="442"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 
