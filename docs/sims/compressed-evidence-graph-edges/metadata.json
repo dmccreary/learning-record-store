@@ -15,9 +15,10 @@
   "library": "Mermaid",
   "bloomLevel": "Understand (L2)",
   "bloomVerb": "trace, explain",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 7,
   "chapter_title": "The Property Graph Data Model",
   "chapter_dir": "07-property-graph-data-model",
-  "chapter_rel_dir": "chapters/07-property-graph-data-model"
+  "chapter_rel_dir": "chapters/07-property-graph-data-model",
+  "canvasHeight": 420
 }

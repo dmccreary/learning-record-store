@@ -1,6 +1,6 @@
 {
   "title": "The Ingestion Plane Technology Stack",
-  "description": "Let the learner trace a single xAPI statement's path through the ingestion plane's actual technology stack — FastAPI, Uvicorn, Redpanda/Apache Kafka, and the Confluent-Kafka Library — and explain what each product is responsible for.",
+  "description": "Let the learner trace a single xAPI statement's path through the ingestion plane's actual technology stack \u2014 FastAPI, Uvicorn, Redpanda/Apache Kafka, and the Confluent-Kafka Library \u2014 and explain what each product is responsible for.",
   "creator": "Learning Record Store",
   "author": "Dan McCreary",
   "date": "2026-07-17",
@@ -15,9 +15,10 @@
   "library": "Mermaid",
   "bloomLevel": "Understand (L2)",
   "bloomVerb": "explain, trace",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 10,
   "chapter_title": "Choosing the Technology Stack",
   "chapter_dir": "10-choosing-technology-stack",
-  "chapter_rel_dir": "chapters/10-choosing-technology-stack"
+  "chapter_rel_dir": "chapters/10-choosing-technology-stack",
+  "canvasHeight": 560
 }

@@ -15,9 +15,10 @@
   "library": "Mermaid",
   "bloomLevel": "Understand (L2)",
   "bloomVerb": "explain, sequence",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 8,
   "chapter_title": "Summary Vertices and Statement Ingestion Mechanics",
   "chapter_dir": "08-summary-vertices-ingestion",
-  "chapter_rel_dir": "chapters/08-summary-vertices-ingestion"
+  "chapter_rel_dir": "chapters/08-summary-vertices-ingestion",
+  "canvasHeight": 560
 }

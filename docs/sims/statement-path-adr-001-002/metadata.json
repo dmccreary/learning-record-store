@@ -15,9 +15,10 @@
   "library": "Mermaid",
   "bloomLevel": "Understand (L2)",
   "bloomVerb": "explain, trace",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 11,
   "chapter_title": "Architecture Decision Records and the Capacity Model",
   "chapter_dir": "11-adrs-and-capacity-model",
-  "chapter_rel_dir": "chapters/11-adrs-and-capacity-model"
+  "chapter_rel_dir": "chapters/11-adrs-and-capacity-model",
+  "canvasHeight": 620
 }

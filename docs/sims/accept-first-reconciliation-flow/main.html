@@ -3,109 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
-    <title>Accept-First Ingestion and Reconciliation Flow</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
-    </style>
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Accept-First Reconciliation Flow</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'default', flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' } });
+    </script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="container">
-        <h1>Accept-First Ingestion and Reconciliation Flow</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
+    <div class="container">
+        <div class="diagram-panel">
+            <div class="mermaid">
+flowchart TB
+    S1["1 &middot; Statement arrives<br/><small>names an unknown textbook_id / version_id</small>"]:::accept
+    S2["2 &middot; Ingestion Gateway accepts it<br/><small>Accept-First Ingestion</small>"]:::accept
+    S3["3 &middot; Stream Processor auto-provisions a stub<br/><small>Provisional Node, provisional: true</small>"]:::accept
+    S4["4 &middot; Event Store retains the statement<br/><small>immutably &mdash; no data loss</small>"]:::recon
+    S5["5 &middot; Reconciliation Worker matches the stub<br/><small>git_sha &rarr; IRI path &rarr; title similarity</small>"]:::recon
+    S6["6 &middot; Node promoted (provisional: false)<br/><small>COVERS / EMBEDS / DEPENDS_ON back-filled</small>"]:::recon
+    S1 --> S2 --> S3 --> S4 --> S5 --> S6
+
+    classDef accept fill:#2a9d8f,stroke:#1f7a6f,color:#fff,font-size:14px
+    classDef recon fill:#e9a23b,stroke:#b8791f,color:#222,font-size:14px
+    linkStyle default stroke:#999,stroke-width:2px
+            </div>
         </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> accept-first-reconciliation-flow</p>
-            <p><strong>Library:</strong> Mermaid</p>
-            <p><strong>Bloom Level:</strong> Understand (L2)</p>
-            <p><strong>Learning Objective:</strong> Let the learner explain how a newly published textbook can emit statements before its metadata is registered, and sequence the four steps of Accept-First Ingestion from a statement's arrival to a Provisional Node's promotion.</p>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a step to see details</p></div>
         </div>
     </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: workflow
-    **sim-id:** accept-first-reconciliation-flow<br/>
-    **Library:** Mermaid<br/>
-    **Status:** Specified
-    
-    Bloom Taxonomy: Understand (L2)
-    Bloom Taxonomy Verb: explain, sequence
-    
-    Learning objective: Let the learner explain how a newly published textbook can emit statements before its metadata is registered, and sequence the four steps of Accept-First Ingestion from a statement's arrival to a Provisional Node's promotion.
-    
-    Purpose: Show a six-node, left-to-right Mermaid flowchart tracing one never-before-seen textbook's first statement from arrival through reconciliation, matching the four numbered steps described in this chapter's prose.
-    
-    Nodes, in order: "Statement arrives naming an unknown textbook_id/version_id"; "Ingestion Gateway accepts it (Accept-First Ingestion)"; "Stream Processor auto-provisions a stub (Provisional Node, provisional: true)"; "Event Store retains the statement immutably"; "Reconciliation Worker matches the stub against published metadata (git_sha, then IRI path, then title similarity)"; "Node promoted (provisional: false), COVERS/EMBEDS/DEPENDS_ON back-filled — earlier statements become richly queryable retroactively". Edges connect each node to the next in sequence.
-    
-    Interactive features: Every node has a Mermaid `click` directive opening an infobox with that node's definition from this chapter's prose — Schema On Read, Accept-First Ingestion, Provisional Node and its `provisional: true` property, the no-data-loss guarantee, the Reconciliation Worker's three-tier matching order, and retroactive queryability with a link back to Chapter 7's `COVERS`, `EMBEDS`, and `DEPENDS_ON` relationship types, in node order.
-    
-    Color coding: The three "accept immediately" nodes in the book's teal accent color; the three "reconciled later" nodes in a complementary amber — visually separating what happens instantly from what happens eventually.
-    
-    Implementation: Mermaid flowchart, single left-to-right chain, full click-to-infobox coverage on every node. Responsive width tracking the containing element; on narrow viewports the chain reflows top-to-bottom.
-    -->
+    <script>
+        const nodeInfo = {
+            'S1': { title: 'Step 1 &mdash; Unknown statement arrives', description: 'A newly published textbook emits a statement naming a <code>textbook_id</code>/<code>version_id</code> the LRS has never seen. Under <strong>Schema On Read</strong>, the LRS does not require the metadata to be registered first.' },
+            'S2': { title: 'Step 2 &mdash; Accept-First Ingestion', description: 'The Ingestion Gateway accepts the statement immediately rather than rejecting the unknown reference. Acceptance never blocks on metadata being present.' },
+            'S3': { title: 'Step 3 &mdash; Provisional Node', description: 'The Stream Processor auto-provisions a stub node marked <code>provisional: true</code>, so the statement has something to attach to even before real metadata exists.' },
+            'S4': { title: 'Step 4 &mdash; Immutable retention', description: 'The Event Store retains the statement immutably. This is the no-data-loss guarantee: nothing is dropped while waiting for reconciliation.' },
+            'S5': { title: 'Step 5 &mdash; Reconciliation Worker', description: 'Later, the Reconciliation Worker matches the stub against published metadata using a three-tier order: <strong>git_sha</strong> first, then <strong>IRI path</strong>, then <strong>title similarity</strong>.' },
+            'S6': { title: 'Step 6 &mdash; Promotion &amp; back-fill', description: 'On a match the node is promoted (<code>provisional: false</code>) and its <code>COVERS</code>, <code>EMBEDS</code>, and <code>DEPENDS_ON</code> relationships (Chapter 7) are back-filled &mdash; so earlier statements become richly queryable retroactively.' }
+        };
+    </script>
+    <script src="script.js"></script>
 </body>
 </html>
