@@ -15,9 +15,10 @@
   "library": "Mermaid",
   "bloomLevel": "Analyze (L4)",
   "bloomVerb": "differentiate, examine",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 22,
   "chapter_title": "Proving the Architecture - the MVP Plan",
   "chapter_dir": "22-proving-the-architecture-mvp",
-  "chapter_rel_dir": "chapters/22-proving-the-architecture-mvp"
+  "chapter_rel_dir": "chapters/22-proving-the-architecture-mvp",
+  "canvasHeight": 640
 }

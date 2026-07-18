@@ -1,7 +1,7 @@
 ---
 title: Neo4j's Production Path — Community, Enterprise, AuraDB, or an Alternative
 description: Evaluate why Neo4j Community's lack of clustering forces a production choice between Enterprise, AuraDB, and an open-source alternative, and judge each option against cost and high-availability requirements.
-status: scaffold
+status: implemented
 library: Mermaid
 bloom_level: Evaluate (L5)
 ---
@@ -10,7 +10,7 @@ bloom_level: Evaluate (L5)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="562"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

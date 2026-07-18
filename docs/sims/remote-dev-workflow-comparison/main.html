@@ -3,113 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
-    <title>Three Ways to Develop Against a Remote Host</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
-    </style>
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Remote Dev Workflow Comparison</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'default', flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' } });
+    </script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="container">
-        <h1>Three Ways to Develop Against a Remote Host</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
+    <div class="container">
+        <div class="diagram-panel">
+            <div class="mermaid">
+flowchart LR
+    Lap["Laptop"]:::hub
+    A1["A: editor UI only<br/><small>VS Code / Cursor Remote-SSH</small>"]:::a
+    A2["Files, terminal, make up execute remotely"]:::a
+    Atag["Ports auto-forwarded to localhost;<br/>smoothest loop, no manual tunnel"]:::atag
+    B1["B: Docker CLI + GUI<br/><small>docker context use lrs-remote</small>"]:::b
+    B2["Commands sent over SSH to remote Docker engine"]:::b
+    Btag["Containers publish ports remotely;<br/>needs a manual SSH tunnel for localhost scripts"]:::btag
+    C1["C: git commit/push"]:::c
+    C2["GitHub, then git pull in an SSH session"]:::c
+    Ctag["No editor integration;<br/>simplest fallback, always works"]:::ctag
+    Host["Remote Host<br/><small>running Docker Engine</small>"]:::hub
+    Lap --> A1 --> A2 --> Atag --> Host
+    Lap --> B1 --> B2 --> Btag --> Host
+    Lap --> C1 --> C2 --> Ctag --> Host
+
+    classDef hub fill:#37474f,stroke:#1c2529,color:#fff,font-size:13px
+    classDef a fill:#2a9d8f,stroke:#1f7a6f,color:#fff,font-size:12px
+    classDef atag fill:#1a7f72,stroke:#0f5c53,color:#fff,font-size:11px
+    classDef b fill:#e9a23b,stroke:#b8791f,color:#222,font-size:12px
+    classDef btag fill:#c9822b,stroke:#8a5a1c,color:#fff,font-size:11px
+    classDef c fill:#8b9bb0,stroke:#5f6e82,color:#fff,font-size:12px
+    classDef ctag fill:#6b7a8d,stroke:#4a5666,color:#fff,font-size:11px
+    linkStyle default stroke:#999,stroke-width:2px
+            </div>
         </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> remote-dev-workflow-comparison</p>
-            <p><strong>Library:</strong> Mermaid</p>
-            <p><strong>Bloom Level:</strong> Analyze (L4)</p>
-            <p><strong>Learning Objective:</strong> Compare Remote SSH Development, Docker Context Over SSH, and plain git-plus-SSH as three ways of developing against containers running on a rented host, and identify which piece of tooling runs locally versus remotely in each pattern.</p>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a node to see details</p></div>
         </div>
     </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: workflow
-    **sim-id:** remote-dev-workflow-comparison<br/>
-    **Library:** Mermaid<br/>
-    **Status:** Specified
-    
-    Bloom Taxonomy: Analyze (L4)
-    Bloom Taxonomy Verb: compare, differentiate
-    
-    Learning objective: Compare Remote SSH Development, Docker Context Over SSH, and plain git-plus-SSH as three ways of developing against containers running on a rented host, and identify which piece of tooling runs locally versus remotely in each pattern.
-    
-    Purpose: A Mermaid flowchart with three parallel branches, each starting from a shared "Laptop" node and ending at a shared "Remote Host running Docker Engine" node, so the learner sees what crosses the network in each pattern.
-    
-    Branch A "Remote SSH Development": "Laptop (editor UI only)" -> "VS Code / Cursor Remote-SSH extension" -> "Files, terminal, `make up` execute on" -> "Remote Host." Tag: "Ports auto-forwarded to localhost; smoothest loop, no manual tunnel."
-    
-    Branch B "Docker Context Over SSH": "Laptop (Docker CLI + GUI)" -> "`docker context use lrs-remote`" -> "Commands sent over SSH to" -> "Remote Host's Docker engine." Tag: "Containers publish ports remotely — needs a manual SSH Tunnel Port Forward for `localhost` scripts."
-    
-    Branch C "Plain git + SSH": "Laptop (git commit/push)" -> "GitHub" -> "`git pull` inside an SSH session on" -> "Remote Host." Tag: "No editor integration; simplest fallback, always works."
-    
-    Interactive features: Every node has a Mermaid click directive. Clicking a tag node opens an infobox with its trade-off text. Clicking the shared "Remote Host" node opens an infobox naming the UFW Firewall Rule that keeps only SSH exposed.
-    
-    Color coding: Branch A teal (recommended default); Branch B amber; Branch C neutral gray; shared start/end nodes darker neutral.
-    
-    Responsive design: The three branches stack vertically on narrow viewports, preserving click handlers and tag text.
-    -->
+    <script>
+        const nodeInfo = {
+            'Lap': { title: 'Laptop', description: 'The shared starting point for all three patterns. What differs is how much runs locally versus on the rented host.' },
+            'A1': { title: 'A: Remote-SSH editor', description: 'Only the editor UI runs locally. The VS Code / Cursor Remote-SSH extension connects the editor to the host.' },
+            'A2': { title: 'A: everything remote', description: 'Files, the integrated terminal, and <code>make up</code> all execute ON the remote host &mdash; the laptop is a thin client.' },
+            'Atag': { title: 'A: trade-off', description: 'Ports are auto-forwarded to <code>localhost</code>, so the dev loop is the smoothest of the three and needs no manual tunnel. This is the recommended default.' },
+            'B1': { title: 'B: Docker context', description: 'The Docker CLI and GUI run locally; <code>docker context use lrs-remote</code> points them at the remote engine.' },
+            'B2': { title: 'B: commands over SSH', description: 'Docker commands are sent over SSH to the remote host&rsquo;s Docker engine, which runs the containers.' },
+            'Btag': { title: 'B: trade-off', description: 'Containers publish their ports on the REMOTE host, so any script expecting <code>localhost</code> needs a manual SSH Tunnel Port Forward.' },
+            'C1': { title: 'C: git + SSH', description: 'The simplest pattern: commit and push from the laptop with plain git.' },
+            'C2': { title: 'C: pull on the host', description: 'Then <code>git pull</code> inside an SSH session on the host and run things there directly.' },
+            'Ctag': { title: 'C: trade-off', description: 'No editor integration at all, but it is the simplest fallback and always works when the fancier tooling does not.' },
+            'Host': { title: 'Remote Host', description: 'The rented host running Docker Engine &mdash; the shared destination of all three patterns. A UFW Firewall Rule keeps only SSH (port 22) exposed; container ports are reached through the SSH connection, never opened to the internet.' }
+        };
+    </script>
+    <script src="script.js"></script>
 </body>
 </html>

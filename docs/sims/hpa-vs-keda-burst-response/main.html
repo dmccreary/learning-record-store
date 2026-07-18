@@ -3,111 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
-    <title>HPA vs. KEDA — Two Autoscalers React to a Burst</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
-    </style>
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>HPA vs KEDA Burst Response</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'default', flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' } });
+    </script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="container">
-        <h1>HPA vs. KEDA — Two Autoscalers React to a Burst</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
+    <div class="container">
+        <div class="diagram-panel">
+            <div class="mermaid">
+flowchart TB
+    Burst["5x ingest burst begins"]:::src
+    G1["Request rate and CPU climb per gateway pod"]:::hpa
+    G2["HPA compares live metric to target"]:::hpa
+    G3["HPA adds gateway replicas"]:::hpa
+    G4["Requests spread across more pods, CPU normalizes"]:::hpa
+    K1["Kafka consumer lag grows on xapi.statements.raw"]:::keda
+    K2["KEDA scaler polls the lag metric"]:::keda
+    K3["KEDA adds processor replicas, each claiming idle partitions"]:::keda
+    K4["Replicas drain backlog over the next minute, lag returns to baseline"]:::keda
+    Burst --> G1 --> G2 --> G3 --> G4
+    Burst --> K1 --> K2 --> K3 --> K4
+
+    classDef src fill:#37474f,stroke:#1c2529,color:#fff,font-size:13px
+    classDef hpa fill:#2a9d8f,stroke:#1f7a6f,color:#fff,font-size:13px
+    classDef keda fill:#7b6cc4,stroke:#544a91,color:#fff,font-size:13px
+    linkStyle default stroke:#999,stroke-width:2px
+            </div>
         </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> hpa-vs-keda-burst-response</p>
-            <p><strong>Library:</strong> Mermaid</p>
-            <p><strong>Bloom Level:</strong> Analyze (L4)</p>
-            <p><strong>Learning Objective:</strong> Differentiate between CPU/RPS-driven autoscaling (HPA on the gateway) and consumer-lag-driven autoscaling (KEDA on the processor), and trace how each responds to the same 5x ingest burst.</p>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a node to see details</p></div>
         </div>
     </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: workflow
-    **sim-id:** hpa-vs-keda-burst-response<br/>
-    **Library:** Mermaid<br/>
-    **Status:** Specified
-    
-    Bloom Taxonomy: Analyze (L4)
-    Bloom Taxonomy Verb: differentiate, contrast
-    
-    Learning objective: Differentiate between CPU/RPS-driven autoscaling (HPA on the gateway) and consumer-lag-driven autoscaling (KEDA on the processor), and trace how each responds to the same 5x ingest burst.
-    
-    Purpose: A single Mermaid flowchart with two parallel tracks sharing one "5x burst begins" starting node, so the learner can compare the two autoscaling paths side by side rather than read them as separate diagrams.
-    
-    Top track "Gateway — Horizontal Pod Autoscaler": "5x burst begins" -> "Request rate and CPU climb per gateway pod" -> "HPA compares live metric to target" -> "HPA adds gateway replicas" -> "Requests spread across more pods, CPU normalizes."
-    
-    Bottom track "Processor — KEDA Autoscaler": "5x burst begins" -> "Kafka consumer lag grows on xapi.statements.raw" -> "KEDA scaler polls lag metric" -> "KEDA adds processor replicas, each claiming idle partitions" -> "Replicas drain backlog over the following minute, lag returns to baseline."
-    
-    Interactive features: Every node has a Mermaid click directive. Clicking a Gateway-track node opens an infobox on RPS/CPU-based scaling; clicking a Processor-track node opens an infobox on consumer-lag scaling and why an HPA cannot read that metric natively. Clicking the shared "5x burst begins" node opens an infobox recapping Chapter 22's burst insensitivity claim and noting this diagram shows the pod-level mechanism behind it.
-    
-    Color coding: Gateway track in the book's teal accent color; Processor/KEDA track in a contrasting violet, so the two signal types stay visually distinct even when read quickly.
-    
-    Responsive design: Tracks stack vertically on narrow viewports with the shared starting node repeated at the top of each; click targets stay tap-sized.
-    -->
+    <script>
+        const nodeInfo = {
+            'Burst': { title: '5x burst begins', description: 'The same 5x ingest burst hits both roles. Chapter 22 claimed the system is burst-insensitive; this diagram shows the pod-level autoscaling mechanism behind that claim &mdash; and that the gateway and processor scale on DIFFERENT signals.' },
+            'G1': { title: 'Gateway: CPU/RPS climbs', description: 'The gateway is CPU- and request-bound. A burst raises requests-per-second and CPU on each gateway pod &mdash; metrics an HPA can read directly.' },
+            'G2': { title: 'Gateway: HPA compares', description: 'The Horizontal Pod Autoscaler compares the live CPU/RPS metric against a target and computes how many replicas are needed.' },
+            'G3': { title: 'Gateway: add replicas', description: 'The HPA scales the gateway Deployment up, adding pods to share the incoming requests.' },
+            'G4': { title: 'Gateway: normalizes', description: 'With requests spread across more pods, per-pod CPU falls back to target and latency recovers.' },
+            'K1': { title: 'Processor: lag grows', description: 'The processor is throughput-bound, not CPU-bound. A burst shows up as growing <strong>consumer lag</strong> on <code>xapi.statements.raw</code> &mdash; not as high CPU.' },
+            'K2': { title: 'Processor: KEDA polls lag', description: 'KEDA polls the Kafka consumer-lag metric. A plain HPA cannot read consumer lag natively, which is exactly why the processor uses KEDA instead.' },
+            'K3': { title: 'Processor: add replicas', description: 'KEDA scales the processor up; each new replica joins the consumer group and claims idle partitions to parallelize the work.' },
+            'K4': { title: 'Processor: drains backlog', description: 'The added replicas drain the backlog over the following minute and lag returns to baseline &mdash; recovery is measured by lag reaching zero, not by CPU.' }
+        };
+    </script>
+    <script src="script.js"></script>
 </body>
 </html>

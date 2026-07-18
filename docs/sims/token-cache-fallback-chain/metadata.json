@@ -15,9 +15,10 @@
   "library": "Mermaid",
   "bloomLevel": "Understand (L2)",
   "bloomVerb": "explain, sequence",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 23,
   "chapter_title": "Production Infrastructure and Cloud Services",
   "chapter_dir": "23-production-infrastructure-cloud",
-  "chapter_rel_dir": "chapters/23-production-infrastructure-cloud"
+  "chapter_rel_dir": "chapters/23-production-infrastructure-cloud",
+  "canvasHeight": 640
 }

@@ -1,5 +1,5 @@
 {
-  "title": "Neo4j's Production Path — Community, Enterprise, AuraDB, or an Alternative",
+  "title": "Neo4j's Production Path \u2014 Community, Enterprise, AuraDB, or an Alternative",
   "description": "Evaluate why Neo4j Community's lack of clustering forces a production choice between Enterprise, AuraDB, and an open-source alternative, and judge each option against cost and high-availability requirements.",
   "creator": "Learning Record Store",
   "author": "Dan McCreary",
@@ -15,9 +15,10 @@
   "library": "Mermaid",
   "bloomLevel": "Evaluate (L5)",
   "bloomVerb": "judge, justify",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 23,
   "chapter_title": "Production Infrastructure and Cloud Services",
   "chapter_dir": "23-production-infrastructure-cloud",
-  "chapter_rel_dir": "chapters/23-production-infrastructure-cloud"
+  "chapter_rel_dir": "chapters/23-production-infrastructure-cloud",
+  "canvasHeight": 560
 }

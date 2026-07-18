@@ -1,7 +1,7 @@
 ---
 title: Gateway-First Deploy and Rollback Order
 description: Trace the deploy order and the reverse rollback order across the gateway, processors, and stateless roles, and explain why the gateway sits at both ends of the sequence.
-status: scaffold
+status: implemented
 library: Mermaid
 bloom_level: Analyze (L4)
 ---
@@ -10,7 +10,7 @@ bloom_level: Analyze (L4)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="542"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

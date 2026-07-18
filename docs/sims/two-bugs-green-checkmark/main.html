@@ -3,111 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
     <title>Two Bugs Behind a Green Checkmark</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
-    </style>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'default', flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' } });
+    </script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="container">
-        <h1>Two Bugs Behind a Green Checkmark</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
+    <div class="container">
+        <div class="diagram-panel">
+            <div class="mermaid">
+flowchart TB
+    subgraph TOP["Bug 1: Smoke Harness Decorative Check"]
+        direction TB
+        T1["Run check: query store, grep result"]:::ok
+        T2["grep fails to match<br/><small>a real problem exists</small>"]:::ok
+        T3["&amp;&amp; chaining means set -e does not apply here"]:::break
+        T4["Script prints checkmark anyway"]:::ok
+        T5["Exit code 0: harness reports success"]:::ok
+        T1 --> T2 --> T3 --> T4 --> T5
+    end
+    subgraph BOT["Bug 2: Mastery Path Disconnection"]
+        direction TB
+        B1["BKT computes P(L) update"]:::ok
+        B2["Aggregation query does not select a mastery column"]:::break
+        B3["Materialized rollup does not compute one either"]:::ok
+        B4["Store has the column, nothing writes to it"]:::ok
+        B5["Graph write sets mastery from a value never produced"]:::ok
+        B6["Result: mastery score is null, no error raised"]:::ok
+        B1 --> B2 --> B3 --> B4 --> B5 --> B6
+    end
+
+    classDef ok fill:#2a9d8f,stroke:#1f7a6f,color:#fff,font-size:12px
+    classDef break fill:#e9a23b,stroke:#b8791f,color:#222,font-size:12px
+    linkStyle default stroke:#999,stroke-width:2px
+            </div>
         </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> two-bugs-green-checkmark</p>
-            <p><strong>Library:</strong> Mermaid</p>
-            <p><strong>Bloom Level:</strong> Analyze (L4)</p>
-            <p><strong>Learning Objective:</strong> Analyze why a passing smoke-test script and a graph with mastery scores present can both hide a real defect, by tracing where each verification silently breaks.</p>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a node to see details</p></div>
         </div>
     </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: infographic
-    **sim-id:** two-bugs-green-checkmark<br/>
-    **Library:** Mermaid<br/>
-    **Status:** Specified
-    
-    Bloom Taxonomy: Analyze (L4)
-    Bloom Taxonomy Verb: differentiate, examine
-    
-    Learning objective: Analyze why a passing smoke-test script and a graph with mastery scores present can both hide a real defect, by tracing where each verification silently breaks.
-    
-    Purpose: Two parallel Mermaid flowcharts stacked vertically, each tracing one bug from "looks fine" to "the actual break."
-    
-    Top panel "Smoke Harness Decorative Check": "Run check: query store, grep result" -> "grep fails to match (real problem exists)" -> "`&&` chaining means `set -e` does not apply here" -> "Script prints checkmark anyway" -> "Exit code 0: harness reports success." Short branch: "Print compression ratio" -> "No assertion follows" -> "Falls through to 'smoke passed'."
-    
-    Bottom panel "Mastery Path Disconnection": "BKT computes P(L) update" -> "Mastery-aggregation query does not select a mastery column" -> "Materialized rollup does not compute one either" -> "Durable store has the column, nothing writes to it" -> "Graph write step sets mastery from a value never produced" -> "Result: mastery score is null, no error raised."
-    
-    Interactive features: Every node has a Mermaid click directive; clicking opens an infobox explaining why that step's signal diverges from reality, naming the file/layer it corresponds to.
-    
-    Color coding: Steps that look correct shaded calm teal; the step where signal and reality diverge shaded warning amber with a break-in-the-chain icon.
-    
-    Responsive design: Panels stack vertically and stay full-width on narrow viewports; click targets stay tap-sized.
-    -->
+    <script>
+        const nodeInfo = {
+            'T1': { title: 'Run the check', description: 'The smoke harness queries the store and greps the result for an expected value &mdash; the intended verification.' },
+            'T2': { title: 'grep does not match', description: 'A real problem exists, so grep finds nothing. This SHOULD fail the check.' },
+            'T3': { title: 'The break: && and set -e', description: 'The command is chained with <code>&amp;&amp;</code>. Under <code>set -e</code>, a failure on the left of <code>&amp;&amp;</code> is treated as a tested condition, not a fatal error &mdash; so the script keeps going instead of aborting. This is where the signal diverges from reality (the check script layer).' },
+            'T4': { title: 'Checkmark printed', description: 'The script prints a success checkmark regardless, because nothing stopped it.' },
+            'T5': { title: 'Exit 0', description: 'The harness exits 0 and reports success &mdash; a green checkmark over a real defect.' },
+            'B1': { title: 'BKT update computed', description: 'Bayesian Knowledge Tracing correctly computes a P(L) mastery update in memory. The math is fine.' },
+            'B2': { title: 'The break: query omits the column', description: 'The mastery-aggregation query never selects a mastery column. This is where signal and reality diverge (the query layer) &mdash; the value is computed but never carried forward.' },
+            'B3': { title: 'Rollup omits it too', description: 'The materialized rollup also does not compute a mastery column, so nothing downstream fills the gap.' },
+            'B4': { title: 'Column exists, unwritten', description: 'The durable store HAS a mastery column &mdash; but nothing ever writes to it, so it stays empty.' },
+            'B5': { title: 'Graph reads a phantom', description: 'The graph write step sets mastery from a value that was never produced anywhere upstream.' },
+            'B6': { title: 'Null, silently', description: 'The mastery score ends up null. No error is raised at any layer &mdash; the graph looks populated, so the defect hides behind apparently-present data.' }
+        };
+    </script>
+    <script src="script.js"></script>
 </body>
 </html>

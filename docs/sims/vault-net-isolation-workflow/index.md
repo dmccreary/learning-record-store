@@ -1,7 +1,7 @@
 ---
 title: Vault Network Isolation in the Compose Topology
 description: Explain why the vault database is reachable only by the identity service on an isolated network, and identify which services can and cannot see a real learner identity.
-status: scaffold
+status: implemented
 library: Mermaid
 bloom_level: Analyze (L4)
 ---
@@ -10,7 +10,7 @@ bloom_level: Analyze (L4)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="522"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

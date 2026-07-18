@@ -15,9 +15,10 @@
   "library": "Mermaid",
   "bloomLevel": "Apply (L3)",
   "bloomVerb": "trace, apply",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 19,
   "chapter_title": "Failure Modes and Verification",
   "chapter_dir": "19-failure-modes-and-verification",
-  "chapter_rel_dir": "chapters/19-failure-modes-and-verification"
+  "chapter_rel_dir": "chapters/19-failure-modes-and-verification",
+  "canvasHeight": 640
 }

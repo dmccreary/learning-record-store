@@ -1,5 +1,5 @@
 {
-  "title": "HPA vs. KEDA — Two Autoscalers React to a Burst",
+  "title": "HPA vs. KEDA \u2014 Two Autoscalers React to a Burst",
   "description": "Differentiate between CPU/RPS-driven autoscaling (HPA on the gateway) and consumer-lag-driven autoscaling (KEDA on the processor), and trace how each responds to the same 5x ingest burst.",
   "creator": "Learning Record Store",
   "author": "Dan McCreary",
@@ -15,9 +15,10 @@
   "library": "Mermaid",
   "bloomLevel": "Analyze (L4)",
   "bloomVerb": "differentiate, contrast",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 23,
   "chapter_title": "Production Infrastructure and Cloud Services",
   "chapter_dir": "23-production-infrastructure-cloud",
-  "chapter_rel_dir": "chapters/23-production-infrastructure-cloud"
+  "chapter_rel_dir": "chapters/23-production-infrastructure-cloud",
+  "canvasHeight": 600
 }

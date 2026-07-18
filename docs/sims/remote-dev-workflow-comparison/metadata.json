@@ -15,9 +15,10 @@
   "library": "Mermaid",
   "bloomLevel": "Analyze (L4)",
   "bloomVerb": "compare, differentiate",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 21,
   "chapter_title": "Hardware Sizing, Cost, and the Development Environment",
   "chapter_dir": "21-hardware-cost-dev-environment",
-  "chapter_rel_dir": "chapters/21-hardware-cost-dev-environment"
+  "chapter_rel_dir": "chapters/21-hardware-cost-dev-environment",
+  "canvasHeight": 560
 }

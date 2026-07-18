@@ -3,113 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- microsim-scaffold-stub -->
-    <title>Vault Network Isolation in the Compose Topology</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
-    </style>
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Vault Network Isolation</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'default', flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' } });
+    </script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="container">
-        <h1>Vault Network Isolation in the Compose Topology</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
+    <div class="container">
+        <div class="diagram-panel">
+            <div class="mermaid">
+flowchart TB
+    subgraph APP["Application Network &mdash; sees only student_key"]
+        direction LR
+        GW["Gateway"]:::app
+        PR["Stream Processor"]:::app
+        CH["Analytics Store (ClickHouse)"]:::app
+        NE["Graph Store (Neo4j)"]:::app
+        GW --> PR --> CH
+        PR --> NE
+    end
+    subgraph VNET["&#128274; vault-net &mdash; no published host port"]
+        direction LR
+        ID["Identity Service"]:::vault
+        VDB["Vault Database"]:::vault
+        ID --- VDB
+    end
+    PR -->|"resolves salted key only, never the raw mapping"| ID
+
+    classDef app fill:#2a9d8f,stroke:#1f7a6f,color:#fff,font-size:13px
+    classDef vault fill:#e9a23b,stroke:#b8791f,color:#222,font-size:13px
+    linkStyle default stroke:#999,stroke-width:2px
+            </div>
         </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> vault-net-isolation-workflow</p>
-            <p><strong>Library:</strong> Mermaid</p>
-            <p><strong>Bloom Level:</strong> Analyze (L4)</p>
-            <p><strong>Learning Objective:</strong> Explain why the vault database is reachable only by the identity service on an isolated network, and identify which services can and cannot see a real learner identity.</p>
+        <div class="info-panel">
+            <h3>Details</h3>
+            <div id="info-display"><p class="info-placeholder">Click a node to see details</p></div>
         </div>
     </div>
-
-    <!--
-    SPECIFICATION (from chapter index.md):
-
-    Type: workflow
-    **sim-id:** vault-net-isolation-workflow<br/>
-    **Library:** Mermaid<br/>
-    **Status:** Specified
-    
-    Bloom Taxonomy: Analyze (L4)
-    Bloom Taxonomy Verb: explain, justify
-    
-    Learning objective: Explain why the vault database is reachable only by the identity service on an isolated network, and identify which services can and cannot see a real learner identity.
-    
-    Purpose: A Mermaid flowchart with two subgraphs on one canvas, showing which services sit on the general application network versus the isolated vault network.
-    
-    Left/general subgraph "Application Network": nodes "Gateway", "Stream Processor", "Summarizer", "Graph Store (Neo4j)", "Analytics Store (ClickHouse)" — connected only as the real data flow requires (Gateway -> Processor -> Analytics Store; Processor -> Graph Store via structural stub only; Summarizer -> Graph Store).
-    
-    Right/isolated subgraph "vault-net (no published host port)": nodes "Identity Service" and "Vault Database", connected only to each other.
-    
-    One crossing edge: "Stream Processor" -> "Identity Service" labeled "resolves salted key only — never the raw mapping."
-    
-    Interactive features: Every node has a Mermaid click directive. "Vault Database" opens an infobox on why this is the only place the identity-to-key mapping exists. Any Application Network node opens an infobox confirming "sees only the derived student_key." The crossing edge opens an infobox recapping Chapter 6's HMAC derivation in one sentence.
-    
-    Color coding: Application Network in the book's teal accent color; vault-net outlined in amber with a padlock icon, matching Chapter 21's visual language for compliance boundaries.
-    
-    Responsive design: Subgraphs stack vertically on narrow viewports with the crossing edge redrawn to remain visible; click targets stay tap-sized.
-    -->
+    <script>
+        const nodeInfo = {
+            'GW': { title: 'Gateway', description: 'On the Application Network. It only ever handles the derived <code>student_key</code> &mdash; it never sees, and cannot reach, a real learner identity.' },
+            'PR': { title: 'Stream Processor', description: 'The only service with a link into vault-net. It asks the Identity Service to resolve a salted key, and receives back only the pseudonymous <code>student_key</code> &mdash; never the raw mapping.' },
+            'CH': { title: 'Analytics Store (ClickHouse)', description: 'Stores events keyed by <code>student_key</code>. Sitting on the Application Network, it holds no directly-identifying information.' },
+            'NE': { title: 'Graph Store (Neo4j)', description: 'Holds the summary graph, also keyed by <code>student_key</code>. Like every Application Network node, it sees only the derived key.' },
+            'ID': { title: 'Identity Service', description: 'The single gateway into vault-net. It performs key derivation on request but returns only pseudonymous keys. It is the one service allowed to talk to the Vault Database.' },
+            'VDB': { title: 'Vault Database', description: 'The only place the identity-to-key mapping exists. It sits on vault-net with NO published host port, reachable solely by the Identity Service &mdash; so a raw learner identity can never leak onto the Application Network.' }
+        };
+    </script>
+    <script src="script.js"></script>
 </body>
 </html>

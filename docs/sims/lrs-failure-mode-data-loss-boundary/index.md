@@ -1,7 +1,7 @@
 ---
 title: The Data-Loss Boundary Across the Compression Pipeline
 description: Given any one of six failure modes in the compression pipeline, classify it as occurring before or after the Kafka durability boundary and predict whether it can lose data.
-status: scaffold
+status: implemented
 library: Mermaid
 bloom_level: Analyze (L4)
 ---
@@ -10,7 +10,7 @@ bloom_level: Analyze (L4)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="562"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

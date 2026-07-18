@@ -1,7 +1,7 @@
 ---
 title: District-Keyed versus Composite-Keyed Partitioning
 description: Compare a Kafka queue partitioned by `district_id` alone against one keyed by `{district_id}:{student_key}`, and explain why the composite key avoids a write hotspot while still preserving the per-learner ordering that Bayesian Knowledge Tracing requires.
-status: scaffold
+status: implemented
 library: Mermaid
 bloom_level: Analyze (L4)
 ---
@@ -10,7 +10,7 @@ bloom_level: Analyze (L4)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="562"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

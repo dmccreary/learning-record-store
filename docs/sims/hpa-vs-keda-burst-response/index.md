@@ -1,7 +1,7 @@
 ---
 title: HPA vs. KEDA — Two Autoscalers React to a Burst
 description: Differentiate between CPU/RPS-driven autoscaling (HPA on the gateway) and consumer-lag-driven autoscaling (KEDA on the processor), and trace how each responds to the same 5x ingest burst.
-status: scaffold
+status: implemented
 library: Mermaid
 bloom_level: Analyze (L4)
 ---
@@ -10,7 +10,7 @@ bloom_level: Analyze (L4)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="602"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

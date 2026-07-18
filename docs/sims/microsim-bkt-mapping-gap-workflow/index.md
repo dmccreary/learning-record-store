@@ -1,7 +1,7 @@
 ---
 title: MicroSim Evidence to BKT Mapping Gap
 description: Trace two candidate designs for turning raw MicroSim interaction facts into a soft-correctness value that feeds a concept's Bayesian Knowledge Tracing update, and critique the trade-off each one makes.
-status: scaffold
+status: implemented
 library: Mermaid
 bloom_level: Evaluate (L5)
 ---
@@ -10,7 +10,7 @@ bloom_level: Evaluate (L5)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="682"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

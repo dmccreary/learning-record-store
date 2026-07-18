@@ -1,7 +1,7 @@
 ---
 title: Config and Secrets Flow
 description: Trace a configuration value from its source (a dev .env file, or AWS Secrets Manager in production) to the running process's Settings object, and explain why the application code never needs to know which path supplied it.
-status: scaffold
+status: implemented
 library: Mermaid
 bloom_level: Analyze (L4)
 ---
@@ -10,7 +10,7 @@ bloom_level: Analyze (L4)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="602"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

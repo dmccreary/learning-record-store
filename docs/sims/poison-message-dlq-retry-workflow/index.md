@@ -1,7 +1,7 @@
 ---
 title: Poison Message Retry and Dead-Letter Queue Workflow
 description: Trace a single malformed statement through three consumption attempts and its landing in the dead-letter queue, and explain why the consumer keeps processing other messages throughout.
-status: scaffold
+status: implemented
 library: Mermaid
 bloom_level: Apply (L3)
 ---
@@ -10,7 +10,7 @@ bloom_level: Apply (L3)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="642"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

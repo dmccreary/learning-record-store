@@ -1,7 +1,7 @@
 ---
 title: The Token Cache's Fallback Chain
 description: Explain how a gateway's token-to-district lookup degrades from a shared Redis cache to a local LRU fallback as Cache TTL Expiry and Redis availability change, without ever blocking ingestion.
-status: scaffold
+status: implemented
 library: Mermaid
 bloom_level: Understand (L2)
 ---
@@ -10,7 +10,7 @@ bloom_level: Understand (L2)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="642"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

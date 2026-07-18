@@ -15,9 +15,10 @@
   "library": "Mermaid",
   "bloomLevel": "Evaluate (L5)",
   "bloomVerb": "compare, critique",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 20,
   "chapter_title": "Spec Deviations, the Delivery Roadmap, and Open Questions",
   "chapter_dir": "20-deviations-roadmap-open-questions",
-  "chapter_rel_dir": "chapters/20-deviations-roadmap-open-questions"
+  "chapter_rel_dir": "chapters/20-deviations-roadmap-open-questions",
+  "canvasHeight": 680
 }
