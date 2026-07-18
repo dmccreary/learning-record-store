@@ -95,7 +95,7 @@ The diagram below traces one login from a district administrator's browser throu
 
 #### Diagram: From Login to RBAC-Checked Action
 
-<iframe src="../../sims/sso-rbac-login-flow/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/sso-rbac-login-flow/main.html" width="100%" height="562px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>From Login to RBAC-Checked Action</summary>
@@ -157,7 +157,7 @@ The following diagram lets a learner explore the Privacy Access Audit report the
 
 #### Diagram: Privacy Access Audit Explorer
 
-<iframe src="../../sims/privacy-access-audit-explorer/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/privacy-access-audit-explorer/main.html" width="100%" height="472px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Privacy Access Audit Explorer</summary>
@@ -192,7 +192,7 @@ That split matters pedagogically: it is the same statement log from [Chapter 8](
 
 #### Diagram: District Overview vs. System Health — Two Lenses on One Log
 
-<iframe src="../../sims/two-dashboards-one-log/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/two-dashboards-one-log/main.html" width="100%" height="562px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>District Overview vs. System Health — Two Lenses on One Log</summary>

@@ -144,7 +144,7 @@ The table below reinforces the three stages just described.
 
 #### Diagram: The Multi-Stage Build Pipeline
 
-<iframe src="../../sims/multi-stage-build-pipeline/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/multi-stage-build-pipeline/main.html" width="100%" height="562px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>The Multi-Stage Build Pipeline</summary>
@@ -191,7 +191,7 @@ The second is the exact form of `ENTRYPOINT ["lrs"]`, written as a JSON array â€
 
 #### Diagram: PID 1 Signal Handling â€” Exec Form versus Shell Form
 
-<iframe src="../../sims/pid1-signal-handling-comparison/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/pid1-signal-handling-comparison/main.html" width="100%" height="462px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>PID 1 Signal Handling -- Exec Form versus Shell Form</summary>
@@ -230,7 +230,7 @@ The second detail is `RUN --mount=type=cache,target=/root/.cache/uv`, appearing 
 
 #### Diagram: Rebuild Time by Scenario and Cache State
 
-<iframe src="../../sims/build-cache-rebuild-times/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/build-cache-rebuild-times/main.html" width="100%" height="472px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Rebuild Time by Scenario and Cache State</summary>
@@ -312,7 +312,7 @@ The **Healthcheck CLI Command**, `lrs healthcheck`, is the same subcommand the D
 
 #### Diagram: The Role Dispatcher Command Explorer
 
-<iframe src="../../sims/role-dispatcher-command-explorer/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/role-dispatcher-command-explorer/main.html" width="100%" height="472px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>The Role Dispatcher Command Explorer</summary>

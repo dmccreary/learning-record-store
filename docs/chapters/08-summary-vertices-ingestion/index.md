@@ -108,7 +108,7 @@ The bar chart below makes these five ratios directly comparable at a glance, wit
 
 #### Diagram: Storage Compression Ratio by Summary-Vertex Grain
 
-<iframe src="../../sims/compression-ratio-by-grain/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/compression-ratio-by-grain/main.html" width="100%" height="472px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Storage Compression Ratio by Summary-Vertex Grain</summary>
@@ -176,7 +176,7 @@ With every stage from the endpoint through delivery guarantees now defined, the 
 
 #### Diagram: Statement Ingestion Pipeline — From Statement to Summary Vertex
 
-<iframe src="../../sims/statement-ingestion-pipeline/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/statement-ingestion-pipeline/main.html" width="100%" height="622px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Statement Ingestion Pipeline — From Statement to Summary Vertex</summary>
@@ -218,7 +218,7 @@ The four steps above are easier to hold in mind as a sequence than as a paragrap
 
 #### Diagram: Accept-First Ingestion and Reconciliation Flow
 
-<iframe src="../../sims/accept-first-reconciliation-flow/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/accept-first-reconciliation-flow/main.html" width="100%" height="562px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Accept-First Ingestion and Reconciliation Flow</summary>
@@ -255,7 +255,7 @@ The sync cadence is configurable, and choosing it trades two things against each
 
 #### Diagram: Graph Write Rate vs. Compression Sync Cadence
 
-<iframe src="../../sims/write-rate-vs-sync-cadence/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/write-rate-vs-sync-cadence/main.html" width="100%" height="472px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Graph Write Rate vs. Compression Sync Cadence</summary>

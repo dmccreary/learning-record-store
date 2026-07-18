@@ -107,7 +107,7 @@ The diagram below lays the two findings side by side, so you can trace exactly w
 
 #### Diagram: Two Bugs Behind a Green Checkmark
 
-<iframe src="../../sims/two-bugs-green-checkmark/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/two-bugs-green-checkmark/main.html" width="100%" height="642px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Two Bugs Behind a Green Checkmark</summary>
@@ -169,7 +169,7 @@ One more fix belongs in this group, though it addresses isolation rather than a 
 
 #### Diagram: Vault Network Isolation in the Compose Topology
 
-<iframe src="../../sims/vault-net-isolation-workflow/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/vault-net-isolation-workflow/main.html" width="100%" height="522px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Vault Network Isolation in the Compose Topology</summary>
@@ -214,7 +214,7 @@ With the audit complete and the fixes named, the MVP plan lays out five sequenti
 
 #### Diagram: The Five MVP Build Steps
 
-<iframe src="../../sims/five-mvp-build-steps/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/five-mvp-build-steps/main.html" width="100%" height="402px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>The Five MVP Build Steps</summary>
@@ -267,7 +267,7 @@ Step 5's chart is the destination this chapter has been walking toward, so it is
 
 #### Diagram: Burst Insensitivity — Graph Write Rate vs. Ingest Rate
 
-<iframe src="../../sims/burst-insensitivity-chart/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/burst-insensitivity-chart/main.html" width="100%" height="462px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Burst Insensitivity — Graph Write Rate vs. Ingest Rate</summary>

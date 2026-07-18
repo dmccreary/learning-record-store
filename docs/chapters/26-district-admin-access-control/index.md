@@ -76,7 +76,7 @@ Before looking at how this plays out visually, it helps to hold two terms apart 
 
 #### Diagram: Role Assignment Scope Explorer
 
-<iframe src="../../sims/role-assignment-scope-explorer/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/role-assignment-scope-explorer/main.html" width="100%" height="562px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Role Assignment Scope Explorer</summary>
@@ -123,7 +123,7 @@ Now that both features on this screen have been explained in prose, it is worth 
 
 #### Diagram: Access Review and Impersonation Audit Workflow
 
-<iframe src="../../sims/access-review-impersonation-workflow/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/access-review-impersonation-workflow/main.html" width="100%" height="682px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Access Review and Impersonation Audit Workflow</summary>
@@ -176,7 +176,7 @@ Finally, the **Aggregation Threshold** control on this screen sets the actual nu
 
 #### Diagram: Privacy and Compliance UI Mockup
 
-<iframe src="../../sims/privacy-compliance-ui-mockup/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/privacy-compliance-ui-mockup/main.html" width="100%" height="502px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Privacy and Compliance UI Mockup</summary>
@@ -220,7 +220,7 @@ Rounding out the admin surface, the **System Configuration UI** is the platform'
 
 #### Diagram: System Configuration and Alerting Dashboard
 
-<iframe src="../../sims/system-config-alerting-dashboard/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/system-config-alerting-dashboard/main.html" width="100%" height="542px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>System Configuration and Alerting Dashboard</summary>

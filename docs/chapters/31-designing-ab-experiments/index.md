@@ -90,7 +90,7 @@ Having named all six parts in the order they get authored, the following table r
 
 #### Diagram: Anatomy of an Experiment Definition
 
-<iframe src="../../sims/experiment-definition-anatomy/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/experiment-definition-anatomy/main.html" width="100%" height="602px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Anatomy of an Experiment Definition</summary>
@@ -136,7 +136,7 @@ Assignment quality itself needs a check, because a buggy eligibility filter or a
 
 #### Diagram: Deterministic Sticky Assignment and District Opt-Out
 
-<iframe src="../../sims/sticky-assignment-and-opt-out/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/sticky-assignment-and-opt-out/main.html" width="100%" height="642px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Deterministic Sticky Assignment and District Opt-Out</summary>
@@ -204,7 +204,7 @@ All of these pieces converge on one screen: the **Experiment Readout Dashboard**
 
 #### Diagram: Reading the Experiment Readout Dashboard
 
-<iframe src="../../sims/experiment-readout-dashboard-mockup/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/experiment-readout-dashboard-mockup/main.html" width="100%" height="502px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Reading the Experiment Readout Dashboard</summary>
@@ -237,7 +237,7 @@ An experiment itself moves through a small, well-defined set of states the speci
 
 #### Diagram: The AB Test Lifecycle
 
-<iframe src="../../sims/ab-test-lifecycle-states/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/ab-test-lifecycle-states/main.html" width="100%" height="562px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>The AB Test Lifecycle</summary>

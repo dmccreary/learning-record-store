@@ -102,7 +102,7 @@ Rotating a production secret this way costs nothing at the application layer: ES
 
 #### Diagram: Config and Secrets Flow
 
-<iframe src="../../sims/config-secrets-flow/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/config-secrets-flow/main.html" width="100%" height="602px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Config and Secrets Flow</summary>
@@ -176,7 +176,7 @@ The table below reinforces the four patterns just described, now that each has b
 
 #### Diagram: Expand-Contract Step Sequencer
 
-<iframe src="../../sims/expand-contract-step-sequencer/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/expand-contract-step-sequencer/main.html" width="100%" height="472px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Expand-Contract Step Sequencer</summary>
@@ -234,7 +234,7 @@ Knowing an RPO and RTO on paper is not the same as knowing a restore works under
 
 #### Diagram: Recovery Point and Recovery Time by Data Store
 
-<iframe src="../../sims/rpo-rto-by-data-store/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/rpo-rto-by-data-store/main.html" width="100%" height="452px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Recovery Point and Recovery Time by Data Store</summary>
@@ -303,7 +303,7 @@ The list below draws those ideas into one operational sequence, useful as a self
 
 #### Diagram: Gateway-First Deploy and Rollback Order
 
-<iframe src="../../sims/gateway-first-deploy-rollback/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/gateway-first-deploy-rollback/main.html" width="100%" height="542px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Gateway-First Deploy and Rollback Order</summary>

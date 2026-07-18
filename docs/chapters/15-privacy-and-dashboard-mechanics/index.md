@@ -88,7 +88,7 @@ The table below reinforces the three jobs just described, now that each has been
 
 #### Diagram: The Privacy Filter Pipeline
 
-<iframe src="../../sims/privacy-filter-pipeline/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/privacy-filter-pipeline/main.html" width="100%" height="642px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>The Privacy Filter Pipeline</summary>
@@ -128,7 +128,7 @@ The MicroSim below lets you play both suppression rules against a small worked t
 
 #### Diagram: Threshold and Complementary Suppression Simulator
 
-<iframe src="../../sims/threshold-complementary-suppression-simulator/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/threshold-complementary-suppression-simulator/main.html" width="100%" height="472px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Threshold and Complementary Suppression Simulator</summary>
@@ -201,7 +201,7 @@ Both commands rely on the same underlying idea â€” Idempotency By Statement ID â
 
 #### Diagram: Replay Command and Rebuild Graph Command Compared
 
-<iframe src="../../sims/replay-shadow-table-swap/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/replay-shadow-table-swap/main.html" width="100%" height="662px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Replay Command and Rebuild Graph Command Compared</summary>
@@ -278,7 +278,7 @@ Before looking at the interactive explorer below, hold these four ideas together
 
 #### Diagram: Dashboard Layout Builder
 
-<iframe src="https://dmccreary.github.io/search-microsims/sims/dashboard-patterns/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/dashboard-patterns/main.html" width="100%" height="482px" scrolling="no"></iframe>
 
 [Run the Dashboard Layout Builder MicroSim fullscreen](https://dmccreary.github.io/search-microsims/sims/dashboard-patterns/main.html){ .md-button }
 

@@ -71,7 +71,7 @@ Reading that list top to bottom traces exactly how this project's specification 
 
 #### Diagram: This Project's Tenancy Hierarchy
 
-<iframe src="../../sims/tenancy-hierarchy-tree/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/tenancy-hierarchy-tree/main.html" width="100%" height="602px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>This Project's Tenancy Hierarchy</summary>
@@ -133,7 +133,7 @@ With hard versus soft isolation defined and tabulated, the sorting exercise belo
 
 #### Diagram: Sort Each Level into Hard or Soft Isolation
 
-<iframe src="../../sims/hard-vs-soft-isolation-sorter/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/hard-vs-soft-isolation-sorter/main.html" width="100%" height="442px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Sort Each Level into Hard or Soft Isolation</summary>
@@ -186,7 +186,7 @@ That roster data flows in through the **Roster API**, the inbound member of the 
 
 #### Diagram: From Student Information System to Enrollment
 
-<iframe src="../../sims/roster-ingestion-workflow/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/roster-ingestion-workflow/main.html" width="100%" height="422px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>From Student Information System to Enrollment</summary>
@@ -258,7 +258,7 @@ The list below reinforces the boundary just described, sorting what lives on eac
 
 #### Diagram: From Pseudonymous Account to Student Key
 
-<iframe src="../../sims/pseudonymization-pipeline/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/pseudonymization-pipeline/main.html" width="100%" height="522px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>From Pseudonymous Account to Student Key</summary>

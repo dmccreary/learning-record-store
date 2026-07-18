@@ -86,7 +86,7 @@ Before looking at how these four numbers combine, it helps to see them side by s
 
 #### Diagram: The Four BKT Parameters Explorer
 
-<iframe src="../../sims/bkt-four-parameters-explorer/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/bkt-four-parameters-explorer/main.html" width="100%" height="482px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>The Four BKT Parameters Explorer</summary>
@@ -158,7 +158,7 @@ Seeing the two steps run across several real observations, with the actual numbe
 
 #### Diagram: Tracing One Student's Mastery Across Four Observations
 
-<iframe src="../../sims/bkt-mastery-trace-stepper/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/bkt-mastery-trace-stepper/main.html" width="100%" height="482px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Tracing One Student's Mastery Across Four Observations</summary>
@@ -209,7 +209,7 @@ Worth being candid about here: the design specification names this mapping as ge
 
 #### Diagram: From Raw Evidence to Soft Correctness
 
-<iframe src="../../sims/bkt-soft-correctness-mapping/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/bkt-soft-correctness-mapping/main.html" width="100%" height="462px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>From Raw Evidence to Soft Correctness</summary>

@@ -63,7 +63,7 @@ Reading that table top to bottom traces the exact click a teacher makes every mo
 
 #### Diagram: My Classes to Student Detail — One Click, Nine Reports
 
-<iframe src="../../sims/my-classes-student-detail-drilldown/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/my-classes-student-detail-drilldown/main.html" width="100%" height="682px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>My Classes to Student Detail — One Click, Nine Reports</summary>
@@ -105,7 +105,7 @@ The mastery score behind every spoke is the same `mastery_score` property that [
 
 #### Diagram: Concept Mastery Radar for One Student
 
-<iframe src="../../sims/concept-mastery-radar/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/concept-mastery-radar/main.html" width="100%" height="472px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Concept Mastery Radar for One Student</summary>
@@ -157,7 +157,7 @@ This report exists because two students can reach an identical mastery score by 
 
 #### Diagram: One Student's Time-on-Task Timeline
 
-<iframe src="../../sims/time-on-task-timeline/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/time-on-task-timeline/main.html" width="100%" height="462px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>One Student's Time-on-Task Timeline</summary>
@@ -219,7 +219,7 @@ This is often the single most actionable report in the whole set, because it tur
 
 #### Diagram: Prerequisite Gap Analysis — Walking Upstream From a Weak Concept
 
-<iframe src="https://dmccreary.github.io/automating-instructional-design/sims/concept-dependencies/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/concept-dependencies/main.html" width="100%" height="522px" scrolling="no"></iframe>
 
 [Run the Concept Dependencies Graph MicroSim fullscreen](https://dmccreary.github.io/automating-instructional-design/sims/concept-dependencies/main.html){ .md-button }
 

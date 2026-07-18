@@ -59,7 +59,7 @@ That nesting is soft below the district line and hard at it. District isolation 
 
 #### Diagram: District Tenancy Hierarchy Explorer
 
-<iframe src="../../sims/district-tenancy-hierarchy-explorer/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/district-tenancy-hierarchy-explorer/main.html" width="100%" height="622px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>District Tenancy Hierarchy Explorer</summary>
@@ -118,7 +118,7 @@ Bringing roster configuration and retention together on one mock screen makes th
 
 #### Diagram: District Management UI Mock Dashboard
 
-<iframe src="../../sims/district-management-ui-mockup/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/district-management-ui-mockup/main.html" width="100%" height="502px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>District Management UI Mock Dashboard</summary>
@@ -161,7 +161,7 @@ A term rollover is easier to picture as a sequence of dated events than as a sin
 
 #### Diagram: Term Rollover Timeline
 
-<iframe src="../../sims/term-rollover-timeline/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/term-rollover-timeline/main.html" width="100%" height="422px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Term Rollover Timeline</summary>
@@ -221,7 +221,7 @@ Watching one stub move from arrival to promotion in the Provisional Reconcile Qu
 
 #### Diagram: Provisional Reconcile Queue Workflow
 
-<iframe src="../../sims/provisional-reconcile-queue-workflow/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/provisional-reconcile-queue-workflow/main.html" width="100%" height="642px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Provisional Reconcile Queue Workflow</summary>

@@ -79,7 +79,7 @@ That subtotal is the on-demand ceiling, not what a production deployment actuall
 
 #### Diagram: Production Monthly Cost Breakdown
 
-<iframe src="../../sims/production-monthly-cost-breakdown/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/production-monthly-cost-breakdown/main.html" width="100%" height="452px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Production Monthly Cost Breakdown</summary>
@@ -126,7 +126,7 @@ Running that footprint on one machine still needs internal boundaries, and that'
 
 #### Diagram: Single-Server Pilot Tier VM Layout
 
-<iframe src="../../sims/single-server-pilot-vm-layout/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/single-server-pilot-vm-layout/main.html" width="100%" height="462px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Single-Server Pilot Tier VM Layout</summary>
@@ -182,7 +182,7 @@ The table below sizes three tiers of development host against exactly that need,
 
 #### Diagram: Build Steps to Development Host Tier
 
-<iframe src="../../sims/build-steps-to-host-tier-timeline/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/build-steps-to-host-tier-timeline/main.html" width="100%" height="402px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Build Steps to Development Host Tier</summary>
@@ -237,7 +237,7 @@ Once a host is running, the code still needs editing from somewhere — a separa
 
 #### Diagram: Three Ways to Develop Against a Remote Host
 
-<iframe src="../../sims/remote-dev-workflow-comparison/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/remote-dev-workflow-comparison/main.html" width="100%" height="562px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Three Ways to Develop Against a Remote Host</summary>

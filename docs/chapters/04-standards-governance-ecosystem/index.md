@@ -77,7 +77,7 @@ That contrast gives xAPI's own content-description field a clear job. Every Obje
 
 #### Diagram: Anatomy of an Activity Definition
 
-<iframe src="https://dmccreary.github.io/xapi-course/sims/activity-naming-and-occurrence-fields/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/activity-naming-and-occurrence-fields/main.html" width="100%" height="442px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Anatomy of an Activity Definition (reused MicroSim)</summary>
@@ -105,7 +105,7 @@ Three specifications have now been placed side by side against the two-part cont
 
 #### Diagram: The Wider Standards Ecosystem Map
 
-<iframe src="https://dmccreary.github.io/intelligent-textbooks/sims/standards-ecosystem/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/standards-ecosystem-map/main.html" width="100%" height="562px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>The Wider Standards Ecosystem Map</summary>
@@ -152,7 +152,7 @@ xAPI gives Data Verifiability a concrete mechanism to check. Every Statement car
 
 #### Diagram: Statement Timestamp and the Verifiability Chain
 
-<iframe src="../../sims/statement-timestamp-verifiability-chain/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/statement-timestamp-verifiability-chain/main.html" width="100%" height="542px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Statement Timestamp and the Verifiability Chain</summary>
@@ -195,7 +195,7 @@ One recurring piece of that ecosystem deserves its own definition. Chapter 3's T
 
 #### Diagram: Learning Ecosystem Map
 
-<iframe src="https://dmccreary.github.io/automating-instructional-design/sims/ed-tech-ecosystem/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/learning-ecosystem-map/main.html" width="100%" height="522px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Learning Ecosystem Map</summary>

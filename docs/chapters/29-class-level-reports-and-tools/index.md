@@ -76,7 +76,7 @@ That mechanism is worth seeing as a diagram before the reports built on top of i
 
 #### Diagram: How Concept Mastery Rolls Up to a Section
 
-<iframe src="../../sims/section-rollup-aggregation/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/section-rollup-aggregation/main.html" width="100%" height="602px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>How Concept Mastery Rolls Up to a Section</summary>
@@ -110,7 +110,7 @@ The most-used of the ten class-level reports is also the simplest to read at a g
 
 #### Diagram: Class Mastery Heatmap for One Section
 
-<iframe src="../../sims/class-mastery-heatmap/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/class-mastery-heatmap/main.html" width="100%" height="502px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Class Mastery Heatmap for One Section</summary>
@@ -172,7 +172,7 @@ Because the At-Risk Roster draws on the exact same three signals from Chapter 28
 
 #### Diagram: At-Risk Roster — How the Composite Score Is Built
 
-<iframe src="../../sims/at-risk-roster-composite-score/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/at-risk-roster-composite-score/main.html" width="100%" height="562px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>At-Risk Roster — How the Composite Score Is Built</summary>
@@ -225,7 +225,7 @@ The **Ad-Hoc Cohort Builder** lets a teacher define a custom group of students b
 
 #### Diagram: Learning Graph Explorer for Class Mastery
 
-<iframe src="https://dmccreary.github.io/signal-processing/sims/graph-viewer/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/graph-viewer/main.html" width="100%" height="600px" scrolling="no"></iframe>
 
 [Run the Learning Graph Viewer MicroSim fullscreen](https://dmccreary.github.io/signal-processing/sims/graph-viewer/main.html){ .md-button }
 

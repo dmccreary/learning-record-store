@@ -87,7 +87,7 @@ The table below reinforces the six topics just introduced, now that each one's p
 
 #### Diagram: Kafka Topic Map for the LRS Event Backbone
 
-<iframe src="../../sims/kafka-topic-map/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/kafka-topic-map/main.html" width="100%" height="522px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Kafka Topic Map for the LRS Event Backbone</summary>
@@ -158,7 +158,7 @@ The `ORDER BY` clause itself — `(district_id, student_key, timestamp, statemen
 
 #### Diagram: ClickHouse `lrs.statements` Table Anatomy
 
-<iframe src="../../sims/clickhouse-statements-anatomy/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/clickhouse-statements-anatomy/main.html" width="100%" height="562px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>ClickHouse lrs.statements Table Anatomy</summary>
@@ -293,7 +293,7 @@ The list below reinforces the three materialized views just described, matched t
 
 #### Diagram: Materialized Views to Summary Vertex Mapping
 
-<iframe src="../../sims/mv-to-vertex-mapping/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/mv-to-vertex-mapping/main.html" width="100%" height="482px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Materialized Views to Summary Vertex Mapping</summary>
@@ -347,7 +347,7 @@ One more constraint-like check operates on a relationship type rather than a nod
 
 #### Diagram: Grain Constraints and the Statement Label Prohibition
 
-<iframe src="../../sims/grain-constraint-enforcement/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/grain-constraint-enforcement/main.html" width="100%" height="522px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Grain Constraints and the Statement Label Prohibition</summary>

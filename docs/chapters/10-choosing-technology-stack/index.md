@@ -72,7 +72,7 @@ The list below reinforces the role each ingestion-plane technology plays, now th
 
 #### Diagram: The Ingestion Plane Technology Stack
 
-<iframe src="../../sims/ingestion-plane-technology-stack/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/ingestion-plane-technology-stack/main.html" width="100%" height="562px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>The Ingestion Plane Technology Stack</summary>
@@ -111,7 +111,7 @@ Two more stores round out the plane. **Redis 7** is the in-memory cache that kee
 
 #### Diagram: The Storage Plane, Which Technology Holds What
 
-<iframe src="../../sims/storage-plane-technology-map/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/storage-plane-technology-map/main.html" width="100%" height="522px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>The Storage Plane, Which Technology Holds What</summary>
@@ -148,7 +148,7 @@ OpenID Connect, often abbreviated OIDC, is a standard way for one system to prov
 
 #### Diagram: Two Kinds of Identity in This Learning Record Store
 
-<iframe src="../../sims/two-kinds-of-identity/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/two-kinds-of-identity/main.html" width="100%" height="602px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Two Kinds of Identity in This Learning Record Store</summary>
@@ -200,7 +200,7 @@ Every technology named so far answers "where does the data live" or "how does a 
 
 #### Diagram: The Observability Pipeline, From Statement to Screen
 
-<iframe src="../../sims/observability-pipeline-trace-flow/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/observability-pipeline-trace-flow/main.html" width="100%" height="442px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>The Observability Pipeline, From Statement to Screen</summary>

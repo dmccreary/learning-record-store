@@ -92,7 +92,7 @@ The processor is different. Its bottleneck is not CPU load per request; it is **
 
 #### Diagram: HPA vs. KEDA — Two Autoscalers React to a Burst
 
-<iframe src="../../sims/hpa-vs-keda-burst-response/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/hpa-vs-keda-burst-response/main.html" width="100%" height="602px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>HPA vs. KEDA — Two Autoscalers React to a Burst</summary>
@@ -152,7 +152,7 @@ Neo4j's production path branches further than ClickHouse's. Because Neo4j **Comm
 
 #### Diagram: Neo4j's Production Path — Community, Enterprise, AuraDB, or an Alternative
 
-<iframe src="../../sims/neo4j-licensing-decision-tree/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/neo4j-licensing-decision-tree/main.html" width="100%" height="562px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Neo4j's Production Path — Community, Enterprise, AuraDB, or an Alternative</summary>
@@ -185,7 +185,7 @@ Redis, the cache Chapter 13 used for token-to-district lookups and per-district 
 
 #### Diagram: The Token Cache's Fallback Chain
 
-<iframe src="../../sims/token-cache-fallback-chain/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/token-cache-fallback-chain/main.html" width="100%" height="642px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>The Token Cache's Fallback Chain</summary>
@@ -251,7 +251,7 @@ The table below gathers the open questions this chapter has surfaced, so they re
 
 #### Diagram: From Walking Skeleton to Scaled Production
 
-<iframe src="../../sims/production-delivery-roadmap/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/production-delivery-roadmap/main.html" width="100%" height="422px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>From Walking Skeleton to Scaled Production</summary>

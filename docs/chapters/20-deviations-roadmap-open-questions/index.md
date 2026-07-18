@@ -67,7 +67,7 @@ The reasoning is capacity, not taste. A large district can enroll tens of thousa
 
 #### Diagram: District-Keyed versus Composite-Keyed Partitioning
 
-<iframe src="../../sims/district-vs-composite-partition-key/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/district-vs-composite-partition-key/main.html" width="100%" height="562px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>District-Keyed versus Composite-Keyed Partitioning</summary>
@@ -116,7 +116,7 @@ The table below draws together all three open deviations now that each has been 
 
 #### Diagram: Complementary Suppression Attack
 
-<iframe src="../../sims/complementary-suppression-attack/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/complementary-suppression-attack/main.html" width="100%" height="442px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Complementary Suppression Attack</summary>
@@ -167,7 +167,7 @@ The design specification's delivery roadmap breaks a 26-week build into six mile
 
 #### Diagram: Delivery Roadmap Timeline
 
-<iframe src="../../sims/delivery-roadmap-m0-to-m5-timeline/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/delivery-roadmap-m0-to-m5-timeline/main.html" width="100%" height="422px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Delivery Roadmap Timeline</summary>
@@ -240,7 +240,7 @@ Two candidate designs sit on the table, and the open question is which one wins,
 
 #### Diagram: MicroSim Evidence to BKT Mapping Gap
 
-<iframe src="../../sims/microsim-bkt-mapping-gap-workflow/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/microsim-bkt-mapping-gap-workflow/main.html" width="100%" height="682px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>MicroSim Evidence to BKT Mapping Gap</summary>

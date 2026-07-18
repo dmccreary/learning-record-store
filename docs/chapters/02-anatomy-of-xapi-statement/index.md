@@ -72,7 +72,7 @@ The following diagram traces this exact sequence — emit, discover an error, vo
 
 #### Diagram: Voiding Lifecycle Flow
 
-<iframe src="../../sims/voiding-lifecycle-flow/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/voiding-lifecycle-flow/main.html" width="100%" height="662px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Voiding Lifecycle Flow</summary>
@@ -163,7 +163,7 @@ The diagram below turns this same JSON shape into a clickable, labeled anatomy s
 
 #### Diagram: Anatomy of an Extended Statement
 
-<iframe src="../../sims/extended-statement-anatomy/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/extended-statement-anatomy/main.html" width="100%" height="462px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Anatomy of an Extended Statement</summary>
@@ -226,7 +226,7 @@ The following diagram brings the endpoint, the verbs, and the query parameters t
 
 #### Diagram: xAPI Endpoint and HTTP Verbs
 
-<iframe src="../../sims/xapi-endpoint-http-verbs/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/xapi-endpoint-http-verbs/main.html" width="100%" height="482px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>xAPI Endpoint and HTTP Verbs</summary>
@@ -269,7 +269,7 @@ Before comparing the two side by side, notice the shape of the trade-off: Basic 
 
 #### Diagram: Authentication Scheme Comparison
 
-<iframe src="../../sims/authentication-scheme-comparison/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/authentication-scheme-comparison/main.html" width="100%" height="462px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Authentication Scheme Comparison</summary>

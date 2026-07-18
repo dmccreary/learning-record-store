@@ -88,7 +88,7 @@ What happens when the broker is briefly unreachable is governed by the **Gateway
 
 #### Diagram: Gateway Request Pipeline
 
-<iframe src="../../sims/gateway-request-pipeline/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/gateway-request-pipeline/main.html" width="100%" height="622px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Gateway Request Pipeline</summary>
@@ -129,7 +129,7 @@ The processor computes the HMAC locally rather than calling the identity service
 
 #### Diagram: Pseudonymization Pipeline
 
-<iframe src="../../sims/pseudonymization-pipeline/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/pseudonymization-pipeline/main.html" width="100%" height="522px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Pseudonymization Pipeline</summary>
@@ -178,7 +178,7 @@ Even a well-ordered partition cannot guarantee every statement arrives promptly 
 
 #### Diagram: Processor Batch Loop — Dedup, Score, and Replay
 
-<iframe src="../../sims/processor-batch-dedup-replay/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/processor-batch-dedup-replay/main.html" width="100%" height="642px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Processor Batch Loop — Dedup, Score, and Replay</summary>
@@ -226,7 +226,7 @@ The list below reinforces the three rules this section has already explained in 
 
 #### Diagram: Deterministic Bucketing and the Ramping Rule
 
-<iframe src="../../sims/experiment-bucketing-ramp/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/experiment-bucketing-ramp/main.html" width="100%" height="462px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Deterministic Bucketing and the Ramping Rule</summary>
@@ -279,7 +279,7 @@ All of this exists in service of the **P95 Latency Budget** — a requirement th
 
 #### Diagram: Analytics Cache Key and the Privacy Filter Choke Point
 
-<iframe src="../../sims/dashboard-request-cache-flow/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/dashboard-request-cache-flow/main.html" width="100%" height="562px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Analytics Cache Key and the Privacy Filter Choke Point</summary>

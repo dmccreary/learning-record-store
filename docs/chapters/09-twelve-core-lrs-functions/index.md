@@ -76,7 +76,7 @@ Voiding's effect reaches further than the Event Store alone. Chapter 8's compres
 
 #### Diagram: One Statement, Three Ways to Touch the Record
 
-<iframe src="../../sims/statement-storage-retrieval-voiding-flow/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/statement-storage-retrieval-voiding-flow/main.html" width="100%" height="442px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>One Statement, Three Ways to Touch the Record</summary>
@@ -134,7 +134,7 @@ F-8 is the **Progress Projection Function**: maintain per-student, per-section, 
 
 #### Diagram: Two Summary-Building Functions — Mastery and Progress
 
-<iframe src="../../sims/mastery-vs-progress-rollup/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/mastery-vs-progress-rollup/main.html" width="100%" height="562px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Two Summary-Building Functions — Mastery and Progress</summary>
@@ -174,7 +174,7 @@ F-12 is the function this book's concept list calls the **Retention Purge Functi
 
 #### Diagram: Four Functions at the System's Edges
 
-<iframe src="../../sims/functions-at-the-edges/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/functions-at-the-edges/main.html" width="100%" height="562px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Four Functions at the System's Edges</summary>
@@ -205,7 +205,7 @@ With every function now defined, it helps to step back and see the full catalog 
 
 #### Diagram: The Twelve Core Functions Explorer
 
-<iframe src="../../sims/twelve-core-functions-explorer/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/twelve-core-functions-explorer/main.html" width="100%" height="602px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>The Twelve Core Functions Explorer</summary>

@@ -134,7 +134,7 @@ Seeing the gating logic as a graph is easier to hold in your head than `depends_
 
 #### Diagram: Compose Startup Dependency Graph
 
-<iframe src="../../sims/compose-startup-dependency-graph/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/compose-startup-dependency-graph/main.html" width="100%" height="602px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Compose Startup Dependency Graph</summary>
@@ -250,7 +250,7 @@ A dozen targets is a lot to hold in your head from prose alone. The infographic 
 
 #### Diagram: Makefile Target Command Explorer
 
-<iframe src="../../sims/makefile-target-explorer/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/makefile-target-explorer/main.html" width="100%" height="492px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Makefile Target Command Explorer</summary>
@@ -318,7 +318,7 @@ Tracing one image through every stage named above is easier as a diagram than as
 
 #### Diagram: Image Supply Chain Pipeline
 
-<iframe src="../../sims/image-supply-chain-pipeline/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/image-supply-chain-pipeline/main.html" width="100%" height="642px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Image Supply Chain Pipeline</summary>

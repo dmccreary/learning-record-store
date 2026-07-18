@@ -56,7 +56,7 @@ The system context for this Learning Record Store has three kinds of participant
 
 #### Diagram: This Project's System Context Diagram
 
-<iframe src="../../sims/lrs-system-context-diagram/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/lrs-system-context-diagram/main.html" width="100%" height="682px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>This Project's System Context Diagram</summary>
@@ -117,7 +117,7 @@ With the five planes named and organized, it is worth testing whether you can pl
 
 #### Diagram: Sort the Component into Its Plane
 
-<iframe src="../../sims/five-architectural-planes-infographic/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/five-architectural-planes-infographic/main.html" width="100%" height="522px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Sort the Component into Its Plane</summary>
@@ -184,7 +184,7 @@ Before looking at the diagram below, hold the shape of the pipeline so far in mi
 
 #### Diagram: From Gateway to Event Store — the Ingestion and Processing Pipeline
 
-<iframe src="../../sims/ingestion-processing-storage-pipeline/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/ingestion-processing-storage-pipeline/main.html" width="100%" height="422px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>From Gateway to Event Store — the Ingestion and Processing Pipeline</summary>
@@ -247,7 +247,7 @@ Now that each of the five APIs has been described individually, the table below 
 
 #### Diagram: Analytics Plane API Map
 
-<iframe src="../../sims/analytics-plane-api-map/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/analytics-plane-api-map/main.html" width="100%" height="522px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Analytics Plane API Map</summary>

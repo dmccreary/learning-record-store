@@ -88,7 +88,7 @@ The following table summarizes the three standards we have discussed so far, now
 
 #### Diagram: A Timeline of Learning Interoperability Standards
 
-<iframe src="../../sims/learning-standards-timeline/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/learning-standards-timeline/main.html" width="100%" height="402px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>A Timeline of Learning Interoperability Standards</summary>
@@ -141,7 +141,7 @@ Before comparing the two architectures visually, it is worth being precise about
 
 #### Diagram: LMS-Centric versus LRS-Centric Architecture
 
-<iframe src="../../sims/lms-vs-lrs-architecture/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/lms-vs-lrs-architecture/main.html" width="100%" height="462px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>LMS-Centric versus LRS-Centric Architecture</summary>
@@ -202,7 +202,7 @@ Before looking at the interactive breakdown below, hold onto one more idea: **St
 
 #### Diagram: xAPI Statement Building Blocks
 
-<iframe src="../../sims/xapi-statement-triple/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/xapi-statement-triple/main.html" width="100%" height="382px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>xAPI Statement Building Blocks</summary>
@@ -242,7 +242,7 @@ With five new vocabulary terms introduced in this chapter's final section — Ac
 
 #### Diagram: xAPI Vocabulary Matching Pairs
 
-<iframe src="../../sims/xapi-vocabulary-matching-pairs/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/xapi-vocabulary-matching-pairs/main.html" width="100%" height="442px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>xAPI Vocabulary Matching Pairs</summary>

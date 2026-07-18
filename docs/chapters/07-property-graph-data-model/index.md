@@ -100,7 +100,7 @@ With every content-tree node label defined and organized above, the diagram belo
 
 #### Diagram: The Content Tree — From Textbook to Concept
 
-<iframe src="../../sims/content-tree-graph-model/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/content-tree-graph-model/main.html" width="100%" height="602px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>The Content Tree — From Textbook to Concept</summary>
@@ -142,7 +142,7 @@ Concepts do not stand alone from each other, either. This project's specificatio
 
 #### Diagram: DAG Viewer
 
-<iframe src="https://dmccreary.github.io/graph-algorithms/sims/dag-viewer/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/dag-viewer/main.html" width="100%" height="522px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>DAG Viewer (reused MicroSim)</summary>
@@ -170,7 +170,7 @@ A parallel pattern covers engagement rather than mastery. Every burst of activit
 
 #### Diagram: From Compressed Evidence to Graph Edges
 
-<iframe src="../../sims/compressed-evidence-graph-edges/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/compressed-evidence-graph-edges/main.html" width="100%" height="422px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>From Compressed Evidence to Graph Edges</summary>

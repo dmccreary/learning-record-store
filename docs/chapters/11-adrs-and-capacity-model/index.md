@@ -124,7 +124,7 @@ Now that all seven decisions have been introduced in the order the design specif
 
 #### Diagram: Statement Path Under ADR-001 and ADR-002
 
-<iframe src="../../sims/statement-path-adr-001-002/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/statement-path-adr-001-002/main.html" width="100%" height="622px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Statement Path Under ADR-001 and ADR-002</summary>
@@ -185,7 +185,7 @@ Raw daily volume feeds two separate disk-sizing calculations, because a statemen
 
 #### Diagram: ClickHouse Storage Growth Over the Retention Window
 
-<iframe src="../../sims/clickhouse-storage-growth/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/clickhouse-storage-growth/main.html" width="100%" height="482px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>ClickHouse Storage Growth Over the Retention Window</summary>
@@ -233,7 +233,7 @@ The same model also explains, in numbers, why ADR-001 and ADR-003 exist. **Graph
 
 #### Diagram: Naive vs. Compressed Graph Write Rate
 
-<iframe src="../../sims/naive-vs-compressed-graph-write-rate/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/naive-vs-compressed-graph-write-rate/main.html" width="100%" height="602px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Naive vs. Compressed Graph Write Rate</summary>
@@ -292,7 +292,7 @@ The design specification settles on the 60-second default because ~2,500 batched
 
 #### Diagram: Sync Cadence Tradeoff Explorer
 
-<iframe src="../../sims/sync-cadence-tradeoff-explorer/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/sync-cadence-tradeoff-explorer/main.html" width="100%" height="472px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Sync Cadence Tradeoff Explorer</summary>

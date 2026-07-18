@@ -71,7 +71,7 @@ The diagram below traces the same handoff as a sequence, so you can see not just
 
 #### Diagram: Standards Governance Handoff
 
-<iframe src="../../sims/xapi-governance-handoff/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/xapi-governance-handoff/main.html" width="100%" height="402px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Standards Governance Handoff</summary>
@@ -138,7 +138,7 @@ The diagram below pulls the profile-related terms just introduced — xAPI Profi
 
 #### Diagram: Anatomy of an xAPI Profile
 
-<iframe src="../../sims/xapi-profile-anatomy/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/xapi-profile-anatomy/main.html" width="100%" height="482px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Anatomy of an xAPI Profile</summary>
@@ -197,7 +197,7 @@ The diagram below traces one complete cmi5 launch from assignment through the St
 
 #### Diagram: cmi5 Launch Sequence
 
-<iframe src="../../sims/cmi5-launch-sequence/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/cmi5-launch-sequence/main.html" width="100%" height="662px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>cmi5 Launch Sequence</summary>
@@ -245,7 +245,7 @@ The diagram below situates this project's own Learning Record Store within that 
 
 #### Diagram: Total Learning Architecture Ecosystem Map
 
-<iframe src="../../sims/tla-ecosystem-map/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/tla-ecosystem-map/main.html" width="100%" height="522px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Total Learning Architecture Ecosystem Map</summary>

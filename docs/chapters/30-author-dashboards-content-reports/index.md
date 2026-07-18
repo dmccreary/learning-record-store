@@ -71,7 +71,7 @@ Seeing all eight reports as different windows onto the same four vertex types is
 
 #### Diagram: How Eight Content Reports Read Four Summary Vertices
 
-<iframe src="../../sims/content-insights-pipeline-flow/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/content-insights-pipeline-flow/main.html" width="100%" height="502px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>How Eight Content Reports Read Four Summary Vertices</summary>
@@ -115,7 +115,7 @@ Two more reports drop the single-page view entirely and look at the textbook as 
 
 #### Diagram: Concept-Coverage Gaps Overlaid on the Learning Graph
 
-<iframe src="../../sims/concept-coverage-gaps-overlay/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/concept-coverage-gaps-overlay/main.html" width="100%" height="522px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Concept-Coverage Gaps Overlaid on the Learning Graph</summary>
@@ -159,7 +159,7 @@ The next report is the one place in this chapter's whole catalog where the speci
 
 #### Diagram: MicroSim Impact — Observational Delta vs. a Controlled Effect
 
-<iframe src="../../sims/microsim-impact-observational-vs-controlled/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/microsim-impact-observational-vs-controlled/main.html" width="100%" height="462px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>MicroSim Impact — Observational Delta vs. a Controlled Effect</summary>
@@ -195,7 +195,7 @@ The **Cross-District Benchmark** goes a step further still, aggregating a textbo
 
 #### Diagram: Cross-District Benchmark — Applying the Privacy Aggregation Threshold
 
-<iframe src="../../sims/cross-district-benchmark-privacy-threshold/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/cross-district-benchmark-privacy-threshold/main.html" width="100%" height="522px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Cross-District Benchmark — Applying the Privacy Aggregation Threshold</summary>

@@ -96,7 +96,7 @@ Before the diagram below, hold the pipeline's shape in mind: Kafka is the only s
 
 #### Diagram: The Data-Loss Boundary Across the Compression Pipeline
 
-<iframe src="../../sims/lrs-failure-mode-data-loss-boundary/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/lrs-failure-mode-data-loss-boundary/main.html" width="100%" height="562px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>The Data-Loss Boundary Across the Compression Pipeline</summary>
@@ -149,7 +149,7 @@ The last four failure modes differ in kind from everything covered so far: none 
 
 #### Diagram: Poison Message Retry and Dead-Letter Queue Workflow
 
-<iframe src="../../sims/poison-message-dlq-retry-workflow/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/poison-message-dlq-retry-workflow/main.html" width="100%" height="642px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Poison Message Retry and Dead-Letter Queue Workflow</summary>
@@ -223,7 +223,7 @@ The widest and least frequent layer is the **Chaos Kill Test**: a scheduled exer
 
 #### Diagram: Testing Layers by Scope and Run Frequency
 
-<iframe src="../../sims/testing-layers-scope-frequency-chart/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/testing-layers-scope-frequency-chart/main.html" width="100%" height="452px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Testing Layers by Scope and Run Frequency</summary>
@@ -265,7 +265,7 @@ The table below reinforces the eight layers just described, ordered from narrowe
 
 #### Diagram: Chaos Kill Test Simulator
 
-<iframe src="../../sims/chaos-kill-test-simulator/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/chaos-kill-test-simulator/main.html" width="100%" height="482px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Chaos Kill Test Simulator</summary>

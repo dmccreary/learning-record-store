@@ -70,7 +70,7 @@ Chapters 25 through 27 return to the District Administrator in depth, Chapters 2
 
 #### Diagram: Three Personas, One Statement Log
 
-<iframe src="../../sims/three-personas-one-statement-log/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/three-personas-one-statement-log/main.html" width="100%" height="602px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Three Personas, One Statement Log</summary>
@@ -128,7 +128,7 @@ Reading down that table traces a hierarchy of scope even though the table itself
 
 #### Diagram: Role Hierarchy and Scope
 
-<iframe src="../../sims/lrs-role-hierarchy-scope/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/lrs-role-hierarchy-scope/main.html" width="100%" height="562px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Role Hierarchy and Scope</summary>
@@ -197,7 +197,7 @@ Reading the table by column rather than by row reveals the same hierarchy the ea
 
 #### Diagram: The Nine Admin UIs at a Glance
 
-<iframe src="../../sims/nine-admin-uis-survey/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/nine-admin-uis-survey/main.html" width="100%" height="502px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>The Nine Admin UIs at a Glance</summary>
@@ -241,7 +241,7 @@ Chapter 15 already showed the mechanics that make this fan-out safe rather than 
 
 #### Diagram: Cross-Persona Workflow
 
-<iframe src="../../sims/cross-persona-workflow/main.html" width="100%" height="500px" scrolling="no"></iframe>
+<iframe src="../../sims/cross-persona-workflow/main.html" width="100%" height="602px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>Cross-Persona Workflow</summary>
