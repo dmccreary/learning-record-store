@@ -1,7 +1,7 @@
 ---
 title: Deterministic Bucketing and the Ramping Rule
 description: Let the learner manipulate an experiment's allocation percentage and observe that xxhash64 Bucketing keeps every student's bucket number fixed while only the Bucket To Variant Map's boundary moves, and that the Ramping Allocation Rule prevents the boundary from ever moving backward.
-status: scaffold
+status: implemented
 library: p5.js
 bloom_level: Apply (L3)
 ---
@@ -10,7 +10,7 @@ bloom_level: Apply (L3)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="462"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

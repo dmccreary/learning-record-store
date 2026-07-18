@@ -15,9 +15,10 @@
   "library": "p5.js",
   "bloomLevel": "Apply (L3)",
   "bloomVerb": "compute, trace",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 12,
   "chapter_title": "Bayesian Knowledge Tracing for Mastery",
   "chapter_dir": "12-bayesian-knowledge-tracing",
-  "chapter_rel_dir": "chapters/12-bayesian-knowledge-tracing"
+  "chapter_rel_dir": "chapters/12-bayesian-knowledge-tracing",
+  "canvasHeight": 480
 }

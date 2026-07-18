@@ -1,7 +1,7 @@
 ---
 title: Sync Cadence Tradeoff Explorer
 description: Let the learner manipulate the summarizer's sync cadence and observe, with real computed numbers, how distinct active grains, graph upserts per second, and graph lag all move together — building intuition for why the design specification chose 60 seconds as the default.
-status: scaffold
+status: implemented
 library: p5.js
 bloom_level: Apply (L3)
 ---
@@ -10,7 +10,7 @@ bloom_level: Apply (L3)
 
 
 
-<iframe src="main.html" width="100%" height="600"></iframe>
+<iframe src="main.html" width="100%" height="472"></iframe>
 
 [Run MicroSim in Fullscreen](main.html){ .md-button .md-button--primary }
 

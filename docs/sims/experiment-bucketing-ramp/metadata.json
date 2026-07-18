@@ -15,9 +15,10 @@
   "library": "p5.js",
   "bloomLevel": "Apply (L3)",
   "bloomVerb": "demonstrate, predict",
-  "completion_status": "scaffold",
+  "completion_status": "implemented",
   "chapter_number": 13,
   "chapter_title": "Component Design in Depth",
   "chapter_dir": "13-component-design-in-depth",
-  "chapter_rel_dir": "chapters/13-component-design-in-depth"
+  "chapter_rel_dir": "chapters/13-component-design-in-depth",
+  "canvasHeight": 460
 }
