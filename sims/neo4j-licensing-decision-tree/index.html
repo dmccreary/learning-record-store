@@ -313,6 +313,12 @@
         
       
         
+      
+        
+          
+        
+      
+        
           
         
       
@@ -406,131 +412,67 @@
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
-        
       
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
         
       
     
@@ -576,6 +518,8 @@
       
         
           
+        
+      
         
       
         
@@ -4846,103 +4790,8 @@
     
       
         
-          
-        
       
         
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../../stories/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Stories
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
       
         
       
@@ -4974,6 +4823,51 @@
   
   <span class="md-ellipsis">
     Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../lrs-lite/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    LRS-Lite (Serverless)
   </span>
   
 
@@ -5220,15 +5114,15 @@
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>Bloom Taxonomy: Evaluate (L5)
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>Bloom Taxonomy Verb: judge, justify
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>Learning objective: Evaluate why Neo4j Community&#39;s lack of clustering forces a production choice between Enterprise, AuraDB, and an open-source alternative, and judge each option against cost and high-availability requirements.
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>Learning objective: Evaluate why Neo4j Community's lack of clustering forces a production choice between Enterprise, AuraDB, and an open-source alternative, and judge each option against cost and high-availability requirements.
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
 </span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>Purpose: A Mermaid decision-tree flowchart starting from the single fact that forces the whole branch: Community cannot cluster.
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Root node: &quot;Does this deployment need a Causal Cluster Topology for High Availability?&quot; -&gt; &quot;No (pilot/single-server tier)&quot; leads to &quot;Neo4j Community — free, unclustered, single point of failure, acceptable at the ~250 upserts/sec pilot scale.&quot; -&gt; &quot;Yes (production, multi-AZ)&quot; leads to three sibling branches: &quot;Neo4j Enterprise (self-managed cluster)&quot; — labeled &quot;Real licensing cost, full operational control&quot;; &quot;Neo4j AuraDB (managed cluster)&quot; — labeled &quot;Real licensing cost, provider manages the cluster&quot;; &quot;Open-source alternative engine (e.g. Memgraph)&quot; — labeled &quot;No per-node license, requires validating drop-in compatibility.&quot;
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Root node: "Does this deployment need a Causal Cluster Topology for High Availability?" -&gt; "No (pilot/single-server tier)" leads to "Neo4j Community — free, unclustered, single point of failure, acceptable at the ~250 upserts/sec pilot scale." -&gt; "Yes (production, multi-AZ)" leads to three sibling branches: "Neo4j Enterprise (self-managed cluster)" — labeled "Real licensing cost, full operational control"; "Neo4j AuraDB (managed cluster)" — labeled "Real licensing cost, provider manages the cluster"; "Open-source alternative engine (e.g. Memgraph)" — labeled "No per-node license, requires validating drop-in compatibility."
 </span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Interactive features: Every node has a Mermaid click directive. Clicking the root node opens an infobox on why Causal Cluster Topology requires a licensed edition. Clicking any of the three production branches opens an infobox with that option&#39;s stated trade-off, sourced from the design document&#39;s own hedge language (&quot;quote-based,&quot; &quot;not yet decided&quot;). A small footer note, revealed by clicking a &quot;Status&quot; tag at the bottom, states plainly: &quot;This decision is marked OPEN in the design document — no branch here is the confirmed choice.&quot;
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Interactive features: Every node has a Mermaid click directive. Clicking the root node opens an infobox on why Causal Cluster Topology requires a licensed edition. Clicking any of the three production branches opens an infobox with that option's stated trade-off, sourced from the design document's own hedge language ("quote-based," "not yet decided"). A small footer note, revealed by clicking a "Status" tag at the bottom, states plainly: "This decision is marked OPEN in the design document — no branch here is the confirmed choice."
 </span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Color coding: The unclustered/pilot branch in calm teal; the three production branches in neutral gray rather than a &quot;winner&quot; color, signaling that none is yet selected; the root decision diamond in amber to mark it as the pivotal open question.
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Color coding: The unclustered/pilot branch in calm teal; the three production branches in neutral gray rather than a "winner" color, signaling that none is yet selected; the root decision diamond in amber to mark it as the pivotal open question.
 </span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
 </span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>Responsive design: Tree reflows to a vertical stack on narrow viewports, root node pinned at top; click targets stay tap-sized.
 </span></code></pre></div>

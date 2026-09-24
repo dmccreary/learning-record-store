@@ -313,6 +313,12 @@
         
       
         
+      
+        
+          
+        
+      
+        
           
         
       
@@ -406,131 +412,67 @@
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
-        
       
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
         
       
     
@@ -576,6 +518,8 @@
       
         
           
+        
+      
         
       
         
@@ -4846,103 +4790,8 @@
     
       
         
-          
-        
       
         
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../../stories/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Stories
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
       
         
       
@@ -4974,6 +4823,51 @@
   
   <span class="md-ellipsis">
     Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../lrs-lite/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    LRS-Lite (Serverless)
   </span>
   
 
@@ -5220,15 +5114,15 @@
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>Bloom Taxonomy: Analyze (L4)
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>Bloom Taxonomy Verb: trace, differentiate
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>Learning objective: Let the learner trace a batch of statements through the processor&#39;s Kafka Consumer Batch Window, ReplacingMergeTree Dedup, and BKT Streaming Update, then differentiate the ordinary redelivery path from the late-arrival path that triggers a Targeted Replay Command.
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>Learning objective: Let the learner trace a batch of statements through the processor's Kafka Consumer Batch Window, ReplacingMergeTree Dedup, and BKT Streaming Update, then differentiate the ordinary redelivery path from the late-arrival path that triggers a Targeted Replay Command.
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
 </span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>Purpose: Show a Mermaid flowchart with a main loop and one branch for the late-arrival exception.
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Nodes: &quot;Consume batch: up to 1,000 statements or 200ms (Kafka Consumer Batch Window)&quot; leads to &quot;Pseudonymize + resolve + enrich&quot; leads to &quot;BKT Streaming Update per (student, concept), in partition order&quot; leads to &quot;Write batch to ClickHouse; ReplacingMergeTree Dedup absorbs any redelivered rows&quot; leads to &quot;Checkpoint mastery state to Compacted State Checkpoint topic&quot; leads to &quot;Commit Kafka offset&quot;. A separate branch from &quot;Consume batch&quot;: &quot;Late Arrival Detector flags a statement far behind the watermark&quot; leads to &quot;Enqueue Targeted Replay Command scoped to (student, concept)&quot; leads to &quot;Recompute mastery trajectory in order, directly from the ClickHouse log&quot; leads back into &quot;Checkpoint mastery state&quot;.
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Nodes: "Consume batch: up to 1,000 statements or 200ms (Kafka Consumer Batch Window)" leads to "Pseudonymize + resolve + enrich" leads to "BKT Streaming Update per (student, concept), in partition order" leads to "Write batch to ClickHouse; ReplacingMergeTree Dedup absorbs any redelivered rows" leads to "Checkpoint mastery state to Compacted State Checkpoint topic" leads to "Commit Kafka offset". A separate branch from "Consume batch": "Late Arrival Detector flags a statement far behind the watermark" leads to "Enqueue Targeted Replay Command scoped to (student, concept)" leads to "Recompute mastery trajectory in order, directly from the ClickHouse log" leads back into "Checkpoint mastery state".
 </span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Interactive features: Every node has a Mermaid click directive opening a definition infobox, with the dedup and BKT nodes&#39; infoboxes explicitly contrasting idempotent-by-construction against order-sensitive. A toggle labeled &quot;Show why order matters&quot; highlights the BKT node and the late-arrival branch in a shared color, dimming the rest of the diagram.
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Interactive features: Every node has a Mermaid click directive opening a definition infobox, with the dedup and BKT nodes' infoboxes explicitly contrasting idempotent-by-construction against order-sensitive. A toggle labeled "Show why order matters" highlights the BKT node and the late-arrival branch in a shared color, dimming the rest of the diagram.
 </span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Color coding: The main loop in the book&#39;s teal accent color; the late-arrival branch in amber to flag it as the exception path; the Compacted State Checkpoint node in a distinct violet since it is a durability mechanism rather than a processing step.
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Color coding: The main loop in the book's teal accent color; the late-arrival branch in amber to flag it as the exception path; the Compacted State Checkpoint node in a distinct violet since it is a durability mechanism rather than a processing step.
 </span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
 </span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>Responsive design: Flowchart resizes to the width of its containing element; the late-arrival branch collapses beneath the main loop on narrow viewports rather than sitting beside it.
 </span></code></pre></div>

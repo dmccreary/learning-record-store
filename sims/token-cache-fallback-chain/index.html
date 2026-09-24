@@ -313,6 +313,12 @@
         
       
         
+      
+        
+          
+        
+      
+        
           
         
       
@@ -406,131 +412,67 @@
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
-        
       
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
         
       
     
@@ -576,6 +518,8 @@
       
         
           
+        
+      
         
       
         
@@ -4846,103 +4790,8 @@
     
       
         
-          
-        
       
         
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../../stories/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Stories
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
       
         
       
@@ -4974,6 +4823,51 @@
   
   <span class="md-ellipsis">
     Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../lrs-lite/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    LRS-Lite (Serverless)
   </span>
   
 
@@ -5220,19 +5114,19 @@
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>Bloom Taxonomy: Understand (L2)
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>Bloom Taxonomy Verb: explain, sequence
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>Learning objective: Explain how a gateway&#39;s token-to-district lookup degrades from a shared Redis cache to a local LRU fallback as Cache TTL Expiry and Redis availability change, without ever blocking ingestion.
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>Learning objective: Explain how a gateway's token-to-district lookup degrades from a shared Redis cache to a local LRU fallback as Cache TTL Expiry and Redis availability change, without ever blocking ingestion.
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>Purpose: A Mermaid flowchart tracing one incoming request&#39;s token lookup through every possible path.
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>Purpose: A Mermaid flowchart tracing one incoming request's token lookup through every possible path.
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Flow: &quot;Gateway receives request with bearer token&quot; -&gt; &quot;Check ElastiCache Redis for cached district mapping&quot; -&gt; two branches.
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Flow: "Gateway receives request with bearer token" -&gt; "Check ElastiCache Redis for cached district mapping" -&gt; two branches.
 </span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Branch A &quot;Redis reachable, entry present and fresh (within 60s TTL)&quot;: -&gt; &quot;Return cached district_id&quot; -&gt; &quot;Proceed to Tier-1 validation.&quot;
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Branch A "Redis reachable, entry present and fresh (within 60s TTL)": -&gt; "Return cached district_id" -&gt; "Proceed to Tier-1 validation."
 </span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Branch B &quot;Redis reachable, entry expired (Cache TTL Expiry passed)&quot;: -&gt; &quot;Re-fetch mapping from the identity service&quot; -&gt; &quot;Re-populate Redis with a fresh 60s TTL&quot; -&gt; &quot;Proceed to Tier-1 validation.&quot;
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Branch B "Redis reachable, entry expired (Cache TTL Expiry passed)": -&gt; "Re-fetch mapping from the identity service" -&gt; "Re-populate Redis with a fresh 60s TTL" -&gt; "Proceed to Tier-1 validation."
 </span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
-</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>Branch C &quot;Redis unreachable&quot;: -&gt; &quot;Fall back to the gateway pod&#39;s local LRU Fallback Cache&quot; -&gt; &quot;Serve from local cache if present, else re-fetch from identity service directly&quot; -&gt; &quot;Proceed to Tier-1 validation&quot; with an annotation &quot;Ingestion never blocks on cache health.&quot;
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>Branch C "Redis unreachable": -&gt; "Fall back to the gateway pod's local LRU Fallback Cache" -&gt; "Serve from local cache if present, else re-fetch from identity service directly" -&gt; "Proceed to Tier-1 validation" with an annotation "Ingestion never blocks on cache health."
 </span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>
-</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>Interactive features: Every node has a Mermaid click directive. Clicking a TTL-related node opens an infobox defining Cache TTL Expiry with the 60-second default. Clicking the LRU node opens an infobox defining LRU Fallback Cache and why it is smaller and pod-local rather than shared. Clicking the final &quot;Proceed to Tier-1 validation&quot; node in any branch opens an infobox noting all three branches converge on the same non-blocking outcome.
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>Interactive features: Every node has a Mermaid click directive. Clicking a TTL-related node opens an infobox defining Cache TTL Expiry with the 60-second default. Clicking the LRU node opens an infobox defining LRU Fallback Cache and why it is smaller and pod-local rather than shared. Clicking the final "Proceed to Tier-1 validation" node in any branch opens an infobox noting all three branches converge on the same non-blocking outcome.
 </span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>
 </span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>Color coding: The healthy Redis path in teal; the fallback path in amber to flag it as the degraded-but-safe branch, not a failure state.
 </span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>

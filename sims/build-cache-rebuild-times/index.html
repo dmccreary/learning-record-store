@@ -313,6 +313,12 @@
         
       
         
+      
+        
+          
+        
+      
+        
           
         
       
@@ -406,131 +412,67 @@
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
-        
       
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
         
       
     
@@ -576,6 +518,8 @@
       
         
           
+        
+      
         
       
         
@@ -4846,103 +4790,8 @@
     
       
         
-          
-        
       
         
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../../stories/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Stories
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
       
         
       
@@ -4974,6 +4823,51 @@
   
   <span class="md-ellipsis">
     Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../lrs-lite/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    LRS-Lite (Serverless)
   </span>
   
 
@@ -5222,15 +5116,15 @@
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>Learning objective: Given three rebuild scenarios, determine which of ordinary layer caching versus the build cache mount is responsible for the time saved in each case.
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>Purpose: A grouped bar chart comparing simulated rebuild wall-clock time across three scenarios, each with and without the uv cache mount, isolating the mount&#39;s effect from ordinary layer-skipping.
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>Purpose: A grouped bar chart comparing simulated rebuild wall-clock time across three scenarios, each with and without the uv cache mount, isolating the mount's effect from ordinary layer-skipping.
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Data (illustrative, labeled as representative, not measured): Scenario 1 &quot;Code only changed (layer skip applies)&quot; -- with mount 8s, without 9s (dependency layer is skipped entirely either way). Scenario 2 &quot;uv.lock changed (dependency layer reruns)&quot; -- with mount 12s, without 65s (mount reuses already-downloaded packages). Scenario 3 &quot;Cold machine, no prior cache&quot; -- with mount 70s, without 70s (nothing cached yet to reuse).
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Data (illustrative, labeled as representative, not measured): Scenario 1 "Code only changed (layer skip applies)" -- with mount 8s, without 9s (dependency layer is skipped entirely either way). Scenario 2 "uv.lock changed (dependency layer reruns)" -- with mount 12s, without 65s (mount reuses already-downloaded packages). Scenario 3 "Cold machine, no prior cache" -- with mount 70s, without 70s (nothing cached yet to reuse).
 </span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Controls: Toggle &quot;Absolute seconds / Multiple of fastest&quot;; dropdown to highlight one scenario&#39;s bars while the others dim to 40% opacity.
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Controls: Toggle "Absolute seconds / Multiple of fastest"; dropdown to highlight one scenario's bars while the others dim to 40% opacity.
 </span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Interactive features: Hovering or clicking a bar opens a tooltip explaining, in one sentence, why that bar has its value. Scenario 3&#39;s tooltip notes a cache mount cannot help a build with nothing cached yet.
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Interactive features: Hovering or clicking a bar opens a tooltip explaining, in one sentence, why that bar has its value. Scenario 3's tooltip notes a cache mount cannot help a build with nothing cached yet.
 </span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
-</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>Color coding: &quot;With cache mount&quot; bars in the book&#39;s teal accent color; &quot;without&quot; bars in muted gray, so Scenario 2&#39;s size difference reads immediately as the mount&#39;s payoff.
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>Color coding: "With cache mount" bars in the book's teal accent color; "without" bars in muted gray, so Scenario 2's size difference reads immediately as the mount's payoff.
 </span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>
 </span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>Responsive design: Legend moves below the plot on narrow viewports; bar labels rotate rather than overlap.
 </span></code></pre></div>

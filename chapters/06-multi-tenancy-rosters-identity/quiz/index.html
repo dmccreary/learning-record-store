@@ -1,0 +1,3514 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Review questions on the Tenancy Hierarchy, Hard and Soft Isolation, OneRoster and Student Information Systems, Pseudonymous Accounts, Student Keys, and the PII Vault.">
+      
+      
+        <meta name="author" content="Dan McCreary">
+      
+      
+        <link rel="canonical" href="https://dmccreary.github.io/learning-record-store/chapters/06-multi-tenancy-rosters-identity/quiz/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../../07-property-graph-data-model/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
+    
+    
+      
+        <title>Quiz: Multi-Tenancy, Rosters, and Pseudonymous Identity - Learning Record Store</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/extra.css">
+    
+      <link rel="stylesheet" href="../../../css/mascot.css">
+    
+      <link rel="stylesheet" href="../../../css/lrs-xapi.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#quiz-multi-tenancy-rosters-and-pseudonymous-identity" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Learning Record Store" class="md-header__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  <img src="../../../img/mascot/neutral.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Learning Record Store
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Quiz: Multi-Tenancy, Rosters, and Pseudonymous Identity
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Learning Record Store" class="md-nav__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  <img src="../../../img/mascot/neutral.png" alt="logo">
+
+    </a>
+    Learning Record Store
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../course-description/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Course Description
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../stories/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Stories
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Chapters
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Chapters
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../01-lms-to-experience-api/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    1. From Learning Management Systems to the Experience API
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../02-anatomy-of-xapi-statement/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    2. The Anatomy of an xAPI Statement
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../03-ieee-standardization-xapi-cmi5/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    3. IEEE Standardization of xAPI and cmi5
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../04-standards-governance-ecosystem/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    4. Standards Governance and the Wider Interoperability Ecosystem
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../05-system-context-architectural-planes/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    5. System Context and the Five Architectural Planes
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_7" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    6. Multi-Tenancy, Rosters, and Pseudonymous Identity
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5_7" id="__nav_5_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_7">
+            <span class="md-nav__icon md-icon"></span>
+            6. Multi-Tenancy, Rosters, and Pseudonymous Identity
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Quiz
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Quiz
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-in-this-lrss-specification-what-is-a-tenant" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. In this LRS's specification, what is a Tenant?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-what-is-the-correct-order-of-levels-in-this-projects-tenancy-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. What is the correct order of levels in this project's Tenancy Hierarchy?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-what-is-the-key-structural-difference-between-hard-isolation-and-soft-isolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. What is the key structural difference between Hard Isolation and Soft Isolation?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-why-does-this-lrs-rely-on-oneroster-syncs-from-a-districts-student-information-system-rather-than-treating-itself-as-the-authoritative-source-of-enrollment" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Why does this LRS rely on OneRoster syncs from a district's Student Information System rather than treating itself as the authoritative source of enrollment?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-what-does-the-student-node-in-this-lrss-property-graph-actually-contain" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. What does the Student node in this LRS's property graph actually contain?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-an-intelligent-textbook-constructs-an-xapi-statement-for-a-students-quiz-attempt-according-to-this-chapter-what-does-the-actor-field-of-that-statement-actually-contain-when-it-arrives-at-the-ingestion-gateway" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. An intelligent textbook constructs an xAPI Statement for a student's quiz attempt. According to this chapter, what does the Actor field of that Statement actually contain when it arrives at the Ingestion Gateway?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-a-students-student_key-needs-to-stay-consistent-every-time-that-same-student-produces-a-new-statement-within-one-district-while-also-being-impossible-to-reverse-back-into-their-original-account-which-property-of-the-hmac-sha256-based-derivation-makes-both-true-at-once" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. A student's student_key needs to stay consistent every time that same student produces a new statement within one district, while also being impossible to reverse back into their original account. Which property of the HMAC-SHA256-based derivation makes both true at once?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-a-vendor-proposes-storing-the-pii-vaults-mapping-table-in-the-same-postgresql-instance-as-the-event-store-just-in-a-separate-schema-to-simplify-operations-why-would-this-violate-the-design-this-chapter-describes" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. A vendor proposes storing the PII Vault's mapping table in the same PostgreSQL instance as the event store, just in a separate schema, to simplify operations. Why would this violate the design this chapter describes?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-a-student-transfers-from-district-a-to-district-b-partway-through-the-year-why-cant-anyone-holding-only-analytics-data-correlate-that-students-activity-across-the-two-districts" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. A student transfers from District A to District B partway through the year. Why can't anyone holding only analytics data correlate that student's activity across the two districts?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-when-a-district-exercises-a-right-to-erasure-request-for-one-student-what-actually-happens-and-why-does-it-make-re-identification-permanently-impossible" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. When a district exercises a right-to-erasure request for one student, what actually happens, and why does it make re-identification permanently impossible?
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../07-property-graph-data-model/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    7. The Property Graph Data Model
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../08-summary-vertices-ingestion/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    8. Summary Vertices and Statement Ingestion Mechanics
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../09-twelve-core-lrs-functions/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    9. The Twelve Core LRS Functions
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../10-choosing-technology-stack/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    10. Choosing the Technology Stack
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../11-adrs-and-capacity-model/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    11. Architecture Decision Records and the Capacity Model
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../12-bayesian-knowledge-tracing/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    12. Bayesian Knowledge Tracing for Mastery
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../13-component-design-in-depth/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    13. Component Design in Depth
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../14-kafka-clickhouse-graph-schema/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    14. Kafka Topics, ClickHouse Schema, and Graph Constraints
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../15-privacy-and-dashboard-mechanics/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    15. Privacy Enforcement and Dashboard Mechanics
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../16-container-image-and-cli/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    16. The Container Image and the Role Dispatcher CLI
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../17-compose-makefile-supply-chain/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    17. Docker Compose, the Makefile, and the Image Supply Chain
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../18-config-migration-backup-rollout/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    18. Configuration, Migration, Backup, and Rollout
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../19-failure-modes-and-verification/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    19. Failure Modes and Verification
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../20-deviations-roadmap-open-questions/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    20. Spec Deviations, the Delivery Roadmap, and Open Questions
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../21-hardware-cost-dev-environment/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    21. Hardware Sizing, Cost, and the Development Environment
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../22-proving-the-architecture-mvp/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    22. Proving the Architecture - the MVP Plan
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../23-production-infrastructure-cloud/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    23. Production Infrastructure and Cloud Services
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../24-three-personas-and-admin-uis/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    24. Meet the Three Personas and the Admin UI Surface
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../25-district-admin-rosters-deployments/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    25. District Administrator - Rosters, Deployments, and Registries
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../26-district-admin-access-control/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    26. District Administrator - Access Control and System Configuration
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../27-compliance-and-district-reporting/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    27. Compliance, Privacy Law, and District-Level Reporting
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../28-teacher-dashboards-student-reports/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    28. Teacher Dashboards and Student-Level Reports
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../29-class-level-reports-and-tools/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    29. Class-Level Reports and Teacher Tools
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../30-author-dashboards-content-reports/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    30. Textbook Author Dashboards and Content Reports
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../31-designing-ab-experiments/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    31. Designing and Reading A/B Experiments
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../32-producer-contract-conformant-statements/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    32. The Producer Contract - Writing Conformant Statements
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../learning-graph/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Learning Graph
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../sims/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    MicroSims
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../specs/lrs-spec-v1/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../lrs-lite/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    LRS-Lite (Serverless)
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../demo/graph-queries/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Demo
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../case-studies/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Case Studies
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../glossary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Glossary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../license/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contact/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contact
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-in-this-lrss-specification-what-is-a-tenant" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. In this LRS's specification, what is a Tenant?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-what-is-the-correct-order-of-levels-in-this-projects-tenancy-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. What is the correct order of levels in this project's Tenancy Hierarchy?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-what-is-the-key-structural-difference-between-hard-isolation-and-soft-isolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. What is the key structural difference between Hard Isolation and Soft Isolation?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-why-does-this-lrs-rely-on-oneroster-syncs-from-a-districts-student-information-system-rather-than-treating-itself-as-the-authoritative-source-of-enrollment" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Why does this LRS rely on OneRoster syncs from a district's Student Information System rather than treating itself as the authoritative source of enrollment?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-what-does-the-student-node-in-this-lrss-property-graph-actually-contain" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. What does the Student node in this LRS's property graph actually contain?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-an-intelligent-textbook-constructs-an-xapi-statement-for-a-students-quiz-attempt-according-to-this-chapter-what-does-the-actor-field-of-that-statement-actually-contain-when-it-arrives-at-the-ingestion-gateway" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. An intelligent textbook constructs an xAPI Statement for a student's quiz attempt. According to this chapter, what does the Actor field of that Statement actually contain when it arrives at the Ingestion Gateway?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-a-students-student_key-needs-to-stay-consistent-every-time-that-same-student-produces-a-new-statement-within-one-district-while-also-being-impossible-to-reverse-back-into-their-original-account-which-property-of-the-hmac-sha256-based-derivation-makes-both-true-at-once" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. A student's student_key needs to stay consistent every time that same student produces a new statement within one district, while also being impossible to reverse back into their original account. Which property of the HMAC-SHA256-based derivation makes both true at once?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-a-vendor-proposes-storing-the-pii-vaults-mapping-table-in-the-same-postgresql-instance-as-the-event-store-just-in-a-separate-schema-to-simplify-operations-why-would-this-violate-the-design-this-chapter-describes" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. A vendor proposes storing the PII Vault's mapping table in the same PostgreSQL instance as the event store, just in a separate schema, to simplify operations. Why would this violate the design this chapter describes?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-a-student-transfers-from-district-a-to-district-b-partway-through-the-year-why-cant-anyone-holding-only-analytics-data-correlate-that-students-activity-across-the-two-districts" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. A student transfers from District A to District B partway through the year. Why can't anyone holding only analytics data correlate that student's activity across the two districts?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-when-a-district-exercises-a-right-to-erasure-request-for-one-student-what-actually-happens-and-why-does-it-make-re-identification-permanently-impossible" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. When a district exercises a right-to-erasure request for one student, what actually happens, and why does it make re-identification permanently impossible?
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/06-multi-tenancy-rosters-identity/quiz.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="quiz-multi-tenancy-rosters-and-pseudonymous-identity">Quiz: Multi-Tenancy, Rosters, and Pseudonymous Identity<a class="headerlink" href="#quiz-multi-tenancy-rosters-and-pseudonymous-identity" title="Permanent link">&para;</a></h1>
+<p>Test your understanding of this Learning Record Store's multi-tenancy model, roster ingestion, and pseudonymization pipeline with these review questions.</p>
+<hr />
+<h4 id="1-in-this-lrss-specification-what-is-a-tenant">1. In this LRS's specification, what is a Tenant?<a class="headerlink" href="#1-in-this-lrss-specification-what-is-a-tenant" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>A school district — the top-level unit and the boundary every isolation guarantee is drawn around</li>
+<li>Any individual school within a district</li>
+<li>A single classroom section taught by one teacher</li>
+<li>The Learning Record Provider that submits statements on behalf of a textbook</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>A</strong>. A Tenant is defined precisely as a school district, the top-level unit whose data must never leak into another tenant's view. B and C each name a level nested inside a district, not the tenant root itself. D confuses the architectural role of Tenant with a Learning Record Provider, an unrelated concept from earlier chapters.</p>
+<p><strong>Concept Tested:</strong> Tenant</p>
+<p><strong>See:</strong> <a href="../#the-tenant-who-owns-this-data">The Tenant: Who Owns This Data?</a></p>
+</details>
+<hr />
+<h4 id="2-what-is-the-correct-order-of-levels-in-this-projects-tenancy-hierarchy">2. What is the correct order of levels in this project's Tenancy Hierarchy?<a class="headerlink" href="#2-what-is-the-correct-order-of-levels-in-this-projects-tenancy-hierarchy" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>School → District → Section → Course</li>
+<li>Course → Section → District → School</li>
+<li>District → School → Course → Section</li>
+<li>Section → Course → School → District</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>C</strong>. The specification nests the hierarchy top to bottom as District, School, Course, Section, with Enrollment as the relationship connecting a Student to a Section. A, B, and D each scramble this order in a way that would place a level above its own parent.</p>
+<p><strong>Concept Tested:</strong> Tenancy Hierarchy</p>
+<p><strong>See:</strong> <a href="../#the-tenancy-hierarchy-district-down-to-student">The Tenancy Hierarchy: District Down to Student</a></p>
+</details>
+<hr />
+<h4 id="3-what-is-the-key-structural-difference-between-hard-isolation-and-soft-isolation">3. What is the key structural difference between Hard Isolation and Soft Isolation?<a class="headerlink" href="#3-what-is-the-key-structural-difference-between-hard-isolation-and-soft-isolation" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Hard Isolation is enforced only by role-based access control, while Soft Isolation is a structural property with no configuration</li>
+<li>Hard Isolation applies only at the District level and makes cross-boundary queries architecturally impossible; Soft Isolation governs School, Course, and Section through role-based access control that could, in principle, be configured to overlap</li>
+<li>Both guarantees apply at every level of the hierarchy with identical enforcement mechanisms</li>
+<li>Soft Isolation applies only to the District level, while Hard Isolation applies to School, Course, and Section</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>B</strong>. Hard Isolation at the District level is a structural property with no code path capable of crossing it, while Soft Isolation at School, Course, and Section is a policy enforced by role-based access control that could, in principle, be configured to overlap. A reverses which guarantee is structural versus policy-based. C ignores that the two guarantees differ in strength and mechanism. D reverses which level gets which guarantee.</p>
+<p><strong>Concept Tested:</strong> Hard Isolation / Soft Isolation</p>
+<p><strong>See:</strong> <a href="../#hard-isolation-and-soft-isolation">Hard Isolation and Soft Isolation</a></p>
+</details>
+<hr />
+<h4 id="4-why-does-this-lrs-rely-on-oneroster-syncs-from-a-districts-student-information-system-rather-than-treating-itself-as-the-authoritative-source-of-enrollment">4. Why does this LRS rely on OneRoster syncs from a district's Student Information System rather than treating itself as the authoritative source of enrollment?<a class="headerlink" href="#4-why-does-this-lrs-rely-on-oneroster-syncs-from-a-districts-student-information-system-rather-than-treating-itself-as-the-authoritative-source-of-enrollment" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Because OneRoster is a hard requirement of the xAPI Conformance Suite</li>
+<li>Because a Student Information System cannot export data in CSV or REST formats</li>
+<li>Because the Roster API only accepts data that has already been pseudonymized</li>
+<li>Because the district's SIS already holds the official enrollment records and legal/administrative authority over them, so the LRS remains a faithful copy rather than a second source of truth</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>D</strong>. A district's SIS already keeps the official, legally authoritative enrollment records long before it adopts any intelligent textbook, so the LRS treats roster data as a faithful copy rather than inventing a competing source of truth. A misattributes OneRoster to an unrelated conformance suite. B is false — SIS platforms commonly export CSV or REST feeds, which is exactly what OneRoster relies on. C is unrelated to why rosters originate outside the LRS.</p>
+<p><strong>Concept Tested:</strong> Student Information System / OneRoster</p>
+<p><strong>See:</strong> <a href="../#rosters-how-enrollment-data-actually-gets-in">Rosters: How Enrollment Data Actually Gets In</a></p>
+</details>
+<hr />
+<h4 id="5-what-does-the-student-node-in-this-lrss-property-graph-actually-contain">5. What does the Student node in this LRS's property graph actually contain?<a class="headerlink" href="#5-what-does-the-student-node-in-this-lrss-property-graph-actually-contain" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>A <code>student_key</code> (pseudonymous) and a <code>grade_level</code>, with no PII stored on the node at all</li>
+<li>The student's real name and email address, encrypted at rest</li>
+<li>A direct foreign key reference to the matching row in the PII Vault</li>
+<li>The student's roster ID exactly as it appears in the district's SIS</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>A</strong>. The Student node is deliberately thin, holding only a pseudonymous <code>student_key</code> and a <code>grade_level</code>, with the specification stating plainly that no PII is stored there. B is wrong because even encrypted PII is never stored on the node. C is wrong because no direct reference to the PII Vault exists on the graph side. D is wrong because the raw roster ID never appears there either.</p>
+<p><strong>Concept Tested:</strong> Student (pseudonymous)</p>
+<p><strong>See:</strong> <a href="../#the-student-node-present-in-the-graph-absent-as-a-person">The Student Node: Present in the Graph, Absent as a Person</a></p>
+</details>
+<hr />
+<h4 id="6-an-intelligent-textbook-constructs-an-xapi-statement-for-a-students-quiz-attempt-according-to-this-chapter-what-does-the-actor-field-of-that-statement-actually-contain-when-it-arrives-at-the-ingestion-gateway">6. An intelligent textbook constructs an xAPI Statement for a student's quiz attempt. According to this chapter, what does the Actor field of that Statement actually contain when it arrives at the Ingestion Gateway?<a class="headerlink" href="#6-an-intelligent-textbook-constructs-an-xapi-statement-for-a-students-quiz-attempt-according-to-this-chapter-what-does-the-actor-field-of-that-statement-actually-contain-when-it-arrives-at-the-ingestion-gateway" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>The student's real name as recorded in the district's SIS</li>
+<li>The already-derived <code>student_key</code> computed by the identity service</li>
+<li>A Pseudonymous Account made of <code>homePage</code> (the issuing system) and <code>name</code> (an opaque identifier), never a real identity</li>
+<li>An empty field, since the Ingestion Gateway does not accept Actor data</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>C</strong>. Every actor on the event stream carries a Pseudonymous Account — <code>homePage</code> naming the issuing system and <code>name</code> an opaque, internally-used identifier — so the sending Learning Record Provider never puts a real identity directly on the wire. A contradicts the whole point of pseudonymization at the source. B is wrong because the <code>student_key</code> is derived downstream by the Stream Processor, not supplied by the textbook. D is wrong because the Actor field is required and present.</p>
+<p><strong>Concept Tested:</strong> Pseudonymous Account</p>
+<p><strong>See:</strong> <a href="../#from-a-pseudonymous-account-to-a-student-key">From a Pseudonymous Account to a Student Key</a></p>
+</details>
+<hr />
+<h4 id="7-a-students-student_key-needs-to-stay-consistent-every-time-that-same-student-produces-a-new-statement-within-one-district-while-also-being-impossible-to-reverse-back-into-their-original-account-which-property-of-the-hmac-sha256-based-derivation-makes-both-true-at-once">7. A student's <code>student_key</code> needs to stay consistent every time that same student produces a new statement within one district, while also being impossible to reverse back into their original account. Which property of the HMAC-SHA256-based derivation makes both true at once?<a class="headerlink" href="#7-a-students-student_key-needs-to-stay-consistent-every-time-that-same-student-produces-a-new-statement-within-one-district-while-also-being-impossible-to-reverse-back-into-their-original-account-which-property-of-the-hmac-sha256-based-derivation-makes-both-true-at-once" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>It is encrypted with a reversible cipher that only the identity service can decrypt</li>
+<li>It is deterministic (same input always yields the same key) and one-way (no formula runs backward from the key to the account)</li>
+<li>It is randomly re-generated on every statement to maximize unpredictability</li>
+<li>It stores the original account alongside the derived key for auditability</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>B</strong>. Determinism keeps one learner's statements linked to one Student node within a district, while the one-way property means no formula recovers the original account from the key — together these are exactly what the formula is designed to guarantee. A is wrong because HMAC is not a reversible cipher. C would break the consistency the system depends on. D would defeat the entire purpose of pseudonymization by keeping the raw account linked to the key.</p>
+<p><strong>Concept Tested:</strong> Student Key</p>
+<p><strong>See:</strong> <a href="../#from-a-pseudonymous-account-to-a-student-key">From a Pseudonymous Account to a Student Key</a></p>
+</details>
+<hr />
+<h4 id="8-a-vendor-proposes-storing-the-pii-vaults-mapping-table-in-the-same-postgresql-instance-as-the-event-store-just-in-a-separate-schema-to-simplify-operations-why-would-this-violate-the-design-this-chapter-describes">8. A vendor proposes storing the PII Vault's mapping table in the same PostgreSQL instance as the event store, just in a separate schema, to simplify operations. Why would this violate the design this chapter describes?<a class="headerlink" href="#8-a-vendor-proposes-storing-the-pii-vaults-mapping-table-in-the-same-postgresql-instance-as-the-event-store-just-in-a-separate-schema-to-simplify-operations-why-would-this-violate-the-design-this-chapter-describes" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>PostgreSQL does not support multiple schemas within one instance</li>
+<li>It would make the Roster API unable to ingest OneRoster files</li>
+<li>It would violate Hard Isolation at the District level specifically, unrelated to PII protection</li>
+<li>It would put the entire privacy boundary one accidental permission grant away from collapsing, since the specification requires a separate instance, not merely a separate schema, with only the identity service able to read it</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>D</strong>. The specification is emphatic that the PII Vault must be a separate instance — its own deployment, credentials, and network policy — precisely so the privacy boundary is architectural rather than one misconfigured permission away from failure. A is factually false about PostgreSQL's capabilities. B and C each attach an unrelated consequence to a change that is really about PII protection, not roster ingestion or district-level isolation specifically.</p>
+<p><strong>Concept Tested:</strong> PII Vault</p>
+<p><strong>See:</strong> <a href="../#the-pii-vault-where-the-real-mapping-lives">The PII Vault: Where the Real Mapping Lives</a></p>
+</details>
+<hr />
+<h4 id="9-a-student-transfers-from-district-a-to-district-b-partway-through-the-year-why-cant-anyone-holding-only-analytics-data-correlate-that-students-activity-across-the-two-districts">9. A student transfers from District A to District B partway through the year. Why can't anyone holding only analytics data correlate that student's activity across the two districts?<a class="headerlink" href="#9-a-student-transfers-from-district-a-to-district-b-partway-through-the-year-why-cant-anyone-holding-only-analytics-data-correlate-that-students-activity-across-the-two-districts" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Because each district derives the student_key using its own distinct salt, so the same learner produces two unrelated keys with no discoverable relationship between them</li>
+<li>Because the Roster API automatically deletes a student's enrollment the moment they transfer</li>
+<li>Because Hard Isolation physically deletes all of a student's prior statements when they change districts</li>
+<li>Because Pseudonymous Accounts are re-issued by the Learning Record Provider every time a student changes schools</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>A</strong>. Because each district's salt is unique, the same physical learner derives two completely unrelated <code>student_key</code> values, one per district — this holds even against a reader with illegitimate access to derived data, not just an honest query respecting the tenant boundary. B and C both invent deletion behaviors the chapter does not describe. D misattributes the mechanism to the Learning Record Provider rather than the identity service's district-salted derivation.</p>
+<p><strong>Concept Tested:</strong> PII Vault / per-district salt</p>
+<p><strong>See:</strong> <a href="../#from-a-pseudonymous-account-to-a-student-key">From a Pseudonymous Account to a Student Key</a></p>
+</details>
+<hr />
+<h4 id="10-when-a-district-exercises-a-right-to-erasure-request-for-one-student-what-actually-happens-and-why-does-it-make-re-identification-permanently-impossible">10. When a district exercises a right-to-erasure request for one student, what actually happens, and why does it make re-identification permanently impossible?<a class="headerlink" href="#10-when-a-district-exercises-a-right-to-erasure-request-for-one-student-what-actually-happens-and-why-does-it-make-re-identification-permanently-impossible" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>The Student node's grade_level field is set to null, while the student_key remains active for future statements</li>
+<li>The district's entire salt is rotated, invalidating every student's key in that district at once</li>
+<li>The vault mapping row and matching event-store rows are deleted, so the per-district salt can no longer be used to re-derive which pseudonymous statements belonged to that student</li>
+<li>The PII Vault is taken offline temporarily while the identity service reprocesses all statements</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>C</strong>. Erasure deletes the student's row from the vault's mapping table and purges the matching event-store rows, so the now-gone mapping means that student's <code>student_key</code> becomes permanently un-derivable, leaving only de-identified aggregates behind. A would leave the key active, defeating erasure. B would incorrectly affect every other student in the district. D describes an operational outage, not the actual erasure mechanism.</p>
+<p><strong>Concept Tested:</strong> PII Vault (right to erasure)</p>
+<p><strong>See:</strong> <a href="../#the-pii-vault-where-the-real-mapping-lives">The PII Vault: Where the Real Mapping Lives</a></p>
+</details>
+<hr />
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Content">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Content
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../07-property-graph-data-model/" class="md-footer__link md-footer__link--next" aria-label="Next: Content">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Content
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Dan McCreary. Licensed under <a href="license/">CC BY-NC-SA 4.0</a> for non-commercial use.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../../js/katex.js"></script>
+      
+        <script src="../../../js/quiz-xapi.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

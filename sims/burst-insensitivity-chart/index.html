@@ -313,6 +313,12 @@
         
       
         
+      
+        
+          
+        
+      
+        
           
         
       
@@ -406,131 +412,67 @@
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
-        
       
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
         
       
     
@@ -576,6 +518,8 @@
       
         
           
+        
+      
         
       
         
@@ -4846,103 +4790,8 @@
     
       
         
-          
-        
       
         
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../../stories/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Stories
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
       
         
       
@@ -4974,6 +4823,51 @@
   
   <span class="md-ellipsis">
     Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../lrs-lite/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    LRS-Lite (Serverless)
   </span>
   
 
@@ -5222,19 +5116,19 @@
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>Learning objective: Evaluate a burst-test result by comparing an ingest-rate line against a graph-write-rate line across a 5x load increase, and judge whether the pattern confirms or falsifies the burst insensitivity claim.
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>Chart type: Dual-line chart over a shared time axis (seconds, 0-600s), left y-axis &quot;Ingest rate (statements/sec)&quot; 0-1200, right y-axis &quot;Graph write rate (upserts/sec)&quot; 0-1200.
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>Chart type: Dual-line chart over a shared time axis (seconds, 0-600s), left y-axis "Ingest rate (statements/sec)" 0-1200, right y-axis "Graph write rate (upserts/sec)" 0-1200.
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Default state (&quot;Passing result&quot;): Ingest-rate line steps from 200 to 1,000 statements/sec at t=300s and holds. Graph-write-rate line stays essentially flat around 60-70 upserts/sec (scaled to this MVP&#39;s smaller population) through the step change, with minor jitter.
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Default state ("Passing result"): Ingest-rate line steps from 200 to 1,000 statements/sec at t=300s and holds. Graph-write-rate line stays essentially flat around 60-70 upserts/sec (scaled to this MVP's smaller population) through the step change, with minor jitter.
 </span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Toggle — &quot;Show failing (hypothetical) result&quot;: redraws the graph-write-rate line climbing in step with ingest after t=300s, so the learner can contrast both outcomes on the same axes.
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Toggle — "Show failing (hypothetical) result": redraws the graph-write-rate line climbing in step with ingest after t=300s, so the learner can contrast both outcomes on the same axes.
 </span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Toggle — &quot;Show test parameters&quot;: overlays an annotation panel listing baseline rate, burst rate, ratio (5x), and the 60s sync cadence.
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Toggle — "Show test parameters": overlays an annotation panel listing baseline rate, burst rate, ratio (5x), and the 60s sync cadence.
 </span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
-</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>Interactive features: Hovering any point shows its value and timestamp. Clicking the dashed line at t=300s (burst onset) opens an infobox on what changes at that moment. A caption below updates per toggle: &quot;Flat graph writes under 5x ingest: the architecture holds&quot; versus &quot;Climbing graph writes: the architecture does not decouple as designed.&quot;
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>Interactive features: Hovering any point shows its value and timestamp. Clicking the dashed line at t=300s (burst onset) opens an infobox on what changes at that moment. A caption below updates per toggle: "Flat graph writes under 5x ingest: the architecture holds" versus "Climbing graph writes: the architecture does not decouple as designed."
 </span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>
-</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>Color scheme: Ingest-rate line in the book&#39;s teal accent color; graph-write-rate line in a contrasting warm color; the failing line renders in warning amber.
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>Color scheme: Ingest-rate line in the book's teal accent color; graph-write-rate line in a contrasting warm color; the failing line renders in warning amber.
 </span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>
-</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>Responsive design: Resizes to its container&#39;s width; legend and toggles stack below on narrow viewports; touch targets stay tap-sized.
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>Responsive design: Resizes to its container's width; legend and toggles stack below on narrow viewports; touch targets stay tap-sized.
 </span></code></pre></div>
 <h2 id="related-resources">Related Resources<a class="headerlink" href="#related-resources" title="Permanent link">&para;</a></h2>
 <ul>

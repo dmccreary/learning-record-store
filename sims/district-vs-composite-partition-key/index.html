@@ -313,6 +313,12 @@
         
       
         
+      
+        
+          
+        
+      
+        
           
         
       
@@ -406,131 +412,67 @@
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
-        
       
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
         
       
     
@@ -576,6 +518,8 @@
       
         
           
+        
+      
         
       
         
@@ -4846,103 +4790,8 @@
     
       
         
-          
-        
       
         
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../../stories/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Stories
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
       
         
       
@@ -4974,6 +4823,51 @@
   
   <span class="md-ellipsis">
     Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../lrs-lite/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    LRS-Lite (Serverless)
   </span>
   
 
@@ -5222,15 +5116,15 @@
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>Learning objective: Compare a Kafka queue partitioned by `district_id` alone against one keyed by `{district_id}:{student_key}`, and explain why the composite key avoids a write hotspot while still preserving the per-learner ordering that Bayesian Knowledge Tracing requires.
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>Purpose: Show two side-by-side Mermaid subgraphs, mirroring the &quot;Before/After&quot; pattern from Chapter 1&#39;s LMS-versus-LRS diagram, so the learner can directly compare partition placement under each keying scheme.
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>Purpose: Show two side-by-side Mermaid subgraphs, mirroring the "Before/After" pattern from Chapter 1's LMS-versus-LRS diagram, so the learner can directly compare partition placement under each keying scheme.
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Left subgraph &quot;district_id only (spec as written)&quot;: one box &quot;Large District (40,000 students)&quot; with arrows from five sample students all converging on a single box &quot;Partition 0&quot;; a second, smaller box &quot;Small District (200 students)&quot; with an arrow to &quot;Partition 1.&quot; Annotate Partition 0 with a warning tag &quot;Hotspot.&quot;
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Left subgraph "district_id only (spec as written)": one box "Large District (40,000 students)" with arrows from five sample students all converging on a single box "Partition 0"; a second, smaller box "Small District (200 students)" with an arrow to "Partition 1." Annotate Partition 0 with a warning tag "Hotspot."
 </span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Right subgraph &quot;{district_id}:{student_key} (design as built)&quot;: the same ten sample students, now fanned out across four partition boxes (&quot;Partition 0&quot; through &quot;Partition 3&quot;) by a hash of the composite key, with the large district&#39;s students spread evenly across all four and the small district&#39;s students spread across two. Annotate with a tag &quot;Load balanced; quota still caps the large district&#39;s total rate.&quot;
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Right subgraph "{district_id}:{student_key} (design as built)": the same ten sample students, now fanned out across four partition boxes ("Partition 0" through "Partition 3") by a hash of the composite key, with the large district's students spread evenly across all four and the small district's students spread across two. Annotate with a tag "Load balanced; quota still caps the large district's total rate."
 </span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Interactive features: Every node has a Mermaid click directive. Clicking a partition box opens an infobox naming which failure this arrangement would trigger if unmitigated (referencing District Queue Flood from Chapter 19). Clicking a student node opens an infobox stating that all of that student&#39;s own statements always land on the same partition in both schemes, which is what preserves BKT&#39;s required per-learner ordering. Clicking the &quot;Hotspot&quot; tag explains that this is the exact condition the specification&#39;s scale-and-availability targets forbid.
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Interactive features: Every node has a Mermaid click directive. Clicking a partition box opens an infobox naming which failure this arrangement would trigger if unmitigated (referencing District Queue Flood from Chapter 19). Clicking a student node opens an infobox stating that all of that student's own statements always land on the same partition in both schemes, which is what preserves BKT's required per-learner ordering. Clicking the "Hotspot" tag explains that this is the exact condition the specification's scale-and-availability targets forbid.
 </span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
-</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>Color coding: The hotspot partition shaded warning amber; the load-balanced partitions shaded the book&#39;s calm teal.
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>Color coding: The hotspot partition shaded warning amber; the load-balanced partitions shaded the book's calm teal.
 </span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>
 </span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>Responsive design: Both subgraphs stack vertically on narrow viewports, preserving all click handlers and the hotspot annotation.
 </span></code></pre></div>

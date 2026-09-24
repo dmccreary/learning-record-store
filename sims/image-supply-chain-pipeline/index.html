@@ -313,6 +313,12 @@
         
       
         
+      
+        
+          
+        
+      
+        
           
         
       
@@ -406,131 +412,67 @@
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
-        
       
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
         
       
     
@@ -576,6 +518,8 @@
       
         
           
+        
+      
         
       
         
@@ -4846,103 +4790,8 @@
     
       
         
-          
-        
       
         
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../../stories/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Stories
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
       
         
       
@@ -4974,6 +4823,51 @@
   
   <span class="md-ellipsis">
     Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../lrs-lite/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    LRS-Lite (Serverless)
   </span>
   
 
@@ -5223,13 +5117,13 @@
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>Learning objective: Trace a single image from a release-tag push through build, cache, provenance/SBOM generation, vulnerability scanning, and signing, and explain why a deployment must reference the resulting digest rather than a mutable tag.
 </span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>Purpose: A left-to-right Mermaid flowchart tracing one release through the abridged workflow quoted in this chapter&#39;s prose.
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>Purpose: A left-to-right Mermaid flowchart tracing one release through the abridged workflow quoted in this chapter's prose.
 </span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>Nodes in order: &quot;Push to release tag&quot; -&gt; &quot;Docker Buildx (multi-arch: amd64 + arm64)&quot; -&gt; &quot;GHA Layer Cache&quot; -&gt; &quot;Build image, attach Provenance Attestation + SBOM&quot; -&gt; &quot;Trivy Vulnerability Scan (CRITICAL/HIGH = block)&quot; -&gt; two branches: &quot;Vulnerabilities found&quot; to a red &quot;Release blocked, exit 1&quot; end node; &quot;Clean scan&quot; onward to &quot;Cosign Image Signing&quot; -&gt; &quot;Push ghcr.io/dmccreary/lrs@sha256:... (Immutable Digest Reference)&quot; -&gt; &quot;Deployment pulls by digest, never by tag&quot;.
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>Nodes in order: "Push to release tag" -&gt; "Docker Buildx (multi-arch: amd64 + arm64)" -&gt; "GHA Layer Cache" -&gt; "Build image, attach Provenance Attestation + SBOM" -&gt; "Trivy Vulnerability Scan (CRITICAL/HIGH = block)" -&gt; two branches: "Vulnerabilities found" to a red "Release blocked, exit 1" end node; "Clean scan" onward to "Cosign Image Signing" -&gt; "Push ghcr.io/dmccreary/lrs@sha256:... (Immutable Digest Reference)" -&gt; "Deployment pulls by digest, never by tag".
 </span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>Interactive features: Every node has a Mermaid click directive opening an infobox with a one-sentence definition drawn from this chapter&#39;s prose. Clicking the Trivy node explains severity and exit-code gating. Clicking the final two nodes explains the difference between a mutable tag and an immutable digest reference.
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>Interactive features: Every node has a Mermaid click directive opening an infobox with a one-sentence definition drawn from this chapter's prose. Clicking the Trivy node explains severity and exit-code gating. Clicking the final two nodes explains the difference between a mutable tag and an immutable digest reference.
 </span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>
-</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>Color coding: Build-stage nodes in the book&#39;s teal accent color, security-gate nodes (Trivy, Cosign) in amber, the blocked-release branch in red, the final deploy-by-digest node in green.
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>Color coding: Build-stage nodes in the book's teal accent color, security-gate nodes (Trivy, Cosign) in amber, the blocked-release branch in red, the final deploy-by-digest node in green.
 </span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
 </span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>Responsive design: The flowchart stacks vertically on narrow viewports, preserving left-to-right order as top-to-bottom, with the two branch paths staying visually distinct.
 </span></code></pre></div>

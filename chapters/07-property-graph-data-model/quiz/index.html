@@ -1,0 +1,3580 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Review questions on nodes, relationships, the content tree, the Learning Graph DAG, summary-vertex relationships, the Verb Controlled Vocabulary, Experiment/Variant nodes, and graph constraints.">
+      
+      
+        <meta name="author" content="Dan McCreary">
+      
+      
+        <link rel="canonical" href="https://dmccreary.github.io/learning-record-store/chapters/07-property-graph-data-model/quiz/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../../08-summary-vertices-ingestion/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
+    
+    
+      
+        <title>Quiz: The Property Graph Data Model - Learning Record Store</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/extra.css">
+    
+      <link rel="stylesheet" href="../../../css/mascot.css">
+    
+      <link rel="stylesheet" href="../../../css/lrs-xapi.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#quiz-the-property-graph-data-model" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Learning Record Store" class="md-header__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  <img src="../../../img/mascot/neutral.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Learning Record Store
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Quiz: The Property Graph Data Model
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Learning Record Store" class="md-nav__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  <img src="../../../img/mascot/neutral.png" alt="logo">
+
+    </a>
+    Learning Record Store
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../course-description/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Course Description
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../stories/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Stories
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Chapters
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Chapters
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../01-lms-to-experience-api/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    1. From Learning Management Systems to the Experience API
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../02-anatomy-of-xapi-statement/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    2. The Anatomy of an xAPI Statement
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../03-ieee-standardization-xapi-cmi5/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    3. IEEE Standardization of xAPI and cmi5
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../04-standards-governance-ecosystem/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    4. Standards Governance and the Wider Interoperability Ecosystem
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../05-system-context-architectural-planes/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    5. System Context and the Five Architectural Planes
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../06-multi-tenancy-rosters-identity/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    6. Multi-Tenancy, Rosters, and Pseudonymous Identity
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_8" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    7. The Property Graph Data Model
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5_8" id="__nav_5_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_8">
+            <span class="md-nav__icon md-icon"></span>
+            7. The Property Graph Data Model
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Quiz
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Quiz
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-in-a-labeled-property-graph-what-are-the-only-two-kinds-of-thing-that-exist" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. In a labeled property graph, what are the only two kinds of thing that exist?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-according-to-this-projects-naming-convention-how-can-a-reader-immediately-tell-a-node-label-apart-from-a-relationship-type-in-a-diagram-or-cypher-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. According to this project's naming convention, how can a reader immediately tell a Node Label apart from a Relationship Type in a diagram or Cypher query?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-why-does-this-projects-graph-store-a-textbook-and-its-textbook-version-as-two-separate-node-labels-rather-than-overwriting-a-textbooks-properties-in-place-on-every-revision" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Why does this project's graph store a Textbook and its Textbook Version as two separate node labels rather than overwriting a Textbook's properties in place on every revision?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-what-is-the-structural-difference-between-the-contains-and-embeds-relationship-types-in-the-content-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. What is the structural difference between the CONTAINS and EMBEDS relationship types in the content tree?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-what-does-the-covers-relationship-connect" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. What does the COVERS relationship connect?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-a-graph-query-finds-a-depends_on-edge-running-from-the-concept-node-cellular-respiration-to-the-concept-node-photosynthesis-what-does-this-edge-mean" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. A graph query finds a DEPENDS_ON edge running from the Concept node "Cellular Respiration" to the Concept node "Photosynthesis." What does this edge mean?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-what-distinguishes-a-materialized-summary-vertex-like-conceptmastery-from-the-rest-of-the-graphs-structural-node-labels" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. What distinguishes a "materialized summary vertex" like ConceptMastery from the rest of the graph's structural node labels?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-a-dashboard-needs-to-answer-the-question-which-concept-does-this-conceptmastery-vertex-summarize-evidence-for-which-relationship-should-the-query-follow-and-in-which-direction" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. A dashboard needs to answer the question "which Concept does this ConceptMastery vertex summarize evidence for?" Which relationship should the query follow, and in which direction?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-what-does-a-touched-relationships-own-properties-event_count-and-dwell_ms-let-a-query-answer-without-a-separate-lookup" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. What does a TOUCHED relationship's own properties, event_count and dwell_ms, let a query answer without a separate lookup?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-an-administrator-wants-to-build-a-vocabulary-browser-listing-every-recognized-xapi-verb-and-its-display-text-given-what-this-chapter-says-about-the-verb-node-what-should-the-browsers-query-expect" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. An administrator wants to build a vocabulary browser listing every recognized xAPI verb and its display text. Given what this chapter says about the Verb node, what should the browser's query expect?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-this-projects-ddl-gives-conceptmastery-a-composite-uniqueness-constraint-on-student_key-concept_id-rather-than-a-single-property-constraint-what-does-this-specifically-guarantee-and-why-does-it-matter" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. This project's DDL gives ConceptMastery a composite uniqueness constraint on (student_key, concept_id) rather than a single-property constraint. What does this specifically guarantee, and why does it matter?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-why-does-this-projects-graph-ddl-deliberately-include-no-statement-label-or-constraint-at-all" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Why does this project's graph DDL deliberately include no :Statement label or constraint at all?
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../08-summary-vertices-ingestion/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    8. Summary Vertices and Statement Ingestion Mechanics
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../09-twelve-core-lrs-functions/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    9. The Twelve Core LRS Functions
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../10-choosing-technology-stack/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    10. Choosing the Technology Stack
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../11-adrs-and-capacity-model/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    11. Architecture Decision Records and the Capacity Model
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../12-bayesian-knowledge-tracing/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    12. Bayesian Knowledge Tracing for Mastery
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../13-component-design-in-depth/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    13. Component Design in Depth
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../14-kafka-clickhouse-graph-schema/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    14. Kafka Topics, ClickHouse Schema, and Graph Constraints
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../15-privacy-and-dashboard-mechanics/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    15. Privacy Enforcement and Dashboard Mechanics
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../16-container-image-and-cli/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    16. The Container Image and the Role Dispatcher CLI
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../17-compose-makefile-supply-chain/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    17. Docker Compose, the Makefile, and the Image Supply Chain
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../18-config-migration-backup-rollout/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    18. Configuration, Migration, Backup, and Rollout
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../19-failure-modes-and-verification/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    19. Failure Modes and Verification
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../20-deviations-roadmap-open-questions/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    20. Spec Deviations, the Delivery Roadmap, and Open Questions
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../21-hardware-cost-dev-environment/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    21. Hardware Sizing, Cost, and the Development Environment
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../22-proving-the-architecture-mvp/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    22. Proving the Architecture - the MVP Plan
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../23-production-infrastructure-cloud/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    23. Production Infrastructure and Cloud Services
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../24-three-personas-and-admin-uis/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    24. Meet the Three Personas and the Admin UI Surface
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../25-district-admin-rosters-deployments/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    25. District Administrator - Rosters, Deployments, and Registries
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../26-district-admin-access-control/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    26. District Administrator - Access Control and System Configuration
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../27-compliance-and-district-reporting/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    27. Compliance, Privacy Law, and District-Level Reporting
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../28-teacher-dashboards-student-reports/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    28. Teacher Dashboards and Student-Level Reports
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../29-class-level-reports-and-tools/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    29. Class-Level Reports and Teacher Tools
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../30-author-dashboards-content-reports/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    30. Textbook Author Dashboards and Content Reports
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../31-designing-ab-experiments/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    31. Designing and Reading A/B Experiments
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../32-producer-contract-conformant-statements/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    32. The Producer Contract - Writing Conformant Statements
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../learning-graph/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Learning Graph
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../sims/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    MicroSims
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../specs/lrs-spec-v1/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../lrs-lite/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    LRS-Lite (Serverless)
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../demo/graph-queries/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Demo
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../case-studies/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Case Studies
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../glossary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Glossary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../license/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contact/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contact
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-in-a-labeled-property-graph-what-are-the-only-two-kinds-of-thing-that-exist" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. In a labeled property graph, what are the only two kinds of thing that exist?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-according-to-this-projects-naming-convention-how-can-a-reader-immediately-tell-a-node-label-apart-from-a-relationship-type-in-a-diagram-or-cypher-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. According to this project's naming convention, how can a reader immediately tell a Node Label apart from a Relationship Type in a diagram or Cypher query?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-why-does-this-projects-graph-store-a-textbook-and-its-textbook-version-as-two-separate-node-labels-rather-than-overwriting-a-textbooks-properties-in-place-on-every-revision" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Why does this project's graph store a Textbook and its Textbook Version as two separate node labels rather than overwriting a Textbook's properties in place on every revision?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-what-is-the-structural-difference-between-the-contains-and-embeds-relationship-types-in-the-content-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. What is the structural difference between the CONTAINS and EMBEDS relationship types in the content tree?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-what-does-the-covers-relationship-connect" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. What does the COVERS relationship connect?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-a-graph-query-finds-a-depends_on-edge-running-from-the-concept-node-cellular-respiration-to-the-concept-node-photosynthesis-what-does-this-edge-mean" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. A graph query finds a DEPENDS_ON edge running from the Concept node "Cellular Respiration" to the Concept node "Photosynthesis." What does this edge mean?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-what-distinguishes-a-materialized-summary-vertex-like-conceptmastery-from-the-rest-of-the-graphs-structural-node-labels" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. What distinguishes a "materialized summary vertex" like ConceptMastery from the rest of the graph's structural node labels?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-a-dashboard-needs-to-answer-the-question-which-concept-does-this-conceptmastery-vertex-summarize-evidence-for-which-relationship-should-the-query-follow-and-in-which-direction" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. A dashboard needs to answer the question "which Concept does this ConceptMastery vertex summarize evidence for?" Which relationship should the query follow, and in which direction?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-what-does-a-touched-relationships-own-properties-event_count-and-dwell_ms-let-a-query-answer-without-a-separate-lookup" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. What does a TOUCHED relationship's own properties, event_count and dwell_ms, let a query answer without a separate lookup?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-an-administrator-wants-to-build-a-vocabulary-browser-listing-every-recognized-xapi-verb-and-its-display-text-given-what-this-chapter-says-about-the-verb-node-what-should-the-browsers-query-expect" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. An administrator wants to build a vocabulary browser listing every recognized xAPI verb and its display text. Given what this chapter says about the Verb node, what should the browser's query expect?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-this-projects-ddl-gives-conceptmastery-a-composite-uniqueness-constraint-on-student_key-concept_id-rather-than-a-single-property-constraint-what-does-this-specifically-guarantee-and-why-does-it-matter" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. This project's DDL gives ConceptMastery a composite uniqueness constraint on (student_key, concept_id) rather than a single-property constraint. What does this specifically guarantee, and why does it matter?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-why-does-this-projects-graph-ddl-deliberately-include-no-statement-label-or-constraint-at-all" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Why does this project's graph DDL deliberately include no :Statement label or constraint at all?
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/07-property-graph-data-model/quiz.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="quiz-the-property-graph-data-model">Quiz: The Property Graph Data Model<a class="headerlink" href="#quiz-the-property-graph-data-model" title="Permanent link">&para;</a></h1>
+<p>Test your understanding of this project's Neo4j property graph — its node labels, relationship types, and the constraints that keep it honest — with these review questions.</p>
+<hr />
+<h4 id="1-in-a-labeled-property-graph-what-are-the-only-two-kinds-of-thing-that-exist">1. In a labeled property graph, what are the only two kinds of thing that exist?<a class="headerlink" href="#1-in-a-labeled-property-graph-what-are-the-only-two-kinds-of-thing-that-exist" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Tables and columns</li>
+<li>Documents and collections</li>
+<li>Nodes and relationships</li>
+<li>Files and directories</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>C</strong>. A labeled property graph is built from exactly two primitives — nodes, which represent entities, and relationships, which connect exactly two nodes — and nothing else exists in the model. A and B describe relational and document-database concepts, not a property graph. D describes filesystem structure, unrelated to this data model.</p>
+<p><strong>Concept Tested:</strong> Labeled Property Graph</p>
+</details>
+<hr />
+<h4 id="2-according-to-this-projects-naming-convention-how-can-a-reader-immediately-tell-a-node-label-apart-from-a-relationship-type-in-a-diagram-or-cypher-query">2. According to this project's naming convention, how can a reader immediately tell a Node Label apart from a Relationship Type in a diagram or Cypher query?<a class="headerlink" href="#2-according-to-this-projects-naming-convention-how-can-a-reader-immediately-tell-a-node-label-apart-from-a-relationship-type-in-a-diagram-or-cypher-query" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Node Labels are written in PascalCase (e.g., <code>District</code>); Relationship Types are written in SCREAMING_SNAKE_CASE (e.g., <code>HAS_SCHOOL</code>)</li>
+<li>Node Labels are always plural, while Relationship Types are always singular</li>
+<li>Node Labels appear in lowercase, while Relationship Types appear in PascalCase</li>
+<li>There is no consistent convention; each one must be looked up in the DDL individually</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>A</strong>. Node Labels are written in PascalCase, such as <code>District</code> or <code>TextbookVersion</code>, while Relationship Types are written in capital letters with underscores, such as <code>HAS_SCHOOL</code> or <code>DEPENDS_ON</code>, letting a reader tell them apart on sight. B invents a plural/singular rule not stated anywhere in the chapter. C reverses the actual casing convention. D is wrong because the chapter explicitly describes a consistent, documented convention.</p>
+<p><strong>Concept Tested:</strong> Node Label / Relationship Type</p>
+</details>
+<hr />
+<h4 id="3-why-does-this-projects-graph-store-a-textbook-and-its-textbook-version-as-two-separate-node-labels-rather-than-overwriting-a-textbooks-properties-in-place-on-every-revision">3. Why does this project's graph store a Textbook and its Textbook Version as two separate node labels rather than overwriting a Textbook's properties in place on every revision?<a class="headerlink" href="#3-why-does-this-projects-graph-store-a-textbook-and-its-textbook-version-as-two-separate-node-labels-rather-than-overwriting-a-textbooks-properties-in-place-on-every-revision" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Because Neo4j does not allow updating existing node properties</li>
+<li>Because Textbook nodes are read-only once created and can never be modified</li>
+<li>Because each district requires its own separate Textbook node</li>
+<li>Because keeping every version as its own node lets the system run two different textbook versions side by side for the same course, which A/B experiments rely on</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>D</strong>. Keeping each revision as its own <code>TextbookVersion</code> node, connected back through <code>VERSION_OF</code>, is what lets two versions of the same textbook run side by side for the same course — directly supporting the A/B experiment mechanism Chapter 31 covers. A is factually false about Neo4j's capabilities. B mischaracterizes Textbook nodes, which can gain new versions over time. C is wrong because a Textbook definition is explicitly shared across districts, not duplicated per district.</p>
+<p><strong>Concept Tested:</strong> Textbook / Textbook Version</p>
+<p><strong>See:</strong> <a href="../#the-content-tree-textbook-down-to-page">The Content Tree: Textbook Down to Page</a></p>
+</details>
+<hr />
+<h4 id="4-what-is-the-structural-difference-between-the-contains-and-embeds-relationship-types-in-the-content-tree">4. What is the structural difference between the <code>CONTAINS</code> and <code>EMBEDS</code> relationship types in the content tree?<a class="headerlink" href="#4-what-is-the-structural-difference-between-the-contains-and-embeds-relationship-types-in-the-content-tree" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li><code>CONTAINS</code> and <code>EMBEDS</code> are interchangeable names for the same relationship</li>
+<li><code>CONTAINS</code> expresses hierarchy, such as a Chapter belonging inside a Textbook; <code>EMBEDS</code> expresses a Page pulling in an interactive or assessment element that could, in principle, be reused elsewhere</li>
+<li><code>EMBEDS</code> only connects Concept nodes to other Concept nodes, while <code>CONTAINS</code> connects everything else</li>
+<li><code>CONTAINS</code> is used only for MicroSim nodes, while <code>EMBEDS</code> is used only for Quiz nodes</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>B</strong>. <code>CONTAINS</code> expresses structural hierarchy in the content tree, while <code>EMBEDS</code> expresses a page pulling in an interactive or assessment element that is conceptually reusable rather than strictly nested. A wrongly treats the two as synonyms. C misattributes <code>EMBEDS</code> to Concept nodes, which it never touches. D wrongly restricts each relationship type to only one node label.</p>
+<p><strong>Concept Tested:</strong> CONTAINS / EMBEDS</p>
+<p><strong>See:</strong> <a href="../#the-content-tree-textbook-down-to-page">The Content Tree: Textbook Down to Page</a></p>
+</details>
+<hr />
+<h4 id="5-what-does-the-covers-relationship-connect">5. What does the <code>COVERS</code> relationship connect?<a class="headerlink" href="#5-what-does-the-covers-relationship-connect" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>A Page, MicroSim, or Question to the Concept or Concepts it addresses</li>
+<li>A Student to a ConceptMastery vertex</li>
+<li>A Textbook to its published Textbook Version</li>
+<li>An Experiment to its Variant arms</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>A</strong>. <code>COVERS</code> runs from <code>{Page, MicroSim, Question}</code> to <code>Concept</code>, answering which concepts a given piece of content or a question actually addresses. B describes <code>HAS_MASTERY</code>, a different relationship entirely. C describes <code>VERSION_OF</code>. D describes <code>HAS_VARIANT</code>, unrelated to concept coverage.</p>
+<p><strong>Concept Tested:</strong> Covers Relationship</p>
+<p><strong>See:</strong> <a href="../#the-concept-node-and-the-learning-graph-dag">The Concept Node and the Learning Graph DAG</a></p>
+</details>
+<hr />
+<h4 id="6-a-graph-query-finds-a-depends_on-edge-running-from-the-concept-node-cellular-respiration-to-the-concept-node-photosynthesis-what-does-this-edge-mean">6. A graph query finds a <code>DEPENDS_ON</code> edge running from the Concept node "Cellular Respiration" to the Concept node "Photosynthesis." What does this edge mean?<a class="headerlink" href="#6-a-graph-query-finds-a-depends_on-edge-running-from-the-concept-node-cellular-respiration-to-the-concept-node-photosynthesis-what-does-this-edge-mean" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Photosynthesis depends on Cellular Respiration, so Cellular Respiration should be learned first</li>
+<li>The two concepts are mutually dependent and can be learned in either order</li>
+<li>Cellular Respiration depends on Photosynthesis, so Photosynthesis should be learned first</li>
+<li>Photosynthesis and Cellular Respiration belong to the same Chapter node</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>C</strong>. A <code>DEPENDS_ON</code> edge runs from the dependent concept to its prerequisite, so an edge from Cellular Respiration to Photosynthesis means Cellular Respiration depends on Photosynthesis, which should be learned first. A reverses the direction of dependency. B contradicts the DAG's acyclic requirement, which forbids mutual dependency. D confuses concept dependency with unrelated content-tree containment.</p>
+<p><strong>Concept Tested:</strong> Learning Graph DAG / Depends On Relationship</p>
+<p><strong>See:</strong> <a href="../#the-concept-node-and-the-learning-graph-dag">The Concept Node and the Learning Graph DAG</a></p>
+</details>
+<hr />
+<h4 id="7-what-distinguishes-a-materialized-summary-vertex-like-conceptmastery-from-the-rest-of-the-graphs-structural-node-labels">7. What distinguishes a "materialized summary vertex" like <code>ConceptMastery</code> from the rest of the graph's structural node labels?<a class="headerlink" href="#7-what-distinguishes-a-materialized-summary-vertex-like-conceptmastery-from-the-rest-of-the-graphs-structural-node-labels" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>It is stored in the event store rather than the property graph</li>
+<li>It has no uniqueness constraint applied to it, unlike structural nodes</li>
+<li>It is created directly by the Ingestion Gateway before any processing occurs</li>
+<li>It is compressed from many raw statements rather than describing fixed content structure, and it changes as new evidence about a student arrives</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>D</strong>. A materialized summary vertex is built from many raw statements rather than describing fixed content structure like a Textbook or Chapter, and it updates as new evidence arrives. A is wrong because summary vertices live in the property graph, not the event store. B is wrong because summary vertices get a composite uniqueness constraint. C is wrong because the Ingestion Gateway performs only structural validation, not summary creation.</p>
+<p><strong>Concept Tested:</strong> Summary Vertex (materialized)</p>
+<p><strong>See:</strong> <a href="../#from-evidence-to-summary-vertices">From Evidence to Summary Vertices</a></p>
+</details>
+<hr />
+<h4 id="8-a-dashboard-needs-to-answer-the-question-which-concept-does-this-conceptmastery-vertex-summarize-evidence-for-which-relationship-should-the-query-follow-and-in-which-direction">8. A dashboard needs to answer the question "which Concept does this ConceptMastery vertex summarize evidence for?" Which relationship should the query follow, and in which direction?<a class="headerlink" href="#8-a-dashboard-needs-to-answer-the-question-which-concept-does-this-conceptmastery-vertex-summarize-evidence-for-which-relationship-should-the-query-follow-and-in-which-direction" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li><code>HAS_MASTERY</code>, from Student to ConceptMastery</li>
+<li><code>OF_CONCEPT</code>, from ConceptMastery to Concept</li>
+<li><code>COVERS</code>, from Concept to ConceptMastery</li>
+<li><code>TOUCHED</code>, from ConceptMastery to Concept</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>B</strong>. <code>OF_CONCEPT</code> ties a <code>ConceptMastery</code> vertex back into the Learning Graph DAG, running from the vertex to the specific Concept it summarizes evidence for. A describes a different edge that links a Student to their mastery evidence, not the evidence to its concept. C reverses <code>COVERS</code>'s actual direction and endpoints. D misapplies <code>TOUCHED</code>, which connects sessions to content, not mastery vertices to concepts.</p>
+<p><strong>Concept Tested:</strong> Has Mastery Relationship / Of Concept Relationship</p>
+<p><strong>See:</strong> <a href="../#from-evidence-to-summary-vertices">From Evidence to Summary Vertices</a></p>
+</details>
+<hr />
+<h4 id="9-what-does-a-touched-relationships-own-properties-event_count-and-dwell_ms-let-a-query-answer-without-a-separate-lookup">9. What does a <code>TOUCHED</code> relationship's own properties, <code>event_count</code> and <code>dwell_ms</code>, let a query answer without a separate lookup?<a class="headerlink" href="#9-what-does-a-touched-relationships-own-properties-event_count-and-dwell_ms-let-a-query-answer-without-a-separate-lookup" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>How many events occurred and how much time was spent, directly from the edge itself</li>
+<li>Which district the LearningSession belongs to</li>
+<li>Which Verb was used in each underlying xAPI statement</li>
+<li>Whether the session's ConceptMastery vertex has been recomputed yet</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>A</strong>. Because <code>event_count</code> and <code>dwell_ms</code> live directly on the <code>TOUCHED</code> edge, a query can answer "how many events, and how much time" without a separate lookup elsewhere in the graph. B, C, and D each name information the edge does not carry — district, verb, or mastery-recomputation status are tracked elsewhere, not on this edge.</p>
+<p><strong>Concept Tested:</strong> Touched Relationship</p>
+<p><strong>See:</strong> <a href="../#from-evidence-to-summary-vertices">From Evidence to Summary Vertices</a></p>
+</details>
+<hr />
+<h4 id="10-an-administrator-wants-to-build-a-vocabulary-browser-listing-every-recognized-xapi-verb-and-its-display-text-given-what-this-chapter-says-about-the-verb-node-what-should-the-browsers-query-expect">10. An administrator wants to build a vocabulary browser listing every recognized xAPI verb and its display text. Given what this chapter says about the Verb node, what should the browser's query expect?<a class="headerlink" href="#10-an-administrator-wants-to-build-a-vocabulary-browser-listing-every-recognized-xapi-verb-and-its-display-text-given-what-this-chapter-says-about-the-verb-node-what-should-the-browsers-query-expect" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>A <code>DEPENDS_ON</code> traversal from each Verb to related Concepts</li>
+<li>A <code>COVERS</code> edge connecting each Verb to the Questions that use it</li>
+<li>A <code>HAS_VARIANT</code> edge connecting each Verb to its Experiment</li>
+<li>To read Verb nodes directly as a lookup table, since no relationship type connects them to any other node in the graph</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>D</strong>. The Verb node is unusual precisely because it participates in no relationship type at all — statements reference a verb by <code>verb_id</code> from the event store, but the Verb node itself exists purely as a lookup table for tools like the vocabulary browser. A, B, and C each invent a relationship type connecting Verb to something else, which the chapter explicitly says does not exist.</p>
+<p><strong>Concept Tested:</strong> Verb Controlled Vocabulary</p>
+<p><strong>See:</strong> <a href="../#the-verb-controlled-vocabulary">The Verb Controlled Vocabulary</a></p>
+</details>
+<hr />
+<h4 id="11-this-projects-ddl-gives-conceptmastery-a-composite-uniqueness-constraint-on-student_key-concept_id-rather-than-a-single-property-constraint-what-does-this-specifically-guarantee-and-why-does-it-matter">11. This project's DDL gives <code>ConceptMastery</code> a composite uniqueness constraint on <code>(student_key, concept_id)</code> rather than a single-property constraint. What does this specifically guarantee, and why does it matter?<a class="headerlink" href="#11-this-projects-ddl-gives-conceptmastery-a-composite-uniqueness-constraint-on-student_key-concept_id-rather-than-a-single-property-constraint-what-does-this-specifically-guarantee-and-why-does-it-matter" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>It guarantees that no two students can ever share the same concept_id</li>
+<li>It guarantees that ConceptMastery vertices are automatically deleted after one academic year</li>
+<li>It guarantees the compression pipeline can only ever have one ConceptMastery vertex per student-concept pair, preventing it from accidentally creating duplicate summary vertices for the same grain</li>
+<li>It guarantees that a student's mastery score can never decrease once written</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>C</strong>. The composite key <code>(student_key, concept_id)</code> is the vertex's grain — the exact combination the summary represents — so the constraint ensures the compression pipeline can only ever update one vertex per student-concept pair, never create a duplicate. A misreads the constraint as restricting concept_id sharing across all students, which is not what a composite key does. B and D each invent an unrelated behavior — automatic deletion or a one-way score — that the constraint does not enforce.</p>
+<p><strong>Concept Tested:</strong> Concept Mastery Vertex (grain / composite constraint)</p>
+<p><strong>See:</strong> <a href="../#constraints-what-keeps-the-graph-honest">Constraints: What Keeps the Graph Honest</a></p>
+</details>
+<hr />
+<h4 id="12-why-does-this-projects-graph-ddl-deliberately-include-no-statement-label-or-constraint-at-all">12. Why does this project's graph DDL deliberately include no <code>:Statement</code> label or constraint at all?<a class="headerlink" href="#12-why-does-this-projects-graph-ddl-deliberately-include-no-statement-label-or-constraint-at-all" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Because Statements are considered temporary data not worth protecting with a constraint</li>
+<li>Because the graph is never supposed to hold one node per raw event — only structure and compressed summaries built from many events at once, with raw statements living in the event store instead</li>
+<li>Because Statement data is stored exclusively in the PII Vault</li>
+<li>Because Neo4j cannot enforce uniqueness constraints on event-like data</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>B</strong>. The design specification is direct that the graph holds only structure and compressed summaries — never one node per raw event — so there is deliberately no <code>:Statement</code> label, with every raw statement instead living in the event store from the Storage Plane. A mischaracterizes statements as unimportant, when they are in fact the system's permanent source of truth, just stored elsewhere. C misplaces statement data in the PII Vault, which holds only identity mappings. D is a false general claim about Neo4j's capabilities.</p>
+<p><strong>Concept Tested:</strong> Labeled Property Graph (structure vs. raw events)</p>
+<p><strong>See:</strong> <a href="../#constraints-what-keeps-the-graph-honest">Constraints: What Keeps the Graph Honest</a></p>
+</details>
+<hr />
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Content">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Content
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../08-summary-vertices-ingestion/" class="md-footer__link md-footer__link--next" aria-label="Next: Content">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Content
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Dan McCreary. Licensed under <a href="license/">CC BY-NC-SA 4.0</a> for non-commercial use.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../../js/katex.js"></script>
+      
+        <script src="../../../js/quiz-xapi.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

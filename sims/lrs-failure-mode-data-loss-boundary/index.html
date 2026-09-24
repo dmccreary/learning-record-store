@@ -313,6 +313,12 @@
         
       
         
+      
+        
+          
+        
+      
+        
           
         
       
@@ -406,131 +412,67 @@
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
-        
       
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
         
       
     
@@ -576,6 +518,8 @@
       
         
           
+        
+      
         
       
         
@@ -4846,103 +4790,8 @@
     
       
         
-          
-        
       
         
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../../stories/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Stories
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
       
         
       
@@ -4974,6 +4823,51 @@
   
   <span class="md-ellipsis">
     Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../lrs-lite/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    LRS-Lite (Serverless)
   </span>
   
 
@@ -5222,17 +5116,17 @@
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>Learning objective: Given any one of six failure modes in the compression pipeline, classify it as occurring before or after the Kafka durability boundary and predict whether it can lose data.
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>Purpose: A Mermaid flowchart of the statement&#39;s path from a Learning Record Provider through the gateway, Kafka, the processor, ClickHouse, the summarizer, and Neo4j, with a vertical boundary line after Kafka separating &quot;can lose data&quot; from &quot;cannot lose data.&quot;
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>Purpose: A Mermaid flowchart of the statement's path from a Learning Record Provider through the gateway, Kafka, the processor, ClickHouse, the summarizer, and Neo4j, with a vertical boundary line after Kafka separating "can lose data" from "cannot lose data."
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Nodes in path order: &quot;Learning Record Provider&quot; -&gt; &quot;Ingestion Gateway&quot; -&gt; &quot;Kafka (durability boundary)&quot; -&gt; &quot;Processor&quot; -&gt; &quot;ClickHouse (event log)&quot; -&gt; &quot;Summarizer&quot; -&gt; &quot;Neo4j (graph projection)&quot;. A separate node &quot;Redis (mastery cache)&quot; branches off ClickHouse/Neo4j reads.
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Nodes in path order: "Learning Record Provider" -&gt; "Ingestion Gateway" -&gt; "Kafka (durability boundary)" -&gt; "Processor" -&gt; "ClickHouse (event log)" -&gt; "Summarizer" -&gt; "Neo4j (graph projection)". A separate node "Redis (mastery cache)" branches off ClickHouse/Neo4j reads.
 </span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Visual boundary: A dashed red vertical line crosses the diagram immediately after the Kafka node, labeled &quot;Only failures left of this line can lose data.&quot;
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Visual boundary: A dashed red vertical line crosses the diagram immediately after the Kafka node, labeled "Only failures left of this line can lose data."
 </span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Interactive features: Every node has a Mermaid click directive opening an infobox naming its associated failure mode (Gateway/Kafka: Kafka Unavailable Failure; Processor/ClickHouse: ClickHouse Unavailable Failure; Summarizer: Summarizer Stopped Failure and Summarizer Split Brain; Neo4j: Neo4j Unavailable Failure; Redis: Redis Unavailable Failure) with that failure&#39;s detection, behavior, and response. Clicking the boundary line opens an infobox on the &quot;only the first row loses data&quot; rule.
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Interactive features: Every node has a Mermaid click directive opening an infobox naming its associated failure mode (Gateway/Kafka: Kafka Unavailable Failure; Processor/ClickHouse: ClickHouse Unavailable Failure; Summarizer: Summarizer Stopped Failure and Summarizer Split Brain; Neo4j: Neo4j Unavailable Failure; Redis: Redis Unavailable Failure) with that failure's detection, behavior, and response. Clicking the boundary line opens an infobox on the "only the first row loses data" rule.
 </span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
-</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>Color coding: Nodes left of the boundary shaded warning amber; nodes right of the boundary shaded the book&#39;s calm teal to signal &quot;recoverable.&quot;
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>Color coding: Nodes left of the boundary shaded warning amber; nodes right of the boundary shaded the book's calm teal to signal "recoverable."
 </span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>
-</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>Responsive design: The flowchart reflows to a single column on narrow viewports, preserving the boundary line&#39;s position and all click handlers.
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>Responsive design: The flowchart reflows to a single column on narrow viewports, preserving the boundary line's position and all click handlers.
 </span></code></pre></div>
 <h2 id="related-resources">Related Resources<a class="headerlink" href="#related-resources" title="Permanent link">&para;</a></h2>
 <ul>

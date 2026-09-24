@@ -313,6 +313,12 @@
         
       
         
+      
+        
+          
+        
+      
+        
           
         
       
@@ -406,131 +412,67 @@
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
-        
       
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
         
       
     
@@ -576,6 +518,8 @@
       
         
           
+        
+      
         
       
         
@@ -4846,103 +4790,8 @@
     
       
         
-          
-        
       
         
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../../stories/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Stories
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
       
         
       
@@ -4974,6 +4823,51 @@
   
   <span class="md-ellipsis">
     Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../lrs-lite/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    LRS-Lite (Serverless)
   </span>
   
 
@@ -5225,13 +5119,13 @@
 </span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>Purpose: A vis-network hierarchical graph rooted at one District node, branching down through School, Course, Section, to Enrollment, with a separate branch showing a Textbook Version deployed onto a Section.
 </span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>Nodes: One root &quot;District&quot; node. Two child &quot;School&quot; nodes. Each School has two child &quot;Course&quot; nodes. Each Course has two child &quot;Section&quot; nodes. Each Section has three child &quot;Enrollment&quot; nodes (representing students) and one dashed edge labeled &quot;DEPLOYS&quot; to a shared &quot;Textbook Version&quot; node drawn off to the side.
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>Nodes: One root "District" node. Two child "School" nodes. Each School has two child "Course" nodes. Each Course has two child "Section" nodes. Each Section has three child "Enrollment" nodes (representing students) and one dashed edge labeled "DEPLOYS" to a shared "Textbook Version" node drawn off to the side.
 </span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>Interactive features: Clicking the District node opens an infobox stating the hard isolation guarantee — no cross-district query without explicit, de-identified system-admin benchmarking. Clicking any School, Course, or Section node opens an infobox naming that node&#39;s key properties from the graph data model (school_id/name/grade_band; course_id/title/subject; section_id/period/term/academic_year) and noting the boundary here is soft, enforced by role scope. Clicking an Enrollment node opens an infobox defining enrollment as the student-to-section relationship. Clicking the Textbook Version node or the DEPLOYS edge opens an infobox previewing the Textbook Deployment UI section later in this chapter.
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>Interactive features: Clicking the District node opens an infobox stating the hard isolation guarantee — no cross-district query without explicit, de-identified system-admin benchmarking. Clicking any School, Course, or Section node opens an infobox naming that node's key properties from the graph data model (school_id/name/grade_band; course_id/title/subject; section_id/period/term/academic_year) and noting the boundary here is soft, enforced by role scope. Clicking an Enrollment node opens an infobox defining enrollment as the student-to-section relationship. Clicking the Textbook Version node or the DEPLOYS edge opens an infobox previewing the Textbook Deployment UI section later in this chapter.
 </span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>
-</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>Color coding: The District node in a saturated teal to mark the hard boundary; School, Course, Section, and Enrollment nodes in graduated lighter shades of the same hue to show they nest inside it; the Textbook Version node and DEPLOYS edge in amber to visually separate &quot;who a student is&quot; from &quot;what content they see.&quot;
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>Color coding: The District node in a saturated teal to mark the hard boundary; School, Course, Section, and Enrollment nodes in graduated lighter shades of the same hue to show they nest inside it; the Textbook Version node and DEPLOYS edge in amber to visually separate "who a student is" from "what content they see."
 </span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
-</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>Responsive design: Hierarchical layout re-centers on window resize using vis-network&#39;s built-in layout engine; on narrow viewports the tree renders top-to-bottom rather than left-to-right and remains pannable.
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>Responsive design: Hierarchical layout re-centers on window resize using vis-network's built-in layout engine; on narrow viewports the tree renders top-to-bottom rather than left-to-right and remains pannable.
 </span></code></pre></div>
 <h2 id="related-resources">Related Resources<a class="headerlink" href="#related-resources" title="Permanent link">&para;</a></h2>
 <ul>

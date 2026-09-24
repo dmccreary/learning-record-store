@@ -1,0 +1,3513 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Review questions on the My Classes and Student Detail dashboards and the nine student-level reports — progress, mastery, reading-vs-doing, timing, velocity, quiz items, struggle, prerequisites, and disengagement.">
+      
+      
+        <meta name="author" content="Dan McCreary">
+      
+      
+        <link rel="canonical" href="https://dmccreary.github.io/learning-record-store/chapters/28-teacher-dashboards-student-reports/quiz/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../../29-class-level-reports-and-tools/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
+    
+    
+      
+        <title>Quiz: Teacher Dashboards and Student-Level Reports - Learning Record Store</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/extra.css">
+    
+      <link rel="stylesheet" href="../../../css/mascot.css">
+    
+      <link rel="stylesheet" href="../../../css/lrs-xapi.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#quiz-teacher-dashboards-and-student-level-reports" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Learning Record Store" class="md-header__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  <img src="../../../img/mascot/neutral.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Learning Record Store
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Quiz: Teacher Dashboards and Student-Level Reports
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Learning Record Store" class="md-nav__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  <img src="../../../img/mascot/neutral.png" alt="logo">
+
+    </a>
+    Learning Record Store
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../course-description/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Course Description
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../stories/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Stories
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Chapters
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Chapters
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../01-lms-to-experience-api/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    1. From Learning Management Systems to the Experience API
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../02-anatomy-of-xapi-statement/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    2. The Anatomy of an xAPI Statement
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../03-ieee-standardization-xapi-cmi5/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    3. IEEE Standardization of xAPI and cmi5
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../04-standards-governance-ecosystem/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    4. Standards Governance and the Wider Interoperability Ecosystem
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../05-system-context-architectural-planes/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    5. System Context and the Five Architectural Planes
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../06-multi-tenancy-rosters-identity/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    6. Multi-Tenancy, Rosters, and Pseudonymous Identity
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../07-property-graph-data-model/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    7. The Property Graph Data Model
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../08-summary-vertices-ingestion/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    8. Summary Vertices and Statement Ingestion Mechanics
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../09-twelve-core-lrs-functions/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    9. The Twelve Core LRS Functions
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../10-choosing-technology-stack/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    10. Choosing the Technology Stack
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../11-adrs-and-capacity-model/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    11. Architecture Decision Records and the Capacity Model
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../12-bayesian-knowledge-tracing/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    12. Bayesian Knowledge Tracing for Mastery
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../13-component-design-in-depth/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    13. Component Design in Depth
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../14-kafka-clickhouse-graph-schema/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    14. Kafka Topics, ClickHouse Schema, and Graph Constraints
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../15-privacy-and-dashboard-mechanics/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    15. Privacy Enforcement and Dashboard Mechanics
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../16-container-image-and-cli/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    16. The Container Image and the Role Dispatcher CLI
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../17-compose-makefile-supply-chain/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    17. Docker Compose, the Makefile, and the Image Supply Chain
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../18-config-migration-backup-rollout/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    18. Configuration, Migration, Backup, and Rollout
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../19-failure-modes-and-verification/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    19. Failure Modes and Verification
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../20-deviations-roadmap-open-questions/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    20. Spec Deviations, the Delivery Roadmap, and Open Questions
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../21-hardware-cost-dev-environment/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    21. Hardware Sizing, Cost, and the Development Environment
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../22-proving-the-architecture-mvp/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    22. Proving the Architecture - the MVP Plan
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../23-production-infrastructure-cloud/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    23. Production Infrastructure and Cloud Services
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../24-three-personas-and-admin-uis/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    24. Meet the Three Personas and the Admin UI Surface
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../25-district-admin-rosters-deployments/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    25. District Administrator - Rosters, Deployments, and Registries
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../26-district-admin-access-control/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    26. District Administrator - Access Control and System Configuration
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../27-compliance-and-district-reporting/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    27. Compliance, Privacy Law, and District-Level Reporting
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_29" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    28. Teacher Dashboards and Student-Level Reports
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5_29" id="__nav_5_29_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_29_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_29">
+            <span class="md-nav__icon md-icon"></span>
+            28. Teacher Dashboards and Student-Level Reports
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Quiz
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Quiz
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-is-the-key-difference-between-the-my-classes-dashboard-and-the-student-detail-dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. What is the key difference between the My Classes Dashboard and the Student Detail Dashboard?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-how-does-the-concept-mastery-radar-differ-from-the-student-progress-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. How does the Concept Mastery Radar differ from the Student Progress Overview?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-what-two-families-of-xapi-verbs-does-the-reading-vs-doing-balance-report-compare" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. What two families of xAPI verbs does the Reading vs. Doing Balance report compare?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-why-does-the-time-on-task-timeline-matter-even-for-two-students-who-reach-the-identical-final-mastery-score" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Why does the Time-on-Task Timeline matter even for two students who reach the identical final mastery score?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-a-students-learning-velocity-line-has-flattened-even-though-their-overall-progress-overview-still-shows-a-respectable-completion-percentage-what-does-this-combination-most-likely-indicate-and-why-is-velocity-able-to-catch-it-when-progress-overview-alone-might-not" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. A student's Learning Velocity line has flattened even though their overall Progress Overview still shows a respectable completion percentage. What does this combination most likely indicate, and why is Velocity able to catch it when Progress Overview alone might not?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-a-teacher-notices-a-students-overall-concept-mastery-score-for-a-topic-looks-acceptable-but-suspects-something-is-still-wrong-with-one-specific-assignment-within-that-topic-which-report-should-the-teacher-open-to-investigate-at-the-individual-question-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. A teacher notices a student's overall concept mastery score for a topic looks acceptable, but suspects something is still wrong with one specific assignment within that topic. Which report should the teacher open to investigate at the individual-question level?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-why-does-the-struggle-detector-require-both-a-high-attempt-count-and-a-low-result-score-before-flagging-a-concept-rather-than-flagging-any-concept-with-a-low-mastery-score-alone" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Why does the Struggle Detector require both a high attempt count and a low result score before flagging a concept, rather than flagging any concept with a low mastery score alone?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-why-doesnt-the-default-group-of-ten-suppression-threshold-blank-out-every-report-on-a-student-detail-dashboard-given-that-a-single-student-is-a-group-of-exactly-one" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Why doesn't the default group-of-ten suppression threshold blank out every report on a Student Detail Dashboard, given that a single student is a group of exactly one?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-a-teacher-tells-a-colleague-this-students-mastery-score-for-photosynthesis-is-062-so-they-got-about-62-of-the-photosynthesis-questions-right-evaluate-this-statement-against-what-this-chapter-and-chapter-12-establish-about-what-a-mastery-score-actually-represents" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. A teacher tells a colleague, "This student's mastery score for photosynthesis is 0.62, so they got about 62% of the photosynthesis questions right." Evaluate this statement against what this chapter and Chapter 12 establish about what a mastery score actually represents.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-a-teacher-has-a-student-whose-progress-overview-looks-strong-whose-reading-vs-doing-balance-shows-a-heavily-reading-skewed-ratio-and-whose-time-on-task-timeline-shows-one-long-session-the-night-before-every-quiz-deadline-design-a-combination-of-this-chapters-reports-that-would-help-the-teacher-form-the-most-complete-picture-of-what-might-actually-be-happening-with-this-student-and-briefly-justify-each-choice" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. A teacher has a student whose Progress Overview looks strong, whose Reading vs. Doing Balance shows a heavily reading-skewed ratio, and whose Time-on-Task Timeline shows one long session the night before every quiz deadline. Design a combination of this chapter's reports that would help the teacher form the most complete picture of what might actually be happening with this student, and briefly justify each choice.
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../29-class-level-reports-and-tools/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    29. Class-Level Reports and Teacher Tools
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../30-author-dashboards-content-reports/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    30. Textbook Author Dashboards and Content Reports
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../31-designing-ab-experiments/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    31. Designing and Reading A/B Experiments
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../32-producer-contract-conformant-statements/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    32. The Producer Contract - Writing Conformant Statements
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../learning-graph/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Learning Graph
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../sims/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    MicroSims
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../specs/lrs-spec-v1/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../lrs-lite/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    LRS-Lite (Serverless)
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../demo/graph-queries/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Demo
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../case-studies/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Case Studies
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../glossary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Glossary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../license/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contact/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contact
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-is-the-key-difference-between-the-my-classes-dashboard-and-the-student-detail-dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. What is the key difference between the My Classes Dashboard and the Student Detail Dashboard?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-how-does-the-concept-mastery-radar-differ-from-the-student-progress-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. How does the Concept Mastery Radar differ from the Student Progress Overview?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-what-two-families-of-xapi-verbs-does-the-reading-vs-doing-balance-report-compare" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. What two families of xAPI verbs does the Reading vs. Doing Balance report compare?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-why-does-the-time-on-task-timeline-matter-even-for-two-students-who-reach-the-identical-final-mastery-score" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Why does the Time-on-Task Timeline matter even for two students who reach the identical final mastery score?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-a-students-learning-velocity-line-has-flattened-even-though-their-overall-progress-overview-still-shows-a-respectable-completion-percentage-what-does-this-combination-most-likely-indicate-and-why-is-velocity-able-to-catch-it-when-progress-overview-alone-might-not" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. A student's Learning Velocity line has flattened even though their overall Progress Overview still shows a respectable completion percentage. What does this combination most likely indicate, and why is Velocity able to catch it when Progress Overview alone might not?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-a-teacher-notices-a-students-overall-concept-mastery-score-for-a-topic-looks-acceptable-but-suspects-something-is-still-wrong-with-one-specific-assignment-within-that-topic-which-report-should-the-teacher-open-to-investigate-at-the-individual-question-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. A teacher notices a student's overall concept mastery score for a topic looks acceptable, but suspects something is still wrong with one specific assignment within that topic. Which report should the teacher open to investigate at the individual-question level?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-why-does-the-struggle-detector-require-both-a-high-attempt-count-and-a-low-result-score-before-flagging-a-concept-rather-than-flagging-any-concept-with-a-low-mastery-score-alone" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Why does the Struggle Detector require both a high attempt count and a low result score before flagging a concept, rather than flagging any concept with a low mastery score alone?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-why-doesnt-the-default-group-of-ten-suppression-threshold-blank-out-every-report-on-a-student-detail-dashboard-given-that-a-single-student-is-a-group-of-exactly-one" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Why doesn't the default group-of-ten suppression threshold blank out every report on a Student Detail Dashboard, given that a single student is a group of exactly one?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-a-teacher-tells-a-colleague-this-students-mastery-score-for-photosynthesis-is-062-so-they-got-about-62-of-the-photosynthesis-questions-right-evaluate-this-statement-against-what-this-chapter-and-chapter-12-establish-about-what-a-mastery-score-actually-represents" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. A teacher tells a colleague, "This student's mastery score for photosynthesis is 0.62, so they got about 62% of the photosynthesis questions right." Evaluate this statement against what this chapter and Chapter 12 establish about what a mastery score actually represents.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-a-teacher-has-a-student-whose-progress-overview-looks-strong-whose-reading-vs-doing-balance-shows-a-heavily-reading-skewed-ratio-and-whose-time-on-task-timeline-shows-one-long-session-the-night-before-every-quiz-deadline-design-a-combination-of-this-chapters-reports-that-would-help-the-teacher-form-the-most-complete-picture-of-what-might-actually-be-happening-with-this-student-and-briefly-justify-each-choice" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. A teacher has a student whose Progress Overview looks strong, whose Reading vs. Doing Balance shows a heavily reading-skewed ratio, and whose Time-on-Task Timeline shows one long session the night before every quiz deadline. Design a combination of this chapter's reports that would help the teacher form the most complete picture of what might actually be happening with this student, and briefly justify each choice.
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/28-teacher-dashboards-student-reports/quiz.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="quiz-teacher-dashboards-and-student-level-reports">Quiz: Teacher Dashboards and Student-Level Reports<a class="headerlink" href="#quiz-teacher-dashboards-and-student-level-reports" title="Permanent link">&para;</a></h1>
+<p>Test your understanding of this project's teacher dashboards and student-level reports with these review questions.</p>
+<hr />
+<h4 id="1-what-is-the-key-difference-between-the-my-classes-dashboard-and-the-student-detail-dashboard">1. What is the key difference between the My Classes Dashboard and the Student Detail Dashboard?<a class="headerlink" href="#1-what-is-the-key-difference-between-the-my-classes-dashboard-and-the-student-detail-dashboard" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>My Classes is a section-level landing page built from class-wide reports; Student Detail is the single-student view reached by clicking one name, built from all nine student-level reports</li>
+<li>My Classes is for the Textbook Author, while Student Detail is for the Teacher</li>
+<li>My Classes shows raw statements, while Student Detail shows only aggregated summaries</li>
+<li>My Classes and Student Detail are two names for the identical dashboard, shown to different roles</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>A</strong>. My Classes is the section-level landing page; clicking one student's name drills into the Student Detail Dashboard, built from all nine reports this chapter covers. B misassigns both dashboards to the wrong persona — both belong to the Teacher. C reverses which dashboard shows aggregated versus raw data, and neither shows raw statements directly. D wrongly collapses two distinct screens into one.</p>
+<p><strong>Concept Tested:</strong> My Classes Dashboard / Student Detail Dashboard</p>
+<p><strong>See:</strong> <a href="../#two-dashboards-one-drill-down">Two Dashboards, One Drill-Down</a></p>
+</details>
+<hr />
+<h4 id="2-how-does-the-concept-mastery-radar-differ-from-the-student-progress-overview">2. How does the Concept Mastery Radar differ from the Student Progress Overview?<a class="headerlink" href="#2-how-does-the-concept-mastery-radar-differ-from-the-student-progress-overview" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>The Progress Overview uses BKT mastery scores, while the Concept Mastery Radar ignores mastery entirely and counts only page views</li>
+<li>The two reports are identical in content, differing only in chart type</li>
+<li>The Concept Mastery Radar only applies to concepts a student has not yet attempted</li>
+<li>The Progress Overview asks "mastered or not" as a simple checklist against the full concept set; the Concept Mastery Radar asks "mastered how well, and in which taxonomy categories," rendering a shape rather than a single percentage</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>D</strong>. The Progress Overview is a binary checklist against the full concept catalog, while the Concept Mastery Radar groups BKT mastery scores by taxonomy category into a shape that reveals strengths and weaknesses a single percentage cannot. A reverses which report actually uses BKT scores — both ultimately draw from mastery data, but in different forms. B ignores their genuinely different content, not just chart type. C invents a restriction the radar does not have.</p>
+<p><strong>Concept Tested:</strong> Concept Mastery Radar</p>
+<p><strong>See:</strong> <a href="../#concept-mastery-radar-mastery-grouped-and-shaped">Concept Mastery Radar: Mastery, Grouped and Shaped</a></p>
+</details>
+<hr />
+<h4 id="3-what-two-families-of-xapi-verbs-does-the-reading-vs-doing-balance-report-compare">3. What two families of xAPI verbs does the Reading vs. Doing Balance report compare?<a class="headerlink" href="#3-what-two-families-of-xapi-verbs-does-the-reading-vs-doing-balance-report-compare" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>voided versus completed statements</li>
+<li>experienced statements (reading/watching) versus interacted and answered statements (actively doing something)</li>
+<li>registered versus attempted statements</li>
+<li>provisional versus reconciled statements</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>B</strong>. The report compares <code>experienced</code> statements, which record passive consumption, against <code>interacted</code> and <code>answered</code> statements, which record active engagement. A confuses this with Statement Immutability's voiding mechanism from an earlier chapter. C invents an unrelated verb pairing. D confuses this with the provisional/reconciled reconciliation status from earlier chapters, an entirely different concept.</p>
+<p><strong>Concept Tested:</strong> Reading Vs Doing Balance</p>
+<p><strong>See:</strong> <a href="../#reading-vs-doing-balance-a-quick-verb-ratio-check">Reading vs. Doing Balance: A Quick Verb-Ratio Check</a></p>
+</details>
+<hr />
+<h4 id="4-why-does-the-time-on-task-timeline-matter-even-for-two-students-who-reach-the-identical-final-mastery-score">4. Why does the Time-on-Task Timeline matter even for two students who reach the identical final mastery score?<a class="headerlink" href="#4-why-does-the-time-on-task-timeline-matter-even-for-two-students-who-reach-the-identical-final-mastery-score" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Because the mastery score itself is computed differently depending on session length</li>
+<li>Because a cram session always produces a lower BKT mastery score than steady engagement</li>
+<li>Because it reveals the pattern behind that score — one steady fifteen minutes nightly versus a single three-hour cram session — a difference in engagement pattern that the mastery score alone never shows</li>
+<li>Because the Time-on-Task Timeline replaces the need for a mastery score entirely</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>C</strong>. The timeline surfaces a difference in engagement pattern — steady study versus a single cram session — that two students can share an identical mastery score while showing completely different session shapes underneath it. A invents an unsupported computational dependency. B makes an unsupported blanket claim about cram sessions always scoring lower. D overstates the timeline's role, which complements rather than replaces the mastery score.</p>
+<p><strong>Concept Tested:</strong> Time-On-Task Timeline</p>
+<p><strong>See:</strong> <a href="../#time-on-task-timeline-when-the-student-actually-worked">Time-on-Task Timeline: When the Student Actually Worked</a></p>
+</details>
+<hr />
+<h4 id="5-a-students-learning-velocity-line-has-flattened-even-though-their-overall-progress-overview-still-shows-a-respectable-completion-percentage-what-does-this-combination-most-likely-indicate-and-why-is-velocity-able-to-catch-it-when-progress-overview-alone-might-not">5. A student's Learning Velocity line has flattened even though their overall Progress Overview still shows a respectable completion percentage. What does this combination most likely indicate, and why is Velocity able to catch it when Progress Overview alone might not?<a class="headerlink" href="#5-a-students-learning-velocity-line-has-flattened-even-though-their-overall-progress-overview-still-shows-a-respectable-completion-percentage-what-does-this-combination-most-likely-indicate-and-why-is-velocity-able-to-catch-it-when-progress-overview-alone-might-not" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>It indicates the student has fully mastered the course; Velocity simply confirms what Progress Overview already showed</li>
+<li>It indicates a data-entry error, since Velocity and Progress Overview should always move in lockstep</li>
+<li>It indicates the student needs no intervention, since a respectable Progress Overview always overrides a concerning Velocity trend</li>
+<li>It indicates the student was previously making good progress but has since stalled — Velocity is a trend (is the snapshot improving or worsening) while Progress Overview is only a snapshot (how far along right now), so a student can look fine on one and concerning on the other</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>D</strong>. Because Progress Overview is a snapshot and Velocity is a trend, a student can look fine on the snapshot while the trend quietly signals a stall — exactly the "was ahead and has since stopped moving" case this chapter describes. A misreads a flattening trend as confirmation of success. B wrongly assumes the two measures must always agree. C wrongly lets one measure override a genuinely different signal from the other.</p>
+<p><strong>Concept Tested:</strong> Learning Velocity Report</p>
+<p><strong>See:</strong> <a href="../#learning-velocity-report-speeding-up-or-stalling-out">Learning Velocity Report: Speeding Up or Stalling Out</a></p>
+</details>
+<hr />
+<h4 id="6-a-teacher-notices-a-students-overall-concept-mastery-score-for-a-topic-looks-acceptable-but-suspects-something-is-still-wrong-with-one-specific-assignment-within-that-topic-which-report-should-the-teacher-open-to-investigate-at-the-individual-question-level">6. A teacher notices a student's overall concept mastery score for a topic looks acceptable, but suspects something is still wrong with one specific assignment within that topic. Which report should the teacher open to investigate at the individual-question level?<a class="headerlink" href="#6-a-teacher-notices-a-students-overall-concept-mastery-score-for-a-topic-looks-acceptable-but-suspects-something-is-still-wrong-with-one-specific-assignment-within-that-topic-which-report-should-the-teacher-open-to-investigate-at-the-individual-question-level" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Concept Mastery Radar</li>
+<li>Reading vs. Doing Balance</li>
+<li>Quiz Item Analysis</li>
+<li>Time-on-Task Timeline</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>C</strong>. Quiz Item Analysis drops to the individual-question level, catching a pattern like consistently missing one specific question that a concept-level score would average away entirely. A stays at the category level, too coarse for this need. B compares reading versus doing activity, unrelated to per-question performance. D shows session timing, not question-level correctness.</p>
+<p><strong>Concept Tested:</strong> Quiz Item Analysis</p>
+<p><strong>See:</strong> <a href="../#quiz-item-analysis-performance-at-the-question-level">Quiz Item Analysis: Performance at the Question Level</a></p>
+</details>
+<hr />
+<h4 id="7-why-does-the-struggle-detector-require-both-a-high-attempt-count-and-a-low-result-score-before-flagging-a-concept-rather-than-flagging-any-concept-with-a-low-mastery-score-alone">7. Why does the Struggle Detector require both a high attempt count and a low result score before flagging a concept, rather than flagging any concept with a low mastery score alone?<a class="headerlink" href="#7-why-does-the-struggle-detector-require-both-a-high-attempt-count-and-a-low-result-score-before-flagging-a-concept-rather-than-flagging-any-concept-with-a-low-mastery-score-alone" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Because flagging low mastery alone would also flag concepts the student simply hasn't reached yet, which is a completely different situation from a concept the student has genuinely attempted repeatedly without success — the combination is what distinguishes "not yet attempted" from "actively stuck"</li>
+<li>Because a high attempt count alone is always sufficient evidence of struggle, regardless of the resulting score</li>
+<li>Because the Struggle Detector ignores result scores entirely and ranks concepts only by attempt count</li>
+<li>Because low mastery scores are considered unreliable data and must be corroborated by a completely unrelated report before being trusted</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>A</strong>. Combining effort with low success is precisely what separates a concept the student hasn't gotten to yet from one they are actively stuck on, which is the distinction that makes this list actionable. B ignores the score half of the combination entirely. C contradicts the report's explicit use of result score alongside attempt count. D invents an unrelated data-reliability concern not described in the chapter.</p>
+<p><strong>Concept Tested:</strong> Struggle Detector</p>
+<p><strong>See:</strong> <a href="../#struggle-detector-composing-the-signals-into-a-ranked-list">Struggle Detector: Composing the Signals Into a Ranked List</a></p>
+</details>
+<hr />
+<h4 id="8-why-doesnt-the-default-group-of-ten-suppression-threshold-blank-out-every-report-on-a-student-detail-dashboard-given-that-a-single-student-is-a-group-of-exactly-one">8. Why doesn't the default group-of-ten suppression threshold blank out every report on a Student Detail Dashboard, given that a single student is a group of exactly one?<a class="headerlink" href="#8-why-doesnt-the-default-group-of-ten-suppression-threshold-blank-out-every-report-on-a-student-detail-dashboard-given-that-a-single-student-is-a-group-of-exactly-one" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Because the suppression threshold is disabled entirely for any dashboard viewed on a mobile device</li>
+<li>Because the threshold's real purpose is stopping re-identification by parties without a legitimate relationship to the student, and a teacher viewing their own rostered student already knows that student by name — the threshold applies to cross-group, de-identified, and benchmark views, with a role's own directly-rostered scope explicitly exempted</li>
+<li>Because Student Detail Dashboards are technically exempt from all privacy regulations</li>
+<li>Because the mastery scores shown are randomized and therefore contain no identifiable information regardless of group size</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>B</strong>. The threshold exists to stop re-identification by parties without a legitimate relationship to the student, and a teacher already knows their own rostered students, so that specific exemption is what keeps Student Detail visible at all. A invents an unrelated device-based exemption. C overstates a scoped exemption into a blanket regulatory exemption. D fabricates a randomization mechanism the chapter never describes.</p>
+<p><strong>Concept Tested:</strong> Idle Disengagement Alert (privacy threshold exemption)</p>
+<p><strong>See:</strong> <a href="../#idle-disengagement-alert-the-report-that-reaches-back-to-my-classes">Idle Disengagement Alert: The Report That Reaches Back to My Classes</a></p>
+</details>
+<hr />
+<h4 id="9-a-teacher-tells-a-colleague-this-students-mastery-score-for-photosynthesis-is-062-so-they-got-about-62-of-the-photosynthesis-questions-right-evaluate-this-statement-against-what-this-chapter-and-chapter-12-establish-about-what-a-mastery-score-actually-represents">9. A teacher tells a colleague, "This student's mastery score for photosynthesis is 0.62, so they got about 62% of the photosynthesis questions right." Evaluate this statement against what this chapter and Chapter 12 establish about what a mastery score actually represents.<a class="headerlink" href="#9-a-teacher-tells-a-colleague-this-students-mastery-score-for-photosynthesis-is-062-so-they-got-about-62-of-the-photosynthesis-questions-right-evaluate-this-statement-against-what-this-chapter-and-chapter-12-establish-about-what-a-mastery-score-actually-represents" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>The statement is correct, since a mastery score is defined as the percentage of questions answered correctly</li>
+<li>The statement is correct only if the student answered exactly ten questions on that concept</li>
+<li>The statement is a common but incorrect reading: 0.62 is a probability that the student has actually mastered the concept, not a percentage of questions answered correctly, and this misreading is especially risky for students sitting near the 0.75 "likely mastered" reference line, where a teacher's judgment matters most</li>
+<li>The statement is irrelevant, since mastery scores are never shown to teachers in any report</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>C</strong>. A BKT mastery score is a probability of mastery, not a percent-correct score, and this exact misreading is most dangerous for students sitting near the reference line where a teacher's judgment matters most. A treats the score as the wrong kind of number entirely. B invents an arbitrary attempt-count condition that does not make the reading correct. D is false — mastery scores are the backbone of the Concept Mastery Radar and other reports teachers regularly view.</p>
+<p><strong>Concept Tested:</strong> Concept Mastery Radar (mastery score interpretation)</p>
+<p><strong>See:</strong> <a href="../#concept-mastery-radar-mastery-grouped-and-shaped">Concept Mastery Radar: Mastery, Grouped and Shaped</a></p>
+</details>
+<hr />
+<h4 id="10-a-teacher-has-a-student-whose-progress-overview-looks-strong-whose-reading-vs-doing-balance-shows-a-heavily-reading-skewed-ratio-and-whose-time-on-task-timeline-shows-one-long-session-the-night-before-every-quiz-deadline-design-a-combination-of-this-chapters-reports-that-would-help-the-teacher-form-the-most-complete-picture-of-what-might-actually-be-happening-with-this-student-and-briefly-justify-each-choice">10. A teacher has a student whose Progress Overview looks strong, whose Reading vs. Doing Balance shows a heavily reading-skewed ratio, and whose Time-on-Task Timeline shows one long session the night before every quiz deadline. Design a combination of this chapter's reports that would help the teacher form the most complete picture of what might actually be happening with this student, and briefly justify each choice.<a class="headerlink" href="#10-a-teacher-has-a-student-whose-progress-overview-looks-strong-whose-reading-vs-doing-balance-shows-a-heavily-reading-skewed-ratio-and-whose-time-on-task-timeline-shows-one-long-session-the-night-before-every-quiz-deadline-design-a-combination-of-this-chapters-reports-that-would-help-the-teacher-form-the-most-complete-picture-of-what-might-actually-be-happening-with-this-student-and-briefly-justify-each-choice" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Rely solely on the Concept Mastery Radar, since mastery scores alone always explain every engagement pattern</li>
+<li>Cross-reference the Reading vs. Doing Balance (to confirm the student is mostly consuming rather than practicing), the Time-on-Task Timeline (to confirm the cram pattern rather than steady engagement), and the Learning Velocity Report (to see whether progress is still rising despite the pattern, or beginning to stall) — together distinguishing a student who crams effectively from one whose passive, last-minute habits are starting to catch up with them</li>
+<li>Open only the Idle Disengagement Alert, since it is the single most comprehensive report in the set</li>
+<li>Ignore all engagement-pattern reports and focus exclusively on whether the student's final grade meets the district's minimum threshold</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>B</strong>. Combining the three reports already named in the scenario — reading/doing ratio, session pattern, and progress trend — gives the teacher a genuinely fuller picture than any single report could, distinguishing a student whose habits are still working from one whose pattern is starting to catch up with them. A wrongly claims mastery alone explains engagement patterns it was never designed to capture. C picks a single, narrow report unrelated to the specific pattern described. D discards exactly the engagement signals the scenario is built around.</p>
+<p><strong>Concept Tested:</strong> Reading Vs Doing Balance / Time-On-Task Timeline / Learning Velocity Report (synthesis)</p>
+</details>
+<hr />
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Content">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Content
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../29-class-level-reports-and-tools/" class="md-footer__link md-footer__link--next" aria-label="Next: Content">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Content
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Dan McCreary. Licensed under <a href="license/">CC BY-NC-SA 4.0</a> for non-commercial use.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../../js/katex.js"></script>
+      
+        <script src="../../../js/quiz-xapi.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

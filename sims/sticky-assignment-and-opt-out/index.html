@@ -313,6 +313,12 @@
         
       
         
+      
+        
+          
+        
+      
+        
           
         
       
@@ -406,131 +412,67 @@
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
-        
       
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
         
       
     
@@ -576,6 +518,8 @@
       
         
           
+        
+      
         
       
         
@@ -4846,103 +4790,8 @@
     
       
         
-          
-        
       
         
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../../stories/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Stories
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
       
         
       
@@ -4974,6 +4823,51 @@
   
   <span class="md-ellipsis">
     Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../lrs-lite/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    LRS-Lite (Serverless)
   </span>
   
 
@@ -5220,15 +5114,15 @@
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>Bloom Taxonomy: Apply (L3)
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>Bloom Taxonomy Verb: trace, apply
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>Learning objective: Let the learner trace a single student&#39;s request through the eligibility check, the hash-based assignment formula, and the non-blocking fallback path, applying the deterministic sticky assignment rule to a concrete decision.
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>Learning objective: Let the learner trace a single student's request through the eligibility check, the hash-based assignment formula, and the non-blocking fallback path, applying the deterministic sticky assignment rule to a concrete decision.
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>Purpose: A Mermaid flowchart beginning at &quot;Student requests a page covered by an active experiment,&quot; branching first on &quot;Is the student&#39;s district opted out of experimentation?&quot; — Yes leads directly to &quot;Serve control arm (excluded from randomization)&quot;; No proceeds to &quot;Is the assignment service reachable?&quot; — No leads to &quot;Serve control arm (non-blocking fallback); statement still recorded&quot;; Yes leads to &quot;Compute variant = hash(experiment_id, unit_id) mod k&quot; which leads to &quot;Look up ASSIGNED_TO edge, or create it on first assignment&quot; and finally to &quot;Serve the assigned variant; assignment is now sticky for this student.&quot;
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>Purpose: A Mermaid flowchart beginning at "Student requests a page covered by an active experiment," branching first on "Is the student's district opted out of experimentation?" — Yes leads directly to "Serve control arm (excluded from randomization)"; No proceeds to "Is the assignment service reachable?" — No leads to "Serve control arm (non-blocking fallback); statement still recorded"; Yes leads to "Compute variant = hash(experiment_id, unit_id) mod k" which leads to "Look up ASSIGNED_TO edge, or create it on first assignment" and finally to "Serve the assigned variant; assignment is now sticky for this student."
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Interactive features: Every node is wired with a Mermaid `click` directive. Clicking the opt-out decision node opens an infobox explaining that eligibility is enforced through the Eligibility Predicate and cannot be overridden by an author. Clicking the hash-formula node opens an infobox restating the formula from this section&#39;s prose in plain language. Clicking either &quot;Serve control arm&quot; outcome opens an infobox distinguishing the two reasons a student might land in control: policy exclusion versus a temporary service outage.
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Interactive features: Every node is wired with a Mermaid `click` directive. Clicking the opt-out decision node opens an infobox explaining that eligibility is enforced through the Eligibility Predicate and cannot be overridden by an author. Clicking the hash-formula node opens an infobox restating the formula from this section's prose in plain language. Clicking either "Serve control arm" outcome opens an infobox distinguishing the two reasons a student might land in control: policy exclusion versus a temporary service outage.
 </span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Color coding: The two decision (branch) nodes in the book&#39;s amber accent color; the two control-arm outcomes in muted gray-blue; the &quot;sticky assignment&quot; terminal node in teal to mark the normal, successful path.
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Color coding: The two decision (branch) nodes in the book's amber accent color; the two control-arm outcomes in muted gray-blue; the "sticky assignment" terminal node in teal to mark the normal, successful path.
 </span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Responsive design: The flowchart resizes to the containing element&#39;s width and stacks its branches vertically rather than horizontally on narrow viewports, preserving click targets at mobile widths.
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Responsive design: The flowchart resizes to the containing element's width and stacks its branches vertically rather than horizontally on narrow viewports, preserving click targets at mobile widths.
 </span></code></pre></div>
 <h2 id="related-resources">Related Resources<a class="headerlink" href="#related-resources" title="Permanent link">&para;</a></h2>
 <ul>

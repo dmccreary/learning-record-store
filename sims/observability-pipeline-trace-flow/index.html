@@ -313,6 +313,12 @@
         
       
         
+      
+        
+          
+        
+      
+        
           
         
       
@@ -406,131 +412,67 @@
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
-        
       
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
         
       
     
@@ -576,6 +518,8 @@
       
         
           
+        
+      
         
       
         
@@ -4846,103 +4790,8 @@
     
       
         
-          
-        
       
         
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../../stories/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Stories
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
       
         
       
@@ -4974,6 +4823,51 @@
   
   <span class="md-ellipsis">
     Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../lrs-lite/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    LRS-Lite (Serverless)
   </span>
   
 
@@ -5224,11 +5118,11 @@
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
 </span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>Purpose: Show a single Mermaid flowchart with two parallel paths sharing a common source, reflecting that traces and metrics are two different signals produced by the same instrumentation.
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Nodes: Common source: &quot;Gateway mints a trace ID on statement receipt&quot;. Path A (traces): leads to &quot;OpenTelemetry instrumentation attaches the trace ID at every hop (gateway, queue, processor, ClickHouse write, Neo4j write)&quot; leads to &quot;Jaeger stores the full trace as one connected timeline&quot; leads to &quot;Engineer looks up one statement&#39;s entire journey&quot;. Path B (metrics): &quot;Every role emits metrics (queue depth, processing lag, dead-letter rate) via OpenTelemetry&quot; leads to &quot;Prometheus scrapes and stores the metrics as a time series&quot; leads to &quot;Grafana renders dashboards a system administrator watches&quot; leads to &quot;Same numbers back the Data Quality Monitor report for a district administrator&quot;.
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Nodes: Common source: "Gateway mints a trace ID on statement receipt". Path A (traces): leads to "OpenTelemetry instrumentation attaches the trace ID at every hop (gateway, queue, processor, ClickHouse write, Neo4j write)" leads to "Jaeger stores the full trace as one connected timeline" leads to "Engineer looks up one statement's entire journey". Path B (metrics): "Every role emits metrics (queue depth, processing lag, dead-letter rate) via OpenTelemetry" leads to "Prometheus scrapes and stores the metrics as a time series" leads to "Grafana renders dashboards a system administrator watches" leads to "Same numbers back the Data Quality Monitor report for a district administrator".
 </span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Interactive features: Every node has a Mermaid click directive. Clicking &quot;OpenTelemetry&quot; opens an infobox defining it as the vendor-neutral instrumentation standard, distinguishing it from the three products that consume its output. Clicking &quot;Jaeger&quot; or &quot;Prometheus&quot; opens an infobox naming which signal type each stores (traces vs. metrics). Clicking &quot;Grafana&quot; opens an infobox naming its role as the presentation layer for both. Clicking the shared &quot;trace ID&quot; node reinforces the end-to-end-tracing requirement named in this chapter&#39;s prose.
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Interactive features: Every node has a Mermaid click directive. Clicking "OpenTelemetry" opens an infobox defining it as the vendor-neutral instrumentation standard, distinguishing it from the three products that consume its output. Clicking "Jaeger" or "Prometheus" opens an infobox naming which signal type each stores (traces vs. metrics). Clicking "Grafana" opens an infobox naming its role as the presentation layer for both. Clicking the shared "trace ID" node reinforces the end-to-end-tracing requirement named in this chapter's prose.
 </span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Color coding: The trace path in the book&#39;s teal accent color; the metrics path in a complementary amber; the shared source node in a neutral color to show it is the common origin of both.
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Color coding: The trace path in the book's teal accent color; the metrics path in a complementary amber; the shared source node in a neutral color to show it is the common origin of both.
 </span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
 </span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>Responsive design: The two paths stack vertically at narrow widths, remaining independently readable; the flowchart resizes to the width of its containing element.
 </span></code></pre></div>

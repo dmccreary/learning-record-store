@@ -313,6 +313,12 @@
         
       
         
+      
+        
+          
+        
+      
+        
           
         
       
@@ -406,131 +412,67 @@
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
-        
       
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
         
       
     
@@ -576,6 +518,8 @@
       
         
           
+        
+      
         
       
         
@@ -4846,103 +4790,8 @@
     
       
         
-          
-        
       
         
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../../stories/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Stories
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
       
         
       
@@ -4974,6 +4823,51 @@
   
   <span class="md-ellipsis">
     Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../lrs-lite/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    LRS-Lite (Serverless)
   </span>
   
 
@@ -5222,15 +5116,15 @@
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>Learning objective: Compare Remote SSH Development, Docker Context Over SSH, and plain git-plus-SSH as three ways of developing against containers running on a rented host, and identify which piece of tooling runs locally versus remotely in each pattern.
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>Purpose: A Mermaid flowchart with three parallel branches, each starting from a shared &quot;Laptop&quot; node and ending at a shared &quot;Remote Host running Docker Engine&quot; node, so the learner sees what crosses the network in each pattern.
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>Purpose: A Mermaid flowchart with three parallel branches, each starting from a shared "Laptop" node and ending at a shared "Remote Host running Docker Engine" node, so the learner sees what crosses the network in each pattern.
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Branch A &quot;Remote SSH Development&quot;: &quot;Laptop (editor UI only)&quot; -&gt; &quot;VS Code / Cursor Remote-SSH extension&quot; -&gt; &quot;Files, terminal, `make up` execute on&quot; -&gt; &quot;Remote Host.&quot; Tag: &quot;Ports auto-forwarded to localhost; smoothest loop, no manual tunnel.&quot;
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Branch A "Remote SSH Development": "Laptop (editor UI only)" -&gt; "VS Code / Cursor Remote-SSH extension" -&gt; "Files, terminal, `make up` execute on" -&gt; "Remote Host." Tag: "Ports auto-forwarded to localhost; smoothest loop, no manual tunnel."
 </span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Branch B &quot;Docker Context Over SSH&quot;: &quot;Laptop (Docker CLI + GUI)&quot; -&gt; &quot;`docker context use lrs-remote`&quot; -&gt; &quot;Commands sent over SSH to&quot; -&gt; &quot;Remote Host&#39;s Docker engine.&quot; Tag: &quot;Containers publish ports remotely — needs a manual SSH Tunnel Port Forward for `localhost` scripts.&quot;
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Branch B "Docker Context Over SSH": "Laptop (Docker CLI + GUI)" -&gt; "`docker context use lrs-remote`" -&gt; "Commands sent over SSH to" -&gt; "Remote Host's Docker engine." Tag: "Containers publish ports remotely — needs a manual SSH Tunnel Port Forward for `localhost` scripts."
 </span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Branch C &quot;Plain git + SSH&quot;: &quot;Laptop (git commit/push)&quot; -&gt; &quot;GitHub&quot; -&gt; &quot;`git pull` inside an SSH session on&quot; -&gt; &quot;Remote Host.&quot; Tag: &quot;No editor integration; simplest fallback, always works.&quot;
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Branch C "Plain git + SSH": "Laptop (git commit/push)" -&gt; "GitHub" -&gt; "`git pull` inside an SSH session on" -&gt; "Remote Host." Tag: "No editor integration; simplest fallback, always works."
 </span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
-</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>Interactive features: Every node has a Mermaid click directive. Clicking a tag node opens an infobox with its trade-off text. Clicking the shared &quot;Remote Host&quot; node opens an infobox naming the UFW Firewall Rule that keeps only SSH exposed.
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>Interactive features: Every node has a Mermaid click directive. Clicking a tag node opens an infobox with its trade-off text. Clicking the shared "Remote Host" node opens an infobox naming the UFW Firewall Rule that keeps only SSH exposed.
 </span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>
 </span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>Color coding: Branch A teal (recommended default); Branch B amber; Branch C neutral gray; shared start/end nodes darker neutral.
 </span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>

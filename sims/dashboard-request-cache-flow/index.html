@@ -313,6 +313,12 @@
         
       
         
+      
+        
+          
+        
+      
+        
           
         
       
@@ -406,131 +412,67 @@
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
-        
       
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
         
       
     
@@ -576,6 +518,8 @@
       
         
           
+        
+      
         
       
         
@@ -4846,103 +4790,8 @@
     
       
         
-          
-        
       
         
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../../stories/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Stories
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
       
         
       
@@ -4974,6 +4823,51 @@
   
   <span class="md-ellipsis">
     Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../lrs-lite/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    LRS-Lite (Serverless)
   </span>
   
 
@@ -5223,13 +5117,13 @@
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>Learning objective: Let the learner trace a dashboard request from its Report ID Endpoint Pattern URL through an Analytics Cache Key lookup, a Data Version Invalidation check, and the single Privacy Filter Choke Point, to a response that meets the P95 Latency Budget.
 </span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>Purpose: Show a Mermaid flowchart tracing one dashboard request, adapted from the template&#39;s existing performance-dashboard workflow to this chapter&#39;s cache and privacy mechanisms.
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>Purpose: Show a Mermaid flowchart tracing one dashboard request, adapted from the template's existing performance-dashboard workflow to this chapter's cache and privacy mechanisms.
 </span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>Nodes: &quot;Dash callback calls GET /v1/reports/R-201?... (Report ID Endpoint Pattern)&quot; leads to &quot;Build Analytics Cache Key: report_id + tenant + params + data_version&quot; then splits: &quot;Cache hit&quot; leads to &quot;Skip straight to Privacy Filter Choke Point&quot;; &quot;Cache miss or Data Version Invalidation triggered&quot; leads to &quot;Query pre-aggregated ClickHouse view / Redis mastery vector&quot; leads to &quot;Privacy Filter Choke Point&quot;. Both paths converge at &quot;Privacy Filter Choke Point (threshold + complementary suppression, always applied)&quot; leads to &quot;Response returned within P95 Latency Budget&quot;.
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>Nodes: "Dash callback calls GET /v1/reports/R-201?... (Report ID Endpoint Pattern)" leads to "Build Analytics Cache Key: report_id + tenant + params + data_version" then splits: "Cache hit" leads to "Skip straight to Privacy Filter Choke Point"; "Cache miss or Data Version Invalidation triggered" leads to "Query pre-aggregated ClickHouse view / Redis mastery vector" leads to "Privacy Filter Choke Point". Both paths converge at "Privacy Filter Choke Point (threshold + complementary suppression, always applied)" leads to "Response returned within P95 Latency Budget".
 </span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
 </span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>Interactive features: Every node has a Mermaid click directive opening a definition infobox — the cache-key node lists all four key parts, the Data Version Invalidation node explains watermark-driven versus fixed-TTL invalidation, and the choke-point node stresses that both paths converge there so no response can bypass it.
 </span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>
-</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>Color coding: The cache-hit path in the book&#39;s teal accent color; the cache-miss path in a lighter tint of the same hue; the shared Privacy Filter Choke Point node in amber to flag it as the mandatory convergence point.
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>Color coding: The cache-hit path in the book's teal accent color; the cache-miss path in a lighter tint of the same hue; the shared Privacy Filter Choke Point node in amber to flag it as the mandatory convergence point.
 </span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
 </span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>Responsive design: Flowchart resizes to the width of its containing element; the two branches stack vertically above their shared convergence node on narrow viewports.
 </span></code></pre></div>

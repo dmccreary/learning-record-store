@@ -313,6 +313,12 @@
         
       
         
+      
+        
+          
+        
+      
+        
           
         
       
@@ -406,131 +412,67 @@
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
-        
       
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
         
       
     
@@ -576,6 +518,8 @@
       
         
           
+        
+      
         
       
         
@@ -4846,103 +4790,8 @@
     
       
         
-          
-        
       
         
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../../stories/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Stories
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
       
         
       
@@ -4974,6 +4823,51 @@
   
   <span class="md-ellipsis">
     Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../lrs-lite/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    LRS-Lite (Serverless)
   </span>
   
 
@@ -5222,15 +5116,15 @@
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>Learning objective: Trace a single malformed statement through three consumption attempts and its landing in the dead-letter queue, and explain why the consumer keeps processing other messages throughout.
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>Purpose: A Mermaid flowchart showing one message moving through the processor&#39;s retry logic, with a loop-back arrow for retries and a terminal branch to the dead-letter queue.
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>Purpose: A Mermaid flowchart showing one message moving through the processor's retry logic, with a loop-back arrow for retries and a terminal branch to the dead-letter queue.
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Nodes: &quot;Message consumed&quot; -&gt; &quot;Processing attempt&quot; -&gt; decision &quot;Succeeded?&quot; -&gt; (yes) &quot;Offset committed, consumer continues&quot;; (no) -&gt; &quot;Attempt count += 1&quot; -&gt; decision &quot;Attempts = 3?&quot; -&gt; (no, loop back to) &quot;Processing attempt&quot;; (yes) -&gt; &quot;Routed to Dead-Letter Queue (DLQ)&quot; -&gt; &quot;Offset committed, consumer continues&quot;.
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Nodes: "Message consumed" -&gt; "Processing attempt" -&gt; decision "Succeeded?" -&gt; (yes) "Offset committed, consumer continues"; (no) -&gt; "Attempt count += 1" -&gt; decision "Attempts = 3?" -&gt; (no, loop back to) "Processing attempt"; (yes) -&gt; "Routed to Dead-Letter Queue (DLQ)" -&gt; "Offset committed, consumer continues".
 </span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>A parallel track shown alongside: &quot;Next message in partition&quot; -&gt; &quot;Processing attempt&quot; -&gt; &quot;Offset committed&quot; — showing the poison message&#39;s retries do not block the rest of the stream.
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>A parallel track shown alongside: "Next message in partition" -&gt; "Processing attempt" -&gt; "Offset committed" — showing the poison message's retries do not block the rest of the stream.
 </span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Interactive features: Every node has a Mermaid click directive opening an infobox. &quot;Attempt count += 1&quot; explains the three-attempt limit. &quot;Routed to Dead-Letter Queue (DLQ)&quot; defines a DLQ and links its inspection to Chapter 18&#39;s diagnostics UI. The parallel track explains that per-partition processing is sequential, but the DLQ hand-off keeps one bad message from blocking it indefinitely.
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Interactive features: Every node has a Mermaid click directive opening an infobox. "Attempt count += 1" explains the three-attempt limit. "Routed to Dead-Letter Queue (DLQ)" defines a DLQ and links its inspection to Chapter 18's diagnostics UI. The parallel track explains that per-partition processing is sequential, but the DLQ hand-off keeps one bad message from blocking it indefinitely.
 </span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
-</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>Color coding: Retry loop amber (&quot;in progress&quot;); DLQ terminal node muted red (&quot;quarantined, not lost&quot;); successful-commit nodes teal.
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>Color coding: Retry loop amber ("in progress"); DLQ terminal node muted red ("quarantined, not lost"); successful-commit nodes teal.
 </span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>
 </span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>Responsive design: The flowchart stacks the retry track above the parallel track on narrow viewports, preserving click handlers and loop direction.
 </span></code></pre></div>

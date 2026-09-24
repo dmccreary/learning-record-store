@@ -313,6 +313,12 @@
         
       
         
+      
+        
+          
+        
+      
+        
           
         
       
@@ -406,131 +412,67 @@
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
-        
       
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
         
       
     
@@ -576,6 +518,8 @@
       
         
           
+        
+      
         
       
         
@@ -4846,103 +4790,8 @@
     
       
         
-          
-        
       
         
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../../stories/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Stories
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
       
         
       
@@ -4974,6 +4823,51 @@
   
   <span class="md-ellipsis">
     Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../lrs-lite/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    LRS-Lite (Serverless)
   </span>
   
 
@@ -5220,15 +5114,15 @@
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>Bloom Taxonomy: Understand (L2)
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>Bloom Taxonomy Verb: explain, sequence
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>Learning objective: Let the learner explain how a newly published textbook can emit statements before its metadata is registered, and sequence the four steps of Accept-First Ingestion from a statement&#39;s arrival to a Provisional Node&#39;s promotion.
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>Learning objective: Let the learner explain how a newly published textbook can emit statements before its metadata is registered, and sequence the four steps of Accept-First Ingestion from a statement's arrival to a Provisional Node's promotion.
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>Purpose: Show a six-node, left-to-right Mermaid flowchart tracing one never-before-seen textbook&#39;s first statement from arrival through reconciliation, matching the four numbered steps described in this chapter&#39;s prose.
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>Purpose: Show a six-node, left-to-right Mermaid flowchart tracing one never-before-seen textbook's first statement from arrival through reconciliation, matching the four numbered steps described in this chapter's prose.
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Nodes, in order: &quot;Statement arrives naming an unknown textbook_id/version_id&quot;; &quot;Ingestion Gateway accepts it (Accept-First Ingestion)&quot;; &quot;Stream Processor auto-provisions a stub (Provisional Node, provisional: true)&quot;; &quot;Event Store retains the statement immutably&quot;; &quot;Reconciliation Worker matches the stub against published metadata (git_sha, then IRI path, then title similarity)&quot;; &quot;Node promoted (provisional: false), COVERS/EMBEDS/DEPENDS_ON back-filled — earlier statements become richly queryable retroactively&quot;. Edges connect each node to the next in sequence.
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Nodes, in order: "Statement arrives naming an unknown textbook_id/version_id"; "Ingestion Gateway accepts it (Accept-First Ingestion)"; "Stream Processor auto-provisions a stub (Provisional Node, provisional: true)"; "Event Store retains the statement immutably"; "Reconciliation Worker matches the stub against published metadata (git_sha, then IRI path, then title similarity)"; "Node promoted (provisional: false), COVERS/EMBEDS/DEPENDS_ON back-filled — earlier statements become richly queryable retroactively". Edges connect each node to the next in sequence.
 </span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Interactive features: Every node has a Mermaid `click` directive opening an infobox with that node&#39;s definition from this chapter&#39;s prose — Schema On Read, Accept-First Ingestion, Provisional Node and its `provisional: true` property, the no-data-loss guarantee, the Reconciliation Worker&#39;s three-tier matching order, and retroactive queryability with a link back to Chapter 7&#39;s `COVERS`, `EMBEDS`, and `DEPENDS_ON` relationship types, in node order.
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Interactive features: Every node has a Mermaid `click` directive opening an infobox with that node's definition from this chapter's prose — Schema On Read, Accept-First Ingestion, Provisional Node and its `provisional: true` property, the no-data-loss guarantee, the Reconciliation Worker's three-tier matching order, and retroactive queryability with a link back to Chapter 7's `COVERS`, `EMBEDS`, and `DEPENDS_ON` relationship types, in node order.
 </span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Color coding: The three &quot;accept immediately&quot; nodes in the book&#39;s teal accent color; the three &quot;reconciled later&quot; nodes in a complementary amber — visually separating what happens instantly from what happens eventually.
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Color coding: The three "accept immediately" nodes in the book's teal accent color; the three "reconciled later" nodes in a complementary amber — visually separating what happens instantly from what happens eventually.
 </span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
 </span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>Implementation: Mermaid flowchart, single left-to-right chain, full click-to-infobox coverage on every node. Responsive width tracking the containing element; on narrow viewports the chain reflows top-to-bottom.
 </span></code></pre></div>

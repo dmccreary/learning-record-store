@@ -313,6 +313,12 @@
         
       
         
+      
+        
+          
+        
+      
+        
           
         
       
@@ -406,131 +412,67 @@
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
-        
       
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
         
       
     
@@ -576,6 +518,8 @@
       
         
           
+        
+      
         
       
         
@@ -4846,103 +4790,8 @@
     
       
         
-          
-        
       
         
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../../stories/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Stories
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
       
         
       
@@ -4974,6 +4823,51 @@
   
   <span class="md-ellipsis">
     Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../lrs-lite/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    LRS-Lite (Serverless)
   </span>
   
 
@@ -5225,13 +5119,13 @@
 </span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>Purpose: Show, as an interactive bar chart, how three evidence types convert into a soft correctness value in [0,1] plus a separate evidence weight, so the learner sees both numbers move together as the underlying signal changes.
 </span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>Controls: A toggle selecting evidence type — &quot;Graded quiz response&quot; (binary), &quot;Page dwell time&quot; (slider, 0–300 seconds), &quot;MicroSim interaction depth&quot; (slider, 0–20 interactions) — plus a &quot;Compare to a graded response&quot; checkbox that overlays a fixed reference bar at weight 1.0.
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>Controls: A toggle selecting evidence type — "Graded quiz response" (binary), "Page dwell time" (slider, 0–300 seconds), "MicroSim interaction depth" (slider, 0–20 interactions) — plus a "Compare to a graded response" checkbox that overlays a fixed reference bar at weight 1.0.
 </span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>Visual elements: Two side-by-side bars per selection, &quot;Soft Correctness&quot; (0–1) and &quot;Evidence Weight&quot; (0–1), updating live as the slider moves. A graded response fixes Evidence Weight at 1.0; dwell time and interaction depth both show Soft Correctness rising smoothly with the slider but Evidence Weight capped well below 1.0 (illustrative default: 0.3), reinforcing that this evidence counts for less.
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>Visual elements: Two side-by-side bars per selection, "Soft Correctness" (0–1) and "Evidence Weight" (0–1), updating live as the slider moves. A graded response fixes Evidence Weight at 1.0; dwell time and interaction depth both show Soft Correctness rising smoothly with the slider but Evidence Weight capped well below 1.0 (illustrative default: 0.3), reinforcing that this evidence counts for less.
 </span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>
-</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>Interactive features: Moving a slider recomputes both bars immediately. Hovering a bar shows its exact value and a one-sentence explanation matching this chapter&#39;s prose. An &quot;Open question&quot; info icon notes that the specification leaves the owning component for this mapping undecided.
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>Interactive features: Moving a slider recomputes both bars immediately. Hovering a bar shows its exact value and a one-sentence explanation matching this chapter's prose. An "Open question" info icon notes that the specification leaves the owning component for this mapping undecided.
 </span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
-</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>Color scheme: Soft Correctness bars in the book&#39;s teal accent color; Evidence Weight bars in muted gray; the reference graded-response bar in amber when enabled.
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>Color scheme: Soft Correctness bars in the book's teal accent color; Evidence Weight bars in muted gray; the reference graded-response bar in amber when enabled.
 </span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>
 </span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>Responsive design: Chart resizes to its container; below tablet width the bars stack vertically and the toggle becomes a dropdown.
 </span></code></pre></div>

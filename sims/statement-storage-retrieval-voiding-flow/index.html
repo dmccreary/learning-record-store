@@ -313,6 +313,12 @@
         
       
         
+      
+        
+          
+        
+      
+        
           
         
       
@@ -406,131 +412,67 @@
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
-        
       
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
         
       
     
@@ -576,6 +518,8 @@
       
         
           
+        
+      
         
       
         
@@ -4846,103 +4790,8 @@
     
       
         
-          
-        
       
         
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../../stories/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Stories
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
       
         
       
@@ -4974,6 +4823,51 @@
   
   <span class="md-ellipsis">
     Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../lrs-lite/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    LRS-Lite (Serverless)
   </span>
   
 
@@ -5225,11 +5119,11 @@
 </span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>Purpose: Show a single Mermaid flowchart with the Event Store as a central node and three labeled operations arranged around it, each drawn as its own path rather than a strict left-to-right chain.
 </span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>Nodes: &quot;Event Store (immutable log)&quot; as the central node. Path A: &quot;POST /xapi/statements&quot; leads to &quot;Statement Storage Function (F-1): new row appended&quot;. Path B: &quot;GET /xapi/statements?actor=...&amp;verb=...&amp;since=...&quot; leads to &quot;Statement Retrieval Function (F-2): matching rows returned, none modified&quot;. Path C: &quot;A later statement with Verb: voided, Object: {statementId}&quot; leads to &quot;Voiding Function (F-3): original row&#39;s voided_by field set&quot; leads to &quot;Row still exists; excluded from future rollups and default retrieval&quot;.
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>Nodes: "Event Store (immutable log)" as the central node. Path A: "POST /xapi/statements" leads to "Statement Storage Function (F-1): new row appended". Path B: "GET /xapi/statements?actor=...&amp;verb=...&amp;since=..." leads to "Statement Retrieval Function (F-2): matching rows returned, none modified". Path C: "A later statement with Verb: voided, Object: {statementId}" leads to "Voiding Function (F-3): original row's voided_by field set" leads to "Row still exists; excluded from future rollups and default retrieval".
 </span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>Interactive features: Every node has a Mermaid click directive. Clicking &quot;Event Store&quot; opens an infobox recalling its definition from Chapter 5. Clicking any Storage, Retrieval, or Voiding node opens an infobox with that function&#39;s one-sentence definition from this chapter&#39;s prose, plus its F-number. Clicking the final &quot;excluded from future rollups&quot; node opens an infobox naming the voided_by property and linking back to Chapter 8&#39;s compression rollups.
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>Interactive features: Every node has a Mermaid click directive. Clicking "Event Store" opens an infobox recalling its definition from Chapter 5. Clicking any Storage, Retrieval, or Voiding node opens an infobox with that function's one-sentence definition from this chapter's prose, plus its F-number. Clicking the final "excluded from future rollups" node opens an infobox naming the voided_by property and linking back to Chapter 8's compression rollups.
 </span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>
-</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>Color coding: Path A (storage) in the book&#39;s teal accent color; Path B (retrieval) in a neutral gray-blue; Path C (voiding) in a contrasting amber to visually flag it as a correction path rather than a normal read/write path.
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>Color coding: Path A (storage) in the book's teal accent color; Path B (retrieval) in a neutral gray-blue; Path C (voiding) in a contrasting amber to visually flag it as a correction path rather than a normal read/write path.
 </span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
 </span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>Responsive design: Flowchart resizes to the width of its containing element; on narrow viewports the three paths stack vertically instead of radiating from the center.
 </span></code></pre></div>

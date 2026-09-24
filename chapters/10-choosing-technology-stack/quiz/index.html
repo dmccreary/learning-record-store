@@ -1,0 +1,3514 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Review questions on the concrete technology choices behind each architectural plane — FastAPI, Redpanda/Kafka, ClickHouse, Neo4j, PostgreSQL, Keycloak, REST vs. GraphQL, and the observability stack.">
+      
+      
+        <meta name="author" content="Dan McCreary">
+      
+      
+        <link rel="canonical" href="https://dmccreary.github.io/learning-record-store/chapters/10-choosing-technology-stack/quiz/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../../11-adrs-and-capacity-model/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
+    
+    
+      
+        <title>Quiz: Choosing the Technology Stack - Learning Record Store</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/extra.css">
+    
+      <link rel="stylesheet" href="../../../css/mascot.css">
+    
+      <link rel="stylesheet" href="../../../css/lrs-xapi.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#quiz-choosing-the-technology-stack" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Learning Record Store" class="md-header__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  <img src="../../../img/mascot/neutral.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Learning Record Store
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Quiz: Choosing the Technology Stack
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Learning Record Store" class="md-nav__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  <img src="../../../img/mascot/neutral.png" alt="logo">
+
+    </a>
+    Learning Record Store
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../course-description/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Course Description
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../stories/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Stories
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Chapters
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Chapters
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../01-lms-to-experience-api/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    1. From Learning Management Systems to the Experience API
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../02-anatomy-of-xapi-statement/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    2. The Anatomy of an xAPI Statement
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../03-ieee-standardization-xapi-cmi5/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    3. IEEE Standardization of xAPI and cmi5
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../04-standards-governance-ecosystem/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    4. Standards Governance and the Wider Interoperability Ecosystem
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../05-system-context-architectural-planes/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    5. System Context and the Five Architectural Planes
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../06-multi-tenancy-rosters-identity/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    6. Multi-Tenancy, Rosters, and Pseudonymous Identity
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../07-property-graph-data-model/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    7. The Property Graph Data Model
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../08-summary-vertices-ingestion/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    8. Summary Vertices and Statement Ingestion Mechanics
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../09-twelve-core-lrs-functions/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    9. The Twelve Core LRS Functions
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_11" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    10. Choosing the Technology Stack
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5_11" id="__nav_5_11_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_11_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_11">
+            <span class="md-nav__icon md-icon"></span>
+            10. Choosing the Technology Stack
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Quiz
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Quiz
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-is-the-division-of-labor-between-fastapi-and-uvicorn-in-the-ingestion-gateway" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. What is the division of labor between FastAPI and Uvicorn in the ingestion gateway?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-why-does-this-project-run-redpanda-in-development-and-apache-kafka-in-production-rather-than-choosing-one-broker-for-both-environments" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Why does this project run Redpanda in development and Apache Kafka in production rather than choosing one broker for both environments?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-why-does-this-project-use-clickhouse-for-the-event-store-and-neo4j-5-community-for-the-structural-graph-rather-than-one-database-for-both" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Why does this project use ClickHouse for the event store and Neo4j 5 Community for the structural graph, rather than one database for both?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-why-does-this-project-run-postgresql-16-as-two-separate-isolated-instances-rather-than-two-schemas-on-one-shared-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Why does this project run PostgreSQL 16 as two separate, isolated instances rather than two schemas on one shared server?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-how-does-keycloaks-role-in-this-system-differ-from-chapter-6s-identity-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. How does Keycloak's role in this system differ from Chapter 6's identity service?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-the-analytics-planes-reports-all-have-a-fixed-predetermined-shape-decided-by-each-reports-own-definition-and-the-team-wants-to-build-a-cache-key-directly-from-the-report-id-tenant-and-query-parameters-given-this-chapters-stated-rationale-why-was-rest-chosen-over-graphql-for-this-planes-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. The analytics plane's reports all have a fixed, predetermined shape decided by each report's own definition, and the team wants to build a cache key directly from the report ID, tenant, and query parameters. Given this chapter's stated rationale, why was REST chosen over GraphQL for this plane's API?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-an-engineer-needs-to-look-up-one-specific-statements-entire-journey-every-hop-from-gateway-to-queue-to-processor-to-its-final-clickhouse-and-neo4j-writes-as-a-single-connected-timeline-which-observability-product-is-built-for-this" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. An engineer needs to look up one specific statement's entire journey — every hop from gateway to queue to processor to its final ClickHouse and Neo4j writes — as a single connected timeline. Which observability product is built for this?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-a-textbook-publisher-wants-to-store-bulk-statement-exports-and-archival-copies-of-the-event-stores-cold-tier-and-expects-the-same-interface-to-work-whether-running-locally-or-in-production-which-technology-pairing-does-this-chapter-describe-for-that-role" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. A textbook publisher wants to store bulk statement exports and archival copies of the event store's cold tier, and expects the same interface to work whether running locally or in production. Which technology pairing does this chapter describe for that role?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-the-design-specification-rejected-streaming-counter-deltas-set-ncount-ncount-delta-as-the-compression-mechanism-choosing-recomputed-absolute-values-via-clickhouse-materialized-views-instead-what-specifically-justified-that-choice" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. The design specification rejected streaming counter deltas (SET n.count = n.count + $delta) as the compression mechanism, choosing recomputed absolute values via ClickHouse materialized views instead. What specifically justified that choice?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-the-design-specification-chose-plain-python-consumer-loops-via-the-confluent-kafka-library-over-a-heavier-stream-processing-framework-with-windowing-and-shuffle-capabilities-what-reasoning-justified-that-choice" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. The design specification chose plain Python consumer loops via the Confluent-Kafka Library over a heavier stream-processing framework with windowing and shuffle capabilities. What reasoning justified that choice?
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../11-adrs-and-capacity-model/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    11. Architecture Decision Records and the Capacity Model
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../12-bayesian-knowledge-tracing/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    12. Bayesian Knowledge Tracing for Mastery
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../13-component-design-in-depth/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    13. Component Design in Depth
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../14-kafka-clickhouse-graph-schema/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    14. Kafka Topics, ClickHouse Schema, and Graph Constraints
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../15-privacy-and-dashboard-mechanics/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    15. Privacy Enforcement and Dashboard Mechanics
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../16-container-image-and-cli/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    16. The Container Image and the Role Dispatcher CLI
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../17-compose-makefile-supply-chain/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    17. Docker Compose, the Makefile, and the Image Supply Chain
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../18-config-migration-backup-rollout/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    18. Configuration, Migration, Backup, and Rollout
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../19-failure-modes-and-verification/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    19. Failure Modes and Verification
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../20-deviations-roadmap-open-questions/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    20. Spec Deviations, the Delivery Roadmap, and Open Questions
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../21-hardware-cost-dev-environment/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    21. Hardware Sizing, Cost, and the Development Environment
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../22-proving-the-architecture-mvp/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    22. Proving the Architecture - the MVP Plan
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../23-production-infrastructure-cloud/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    23. Production Infrastructure and Cloud Services
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../24-three-personas-and-admin-uis/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    24. Meet the Three Personas and the Admin UI Surface
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../25-district-admin-rosters-deployments/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    25. District Administrator - Rosters, Deployments, and Registries
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../26-district-admin-access-control/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    26. District Administrator - Access Control and System Configuration
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../27-compliance-and-district-reporting/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    27. Compliance, Privacy Law, and District-Level Reporting
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../28-teacher-dashboards-student-reports/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    28. Teacher Dashboards and Student-Level Reports
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../29-class-level-reports-and-tools/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    29. Class-Level Reports and Teacher Tools
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../30-author-dashboards-content-reports/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    30. Textbook Author Dashboards and Content Reports
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../31-designing-ab-experiments/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    31. Designing and Reading A/B Experiments
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../32-producer-contract-conformant-statements/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    32. The Producer Contract - Writing Conformant Statements
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../learning-graph/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Learning Graph
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../sims/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    MicroSims
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../specs/lrs-spec-v1/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../lrs-lite/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    LRS-Lite (Serverless)
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../demo/graph-queries/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Demo
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../case-studies/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Case Studies
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../glossary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Glossary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../license/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contact/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contact
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-is-the-division-of-labor-between-fastapi-and-uvicorn-in-the-ingestion-gateway" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. What is the division of labor between FastAPI and Uvicorn in the ingestion gateway?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-why-does-this-project-run-redpanda-in-development-and-apache-kafka-in-production-rather-than-choosing-one-broker-for-both-environments" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Why does this project run Redpanda in development and Apache Kafka in production rather than choosing one broker for both environments?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-why-does-this-project-use-clickhouse-for-the-event-store-and-neo4j-5-community-for-the-structural-graph-rather-than-one-database-for-both" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Why does this project use ClickHouse for the event store and Neo4j 5 Community for the structural graph, rather than one database for both?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-why-does-this-project-run-postgresql-16-as-two-separate-isolated-instances-rather-than-two-schemas-on-one-shared-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Why does this project run PostgreSQL 16 as two separate, isolated instances rather than two schemas on one shared server?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-how-does-keycloaks-role-in-this-system-differ-from-chapter-6s-identity-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. How does Keycloak's role in this system differ from Chapter 6's identity service?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-the-analytics-planes-reports-all-have-a-fixed-predetermined-shape-decided-by-each-reports-own-definition-and-the-team-wants-to-build-a-cache-key-directly-from-the-report-id-tenant-and-query-parameters-given-this-chapters-stated-rationale-why-was-rest-chosen-over-graphql-for-this-planes-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. The analytics plane's reports all have a fixed, predetermined shape decided by each report's own definition, and the team wants to build a cache key directly from the report ID, tenant, and query parameters. Given this chapter's stated rationale, why was REST chosen over GraphQL for this plane's API?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-an-engineer-needs-to-look-up-one-specific-statements-entire-journey-every-hop-from-gateway-to-queue-to-processor-to-its-final-clickhouse-and-neo4j-writes-as-a-single-connected-timeline-which-observability-product-is-built-for-this" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. An engineer needs to look up one specific statement's entire journey — every hop from gateway to queue to processor to its final ClickHouse and Neo4j writes — as a single connected timeline. Which observability product is built for this?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-a-textbook-publisher-wants-to-store-bulk-statement-exports-and-archival-copies-of-the-event-stores-cold-tier-and-expects-the-same-interface-to-work-whether-running-locally-or-in-production-which-technology-pairing-does-this-chapter-describe-for-that-role" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. A textbook publisher wants to store bulk statement exports and archival copies of the event store's cold tier, and expects the same interface to work whether running locally or in production. Which technology pairing does this chapter describe for that role?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-the-design-specification-rejected-streaming-counter-deltas-set-ncount-ncount-delta-as-the-compression-mechanism-choosing-recomputed-absolute-values-via-clickhouse-materialized-views-instead-what-specifically-justified-that-choice" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. The design specification rejected streaming counter deltas (SET n.count = n.count + $delta) as the compression mechanism, choosing recomputed absolute values via ClickHouse materialized views instead. What specifically justified that choice?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-the-design-specification-chose-plain-python-consumer-loops-via-the-confluent-kafka-library-over-a-heavier-stream-processing-framework-with-windowing-and-shuffle-capabilities-what-reasoning-justified-that-choice" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. The design specification chose plain Python consumer loops via the Confluent-Kafka Library over a heavier stream-processing framework with windowing and shuffle capabilities. What reasoning justified that choice?
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/10-choosing-technology-stack/quiz.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="quiz-choosing-the-technology-stack">Quiz: Choosing the Technology Stack<a class="headerlink" href="#quiz-choosing-the-technology-stack" title="Permanent link">&para;</a></h1>
+<p>Test your understanding of this project's concrete technology choices, plane by plane, with these review questions.</p>
+<hr />
+<h4 id="1-what-is-the-division-of-labor-between-fastapi-and-uvicorn-in-the-ingestion-gateway">1. What is the division of labor between FastAPI and Uvicorn in the ingestion gateway?<a class="headerlink" href="#1-what-is-the-division-of-labor-between-fastapi-and-uvicorn-in-the-ingestion-gateway" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>FastAPI defines routes, validates JSON, and shapes responses; Uvicorn is the ASGI server that actually accepts the HTTP connection and hands requests to FastAPI</li>
+<li>FastAPI is the ASGI server, while Uvicorn defines routes and validates JSON</li>
+<li>FastAPI and Uvicorn are two interchangeable names for the same product</li>
+<li>FastAPI runs only in production, while Uvicorn runs only in development</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>A</strong>. FastAPI defines routes, validates incoming JSON, and shapes responses, while Uvicorn is the ASGI server that actually accepts the network connection and hands each request to FastAPI's routing layer. B reverses their actual roles. C wrongly treats two complementary products as interchangeable. D invents an environment split that does not exist — both run together in every environment.</p>
+<p><strong>Concept Tested:</strong> FastAPI / Uvicorn</p>
+<p><strong>See:</strong> <a href="../#the-ingestion-plane-one-fast-path-in">The Ingestion Plane: One Fast Path In</a></p>
+</details>
+<hr />
+<h4 id="2-why-does-this-project-run-redpanda-in-development-and-apache-kafka-in-production-rather-than-choosing-one-broker-for-both-environments">2. Why does this project run Redpanda in development and Apache Kafka in production rather than choosing one broker for both environments?<a class="headerlink" href="#2-why-does-this-project-run-redpanda-in-development-and-apache-kafka-in-production-rather-than-choosing-one-broker-for-both-environments" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Because Redpanda cannot durably queue statements, so it is unsafe for anything beyond a demo</li>
+<li>Because Apache Kafka requires a paid license that only production environments can afford</li>
+<li>Because Redpanda only supports reading statements, never writing them</li>
+<li>Because Redpanda is Kafka-API-compatible and fast to start on a laptop, while Apache Kafka is the durable, partitioned, ordered log actually used in production — application code does not need to know which one is running</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>D</strong>. Redpanda speaks Kafka's wire protocol without being Kafka's codebase, so it starts in about a second on a laptop, while Apache Kafka is the production-grade log the Durable Event Queue was modeled on — the interface is identical either way. A mischaracterizes Redpanda as unable to durably queue data. B invents a licensing constraint the chapter never mentions. C is false; Redpanda supports both reading and writing.</p>
+<p><strong>Concept Tested:</strong> Redpanda / Apache Kafka</p>
+<p><strong>See:</strong> <a href="../#the-ingestion-plane-one-fast-path-in">The Ingestion Plane: One Fast Path In</a></p>
+</details>
+<hr />
+<h4 id="3-why-does-this-project-use-clickhouse-for-the-event-store-and-neo4j-5-community-for-the-structural-graph-rather-than-one-database-for-both">3. Why does this project use ClickHouse for the event store and Neo4j 5 Community for the structural graph, rather than one database for both?<a class="headerlink" href="#3-why-does-this-project-use-clickhouse-for-the-event-store-and-neo4j-5-community-for-the-structural-graph-rather-than-one-database-for-both" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Because Neo4j cannot store any data at all without ClickHouse running alongside it</li>
+<li>Because an event store built for billions of append-only rows and a graph built for tens of millions of structural nodes are different engineering problems that no single database answers well</li>
+<li>Because ClickHouse and Neo4j are two names for the same underlying storage engine</li>
+<li>Because ClickHouse holds structure and Neo4j holds raw statements</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>B</strong>. An append-only log of billions of rows and a structural graph of tens of millions of nodes are fundamentally different engineering problems, so the design specification uses a columnar engine for one and a graph engine for the other. A invents a false dependency between the two databases. C wrongly treats two distinct engines as identical. D reverses which database holds which kind of data.</p>
+<p><strong>Concept Tested:</strong> ClickHouse / Neo4j 5 Community</p>
+<p><strong>See:</strong> <a href="../#the-storage-plane-different-data-different-engines">The Storage Plane: Different Data, Different Engines</a></p>
+</details>
+<hr />
+<h4 id="4-why-does-this-project-run-postgresql-16-as-two-separate-isolated-instances-rather-than-two-schemas-on-one-shared-server">4. Why does this project run PostgreSQL 16 as two separate, isolated instances rather than two schemas on one shared server?<a class="headerlink" href="#4-why-does-this-project-run-postgresql-16-as-two-separate-isolated-instances-rather-than-two-schemas-on-one-shared-server" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Because PostgreSQL does not support multiple schemas in a single instance</li>
+<li>Because separate instances cost less to operate than a single shared server</li>
+<li>Because a separate instance with its own credentials and network policy turns the PII privacy boundary into something a future engineer cannot loosen with one accidental GRANT statement, unlike a shared schema</li>
+<li>Because the Admin API can only connect to one PostgreSQL instance at a time</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>C</strong>. A separate instance, with its own credentials and network policy, makes the PII privacy boundary a structural fact rather than a permission setting one accidental <code>GRANT</code> could loosen. A is factually false about PostgreSQL's capabilities. B invents a cost argument the chapter never makes — the choice is about privacy, not economics. D fabricates a connectivity restriction not described anywhere in the chapter.</p>
+<p><strong>Concept Tested:</strong> PostgreSQL 16 (vault-db / meta-db)</p>
+<p><strong>See:</strong> <a href="../#the-storage-plane-different-data-different-engines">The Storage Plane: Different Data, Different Engines</a></p>
+</details>
+<hr />
+<h4 id="5-how-does-keycloaks-role-in-this-system-differ-from-chapter-6s-identity-service">5. How does Keycloak's role in this system differ from Chapter 6's identity service?<a class="headerlink" href="#5-how-does-keycloaks-role-in-this-system-differ-from-chapter-6s-identity-service" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Keycloak authenticates humans (admins, teachers, authors) via OpenID Connect and issues login sessions; Chapter 6's identity service pseudonymizes learner actor identities and never issues a login</li>
+<li>Keycloak and Chapter 6's identity service are two names for the exact same component</li>
+<li>Keycloak pseudonymizes learner identities, while Chapter 6's identity service authenticates human logins</li>
+<li>Keycloak replaces the need for Chapter 6's per-district salt entirely</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>A</strong>. Keycloak gives humans a real login via OpenID Connect, while Chapter 6's identity service pseudonymizes learner actor identities inside the processing plane and never issues a session to anyone. B wrongly conflates two deliberately separate systems. C reverses their actual jobs. D is false — the per-district salt mechanism is untouched by Keycloak's existence.</p>
+<p><strong>Concept Tested:</strong> Keycloak</p>
+<p><strong>See:</strong> <a href="../#human-identity-vs-learner-identity-keycloak-and-oidc">Human Identity vs. Learner Identity: Keycloak and OIDC</a></p>
+</details>
+<hr />
+<h4 id="6-the-analytics-planes-reports-all-have-a-fixed-predetermined-shape-decided-by-each-reports-own-definition-and-the-team-wants-to-build-a-cache-key-directly-from-the-report-id-tenant-and-query-parameters-given-this-chapters-stated-rationale-why-was-rest-chosen-over-graphql-for-this-planes-api">6. The analytics plane's reports all have a fixed, predetermined shape decided by each report's own definition, and the team wants to build a cache key directly from the report ID, tenant, and query parameters. Given this chapter's stated rationale, why was REST chosen over GraphQL for this plane's API?<a class="headerlink" href="#6-the-analytics-planes-reports-all-have-a-fixed-predetermined-shape-decided-by-each-reports-own-definition-and-the-team-wants-to-build-a-cache-key-directly-from-the-report-id-tenant-and-query-parameters-given-this-chapters-stated-rationale-why-was-rest-chosen-over-graphql-for-this-planes-api" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>GraphQL cannot be implemented using FastAPI</li>
+<li>GraphQL is objectively obsolete and no longer maintained</li>
+<li>REST was chosen because the ingestion gateway also uses REST for a completely unrelated reason</li>
+<li>REST's one-shape-per-endpoint model is straightforward to cache this way, while GraphQL's client-decided response shapes make that caching considerably harder to get right</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>D</strong>. Because every report already has a fixed shape, REST's one-shape-per-endpoint model lets a cache key be built cleanly from report ID, tenant, and parameters — something considerably harder against GraphQL's client-decided shapes. A is a fabricated technical incompatibility. B is an unsupported, sweeping claim the chapter never makes about GraphQL generally. C wrongly implies the ingestion gateway's unrelated use of REST drove this separate decision.</p>
+<p><strong>Concept Tested:</strong> GraphQL (REST vs. GraphQL decision)</p>
+<p><strong>See:</strong> <a href="../#the-analytics-plane-rest-not-graphql">The Analytics Plane: REST, Not GraphQL</a></p>
+</details>
+<hr />
+<h4 id="7-an-engineer-needs-to-look-up-one-specific-statements-entire-journey-every-hop-from-gateway-to-queue-to-processor-to-its-final-clickhouse-and-neo4j-writes-as-a-single-connected-timeline-which-observability-product-is-built-for-this">7. An engineer needs to look up one specific statement's entire journey — every hop from gateway to queue to processor to its final ClickHouse and Neo4j writes — as a single connected timeline. Which observability product is built for this?<a class="headerlink" href="#7-an-engineer-needs-to-look-up-one-specific-statements-entire-journey-every-hop-from-gateway-to-queue-to-processor-to-its-final-clickhouse-and-neo4j-writes-as-a-single-connected-timeline-which-observability-product-is-built-for-this" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Prometheus, because it stores time-series metrics</li>
+<li>Grafana, because it renders dashboards</li>
+<li>Jaeger, because it is the distributed-tracing backend that stores a trace ID as one connected timeline across every hop</li>
+<li>OpenTelemetry, because it stores traces permanently</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>C</strong>. Jaeger is the distributed-tracing backend that lets an engineer look up one trace ID and see every hop a statement took as one connected timeline. A describes Prometheus's metrics role, a different signal type entirely. B describes Grafana's presentation role, which reads from Jaeger and Prometheus rather than storing traces itself. D mischaracterizes OpenTelemetry, which generates the signal but does not store or display it.</p>
+<p><strong>Concept Tested:</strong> Jaeger</p>
+<p><strong>See:</strong> <a href="../#the-observability-stack-seeing-across-the-whole-pipeline">The Observability Stack: Seeing Across the Whole Pipeline</a></p>
+</details>
+<hr />
+<h4 id="8-a-textbook-publisher-wants-to-store-bulk-statement-exports-and-archival-copies-of-the-event-stores-cold-tier-and-expects-the-same-interface-to-work-whether-running-locally-or-in-production-which-technology-pairing-does-this-chapter-describe-for-that-role">8. A textbook publisher wants to store bulk statement exports and archival copies of the event store's cold tier, and expects the same interface to work whether running locally or in production. Which technology pairing does this chapter describe for that role?<a class="headerlink" href="#8-a-textbook-publisher-wants-to-store-bulk-statement-exports-and-archival-copies-of-the-event-stores-cold-tier-and-expects-the-same-interface-to-work-whether-running-locally-or-in-production-which-technology-pairing-does-this-chapter-describe-for-that-role" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Redis 7 in development, PostgreSQL 16 in production</li>
+<li>MinIO in development, Amazon S3 in production, with an identical interface in both</li>
+<li>Neo4j 5 Community in development, ClickHouse in production</li>
+<li>Keycloak in development, Jaeger in production</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>B</strong>. MinIO in development and Amazon S3 in production hold bulk exports, archival copies, and the event store's cold tier, following the same dev/prod pairing pattern as Redpanda/Apache Kafka — an identical interface, different place the bytes live. A, C, and D each pair two unrelated technologies that serve entirely different roles in this stack, not object storage.</p>
+<p><strong>Concept Tested:</strong> MinIO / Amazon S3</p>
+<p><strong>See:</strong> <a href="../#the-storage-plane-different-data-different-engines">The Storage Plane: Different Data, Different Engines</a></p>
+</details>
+<hr />
+<h4 id="9-the-design-specification-rejected-streaming-counter-deltas-set-ncount-ncount-delta-as-the-compression-mechanism-choosing-recomputed-absolute-values-via-clickhouse-materialized-views-instead-what-specifically-justified-that-choice">9. The design specification rejected streaming counter deltas (<code>SET n.count = n.count + $delta</code>) as the compression mechanism, choosing recomputed absolute values via ClickHouse materialized views instead. What specifically justified that choice?<a class="headerlink" href="#9-the-design-specification-rejected-streaming-counter-deltas-set-ncount-ncount-delta-as-the-compression-mechanism-choosing-recomputed-absolute-values-via-clickhouse-materialized-views-instead-what-specifically-justified-that-choice" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Increments are not idempotent under Kafka's at-least-once delivery — a redelivered delta would silently inflate a counter with no way to detect it afterward, while an absolute value write is safe to repeat</li>
+<li>Absolute values are always numerically smaller than delta values, saving storage space</li>
+<li>ClickHouse cannot execute UPDATE statements of any kind</li>
+<li>Delta-based counters are incompatible with FastAPI's routing layer</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>A</strong>. Under at-least-once delivery, a redelivered delta would silently inflate a counter with no way to detect the error afterward, while an absolute value write is idempotent and safe to repeat — exactly the reasoning behind Chapter 8's Absolute Value Write. B invents an unrelated storage-size claim. C is an unsupported technical claim about ClickHouse. D confuses an unrelated ingestion-layer component with the compression mechanism.</p>
+<p><strong>Concept Tested:</strong> ClickHouse (compression mechanism decision)</p>
+<p><strong>See:</strong> <a href="../#the-analytics-plane-rest-not-graphql">The Analytics Plane: REST, Not GraphQL</a></p>
+</details>
+<hr />
+<h4 id="10-the-design-specification-chose-plain-python-consumer-loops-via-the-confluent-kafka-library-over-a-heavier-stream-processing-framework-with-windowing-and-shuffle-capabilities-what-reasoning-justified-that-choice">10. The design specification chose plain Python consumer loops via the Confluent-Kafka Library over a heavier stream-processing framework with windowing and shuffle capabilities. What reasoning justified that choice?<a class="headerlink" href="#10-the-design-specification-chose-plain-python-consumer-loops-via-the-confluent-kafka-library-over-a-heavier-stream-processing-framework-with-windowing-and-shuffle-capabilities-what-reasoning-justified-that-choice" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Heavier frameworks are always slower than plain consumer loops regardless of workload</li>
+<li>Windowing frameworks are incompatible with the Confluent-Kafka Library entirely</li>
+<li>The stream processor's actual work is per-statement enrichment, not the kind of windowed aggregation across many events that a shuffle-based framework exists to optimize</li>
+<li>Plain consumer loops were chosen only because they run identically in Redpanda and Apache Kafka</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>C</strong>. Because the Stream Processor's job is per-statement enrichment rather than windowed aggregation across many events, a heavier shuffle-based framework buys nothing here — a plain consumer loop keeps pace with the queue on its own. A is an unsupported, overly general performance claim. B is a fabricated incompatibility. D names a true but unrelated fact that is not the chapter's stated justification.</p>
+<p><strong>Concept Tested:</strong> Confluent-Kafka Library (stream-processing framework decision)</p>
+<p><strong>See:</strong> <a href="../#the-analytics-plane-rest-not-graphql">The Analytics Plane: REST, Not GraphQL</a></p>
+</details>
+<hr />
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Content">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Content
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../11-adrs-and-capacity-model/" class="md-footer__link md-footer__link--next" aria-label="Next: Content">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Content
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Dan McCreary. Licensed under <a href="license/">CC BY-NC-SA 4.0</a> for non-commercial use.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../../js/katex.js"></script>
+      
+        <script src="../../../js/quiz-xapi.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

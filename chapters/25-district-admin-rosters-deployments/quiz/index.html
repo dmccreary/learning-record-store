@@ -1,0 +1,3514 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Review questions on the District Management UI, School Course Section UI, and Textbook Deployment UI — roster configuration, retention and legal holds, enrollment, term rollover, and content deployment.">
+      
+      
+        <meta name="author" content="Dan McCreary">
+      
+      
+        <link rel="canonical" href="https://dmccreary.github.io/learning-record-store/chapters/25-district-admin-rosters-deployments/quiz/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../../26-district-admin-access-control/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
+    
+    
+      
+        <title>Quiz: District Administrator - Rosters, Deployments, and Registries - Learning Record Store</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/extra.css">
+    
+      <link rel="stylesheet" href="../../../css/mascot.css">
+    
+      <link rel="stylesheet" href="../../../css/lrs-xapi.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#quiz-district-administrator-rosters-deployments-and-registries" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Learning Record Store" class="md-header__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  <img src="../../../img/mascot/neutral.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Learning Record Store
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Quiz: District Administrator - Rosters, Deployments, and Registries
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Learning Record Store" class="md-nav__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  <img src="../../../img/mascot/neutral.png" alt="logo">
+
+    </a>
+    Learning Record Store
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../course-description/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Course Description
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../stories/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Stories
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Chapters
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Chapters
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../01-lms-to-experience-api/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    1. From Learning Management Systems to the Experience API
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../02-anatomy-of-xapi-statement/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    2. The Anatomy of an xAPI Statement
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../03-ieee-standardization-xapi-cmi5/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    3. IEEE Standardization of xAPI and cmi5
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../04-standards-governance-ecosystem/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    4. Standards Governance and the Wider Interoperability Ecosystem
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../05-system-context-architectural-planes/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    5. System Context and the Five Architectural Planes
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../06-multi-tenancy-rosters-identity/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    6. Multi-Tenancy, Rosters, and Pseudonymous Identity
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../07-property-graph-data-model/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    7. The Property Graph Data Model
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../08-summary-vertices-ingestion/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    8. Summary Vertices and Statement Ingestion Mechanics
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../09-twelve-core-lrs-functions/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    9. The Twelve Core LRS Functions
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../10-choosing-technology-stack/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    10. Choosing the Technology Stack
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../11-adrs-and-capacity-model/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    11. Architecture Decision Records and the Capacity Model
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../12-bayesian-knowledge-tracing/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    12. Bayesian Knowledge Tracing for Mastery
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../13-component-design-in-depth/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    13. Component Design in Depth
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../14-kafka-clickhouse-graph-schema/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    14. Kafka Topics, ClickHouse Schema, and Graph Constraints
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../15-privacy-and-dashboard-mechanics/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    15. Privacy Enforcement and Dashboard Mechanics
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../16-container-image-and-cli/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    16. The Container Image and the Role Dispatcher CLI
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../17-compose-makefile-supply-chain/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    17. Docker Compose, the Makefile, and the Image Supply Chain
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../18-config-migration-backup-rollout/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    18. Configuration, Migration, Backup, and Rollout
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../19-failure-modes-and-verification/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    19. Failure Modes and Verification
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../20-deviations-roadmap-open-questions/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    20. Spec Deviations, the Delivery Roadmap, and Open Questions
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../21-hardware-cost-dev-environment/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    21. Hardware Sizing, Cost, and the Development Environment
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../22-proving-the-architecture-mvp/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    22. Proving the Architecture - the MVP Plan
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../23-production-infrastructure-cloud/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    23. Production Infrastructure and Cloud Services
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../24-three-personas-and-admin-uis/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    24. Meet the Three Personas and the Admin UI Surface
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_26" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    25. District Administrator - Rosters, Deployments, and Registries
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5_26" id="__nav_5_26_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_26_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_26">
+            <span class="md-nav__icon md-icon"></span>
+            25. District Administrator - Rosters, Deployments, and Registries
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Quiz
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Quiz
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-does-roster-source-configuration-let-a-district-connect-to-the-lrs" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. What does Roster Source Configuration let a district connect to the LRS?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-what-is-the-key-difference-between-the-retention-policy-and-the-legal-hold-toggle" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. What is the key difference between the Retention Policy and the Legal Hold Toggle?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-why-does-every-manual-override-in-the-enrollment-editor-require-a-logged-reason" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Why does every manual override in the Enrollment Editor require a logged reason?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-what-does-a-term-academic-year-rollover-actually-do-to-a-courses-prior-term-sections" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. What does a Term / Academic-Year Rollover actually do to a course's prior-term sections?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-a-district-wants-to-move-a-section-from-its-current-textbook-version-to-a-newer-one-but-not-until-the-start-of-next-month-so-students-dont-change-textbooks-mid-lesson-which-tool-handles-this-and-how" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. A district wants to move a section from its current textbook version to a newer one, but not until the start of next month, so students don't change textbooks mid-lesson. Which tool handles this, and how?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-a-new-textbook-versions-provisional-stub-appears-in-the-provisional-reconcile-queue-and-the-reconciliation-worker-has-not-found-a-confident-candidate-match-for-it-what-should-the-administrator-do-according-to-this-chapter" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. A new textbook version's provisional stub appears in the Provisional Reconcile Queue, and the Reconciliation Worker has not found a confident candidate match for it. What should the administrator do, according to this chapter?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-a-microsim-shows-a-provisional-true-flag-alongside-a-built-status-why-arent-these-two-fields-contradictory-given-that-provisional-and-scaffold-might-both-sound-like-not-finished-yet" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. A MicroSim shows a provisional: true flag alongside a built status. Why aren't these two fields contradictory, given that "provisional" and "scaffold" might both sound like "not finished yet"?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-why-is-the-district-management-ui-reserved-for-the-system-administrator-role-rather-than-being-delegated-to-the-district-administrator-who-will-actually-manage-the-district-day-to-day" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Why is the District Management UI reserved for the System Administrator role rather than being delegated to the District Administrator who will actually manage the district day to day?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-a-district-administrator-under-time-pressure-before-the-first-day-of-school-considers-skipping-the-dry-run-diff-preview-and-applying-a-roster-sync-directly-reasoning-that-the-sis-export-is-always-correct-anyway-evaluate-this-reasoning-against-what-this-chapter-establishes-about-the-dry-run-mechanisms-purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. A district administrator, under time pressure before the first day of school, considers skipping the dry-run diff preview and applying a roster sync directly, reasoning that "the SIS export is always correct anyway." Evaluate this reasoning against what this chapter establishes about the dry-run mechanism's purpose.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-a-district-administrator-notices-an-unusually-high-count-of-an-unrecognized-verb-arriving-from-a-specific-textbooks-statements-alongside-a-growing-number-of-dead-lettered-statements-from-that-same-textbook-around-the-same-time-period-design-a-reasonable-investigative-workflow-using-the-tools-this-chapter-describes-to-determine-whether-these-two-signals-are-related-and-what-to-do-about-them" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. A district administrator notices an unusually high count of an unrecognized verb arriving from a specific textbook's statements, alongside a growing number of dead-lettered statements from that same textbook around the same time period. Design a reasonable investigative workflow using the tools this chapter describes to determine whether these two signals are related and what to do about them.
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../26-district-admin-access-control/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    26. District Administrator - Access Control and System Configuration
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../27-compliance-and-district-reporting/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    27. Compliance, Privacy Law, and District-Level Reporting
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../28-teacher-dashboards-student-reports/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    28. Teacher Dashboards and Student-Level Reports
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../29-class-level-reports-and-tools/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    29. Class-Level Reports and Teacher Tools
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../30-author-dashboards-content-reports/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    30. Textbook Author Dashboards and Content Reports
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../31-designing-ab-experiments/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    31. Designing and Reading A/B Experiments
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../32-producer-contract-conformant-statements/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    32. The Producer Contract - Writing Conformant Statements
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../learning-graph/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Learning Graph
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../sims/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    MicroSims
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../specs/lrs-spec-v1/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../lrs-lite/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    LRS-Lite (Serverless)
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../demo/graph-queries/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Demo
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../case-studies/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Case Studies
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../glossary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Glossary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../license/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contact/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contact
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-does-roster-source-configuration-let-a-district-connect-to-the-lrs" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. What does Roster Source Configuration let a district connect to the LRS?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-what-is-the-key-difference-between-the-retention-policy-and-the-legal-hold-toggle" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. What is the key difference between the Retention Policy and the Legal Hold Toggle?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-why-does-every-manual-override-in-the-enrollment-editor-require-a-logged-reason" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Why does every manual override in the Enrollment Editor require a logged reason?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-what-does-a-term-academic-year-rollover-actually-do-to-a-courses-prior-term-sections" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. What does a Term / Academic-Year Rollover actually do to a course's prior-term sections?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-a-district-wants-to-move-a-section-from-its-current-textbook-version-to-a-newer-one-but-not-until-the-start-of-next-month-so-students-dont-change-textbooks-mid-lesson-which-tool-handles-this-and-how" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. A district wants to move a section from its current textbook version to a newer one, but not until the start of next month, so students don't change textbooks mid-lesson. Which tool handles this, and how?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-a-new-textbook-versions-provisional-stub-appears-in-the-provisional-reconcile-queue-and-the-reconciliation-worker-has-not-found-a-confident-candidate-match-for-it-what-should-the-administrator-do-according-to-this-chapter" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. A new textbook version's provisional stub appears in the Provisional Reconcile Queue, and the Reconciliation Worker has not found a confident candidate match for it. What should the administrator do, according to this chapter?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-a-microsim-shows-a-provisional-true-flag-alongside-a-built-status-why-arent-these-two-fields-contradictory-given-that-provisional-and-scaffold-might-both-sound-like-not-finished-yet" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. A MicroSim shows a provisional: true flag alongside a built status. Why aren't these two fields contradictory, given that "provisional" and "scaffold" might both sound like "not finished yet"?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-why-is-the-district-management-ui-reserved-for-the-system-administrator-role-rather-than-being-delegated-to-the-district-administrator-who-will-actually-manage-the-district-day-to-day" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Why is the District Management UI reserved for the System Administrator role rather than being delegated to the District Administrator who will actually manage the district day to day?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-a-district-administrator-under-time-pressure-before-the-first-day-of-school-considers-skipping-the-dry-run-diff-preview-and-applying-a-roster-sync-directly-reasoning-that-the-sis-export-is-always-correct-anyway-evaluate-this-reasoning-against-what-this-chapter-establishes-about-the-dry-run-mechanisms-purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. A district administrator, under time pressure before the first day of school, considers skipping the dry-run diff preview and applying a roster sync directly, reasoning that "the SIS export is always correct anyway." Evaluate this reasoning against what this chapter establishes about the dry-run mechanism's purpose.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-a-district-administrator-notices-an-unusually-high-count-of-an-unrecognized-verb-arriving-from-a-specific-textbooks-statements-alongside-a-growing-number-of-dead-lettered-statements-from-that-same-textbook-around-the-same-time-period-design-a-reasonable-investigative-workflow-using-the-tools-this-chapter-describes-to-determine-whether-these-two-signals-are-related-and-what-to-do-about-them" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. A district administrator notices an unusually high count of an unrecognized verb arriving from a specific textbook's statements, alongside a growing number of dead-lettered statements from that same textbook around the same time period. Design a reasonable investigative workflow using the tools this chapter describes to determine whether these two signals are related and what to do about them.
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/25-district-admin-rosters-deployments/quiz.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="quiz-district-administrator-rosters-deployments-and-registries">Quiz: District Administrator - Rosters, Deployments, and Registries<a class="headerlink" href="#quiz-district-administrator-rosters-deployments-and-registries" title="Permanent link">&para;</a></h1>
+<p>Test your understanding of this project's District Management UI, School Course Section UI, and Textbook Deployment UI with these review questions.</p>
+<hr />
+<h4 id="1-what-does-roster-source-configuration-let-a-district-connect-to-the-lrs">1. What does Roster Source Configuration let a district connect to the LRS?<a class="headerlink" href="#1-what-does-roster-source-configuration-let-a-district-connect-to-the-lrs" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>A OneRoster REST or CSV endpoint, or a direct Student Information System connector, along with the credentials that connection needs</li>
+<li>A direct database connection allowing the LRS to write student names into a third-party system</li>
+<li>A payment processor for collecting district subscription fees</li>
+<li>A content delivery network for serving MicroSim assets faster</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>A</strong>. Roster Source Configuration connects the LRS to a district's OneRoster feed or direct SIS connector, along with the credentials that connection needs, since the LRS never becomes the authoritative source of student identity. B reverses the actual direction of data flow. C and D each invent an unrelated function this screen does not perform.</p>
+<p><strong>Concept Tested:</strong> Roster Source Configuration</p>
+<p><strong>See:</strong> <a href="../#the-district-management-ui-standing-up-and-configuring-a-district">The District Management UI: Standing Up and Configuring a District</a></p>
+</details>
+<hr />
+<h4 id="2-what-is-the-key-difference-between-the-retention-policy-and-the-legal-hold-toggle">2. What is the key difference between the Retention Policy and the Legal Hold Toggle?<a class="headerlink" href="#2-what-is-the-key-difference-between-the-retention-policy-and-the-legal-hold-toggle" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Retention Policy and the Legal Hold Toggle are two names for the same control, shown twice on the same screen for convenience</li>
+<li>The Legal Hold Toggle permanently deletes the retention schedule once activated</li>
+<li>Retention Policy only applies to Neo4j, while the Legal Hold Toggle only applies to ClickHouse</li>
+<li>Retention Policy is the everyday, scheduled rule governing how long data is kept; the Legal Hold Toggle is an exception switch that suspends that schedule for specific records without altering the underlying policy</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>D</strong>. Retention Policy is the ordinary scheduled rule, while the Legal Hold Toggle is a separate exception mechanism that pauses that schedule for specific records without changing the policy itself. A wrongly conflates two distinct controls. B misdescribes what turning on a hold actually does — it pauses purging, not deletes the schedule. C invents a store-specific restriction neither control actually has.</p>
+<p><strong>Concept Tested:</strong> Retention Policy / Legal Hold Toggle</p>
+<p><strong>See:</strong> <a href="../#the-district-management-ui-standing-up-and-configuring-a-district">The District Management UI: Standing Up and Configuring a District</a></p>
+</details>
+<hr />
+<h4 id="3-why-does-every-manual-override-in-the-enrollment-editor-require-a-logged-reason">3. Why does every manual override in the Enrollment Editor require a logged reason?<a class="headerlink" href="#3-why-does-every-manual-override-in-the-enrollment-editor-require-a-logged-reason" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Because the Enrollment Editor cannot function at all without a reason field being filled in first</li>
+<li>Because logged reasons are automatically forwarded to the district's legal counsel</li>
+<li>Because roster-driven enrollment handles the overwhelming majority of cases correctly, so a manual override is an exception that needs an auditable, defensible record rather than an untracked change</li>
+<li>Because manual overrides are disabled by default and the reason field is what re-enables them</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>C</strong>. Because automated roster sync handles most enrollment correctly, the reason field turns the rare manual exception into an auditable, defensible decision rather than an untracked change. A and D each invent a functional gate the reason field does not actually serve as. B fabricates an automatic legal escalation the chapter never describes.</p>
+<p><strong>Concept Tested:</strong> Enrollment Editor</p>
+<p><strong>See:</strong> <a href="../#the-school-course-section-ui-running-the-building-day-to-day">The School / Course / Section UI: Running the Building Day to Day</a></p>
+</details>
+<hr />
+<h4 id="4-what-does-a-term-academic-year-rollover-actually-do-to-a-courses-prior-term-sections">4. What does a Term / Academic-Year Rollover actually do to a course's prior-term sections?<a class="headerlink" href="#4-what-does-a-term-academic-year-rollover-actually-do-to-a-courses-prior-term-sections" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>It deletes the prior term's sections entirely to make room for the new term</li>
+<li>It archives the prior term's sections, preserving their historical data intact, and rolls section templates forward into the new term</li>
+<li>It merges the prior term's sections into the new term's sections, combining their enrollment data</li>
+<li>It leaves prior-term sections active and simply adds new sections alongside them with no archival step</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>B</strong>. Rollover archives prior-term sections with their historical data intact and rolls section templates forward, so a course keeps its shape year to year without manual rebuilding. A wrongly destroys historical data the mechanism is built to preserve. C invents a data-merging behavior that would corrupt distinct terms' records. D omits the archival step that is central to the mechanism.</p>
+<p><strong>Concept Tested:</strong> Term Academic Year Rollover</p>
+<p><strong>See:</strong> <a href="../#the-school-course-section-ui-running-the-building-day-to-day">The School / Course / Section UI: Running the Building Day to Day</a></p>
+</details>
+<hr />
+<h4 id="5-a-district-wants-to-move-a-section-from-its-current-textbook-version-to-a-newer-one-but-not-until-the-start-of-next-month-so-students-dont-change-textbooks-mid-lesson-which-tool-handles-this-and-how">5. A district wants to move a section from its current textbook version to a newer one, but not until the start of next month, so students don't change textbooks mid-lesson. Which tool handles this, and how?<a class="headerlink" href="#5-a-district-wants-to-move-a-section-from-its-current-textbook-version-to-a-newer-one-but-not-until-the-start-of-next-month-so-students-dont-change-textbooks-mid-lesson-which-tool-handles-this-and-how" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>The Provisional Reconcile Queue, by promoting the new version's provisional stub immediately</li>
+<li>The Enrollment Editor, by re-enrolling every student in a new section</li>
+<li>The MicroSim Registry View, by changing the MicroSim's status to approved</li>
+<li>The Deployment Editor, which can schedule a version rollover for a chosen future date rather than switching instantly</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>D</strong>. The Deployment Editor is specifically built to schedule a version rollover for a chosen date, letting a district avoid switching a section's textbook version mid-lesson. A confuses this with an unrelated reconciliation task. B invents an unnecessary re-enrollment step. C confuses deployment scheduling with an unrelated MicroSim status field.</p>
+<p><strong>Concept Tested:</strong> Deployment Editor</p>
+<p><strong>See:</strong> <a href="../#the-textbook-deployment-ui-binding-content-to-classrooms">The Textbook Deployment UI: Binding Content to Classrooms</a></p>
+</details>
+<hr />
+<h4 id="6-a-new-textbook-versions-provisional-stub-appears-in-the-provisional-reconcile-queue-and-the-reconciliation-worker-has-not-found-a-confident-candidate-match-for-it-what-should-the-administrator-do-according-to-this-chapter">6. A new textbook version's provisional stub appears in the Provisional Reconcile Queue, and the Reconciliation Worker has not found a confident candidate match for it. What should the administrator do, according to this chapter?<a class="headerlink" href="#6-a-new-textbook-versions-provisional-stub-appears-in-the-provisional-reconcile-queue-and-the-reconciliation-worker-has-not-found-a-confident-candidate-match-for-it-what-should-the-administrator-do-according-to-this-chapter" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Wait indefinitely, since an entry with no confident match can never be promoted</li>
+<li>Delete the stub entirely, since an unmatched stub is assumed to be invalid</li>
+<li>Open Manual Mapping and select the correct published Textbook, TextbookVersion, MicroSim, or Concept themselves</li>
+<li>Ignore it, since unmatched stubs do not affect any statement's queryability</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>C</strong>. For the rarer no-confident-match case, the queue offers a manual mapping path where the administrator points the stub at the correct published metadata themselves. A wrongly assumes no path forward exists. B wrongly treats an unmatched stub as invalid rather than simply unresolved. D understates the consequence — an unreconciled stub is not yet richly queryable by title, concept coverage, or version.</p>
+<p><strong>Concept Tested:</strong> Provisional Reconcile Queue</p>
+<p><strong>See:</strong> <a href="../#the-textbook-deployment-ui-binding-content-to-classrooms">The Textbook Deployment UI: Binding Content to Classrooms</a></p>
+</details>
+<hr />
+<h4 id="7-a-microsim-shows-a-provisional-true-flag-alongside-a-built-status-why-arent-these-two-fields-contradictory-given-that-provisional-and-scaffold-might-both-sound-like-not-finished-yet">7. A MicroSim shows a <code>provisional: true</code> flag alongside a <code>built</code> status. Why aren't these two fields contradictory, given that "provisional" and "scaffold" might both sound like "not finished yet"?<a class="headerlink" href="#7-a-microsim-shows-a-provisional-true-flag-alongside-a-built-status-why-arent-these-two-fields-contradictory-given-that-provisional-and-scaffold-might-both-sound-like-not-finished-yet" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Because provisional describes how a node entered the graph — auto-created because a statement mentioned it, awaiting reconciliation — while a status like built or scaffold describes the content's actual build maturity; a fully finished MicroSim can still be freshly provisional if its first statement just arrived</li>
+<li>Because provisional and built are actually the same field displayed under two different names for legacy reasons</li>
+<li>Because a MicroSim can only be provisional if its status is also scaffold; built and provisional together indicate a data-entry error</li>
+<li>Because provisional refers to Neo4j while built refers to ClickHouse, so the two never appear on the same record</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>A</strong>. Provisional answers how a record entered the graph, while a build-maturity status answers how finished the content itself is — two entirely different questions that can coexist on the same MicroSim in any combination. B wrongly collapses two distinct fields into one. C invents a dependency between the two fields that does not exist. D fabricates an unrelated store-specific restriction.</p>
+<p><strong>Concept Tested:</strong> MicroSim Registry View (provisional vs. status distinction)</p>
+<p><strong>See:</strong> <a href="../#the-textbook-deployment-ui-binding-content-to-classrooms">The Textbook Deployment UI: Binding Content to Classrooms</a></p>
+</details>
+<hr />
+<h4 id="8-why-is-the-district-management-ui-reserved-for-the-system-administrator-role-rather-than-being-delegated-to-the-district-administrator-who-will-actually-manage-the-district-day-to-day">8. Why is the District Management UI reserved for the System Administrator role rather than being delegated to the District Administrator who will actually manage the district day to day?<a class="headerlink" href="#8-why-is-the-district-management-ui-reserved-for-the-system-administrator-role-rather-than-being-delegated-to-the-district-administrator-who-will-actually-manage-the-district-day-to-day" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Because District Administrators are not trusted to configure a roster source correctly</li>
+<li>Because creating a district is the one action that establishes the tenant boundary itself, and the chapter is explicit that even a District Administrator cannot create the district they will go on to manage — that authority sits one level above, with the role that has global, cross-district scope</li>
+<li>Because the System Administrator personally performs every roster sync for every district in the system</li>
+<li>Because the District Management UI does not actually exist as a real screen; it is only a specification placeholder</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>B</strong>. Establishing the tenant boundary itself is reserved one level above the role that will manage it day to day, consistent with the chapter's explicit statement that not even a District Administrator can create their own district. A invents a trust-based rationale the chapter never states. C overstates the System Administrator's ongoing involvement, which is limited to district creation, not routine roster syncs. D contradicts the chapter, which describes this UI in concrete detail.</p>
+<p><strong>Concept Tested:</strong> District Management UI</p>
+<p><strong>See:</strong> <a href="../#the-district-management-ui-standing-up-and-configuring-a-district">The District Management UI: Standing Up and Configuring a District</a></p>
+</details>
+<hr />
+<h4 id="9-a-district-administrator-under-time-pressure-before-the-first-day-of-school-considers-skipping-the-dry-run-diff-preview-and-applying-a-roster-sync-directly-reasoning-that-the-sis-export-is-always-correct-anyway-evaluate-this-reasoning-against-what-this-chapter-establishes-about-the-dry-run-mechanisms-purpose">9. A district administrator, under time pressure before the first day of school, considers skipping the dry-run diff preview and applying a roster sync directly, reasoning that "the SIS export is always correct anyway." Evaluate this reasoning against what this chapter establishes about the dry-run mechanism's purpose.<a class="headerlink" href="#9-a-district-administrator-under-time-pressure-before-the-first-day-of-school-considers-skipping-the-dry-run-diff-preview-and-applying-a-roster-sync-directly-reasoning-that-the-sis-export-is-always-correct-anyway-evaluate-this-reasoning-against-what-this-chapter-establishes-about-the-dry-run-mechanisms-purpose" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>The reasoning is sound, since the dry-run preview only exists to slow administrators down unnecessarily</li>
+<li>The reasoning is sound as long as the sync has succeeded at least once before, since past success guarantees future correctness</li>
+<li>The reasoning is risky: the dry-run preview exists precisely to catch the rare but real case where a SIS export glitches — such as dropping half a grade level — and roster data seeds enrollments, sections, and every SectionRollup computed from them, so an unreviewed bad sync propagates broadly before anyone notices</li>
+<li>The reasoning is irrelevant, since the dry-run preview cannot be skipped under any circumstances regardless of administrator preference</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>C</strong>. The dry-run preview exists precisely for the rare-but-real glitch case, and because roster data seeds so much downstream structure, skipping review lets a bad sync propagate widely before anyone notices. A dismisses the preview's real, stated purpose. B wrongly assumes past reliability guarantees future correctness, which the chapter's own "read every removal line" advice directly contradicts. D overstates the mechanism as unbypassable, when the scenario describes an administrator actively considering skipping it.</p>
+<p><strong>Concept Tested:</strong> District Management UI (dry-run diff preview, evaluated)</p>
+<p><strong>See:</strong> <a href="../#the-district-management-ui-standing-up-and-configuring-a-district">The District Management UI: Standing Up and Configuring a District</a></p>
+</details>
+<hr />
+<h4 id="10-a-district-administrator-notices-an-unusually-high-count-of-an-unrecognized-verb-arriving-from-a-specific-textbooks-statements-alongside-a-growing-number-of-dead-lettered-statements-from-that-same-textbook-around-the-same-time-period-design-a-reasonable-investigative-workflow-using-the-tools-this-chapter-describes-to-determine-whether-these-two-signals-are-related-and-what-to-do-about-them">10. A district administrator notices an unusually high count of an unrecognized verb arriving from a specific textbook's statements, alongside a growing number of dead-lettered statements from that same textbook around the same time period. Design a reasonable investigative workflow using the tools this chapter describes to determine whether these two signals are related and what to do about them.<a class="headerlink" href="#10-a-district-administrator-notices-an-unusually-high-count-of-an-unrecognized-verb-arriving-from-a-specific-textbooks-statements-alongside-a-growing-number-of-dead-lettered-statements-from-that-same-textbook-around-the-same-time-period-design-a-reasonable-investigative-workflow-using-the-tools-this-chapter-describes-to-determine-whether-these-two-signals-are-related-and-what-to-do-about-them" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Rotate the textbook's ingest key immediately without further investigation, since any anomaly warrants an automatic credential reset</li>
+<li>Use the Verb Vocabulary Browser to inspect the unrecognized verb's usage count and context, and the Dead-Letter Inspector to review the redacted malformed statements from the same textbook and time window — comparing whether the same upstream change (e.g., a new field or verb introduced by a textbook update) explains both signals, then decide whether to canonicalize the verb, fix the textbook's producer code, or both</li>
+<li>Delete all statements from that textbook to avoid further data quality issues</li>
+<li>Ignore both signals, since unrecognized verbs and dead-lettered statements are unrelated by design and never worth correlating</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>B</strong>. Correlating the Verb Vocabulary Browser's unknown-verb data with the Dead-Letter Inspector's redacted malformed statements, both scoped to the same textbook and time window, is exactly the kind of investigative use these two tools were designed to support, letting the administrator distinguish a legitimate new verb from a producer-side bug. A jumps to an unrelated, disruptive action — key rotation — without investigating the actual signals. C is a drastic, data-destroying overreaction. D wrongly assumes the two signals cannot be related, when a single upstream change could plausibly explain both.</p>
+<p><strong>Concept Tested:</strong> Verb Vocabulary Browser / Dead-Letter Inspector</p>
+<p><strong>See:</strong> <a href="../#rounding-out-the-surface-credentials-vocabulary-and-experiments-at-a-glance">Rounding Out the Surface: Credentials, Vocabulary, and Experiments at a Glance</a></p>
+</details>
+<hr />
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Content">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Content
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../26-district-admin-access-control/" class="md-footer__link md-footer__link--next" aria-label="Next: Content">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Content
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Dan McCreary. Licensed under <a href="license/">CC BY-NC-SA 4.0</a> for non-commercial use.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../../js/katex.js"></script>
+      
+        <script src="../../../js/quiz-xapi.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

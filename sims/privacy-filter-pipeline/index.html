@@ -313,6 +313,12 @@
         
       
         
+      
+        
+          
+        
+      
+        
           
         
       
@@ -406,131 +412,67 @@
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
-        
       
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
         
       
     
@@ -576,6 +518,8 @@
       
         
           
+        
+      
         
       
         
@@ -4846,103 +4790,8 @@
     
       
         
-          
-        
       
         
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../../stories/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Stories
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
       
         
       
@@ -4974,6 +4823,51 @@
   
   <span class="md-ellipsis">
     Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../lrs-lite/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    LRS-Lite (Serverless)
   </span>
   
 
@@ -5223,13 +5117,13 @@
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>Learning objective: Let the learner trace an Analytics API request from Tenant Context Injection through Threshold Suppression, Complementary Suppression, and Privacy Audit Write, and identify at which stage a rostered-teacher exemption applies versus a cross-group view.
 </span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>Purpose: Show a single Mermaid flowchart tracing one request end to end through the privacy filter&#39;s structural stages.
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>Purpose: Show a single Mermaid flowchart tracing one request end to end through the privacy filter's structural stages.
 </span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>Nodes in order: &quot;Dash callback issues request&quot; -&gt; &quot;TenantContext injection (query cannot compile without it)&quot; -&gt; &quot;Query builder reads pre-aggregated ClickHouse view&quot; -&gt; &quot;Is this the caller&#39;s own rostered scope?&quot; (decision diamond) -&gt; two branches: &quot;Yes: exempt from Threshold Suppression&quot; and &quot;No: apply Threshold Suppression&quot; -&gt; both branches rejoin at &quot;Complementary Suppression check&quot; -&gt; &quot;Privacy Audit Write to lrs.audit&quot; -&gt; &quot;Response returned to Dash callback, cached by (report_id, tenant, params, data_version)&quot;.
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>Nodes in order: "Dash callback issues request" -&gt; "TenantContext injection (query cannot compile without it)" -&gt; "Query builder reads pre-aggregated ClickHouse view" -&gt; "Is this the caller's own rostered scope?" (decision diamond) -&gt; two branches: "Yes: exempt from Threshold Suppression" and "No: apply Threshold Suppression" -&gt; both branches rejoin at "Complementary Suppression check" -&gt; "Privacy Audit Write to lrs.audit" -&gt; "Response returned to Dash callback, cached by (report_id, tenant, params, data_version)".
 </span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>Interactive features: Every node has a Mermaid click directive opening an infobox with a one-sentence definition matching this chapter&#39;s prose. Clicking the decision diamond opens an infobox explaining the rostered-scope exemption: a teacher viewing their own students already knows those students by name, so showing their own roster&#39;s progress discloses nothing new, while cross-district, cross-school, and segment-breakdown views always pass through full suppression.
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>Interactive features: Every node has a Mermaid click directive opening an infobox with a one-sentence definition matching this chapter's prose. Clicking the decision diamond opens an infobox explaining the rostered-scope exemption: a teacher viewing their own students already knows those students by name, so showing their own roster's progress discloses nothing new, while cross-district, cross-school, and segment-breakdown views always pass through full suppression.
 </span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>
-</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>Color coding: The two AuthN/AuthZ nodes (Dash callback, TenantContext injection) in neutral gray; the three privacy-filter stages (threshold, complementary, audit) in the book&#39;s teal accent color to visually group them as &quot;the one choke point.&quot;
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>Color coding: The two AuthN/AuthZ nodes (Dash callback, TenantContext injection) in neutral gray; the three privacy-filter stages (threshold, complementary, audit) in the book's teal accent color to visually group them as "the one choke point."
 </span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
 </span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>Responsive design: The flowchart resizes to the width of its containing element; on narrow viewports the decision branches stack vertically instead of side by side.
 </span></code></pre></div>

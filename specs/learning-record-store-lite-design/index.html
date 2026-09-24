@@ -1,0 +1,3105 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A serverless, browser-first LRS. Events accumulate in a local web-attached database (≤ 10 MB), are summarized at the producer, and are flushed to Amazon S3 (or a similar object store) at end of day. Book status is restored from the object store on any browser.">
+      
+      
+        <meta name="author" content="Dan McCreary">
+      
+      
+        <link rel="canonical" href="https://dmccreary.github.io/learning-record-store/specs/learning-record-store-lite-design/">
+      
+      
+        <link rel="prev" href="../xapi-producer-contract-v1/">
+      
+      
+        <link rel="next" href="../hardware-requirements/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
+    
+    
+      
+        <title>Learning Record Store Lite — Design (v1) - Learning Record Store</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/extra.css">
+    
+      <link rel="stylesheet" href="../../css/mascot.css">
+    
+      <link rel="stylesheet" href="../../css/lrs-xapi.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+    <meta property="og:image" content="https://dmccreary.github.io/learning-record-store/../img/cover.png">
+  <meta name="twitter:image" content="https://dmccreary.github.io/learning-record-store/../img/cover.png">
+</head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#learning-record-store-lite-lrs-lite-design-v1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Learning Record Store" class="md-header__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  <img src="../../img/mascot/neutral.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Learning Record Store
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Learning Record Store Lite — Design (v1)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Learning Record Store" class="md-nav__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  <img src="../../img/mascot/neutral.png" alt="logo">
+
+    </a>
+    Learning Record Store
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../course-description/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Course Description
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../stories/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Stories
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../chapters/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Chapters
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../learning-graph/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Learning Graph
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../sims/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    MicroSims
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Specifications
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Specifications
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lrs-spec-v1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LRS Specification (v1)
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--scaffold" title="Scaffold — placeholder, not yet implemented">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lrs-design-v1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LRS Design & Deployment (v1)
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--scaffold" title="Scaffold — placeholder, not yet implemented">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xapi-producer-contract-v1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    xAPI Producer Contract (v1)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    LRS-Lite Design (v1)
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    LRS-Lite Design (v1)
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-purpose-and-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Purpose and Scope
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Purpose and Scope">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-design-goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 Design goals
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-explicit-non-goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 Explicit non-goals
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-architecture-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Architecture Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-key-design-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Key Design Decisions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Key Design Decisions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-adr-l1-indexeddb-is-the-local-store-with-an-app-enforced-10-mb-budget" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 ADR-L1 — IndexedDB is the local store, with an app-enforced 10 MB budget
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-adr-l2-summarize-at-the-producer-not-the-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 ADR-L2 — Summarize at the producer, not the server
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-adr-l3-the-object-store-holds-two-kinds-of-object-and-only-two" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 ADR-L3 — The object store holds two kinds of object, and only two
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-adr-l4-identity-is-delegated-authorization-is-a-key-prefix" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4 ADR-L4 — Identity is delegated; authorization is a key prefix
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-adr-l5-last-writer-wins-per-grain-union-for-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5 ADR-L5 — Last-writer-wins per grain, union for events
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-local-store" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. The Local Store
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. The Local Store">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-indexeddb-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 IndexedDB schema
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-grains" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 Grains
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-what-the-book-does-with-local-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 What the book does with local summaries
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-the-10-mb-budget-and-shedding-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4 The 10 MB budget and shedding order
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-per-microsim-configjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Per-MicroSim config.json
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Per-MicroSim config.json">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-placement-and-loading" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Placement and loading
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 Schema
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-what-summary-mode-emits-worked-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 What summary mode emits — worked example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-end-of-day-flush-to-the-object-store" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. End-of-Day Flush to the Object Store
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. End-of-Day Flush to the Object Store">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-triggers" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 Triggers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2 Protocol
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-object-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3 Object layout
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-book-statusjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.4 book-status.json
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-restore-a-new-browser-the-next-day" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Restore: a New Browser, the Next Day
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Restore: a New Browser, the Next Day">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1 Flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-staleness-and-the-returning-browser" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2 Staleness and the returning browser
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-replay-the-projection-guarantee-kept" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3 Replay — the projection guarantee, kept
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-security-and-privacy" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Security and Privacy
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-migration-path-to-the-full-lrs" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Migration Path to the Full LRS
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-implementation-sketch" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Implementation Sketch
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-open-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Open Questions
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hardware-requirements/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hardware Requirements & Cost Estimate
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--scaffold" title="Scaffold — placeholder, not yet implemented">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dev-environment-setup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dev Environment Setup
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--scaffold" title="Scaffold — placeholder, not yet implemented">
+    </span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mvp-plan/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MVP Plan
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security-audit-findings/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Security Audit Findings
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../lrs-lite/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    LRS-Lite (Serverless)
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../demo/graph-queries/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Demo
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../case-studies/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Case Studies
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Glossary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../license/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contact/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contact
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-purpose-and-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Purpose and Scope
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Purpose and Scope">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-design-goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 Design goals
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-explicit-non-goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 Explicit non-goals
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-architecture-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Architecture Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-key-design-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Key Design Decisions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Key Design Decisions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-adr-l1-indexeddb-is-the-local-store-with-an-app-enforced-10-mb-budget" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 ADR-L1 — IndexedDB is the local store, with an app-enforced 10 MB budget
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-adr-l2-summarize-at-the-producer-not-the-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 ADR-L2 — Summarize at the producer, not the server
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-adr-l3-the-object-store-holds-two-kinds-of-object-and-only-two" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 ADR-L3 — The object store holds two kinds of object, and only two
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-adr-l4-identity-is-delegated-authorization-is-a-key-prefix" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4 ADR-L4 — Identity is delegated; authorization is a key prefix
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-adr-l5-last-writer-wins-per-grain-union-for-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5 ADR-L5 — Last-writer-wins per grain, union for events
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-local-store" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. The Local Store
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. The Local Store">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-indexeddb-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 IndexedDB schema
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-grains" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 Grains
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-what-the-book-does-with-local-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 What the book does with local summaries
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-the-10-mb-budget-and-shedding-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4 The 10 MB budget and shedding order
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-per-microsim-configjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Per-MicroSim config.json
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Per-MicroSim config.json">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-placement-and-loading" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Placement and loading
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 Schema
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-what-summary-mode-emits-worked-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 What summary mode emits — worked example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-end-of-day-flush-to-the-object-store" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. End-of-Day Flush to the Object Store
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. End-of-Day Flush to the Object Store">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-triggers" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 Triggers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2 Protocol
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-object-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3 Object layout
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-book-statusjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.4 book-status.json
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-restore-a-new-browser-the-next-day" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Restore: a New Browser, the Next Day
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Restore: a New Browser, the Next Day">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1 Flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-staleness-and-the-returning-browser" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2 Staleness and the returning browser
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-replay-the-projection-guarantee-kept" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3 Replay — the projection guarantee, kept
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-security-and-privacy" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Security and Privacy
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-migration-path-to-the-full-lrs" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Migration Path to the Full LRS
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-implementation-sketch" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Implementation Sketch
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-open-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Open Questions
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/specs/learning-record-store-lite-design.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="learning-record-store-lite-lrs-lite-design-v1">Learning Record Store Lite (LRS-Lite) — Design v1<a class="headerlink" href="#learning-record-store-lite-lrs-lite-design-v1" title="Permanent link">&para;</a></h1>
+<h2 id="1-purpose-and-scope">1. Purpose and Scope<a class="headerlink" href="#1-purpose-and-scope" title="Permanent link">&para;</a></h2>
+<p><a href="../lrs-spec-v1/"><code>lrs-spec-v1.md</code></a> specifies a server-based LRS sized for 10,000 concurrent
+students: ingestion gateway, Kafka, ClickHouse event store, Neo4j summaries, dashboards.
+That is the right architecture for a district. It is the wrong architecture for a single
+teacher publishing an intelligent textbook from GitHub Pages, where there is no server to
+run, no ops budget, and a class of 30 — not 10,000.</p>
+<p><strong>LRS-Lite is the same learning-record model with the infrastructure removed.</strong> The three
+planes of the full system collapse into two components:</p>
+<table>
+<thead>
+<tr>
+<th>Full LRS plane</th>
+<th>LRS-Lite equivalent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ingestion gateway + Kafka</td>
+<td>A JavaScript module writing to <strong>IndexedDB</strong> in the student's browser</td>
+</tr>
+<tr>
+<td>ClickHouse event store</td>
+<td>The <strong>local store</strong> (≤ 10 MB budget) + daily <strong>JSONL objects in S3</strong></td>
+</tr>
+<tr>
+<td>Compression pipeline (§5.6)</td>
+<td><strong>Producer-side summarization</strong>, configured per MicroSim by <code>config.json</code></td>
+</tr>
+<tr>
+<td>Neo4j summary vertices (§4.3)</td>
+<td>A single <strong><code>book-status.json</code></strong> snapshot per student in S3</td>
+</tr>
+<tr>
+<td>Analytics dashboards</td>
+<td>The textbook itself renders the student's own progress from local summaries</td>
+</tr>
+</tbody>
+</table>
+<p>Everything that made the full spec's data model good — one summary per analytical grain,
+an immutable event log that summaries can be rebuilt from, statement shapes pinned by the
+<a href="../xapi-producer-contract-v1/">producer contract</a> — is <strong>kept</strong>. Everything that exists
+only to serve scale and multi-tenancy is <strong>dropped</strong>.</p>
+<h3 id="11-design-goals">1.1 Design goals<a class="headerlink" href="#11-design-goals" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Zero servers on the hot path.</strong> The textbook is a static MkDocs site. During a
+   study session, nothing leaves the browser. The only cloud dependency is an object
+   store, touched at login and at end of day.</li>
+<li><strong>The local store is bounded at 10 MB</strong> and the design must degrade gracefully as it
+   fills — never by losing summaries, only by shedding already-uploaded raw events.</li>
+<li><strong>Cross-browser continuity.</strong> A student who worked on the library Chromebook today can
+   log in from a home laptop tomorrow and find the book exactly as they left it:
+   completed pages, quiz history, concept mastery, last position.</li>
+<li><strong>Same statements, different transport.</strong> A statement emitted by LRS-Lite is
+   byte-for-byte a valid <a href="../xapi-producer-contract-v1/">producer-contract v1</a> statement.
+   If a school later adopts the full LRS, the S3 archive replays through its gateway
+   unchanged — LRS-Lite is a migration on-ramp, not a fork.</li>
+<li><strong>Privacy by scarcity.</strong> The best privacy posture for a small deployment is to collect
+   less. Summary-mode emission (§5) is the default precisely because a per-drag event
+   stream is a liability nobody here needs.</li>
+</ol>
+<h3 id="12-explicit-non-goals">1.2 Explicit non-goals<a class="headerlink" href="#12-explicit-non-goals" title="Permanent link">&para;</a></h3>
+<ul>
+<li>No instructor dashboards, cohort analytics, or A/B experimentation (spec §7–§9). A
+  teacher who wants those reads the S3 objects with a notebook, or graduates to the full
+  LRS.</li>
+<li>No real-time anything. Freshness is "since the student's last flush."</li>
+<li>No multi-tenancy. One bucket serves one book deployment (or one teacher's set of
+  books). District isolation is a bucket boundary, not a query predicate.</li>
+<li>No xAPI <code>GET /statements</code> endpoint. The archive is files, deliberately.</li>
+</ul>
+<hr />
+<h2 id="2-architecture-overview">2. Architecture Overview<a class="headerlink" href="#2-architecture-overview" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>graph TD
+  subgraph Browser["Student's browser (any device)"]
+    MS[MicroSims + pages] --&gt;|"xAPI statements&lt;br/&gt;(shaped by each sim's config.json)"| EMIT["lrs-lite.js emitter&lt;br/&gt;+ producer-side summarizer"]
+    EMIT --&gt; IDB[("IndexedDB&lt;br/&gt;statements + summaries + meta&lt;br/&gt;≤ 10 MB")]
+    IDB --&gt; PROG["In-book progress UI&lt;br/&gt;(reads local summaries)"]
+  end
+
+  subgraph Cloud["Object store (S3 / R2 / GCS / Azure Blob)"]
+    EV["events/{date}/{device}-{seq}.jsonl.gz&lt;br/&gt;(append-only, immutable)"]
+    BS["book-status.json&lt;br/&gt;(latest summary snapshot)"]
+  end
+
+  IDB --&gt;|"end-of-day flush&lt;br/&gt;(presigned PUT)"| EV
+  IDB --&gt;|"snapshot upload"| BS
+  BS --&gt;|"login on a new browser:&lt;br/&gt;restore"| IDB
+
+  AUTH["Identity: Cognito / OIDC&lt;br/&gt;(scopes each student to their own prefix)"] -.-&gt; EV
+  AUTH -.-&gt; BS</code></pre>
+<p>Three moments in a student's day touch the design:</p>
+<ol>
+<li><strong>Login / open the book</strong> — authenticate, fetch <code>book-status.json</code>, hydrate the local
+   store if it is empty or stale (§7).</li>
+<li><strong>Study session</strong> — sims and pages emit statements into IndexedDB via the shared
+   emitter; the summarizer maintains per-grain rollups locally; nothing goes over the
+   network (§4–§5).</li>
+<li><strong>Done for the day</strong> — an explicit "Save my progress" action (with automatic
+   safety-net triggers) uploads the day's events and the refreshed snapshot to the
+   object store, then releases local budget (§6).</li>
+</ol>
+<hr />
+<h2 id="3-key-design-decisions">3. Key Design Decisions<a class="headerlink" href="#3-key-design-decisions" title="Permanent link">&para;</a></h2>
+<h3 id="31-adr-l1-indexeddb-is-the-local-store-with-an-app-enforced-10-mb-budget">3.1 ADR-L1 — IndexedDB is the local store, with an app-enforced 10 MB budget<a class="headerlink" href="#31-adr-l1-indexeddb-is-the-local-store-with-an-app-enforced-10-mb-budget" title="Permanent link">&para;</a></h3>
+<p><strong>Decision.</strong> The web-attached database is <strong>IndexedDB</strong>, accessed through a thin wrapper
+(<code>lrs-lite-db.js</code>). <code>localStorage</code> is rejected: it is synchronous (blocks the main thread
+a sim is animating on), string-only, and capped near 5 MB in several browsers — below the
+stated budget before overhead. IndexedDB is asynchronous, structured, indexable, and its
+real quota is far above 10 MB everywhere that matters.</p>
+<p>The 10 MB ceiling is therefore <strong>our policy, not the browser's limit</strong> — enforced by the
+wrapper's own byte accounting (§4.4), not discovered by catching <code>QuotaExceededError</code>.
+That matters because browser eviction under real quota pressure is all-or-nothing
+(Firefox drops the whole origin's data); a self-imposed budget with graceful shedding
+never gets near that cliff.</p>
+<p><code>navigator.storage.persist()</code> is requested once at first login. Grant or not, the design
+survives eviction: anything not yet flushed is at risk only since the last flush, and the
+snapshot in S3 bounds the loss to one day.</p>
+<h3 id="32-adr-l2-summarize-at-the-producer-not-the-server">3.2 ADR-L2 — Summarize at the producer, not the server<a class="headerlink" href="#32-adr-l2-summarize-at-the-producer-not-the-server" title="Permanent link">&para;</a></h3>
+<p>The full LRS accepts every raw statement and compresses server-side (spec §5.6), because
+a district needs the raw log for reproducibility and audit. LRS-Lite has no server to
+compress on — so <strong>compression moves to the only compute available: the emitting page
+itself.</strong></p>
+<p>Each MicroSim carries a <code>config.json</code> (§5) that sets its <strong>emission mode</strong>. In the
+default <code>summary</code> mode, high-frequency interactions (slider drags, per-step <code>interacted</code>
+events) are <em>accumulated in memory</em> and emitted as <strong>one statement per grain per
+session</strong> — exactly the compression the full pipeline would have performed, done before
+the statement is ever stored. Low-frequency, high-value events (<code>answered</code>, the §7 dwell
+<code>experienced</code>) are always emitted individually; they are already at summary grain.</p>
+<p>This is the same principle as spec C-1 ("no vertex finer than the analytical grain"),
+applied one stage earlier. The cost is honest and stated: in summary mode the fine-grained
+interaction sequence is <strong>not reconstructable</strong> — there is no server log behind it. That
+trade is correct here (goal 5) and is the main dial a deployment turns when it wants more
+detail (§5.3).</p>
+<h3 id="33-adr-l3-the-object-store-holds-two-kinds-of-object-and-only-two">3.3 ADR-L3 — The object store holds two kinds of object, and only two<a class="headerlink" href="#33-adr-l3-the-object-store-holds-two-kinds-of-object-and-only-two" title="Permanent link">&para;</a></h3>
+<p>Per student:</p>
+<ol>
+<li><strong>Event objects</strong> — <code>events/{yyyy-mm-dd}/{device_id}-{seq}.jsonl.gz</code>. Append-only,
+   immutable, one per flush. These are the system of record, playing the role ClickHouse
+   plays in the full design. Nothing ever rewrites one.</li>
+<li><strong><code>book-status.json</code></strong> — a single snapshot object, overwritten at every flush. It is a
+   <strong>projection</strong> of the event objects (spec C-2 carries over: if snapshot and events
+   disagree, the events win and the snapshot is rebuilt by replaying them).</li>
+</ol>
+<p>No database, no index, no manifest. Listing <code>events/</code> <em>is</em> the index — the day and device
+are in the key. This is deliberately boring: every "similar system" the requirement allows
+(Cloudflare R2, Google Cloud Storage, Azure Blob, MinIO on a school NAS) supports GET,
+PUT, and LIST with prefix, and nothing here needs more.</p>
+<h3 id="34-adr-l4-identity-is-delegated-authorization-is-a-key-prefix">3.4 ADR-L4 — Identity is delegated; authorization is a key prefix<a class="headerlink" href="#34-adr-l4-identity-is-delegated-authorization-is-a-key-prefix" title="Permanent link">&para;</a></h3>
+<p>A static site cannot hold a secret, so the browser must obtain <strong>short-lived, scoped</strong>
+credentials from an identity provider. The reference implementation is <strong>Amazon Cognito</strong>
+(an identity pool federating a school Google/Microsoft login), because it makes the
+authorization rule a one-line IAM policy:</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">"Effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Allow"</span><span class="p">,</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nt">"Action"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"s3:GetObject"</span><span class="p">,</span><span class="w"> </span><span class="s2">"s3:PutObject"</span><span class="p">,</span><span class="w"> </span><span class="s2">"s3:ListBucket"</span><span class="p">],</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="nt">"Resource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"arn:aws:s3:::BOOK_BUCKET/students/${cognito-identity.amazonaws.com:sub}/*"</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Each student can read and write <strong>only their own prefix</strong>. There is no LRS auth code to
+get wrong — the object store's own access control is the entire authorization layer.</p>
+<p><strong>Portable alternative</strong> (for R2/GCS or when Cognito is unwanted): one small serverless
+function (Lambda function URL / Cloudflare Worker) that validates the student's OIDC
+token and returns presigned PUT/GET URLs for that student's prefix. This is the only
+optional server component in the design, it holds no state, and it is on the cold path
+(login and flush only).</p>
+<p>The <code>student_id</code> used in the S3 key is the <strong>identity provider's stable subject</strong>, not a
+name or email. The mapping from subject to human lives in the school's IdP — LRS-Lite
+never stores it, which is the lite equivalent of the full spec's PII vault.</p>
+<h3 id="35-adr-l5-last-writer-wins-per-grain-union-for-events">3.5 ADR-L5 — Last-writer-wins per grain, union for events<a class="headerlink" href="#35-adr-l5-last-writer-wins-per-grain-union-for-events" title="Permanent link">&para;</a></h3>
+<p>Two browsers used on the <em>same</em> day (Chromebook at school, laptop at home) is the one
+real concurrency case. Event objects never conflict — each flush writes a new key that
+embeds a per-browser <code>device_id</code>. <code>book-status.json</code> can conflict, and the rule is:</p>
+<blockquote>
+<p>On flush, <strong>merge before overwrite</strong>: GET the current snapshot, merge per grain
+(union of grains; for a grain present in both, the one with the later <code>last_seen</code>
+wins; additive counters are <strong>not</strong> summed cross-device), then PUT.</p>
+</blockquote>
+<p>Last-writer-wins per grain can undercount a same-day split across devices (it keeps one
+device's counters for the contested grain, not the sum). That is accepted for v1 and is
+always repairable, because the event objects hold both devices' full contribution — a
+replay rebuilds the true snapshot (§7.3). Additive cross-device merge is explicitly
+deferred: summing counters without idempotency keys double-counts on retry, which is
+worse than undercounting (spec C-3's lesson, relearned cheaply).</p>
+<hr />
+<h2 id="4-the-local-store">4. The Local Store<a class="headerlink" href="#4-the-local-store" title="Permanent link">&para;</a></h2>
+<h3 id="41-indexeddb-schema">4.1 IndexedDB schema<a class="headerlink" href="#41-indexeddb-schema" title="Permanent link">&para;</a></h3>
+<p>Database <code>lrs-lite</code>, version 1, three object stores:</p>
+<table>
+<thead>
+<tr>
+<th>Store</th>
+<th>Key</th>
+<th>Contents</th>
+<th>Indexes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>statements</code></td>
+<td><code>id</code> (statement UUID)</td>
+<td>Full contract-v1 statement + <code>{synced: 0\|1, bytes: N}</code> envelope</td>
+<td><code>by-synced</code>, <code>by-timestamp</code></td>
+</tr>
+<tr>
+<td><code>summaries</code></td>
+<td><code>grain_key</code> (string, §4.2)</td>
+<td>One rollup object per grain — the local mirror of the full LRS's summary vertices</td>
+<td><code>by-kind</code></td>
+</tr>
+<tr>
+<td><code>meta</code></td>
+<td>fixed keys</td>
+<td><code>device_id</code>, <code>student_id</code>, <code>sync_cursor</code>, <code>budget_bytes_used</code>, <code>snapshot_etag</code>, <code>last_flush_at</code></td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<h3 id="42-grains">4.2 Grains<a class="headerlink" href="#42-grains" title="Permanent link">&para;</a></h3>
+<p>The grain set is the spec §4.3 set, minus what only a cohort needs:</p>
+<table>
+<thead>
+<tr>
+<th>Kind</th>
+<th><code>grain_key</code></th>
+<th>Fields</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>concept</code></td>
+<td><code>c:{concept_id}</code></td>
+<td><code>mastery_score</code>, <code>attempts</code>, <code>successes</code>, <code>statements_compressed</code>, <code>first_seen</code>, <code>last_seen</code></td>
+</tr>
+<tr>
+<td><code>page</code></td>
+<td><code>p:{object_id}</code></td>
+<td><code>dwell_ms_total</code>, <code>visit_count</code>, <code>completed</code>, <code>first_seen</code>, <code>last_seen</code>, <code>statements_compressed</code></td>
+</tr>
+<tr>
+<td><code>question</code></td>
+<td><code>q:{object_id}</code></td>
+<td><code>attempts</code>, <code>successes</code>, <code>mean_score</code>, <code>first_success_attempt</code>, <code>last_seen</code></td>
+</tr>
+<tr>
+<td><code>session</code></td>
+<td><code>s:{date}:{device_id}</code></td>
+<td><code>started_at</code>, <code>ended_at</code>, <code>event_count</code>, <code>objects_touched</code></td>
+</tr>
+<tr>
+<td><code>book</code></td>
+<td><code>b:</code> (singleton)</td>
+<td><code>last_page</code>, <code>pages_completed</code>, <code>concepts_touched</code>, <code>quiz_score_summary</code> — what the "resume where you left off" UI reads</td>
+</tr>
+</tbody>
+</table>
+<p><code>grain_key</code>s reuse the contract's canonical IRIs (<code>object_id</code> with its trailing slash,
+<code>#q…</code> fragments), so the same identity discipline that protects the full LRS's rollups —
+one activity, one IRI (§1–§2 of the contract) — protects these.</p>
+<p>Summaries are updated <strong>transactionally with the statement write</strong>: one IndexedDB
+transaction spans both stores, so a crash can never persist an event whose summary
+doesn't reflect it, or vice versa.</p>
+<p><code>SectionRollup</code> has no lite equivalent — there is no section, and no aggregation
+threshold is needed because no one but the student (and whoever holds bucket credentials)
+can read the data at all.</p>
+<h3 id="43-what-the-book-does-with-local-summaries">4.3 What the book does with local summaries<a class="headerlink" href="#43-what-the-book-does-with-local-summaries" title="Permanent link">&para;</a></h3>
+<p>The in-book progress features read <code>summaries</code> <strong>only</strong> — never <code>statements</code>:</p>
+<ul>
+<li>resume-where-you-left-off (the <code>book</code> grain),</li>
+<li>per-chapter completion checkmarks in the nav (<code>page</code> grains),</li>
+<li>a personal mastery page rendered from <code>concept</code> grains against the learning graph
+  (<code>docs/learning-graph/learning-graph.json</code> is already shipped with the site),</li>
+<li>quiz review from <code>question</code> grains.</li>
+</ul>
+<p>This keeps the read path fast and keeps a firm rule from the full design intact: <strong>UI
+reads summaries; the event log is for replay and export.</strong></p>
+<h3 id="44-the-10-mb-budget-and-shedding-order">4.4 The 10 MB budget and shedding order<a class="headerlink" href="#44-the-10-mb-budget-and-shedding-order" title="Permanent link">&para;</a></h3>
+<p>The wrapper maintains <code>budget_bytes_used</code> (sum of stored statements' serialized sizes;
+summaries and meta are negligible and exempt — they are the last thing we would ever
+shed). Thresholds:</p>
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Threshold</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Green</td>
+<td>&lt; 7 MB</td>
+<td>Normal operation.</td>
+</tr>
+<tr>
+<td>Amber</td>
+<td>≥ 7 MB</td>
+<td>Delete <strong>synced</strong> statements, oldest first, back to green. Routine and invisible.</td>
+</tr>
+<tr>
+<td>Red</td>
+<td>≥ 9 MB with <strong>unsynced</strong> backlog</td>
+<td>Prompt the student to save progress now (triggers a flush, §6). Sims are switched to summary-only emission regardless of <code>config.json</code>.</td>
+</tr>
+<tr>
+<td>Hard</td>
+<td>10 MB, flush impossible (offline for days)</td>
+<td>Compact: fold the oldest unsynced raw statements into their grains' summaries, then drop them — recording a <code>truncated_statements: N</code> marker in the session grain so the loss is visible in the data, not silent.</td>
+</tr>
+</tbody>
+</table>
+<p>Capacity check: a contract-v1 statement serializes to roughly 700 bytes. In summary mode
+a diligent student produces on the order of 100–300 statements per school day —
+<strong>~200 KB/day</strong>, so the budget holds weeks of unflushed work even fully offline. The
+hard level exists for correctness, not because it is expected.</p>
+<hr />
+<h2 id="5-per-microsim-configjson">5. Per-MicroSim <code>config.json</code><a class="headerlink" href="#5-per-microsim-configjson" title="Permanent link">&para;</a></h2>
+<h3 id="51-placement-and-loading">5.1 Placement and loading<a class="headerlink" href="#51-placement-and-loading" title="Permanent link">&para;</a></h3>
+<p>Each sim directory gains a <code>config.json</code> beside its existing <code>metadata.json</code>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>docs/sims/bouncing-ball/
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  index.md
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  main.html
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  bouncing-ball.js
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>  metadata.json
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>  config.json      ← emission policy (this section)
+</span></code></pre></div>
+<p><code>lrs-lite.js</code> fetches it relative to the page at load (same-origin, cached by the site's
+normal HTTP caching). <strong>A missing or malformed <code>config.json</code> means the defaults below</strong> —
+a sim without one is in summary mode, not silent and not verbose.</p>
+<h3 id="52-schema">5.2 Schema<a class="headerlink" href="#52-schema" title="Permanent link">&para;</a></h3>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">"schema"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lrs-lite-config/v1"</span><span class="p">,</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="nt">"emission"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="nt">"mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"summary"</span><span class="p">,</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="nt">"interacted"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aggregate"</span><span class="p">,</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="nt">"aggregate_window"</span><span class="p">:</span><span class="w"> </span><span class="s2">"session"</span><span class="p">,</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="nt">"min_dwell_ms"</span><span class="p">:</span><span class="w"> </span><span class="mi">250</span><span class="p">,</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="nt">"max_statements_per_session"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">  </span><span class="nt">"concepts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"compression-ratio"</span><span class="p">]</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="p">}</span>
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Values (default bold)</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>emission.mode</code></td>
+<td><strong><code>summary</code></strong> | <code>full</code> | <code>off</code></td>
+<td><code>summary</code>: aggregate high-frequency events (below). <code>full</code>: emit every contract-v1 statement individually — for sims under study, or deployments feeding a real LRS later. <code>off</code>: emit nothing (decorative sims).</td>
+</tr>
+<tr>
+<td><code>emission.interacted</code></td>
+<td><strong><code>aggregate</code></strong> | <code>individual</code> | <code>suppress</code></td>
+<td>What happens to <code>interacted</code> (control-manipulation) events in summary mode. <code>aggregate</code>: fold into one statement per control per window. <code>suppress</code>: count into the local summary's <code>statements_compressed</code> but emit no statement at all.</td>
+</tr>
+<tr>
+<td><code>emission.aggregate_window</code></td>
+<td><strong><code>session</code></strong> | <code>pause</code></td>
+<td>When aggregated <code>interacted</code> statements are cut: once per page session, or at each §7 dwell Pause (aligning interaction summaries with dwell intervals).</td>
+</tr>
+<tr>
+<td><code>emission.min_dwell_ms</code></td>
+<td><strong><code>250</code></strong></td>
+<td>Contract §7's mis-click floor, now configurable per sim.</td>
+</tr>
+<tr>
+<td><code>emission.max_statements_per_session</code></td>
+<td><strong><code>50</code></strong></td>
+<td>Circuit breaker: past this, the sim is forced to <code>suppress</code> for the rest of the session. A runaway <code>mousemove</code> handler in one sim must not eat the shared budget.</td>
+</tr>
+<tr>
+<td><code>concepts</code></td>
+<td><code>[]</code></td>
+<td>The <code>concept_id</code>s this sim's statements carry (contract §6). Declared here once instead of hardcoded in each emitter call — and now discoverable by tooling, which is a step toward closing the "sims carry no concept ids" gap noted in the repo's catalog docs.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="53-what-summary-mode-emits-worked-example">5.3 What <code>summary</code> mode emits — worked example<a class="headerlink" href="#53-what-summary-mode-emits-worked-example" title="Permanent link">&para;</a></h3>
+<p>Contract semantics are preserved; only multiplicity changes. <code>answered</code> statements are
+<strong>never</strong> aggregated — each attempt is distinct evidence (contract §12.6's brute-force
+argument applies with full force). The dwell pattern (contract §7) is already one
+statement per run interval and passes through unchanged. Only <code>interacted</code> is compressed:</p>
+<p>A student drags <code>#speed-slider</code> 40 times, runs the sim twice (12 s, 26 s), answers one
+question wrong then right.</p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Statements stored</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>full</code></td>
+<td>40 <code>interacted</code> + 2 <code>experienced</code> + 2 <code>answered</code> = <strong>44</strong></td>
+</tr>
+<tr>
+<td><code>summary</code> (default)</td>
+<td><strong>1</strong> <code>interacted</code> (<code>#speed-slider</code>, <code>ext/interaction_count: 40</code>, first/last values) + 2 <code>experienced</code> + 2 <code>answered</code> = <strong>5</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The aggregated statement is still contract-shaped: verb <code>interacted</code>, fragment-qualified
+<code>Control</code> IRI, <code>concept_id</code> extension — plus <code>https://w3id.org/lrs/ext/interaction_count</code>
+so <code>statements_compressed</code> stays honest (spec C-6's observable-compression principle,
+producer-side). A future replay into the full LRS ingests it as one statement that
+declares it stands for 40.</p>
+<hr />
+<h2 id="6-end-of-day-flush-to-the-object-store">6. End-of-Day Flush to the Object Store<a class="headerlink" href="#6-end-of-day-flush-to-the-object-store" title="Permanent link">&para;</a></h2>
+<h3 id="61-triggers">6.1 Triggers<a class="headerlink" href="#61-triggers" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Trigger</th>
+<th>Kind</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>"Save my progress"</strong> button (site header, and in the session-end mascot callout)</td>
+<td>Primary, explicit</td>
+<td>The student's own act. Shows a confirmation with what was saved — the flush is a visible ritual, not surveillance.</td>
+</tr>
+<tr>
+<td><code>visibilitychange</code> → hidden, with unsynced statements older than 30 min</td>
+<td>Safety net</td>
+<td>Uses <code>fetch(..., {keepalive: true})</code> — the only mechanism that survives tab close on mobile Safari (same reasoning as contract §7's flush rule). Payload capped at the keepalive limit (64 KB); if the backlog is larger, it flushes the snapshot only and leaves events for next login.</td>
+</tr>
+<tr>
+<td>Login detects a previous day's unsynced backlog</td>
+<td>Catch-up</td>
+<td>Yesterday's Chromebook crashed before flushing; today's login on the same device uploads it before restoring.</td>
+</tr>
+<tr>
+<td>Red budget level (§4.4)</td>
+<td>Pressure</td>
+<td>Prompt + flush.</td>
+</tr>
+</tbody>
+</table>
+<p>There is deliberately <strong>no periodic background sync</strong>. "Transmit when the student is done
+for the day" is the requirement, and it is also the honest privacy posture: the network
+transmission is an event the student can see and understand.</p>
+<h3 id="62-protocol">6.2 Protocol<a class="headerlink" href="#62-protocol" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Read all <code>statements</code> where <code>synced = 0</code>, in timestamp order.</li>
+<li>Serialize to JSONL, gzip (<code>CompressionStream</code> — no library), producing typically
+   10–40 KB.</li>
+<li><code>PUT students/{student_id}/events/{yyyy-mm-dd}/{device_id}-{seq}.jsonl.gz</code> with
+   <code>If-None-Match: *</code> (S3 conditional writes) so a retry after a lost response cannot
+   overwrite — it collides, and the client bumps <code>seq</code>. <code>seq</code> comes from <code>meta</code>.</li>
+<li>GET current <code>book-status.json</code> (with ETag), merge per §3.5, <code>PUT</code> the merged snapshot.</li>
+<li>Only after both PUTs succeed: mark the statements <code>synced = 1</code>, advance <code>sync_cursor</code>,
+   record <code>last_flush_at</code>. A failure anywhere leaves everything unsynced — the flush is
+   <strong>idempotent and resumable</strong> because step 3's key is deterministic until it succeeds.</li>
+</ol>
+<h3 id="63-object-layout">6.3 Object layout<a class="headerlink" href="#63-object-layout" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>s3://ibook-lrs-lite/
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>  {book_id}/
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    students/
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>      {student_id}/                     ← IdP subject, never a name
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>        book-status.json                ← latest snapshot (overwritten)
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>        events/
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>          2026-07-19/
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>            a3f2-000.jsonl.gz           ← {device_id}-{seq}
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>            a3f2-001.jsonl.gz
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>            9c1b-000.jsonl.gz           ← a second device, same day: no conflict
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>          2026-07-20/
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>            ...
+</span></code></pre></div>
+<p>Bucket policy: no public access, TLS-only, default encryption, and a lifecycle rule
+transitioning <code>events/</code> to infrequent-access after 90 days. Retention/erasure for a
+student is <code>aws s3 rm --recursive</code> on one prefix — FERPA erasure as a one-liner.</p>
+<h3 id="64-book-statusjson">6.4 <code>book-status.json</code><a class="headerlink" href="#64-book-statusjson" title="Permanent link">&para;</a></h3>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">{</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">"schema"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lrs-lite-status/v1"</span><span class="p">,</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="nt">"student_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"us-east-1:9f3c…"</span><span class="p">,</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="nt">"book_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"learning-record-store"</span><span class="p">,</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="nt">"textbook_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://dmccreary.github.io/learning-record-store/textbook/lrs/v1.0.0"</span><span class="p">,</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">  </span><span class="nt">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-07-19T21:04:11Z"</span><span class="p">,</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">  </span><span class="nt">"updated_by_device"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a3f2"</span><span class="p">,</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">  </span><span class="nt">"event_log_watermark"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"2026-07-19"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"a3f2-001"</span><span class="p">,</span><span class="w"> </span><span class="s2">"9c1b-000"</span><span class="p">]},</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">  </span><span class="nt">"grains"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">    </span><span class="nt">"b:"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"last_page"</span><span class="p">:</span><span class="w"> </span><span class="s2">"…/chapters/04-summaries/"</span><span class="p">,</span><span class="w"> </span><span class="nt">"pages_completed"</span><span class="p">:</span><span class="w"> </span><span class="mi">23</span><span class="p">},</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">    </span><span class="nt">"c:compression-ratio"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"mastery_score"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.72</span><span class="p">,</span><span class="w"> </span><span class="nt">"attempts"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="nt">"successes"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">                             </span><span class="nt">"statements_compressed"</span><span class="p">:</span><span class="w"> </span><span class="mi">41</span><span class="p">,</span><span class="w"> </span><span class="nt">"last_seen"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-07-19T20:58:02Z"</span><span class="p">},</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">    </span><span class="nt">"p:https://dmccreary.github.io/learning-record-store/sims/bouncing-ball/"</span><span class="p">:</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">        </span><span class="p">{</span><span class="nt">"dwell_ms_total"</span><span class="p">:</span><span class="w"> </span><span class="mi">38120</span><span class="p">,</span><span class="w"> </span><span class="nt">"visit_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="nt">"last_seen"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-07-19T20:41:11Z"</span><span class="p">}</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>The <code>event_log_watermark</code> records which event objects the snapshot has incorporated —
+this is what makes staleness detectable (§7.2) and replay verifiable (§7.3). Size check:
+~150 bytes per grain × a few hundred grains for a whole book ≈ <strong>tens of KB</strong>. It never
+approaches the point of needing pagination.</p>
+<hr />
+<h2 id="7-restore-a-new-browser-the-next-day">7. Restore: a New Browser, the Next Day<a class="headerlink" href="#7-restore-a-new-browser-the-next-day" title="Permanent link">&para;</a></h2>
+<h3 id="71-flow">7.1 Flow<a class="headerlink" href="#71-flow" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>sequenceDiagram
+  participant S as Student (new browser)
+  participant B as Book (static site)
+  participant I as IdP (Cognito/OIDC)
+  participant O as Object store
+
+  S-&gt;&gt;B: open book, click "Sign in"
+  B-&gt;&gt;I: OIDC login (school Google/Microsoft account)
+  I--&gt;&gt;B: scoped credentials for students/{sub}/*
+  B-&gt;&gt;O: GET book-status.json
+  alt snapshot exists
+    O--&gt;&gt;B: snapshot (ETag)
+    B-&gt;&gt;B: hydrate summaries store from grains;&lt;br/&gt;statements store starts empty
+    B--&gt;&gt;S: "Welcome back — resuming at Chapter 4"
+  else 404 (first ever login)
+    B--&gt;&gt;S: fresh book, empty local store
+  end</code></pre>
+<p>The <code>statements</code> store <strong>starts empty on a new browser</strong> — raw history is not pulled
+down. Restore means restoring <em>state</em> (summaries), not mirroring the archive; the archive
+stays in S3 where a later analysis or replay can reach it. This keeps restore to one GET
+of tens of KB, instant on school Wi-Fi.</p>
+<h3 id="72-staleness-and-the-returning-browser">7.2 Staleness and the returning browser<a class="headerlink" href="#72-staleness-and-the-returning-browser" title="Permanent link">&para;</a></h3>
+<p>A browser that already has local data compares on login: if the remote snapshot's
+<code>updated_at</code> is newer than local <code>last_flush_at</code> <strong>and</strong> the local store has no unsynced
+statements, remote wins wholesale. If the local store <em>does</em> have unsynced statements
+(yesterday's crash), it flushes them first (§6.1 catch-up), then merges per §3.5. The
+invariant either way: <strong>no unsynced statement is ever discarded by a restore.</strong></p>
+<h3 id="73-replay-the-projection-guarantee-kept">7.3 Replay — the projection guarantee, kept<a class="headerlink" href="#73-replay-the-projection-guarantee-kept" title="Permanent link">&para;</a></h3>
+<p>Spec C-2 survives into lite: <code>book-status.json</code> must be reproducible by replaying
+<code>events/</code> in timestamp order through the same summarizer that runs in the browser. The
+summarizer is therefore packaged to run in Node as well as in the page
+(<code>scripts/lrs-lite-replay.mjs</code>): given a student prefix, it rebuilds the snapshot from
+the event objects and diffs it against the stored one. That script is the repair tool for
+§3.5's accepted undercount, the audit tool for teacher trust, and the acceptance test for
+the summarizer itself.</p>
+<hr />
+<h2 id="8-security-and-privacy">8. Security and Privacy<a class="headerlink" href="#8-security-and-privacy" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>Position</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Identity in statements</td>
+<td><code>actor.account.name</code> is the IdP subject — same value as the S3 prefix. No name or email ever enters a statement or an object key. The IdP is the only place the mapping exists (the lite PII vault, §3.4).</td>
+</tr>
+<tr>
+<td>Transport</td>
+<td>HTTPS only, enforced by bucket policy. Statements carry the <em>published</em> site IRIs per contract §1 regardless of where the browser is.</td>
+</tr>
+<tr>
+<td>Blast radius of a stolen token</td>
+<td>One student's own prefix, read/write, until the short-lived credential expires (≤ 1 h). No cross-student read is possible at any layer.</td>
+</tr>
+<tr>
+<td>Local device</td>
+<td>IndexedDB is origin-scoped but unencrypted at rest; a shared computer's other <em>users</em> can't reach it, but the same OS account can. Mitigation is minimization: summary mode by default, and "Sign out" clears the local store after a final flush.</td>
+</tr>
+<tr>
+<td>Consent posture</td>
+<td>The flush is explicit and visible (§6.1); the in-book progress page shows the student exactly what is stored about them — the same summaries, nothing hidden.</td>
+</tr>
+<tr>
+<td>What a teacher can see</td>
+<td>Whatever the bucket owner can read: everything, per student. This is the honest statement of the lite trust model — it is a classroom tool, not an anonymization system, and deployments should say so in their privacy note.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="9-migration-path-to-the-full-lrs">9. Migration Path to the Full LRS<a class="headerlink" href="#9-migration-path-to-the-full-lrs" title="Permanent link">&para;</a></h2>
+<p>Because every stored statement is contract-v1:</p>
+<ol>
+<li>Stand up the full LRS (design-v1 compose stack).</li>
+<li>For each student prefix: replay <code>events/**/*.jsonl.gz</code> to <code>POST /xapi/statements</code> in
+   timestamp order. The gateway's idempotency on <code>statement_id</code> (statements always carry
+   producer-supplied <code>id</code>s here — §6.2's dedup requirement is <em>satisfied by default</em> in
+   lite) makes the replay safely re-runnable.</li>
+<li>Point <code>lrs-lite.js</code>'s transport at the gateway instead of S3 — the emitter API and
+   every sim's <code>config.json</code> are unchanged; <code>full</code> emission mode becomes the norm.</li>
+<li>Retire the bucket or keep it as cold archive.</li>
+</ol>
+<p>The compression caveat is the one real cost, and it was paid knowingly at §3.2: history
+recorded in summary mode replays as summaries. Mastery and engagement rollups come out
+right (the aggregated statements carry their counts); per-drag detail from the lite era
+does not exist to recover.</p>
+<hr />
+<h2 id="10-implementation-sketch">10. Implementation Sketch<a class="headerlink" href="#10-implementation-sketch" title="Permanent link">&para;</a></h2>
+<p>New files, all under the existing site (no build-system changes):</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>docs/js/lrs-lite-db.js</code></td>
+<td>IndexedDB wrapper: schema, transactional statement+summary write, budget accounting, shedding (§4).</td>
+</tr>
+<tr>
+<td><code>docs/js/lrs-lite-sync.js</code></td>
+<td>Auth/credentials, flush protocol, restore, merge (§6–§7).</td>
+</tr>
+<tr>
+<td><code>docs/js/lrs-lite.js</code></td>
+<td>The facade sims call. <strong>Wraps the existing <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/js/lrs-xapi.js"><code>lrs-xapi.js</code></a></strong> — statement construction and validation stay in the one module that owns the contract; lite adds <code>config.json</code> loading, the summarizer, and the store instead of the log panel.</td>
+</tr>
+<tr>
+<td><code>docs/sims/*/config.json</code></td>
+<td>Per-sim emission policy (§5). Rolled out sim-by-sim; absent means defaults.</td>
+</tr>
+<tr>
+<td><code>scripts/lrs-lite-replay.mjs</code></td>
+<td>Snapshot rebuild/verify from an S3 prefix (§7.3).</td>
+</tr>
+<tr>
+<td><code>infra/lrs-lite/</code></td>
+<td>Bucket + Cognito identity pool as a small CloudFormation/Terraform template, plus the optional presigned-URL worker for non-AWS stores.</td>
+</tr>
+</tbody>
+</table>
+<p>Suggested build order (each step ends observable): <strong>(1)</strong> db + facade with sine-wave in
+summary mode, progress visible on a local test page → <strong>(2)</strong> budget + shedding under a
+loadgen page → <strong>(3)</strong> flush/restore against a MinIO container (no AWS needed to
+develop) → <strong>(4)</strong> replay script closes the C-2 loop → <strong>(5)</strong> Cognito template and a
+real bucket.</p>
+<hr />
+<h2 id="11-open-questions">11. Open Questions<a class="headerlink" href="#11-open-questions" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Anonymous-first login?</strong> Should a student be able to read the book and accumulate
+   local state <em>before</em> signing in, with the store adopted into their prefix at first
+   login? Pedagogically attractive (no login wall on page one); the adoption merge is the
+   §3.5 machinery reused, but it needs a decision on what happens if they never sign in.</li>
+<li><strong>Teacher rollup object.</strong> A tiny scheduled job (or the teacher's own notebook) could
+   write <code>class-status.json</code> aggregating all students' snapshots — the lite ancestor of
+   R-201. Worth speccing only when a real teacher asks.</li>
+<li><strong><code>interaction_count</code> extension IRI.</strong> <code>https://w3id.org/lrs/ext/interaction_count</code>
+   needs adding to the producer contract's extension table when lite ships, so the full
+   LRS's processor knows to fold it into <code>statements_compressed</code> on replay.</li>
+<li><strong>Same-day cross-device undercount</strong> (§3.5) — acceptable, or should the snapshot merge
+   go additive with per-device sub-records? Decide after observing whether same-day
+   device switching actually happens in a pilot.</li>
+<li><strong>Quota <code>persist()</code> denial telemetry.</strong> If browsers commonly deny persistence for
+   school-managed profiles, the safety-net flush cadence in §6.1 may need to tighten.</li>
+</ol>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../xapi-producer-contract-v1/" class="md-footer__link md-footer__link--prev" aria-label="Previous: xAPI Producer Contract (v1)">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                xAPI Producer Contract (v1)
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../hardware-requirements/" class="md-footer__link md-footer__link--next" aria-label="Next: Hardware Requirements &amp; Cost Estimate">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Hardware Requirements & Cost Estimate
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Dan McCreary. Licensed under <a href="license/">CC BY-NC-SA 4.0</a> for non-commercial use.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../js/katex.js"></script>
+      
+        <script src="../../js/quiz-xapi.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

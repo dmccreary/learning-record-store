@@ -1,0 +1,3582 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Review questions on this project's twelve named failure modes, the data-loss boundary at Kafka, and the eight-layer testing strategy that verifies the failure-mode table is true.">
+      
+      
+        <meta name="author" content="Dan McCreary">
+      
+      
+        <link rel="canonical" href="https://dmccreary.github.io/learning-record-store/chapters/19-failure-modes-and-verification/quiz/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../../20-deviations-roadmap-open-questions/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
+    
+    
+      
+        <title>Quiz: Failure Modes and Verification - Learning Record Store</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/extra.css">
+    
+      <link rel="stylesheet" href="../../../css/mascot.css">
+    
+      <link rel="stylesheet" href="../../../css/lrs-xapi.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#quiz-failure-modes-and-verification" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Learning Record Store" class="md-header__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  <img src="../../../img/mascot/neutral.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Learning Record Store
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Quiz: Failure Modes and Verification
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Learning Record Store" class="md-nav__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  <img src="../../../img/mascot/neutral.png" alt="logo">
+
+    </a>
+    Learning Record Store
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../course-description/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Course Description
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../stories/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Stories
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Chapters
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Chapters
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../01-lms-to-experience-api/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    1. From Learning Management Systems to the Experience API
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../02-anatomy-of-xapi-statement/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    2. The Anatomy of an xAPI Statement
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../03-ieee-standardization-xapi-cmi5/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    3. IEEE Standardization of xAPI and cmi5
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../04-standards-governance-ecosystem/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    4. Standards Governance and the Wider Interoperability Ecosystem
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../05-system-context-architectural-planes/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    5. System Context and the Five Architectural Planes
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../06-multi-tenancy-rosters-identity/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    6. Multi-Tenancy, Rosters, and Pseudonymous Identity
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../07-property-graph-data-model/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    7. The Property Graph Data Model
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../08-summary-vertices-ingestion/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    8. Summary Vertices and Statement Ingestion Mechanics
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../09-twelve-core-lrs-functions/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    9. The Twelve Core LRS Functions
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../10-choosing-technology-stack/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    10. Choosing the Technology Stack
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../11-adrs-and-capacity-model/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    11. Architecture Decision Records and the Capacity Model
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../12-bayesian-knowledge-tracing/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    12. Bayesian Knowledge Tracing for Mastery
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../13-component-design-in-depth/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    13. Component Design in Depth
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../14-kafka-clickhouse-graph-schema/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    14. Kafka Topics, ClickHouse Schema, and Graph Constraints
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../15-privacy-and-dashboard-mechanics/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    15. Privacy Enforcement and Dashboard Mechanics
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../16-container-image-and-cli/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    16. The Container Image and the Role Dispatcher CLI
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../17-compose-makefile-supply-chain/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    17. Docker Compose, the Makefile, and the Image Supply Chain
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../18-config-migration-backup-rollout/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    18. Configuration, Migration, Backup, and Rollout
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_20" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    19. Failure Modes and Verification
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5_20" id="__nav_5_20_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_20_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_20">
+            <span class="md-nav__icon md-icon"></span>
+            19. Failure Modes and Verification
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Quiz
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Quiz
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-why-is-kafka-unavailable-failure-the-only-failure-mode-in-this-chapter-marked-as-a-genuine-data-loss-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Why is Kafka Unavailable Failure the only failure mode in this chapter marked as a genuine data-loss path?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-what-do-a-clickhouse-unavailable-failure-and-a-neo4j-unavailable-failure-have-in-common" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. What do a ClickHouse Unavailable Failure and a Neo4j Unavailable Failure have in common?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-why-is-a-summarizer-split-brain-harmless-while-an-equivalent-double-write-scenario-would-be-catastrophic-if-the-summarizer-used-incrementing-counters-instead" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Why is a Summarizer Split Brain harmless, while an equivalent double-write scenario would be catastrophic if the summarizer used incrementing counters instead?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-what-happens-to-mastery-dependent-dashboard-reads-during-a-redis-unavailable-failure" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. What happens to mastery-dependent dashboard reads during a Redis Unavailable Failure?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-a-districts-per-district-salt-has-not-yet-been-cached-because-the-district-just-onboarded-and-the-identity-service-becomes-unreachable-for-six-minutes-what-happens-according-to-this-chapters-escalation-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. A district's per-district salt has not yet been cached because the district just onboarded, and the Identity Service becomes unreachable for six minutes. What happens, according to this chapter's escalation rule?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-what-happens-when-the-experiment-service-error-prevents-an-ab-test-variant-assignment-from-being-computed" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. What happens when the Experiment Service Error prevents an A/B-test variant assignment from being computed?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-a-malformed-xapi-statement-repeatedly-fails-processing-and-a-naive-consumer-would-re-read-the-same-unprocessable-message-after-every-restart-risking-an-endless-crash-loop-how-does-this-projects-poison-message-handling-actually-prevent-that" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. A malformed xAPI statement repeatedly fails processing, and a naive consumer would re-read the same unprocessable message after every restart, risking an endless crash loop. How does this project's Poison Message Handling actually prevent that?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-how-does-district-queue-flood-protection-keep-one-districts-traffic-spike-from-affecting-other-districts" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. How does District Queue Flood protection keep one district's traffic spike from affecting other districts?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-why-does-this-project-accept-and-flag-a-statement-with-a-skewed-timestamp-rather-than-rejecting-it-outright" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Why does this project accept and flag a statement with a skewed timestamp rather than rejecting it outright?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-the-compression-test-suite-needs-to-verify-that-running-the-summarizer-twice-over-identical-rollups-produces-a-byte-for-byte-identical-graph-which-specific-property-of-the-compression-pipeline-does-this-test-directly-prove" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. The Compression Test Suite needs to verify that running the summarizer twice over identical rollups produces a byte-for-byte identical graph. Which specific property of the compression pipeline does this test directly prove?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-why-does-the-testing-strategy-include-both-a-replay-nightly-test-and-a-chaos-kill-test-rather-than-treating-the-nightly-replay-as-sufficient-proof-the-system-tolerates-failure" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Why does the testing strategy include both a Replay Nightly Test and a Chaos Kill Test, rather than treating the nightly replay as sufficient proof the system tolerates failure?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-why-does-the-response-column-split-so-sharply-between-exactly-one-page-kafka-unavailable-failure-and-eleven-tickets-rather-than-distributing-urgency-more-evenly-across-all-twelve-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Why does the response column split so sharply between exactly one "page" (Kafka Unavailable Failure) and eleven "tickets," rather than distributing urgency more evenly across all twelve failure modes?
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../20-deviations-roadmap-open-questions/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    20. Spec Deviations, the Delivery Roadmap, and Open Questions
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../21-hardware-cost-dev-environment/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    21. Hardware Sizing, Cost, and the Development Environment
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../22-proving-the-architecture-mvp/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    22. Proving the Architecture - the MVP Plan
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../23-production-infrastructure-cloud/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    23. Production Infrastructure and Cloud Services
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../24-three-personas-and-admin-uis/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    24. Meet the Three Personas and the Admin UI Surface
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../25-district-admin-rosters-deployments/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    25. District Administrator - Rosters, Deployments, and Registries
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../26-district-admin-access-control/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    26. District Administrator - Access Control and System Configuration
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../27-compliance-and-district-reporting/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    27. Compliance, Privacy Law, and District-Level Reporting
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../28-teacher-dashboards-student-reports/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    28. Teacher Dashboards and Student-Level Reports
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../29-class-level-reports-and-tools/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    29. Class-Level Reports and Teacher Tools
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../30-author-dashboards-content-reports/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    30. Textbook Author Dashboards and Content Reports
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../31-designing-ab-experiments/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    31. Designing and Reading A/B Experiments
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../32-producer-contract-conformant-statements/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    32. The Producer Contract - Writing Conformant Statements
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../learning-graph/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Learning Graph
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../sims/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    MicroSims
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../specs/lrs-spec-v1/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../lrs-lite/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    LRS-Lite (Serverless)
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../demo/graph-queries/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Demo
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../case-studies/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Case Studies
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../glossary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Glossary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../license/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contact/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contact
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-why-is-kafka-unavailable-failure-the-only-failure-mode-in-this-chapter-marked-as-a-genuine-data-loss-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Why is Kafka Unavailable Failure the only failure mode in this chapter marked as a genuine data-loss path?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-what-do-a-clickhouse-unavailable-failure-and-a-neo4j-unavailable-failure-have-in-common" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. What do a ClickHouse Unavailable Failure and a Neo4j Unavailable Failure have in common?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-why-is-a-summarizer-split-brain-harmless-while-an-equivalent-double-write-scenario-would-be-catastrophic-if-the-summarizer-used-incrementing-counters-instead" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Why is a Summarizer Split Brain harmless, while an equivalent double-write scenario would be catastrophic if the summarizer used incrementing counters instead?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-what-happens-to-mastery-dependent-dashboard-reads-during-a-redis-unavailable-failure" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. What happens to mastery-dependent dashboard reads during a Redis Unavailable Failure?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-a-districts-per-district-salt-has-not-yet-been-cached-because-the-district-just-onboarded-and-the-identity-service-becomes-unreachable-for-six-minutes-what-happens-according-to-this-chapters-escalation-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. A district's per-district salt has not yet been cached because the district just onboarded, and the Identity Service becomes unreachable for six minutes. What happens, according to this chapter's escalation rule?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-what-happens-when-the-experiment-service-error-prevents-an-ab-test-variant-assignment-from-being-computed" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. What happens when the Experiment Service Error prevents an A/B-test variant assignment from being computed?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-a-malformed-xapi-statement-repeatedly-fails-processing-and-a-naive-consumer-would-re-read-the-same-unprocessable-message-after-every-restart-risking-an-endless-crash-loop-how-does-this-projects-poison-message-handling-actually-prevent-that" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. A malformed xAPI statement repeatedly fails processing, and a naive consumer would re-read the same unprocessable message after every restart, risking an endless crash loop. How does this project's Poison Message Handling actually prevent that?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-how-does-district-queue-flood-protection-keep-one-districts-traffic-spike-from-affecting-other-districts" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. How does District Queue Flood protection keep one district's traffic spike from affecting other districts?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-why-does-this-project-accept-and-flag-a-statement-with-a-skewed-timestamp-rather-than-rejecting-it-outright" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Why does this project accept and flag a statement with a skewed timestamp rather than rejecting it outright?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-the-compression-test-suite-needs-to-verify-that-running-the-summarizer-twice-over-identical-rollups-produces-a-byte-for-byte-identical-graph-which-specific-property-of-the-compression-pipeline-does-this-test-directly-prove" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. The Compression Test Suite needs to verify that running the summarizer twice over identical rollups produces a byte-for-byte identical graph. Which specific property of the compression pipeline does this test directly prove?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-why-does-the-testing-strategy-include-both-a-replay-nightly-test-and-a-chaos-kill-test-rather-than-treating-the-nightly-replay-as-sufficient-proof-the-system-tolerates-failure" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Why does the testing strategy include both a Replay Nightly Test and a Chaos Kill Test, rather than treating the nightly replay as sufficient proof the system tolerates failure?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-why-does-the-response-column-split-so-sharply-between-exactly-one-page-kafka-unavailable-failure-and-eleven-tickets-rather-than-distributing-urgency-more-evenly-across-all-twelve-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Why does the response column split so sharply between exactly one "page" (Kafka Unavailable Failure) and eleven "tickets," rather than distributing urgency more evenly across all twelve failure modes?
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/19-failure-modes-and-verification/quiz.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="quiz-failure-modes-and-verification">Quiz: Failure Modes and Verification<a class="headerlink" href="#quiz-failure-modes-and-verification" title="Permanent link">&para;</a></h1>
+<p>Test your understanding of this project's failure modes and verification layers with these review questions.</p>
+<hr />
+<h4 id="1-why-is-kafka-unavailable-failure-the-only-failure-mode-in-this-chapter-marked-as-a-genuine-data-loss-path">1. Why is Kafka Unavailable Failure the only failure mode in this chapter marked as a genuine data-loss path?<a class="headerlink" href="#1-why-is-kafka-unavailable-failure-the-only-failure-mode-in-this-chapter-marked-as-a-genuine-data-loss-path" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Because it is the only failure that occurs before a statement reaches durable storage — if the gateway's local buffer is exhausted during the outage, an unretried statement never reaches Kafka and nothing downstream can reconstruct it</li>
+<li>Because Kafka is the most expensive component in the stack to replace</li>
+<li>Because Kafka is the only component without a healthcheck</li>
+<li>Because Kafka holds the PII Vault's pseudonym mappings</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>A</strong>. Kafka is the durability boundary — everything downstream of it can be rebuilt from the log, but a statement that never reaches Kafka in the first place has nothing to rebuild from. B invents an unrelated cost-based justification. C is false — every role in this system has a healthcheck. D confuses Kafka with the PII Vault, an entirely separate PostgreSQL instance.</p>
+<p><strong>Concept Tested:</strong> Kafka Unavailable Failure</p>
+<p><strong>See:</strong> <a href="../#the-one-rule-that-organizes-every-failure-mode">The One Rule That Organizes Every Failure Mode</a></p>
+</details>
+<hr />
+<h4 id="2-what-do-a-clickhouse-unavailable-failure-and-a-neo4j-unavailable-failure-have-in-common">2. What do a ClickHouse Unavailable Failure and a Neo4j Unavailable Failure have in common?<a class="headerlink" href="#2-what-do-a-clickhouse-unavailable-failure-and-a-neo4j-unavailable-failure-have-in-common" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Both cause the Ingestion Gateway to stop accepting new statements immediately</li>
+<li>Both are marked "page" in the response column, requiring an immediate on-call response</li>
+<li>Both cause data to be permanently lost once the outage exceeds five minutes</li>
+<li>Both degrade a downstream read path or projection while the failure lasts, but recover automatically once the component returns, without losing any statement</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>D</strong>. Both sit downstream of Kafka's durability boundary, so both degrade a read path or projection during the outage and recover on their own without losing anything once the component returns. A is false — the gateway's only hard dependency is Kafka, not ClickHouse or Neo4j. B is wrong; both are ticket-level responses. C misapplies the five-minute escalation rule, which belongs to the Identity Service Unavailable failure instead.</p>
+<p><strong>Concept Tested:</strong> ClickHouse Unavailable Failure / Neo4j Unavailable Failure</p>
+<p><strong>See:</strong> <a href="../#failures-inside-the-compression-pipeline">Failures Inside the Compression Pipeline</a></p>
+</details>
+<hr />
+<h4 id="3-why-is-a-summarizer-split-brain-harmless-while-an-equivalent-double-write-scenario-would-be-catastrophic-if-the-summarizer-used-incrementing-counters-instead">3. Why is a Summarizer Split Brain harmless, while an equivalent double-write scenario would be catastrophic if the summarizer used incrementing counters instead?<a class="headerlink" href="#3-why-is-a-summarizer-split-brain-harmless-while-an-equivalent-double-write-scenario-would-be-catastrophic-if-the-summarizer-used-incrementing-counters-instead" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Because Kubernetes automatically prevents two summarizer instances from ever running at the same time</li>
+<li>Because Summarizer Split Brain only occurs when Neo4j itself is unreachable</li>
+<li>Because the summarizer writes absolute values computed from the untouched log via SET, so two simultaneous writers converge on the identical number regardless of how many times either runs</li>
+<li>Because the summarizer retries writes exactly once before giving up</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>C</strong>. Writing absolute values rather than accumulating deltas means two racing writers converge on the identical number by construction, so a split brain wastes a compute cycle rather than corrupting data. A is false — split brain is exactly the scenario where two instances do briefly run at once. B misattributes the cause to an unrelated Neo4j outage. D invents a retry limit unrelated to why split brain is harmless.</p>
+<p><strong>Concept Tested:</strong> Summarizer Stopped Failure / Summarizer Split Brain</p>
+<p><strong>See:</strong> <a href="../#failures-inside-the-compression-pipeline">Failures Inside the Compression Pipeline</a></p>
+</details>
+<hr />
+<h4 id="4-what-happens-to-mastery-dependent-dashboard-reads-during-a-redis-unavailable-failure">4. What happens to mastery-dependent dashboard reads during a Redis Unavailable Failure?<a class="headerlink" href="#4-what-happens-to-mastery-dependent-dashboard-reads-during-a-redis-unavailable-failure" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Requests fail outright with a 503 error until Redis recovers</li>
+<li>Reads fall back to querying ClickHouse directly; latency rises but no request fails and no data is lost</li>
+<li>The Analytics API stops responding to any request, regardless of whether it needs mastery data</li>
+<li>Cached mastery scores are permanently lost and must be recomputed from a full replay</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>B</strong>. When Redis is unreachable, reads simply fall back to querying ClickHouse directly, so latency rises but no request fails and no data is lost — the mildest failure mode in the chapter. A and C both overstate the impact into an outage this failure does not cause. D confuses a cache miss with a permanent data-loss scenario that this failure does not create.</p>
+<p><strong>Concept Tested:</strong> Redis Unavailable Failure</p>
+<p><strong>See:</strong> <a href="../#failures-inside-the-compression-pipeline">Failures Inside the Compression Pipeline</a></p>
+</details>
+<hr />
+<h4 id="5-a-districts-per-district-salt-has-not-yet-been-cached-because-the-district-just-onboarded-and-the-identity-service-becomes-unreachable-for-six-minutes-what-happens-according-to-this-chapters-escalation-rule">5. A district's per-district salt has not yet been cached because the district just onboarded, and the Identity Service becomes unreachable for six minutes. What happens, according to this chapter's escalation rule?<a class="headerlink" href="#5-a-districts-per-district-salt-has-not-yet-been-cached-because-the-district-just-onboarded-and-the-identity-service-becomes-unreachable-for-six-minutes-what-happens-according-to-this-chapters-escalation-rule" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Nothing changes, since cached salts always serve regardless of which district is affected</li>
+<li>The new district's statements are silently dropped without any retry</li>
+<li>Every district's ingestion pauses simultaneously, since salts are shared across all districts</li>
+<li>The new district's ingestion pauses until the service returns, and because the outage passed the five-minute mark, the response escalates from ticket to page</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>D</strong>. Because this district's salt was never cached, its ingestion pauses during the outage, and because the outage crossed the five-minute threshold, the response escalates from ticket to page. A ignores that an uncached district is exactly the exception to normal cached-salt resilience. B contradicts the chapter's description of pausing rather than dropping. C overstates the impact to every district, when only uncached ones are affected.</p>
+<p><strong>Concept Tested:</strong> Identity Service Unavailable</p>
+<p><strong>See:</strong> <a href="../#failures-at-the-systems-edges">Failures at the System's Edges</a></p>
+</details>
+<hr />
+<h4 id="6-what-happens-when-the-experiment-service-error-prevents-an-ab-test-variant-assignment-from-being-computed">6. What happens when the Experiment Service Error prevents an A/B-test variant assignment from being computed?<a class="headerlink" href="#6-what-happens-when-the-experiment-service-error-prevents-an-ab-test-variant-assignment-from-being-computed" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>The student's request fails with an error page until the experiment service recovers</li>
+<li>The statement recording the student's action is discarded along with the failed assignment</li>
+<li>The system falls back to serving the control arm and still records the underlying event that triggered the attempt</li>
+<li>The experiment is automatically canceled and every assigned student is reverted to a prior variant</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>C</strong>. The system falls back to the control arm and still records the underlying learning event, so a student never sees a broken page because an experiment hiccuped. A contradicts the chapter's non-blocking design. B is wrong — the statement itself is unaffected by an assignment failure. D invents an automatic experiment-cancellation behavior not described anywhere in the chapter.</p>
+<p><strong>Concept Tested:</strong> Experiment Service Error</p>
+<p><strong>See:</strong> <a href="../#failures-at-the-systems-edges">Failures at the System's Edges</a></p>
+</details>
+<hr />
+<h4 id="7-a-malformed-xapi-statement-repeatedly-fails-processing-and-a-naive-consumer-would-re-read-the-same-unprocessable-message-after-every-restart-risking-an-endless-crash-loop-how-does-this-projects-poison-message-handling-actually-prevent-that">7. A malformed xAPI statement repeatedly fails processing, and a naive consumer would re-read the same unprocessable message after every restart, risking an endless crash loop. How does this project's Poison Message Handling actually prevent that?<a class="headerlink" href="#7-a-malformed-xapi-statement-repeatedly-fails-processing-and-a-naive-consumer-would-re-read-the-same-unprocessable-message-after-every-restart-risking-an-endless-crash-loop-how-does-this-projects-poison-message-handling-actually-prevent-that" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>It permanently blocks the district that sent the malformed statement from submitting any further statements</li>
+<li>After a fixed retry limit of three failed attempts, the message is routed to a dead-letter queue and the consumer moves on, leaving the rest of the stream unaffected</li>
+<li>It automatically rewrites the malformed statement to make it valid before reprocessing</li>
+<li>It pauses the entire Kafka topic until an operator manually intervenes</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>B</strong>. After three failed attempts the poison message is routed to a dead-letter queue and the consumer moves on, so the rest of the stream is unaffected by one bad message. A overstates the consequence into a full district block. C invents an auto-correction feature the chapter never describes. D contradicts the whole point of the mechanism, which is to avoid blocking the topic.</p>
+<p><strong>Concept Tested:</strong> Poison Message Handling</p>
+<p><strong>See:</strong> <a href="../#failures-that-are-data-quality-problems-not-outages">Failures That Are Data-Quality Problems, Not Outages</a></p>
+</details>
+<hr />
+<h4 id="8-how-does-district-queue-flood-protection-keep-one-districts-traffic-spike-from-affecting-other-districts">8. How does District Queue Flood protection keep one district's traffic spike from affecting other districts?<a class="headerlink" href="#8-how-does-district-queue-flood-protection-keep-one-districts-traffic-spike-from-affecting-other-districts" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>It shuts down ingestion for all districts simultaneously until the flood subsides</li>
+<li>It reroutes the flooding district's statements to a different Kafka cluster entirely</li>
+<li>It automatically increases the partition count for the affected topic</li>
+<li>Kafka's per-tenant quota mechanism throttles only the flooding district's producer, leaving every other district's statements flowing untouched</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>D</strong>. The same per-tenant quota mechanism ADR-004 established for noisy-neighbor protection throttles only the flooding district, leaving every other district unaffected. A wrongly extends the impact to every district. B invents a rerouting mechanism not described anywhere. C directly contradicts an earlier chapter's warning that partition count is a one-way door not casually adjusted.</p>
+<p><strong>Concept Tested:</strong> District Queue Flood</p>
+<p><strong>See:</strong> <a href="../#failures-that-are-data-quality-problems-not-outages">Failures That Are Data-Quality Problems, Not Outages</a></p>
+</details>
+<hr />
+<h4 id="9-why-does-this-project-accept-and-flag-a-statement-with-a-skewed-timestamp-rather-than-rejecting-it-outright">9. Why does this project accept and flag a statement with a skewed timestamp rather than rejecting it outright?<a class="headerlink" href="#9-why-does-this-project-accept-and-flag-a-statement-with-a-skewed-timestamp-rather-than-rejecting-it-outright" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Because ingestion is schema-on-read rather than schema-on-write, and because downstream projections are event-time-driven, a skewed clock distorts only that one district's own time-series reports rather than corrupting the whole system</li>
+<li>Because timestamps are never actually used anywhere in the compression pipeline</li>
+<li>Because rejecting a statement would violate the xAPI Conformance Suite's requirements outright</li>
+<li>Because Clock Skew Handling automatically corrects the timestamp to match the LRS's own clock before storage</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>A</strong>. Consistent with schema-on-read, a skewed timestamp is accepted and flagged rather than rejected, and because downstream projections are event-time-driven, the distortion stays scoped to that one district's own reports. B is false — event timestamps drive every downstream projection. C invents a conformance requirement the chapter never states. D contradicts the chapter, which flags rather than silently corrects the value.</p>
+<p><strong>Concept Tested:</strong> Clock Skew Handling</p>
+<p><strong>See:</strong> <a href="../#failures-that-are-data-quality-problems-not-outages">Failures That Are Data-Quality Problems, Not Outages</a></p>
+</details>
+<hr />
+<h4 id="10-the-compression-test-suite-needs-to-verify-that-running-the-summarizer-twice-over-identical-rollups-produces-a-byte-for-byte-identical-graph-which-specific-property-of-the-compression-pipeline-does-this-test-directly-prove">10. The Compression Test Suite needs to verify that running the summarizer twice over identical rollups produces a byte-for-byte identical graph. Which specific property of the compression pipeline does this test directly prove?<a class="headerlink" href="#10-the-compression-test-suite-needs-to-verify-that-running-the-summarizer-twice-over-identical-rollups-produces-a-byte-for-byte-identical-graph-which-specific-property-of-the-compression-pipeline-does-this-test-directly-prove" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>The ADL Conformance Test Suite's external xAPI standard requirements</li>
+<li>The idempotency that Summarizer Split Brain's harmlessness depends on</li>
+<li>The Load Test Loadgen's burst-absorption target</li>
+<li>The Kafka Partition Increase Caveat's ordering guarantee</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>B</strong>. Running the summarizer twice and asserting a byte-for-byte identical result is a direct test of the idempotent-write property that makes Summarizer Split Brain harmless rather than catastrophic. A, C, and D each name a real testing or design concept from this chapter, but none is what this specific test asserts.</p>
+<p><strong>Concept Tested:</strong> Compression Test Suite</p>
+<p><strong>See:</strong> <a href="../#verifying-the-plan-is-true">Verifying the Plan Is True</a></p>
+</details>
+<hr />
+<h4 id="11-why-does-the-testing-strategy-include-both-a-replay-nightly-test-and-a-chaos-kill-test-rather-than-treating-the-nightly-replay-as-sufficient-proof-the-system-tolerates-failure">11. Why does the testing strategy include both a Replay Nightly Test and a Chaos Kill Test, rather than treating the nightly replay as sufficient proof the system tolerates failure?<a class="headerlink" href="#11-why-does-the-testing-strategy-include-both-a-replay-nightly-test-and-a-chaos-kill-test-rather-than-treating-the-nightly-replay-as-sufficient-proof-the-system-tolerates-failure" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Because the Replay Nightly Test only checks ClickHouse, while the Chaos Kill Test only checks Neo4j, so together they cover the whole storage plane</li>
+<li>Because the Chaos Kill Test is a cheaper, faster substitute for the Replay Nightly Test that runs on every commit instead</li>
+<li>Because the Replay Nightly Test proves a rebuilt projection matches the live one under normal conditions, while the Chaos Kill Test is the only layer that actually breaks a real service and checks whether the failure-mode table's claimed behavior happens under an actual failure, not just a scheduled rebuild</li>
+<li>Because the two tests check identical claims, and running both is purely redundant for confidence</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>C</strong>. The Replay Nightly Test proves rebuildability under normal operation, while the Chaos Kill Test is the only layer that actually kills a service and verifies the failure-mode table's promises hold under a real, deliberately triggered failure — two distinct kinds of evidence. A wrongly splits their scope by database rather than by condition tested. B misstates the Chaos Kill Test's actual cadence, which is scheduled and infrequent, not per-commit. D wrongly claims redundancy between two tests that check different things.</p>
+<p><strong>Concept Tested:</strong> Replay Nightly Test / Chaos Kill Test</p>
+<p><strong>See:</strong> <a href="../#verifying-the-plan-is-true">Verifying the Plan Is True</a></p>
+</details>
+<hr />
+<h4 id="12-why-does-the-response-column-split-so-sharply-between-exactly-one-page-kafka-unavailable-failure-and-eleven-tickets-rather-than-distributing-urgency-more-evenly-across-all-twelve-failure-modes">12. Why does the response column split so sharply between exactly one "page" (Kafka Unavailable Failure) and eleven "tickets," rather than distributing urgency more evenly across all twelve failure modes?<a class="headerlink" href="#12-why-does-the-response-column-split-so-sharply-between-exactly-one-page-kafka-unavailable-failure-and-eleven-tickets-rather-than-distributing-urgency-more-evenly-across-all-twelve-failure-modes" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Because every failure mode other than Kafka Unavailable Failure occurs after a statement is already durable in Kafka, so it degrades a read path or projection that can always be recovered or rebuilt from the log, while only a Kafka outage can make a statement vanish permanently</li>
+<li>Because the design specification arbitrarily assigned severity levels without a consistent underlying principle</li>
+<li>Because only Kafka has a service-level agreement with an external vendor</li>
+<li>Because eleven of the twelve failure modes are considered too rare to ever occur in practice</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>A</strong>. The one organizing rule behind the whole table is the Kafka durability boundary: everything after it is rebuildable from the log, so only a failure before that boundary can lose data outright, which is exactly why the response column concentrates urgency on that single row. B contradicts the chapter's explicit organizing principle. C invents an unrelated vendor-contract justification. D is false — several of the eleven, like ClickHouse or Redis outages, are common operational events, not rare ones.</p>
+<p><strong>Concept Tested:</strong> Kafka Unavailable Failure (data-loss boundary synthesis)</p>
+<p><strong>See:</strong> <a href="../#the-one-rule-that-organizes-every-failure-mode">The One Rule That Organizes Every Failure Mode</a></p>
+</details>
+<hr />
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Content">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Content
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../20-deviations-roadmap-open-questions/" class="md-footer__link md-footer__link--next" aria-label="Next: Content">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Content
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Dan McCreary. Licensed under <a href="license/">CC BY-NC-SA 4.0</a> for non-commercial use.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../../js/katex.js"></script>
+      
+        <script src="../../../js/quiz-xapi.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

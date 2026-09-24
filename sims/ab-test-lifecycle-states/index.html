@@ -313,6 +313,12 @@
         
       
         
+      
+        
+          
+        
+      
+        
           
         
       
@@ -406,131 +412,67 @@
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
-        
       
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
         
       
     
@@ -576,6 +518,8 @@
       
         
           
+        
+      
         
       
         
@@ -4846,103 +4790,8 @@
     
       
         
-          
-        
       
         
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../../stories/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Stories
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
       
         
       
@@ -4974,6 +4823,51 @@
   
   <span class="md-ellipsis">
     Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../lrs-lite/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    LRS-Lite (Serverless)
   </span>
   
 
@@ -5222,13 +5116,13 @@
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>Learning objective: Let the learner sequence the states an experiment moves through — draft, running, paused, concluded, archived — and identify which transitions are reversible versus terminal.
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>Purpose: A Mermaid state diagram with five nodes: &quot;Draft&quot; → &quot;Running&quot; (on approval), &quot;Running&quot; → &quot;Paused&quot; (on guardrail regression, SRM failure, or author judgment), &quot;Paused&quot; → &quot;Running&quot; (on resume once the issue is resolved), &quot;Running&quot; → &quot;Concluded&quot; (on stop; control arm served to everyone from this point forward), &quot;Concluded&quot; → &quot;Archived&quot; (terminal).
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>Purpose: A Mermaid state diagram with five nodes: "Draft" → "Running" (on approval), "Running" → "Paused" (on guardrail regression, SRM failure, or author judgment), "Paused" → "Running" (on resume once the issue is resolved), "Running" → "Concluded" (on stop; control arm served to everyone from this point forward), "Concluded" → "Archived" (terminal).
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Interactive features: Every state node is wired with a Mermaid `click` directive. Clicking &quot;Draft&quot; opens an infobox noting the Experiment Definition is still editable and unapproved. Clicking &quot;Running&quot; opens an infobox noting assignment and data collection are both active. Clicking &quot;Paused&quot; opens an infobox listing the three common triggers (guardrail regression, SRM failure, author judgment) and noting no data is lost. Clicking &quot;Concluded&quot; opens an infobox emphasizing that stopping serves the control arm to everyone going forward, regardless of which arm the readout favored. Clicking &quot;Archived&quot; opens an infobox noting this is a terminal, read-only state kept for audit history.
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Interactive features: Every state node is wired with a Mermaid `click` directive. Clicking "Draft" opens an infobox noting the Experiment Definition is still editable and unapproved. Clicking "Running" opens an infobox noting assignment and data collection are both active. Clicking "Paused" opens an infobox listing the three common triggers (guardrail regression, SRM failure, author judgment) and noting no data is lost. Clicking "Concluded" opens an infobox emphasizing that stopping serves the control arm to everyone going forward, regardless of which arm the readout favored. Clicking "Archived" opens an infobox noting this is a terminal, read-only state kept for audit history.
 </span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Color coding: Draft in neutral gray, Running in teal, Paused in amber, Concluded in a deeper teal, Archived in muted gray-blue — a progression from &quot;not yet active&quot; through &quot;active&quot; to &quot;done,&quot; with Paused visually distinct as an interruption rather than an ending.
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Color coding: Draft in neutral gray, Running in teal, Paused in amber, Concluded in a deeper teal, Archived in muted gray-blue — a progression from "not yet active" through "active" to "done," with Paused visually distinct as an interruption rather than an ending.
 </span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Responsive design: The state diagram resizes to the containing element&#39;s width; on narrow viewports the states stack top-to-bottom in sequence rather than arranging left-to-right.
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Responsive design: The state diagram resizes to the containing element's width; on narrow viewports the states stack top-to-bottom in sequence rather than arranging left-to-right.
 </span></code></pre></div>
 <h2 id="related-resources">Related Resources<a class="headerlink" href="#related-resources" title="Permanent link">&para;</a></h2>
 <ul>

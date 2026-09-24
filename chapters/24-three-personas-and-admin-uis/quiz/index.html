@@ -1,0 +1,3513 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Review questions on the District Administrator, Teacher, and Textbook Author personas, the six formal access-control roles, and the nine administrative user interfaces they use.">
+      
+      
+        <meta name="author" content="Dan McCreary">
+      
+      
+        <link rel="canonical" href="https://dmccreary.github.io/learning-record-store/chapters/24-three-personas-and-admin-uis/quiz/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../../25-district-admin-rosters-deployments/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
+    
+    
+      
+        <title>Quiz: Meet the Three Personas and the Admin UI Surface - Learning Record Store</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/extra.css">
+    
+      <link rel="stylesheet" href="../../../css/mascot.css">
+    
+      <link rel="stylesheet" href="../../../css/lrs-xapi.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#quiz-meet-the-three-personas-and-the-admin-ui-surface" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Learning Record Store" class="md-header__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  <img src="../../../img/mascot/neutral.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Learning Record Store
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Quiz: Meet the Three Personas and the Admin UI Surface
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Learning Record Store" class="md-nav__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  <img src="../../../img/mascot/neutral.png" alt="logo">
+
+    </a>
+    Learning Record Store
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../course-description/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Course Description
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../stories/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Stories
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Chapters
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Chapters
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../01-lms-to-experience-api/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    1. From Learning Management Systems to the Experience API
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../02-anatomy-of-xapi-statement/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    2. The Anatomy of an xAPI Statement
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../03-ieee-standardization-xapi-cmi5/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    3. IEEE Standardization of xAPI and cmi5
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../04-standards-governance-ecosystem/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    4. Standards Governance and the Wider Interoperability Ecosystem
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../05-system-context-architectural-planes/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    5. System Context and the Five Architectural Planes
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../06-multi-tenancy-rosters-identity/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    6. Multi-Tenancy, Rosters, and Pseudonymous Identity
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../07-property-graph-data-model/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    7. The Property Graph Data Model
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../08-summary-vertices-ingestion/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    8. Summary Vertices and Statement Ingestion Mechanics
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../09-twelve-core-lrs-functions/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    9. The Twelve Core LRS Functions
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../10-choosing-technology-stack/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    10. Choosing the Technology Stack
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../11-adrs-and-capacity-model/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    11. Architecture Decision Records and the Capacity Model
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../12-bayesian-knowledge-tracing/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    12. Bayesian Knowledge Tracing for Mastery
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../13-component-design-in-depth/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    13. Component Design in Depth
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../14-kafka-clickhouse-graph-schema/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    14. Kafka Topics, ClickHouse Schema, and Graph Constraints
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../15-privacy-and-dashboard-mechanics/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    15. Privacy Enforcement and Dashboard Mechanics
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../16-container-image-and-cli/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    16. The Container Image and the Role Dispatcher CLI
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../17-compose-makefile-supply-chain/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    17. Docker Compose, the Makefile, and the Image Supply Chain
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../18-config-migration-backup-rollout/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    18. Configuration, Migration, Backup, and Rollout
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../19-failure-modes-and-verification/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    19. Failure Modes and Verification
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../20-deviations-roadmap-open-questions/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    20. Spec Deviations, the Delivery Roadmap, and Open Questions
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../21-hardware-cost-dev-environment/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    21. Hardware Sizing, Cost, and the Development Environment
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../22-proving-the-architecture-mvp/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    22. Proving the Architecture - the MVP Plan
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../23-production-infrastructure-cloud/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    23. Production Infrastructure and Cloud Services
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_25" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    24. Meet the Three Personas and the Admin UI Surface
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5_25" id="__nav_5_25_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_25_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_25">
+            <span class="md-nav__icon md-icon"></span>
+            24. Meet the Three Personas and the Admin UI Surface
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Quiz
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Quiz
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-is-the-district-administrator-personas-primary-goal-as-this-chapter-defines-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. What is the District Administrator persona's primary goal, as this chapter defines it?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-how-does-the-specifications-formal-role-name-author-curriculum-map-onto-this-books-persona-vocabulary" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. How does the specification's formal role name "Author / Curriculum" map onto this book's persona vocabulary?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-how-does-a-school-administrators-scope-relate-to-a-district-administrators-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. How does a School Administrator's scope relate to a District Administrator's scope?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-what-distinguishes-the-auditor-role-from-every-other-role-in-this-chapters-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. What distinguishes the Auditor Role from every other role in this chapter's table?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-a-teacher-wants-to-see-which-of-their-students-is-struggling-with-a-concept-while-a-district-administrator-wants-to-change-which-textbook-version-is-deployed-to-a-section-which-of-these-two-requests-uses-a-dashboard-and-which-uses-an-admin-ui-according-to-this-chapters-distinction" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. A teacher wants to see which of their students is struggling with a concept, while a district administrator wants to change which textbook version is deployed to a section. Which of these two requests uses a dashboard, and which uses an admin UI, according to this chapter's distinction?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-a-district-administrator-needs-to-bind-a-specific-textbook-version-to-several-sections-and-also-needs-to-resolve-a-queue-of-provisionally-auto-registered-textbooks-which-admin-ui-is-built-for-this-task" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. A district administrator needs to bind a specific textbook version to several sections and also needs to resolve a queue of provisionally auto-registered textbooks. Which admin UI is built for this task?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-why-does-this-chapter-warn-that-a-role-just-decides-which-buttons-a-person-sees-is-a-tempting-but-wrong-mental-model-for-how-rbac-actually-works-in-this-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Why does this chapter warn that "a role just decides which buttons a person sees" is a tempting but wrong mental model for how RBAC actually works in this system?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-why-does-the-cross-persona-workflow-example-one-students-correct-microsim-answer-feeding-the-teachers-mastery-view-the-district-administrators-adoption-view-and-the-textbook-authors-effectiveness-view-demonstrate-that-this-lrs-does-not-need-three-separate-data-pipelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Why does the cross-persona workflow example — one student's correct MicroSim answer feeding the Teacher's mastery view, the District Administrator's adoption view, and the Textbook Author's effectiveness view — demonstrate that this LRS does not need three separate data pipelines?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-a-vendor-proposes-that-this-lrs-meet-its-access-control-obligations-by-simply-hiding-administrative-menu-items-from-users-without-the-right-role-arguing-this-is-sufficient-because-regular-users-would-never-find-those-screens-anyway-evaluate-this-proposal-against-what-this-chapter-establishes-about-rbac-enforcement" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. A vendor proposes that this LRS meet its access-control obligations by simply hiding administrative menu items from users without the right role, arguing this is sufficient because "regular users would never find those screens anyway." Evaluate this proposal against what this chapter establishes about RBAC enforcement.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-a-new-project-wants-to-design-a-minimal-set-of-role-to-ui-access-grants-for-a-hypothetical-regional-coordinator-who-oversees-several-districts-broader-than-a-district-administrator-but-narrower-than-the-system-administrators-full-global-scope-and-needs-to-review-privacy-compliance-and-textbook-deployment-status-across-those-districts-without-being-able-to-create-new-districts-or-change-platform-wide-defaults-based-on-this-chapters-existing-role-and-ui-pattern-which-combination-of-existing-ui-access-would-most-closely-approximate-this-new-roles-needs" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. A new project wants to design a minimal set of role-to-UI access grants for a hypothetical "Regional Coordinator" who oversees several districts (broader than a District Administrator but narrower than the System Administrator's full global scope) and needs to review privacy compliance and textbook deployment status across those districts, without being able to create new districts or change platform-wide defaults. Based on this chapter's existing role-and-UI pattern, which combination of existing UI access would most closely approximate this new role's needs?
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../25-district-admin-rosters-deployments/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    25. District Administrator - Rosters, Deployments, and Registries
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../26-district-admin-access-control/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    26. District Administrator - Access Control and System Configuration
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../27-compliance-and-district-reporting/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    27. Compliance, Privacy Law, and District-Level Reporting
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../28-teacher-dashboards-student-reports/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    28. Teacher Dashboards and Student-Level Reports
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../29-class-level-reports-and-tools/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    29. Class-Level Reports and Teacher Tools
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../30-author-dashboards-content-reports/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    30. Textbook Author Dashboards and Content Reports
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../31-designing-ab-experiments/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    31. Designing and Reading A/B Experiments
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../32-producer-contract-conformant-statements/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    32. The Producer Contract - Writing Conformant Statements
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../learning-graph/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Learning Graph
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../sims/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    MicroSims
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../specs/lrs-spec-v1/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../lrs-lite/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    LRS-Lite (Serverless)
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../demo/graph-queries/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Demo
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../case-studies/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Case Studies
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../glossary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Glossary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../license/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contact/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contact
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-is-the-district-administrator-personas-primary-goal-as-this-chapter-defines-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. What is the District Administrator persona's primary goal, as this chapter defines it?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-how-does-the-specifications-formal-role-name-author-curriculum-map-onto-this-books-persona-vocabulary" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. How does the specification's formal role name "Author / Curriculum" map onto this book's persona vocabulary?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-how-does-a-school-administrators-scope-relate-to-a-district-administrators-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. How does a School Administrator's scope relate to a District Administrator's scope?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-what-distinguishes-the-auditor-role-from-every-other-role-in-this-chapters-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. What distinguishes the Auditor Role from every other role in this chapter's table?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-a-teacher-wants-to-see-which-of-their-students-is-struggling-with-a-concept-while-a-district-administrator-wants-to-change-which-textbook-version-is-deployed-to-a-section-which-of-these-two-requests-uses-a-dashboard-and-which-uses-an-admin-ui-according-to-this-chapters-distinction" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. A teacher wants to see which of their students is struggling with a concept, while a district administrator wants to change which textbook version is deployed to a section. Which of these two requests uses a dashboard, and which uses an admin UI, according to this chapter's distinction?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-a-district-administrator-needs-to-bind-a-specific-textbook-version-to-several-sections-and-also-needs-to-resolve-a-queue-of-provisionally-auto-registered-textbooks-which-admin-ui-is-built-for-this-task" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. A district administrator needs to bind a specific textbook version to several sections and also needs to resolve a queue of provisionally auto-registered textbooks. Which admin UI is built for this task?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-why-does-this-chapter-warn-that-a-role-just-decides-which-buttons-a-person-sees-is-a-tempting-but-wrong-mental-model-for-how-rbac-actually-works-in-this-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Why does this chapter warn that "a role just decides which buttons a person sees" is a tempting but wrong mental model for how RBAC actually works in this system?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-why-does-the-cross-persona-workflow-example-one-students-correct-microsim-answer-feeding-the-teachers-mastery-view-the-district-administrators-adoption-view-and-the-textbook-authors-effectiveness-view-demonstrate-that-this-lrs-does-not-need-three-separate-data-pipelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Why does the cross-persona workflow example — one student's correct MicroSim answer feeding the Teacher's mastery view, the District Administrator's adoption view, and the Textbook Author's effectiveness view — demonstrate that this LRS does not need three separate data pipelines?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-a-vendor-proposes-that-this-lrs-meet-its-access-control-obligations-by-simply-hiding-administrative-menu-items-from-users-without-the-right-role-arguing-this-is-sufficient-because-regular-users-would-never-find-those-screens-anyway-evaluate-this-proposal-against-what-this-chapter-establishes-about-rbac-enforcement" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. A vendor proposes that this LRS meet its access-control obligations by simply hiding administrative menu items from users without the right role, arguing this is sufficient because "regular users would never find those screens anyway." Evaluate this proposal against what this chapter establishes about RBAC enforcement.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-a-new-project-wants-to-design-a-minimal-set-of-role-to-ui-access-grants-for-a-hypothetical-regional-coordinator-who-oversees-several-districts-broader-than-a-district-administrator-but-narrower-than-the-system-administrators-full-global-scope-and-needs-to-review-privacy-compliance-and-textbook-deployment-status-across-those-districts-without-being-able-to-create-new-districts-or-change-platform-wide-defaults-based-on-this-chapters-existing-role-and-ui-pattern-which-combination-of-existing-ui-access-would-most-closely-approximate-this-new-roles-needs" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. A new project wants to design a minimal set of role-to-UI access grants for a hypothetical "Regional Coordinator" who oversees several districts (broader than a District Administrator but narrower than the System Administrator's full global scope) and needs to review privacy compliance and textbook deployment status across those districts, without being able to create new districts or change platform-wide defaults. Based on this chapter's existing role-and-UI pattern, which combination of existing UI access would most closely approximate this new role's needs?
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/24-three-personas-and-admin-uis/quiz.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="quiz-meet-the-three-personas-and-the-admin-ui-surface">Quiz: Meet the Three Personas and the Admin UI Surface<a class="headerlink" href="#quiz-meet-the-three-personas-and-the-admin-ui-surface" title="Permanent link">&para;</a></h1>
+<p>Test your understanding of this project's three personas, six roles, and nine administrative user interfaces with these review questions.</p>
+<hr />
+<h4 id="1-what-is-the-district-administrator-personas-primary-goal-as-this-chapter-defines-it">1. What is the District Administrator persona's primary goal, as this chapter defines it?<a class="headerlink" href="#1-what-is-the-district-administrator-personas-primary-goal-as-this-chapter-defines-it" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Coverage and compliance — knowing which schools have adopted which textbooks and whether privacy obligations are actually being met</li>
+<li>Intervention — knowing which student is stuck on which concept early enough to help</li>
+<li>Evidence — knowing whether a specific content change actually improved learning</li>
+<li>Read-only verification that everyone else followed the rules</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>A</strong>. The District Administrator's goal is coverage and compliance across an entire school system's rollout. B describes the Teacher's goal instead. C describes the Textbook Author's goal. D describes the unrelated Auditor Role, which is not one of the three primary personas.</p>
+<p><strong>Concept Tested:</strong> District Administrator</p>
+<p><strong>See:</strong> <a href="../#three-people-three-goals">Three People, Three Goals</a></p>
+</details>
+<hr />
+<h4 id="2-how-does-the-specifications-formal-role-name-author-curriculum-map-onto-this-books-persona-vocabulary">2. How does the specification's formal role name "Author / Curriculum" map onto this book's persona vocabulary?<a class="headerlink" href="#2-how-does-the-specifications-formal-role-name-author-curriculum-map-onto-this-books-persona-vocabulary" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>It maps to the System Administrator, since content authoring requires platform-wide access</li>
+<li>It maps to the Auditor Role, since content review is a form of auditing</li>
+<li>It does not map to any persona this book covers; it is a role unique to the specification</li>
+<li>It maps to the Textbook Author, the same role relabeled for a non-technical reader</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>D</strong>. "Author / Curriculum" is the specification's formal name for exactly the role this book calls the Textbook Author — nothing is split or lost in the relabeling. A and B each misattribute the mapping to an unrelated role. C is false; the chapter explicitly provides this mapping.</p>
+<p><strong>Concept Tested:</strong> Textbook Author</p>
+<p><strong>See:</strong> <a href="../#naming-the-roles-precisely">Naming the Roles Precisely</a></p>
+</details>
+<hr />
+<h4 id="3-how-does-a-school-administrators-scope-relate-to-a-district-administrators-scope">3. How does a School Administrator's scope relate to a District Administrator's scope?<a class="headerlink" href="#3-how-does-a-school-administrators-scope-relate-to-a-district-administrators-scope" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>A School Administrator's authority is broader, covering every school in the district, while a District Administrator is limited to one school</li>
+<li>The two roles have completely unrelated, non-overlapping scopes with no containment relationship</li>
+<li>A District Administrator's authority contains a School Administrator's — the District Administrator can do everything a School Administrator in their district can do, plus more, but the reverse never holds</li>
+<li>A School Administrator and a District Administrator have identical scope and capabilities</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>C</strong>. The District Administrator's authority is a strict superset of a School Administrator's within that district — the nested-authority chain the chapter describes explicitly. A reverses the actual containment direction. B contradicts the chapter's description of a nested hierarchy. D ignores the real scope difference between one school and an entire district.</p>
+<p><strong>Concept Tested:</strong> School Administrator</p>
+<p><strong>See:</strong> <a href="../#naming-the-roles-precisely">Naming the Roles Precisely</a></p>
+</details>
+<hr />
+<h4 id="4-what-distinguishes-the-auditor-role-from-every-other-role-in-this-chapters-table">4. What distinguishes the Auditor Role from every other role in this chapter's table?<a class="headerlink" href="#4-what-distinguishes-the-auditor-role-from-every-other-role-in-this-chapters-table" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>It is the only role with global, cross-district scope</li>
+<li>It is deliberately the most limited of all six roles — read-only access to audit logs and access records, with no ability to view student data, change configuration, or approve anything</li>
+<li>It is the only role that can create new districts</li>
+<li>It is the only role that also appears as a persona in the course description, alongside the three primary personas</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>B</strong>. The Auditor Role is deliberately the most limited role, restricted to read-only review of audit logs and access records. A and C both describe the System Administrator instead. D is false — the Auditor Role is one of the three supporting roles, not one of the three primary personas.</p>
+<p><strong>Concept Tested:</strong> Auditor Role</p>
+<p><strong>See:</strong> <a href="../#naming-the-roles-precisely">Naming the Roles Precisely</a></p>
+</details>
+<hr />
+<h4 id="5-a-teacher-wants-to-see-which-of-their-students-is-struggling-with-a-concept-while-a-district-administrator-wants-to-change-which-textbook-version-is-deployed-to-a-section-which-of-these-two-requests-uses-a-dashboard-and-which-uses-an-admin-ui-according-to-this-chapters-distinction">5. A teacher wants to see which of their students is struggling with a concept, while a district administrator wants to change which textbook version is deployed to a section. Which of these two requests uses a dashboard, and which uses an admin UI, according to this chapter's distinction?<a class="headerlink" href="#5-a-teacher-wants-to-see-which-of-their-students-is-struggling-with-a-concept-while-a-district-administrator-wants-to-change-which-textbook-version-is-deployed-to-a-section-which-of-these-two-requests-uses-a-dashboard-and-which-uses-an-admin-ui-according-to-this-chapters-distinction" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Both requests use the same admin UI, since both are viewing screens built into the LRS</li>
+<li>The teacher's request uses an admin UI, since viewing student data always requires elevated access; the district administrator's request uses a dashboard</li>
+<li>Neither request uses a dashboard or an admin UI; both are handled directly through the Analytics API without any UI at all</li>
+<li>The teacher's request uses a dashboard (what the data shows); the district administrator's request uses an admin UI (how the system is configured) — two architecturally separate systems</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>D</strong>. Dashboards answer "what does the data show," while admin UIs answer "how is the system configured" — two architecturally separate systems, exactly matching the teacher's viewing request versus the administrator's configuration change. A wrongly collapses two distinct systems into one. B reverses which request needs which kind of screen. C ignores that both requests are in fact served through dedicated interfaces.</p>
+<p><strong>Concept Tested:</strong> District Management UI (dashboard vs. admin UI distinction)</p>
+<p><strong>See:</strong> <a href="../#a-survey-of-the-nine-admin-uis">A Survey of the Nine Admin UIs</a></p>
+</details>
+<hr />
+<h4 id="6-a-district-administrator-needs-to-bind-a-specific-textbook-version-to-several-sections-and-also-needs-to-resolve-a-queue-of-provisionally-auto-registered-textbooks-which-admin-ui-is-built-for-this-task">6. A district administrator needs to bind a specific textbook version to several sections and also needs to resolve a queue of provisionally auto-registered textbooks. Which admin UI is built for this task?<a class="headerlink" href="#6-a-district-administrator-needs-to-bind-a-specific-textbook-version-to-several-sections-and-also-needs-to-resolve-a-queue-of-provisionally-auto-registered-textbooks-which-admin-ui-is-built-for-this-task" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>xAPI Credentials UI</li>
+<li>System Configuration UI</li>
+<li>Textbook Deployment UI</li>
+<li>School Course Section UI</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>C</strong>. The Textbook Deployment UI is exactly where a District Administrator binds textbook versions to sections and works through the queue of provisionally auto-registered textbooks. A handles ingestion credentials, an unrelated task. B sets platform-wide defaults, not textbook deployment. D manages schools, courses, and sections, not textbook version binding.</p>
+<p><strong>Concept Tested:</strong> Textbook Deployment UI</p>
+<p><strong>See:</strong> <a href="../#a-survey-of-the-nine-admin-uis">A Survey of the Nine Admin UIs</a></p>
+</details>
+<hr />
+<h4 id="7-why-does-this-chapter-warn-that-a-role-just-decides-which-buttons-a-person-sees-is-a-tempting-but-wrong-mental-model-for-how-rbac-actually-works-in-this-system">7. Why does this chapter warn that "a role just decides which buttons a person sees" is a tempting but wrong mental model for how RBAC actually works in this system?<a class="headerlink" href="#7-why-does-this-chapter-warn-that-a-role-just-decides-which-buttons-a-person-sees-is-a-tempting-but-wrong-mental-model-for-how-rbac-actually-works-in-this-system" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Because RBAC is enforced at the API layer, the same layer every admin UI calls, so hiding a button from a School Administrator in the UI would not stop that same person from calling the underlying Admin API directly and bypassing the restriction</li>
+<li>Because this LRS has no user interface at all, only a command-line tool</li>
+<li>Because every role, including the Auditor Role, can see every button regardless of permission</li>
+<li>Because button visibility is determined randomly rather than by role</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>A</strong>. RBAC enforcement happens at the API layer, so a UI-level restriction alone would not stop a determined user from reaching restricted data or actions by calling the Admin API directly. B contradicts the chapter's entire focus on admin UIs as real interfaces. C and D each invent a behavior that contradicts the whole point of role-based access control.</p>
+<p><strong>Concept Tested:</strong> District Management UI (RBAC enforcement)</p>
+<p><strong>See:</strong> <a href="../#naming-the-roles-precisely">Naming the Roles Precisely</a></p>
+</details>
+<hr />
+<h4 id="8-why-does-the-cross-persona-workflow-example-one-students-correct-microsim-answer-feeding-the-teachers-mastery-view-the-district-administrators-adoption-view-and-the-textbook-authors-effectiveness-view-demonstrate-that-this-lrs-does-not-need-three-separate-data-pipelines">8. Why does the cross-persona workflow example — one student's correct MicroSim answer feeding the Teacher's mastery view, the District Administrator's adoption view, and the Textbook Author's effectiveness view — demonstrate that this LRS does not need three separate data pipelines?<a class="headerlink" href="#8-why-does-the-cross-persona-workflow-example-one-students-correct-microsim-answer-feeding-the-teachers-mastery-view-the-district-administrators-adoption-view-and-the-textbook-authors-effectiveness-view-demonstrate-that-this-lrs-does-not-need-three-separate-data-pipelines" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Because only the Teacher's view actually uses the Statement; the other two views are computed from unrelated synthetic data</li>
+<li>Because the same single ingested Statement is read by three independent aggregations that differ only in scope and query, not in which underlying data or pipeline produced them — the fan-out happens after ingestion, not before it</li>
+<li>Because the three views are generated on three different days, one after another, using the same pipeline sequentially</li>
+<li>Because the District Administrator's view and the Textbook Author's view are actually the same screen shown to different people</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>B</strong>. The Statement is ingested exactly once, and the fan-out into three persona-specific aggregations happens entirely after ingestion, differing only in scope and query rather than in any underlying pipeline. A wrongly claims two of the three views ignore the actual Statement. C invents a sequential, day-by-day processing order the chapter never describes. D wrongly collapses two distinct screens into one.</p>
+<p><strong>Concept Tested:</strong> Cross-Persona Workflow</p>
+<p><strong>See:</strong> <a href="../#one-statement-three-reports-a-cross-persona-workflow">One Statement, Three Reports: A Cross-Persona Workflow</a></p>
+</details>
+<hr />
+<h4 id="9-a-vendor-proposes-that-this-lrs-meet-its-access-control-obligations-by-simply-hiding-administrative-menu-items-from-users-without-the-right-role-arguing-this-is-sufficient-because-regular-users-would-never-find-those-screens-anyway-evaluate-this-proposal-against-what-this-chapter-establishes-about-rbac-enforcement">9. A vendor proposes that this LRS meet its access-control obligations by simply hiding administrative menu items from users without the right role, arguing this is sufficient because "regular users would never find those screens anyway." Evaluate this proposal against what this chapter establishes about RBAC enforcement.<a class="headerlink" href="#9-a-vendor-proposes-that-this-lrs-meet-its-access-control-obligations-by-simply-hiding-administrative-menu-items-from-users-without-the-right-role-arguing-this-is-sufficient-because-regular-users-would-never-find-those-screens-anyway-evaluate-this-proposal-against-what-this-chapter-establishes-about-rbac-enforcement" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>The proposal is adequate, since hiding menu items is the same protection this chapter describes for every admin UI</li>
+<li>The proposal is adequate as long as the hidden menu items are also removed from the page's HTML source entirely</li>
+<li>The proposal is insufficient, because this chapter is explicit that RBAC must be enforced at the API layer that every admin UI calls, not merely at the screen layer — a hidden button does not stop a determined user from calling the Admin API directly and reaching data or actions their role should not permit</li>
+<li>The proposal is insufficient only for the System Administrator role; for every other role, UI-level hiding is judged sufficient</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>C</strong>. The chapter is explicit that hiding a screen element is not the enforcement mechanism — permission has to be checked where the data actually moves, at the API layer, or a determined user could call the Admin API directly and bypass a merely hidden button. A directly contradicts the chapter's stated position. B proposes a partial fix that still leaves the API itself unprotected. D invents a role-specific exemption the chapter never makes; the enforcement principle applies uniformly across roles.</p>
+<p><strong>Concept Tested:</strong> District Management UI (RBAC enforcement, evaluated)</p>
+<p><strong>See:</strong> <a href="../#naming-the-roles-precisely">Naming the Roles Precisely</a></p>
+</details>
+<hr />
+<h4 id="10-a-new-project-wants-to-design-a-minimal-set-of-role-to-ui-access-grants-for-a-hypothetical-regional-coordinator-who-oversees-several-districts-broader-than-a-district-administrator-but-narrower-than-the-system-administrators-full-global-scope-and-needs-to-review-privacy-compliance-and-textbook-deployment-status-across-those-districts-without-being-able-to-create-new-districts-or-change-platform-wide-defaults-based-on-this-chapters-existing-role-and-ui-pattern-which-combination-of-existing-ui-access-would-most-closely-approximate-this-new-roles-needs">10. A new project wants to design a minimal set of role-to-UI access grants for a hypothetical "Regional Coordinator" who oversees several districts (broader than a District Administrator but narrower than the System Administrator's full global scope) and needs to review privacy compliance and textbook deployment status across those districts, without being able to create new districts or change platform-wide defaults. Based on this chapter's existing role-and-UI pattern, which combination of existing UI access would most closely approximate this new role's needs?<a class="headerlink" href="#10-a-new-project-wants-to-design-a-minimal-set-of-role-to-ui-access-grants-for-a-hypothetical-regional-coordinator-who-oversees-several-districts-broader-than-a-district-administrator-but-narrower-than-the-system-administrators-full-global-scope-and-needs-to-review-privacy-compliance-and-textbook-deployment-status-across-those-districts-without-being-able-to-create-new-districts-or-change-platform-wide-defaults-based-on-this-chapters-existing-role-and-ui-pattern-which-combination-of-existing-ui-access-would-most-closely-approximate-this-new-roles-needs" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Grant access to the District Management UI and System Configuration UI only, since those are the highest-scope screens</li>
+<li>Grant read access scoped to a subset of districts on the Privacy Compliance UI and the Textbook Deployment UI, mirroring how a District Administrator already uses both, but without the System Administrator's district-creation or platform-wide configuration capabilities</li>
+<li>Grant access to the Audit Monitoring UI only, since auditing covers all necessary compliance needs</li>
+<li>Grant full System Administrator access, since any multi-district role requires global scope</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>B</strong>. This design reuses the two UIs whose purpose already matches the coordinator's stated needs — privacy compliance and textbook deployment — scoped to a multi-district set rather than one district, while deliberately excluding the district-creation and platform-wide configuration capabilities the scenario explicitly rules out. A grants two UIs unrelated to the actual stated needs. C narrows the role to auditing only, dropping the compliance and deployment tasks the scenario requires. D grants far more authority than the scenario calls for, including capabilities explicitly excluded.</p>
+<p><strong>Concept Tested:</strong> Privacy Compliance UI / Textbook Deployment UI (role design synthesis)</p>
+</details>
+<hr />
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Content">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Content
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../25-district-admin-rosters-deployments/" class="md-footer__link md-footer__link--next" aria-label="Next: Content">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Content
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Dan McCreary. Licensed under <a href="license/">CC BY-NC-SA 4.0</a> for non-commercial use.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../../js/katex.js"></script>
+      
+        <script src="../../../js/quiz-xapi.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

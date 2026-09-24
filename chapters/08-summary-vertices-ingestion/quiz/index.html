@@ -1,0 +1,3582 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Review questions on the six summary-vertex grains, statement compression ratios, structural and semantic validation, delivery guarantees, Accept-First Ingestion, and Change-Driven Materialization.">
+      
+      
+        <meta name="author" content="Dan McCreary">
+      
+      
+        <link rel="canonical" href="https://dmccreary.github.io/learning-record-store/chapters/08-summary-vertices-ingestion/quiz/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../../09-twelve-core-lrs-functions/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
+    
+    
+      
+        <title>Quiz: Summary Vertices and Statement Ingestion Mechanics - Learning Record Store</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/extra.css">
+    
+      <link rel="stylesheet" href="../../../css/mascot.css">
+    
+      <link rel="stylesheet" href="../../../css/lrs-xapi.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#quiz-summary-vertices-and-statement-ingestion-mechanics" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Learning Record Store" class="md-header__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  <img src="../../../img/mascot/neutral.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Learning Record Store
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Quiz: Summary Vertices and Statement Ingestion Mechanics
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Learning Record Store" class="md-nav__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  <img src="../../../img/mascot/neutral.png" alt="logo">
+
+    </a>
+    Learning Record Store
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../course-description/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Course Description
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../stories/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Stories
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Chapters
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Chapters
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../01-lms-to-experience-api/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    1. From Learning Management Systems to the Experience API
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../02-anatomy-of-xapi-statement/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    2. The Anatomy of an xAPI Statement
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../03-ieee-standardization-xapi-cmi5/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    3. IEEE Standardization of xAPI and cmi5
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../04-standards-governance-ecosystem/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    4. Standards Governance and the Wider Interoperability Ecosystem
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../05-system-context-architectural-planes/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    5. System Context and the Five Architectural Planes
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../06-multi-tenancy-rosters-identity/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    6. Multi-Tenancy, Rosters, and Pseudonymous Identity
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../07-property-graph-data-model/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    7. The Property Graph Data Model
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_9" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    8. Summary Vertices and Statement Ingestion Mechanics
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5_9" id="__nav_5_9_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_9">
+            <span class="md-nav__icon md-icon"></span>
+            8. Summary Vertices and Statement Ingestion Mechanics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Quiz
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Quiz
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-does-a-summary-vertexs-analytical-grain-define" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. What does a Summary Vertex's Analytical Grain define?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-a-dashboard-needs-to-know-how-many-times-a-specific-student-has-attempted-one-specific-quiz-question-and-what-fraction-succeeded-which-summary-vertex-grain-answers-this-directly" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. A dashboard needs to know how many times a specific student has attempted one specific quiz question, and what fraction succeeded. Which summary-vertex grain answers this directly?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-what-does-the-statements_compressed-property-or-its-equivalent-such-as-event_count-or-student_count-let-a-report-determine" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. What does the statements_compressed property (or its equivalent, such as event_count or student_count) let a report determine?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-why-does-the-statement-compression-ratio-keep-climbing-indefinitely-for-a-given-student-concept-pair-rather-than-leveling-off" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Why does the Statement Compression Ratio keep climbing indefinitely for a given (student, concept) pair, rather than leveling off?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-what-happens-immediately-after-the-xapi-statement-resource-accepts-a-post-request-carrying-a-new-statement" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. What happens immediately after the xAPI Statement Resource accepts a POST request carrying a new statement?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-what-is-the-key-difference-between-structural-validation-and-semantic-validation-in-this-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. What is the key difference between Structural Validation and Semantic Validation in this pipeline?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-an-intelligent-textbook-author-invents-a-brand-new-verb-iri-that-this-lrs-has-never-seen-before-and-includes-it-in-an-otherwise-well-formed-statement-what-happens-to-that-statement-under-schema-on-read" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. An intelligent textbook author invents a brand-new Verb IRI that this LRS has never seen before and includes it in an otherwise well-formed statement. What happens to that statement under Schema On Read?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-a-stream-processor-crashes-and-restarts-after-partially-processing-a-batch-causing-the-same-statement-to-be-redelivered-and-reprocessed-what-specifically-prevents-this-from-double-counting-evidence-in-the-resulting-summary-vertex" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. A Stream Processor crashes and restarts after partially processing a batch, causing the same statement to be redelivered and reprocessed. What specifically prevents this from double-counting evidence in the resulting summary vertex?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-under-this-projects-backpressure-design-what-happens-when-statements-arrive-faster-than-processors-can-consume-them-short-of-the-most-extreme-overload-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Under this project's Backpressure design, what happens when statements arrive faster than processors can consume them, short of the most extreme overload case?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-a-district-deploys-a-brand-new-textbook-version-that-has-never-been-registered-with-this-lrs-a-student-immediately-starts-using-it-and-generates-statements-what-happens-to-those-statements-under-accept-first-ingestion" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. A district deploys a brand-new textbook version that has never been registered with this LRS. A student immediately starts using it and generates statements. What happens to those statements under Accept-First Ingestion?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-why-does-change-driven-materialization-write-only-the-grains-whose-rollups-have-changed-since-the-last-sync-rather-than-recomputing-every-grains-full-history-on-every-cycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Why does Change-Driven Materialization write only the grains whose rollups have changed since the last sync, rather than recomputing every grain's full history on every cycle?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-why-is-writing-each-changed-summary-vertex-property-as-an-absolute-value-write-rather-than-as-an-increment-on-the-existing-value-essential-to-this-pipelines-safety-under-at-least-once-delivery" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Why is writing each changed summary-vertex property as an Absolute Value Write, rather than as an increment on the existing value, essential to this pipeline's safety under At-Least-Once Delivery?
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../09-twelve-core-lrs-functions/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    9. The Twelve Core LRS Functions
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../10-choosing-technology-stack/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    10. Choosing the Technology Stack
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../11-adrs-and-capacity-model/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    11. Architecture Decision Records and the Capacity Model
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../12-bayesian-knowledge-tracing/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    12. Bayesian Knowledge Tracing for Mastery
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../13-component-design-in-depth/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    13. Component Design in Depth
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../14-kafka-clickhouse-graph-schema/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    14. Kafka Topics, ClickHouse Schema, and Graph Constraints
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../15-privacy-and-dashboard-mechanics/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    15. Privacy Enforcement and Dashboard Mechanics
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../16-container-image-and-cli/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    16. The Container Image and the Role Dispatcher CLI
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../17-compose-makefile-supply-chain/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    17. Docker Compose, the Makefile, and the Image Supply Chain
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../18-config-migration-backup-rollout/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    18. Configuration, Migration, Backup, and Rollout
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../19-failure-modes-and-verification/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    19. Failure Modes and Verification
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../20-deviations-roadmap-open-questions/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    20. Spec Deviations, the Delivery Roadmap, and Open Questions
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../21-hardware-cost-dev-environment/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    21. Hardware Sizing, Cost, and the Development Environment
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../22-proving-the-architecture-mvp/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    22. Proving the Architecture - the MVP Plan
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../23-production-infrastructure-cloud/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    23. Production Infrastructure and Cloud Services
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../24-three-personas-and-admin-uis/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    24. Meet the Three Personas and the Admin UI Surface
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../25-district-admin-rosters-deployments/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    25. District Administrator - Rosters, Deployments, and Registries
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../26-district-admin-access-control/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    26. District Administrator - Access Control and System Configuration
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../27-compliance-and-district-reporting/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    27. Compliance, Privacy Law, and District-Level Reporting
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../28-teacher-dashboards-student-reports/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    28. Teacher Dashboards and Student-Level Reports
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../29-class-level-reports-and-tools/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    29. Class-Level Reports and Teacher Tools
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../30-author-dashboards-content-reports/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    30. Textbook Author Dashboards and Content Reports
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../31-designing-ab-experiments/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    31. Designing and Reading A/B Experiments
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../32-producer-contract-conformant-statements/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    32. The Producer Contract - Writing Conformant Statements
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../learning-graph/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Learning Graph
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../sims/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    MicroSims
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../specs/lrs-spec-v1/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../lrs-lite/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    LRS-Lite (Serverless)
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../demo/graph-queries/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Demo
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../case-studies/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Case Studies
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../glossary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Glossary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../license/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contact/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contact
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-does-a-summary-vertexs-analytical-grain-define" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. What does a Summary Vertex's Analytical Grain define?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-a-dashboard-needs-to-know-how-many-times-a-specific-student-has-attempted-one-specific-quiz-question-and-what-fraction-succeeded-which-summary-vertex-grain-answers-this-directly" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. A dashboard needs to know how many times a specific student has attempted one specific quiz question, and what fraction succeeded. Which summary-vertex grain answers this directly?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-what-does-the-statements_compressed-property-or-its-equivalent-such-as-event_count-or-student_count-let-a-report-determine" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. What does the statements_compressed property (or its equivalent, such as event_count or student_count) let a report determine?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-why-does-the-statement-compression-ratio-keep-climbing-indefinitely-for-a-given-student-concept-pair-rather-than-leveling-off" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Why does the Statement Compression Ratio keep climbing indefinitely for a given (student, concept) pair, rather than leveling off?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-what-happens-immediately-after-the-xapi-statement-resource-accepts-a-post-request-carrying-a-new-statement" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. What happens immediately after the xAPI Statement Resource accepts a POST request carrying a new statement?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-what-is-the-key-difference-between-structural-validation-and-semantic-validation-in-this-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. What is the key difference between Structural Validation and Semantic Validation in this pipeline?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-an-intelligent-textbook-author-invents-a-brand-new-verb-iri-that-this-lrs-has-never-seen-before-and-includes-it-in-an-otherwise-well-formed-statement-what-happens-to-that-statement-under-schema-on-read" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. An intelligent textbook author invents a brand-new Verb IRI that this LRS has never seen before and includes it in an otherwise well-formed statement. What happens to that statement under Schema On Read?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-a-stream-processor-crashes-and-restarts-after-partially-processing-a-batch-causing-the-same-statement-to-be-redelivered-and-reprocessed-what-specifically-prevents-this-from-double-counting-evidence-in-the-resulting-summary-vertex" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. A Stream Processor crashes and restarts after partially processing a batch, causing the same statement to be redelivered and reprocessed. What specifically prevents this from double-counting evidence in the resulting summary vertex?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-under-this-projects-backpressure-design-what-happens-when-statements-arrive-faster-than-processors-can-consume-them-short-of-the-most-extreme-overload-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Under this project's Backpressure design, what happens when statements arrive faster than processors can consume them, short of the most extreme overload case?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-a-district-deploys-a-brand-new-textbook-version-that-has-never-been-registered-with-this-lrs-a-student-immediately-starts-using-it-and-generates-statements-what-happens-to-those-statements-under-accept-first-ingestion" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. A district deploys a brand-new textbook version that has never been registered with this LRS. A student immediately starts using it and generates statements. What happens to those statements under Accept-First Ingestion?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-why-does-change-driven-materialization-write-only-the-grains-whose-rollups-have-changed-since-the-last-sync-rather-than-recomputing-every-grains-full-history-on-every-cycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Why does Change-Driven Materialization write only the grains whose rollups have changed since the last sync, rather than recomputing every grain's full history on every cycle?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-why-is-writing-each-changed-summary-vertex-property-as-an-absolute-value-write-rather-than-as-an-increment-on-the-existing-value-essential-to-this-pipelines-safety-under-at-least-once-delivery" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Why is writing each changed summary-vertex property as an Absolute Value Write, rather than as an increment on the existing value, essential to this pipeline's safety under At-Least-Once Delivery?
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/08-summary-vertices-ingestion/quiz.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="quiz-summary-vertices-and-statement-ingestion-mechanics">Quiz: Summary Vertices and Statement Ingestion Mechanics<a class="headerlink" href="#quiz-summary-vertices-and-statement-ingestion-mechanics" title="Permanent link">&para;</a></h1>
+<p>Test your understanding of this project's compression pipeline and statement ingestion mechanics with these review questions.</p>
+<hr />
+<h4 id="1-what-does-a-summary-vertexs-analytical-grain-define">1. What does a Summary Vertex's Analytical Grain define?<a class="headerlink" href="#1-what-does-a-summary-vertexs-analytical-grain-define" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>The exact combination of dimensions, such as (student, concept), that one summary vertex is computed at and willing to answer questions about</li>
+<li>The number of districts a summary vertex is visible to</li>
+<li>The Bloom's Taxonomy level of the quiz question a statement responds to</li>
+<li>The retention period before a summary vertex is purged</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>A</strong>. A grain is the exact unit a summary vertex answers questions about, such as (student, concept) or (section, concept) — not a rounding choice, but the precise combination of dimensions materialized. B, C, and D each attribute an unrelated property — visibility, Bloom's level, or retention — to the grain concept, none of which the chapter describes.</p>
+<p><strong>Concept Tested:</strong> Analytical Grain</p>
+<p><strong>See:</strong> <a href="../#what-a-summary-vertex-actually-compresses">What a Summary Vertex Actually Compresses</a></p>
+</details>
+<hr />
+<h4 id="2-a-dashboard-needs-to-know-how-many-times-a-specific-student-has-attempted-one-specific-quiz-question-and-what-fraction-succeeded-which-summary-vertex-grain-answers-this-directly">2. A dashboard needs to know how many times a specific student has attempted one specific quiz question, and what fraction succeeded. Which summary-vertex grain answers this directly?<a class="headerlink" href="#2-a-dashboard-needs-to-know-how-many-times-a-specific-student-has-attempted-one-specific-quiz-question-and-what-fraction-succeeded-which-summary-vertex-grain-answers-this-directly" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>SectionRollup, at the (section, concept) grain</li>
+<li>LearningSession, at the (student, session) grain</li>
+<li>PageEngagement, at the (student, page) grain</li>
+<li>QuestionResponse, at the (student, question) grain</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>D</strong>. <code>QuestionResponse</code> compresses every attempt at one quiz question at the (student, question) grain, carrying <code>attempts</code> and <code>successes</code> properties that answer exactly this question. A aggregates across a whole class, not one student's attempts. B compresses a burst of session activity, not question-specific outcomes. C compresses page-reading behavior, unrelated to quiz attempts.</p>
+<p><strong>Concept Tested:</strong> Question Response Vertex</p>
+<p><strong>See:</strong> <a href="../#the-six-grains-this-deployment-materializes">The Six Grains This Deployment Materializes</a></p>
+</details>
+<hr />
+<h4 id="3-what-does-the-statements_compressed-property-or-its-equivalent-such-as-event_count-or-student_count-let-a-report-determine">3. What does the <code>statements_compressed</code> property (or its equivalent, such as <code>event_count</code> or <code>student_count</code>) let a report determine?<a class="headerlink" href="#3-what-does-the-statements_compressed-property-or-its-equivalent-such-as-event_count-or-student_count-let-a-report-determine" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Which district the statement originated from</li>
+<li>Whether the statement passed Semantic Validation</li>
+<li>How much evidence a given summary value rests on, not just what the value itself is</li>
+<li>The exact timestamp of the most recent statement folded into the vertex</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>C</strong>. Every summary vertex carries an explicit evidence-count property, letting a report distinguish a mastery score backed by hundreds of events from one backed by just a handful. A is unrelated — district scoping is handled elsewhere. B describes a validation outcome, not an evidence count. D describes <code>last_seen</code>, a separate property from the evidence count.</p>
+<p><strong>Concept Tested:</strong> Statements Compressed</p>
+<p><strong>See:</strong> <a href="../#the-six-grains-this-deployment-materializes">The Six Grains This Deployment Materializes</a></p>
+</details>
+<hr />
+<h4 id="4-why-does-the-statement-compression-ratio-keep-climbing-indefinitely-for-a-given-student-concept-pair-rather-than-leveling-off">4. Why does the Statement Compression Ratio keep climbing indefinitely for a given (student, concept) pair, rather than leveling off?<a class="headerlink" href="#4-why-does-the-statement-compression-ratio-keep-climbing-indefinitely-for-a-given-student-concept-pair-rather-than-leveling-off" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Because the ratio resets to zero at the start of every academic year</li>
+<li>Because the vertex count for that pair is fixed at one, while the statement count behind it keeps growing as long as the pair keeps generating evidence</li>
+<li>Because SectionRollup vertices are deleted and regenerated nightly</li>
+<li>Because Semantic Validation rejects any statement beyond the first hundred for a given pair</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>B</strong>. Because one grain always materializes to exactly one vertex, no matter how many statements feed it, the ratio of statements to vertices only grows as more evidence accumulates for that pair — it never resets on its own. A, C, and D each invent a periodic reset or rejection behavior the chapter does not describe.</p>
+<p><strong>Concept Tested:</strong> Statement Compression Ratio</p>
+<p><strong>See:</strong> <a href="../#how-much-compression-buys-you">How Much Compression Buys You</a></p>
+</details>
+<hr />
+<h4 id="5-what-happens-immediately-after-the-xapi-statement-resource-accepts-a-post-request-carrying-a-new-statement">5. What happens immediately after the xAPI Statement Resource accepts a POST request carrying a new statement?<a class="headerlink" href="#5-what-happens-immediately-after-the-xapi-statement-resource-accepts-a-post-request-carrying-a-new-statement" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>The endpoint returns its 200 or 204 response as soon as the statement is durably queued, not after validation or graph projection</li>
+<li>The statement is validated end to end against every downstream grain before any response is sent</li>
+<li>The statement is synchronously written to its target summary vertex before the response is returned</li>
+<li>The endpoint waits for the Reconciliation Worker to confirm the textbook version before responding</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>A</strong>. The endpoint responds as soon as a statement is durably queued, deliberately before semantic validation or graph projection happen, so a slow downstream component never makes a textbook page's request hang. B, C, and D each describe a synchronous wait on downstream work that this design specifically avoids.</p>
+<p><strong>Concept Tested:</strong> xAPI Statement Resource</p>
+<p><strong>See:</strong> <a href="../#how-a-statement-actually-arrives">How a Statement Actually Arrives</a></p>
+</details>
+<hr />
+<h4 id="6-what-is-the-key-difference-between-structural-validation-and-semantic-validation-in-this-pipeline">6. What is the key difference between Structural Validation and Semantic Validation in this pipeline?<a class="headerlink" href="#6-what-is-the-key-difference-between-structural-validation-and-semantic-validation-in-this-pipeline" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Structural Validation is optional, while Semantic Validation is mandatory for every statement</li>
+<li>Both validations happen synchronously at the Ingestion Gateway, one after the other</li>
+<li>Semantic Validation rejects statements outright, while Structural Validation always accepts and reconciles later</li>
+<li>Structural Validation happens synchronously at the Ingestion Gateway and rejects malformed statements outright; Semantic Validation happens asynchronously in the Stream Processor and accepts unrecognized verbs or activities under Schema On Read rather than rejecting them</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>D</strong>. Structural Validation is a synchronous, reject-on-failure gate at the Ingestion Gateway, while Semantic Validation runs asynchronously in the Stream Processor and, under Schema On Read, accepts unrecognized content for later reconciliation instead of rejecting it. A misstates both as optional/mandatory when both always run. B wrongly places Semantic Validation at the gateway. C reverses which tier rejects and which tier reconciles.</p>
+<p><strong>Concept Tested:</strong> Structural Validation / Semantic Validation</p>
+<p><strong>See:</strong> <a href="../#how-a-statement-actually-arrives">How a Statement Actually Arrives</a></p>
+</details>
+<hr />
+<h4 id="7-an-intelligent-textbook-author-invents-a-brand-new-verb-iri-that-this-lrs-has-never-seen-before-and-includes-it-in-an-otherwise-well-formed-statement-what-happens-to-that-statement-under-schema-on-read">7. An intelligent textbook author invents a brand-new Verb IRI that this LRS has never seen before and includes it in an otherwise well-formed statement. What happens to that statement under Schema On Read?<a class="headerlink" href="#7-an-intelligent-textbook-author-invents-a-brand-new-verb-iri-that-this-lrs-has-never-seen-before-and-includes-it-in-an-otherwise-well-formed-statement-what-happens-to-that-statement-under-schema-on-read" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>The entire batch containing it is rejected with a 400 response</li>
+<li>It is silently dropped without being logged anywhere</li>
+<li>It is accepted, recorded, and flagged for later reconciliation rather than rejected at the door</li>
+<li>It is held in a pending queue until a system administrator manually approves the new verb</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>C</strong>. Schema On Read means unknown verbs, activities, or textbook versions are accepted, buffered, and back-filled into the graph rather than rejected — a deliberate design choice distinct from Structural Validation's all-or-nothing rejection. A describes what happens to a structurally malformed batch, a different failure mode. B contradicts the chapter's emphasis on no data loss. D invents a manual-approval gate the chapter does not describe.</p>
+<p><strong>Concept Tested:</strong> Schema On Read</p>
+<p><strong>See:</strong> <a href="../#how-a-statement-actually-arrives">How a Statement Actually Arrives</a></p>
+</details>
+<hr />
+<h4 id="8-a-stream-processor-crashes-and-restarts-after-partially-processing-a-batch-causing-the-same-statement-to-be-redelivered-and-reprocessed-what-specifically-prevents-this-from-double-counting-evidence-in-the-resulting-summary-vertex">8. A Stream Processor crashes and restarts after partially processing a batch, causing the same statement to be redelivered and reprocessed. What specifically prevents this from double-counting evidence in the resulting summary vertex?<a class="headerlink" href="#8-a-stream-processor-crashes-and-restarts-after-partially-processing-a-batch-causing-the-same-statement-to-be-redelivered-and-reprocessed-what-specifically-prevents-this-from-double-counting-evidence-in-the-resulting-summary-vertex" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>At-Least-Once Delivery alone, since it guarantees a statement reaches a processor at least once</li>
+<li>Idempotent Delivery, keyed on the statement's own statement_id, so reprocessing the same statement leaves the system in the same state as processing it once</li>
+<li>Backpressure, which throttles the producer whenever a crash is detected</li>
+<li>Schema On Read, which defers unrecognized statements until reconciliation</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>B</strong>. Idempotent Delivery, achieved by treating each statement's <code>statement_id</code> as a uniqueness key, is what makes redelivery safe — a redelivered statement overwrites its own prior copy rather than being double-counted. A names the guarantee that makes redelivery likely, not the mechanism that makes it safe. C and D each describe an unrelated mechanism that plays no role in preventing double-counting.</p>
+<p><strong>Concept Tested:</strong> Idempotent Delivery / At-Least-Once Delivery</p>
+<p><strong>See:</strong> <a href="../#delivery-guarantees-redelivered-but-never-duplicated">Delivery Guarantees: Redelivered but Never Duplicated</a></p>
+</details>
+<hr />
+<h4 id="9-under-this-projects-backpressure-design-what-happens-when-statements-arrive-faster-than-processors-can-consume-them-short-of-the-most-extreme-overload-case">9. Under this project's Backpressure design, what happens when statements arrive faster than processors can consume them, short of the most extreme overload case?<a class="headerlink" href="#9-under-this-projects-backpressure-design-what-happens-when-statements-arrive-faster-than-processors-can-consume-them-short-of-the-most-extreme-overload-case" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>A producer that keeps sending receives a 202 Accepted response with a retry hint, letting it slow down gracefully rather than being rejected outright</li>
+<li>The Ingestion Gateway immediately returns a 503 and stops accepting any new statements</li>
+<li>Excess statements are silently dropped from the Durable Event Queue to protect processor health</li>
+<li>The Reconciliation Worker pauses all promotion of Provisional Nodes until load subsides</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>A</strong>. Under ordinary overload, the producer keeps receiving 202 Accepted responses carrying a retry hint, letting it back off gracefully; only in the extreme case of an unreachable queue does the endpoint return a 503. B overstates the ordinary-overload response. C contradicts the whole point of backpressure, which is to avoid silent drops. D describes an unrelated reconciliation behavior.</p>
+<p><strong>Concept Tested:</strong> Backpressure</p>
+<p><strong>See:</strong> <a href="../#delivery-guarantees-redelivered-but-never-duplicated">Delivery Guarantees: Redelivered but Never Duplicated</a></p>
+</details>
+<hr />
+<h4 id="10-a-district-deploys-a-brand-new-textbook-version-that-has-never-been-registered-with-this-lrs-a-student-immediately-starts-using-it-and-generates-statements-what-happens-to-those-statements-under-accept-first-ingestion">10. A district deploys a brand-new textbook version that has never been registered with this LRS. A student immediately starts using it and generates statements. What happens to those statements under Accept-First Ingestion?<a class="headerlink" href="#10-a-district-deploys-a-brand-new-textbook-version-that-has-never-been-registered-with-this-lrs-a-student-immediately-starts-using-it-and-generates-statements-what-happens-to-those-statements-under-accept-first-ingestion" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>They are rejected until the district manually pre-registers the new textbook version</li>
+<li>They are queued indefinitely without being written to the Event Store until reconciliation completes</li>
+<li>They are converted into SubStatements until the textbook is formally approved</li>
+<li>They are accepted, and the Stream Processor auto-provisions placeholder Provisional Nodes for the referenced structure, later matched and promoted by the Reconciliation Worker without any data loss</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>D</strong>. Accept-First Ingestion accepts statements about a never-before-seen textbook immediately, auto-provisioning Provisional Node stubs that the Reconciliation Worker later matches and promotes, with no data lost in the interim. A contradicts Non-Blocking Ingestion's whole purpose. B is wrong because statements are fully retained in the Event Store throughout. C invents an unrelated Sub-Statement conversion not described in this chapter.</p>
+<p><strong>Concept Tested:</strong> Accept-First Ingestion / Provisional Node / Reconciliation Worker</p>
+<p><strong>See:</strong> <a href="../#shipping-a-textbook-before-it-is-registered">Shipping a Textbook Before It Is Registered</a></p>
+</details>
+<hr />
+<h4 id="11-why-does-change-driven-materialization-write-only-the-grains-whose-rollups-have-changed-since-the-last-sync-rather-than-recomputing-every-grains-full-history-on-every-cycle">11. Why does Change-Driven Materialization write only the grains whose rollups have changed since the last sync, rather than recomputing every grain's full history on every cycle?<a class="headerlink" href="#11-why-does-change-driven-materialization-write-only-the-grains-whose-rollups-have-changed-since-the-last-sync-rather-than-recomputing-every-grains-full-history-on-every-cycle" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Because Neo4j cannot process more than one write per second</li>
+<li>Because unchanged grains are automatically deleted to save storage space</li>
+<li>Because recomputing every grain regardless of change would waste write capacity on grains with no new evidence, while the actual goal is to keep the graph write rate close to steady-state even during a burst of statement volume</li>
+<li>Because the Event Store discards incremental rollups after each sync cycle</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>C</strong>. Writing only changed grains keeps the graph write rate close to steady-state even during a statement-volume burst, since a burst mostly means already-active students send more events rather than many new distinct grains appearing. A is a fabricated technical limitation. B and D each invent a deletion or discarding behavior the chapter never describes.</p>
+<p><strong>Concept Tested:</strong> Change-Driven Materialization</p>
+<p><strong>See:</strong> <a href="../#turning-rollups-into-graph-writes">Turning Rollups Into Graph Writes</a></p>
+</details>
+<hr />
+<h4 id="12-why-is-writing-each-changed-summary-vertex-property-as-an-absolute-value-write-rather-than-as-an-increment-on-the-existing-value-essential-to-this-pipelines-safety-under-at-least-once-delivery">12. Why is writing each changed summary-vertex property as an Absolute Value Write, rather than as an increment on the existing value, essential to this pipeline's safety under At-Least-Once Delivery?<a class="headerlink" href="#12-why-is-writing-each-changed-summary-vertex-property-as-an-absolute-value-write-rather-than-as-an-increment-on-the-existing-value-essential-to-this-pipelines-safety-under-at-least-once-delivery" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Absolute values compress better on disk than incremented counters</li>
+<li>An incremented counter is not idempotent — replaying the same update twice would inflate it undetectably — while an absolute value write is idempotent by construction, so redelivery or a full replay leaves the graph in the same correct state</li>
+<li>Absolute Value Writes are required so the Reconciliation Worker can identify Provisional Nodes</li>
+<li>Incremented counters are forbidden by the Neo4j DDL's uniqueness constraints</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>B</strong>. Because at-least-once delivery means redelivery will eventually happen, an incremented counter would silently inflate on replay, while an absolute value write is a no-op when repeated, keeping the graph correct under redelivery or a full replay. A invents an unrelated storage-efficiency claim. C and D each attach Absolute Value Writes to an unrelated mechanism they play no role in.</p>
+<p><strong>Concept Tested:</strong> Absolute Value Write</p>
+<p><strong>See:</strong> <a href="../#turning-rollups-into-graph-writes">Turning Rollups Into Graph Writes</a></p>
+</details>
+<hr />
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Content">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Content
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../09-twelve-core-lrs-functions/" class="md-footer__link md-footer__link--next" aria-label="Next: Content">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Content
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Dan McCreary. Licensed under <a href="license/">CC BY-NC-SA 4.0</a> for non-commercial use.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../../js/katex.js"></script>
+      
+        <script src="../../../js/quiz-xapi.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

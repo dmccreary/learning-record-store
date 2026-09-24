@@ -313,6 +313,12 @@
         
       
         
+      
+        
+          
+        
+      
+        
           
         
       
@@ -406,131 +412,67 @@
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
-        
       
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
         
       
     
@@ -576,6 +518,8 @@
       
         
           
+        
+      
         
       
         
@@ -4846,103 +4790,8 @@
     
       
         
-          
-        
       
         
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../../stories/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Stories
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
       
         
       
@@ -4974,6 +4823,51 @@
   
   <span class="md-ellipsis">
     Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../lrs-lite/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    LRS-Lite (Serverless)
   </span>
   
 
@@ -5222,15 +5116,15 @@
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>Learning objective: Differentiate between CPU/RPS-driven autoscaling (HPA on the gateway) and consumer-lag-driven autoscaling (KEDA on the processor), and trace how each responds to the same 5x ingest burst.
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>Purpose: A single Mermaid flowchart with two parallel tracks sharing one &quot;5x burst begins&quot; starting node, so the learner can compare the two autoscaling paths side by side rather than read them as separate diagrams.
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>Purpose: A single Mermaid flowchart with two parallel tracks sharing one "5x burst begins" starting node, so the learner can compare the two autoscaling paths side by side rather than read them as separate diagrams.
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Top track &quot;Gateway — Horizontal Pod Autoscaler&quot;: &quot;5x burst begins&quot; -&gt; &quot;Request rate and CPU climb per gateway pod&quot; -&gt; &quot;HPA compares live metric to target&quot; -&gt; &quot;HPA adds gateway replicas&quot; -&gt; &quot;Requests spread across more pods, CPU normalizes.&quot;
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Top track "Gateway — Horizontal Pod Autoscaler": "5x burst begins" -&gt; "Request rate and CPU climb per gateway pod" -&gt; "HPA compares live metric to target" -&gt; "HPA adds gateway replicas" -&gt; "Requests spread across more pods, CPU normalizes."
 </span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Bottom track &quot;Processor — KEDA Autoscaler&quot;: &quot;5x burst begins&quot; -&gt; &quot;Kafka consumer lag grows on xapi.statements.raw&quot; -&gt; &quot;KEDA scaler polls lag metric&quot; -&gt; &quot;KEDA adds processor replicas, each claiming idle partitions&quot; -&gt; &quot;Replicas drain backlog over the following minute, lag returns to baseline.&quot;
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Bottom track "Processor — KEDA Autoscaler": "5x burst begins" -&gt; "Kafka consumer lag grows on xapi.statements.raw" -&gt; "KEDA scaler polls lag metric" -&gt; "KEDA adds processor replicas, each claiming idle partitions" -&gt; "Replicas drain backlog over the following minute, lag returns to baseline."
 </span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Interactive features: Every node has a Mermaid click directive. Clicking a Gateway-track node opens an infobox on RPS/CPU-based scaling; clicking a Processor-track node opens an infobox on consumer-lag scaling and why an HPA cannot read that metric natively. Clicking the shared &quot;5x burst begins&quot; node opens an infobox recapping Chapter 22&#39;s burst insensitivity claim and noting this diagram shows the pod-level mechanism behind it.
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Interactive features: Every node has a Mermaid click directive. Clicking a Gateway-track node opens an infobox on RPS/CPU-based scaling; clicking a Processor-track node opens an infobox on consumer-lag scaling and why an HPA cannot read that metric natively. Clicking the shared "5x burst begins" node opens an infobox recapping Chapter 22's burst insensitivity claim and noting this diagram shows the pod-level mechanism behind it.
 </span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
-</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>Color coding: Gateway track in the book&#39;s teal accent color; Processor/KEDA track in a contrasting violet, so the two signal types stay visually distinct even when read quickly.
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>Color coding: Gateway track in the book's teal accent color; Processor/KEDA track in a contrasting violet, so the two signal types stay visually distinct even when read quickly.
 </span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>
 </span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>Responsive design: Tracks stack vertically on narrow viewports with the shared starting node repeated at the top of each; click targets stay tap-sized.
 </span></code></pre></div>

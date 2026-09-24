@@ -313,6 +313,12 @@
         
       
         
+      
+        
+          
+        
+      
+        
           
         
       
@@ -406,131 +412,67 @@
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
-        
       
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
         
       
     
@@ -576,6 +518,8 @@
       
         
           
+        
+      
         
       
         
@@ -4846,103 +4790,8 @@
     
       
         
-          
-        
       
         
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../../stories/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Stories
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
       
         
       
@@ -4974,6 +4823,51 @@
   
   <span class="md-ellipsis">
     Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../lrs-lite/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    LRS-Lite (Serverless)
   </span>
   
 
@@ -5224,13 +5118,13 @@
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
 </span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>Purpose: Show a vis-network graph with six technology nodes, each connected to a short label describing what it holds, colored by whether the technology is a system of record, a cache, or an object store.
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Nodes: &quot;ClickHouse — system of record for every statement, at full fidelity&quot; (system of record). &quot;Neo4j 5 Community — structure and compressed summary vertices only, never raw events&quot; (system of record). &quot;PostgreSQL 16 — vault-db, PII vault, reachable only from the identity service&quot; (system of record, isolated). &quot;PostgreSQL 16 — meta-db, admin config, RBAC, audit log, experiment definitions&quot; (system of record, isolated). &quot;Redis 7 — token cache, salt cache, analytics response cache, rate limits&quot; (cache). &quot;MinIO (dev) / Amazon S3 (prod) — bulk exports, archival, event-store cold tier&quot; (object store).
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Nodes: "ClickHouse — system of record for every statement, at full fidelity" (system of record). "Neo4j 5 Community — structure and compressed summary vertices only, never raw events" (system of record). "PostgreSQL 16 — vault-db, PII vault, reachable only from the identity service" (system of record, isolated). "PostgreSQL 16 — meta-db, admin config, RBAC, audit log, experiment definitions" (system of record, isolated). "Redis 7 — token cache, salt cache, analytics response cache, rate limits" (cache). "MinIO (dev) / Amazon S3 (prod) — bulk exports, archival, event-store cold tier" (object store).
 </span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Interactive features: Clicking any node opens an infobox with that technology&#39;s one-sentence definition from this chapter&#39;s prose and the specific data it holds. A toggle labeled &quot;Group by role&quot; clusters the six nodes into three groups — system of record, cache, object store — instead of a flat list, letting the learner see that the two PostgreSQL 16 instances share a role cluster while remaining visually separate nodes, because they are isolated at the network level.
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Interactive features: Clicking any node opens an infobox with that technology's one-sentence definition from this chapter's prose and the specific data it holds. A toggle labeled "Group by role" clusters the six nodes into three groups — system of record, cache, object store — instead of a flat list, letting the learner see that the two PostgreSQL 16 instances share a role cluster while remaining visually separate nodes, because they are isolated at the network level.
 </span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Color coding: System-of-record nodes in the book&#39;s teal accent color; the cache node in a lighter tint of the same hue; the object-store node in a neutral gray, consistent with Chapter 7&#39;s storage-plane color language.
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Color coding: System-of-record nodes in the book's teal accent color; the cache node in a lighter tint of the same hue; the object-store node in a neutral gray, consistent with Chapter 7's storage-plane color language.
 </span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
-</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>Responsive design: Graph layout recalculates via vis-network&#39;s physics engine on window resize; below tablet width, nodes stack into a scrollable single column grouped by role.
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>Responsive design: Graph layout recalculates via vis-network's physics engine on window resize; below tablet width, nodes stack into a scrollable single column grouped by role.
 </span></code></pre></div>
 <h2 id="related-resources">Related Resources<a class="headerlink" href="#related-resources" title="Permanent link">&para;</a></h2>
 <ul>

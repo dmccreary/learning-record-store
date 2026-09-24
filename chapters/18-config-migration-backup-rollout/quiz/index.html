@@ -1,0 +1,3582 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Review questions on validated environment configuration, secrets management, schema migration patterns, recovery objectives and backup mechanisms, and safe rollout ordering.">
+      
+      
+        <meta name="author" content="Dan McCreary">
+      
+      
+        <link rel="canonical" href="https://dmccreary.github.io/learning-record-store/chapters/18-config-migration-backup-rollout/quiz/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../../19-failure-modes-and-verification/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
+    
+    
+      
+        <title>Quiz: Configuration, Migration, Backup, and Rollout - Learning Record Store</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/extra.css">
+    
+      <link rel="stylesheet" href="../../../css/mascot.css">
+    
+      <link rel="stylesheet" href="../../../css/lrs-xapi.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#quiz-configuration-migration-backup-and-rollout" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Learning Record Store" class="md-header__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  <img src="../../../img/mascot/neutral.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Learning Record Store
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Quiz: Configuration, Migration, Backup, and Rollout
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Learning Record Store" class="md-nav__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  <img src="../../../img/mascot/neutral.png" alt="logo">
+
+    </a>
+    Learning Record Store
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../course-description/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Course Description
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../stories/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Stories
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Chapters
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Chapters
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../01-lms-to-experience-api/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    1. From Learning Management Systems to the Experience API
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../02-anatomy-of-xapi-statement/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    2. The Anatomy of an xAPI Statement
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../03-ieee-standardization-xapi-cmi5/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    3. IEEE Standardization of xAPI and cmi5
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../04-standards-governance-ecosystem/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    4. Standards Governance and the Wider Interoperability Ecosystem
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../05-system-context-architectural-planes/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    5. System Context and the Five Architectural Planes
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../06-multi-tenancy-rosters-identity/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    6. Multi-Tenancy, Rosters, and Pseudonymous Identity
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../07-property-graph-data-model/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    7. The Property Graph Data Model
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../08-summary-vertices-ingestion/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    8. Summary Vertices and Statement Ingestion Mechanics
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../09-twelve-core-lrs-functions/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    9. The Twelve Core LRS Functions
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../10-choosing-technology-stack/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    10. Choosing the Technology Stack
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../11-adrs-and-capacity-model/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    11. Architecture Decision Records and the Capacity Model
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../12-bayesian-knowledge-tracing/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    12. Bayesian Knowledge Tracing for Mastery
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../13-component-design-in-depth/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    13. Component Design in Depth
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../14-kafka-clickhouse-graph-schema/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    14. Kafka Topics, ClickHouse Schema, and Graph Constraints
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../15-privacy-and-dashboard-mechanics/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    15. Privacy Enforcement and Dashboard Mechanics
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../16-container-image-and-cli/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    16. The Container Image and the Role Dispatcher CLI
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../17-compose-makefile-supply-chain/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    17. Docker Compose, the Makefile, and the Image Supply Chain
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_19" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    18. Configuration, Migration, Backup, and Rollout
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5_19" id="__nav_5_19_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_19_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_19">
+            <span class="md-nav__icon md-icon"></span>
+            18. Configuration, Migration, Backup, and Rollout
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Quiz
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Quiz
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-does-pydantic-settings-validation-do-when-a-required-configuration-value-is-missing-or-malformed-at-process-startup" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. What does Pydantic Settings Validation do when a required configuration value is missing or malformed at process startup?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-why-does-this-projects-application-image-never-need-to-change-between-a-laptop-and-production-even-though-the-two-environments-use-very-different-infrastructure" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Why does this project's application image never need to change between a laptop and production, even though the two environments use very different infrastructure?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-in-production-what-is-the-correct-order-of-the-chain-a-secret-travels-through-before-it-reaches-a-running-pods-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. In production, what is the correct order of the chain a secret travels through before it reaches a running pod's environment?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-why-does-the-credentials-ui-show-a-newly-created-ingest-key-to-its-creator-exactly-once-with-no-reveal-button-if-it-is-lost-later" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Why does the credentials UI show a newly created ingest key to its creator exactly once, with no "reveal" button if it is lost later?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-what-is-ingest-key-rotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. What is Ingest Key Rotation?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-a-new-bkt-parameterization-changes-how-concept_mastery-values-are-computed-from-the-same-underlying-statements-making-every-existing-value-in-the-column-wrong-even-though-the-column-layout-itself-is-unchanged-which-migration-pattern-fits-this-situation" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. A new BKT parameterization changes how concept_mastery values are computed from the same underlying statements, making every existing value in the column wrong, even though the column layout itself is unchanged. Which migration pattern fits this situation?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-why-does-a-breaking-schema-change-to-vault-db-require-an-expand-contract-migration-rather-than-the-same-rebuild-and-swap-approach-used-for-clickhouse-and-neo4j" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Why does a breaking schema change to vault-db require an Expand Contract Migration rather than the same Rebuild And Swap approach used for ClickHouse and Neo4j?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-why-does-this-project-over-provision-kafkas-xapistatementsraw-topic-with-48-partitions-up-front-rather-than-starting-smaller-and-increasing-the-partition-count-later-if-needed" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Why does this project over-provision Kafka's xapi.statements.raw topic with 48 partitions up front, rather than starting smaller and increasing the partition count later if needed?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-what-is-the-difference-between-a-recovery-point-objective-rpo-and-a-recovery-time-objective-rto" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. What is the difference between a Recovery Point Objective (RPO) and a Recovery Time Objective (RTO)?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-the-vault-db-and-meta-db-postgresql-instances-need-to-be-restorable-to-any-specific-timestamp-not-just-the-moment-of-the-last-nightly-snapshot-in-order-to-meet-a-five-minute-recovery-point-objective-what-mechanism-makes-this-possible" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. The vault-db and meta-db PostgreSQL instances need to be restorable to any specific timestamp, not just the moment of the last nightly snapshot, in order to meet a five-minute Recovery Point Objective. What mechanism makes this possible?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-a-new-version-of-the-lrs-is-being-rolled-out-to-production-which-role-updates-first-and-why" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. A new version of the LRS is being rolled out to production. Which role updates first, and why?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-why-does-rolling-back-to-the-previous-image-digest-n-1-work-safely-against-the-current-schema-version-n-without-a-corresponding-roll-the-schema-back-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Why does rolling back to the previous image digest, N-1, work safely against the current schema, version N, without a corresponding "roll the schema back" step?
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../19-failure-modes-and-verification/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    19. Failure Modes and Verification
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../20-deviations-roadmap-open-questions/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    20. Spec Deviations, the Delivery Roadmap, and Open Questions
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../21-hardware-cost-dev-environment/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    21. Hardware Sizing, Cost, and the Development Environment
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../22-proving-the-architecture-mvp/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    22. Proving the Architecture - the MVP Plan
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../23-production-infrastructure-cloud/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    23. Production Infrastructure and Cloud Services
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../24-three-personas-and-admin-uis/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    24. Meet the Three Personas and the Admin UI Surface
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../25-district-admin-rosters-deployments/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    25. District Administrator - Rosters, Deployments, and Registries
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../26-district-admin-access-control/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    26. District Administrator - Access Control and System Configuration
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../27-compliance-and-district-reporting/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    27. Compliance, Privacy Law, and District-Level Reporting
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../28-teacher-dashboards-student-reports/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    28. Teacher Dashboards and Student-Level Reports
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../29-class-level-reports-and-tools/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    29. Class-Level Reports and Teacher Tools
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../30-author-dashboards-content-reports/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    30. Textbook Author Dashboards and Content Reports
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../31-designing-ab-experiments/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    31. Designing and Reading A/B Experiments
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../32-producer-contract-conformant-statements/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    32. The Producer Contract - Writing Conformant Statements
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../learning-graph/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Learning Graph
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../sims/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    MicroSims
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../specs/lrs-spec-v1/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../lrs-lite/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    LRS-Lite (Serverless)
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../demo/graph-queries/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Demo
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../case-studies/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Case Studies
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../glossary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Glossary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../license/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contact/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contact
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-does-pydantic-settings-validation-do-when-a-required-configuration-value-is-missing-or-malformed-at-process-startup" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. What does Pydantic Settings Validation do when a required configuration value is missing or malformed at process startup?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-why-does-this-projects-application-image-never-need-to-change-between-a-laptop-and-production-even-though-the-two-environments-use-very-different-infrastructure" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Why does this project's application image never need to change between a laptop and production, even though the two environments use very different infrastructure?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-in-production-what-is-the-correct-order-of-the-chain-a-secret-travels-through-before-it-reaches-a-running-pods-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. In production, what is the correct order of the chain a secret travels through before it reaches a running pod's environment?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-why-does-the-credentials-ui-show-a-newly-created-ingest-key-to-its-creator-exactly-once-with-no-reveal-button-if-it-is-lost-later" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Why does the credentials UI show a newly created ingest key to its creator exactly once, with no "reveal" button if it is lost later?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-what-is-ingest-key-rotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. What is Ingest Key Rotation?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-a-new-bkt-parameterization-changes-how-concept_mastery-values-are-computed-from-the-same-underlying-statements-making-every-existing-value-in-the-column-wrong-even-though-the-column-layout-itself-is-unchanged-which-migration-pattern-fits-this-situation" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. A new BKT parameterization changes how concept_mastery values are computed from the same underlying statements, making every existing value in the column wrong, even though the column layout itself is unchanged. Which migration pattern fits this situation?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-why-does-a-breaking-schema-change-to-vault-db-require-an-expand-contract-migration-rather-than-the-same-rebuild-and-swap-approach-used-for-clickhouse-and-neo4j" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Why does a breaking schema change to vault-db require an Expand Contract Migration rather than the same Rebuild And Swap approach used for ClickHouse and Neo4j?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-why-does-this-project-over-provision-kafkas-xapistatementsraw-topic-with-48-partitions-up-front-rather-than-starting-smaller-and-increasing-the-partition-count-later-if-needed" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Why does this project over-provision Kafka's xapi.statements.raw topic with 48 partitions up front, rather than starting smaller and increasing the partition count later if needed?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-what-is-the-difference-between-a-recovery-point-objective-rpo-and-a-recovery-time-objective-rto" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. What is the difference between a Recovery Point Objective (RPO) and a Recovery Time Objective (RTO)?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-the-vault-db-and-meta-db-postgresql-instances-need-to-be-restorable-to-any-specific-timestamp-not-just-the-moment-of-the-last-nightly-snapshot-in-order-to-meet-a-five-minute-recovery-point-objective-what-mechanism-makes-this-possible" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. The vault-db and meta-db PostgreSQL instances need to be restorable to any specific timestamp, not just the moment of the last nightly snapshot, in order to meet a five-minute Recovery Point Objective. What mechanism makes this possible?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-a-new-version-of-the-lrs-is-being-rolled-out-to-production-which-role-updates-first-and-why" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. A new version of the LRS is being rolled out to production. Which role updates first, and why?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-why-does-rolling-back-to-the-previous-image-digest-n-1-work-safely-against-the-current-schema-version-n-without-a-corresponding-roll-the-schema-back-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Why does rolling back to the previous image digest, N-1, work safely against the current schema, version N, without a corresponding "roll the schema back" step?
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/18-config-migration-backup-rollout/quiz.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="quiz-configuration-migration-backup-and-rollout">Quiz: Configuration, Migration, Backup, and Rollout<a class="headerlink" href="#quiz-configuration-migration-backup-and-rollout" title="Permanent link">&para;</a></h1>
+<p>Test your understanding of this project's configuration, secrets, migration, backup, and rollout mechanisms with these review questions.</p>
+<hr />
+<h4 id="1-what-does-pydantic-settings-validation-do-when-a-required-configuration-value-is-missing-or-malformed-at-process-startup">1. What does Pydantic Settings Validation do when a required configuration value is missing or malformed at process startup?<a class="headerlink" href="#1-what-does-pydantic-settings-validation-do-when-a-required-configuration-value-is-missing-or-malformed-at-process-startup" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>It crashes the process loudly at boot, rather than letting the value silently resolve to None and surface as a confusing bug later</li>
+<li>It silently substitutes a hardcoded default value and logs a warning</li>
+<li>It pauses the process and waits indefinitely for an operator to supply the value</li>
+<li>It ignores the invalid value and starts the process with that setting undefined</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>A</strong>. The design specification is blunt that a missing or malformed value crashes the process on boot, loudly, rather than surfacing as a silent <code>None</code> hours into a shift. B and D both describe silent failure modes this design specifically avoids. C invents a hanging behavior not described anywhere in the chapter.</p>
+<p><strong>Concept Tested:</strong> Pydantic Settings Validation</p>
+<p><strong>See:</strong> <a href="../#configuration-as-validated-environment-variables">Configuration as Validated Environment Variables</a></p>
+</details>
+<hr />
+<h4 id="2-why-does-this-projects-application-image-never-need-to-change-between-a-laptop-and-production-even-though-the-two-environments-use-very-different-infrastructure">2. Why does this project's application image never need to change between a laptop and production, even though the two environments use very different infrastructure?<a class="headerlink" href="#2-why-does-this-projects-application-image-never-need-to-change-between-a-laptop-and-production-even-though-the-two-environments-use-very-different-infrastructure" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Because the image automatically detects which environment it is running in and recompiles itself</li>
+<li>Because production and development both run the exact same Kafka, ClickHouse, and Neo4j instances</li>
+<li>Because Pydantic Settings Validation disables itself automatically outside of development</li>
+<li>Because Environment Variable Config supplies all environment-specific values — Kafka address, database credentials — from outside the image, so only the environment around an unchanged image differs</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>D</strong>. Environment Variable Config keeps every environment-specific value outside the image itself, so the same built image runs unchanged while only the surrounding environment differs. A invents an implausible recompilation behavior. B is false — dev and production intentionally use different infrastructure. C contradicts the chapter, which describes validation running in every environment.</p>
+<p><strong>Concept Tested:</strong> Environment Variable Config</p>
+<p><strong>See:</strong> <a href="../#configuration-as-validated-environment-variables">Configuration as Validated Environment Variables</a></p>
+</details>
+<hr />
+<h4 id="3-in-production-what-is-the-correct-order-of-the-chain-a-secret-travels-through-before-it-reaches-a-running-pods-environment">3. In production, what is the correct order of the chain a secret travels through before it reaches a running pod's environment?<a class="headerlink" href="#3-in-production-what-is-the-correct-order-of-the-chain-a-secret-travels-through-before-it-reaches-a-running-pods-environment" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Kubernetes Secret -&gt; AWS Secrets Manager -&gt; External Secrets Operator -&gt; pod environment</li>
+<li>External Secrets Operator -&gt; pod environment -&gt; AWS Secrets Manager -&gt; Kubernetes Secret</li>
+<li>AWS Secrets Manager -&gt; External Secrets Operator -&gt; Kubernetes Secret -&gt; pod environment</li>
+<li>Pod environment -&gt; Kubernetes Secret -&gt; External Secrets Operator -&gt; AWS Secrets Manager</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>C</strong>. AWS Secrets Manager holds the value, the External Secrets Operator watches it and syncs changes, a Kubernetes Secret is the cluster-native object it writes to, and the pod spec mounts that Secret as an environment variable. A, B, and D each scramble this chain in a way that would have a component depending on something that has not been populated yet.</p>
+<p><strong>Concept Tested:</strong> AWS Secrets Manager / External Secrets Operator / Kubernetes Secret</p>
+<p><strong>See:</strong> <a href="../#from-a-laptops-env-file-to-a-production-secret">From a Laptop's <code>.env</code> File to a Production Secret</a></p>
+</details>
+<hr />
+<h4 id="4-why-does-the-credentials-ui-show-a-newly-created-ingest-key-to-its-creator-exactly-once-with-no-reveal-button-if-it-is-lost-later">4. Why does the credentials UI show a newly created ingest key to its creator exactly once, with no "reveal" button if it is lost later?<a class="headerlink" href="#4-why-does-the-credentials-ui-show-a-newly-created-ingest-key-to-its-creator-exactly-once-with-no-reveal-button-if-it-is-lost-later" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Because the UI has a known bug that will be fixed in a future release</li>
+<li>Because Ingest Key Hashing stores every key as an HMAC, so the plaintext is unrecoverable by design, including by this project's own operators</li>
+<li>Because showing a key more than once would exceed the district's rate limit</li>
+<li>Because ingest keys expire automatically after their first use</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>B</strong>. Because every ingest key is stored as an HMAC rather than recoverable ciphertext, the plaintext is genuinely gone after creation — not merely hidden — so there is no "reveal" path to offer even to this project's own operators. A wrongly frames a deliberate design choice as a defect. C invents an unrelated rate-limiting explanation. D is false; keys remain valid for repeated authentication, not single-use.</p>
+<p><strong>Concept Tested:</strong> Ingest Key Hashing</p>
+<p><strong>See:</strong> <a href="../#ingest-keys-hashed-not-just-rotated">Ingest Keys: Hashed, Not Just Rotated</a></p>
+</details>
+<hr />
+<h4 id="5-what-is-ingest-key-rotation">5. What is Ingest Key Rotation?<a class="headerlink" href="#5-what-is-ingest-key-rotation" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>The automatic process that regenerates a district's per-district salt every night</li>
+<li>The mechanism that resets a student's pseudonymous key after a district transfer</li>
+<li>The process that swaps a container image for a newer digest</li>
+<li>The administrative capability to issue a new per-textbook or per-district credential and retire an old one without a redeploy</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>D</strong>. Ingest Key Rotation lets an administrator issue a new credential and retire an old one without any redeploy, used identically for a leaked key or a routine refresh. A confuses it with the unrelated per-district salt from earlier chapters. B misapplies it to student pseudonymization, a separate mechanism entirely. C confuses it with Chapter 17's image supply chain.</p>
+<p><strong>Concept Tested:</strong> Ingest Key Rotation</p>
+<p><strong>See:</strong> <a href="../#ingest-keys-hashed-not-just-rotated">Ingest Keys: Hashed, Not Just Rotated</a></p>
+</details>
+<hr />
+<h4 id="6-a-new-bkt-parameterization-changes-how-concept_mastery-values-are-computed-from-the-same-underlying-statements-making-every-existing-value-in-the-column-wrong-even-though-the-column-layout-itself-is-unchanged-which-migration-pattern-fits-this-situation">6. A new BKT parameterization changes how concept_mastery values are computed from the same underlying statements, making every existing value in the column wrong, even though the column layout itself is unchanged. Which migration pattern fits this situation?<a class="headerlink" href="#6-a-new-bkt-parameterization-changes-how-concept_mastery-values-are-computed-from-the-same-underlying-statements-making-every-existing-value-in-the-column-wrong-even-though-the-column-layout-itself-is-unchanged-which-migration-pattern-fits-this-situation" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Additive Column Migration, because only a new column needs to be added</li>
+<li>Rebuild And Swap Migration, recomputing the projection into a fresh target from the untouched event log, verifying it, then switching the read path</li>
+<li>Expand Contract Migration, because this is a PostgreSQL schema change</li>
+<li>Kafka Partition Increase Caveat, because the statement key format has changed</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>B</strong>. Because the change is to meaning rather than shape, Rebuild And Swap Migration recomputes the projection from the untouched log into a fresh target, verifies it, and only then switches the read path. A misapplies a pattern meant for a genuinely new column, not a changed computation. C misapplies a PostgreSQL-specific pattern to a ClickHouse projection. D confuses an unrelated Kafka partitioning concern with a computation change.</p>
+<p><strong>Concept Tested:</strong> Rebuild And Swap Migration</p>
+<p><strong>See:</strong> <a href="../#four-ways-a-schema-can-change">Four Ways a Schema Can Change</a></p>
+</details>
+<hr />
+<h4 id="7-why-does-a-breaking-schema-change-to-vault-db-require-an-expand-contract-migration-rather-than-the-same-rebuild-and-swap-approach-used-for-clickhouse-and-neo4j">7. Why does a breaking schema change to vault-db require an Expand Contract Migration rather than the same Rebuild And Swap approach used for ClickHouse and Neo4j?<a class="headerlink" href="#7-why-does-a-breaking-schema-change-to-vault-db-require-an-expand-contract-migration-rather-than-the-same-rebuild-and-swap-approach-used-for-clickhouse-and-neo4j" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Because PostgreSQL does not support any form of ALTER TABLE</li>
+<li>Because Alembic can only be used with ClickHouse, never with PostgreSQL</li>
+<li>Because vault-db cannot be rebuilt from the event log — it is the log's only link back to a real learner, so it cannot be reconstructed the way ClickHouse and Neo4j projections can</li>
+<li>Because vault-db is never backed up, making any migration approach equally risky</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>C</strong>. Unlike ClickHouse and Neo4j, which are projections rebuildable from the immutable log, vault-db is itself the only link back to a real learner, so it must migrate through independently reversible steps rather than a rebuild-and-swap. A is factually false about PostgreSQL. B reverses which database Alembic actually targets. D contradicts the chapter's later coverage of vault-db's own backup protection.</p>
+<p><strong>Concept Tested:</strong> Expand Contract Migration</p>
+<p><strong>See:</strong> <a href="../#four-ways-a-schema-can-change">Four Ways a Schema Can Change</a></p>
+</details>
+<hr />
+<h4 id="8-why-does-this-project-over-provision-kafkas-xapistatementsraw-topic-with-48-partitions-up-front-rather-than-starting-smaller-and-increasing-the-partition-count-later-if-needed">8. Why does this project over-provision Kafka's <code>xapi.statements.raw</code> topic with 48 partitions up front, rather than starting smaller and increasing the partition count later if needed?<a class="headerlink" href="#8-why-does-this-project-over-provision-kafkas-xapistatementsraw-topic-with-48-partitions-up-front-rather-than-starting-smaller-and-increasing-the-partition-count-later-if-needed" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Because 48 partitions is required by the xAPI Conformance Suite regardless of actual load</li>
+<li>Because a partition increase changes the key-to-partition mapping and breaks per-learner ordering for any statements in flight, and unlike the other migration patterns in this chapter, that break is not safely reversible</li>
+<li>Because Kafka technically cannot increase a topic's partition count under any circumstances</li>
+<li>Because 48 partitions is the minimum Redpanda requires to start at all</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>B</strong>. Increasing partition count remaps the key-to-partition assignment, breaking BKT's ordering-dependent updates for any learner with statements in flight — and unlike every other migration pattern in this chapter, that break cannot be cleanly undone. A invents a conformance requirement unrelated to this design choice. C overstates a real caution into a technical impossibility. D fabricates an unrelated minimum requirement.</p>
+<p><strong>Concept Tested:</strong> Kafka Partition Increase Caveat</p>
+<p><strong>See:</strong> <a href="../#four-ways-a-schema-can-change">Four Ways a Schema Can Change</a></p>
+</details>
+<hr />
+<h4 id="9-what-is-the-difference-between-a-recovery-point-objective-rpo-and-a-recovery-time-objective-rto">9. What is the difference between a Recovery Point Objective (RPO) and a Recovery Time Objective (RTO)?<a class="headerlink" href="#9-what-is-the-difference-between-a-recovery-point-objective-rpo-and-a-recovery-time-objective-rto" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>RPO is the maximum data a system may lose, measured in time; RTO is the maximum time a system may take to come back online — the two are independent, so fast recovery can still lose more data</li>
+<li>RPO and RTO are two names for the identical measurement</li>
+<li>RPO measures downtime, while RTO measures data loss</li>
+<li>RPO only applies to ClickHouse, while RTO only applies to PostgreSQL</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>A</strong>. RPO bounds how much data a disaster may cost, and RTO bounds how long recovery may take, and the two are independent measures that this project sets differently per store. B wrongly treats two distinct measurements as one. C reverses their actual definitions. D invents a scope restriction neither measurement actually has.</p>
+<p><strong>Concept Tested:</strong> Recovery Point Objective / Recovery Time Objective</p>
+<p><strong>See:</strong> <a href="../#recovery-objectives-how-much-you-can-afford-to-lose">Recovery Objectives: How Much You Can Afford to Lose</a></p>
+</details>
+<hr />
+<h4 id="10-the-vault-db-and-meta-db-postgresql-instances-need-to-be-restorable-to-any-specific-timestamp-not-just-the-moment-of-the-last-nightly-snapshot-in-order-to-meet-a-five-minute-recovery-point-objective-what-mechanism-makes-this-possible">10. The vault-db and meta-db PostgreSQL instances need to be restorable to any specific timestamp, not just the moment of the last nightly snapshot, in order to meet a five-minute Recovery Point Objective. What mechanism makes this possible?<a class="headerlink" href="#10-the-vault-db-and-meta-db-postgresql-instances-need-to-be-restorable-to-any-specific-timestamp-not-just-the-moment-of-the-last-nightly-snapshot-in-order-to-meet-a-five-minute-recovery-point-objective-what-mechanism-makes-this-possible" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Nightly Backup Snapshot alone, since a nightly snapshot already covers any timestamp within the day</li>
+<li>Rebuilding the store from ClickHouse, the same way Neo4j's graph can be regenerated</li>
+<li>The Kafka Partition Increase Caveat's over-provisioning strategy</li>
+<li>Write-Ahead Log Archiving, which continuously ships the database's write-ahead log to object storage, enabling Point-in-Time Recovery by replaying the archived log forward from a base backup</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>D</strong>. Continuous Write-Ahead Log Archiving is what enables Point-in-Time Recovery to any specific timestamp, which is how these two irreplaceable stores reach a five-minute RPO. A is false — a nightly snapshot alone only covers the moment it was taken, not arbitrary timestamps. B misapplies Neo4j's rebuild-from-log fallback to stores that have no such fallback. C names an unrelated Kafka mechanism.</p>
+<p><strong>Concept Tested:</strong> Write-Ahead Log Archiving / Point-In-Time Recovery</p>
+<p><strong>See:</strong> <a href="../#how-each-store-gets-backed-up">How Each Store Gets Backed Up</a></p>
+</details>
+<hr />
+<h4 id="11-a-new-version-of-the-lrs-is-being-rolled-out-to-production-which-role-updates-first-and-why">11. A new version of the LRS is being rolled out to production. Which role updates first, and why?<a class="headerlink" href="#11-a-new-version-of-the-lrs-is-being-rolled-out-to-production-which-role-updates-first-and-why" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>The gateway, because it is the only role whose unavailability actually loses data — if it cannot accept a statement, that statement never reaches Kafka, unlike every other role's downtime, which only delays a projection that recovers on its own</li>
+<li>The processor, because it holds the most application state and should be validated earliest</li>
+<li>The dashboards, because they have the lowest risk if something goes wrong</li>
+<li>The summarizer, because it must run before any other role can safely process statements</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>A</strong>. Gateway-First Deploy Order updates the gateway first specifically because it is the one role whose downtime actually loses data, surfacing a broken version at maximum leverage before downstream roles consume what it produced. B misattributes the ordering rationale to the processor. C and D each invent an unsupported reason for a different role to go first.</p>
+<p><strong>Concept Tested:</strong> Gateway-First Deploy Order</p>
+<p><strong>See:</strong> <a href="../#rolling-out-a-change-safely">Rolling Out a Change Safely</a></p>
+</details>
+<hr />
+<h4 id="12-why-does-rolling-back-to-the-previous-image-digest-n-1-work-safely-against-the-current-schema-version-n-without-a-corresponding-roll-the-schema-back-step">12. Why does rolling back to the previous image digest, N-1, work safely against the current schema, version N, without a corresponding "roll the schema back" step?<a class="headerlink" href="#12-why-does-rolling-back-to-the-previous-image-digest-n-1-work-safely-against-the-current-schema-version-n-without-a-corresponding-roll-the-schema-back-step" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Because Kubernetes automatically reverts schema changes whenever a rollback is triggered</li>
+<li>Because the previous version's image includes a complete copy of the old schema, bypassing the live database entirely</li>
+<li>Because Expand Contract Migration's staged steps mean the schema was never mutated out from under the previous version — N-1 always runs correctly against the current schema, so rollback is just a redeploy</li>
+<li>Because Gateway-First Deploy Order guarantees the schema is never actually applied until the gateway confirms success</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>C</strong>. Because schema changes ship through staged, backward-compatible steps rather than an atomic cutover, the previous application version always runs correctly against the current schema, turning rollback into a routine redeploy rather than a second incident. A invents an automatic Kubernetes capability that does not exist. B fabricates an image-embedded schema copy. D misattributes schema application timing to an unrelated deployment-ordering rule.</p>
+<p><strong>Concept Tested:</strong> Expand-Contract Rollback</p>
+<p><strong>See:</strong> <a href="../#rolling-out-a-change-safely">Rolling Out a Change Safely</a></p>
+</details>
+<hr />
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Content">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Content
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../19-failure-modes-and-verification/" class="md-footer__link md-footer__link--next" aria-label="Next: Content">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Content
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Dan McCreary. Licensed under <a href="license/">CC BY-NC-SA 4.0</a> for non-commercial use.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../../js/katex.js"></script>
+      
+        <script src="../../../js/quiz-xapi.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

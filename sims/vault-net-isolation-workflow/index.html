@@ -313,6 +313,12 @@
         
       
         
+      
+        
+          
+        
+      
+        
           
         
       
@@ -406,131 +412,67 @@
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
-        
       
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
         
       
     
@@ -576,6 +518,8 @@
       
         
           
+        
+      
         
       
         
@@ -4846,103 +4790,8 @@
     
       
         
-          
-        
       
         
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../../stories/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Stories
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
       
         
       
@@ -4974,6 +4823,51 @@
   
   <span class="md-ellipsis">
     Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../lrs-lite/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    LRS-Lite (Serverless)
   </span>
   
 
@@ -5224,15 +5118,15 @@
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
 </span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>Purpose: A Mermaid flowchart with two subgraphs on one canvas, showing which services sit on the general application network versus the isolated vault network.
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Left/general subgraph &quot;Application Network&quot;: nodes &quot;Gateway&quot;, &quot;Stream Processor&quot;, &quot;Summarizer&quot;, &quot;Graph Store (Neo4j)&quot;, &quot;Analytics Store (ClickHouse)&quot; — connected only as the real data flow requires (Gateway -&gt; Processor -&gt; Analytics Store; Processor -&gt; Graph Store via structural stub only; Summarizer -&gt; Graph Store).
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Left/general subgraph "Application Network": nodes "Gateway", "Stream Processor", "Summarizer", "Graph Store (Neo4j)", "Analytics Store (ClickHouse)" — connected only as the real data flow requires (Gateway -&gt; Processor -&gt; Analytics Store; Processor -&gt; Graph Store via structural stub only; Summarizer -&gt; Graph Store).
 </span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Right/isolated subgraph &quot;vault-net (no published host port)&quot;: nodes &quot;Identity Service&quot; and &quot;Vault Database&quot;, connected only to each other.
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Right/isolated subgraph "vault-net (no published host port)": nodes "Identity Service" and "Vault Database", connected only to each other.
 </span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>One crossing edge: &quot;Stream Processor&quot; -&gt; &quot;Identity Service&quot; labeled &quot;resolves salted key only — never the raw mapping.&quot;
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>One crossing edge: "Stream Processor" -&gt; "Identity Service" labeled "resolves salted key only — never the raw mapping."
 </span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
-</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>Interactive features: Every node has a Mermaid click directive. &quot;Vault Database&quot; opens an infobox on why this is the only place the identity-to-key mapping exists. Any Application Network node opens an infobox confirming &quot;sees only the derived student_key.&quot; The crossing edge opens an infobox recapping Chapter 6&#39;s HMAC derivation in one sentence.
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>Interactive features: Every node has a Mermaid click directive. "Vault Database" opens an infobox on why this is the only place the identity-to-key mapping exists. Any Application Network node opens an infobox confirming "sees only the derived student_key." The crossing edge opens an infobox recapping Chapter 6's HMAC derivation in one sentence.
 </span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>
-</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>Color coding: Application Network in the book&#39;s teal accent color; vault-net outlined in amber with a padlock icon, matching Chapter 21&#39;s visual language for compliance boundaries.
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>Color coding: Application Network in the book's teal accent color; vault-net outlined in amber with a padlock icon, matching Chapter 21's visual language for compliance boundaries.
 </span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>
 </span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>Responsive design: Subgraphs stack vertically on narrow viewports with the crossing edge redrawn to remain visible; click targets stay tap-sized.
 </span></code></pre></div>

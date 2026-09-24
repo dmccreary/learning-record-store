@@ -1,0 +1,3582 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Review questions on the One Image Many Roles Philosophy, the multi-stage Dockerfile, non-root and PID 1 signal handling, reproducible builds, the role-aware healthcheck, and the Role Dispatcher CLI's subcommands.">
+      
+      
+        <meta name="author" content="Dan McCreary">
+      
+      
+        <link rel="canonical" href="https://dmccreary.github.io/learning-record-store/chapters/16-container-image-and-cli/quiz/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../../17-compose-makefile-supply-chain/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
+    
+    
+      
+        <title>Quiz: The Container Image and the Role Dispatcher CLI - Learning Record Store</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/extra.css">
+    
+      <link rel="stylesheet" href="../../../css/mascot.css">
+    
+      <link rel="stylesheet" href="../../../css/lrs-xapi.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#quiz-the-container-image-and-the-role-dispatcher-cli" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Learning Record Store" class="md-header__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  <img src="../../../img/mascot/neutral.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Learning Record Store
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Quiz: The Container Image and the Role Dispatcher CLI
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Learning Record Store" class="md-nav__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  <img src="../../../img/mascot/neutral.png" alt="logo">
+
+    </a>
+    Learning Record Store
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../course-description/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Course Description
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../stories/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Stories
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Chapters
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Chapters
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../01-lms-to-experience-api/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    1. From Learning Management Systems to the Experience API
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../02-anatomy-of-xapi-statement/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    2. The Anatomy of an xAPI Statement
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../03-ieee-standardization-xapi-cmi5/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    3. IEEE Standardization of xAPI and cmi5
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../04-standards-governance-ecosystem/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    4. Standards Governance and the Wider Interoperability Ecosystem
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../05-system-context-architectural-planes/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    5. System Context and the Five Architectural Planes
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../06-multi-tenancy-rosters-identity/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    6. Multi-Tenancy, Rosters, and Pseudonymous Identity
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../07-property-graph-data-model/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    7. The Property Graph Data Model
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../08-summary-vertices-ingestion/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    8. Summary Vertices and Statement Ingestion Mechanics
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../09-twelve-core-lrs-functions/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    9. The Twelve Core LRS Functions
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../10-choosing-technology-stack/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    10. Choosing the Technology Stack
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../11-adrs-and-capacity-model/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    11. Architecture Decision Records and the Capacity Model
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../12-bayesian-knowledge-tracing/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    12. Bayesian Knowledge Tracing for Mastery
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../13-component-design-in-depth/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    13. Component Design in Depth
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../14-kafka-clickhouse-graph-schema/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    14. Kafka Topics, ClickHouse Schema, and Graph Constraints
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../15-privacy-and-dashboard-mechanics/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    15. Privacy Enforcement and Dashboard Mechanics
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_17" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    16. The Container Image and the Role Dispatcher CLI
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5_17" id="__nav_5_17_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_17_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_17">
+            <span class="md-nav__icon md-icon"></span>
+            16. The Container Image and the Role Dispatcher CLI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Quiz
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Quiz
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-is-the-one-image-many-roles-philosophy" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. What is the One Image Many Roles Philosophy?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-what-does-a-dockerfile-multi-stage-build-allow-a-later-stage-to-do" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. What does a Dockerfile Multi-Stage Build allow a later stage to do?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-what-does-the-runtime-build-stage-copy-forward-from-the-builder-build-stage-and-what-does-it-deliberately-leave-behind" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. What does the Runtime Build Stage copy forward from the Builder Build Stage, and what does it deliberately leave behind?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-what-does-the-non-root-container-user-setting-accomplish" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. What does the Non-Root Container User setting accomplish?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-a-dockerfile-declares-entrypoint-lrs-shell-form-no-square-brackets-instead-of-entrypoint-lrs-exec-form-during-a-rolling-restart-what-is-most-likely-to-go-wrong" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. A Dockerfile declares ENTRYPOINT lrs (shell form, no square brackets) instead of ENTRYPOINT ["lrs"] (exec form). During a rolling restart, what is most likely to go wrong?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-what-does-the-frozen-flag-do-when-the-builder-stage-runs-uv-sync-frozen-no-dev" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. What does the --frozen flag do when the Builder stage runs uv sync --frozen --no-dev?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-two-different-speedup-mechanisms-appear-in-the-builder-stage-copying-pyprojecttoml-and-uvlock-before-src-and-the-mounttypecache-cache-mount-why-are-these-two-mechanisms-not-redundant-with-each-other" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Two different speedup mechanisms appear in the Builder stage: copying pyproject.toml and uv.lock before src/, and the --mount=type=cache cache mount. Why are these two mechanisms not redundant with each other?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-why-does-the-healthcheck-directive-ask-are-you-actually-working-not-just-still-alive-rather-than-simply-checking-whether-the-process-is-still-running" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Why does the Healthcheck Directive ask "are you actually working, not just still alive?" rather than simply checking whether the process is still running?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-how-does-the-role-dispatcher-cli-decide-which-role-a-given-container-plays" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. How does the Role Dispatcher CLI decide which role a given container plays?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-a-team-is-standing-up-a-brand-new-deployment-and-needs-to-create-the-kafka-topics-apply-the-clickhouse-ddl-and-apply-the-neo4j-structural-constraints-before-any-other-role-can-safely-start-in-a-way-that-is-safe-to-accidentally-run-twice-which-command-should-they-run-and-why" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. A team is standing up a brand-new deployment and needs to create the Kafka topics, apply the ClickHouse DDL, and apply the Neo4j structural constraints before any other role can safely start, in a way that is safe to accidentally run twice. Which command should they run, and why?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-a-team-wants-to-validate-that-the-systems-backpressure-and-scale-claims-hold-up-against-real-infrastructure-rather-than-trusting-the-capacity-model-on-paper-which-command-is-built-for-this-and-how-does-it-differ-from-the-command-that-populates-an-explorable-demo-dataset" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. A team wants to validate that the system's backpressure and scale claims hold up against real infrastructure, rather than trusting the capacity model on paper. Which command is built for this, and how does it differ from the command that populates an explorable demo dataset?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-this-chapters-dockerfile-uses-a-non-root-user-exec-form-entrypoint-and-a-role-aware-healthcheck-together-what-single-operational-goal-do-all-three-mechanisms-serve-even-though-they-act-at-different-points-in-a-containers-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. This chapter's Dockerfile uses a non-root user, exec-form ENTRYPOINT, and a role-aware HEALTHCHECK together. What single operational goal do all three mechanisms serve, even though they act at different points in a container's lifecycle?
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../17-compose-makefile-supply-chain/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    17. Docker Compose, the Makefile, and the Image Supply Chain
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../18-config-migration-backup-rollout/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    18. Configuration, Migration, Backup, and Rollout
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../19-failure-modes-and-verification/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    19. Failure Modes and Verification
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../20-deviations-roadmap-open-questions/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    20. Spec Deviations, the Delivery Roadmap, and Open Questions
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../21-hardware-cost-dev-environment/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    21. Hardware Sizing, Cost, and the Development Environment
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../22-proving-the-architecture-mvp/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    22. Proving the Architecture - the MVP Plan
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../23-production-infrastructure-cloud/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    23. Production Infrastructure and Cloud Services
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../24-three-personas-and-admin-uis/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    24. Meet the Three Personas and the Admin UI Surface
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../25-district-admin-rosters-deployments/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    25. District Administrator - Rosters, Deployments, and Registries
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../26-district-admin-access-control/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    26. District Administrator - Access Control and System Configuration
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../27-compliance-and-district-reporting/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    27. Compliance, Privacy Law, and District-Level Reporting
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../28-teacher-dashboards-student-reports/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    28. Teacher Dashboards and Student-Level Reports
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../29-class-level-reports-and-tools/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    29. Class-Level Reports and Teacher Tools
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../30-author-dashboards-content-reports/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    30. Textbook Author Dashboards and Content Reports
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../31-designing-ab-experiments/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    31. Designing and Reading A/B Experiments
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../32-producer-contract-conformant-statements/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    32. The Producer Contract - Writing Conformant Statements
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../learning-graph/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Learning Graph
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../sims/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    MicroSims
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../specs/lrs-spec-v1/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../lrs-lite/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    LRS-Lite (Serverless)
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../demo/graph-queries/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Demo
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../case-studies/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Case Studies
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../glossary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Glossary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../license/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contact/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contact
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-is-the-one-image-many-roles-philosophy" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. What is the One Image Many Roles Philosophy?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-what-does-a-dockerfile-multi-stage-build-allow-a-later-stage-to-do" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. What does a Dockerfile Multi-Stage Build allow a later stage to do?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-what-does-the-runtime-build-stage-copy-forward-from-the-builder-build-stage-and-what-does-it-deliberately-leave-behind" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. What does the Runtime Build Stage copy forward from the Builder Build Stage, and what does it deliberately leave behind?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-what-does-the-non-root-container-user-setting-accomplish" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. What does the Non-Root Container User setting accomplish?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-a-dockerfile-declares-entrypoint-lrs-shell-form-no-square-brackets-instead-of-entrypoint-lrs-exec-form-during-a-rolling-restart-what-is-most-likely-to-go-wrong" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. A Dockerfile declares ENTRYPOINT lrs (shell form, no square brackets) instead of ENTRYPOINT ["lrs"] (exec form). During a rolling restart, what is most likely to go wrong?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-what-does-the-frozen-flag-do-when-the-builder-stage-runs-uv-sync-frozen-no-dev" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. What does the --frozen flag do when the Builder stage runs uv sync --frozen --no-dev?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-two-different-speedup-mechanisms-appear-in-the-builder-stage-copying-pyprojecttoml-and-uvlock-before-src-and-the-mounttypecache-cache-mount-why-are-these-two-mechanisms-not-redundant-with-each-other" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Two different speedup mechanisms appear in the Builder stage: copying pyproject.toml and uv.lock before src/, and the --mount=type=cache cache mount. Why are these two mechanisms not redundant with each other?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-why-does-the-healthcheck-directive-ask-are-you-actually-working-not-just-still-alive-rather-than-simply-checking-whether-the-process-is-still-running" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Why does the Healthcheck Directive ask "are you actually working, not just still alive?" rather than simply checking whether the process is still running?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-how-does-the-role-dispatcher-cli-decide-which-role-a-given-container-plays" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. How does the Role Dispatcher CLI decide which role a given container plays?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-a-team-is-standing-up-a-brand-new-deployment-and-needs-to-create-the-kafka-topics-apply-the-clickhouse-ddl-and-apply-the-neo4j-structural-constraints-before-any-other-role-can-safely-start-in-a-way-that-is-safe-to-accidentally-run-twice-which-command-should-they-run-and-why" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. A team is standing up a brand-new deployment and needs to create the Kafka topics, apply the ClickHouse DDL, and apply the Neo4j structural constraints before any other role can safely start, in a way that is safe to accidentally run twice. Which command should they run, and why?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-a-team-wants-to-validate-that-the-systems-backpressure-and-scale-claims-hold-up-against-real-infrastructure-rather-than-trusting-the-capacity-model-on-paper-which-command-is-built-for-this-and-how-does-it-differ-from-the-command-that-populates-an-explorable-demo-dataset" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. A team wants to validate that the system's backpressure and scale claims hold up against real infrastructure, rather than trusting the capacity model on paper. Which command is built for this, and how does it differ from the command that populates an explorable demo dataset?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-this-chapters-dockerfile-uses-a-non-root-user-exec-form-entrypoint-and-a-role-aware-healthcheck-together-what-single-operational-goal-do-all-three-mechanisms-serve-even-though-they-act-at-different-points-in-a-containers-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. This chapter's Dockerfile uses a non-root user, exec-form ENTRYPOINT, and a role-aware HEALTHCHECK together. What single operational goal do all three mechanisms serve, even though they act at different points in a container's lifecycle?
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/16-container-image-and-cli/quiz.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="quiz-the-container-image-and-the-role-dispatcher-cli">Quiz: The Container Image and the Role Dispatcher CLI<a class="headerlink" href="#quiz-the-container-image-and-the-role-dispatcher-cli" title="Permanent link">&para;</a></h1>
+<p>Test your understanding of this project's container image and Role Dispatcher CLI with these review questions.</p>
+<hr />
+<h4 id="1-what-is-the-one-image-many-roles-philosophy">1. What is the One Image Many Roles Philosophy?<a class="headerlink" href="#1-what-is-the-one-image-many-roles-philosophy" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Every LRS process runs from the same container image, with the specific role chosen by the command given to the container at startup, not by which image was built</li>
+<li>Every role gets its own separate container image, rebuilt independently as needed</li>
+<li>A single image contains twelve different entrypoint binaries, one per role</li>
+<li>The gateway and dashboards share one image, while every other role uses a separate one</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>A</strong>. One image is built and reused for every role, with the command supplied at startup deciding what a given container becomes. B and D each invent a multi-image scheme this philosophy specifically avoids. C mischaracterizes the mechanism as multiple binaries rather than one program dispatched by subcommand.</p>
+<p><strong>Concept Tested:</strong> One Image Many Roles Philosophy</p>
+<p><strong>See:</strong> <a href="../#one-image-many-roles">One Image, Many Roles</a></p>
+</details>
+<hr />
+<h4 id="2-what-does-a-dockerfile-multi-stage-build-allow-a-later-stage-to-do">2. What does a Dockerfile Multi-Stage Build allow a later stage to do?<a class="headerlink" href="#2-what-does-a-dockerfile-multi-stage-build-allow-a-later-stage-to-do" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>It automatically merges all stages into a single FROM line at build time</li>
+<li>It runs every stage simultaneously in parallel containers</li>
+<li>It skips the need for a Dockerfile entirely by inferring the build steps</li>
+<li>It selectively copies specific files out of an earlier stage without carrying along everything else that stage produced</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>D</strong>. A multi-stage build lets a later stage copy only specific files out of an earlier one, leaving compilers and intermediate build artifacts behind, which shrinks the final image. A, B, and C each invent a build behavior no Dockerfile mechanism actually provides.</p>
+<p><strong>Concept Tested:</strong> Dockerfile Multi-Stage Build</p>
+<p><strong>See:</strong> <a href="../#building-the-image-a-multi-stage-dockerfile">Building the Image: A Multi-Stage Dockerfile</a></p>
+</details>
+<hr />
+<h4 id="3-what-does-the-runtime-build-stage-copy-forward-from-the-builder-build-stage-and-what-does-it-deliberately-leave-behind">3. What does the Runtime Build Stage copy forward from the Builder Build Stage, and what does it deliberately leave behind?<a class="headerlink" href="#3-what-does-the-runtime-build-stage-copy-forward-from-the-builder-build-stage-and-what-does-it-deliberately-leave-behind" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>It copies forward the entire builder stage, including uv and the build cache, for debugging convenience</li>
+<li>It copies forward only the Dockerfile itself, rebuilding everything else from scratch</li>
+<li>It copies forward only the finished .venv and src/ tree; it leaves behind uv, the compiler, and every intermediate build file</li>
+<li>It copies forward the base stage's Python interpreter but not the lrs user account</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>C</strong>. The Runtime stage's narrow <code>COPY --from=builder</code> lines pull across only the populated virtual environment and application source, leaving <code>uv</code> and every build tool behind for a smaller image and attack surface. A contradicts the whole point of a narrow copy. B misdescribes the mechanism entirely. D is false — Runtime inherits the <code>lrs</code> account from the shared Base stage.</p>
+<p><strong>Concept Tested:</strong> Builder Build Stage / Runtime Build Stage</p>
+<p><strong>See:</strong> <a href="../#building-the-image-a-multi-stage-dockerfile">Building the Image: A Multi-Stage Dockerfile</a></p>
+</details>
+<hr />
+<h4 id="4-what-does-the-non-root-container-user-setting-accomplish">4. What does the Non-Root Container User setting accomplish?<a class="headerlink" href="#4-what-does-the-non-root-container-user-setting-accomplish" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>It prevents the container from being started by any user other than the image's original author</li>
+<li>It switches the running process to an unprivileged account before any application code executes, so a compromise of the application does not automatically hand an attacker the container's most powerful account</li>
+<li>It disables all network access for the running container</li>
+<li>It automatically encrypts every file the container writes to disk</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>B</strong>. Running as the unprivileged <code>lrs</code> account rather than root means an application vulnerability does not automatically become root-level access inside the container. A invents an unrelated authorship restriction. C and D each fabricate an unrelated security behavior this setting does not provide.</p>
+<p><strong>Concept Tested:</strong> Non-Root Container User</p>
+<p><strong>See:</strong> <a href="../#hardening-the-runtime-non-root-user-and-pid-1">Hardening the Runtime: Non-Root User and PID 1</a></p>
+</details>
+<hr />
+<h4 id="5-a-dockerfile-declares-entrypoint-lrs-shell-form-no-square-brackets-instead-of-entrypoint-lrs-exec-form-during-a-rolling-restart-what-is-most-likely-to-go-wrong">5. A Dockerfile declares <code>ENTRYPOINT lrs</code> (shell form, no square brackets) instead of <code>ENTRYPOINT ["lrs"]</code> (exec form). During a rolling restart, what is most likely to go wrong?<a class="headerlink" href="#5-a-dockerfile-declares-entrypoint-lrs-shell-form-no-square-brackets-instead-of-entrypoint-lrs-exec-form-during-a-rolling-restart-what-is-most-likely-to-go-wrong" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>The shell occupies PID 1 and typically does not forward SIGTERM to its child lrs process, so lrs may be killed by SIGKILL mid-operation instead of draining cleanly</li>
+<li>Nothing — shell form and exec form behave identically under SIGTERM</li>
+<li>The container fails to start at all, since shell form is not valid Dockerfile syntax</li>
+<li>The healthcheck directive stops running entirely</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>A</strong>. Shell form inserts a shell as PID 1, and Docker and Kubernetes send <code>SIGTERM</code> only to PID 1, so the shell typically absorbs the signal without forwarding it, leaving the real application to be killed by <code>SIGKILL</code> once the grace period expires. B is exactly the misconception this chapter warns against. C is false — shell form is valid syntax, just behaviorally different. D confuses an unrelated healthcheck mechanism with signal handling.</p>
+<p><strong>Concept Tested:</strong> PID 1 Signal Handling</p>
+<p><strong>See:</strong> <a href="../#hardening-the-runtime-non-root-user-and-pid-1">Hardening the Runtime: Non-Root User and PID 1</a></p>
+</details>
+<hr />
+<h4 id="6-what-does-the-frozen-flag-do-when-the-builder-stage-runs-uv-sync-frozen-no-dev">6. What does the <code>--frozen</code> flag do when the Builder stage runs <code>uv sync --frozen --no-dev</code>?<a class="headerlink" href="#6-what-does-the-frozen-flag-do-when-the-builder-stage-runs-uv-sync-frozen-no-dev" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>It freezes the container's filesystem so no further writes are possible</li>
+<li>It disables the Docker Build Cache Mount for that specific RUN instruction</li>
+<li>It excludes the lrs non-root user from being created during that build stage</li>
+<li>It installs precisely the versions recorded in uv.lock and fails loudly rather than silently re-resolving a different set if the lockfile and declared dependencies have drifted apart</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>D</strong>. <code>--frozen</code> makes the build reproducible by installing exactly the locked versions and failing loudly on drift, rather than silently re-resolving a different dependency set. A, B, and C each invent an unrelated build behavior this flag does not control.</p>
+<p><strong>Concept Tested:</strong> Frozen Lockfile</p>
+<p><strong>See:</strong> <a href="../#keeping-builds-fast-and-reproducible">Keeping Builds Fast and Reproducible</a></p>
+</details>
+<hr />
+<h4 id="7-two-different-speedup-mechanisms-appear-in-the-builder-stage-copying-pyprojecttoml-and-uvlock-before-src-and-the-mounttypecache-cache-mount-why-are-these-two-mechanisms-not-redundant-with-each-other">7. Two different speedup mechanisms appear in the Builder stage: copying pyproject.toml and uv.lock before src/, and the <code>--mount=type=cache</code> cache mount. Why are these two mechanisms not redundant with each other?<a class="headerlink" href="#7-two-different-speedup-mechanisms-appear-in-the-builder-stage-copying-pyprojecttoml-and-uvlock-before-src-and-the-mounttypecache-cache-mount-why-are-these-two-mechanisms-not-redundant-with-each-other" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Because the cache mount replaces the need for copying pyproject.toml and uv.lock at all</li>
+<li>Because layer ordering only affects the Runtime stage, while the cache mount only affects the Base stage</li>
+<li>Because copying dependency files first lets Docker skip the dependency-install layer entirely when only application code changes, while the cache mount only helps when that layer does rerun, by letting uv reuse already-downloaded packages instead of re-fetching them</li>
+<li>Because the two mechanisms solve the identical problem, and the Dockerfile only needs one of them to work correctly</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>C</strong>. Layer ordering lets Docker skip the dependency layer entirely when it is unnecessary, while the cache mount only helps on the occasions that layer actually reruns, by avoiding a re-download. A and D both wrongly claim the two mechanisms are interchangeable. B misattributes both mechanisms to the wrong Dockerfile stages.</p>
+<p><strong>Concept Tested:</strong> Docker Build Cache Mount</p>
+<p><strong>See:</strong> <a href="../#keeping-builds-fast-and-reproducible">Keeping Builds Fast and Reproducible</a></p>
+</details>
+<hr />
+<h4 id="8-why-does-the-healthcheck-directive-ask-are-you-actually-working-not-just-still-alive-rather-than-simply-checking-whether-the-process-is-still-running">8. Why does the Healthcheck Directive ask "are you actually working, not just still alive?" rather than simply checking whether the process is still running?<a class="headerlink" href="#8-why-does-the-healthcheck-directive-ask-are-you-actually-working-not-just-still-alive-rather-than-simply-checking-whether-the-process-is-still-running" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Because Docker cannot detect whether a process has crashed at all</li>
+<li>Because a process can be running without being able to do its job — for instance, a processor that silently lost its Kafka connection without crashing would pass a simple liveness check but still be unable to do useful work</li>
+<li>Because every role in this system shares the exact same health-check logic regardless of what it does</li>
+<li>Because a simple liveness check would use more CPU than a role-aware check</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>B</strong>. A process can remain running while unable to do useful work, such as a processor that silently lost its Kafka connection, so the healthcheck probes actual functionality rather than mere process existence. A is false — Docker can detect crashed processes without a custom healthcheck. C contradicts the chapter's explicit role-aware design. D is an unsupported performance claim.</p>
+<p><strong>Concept Tested:</strong> Healthcheck Directive</p>
+<p><strong>See:</strong> <a href="../#a-role-aware-healthcheck">A Role-Aware Healthcheck</a></p>
+</details>
+<hr />
+<h4 id="9-how-does-the-role-dispatcher-cli-decide-which-role-a-given-container-plays">9. How does the Role Dispatcher CLI decide which role a given container plays?<a class="headerlink" href="#9-how-does-the-role-dispatcher-cli-decide-which-role-a-given-container-plays" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>By reading a subcommand supplied after the program name at container startup — the same lrs Typer program, with the subcommand as the sole difference between containers</li>
+<li>By inspecting the container's hostname and matching it against a fixed role table</li>
+<li>By requiring a separate binary to be built and shipped per role</li>
+<li>By randomly assigning a role at each container restart for load balancing</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>A</strong>. <code>ENTRYPOINT ["lrs"]</code> means every container runs the same Typer program, and the subcommand supplied at startup is the sole difference between a gateway container and a dashboards container. B and D each invent a role-assignment mechanism the chapter never describes. C directly contradicts the one-image, one-program design.</p>
+<p><strong>Concept Tested:</strong> Role Dispatcher CLI</p>
+<p><strong>See:</strong> <a href="../#the-role-dispatcher-cli">The Role Dispatcher CLI</a></p>
+</details>
+<hr />
+<h4 id="10-a-team-is-standing-up-a-brand-new-deployment-and-needs-to-create-the-kafka-topics-apply-the-clickhouse-ddl-and-apply-the-neo4j-structural-constraints-before-any-other-role-can-safely-start-in-a-way-that-is-safe-to-accidentally-run-twice-which-command-should-they-run-and-why">10. A team is standing up a brand-new deployment and needs to create the Kafka topics, apply the ClickHouse DDL, and apply the Neo4j structural constraints before any other role can safely start, in a way that is safe to accidentally run twice. Which command should they run, and why?<a class="headerlink" href="#10-a-team-is-standing-up-a-brand-new-deployment-and-needs-to-create-the-kafka-topics-apply-the-clickhouse-ddl-and-apply-the-neo4j-structural-constraints-before-any-other-role-can-safely-start-in-a-way-that-is-safe-to-accidentally-run-twice-which-command-should-they-run-and-why" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>lrs seed --demo, because it populates an explorable dataset first</li>
+<li>lrs loadgen --rate 10000, because it validates the pipeline can handle production load</li>
+<li>lrs replay --rebuild-graph, because it resets the summarizer's watermark</li>
+<li>lrs bootstrap, because it is a run-once, idempotent setup command that creates exactly this infrastructure and causes no harm if run again against an already-bootstrapped stack</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>D</strong>. <code>lrs bootstrap</code> creates the Kafka topics, ClickHouse DDL, and Neo4j constraints a fresh deployment needs, and is explicitly idempotent, so running it twice causes no harm. A, B, and C each name a real command, but none creates this foundational infrastructure or is the tool built for this specific job.</p>
+<p><strong>Concept Tested:</strong> Bootstrap CLI Role</p>
+<p><strong>See:</strong> <a href="../#operational-commands-seed-loadgen-replay-and-healthcheck">Operational Commands: Seed, Loadgen, Replay, and Healthcheck</a></p>
+</details>
+<hr />
+<h4 id="11-a-team-wants-to-validate-that-the-systems-backpressure-and-scale-claims-hold-up-against-real-infrastructure-rather-than-trusting-the-capacity-model-on-paper-which-command-is-built-for-this-and-how-does-it-differ-from-the-command-that-populates-an-explorable-demo-dataset">11. A team wants to validate that the system's backpressure and scale claims hold up against real infrastructure, rather than trusting the capacity model on paper. Which command is built for this, and how does it differ from the command that populates an explorable demo dataset?<a class="headerlink" href="#11-a-team-wants-to-validate-that-the-systems-backpressure-and-scale-claims-hold-up-against-real-infrastructure-rather-than-trusting-the-capacity-model-on-paper-which-command-is-built-for-this-and-how-does-it-differ-from-the-command-that-populates-an-explorable-demo-dataset" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>lrs seed --demo generates load-test traffic, while lrs loadgen populates the demo dataset</li>
+<li>Both commands do the identical thing; --demo and --rate are interchangeable flags on the same underlying command</li>
+<li>lrs loadgen --rate 10000 generates a synthetic firehose of statements to test the pipeline under real load; lrs seed --demo instead loads a small, fixed dataset so a fresh stack has something visible on a dashboard</li>
+<li>lrs loadgen only works after lrs seed --showcase has already run once</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>C</strong>. <code>lrs loadgen</code> exists for validation, generating a synthetic firehose at a specified rate, while <code>lrs seed --demo</code> exists for demonstration, loading a small, fixed, explorable dataset. A reverses the two commands' actual purposes. B wrongly treats two distinct commands as interchangeable. D invents a dependency between the two commands that the chapter never states.</p>
+<p><strong>Concept Tested:</strong> Seed Demo Command / Loadgen Command</p>
+<p><strong>See:</strong> <a href="../#operational-commands-seed-loadgen-replay-and-healthcheck">Operational Commands: Seed, Loadgen, Replay, and Healthcheck</a></p>
+</details>
+<hr />
+<h4 id="12-this-chapters-dockerfile-uses-a-non-root-user-exec-form-entrypoint-and-a-role-aware-healthcheck-together-what-single-operational-goal-do-all-three-mechanisms-serve-even-though-they-act-at-different-points-in-a-containers-lifecycle">12. This chapter's Dockerfile uses a non-root user, exec-form ENTRYPOINT, and a role-aware HEALTHCHECK together. What single operational goal do all three mechanisms serve, even though they act at different points in a container's lifecycle?<a class="headerlink" href="#12-this-chapters-dockerfile-uses-a-non-root-user-exec-form-entrypoint-and-a-role-aware-healthcheck-together-what-single-operational-goal-do-all-three-mechanisms-serve-even-though-they-act-at-different-points-in-a-containers-lifecycle" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>They each independently reduce the container image's disk size, which happens to be their only shared effect</li>
+<li>They together make the running container safer and more honest to operate: a limited-privilege process that shuts down cleanly on request and reports its true working state rather than merely whether it is still alive</li>
+<li>They are required only for the gateway role; every other role can omit all three safely</li>
+<li>They exist purely to satisfy the xAPI Conformance Suite's container requirements</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>B</strong>. Together, a limited-privilege user, a signal-receiving PID 1, and a functionally honest healthcheck make the container safer to run and easier to trust operationally, even though each acts at a different moment in the container's life. A reduces their combined value to a coincidental side effect. C contradicts the chapter, which applies all three across every role built from this image. D invents a conformance-suite requirement unrelated to container hardening.</p>
+<p><strong>Concept Tested:</strong> Non-Root Container User / PID 1 Signal Handling / Healthcheck Directive (synthesis)</p>
+<p><strong>See:</strong> <a href="../#bringing-the-image-and-the-cli-together">Bringing the Image and the CLI Together</a></p>
+</details>
+<hr />
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Content">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Content
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../17-compose-makefile-supply-chain/" class="md-footer__link md-footer__link--next" aria-label="Next: Content">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Content
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Dan McCreary. Licensed under <a href="license/">CC BY-NC-SA 4.0</a> for non-commercial use.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../../js/katex.js"></script>
+      
+        <script src="../../../js/quiz-xapi.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

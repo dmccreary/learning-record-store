@@ -313,6 +313,12 @@
         
       
         
+      
+        
+          
+        
+      
+        
           
         
       
@@ -406,131 +412,67 @@
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
-        
       
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
         
       
     
@@ -576,6 +518,8 @@
       
         
           
+        
+      
         
       
         
@@ -4846,103 +4790,8 @@
     
       
         
-          
-        
       
         
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../../stories/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Stories
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
       
         
       
@@ -4974,6 +4823,51 @@
   
   <span class="md-ellipsis">
     Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../lrs-lite/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    LRS-Lite (Serverless)
   </span>
   
 
@@ -5223,15 +5117,15 @@
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>Learning objective: Let the learner evaluate the tradeoff between sync cadence, graph write rate, and graph lag in Change-Driven Materialization, and predict how each candidate cadence would behave during an ingestion burst.
 </span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>Purpose: Render the three sync-cadence scenarios from this section&#39;s prose as a grouped bar-and-line chart so the tradeoff is visible at a glance rather than read out of a table.
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>Purpose: Render the three sync-cadence scenarios from this section's prose as a grouped bar-and-line chart so the tradeoff is visible at a glance rather than read out of a table.
 </span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>Data: Three x-axis categories — &quot;5 s&quot;, &quot;60 s (default)&quot;, &quot;300 s&quot;. Bar series &quot;Graph upserts/sec&quot; (left y-axis, linear): 10000, 2500, 1000. Dashed line series &quot;Graph lag&quot; (right y-axis, labeled in seconds, log scale): 5, 60, 300.
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>Data: Three x-axis categories — "5 s", "60 s (default)", "300 s". Bar series "Graph upserts/sec" (left y-axis, linear): 10000, 2500, 1000. Dashed line series "Graph lag" (right y-axis, labeled in seconds, log scale): 5, 60, 300.
 </span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>Interactive features: Hovering any bar or line point shows a tooltip with that cadence&#39;s exact statements-coalesced and distinct-active-grain figures (e.g. &quot;60 s: ~600K statements coalesced into ~150K distinct active grains -&gt; ~2,500 upserts/sec&quot;). A toggle labeled &quot;Simulate 5x ingest burst&quot; recomputes the statement-count figures upward five-fold in the tooltip while holding the &quot;Graph upserts/sec&quot; bars nearly constant, demonstrating the insensitivity property described below the chart. The &quot;60 s (default)&quot; bar carries a highlight border.
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>Interactive features: Hovering any bar or line point shows a tooltip with that cadence's exact statements-coalesced and distinct-active-grain figures (e.g. "60 s: ~600K statements coalesced into ~150K distinct active grains -&gt; ~2,500 upserts/sec"). A toggle labeled "Simulate 5x ingest burst" recomputes the statement-count figures upward five-fold in the tooltip while holding the "Graph upserts/sec" bars nearly constant, demonstrating the insensitivity property described below the chart. The "60 s (default)" bar carries a highlight border.
 </span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>
-</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>Color scheme: Bars in the book&#39;s teal accent color, with the default-cadence bar in the darkest shade; the graph-lag line in a contrasting amber dashed stroke so the two series stay visually distinct on shared axes.
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>Color scheme: Bars in the book's teal accent color, with the default-cadence bar in the darkest shade; the graph-lag line in a contrasting amber dashed stroke so the two series stay visually distinct on shared axes.
 </span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
-</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>Responsive design: Chart canvas resizes to the width of its containing element on window resize, using Chart.js&#39;s built-in responsive option; the legend moves below the chart on narrow viewports.
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>Responsive design: Chart canvas resizes to the width of its containing element on window resize, using Chart.js's built-in responsive option; the legend moves below the chart on narrow viewports.
 </span></code></pre></div>
 <h2 id="related-resources">Related Resources<a class="headerlink" href="#related-resources" title="Permanent link">&para;</a></h2>
 <ul>

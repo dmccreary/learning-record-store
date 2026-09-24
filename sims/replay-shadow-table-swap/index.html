@@ -313,6 +313,12 @@
         
       
         
+      
+        
+          
+        
+      
+        
           
         
       
@@ -406,131 +412,67 @@
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
-        
       
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
         
       
     
@@ -576,6 +518,8 @@
       
         
           
+        
+      
         
       
         
@@ -4846,103 +4790,8 @@
     
       
         
-          
-        
       
         
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../../stories/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Stories
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
       
         
       
@@ -4974,6 +4823,51 @@
   
   <span class="md-ellipsis">
     Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../lrs-lite/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    LRS-Lite (Serverless)
   </span>
   
 
@@ -5220,17 +5114,17 @@
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>Bloom Taxonomy: Analyze (L4)
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>Bloom Taxonomy Verb: differentiate, trace
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>Learning objective: Let the learner trace the Replay Command&#39;s shadow-table-and-swap path side by side with the Rebuild Graph Command&#39;s watermark-reset path, and explain why the second needs no separate rebuild logic of its own.
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>Learning objective: Let the learner trace the Replay Command's shadow-table-and-swap path side by side with the Rebuild Graph Command's watermark-reset path, and explain why the second needs no separate rebuild logic of its own.
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
 </span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>Purpose: Show two parallel Mermaid flowchart lanes under one heading, so the learner reads across both paths and sees them diverge from a shared starting point.
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Left lane &quot;Replay Command: lrs replay --from T1 --to T2 --into &lt;table&gt;&quot;: &quot;Read immutable log for district + time window&quot; -&gt; &quot;Recompute projection, keyed by statement_id&quot; -&gt; &quot;Write into new shadow table (invisible to live queries)&quot; -&gt; &quot;Rebuild complete: atomic swap&quot; -&gt; &quot;Shadow table becomes the live table&quot;.
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Left lane "Replay Command: lrs replay --from T1 --to T2 --into &lt;table&gt;": "Read immutable log for district + time window" -&gt; "Recompute projection, keyed by statement_id" -&gt; "Write into new shadow table (invisible to live queries)" -&gt; "Rebuild complete: atomic swap" -&gt; "Shadow table becomes the live table".
 </span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Right lane &quot;Rebuild Graph Command: lrs replay --rebuild-graph&quot;: &quot;Reset summarizer watermark to zero&quot; -&gt; &quot;Ordinary 60-second sync loop runs as normal&quot; -&gt; &quot;Summarizer reads &#39;unsynced&#39; rollups (which is now all of them)&quot; -&gt; &quot;MERGE upserts every summary vertex, guarded by the Grain Uniqueness Constraint&quot; -&gt; &quot;Graph fully rebuilt with no dedicated rebuild code path&quot;.
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Right lane "Rebuild Graph Command: lrs replay --rebuild-graph": "Reset summarizer watermark to zero" -&gt; "Ordinary 60-second sync loop runs as normal" -&gt; "Summarizer reads 'unsynced' rollups (which is now all of them)" -&gt; "MERGE upserts every summary vertex, guarded by the Grain Uniqueness Constraint" -&gt; "Graph fully rebuilt with no dedicated rebuild code path".
 </span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Interactive features: Every node has a Mermaid click directive opening an infobox with a one-sentence explanation. A toggle labeled &quot;Highlight shared safety guarantee&quot; highlights the &quot;keyed by statement_id&quot; node in the left lane and the &quot;Grain Uniqueness Constraint&quot; node in the right lane simultaneously, with a connecting annotation: &quot;Both paths are safe to re-run because each relies on a different structural guarantee against duplication.&quot;
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Interactive features: Every node has a Mermaid click directive opening an infobox with a one-sentence explanation. A toggle labeled "Highlight shared safety guarantee" highlights the "keyed by statement_id" node in the left lane and the "Grain Uniqueness Constraint" node in the right lane simultaneously, with a connecting annotation: "Both paths are safe to re-run because each relies on a different structural guarantee against duplication."
 </span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
-</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>Color coding: Left lane in one tint of the book&#39;s teal accent color, right lane in a second tint, so the two paths stay visually distinct while clearly belonging to the same diagram; the shared safety-guarantee toggle highlight in amber.
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>Color coding: Left lane in one tint of the book's teal accent color, right lane in a second tint, so the two paths stay visually distinct while clearly belonging to the same diagram; the shared safety-guarantee toggle highlight in amber.
 </span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>
 </span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>Responsive design: The two lanes stack vertically on narrow viewports instead of side by side, each still reading top to bottom.
 </span></code></pre></div>

@@ -313,6 +313,12 @@
         
       
         
+      
+        
+          
+        
+      
+        
           
         
       
@@ -406,131 +412,67 @@
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
-        
       
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
         
       
     
@@ -576,6 +518,8 @@
       
         
           
+        
+      
         
       
         
@@ -4846,103 +4790,8 @@
     
       
         
-          
-        
       
         
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../../stories/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Stories
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
       
         
       
@@ -4974,6 +4823,51 @@
   
   <span class="md-ellipsis">
     Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../lrs-lite/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    LRS-Lite (Serverless)
   </span>
   
 
@@ -5222,19 +5116,19 @@
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>Learning objective: Operate the Provisional Reconcile Queue as a District Administrator would — reviewing a queued entry, choosing between one-click accept and manual mapping — and connect that screen-level action to the underlying promotion from provisional to reconciled that Chapter 8 already explained.
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>Purpose: A Mermaid flowchart showing the queue&#39;s decision path for a single provisional stub, starting where Chapter 8&#39;s ingestion mechanics leave off.
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>Purpose: A Mermaid flowchart showing the queue's decision path for a single provisional stub, starting where Chapter 8's ingestion mechanics leave off.
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Flow: &quot;Stub appears in Provisional Reconcile Queue (provisional: true)&quot; -&gt; &quot;Reconciliation Worker suggests a candidate match?&quot; -- branches into two paths.
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Flow: "Stub appears in Provisional Reconcile Queue (provisional: true)" -&gt; "Reconciliation Worker suggests a candidate match?" -- branches into two paths.
 </span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Path A (confident match found): &quot;Confident candidate shown&quot; -&gt; &quot;Administrator clicks &#39;Accept Auto-Match&#39;&quot; -&gt; &quot;Stub promoted to provisional: false; COVERS/EMBEDS/DEPENDS_ON back-filled.&quot;
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Path A (confident match found): "Confident candidate shown" -&gt; "Administrator clicks 'Accept Auto-Match'" -&gt; "Stub promoted to provisional: false; COVERS/EMBEDS/DEPENDS_ON back-filled."
 </span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Path B (no confident match): &quot;No confident candidate&quot; -&gt; &quot;Administrator opens Manual Mapping&quot; -&gt; &quot;Administrator selects the correct published Textbook/TextbookVersion/MicroSim/Concept&quot; -&gt; &quot;Stub promoted to provisional: false; COVERS/EMBEDS/DEPENDS_ON back-filled.&quot;
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Path B (no confident match): "No confident candidate" -&gt; "Administrator opens Manual Mapping" -&gt; "Administrator selects the correct published Textbook/TextbookVersion/MicroSim/Concept" -&gt; "Stub promoted to provisional: false; COVERS/EMBEDS/DEPENDS_ON back-filled."
 </span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
-</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>Both paths converge on: &quot;Entry removed from queue; historical statements about this stub become richly queryable retroactively.&quot;
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>Both paths converge on: "Entry removed from queue; historical statements about this stub become richly queryable retroactively."
 </span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>
-</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>Interactive features: Every node has a Mermaid `click` directive. Clicking the initial stub node opens an infobox linking back to Chapter 8&#39;s Accept-First Ingestion and Provisional Node definitions. Clicking either branch condition opens an infobox explaining what &quot;confident&quot; means (a match by git_sha, then IRI path, then title similarity, per Chapter 8). Clicking either promotion node opens an infobox naming the three relationship types being back-filled. Clicking the final convergence node opens an infobox restating the no-data-loss guarantee from Chapter 8&#39;s ingestion mechanics.
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>Interactive features: Every node has a Mermaid `click` directive. Clicking the initial stub node opens an infobox linking back to Chapter 8's Accept-First Ingestion and Provisional Node definitions. Clicking either branch condition opens an infobox explaining what "confident" means (a match by git_sha, then IRI path, then title similarity, per Chapter 8). Clicking either promotion node opens an infobox naming the three relationship types being back-filled. Clicking the final convergence node opens an infobox restating the no-data-loss guarantee from Chapter 8's ingestion mechanics.
 </span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>
-</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>Color coding: Path A (auto-match) in the book&#39;s teal accent color to signal the common, low-effort case; Path B (manual mapping) in amber to signal the less common case that needs administrator judgment; the shared convergence node in a neutral gray.
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>Color coding: Path A (auto-match) in the book's teal accent color to signal the common, low-effort case; Path B (manual mapping) in amber to signal the less common case that needs administrator judgment; the shared convergence node in a neutral gray.
 </span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>
 </span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>Responsive design: Flowchart reflows to a single vertical column on narrow viewports, keeping branch labels legible and click targets tap-sized.
 </span></code></pre></div>

@@ -313,6 +313,12 @@
         
       
         
+      
+        
+          
+        
+      
+        
           
         
       
@@ -406,131 +412,67 @@
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
-        
       
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
         
       
     
@@ -576,6 +518,8 @@
       
         
           
+        
+      
         
       
         
@@ -4846,103 +4790,8 @@
     
       
         
-          
-        
       
         
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../../stories/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Stories
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
       
         
       
@@ -4974,6 +4823,51 @@
   
   <span class="md-ellipsis">
     Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../lrs-lite/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    LRS-Lite (Serverless)
   </span>
   
 
@@ -5222,13 +5116,13 @@
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>Learning objective: Let the learner trace raw rows in lrs.statements through each of the three materialized views to the specific Neo4j summary vertex label each view feeds, and differentiate the aggregation grain of each path.
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>Purpose: Show a Mermaid flowchart with one source node fanning out into three parallel aggregation paths that reconverge conceptually at &quot;Summarizer&quot; before terminating in three distinct vertex labels.
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>Purpose: Show a Mermaid flowchart with one source node fanning out into three parallel aggregation paths that reconverge conceptually at "Summarizer" before terminating in three distinct vertex labels.
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Nodes: &quot;lrs.statements (one row per statement)&quot; fans out to three parallel nodes: &quot;mv_section_concept_daily (AggregatingMergeTree, grain: section+concept+day)&quot;, &quot;mv_student_concept_rollup (AggregatingMergeTree, grain: student+concept)&quot;, &quot;mv_student_page_rollup (AggregatingMergeTree, grain: student+page)&quot;. Each feeds into &quot;Summarizer reads changed rows via last_seen watermark&quot; which fans back out to three terminal nodes: &quot;SectionRollup vertex&quot;, &quot;ConceptMastery vertex&quot;, &quot;PageEngagement vertex&quot;.
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Nodes: "lrs.statements (one row per statement)" fans out to three parallel nodes: "mv_section_concept_daily (AggregatingMergeTree, grain: section+concept+day)", "mv_student_concept_rollup (AggregatingMergeTree, grain: student+concept)", "mv_student_page_rollup (AggregatingMergeTree, grain: student+page)". Each feeds into "Summarizer reads changed rows via last_seen watermark" which fans back out to three terminal nodes: "SectionRollup vertex", "ConceptMastery vertex", "PageEngagement vertex".
 </span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Interactive features: Every node has a Mermaid click directive opening an infobox with that view&#39;s ORDER BY key and the specific aggregate columns it computes. A toggle labeled &quot;Show grain size&quot; annotates each of the three paths with an approximate compression ratio (for example, &quot;~600K statements to ~150K grains&quot;) drawn from the chapter&#39;s own worked numbers.
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Interactive features: Every node has a Mermaid click directive opening an infobox with that view's ORDER BY key and the specific aggregate columns it computes. A toggle labeled "Show grain size" annotates each of the three paths with an approximate compression ratio (for example, "~600K statements to ~150K grains") drawn from the chapter's own worked numbers.
 </span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Color coding: The three parallel paths render in three distinguishable tints of the book&#39;s teal accent color so the learner can visually keep each path separate from source to terminal vertex; the shared &quot;lrs.statements&quot; source and &quot;Summarizer&quot; nodes render in neutral gray to mark them as convergence points.
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Color coding: The three parallel paths render in three distinguishable tints of the book's teal accent color so the learner can visually keep each path separate from source to terminal vertex; the shared "lrs.statements" source and "Summarizer" nodes render in neutral gray to mark them as convergence points.
 </span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
 </span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>Responsive design: The three parallel paths stack vertically rather than side-by-side on narrow viewports, each still reading left-to-right from source to vertex.
 </span></code></pre></div>

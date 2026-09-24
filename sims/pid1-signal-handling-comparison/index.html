@@ -313,6 +313,12 @@
         
       
         
+      
+        
+          
+        
+      
+        
           
         
       
@@ -406,131 +412,67 @@
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
+      
         
       
         
-          
-        
       
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
         
       
     
@@ -576,6 +518,8 @@
       
         
           
+        
+      
         
       
         
@@ -4846,103 +4790,8 @@
     
       
         
-          
-        
       
         
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-    
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../../stories/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Stories
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
       
         
       
@@ -4974,6 +4823,51 @@
   
   <span class="md-ellipsis">
     Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../lrs-lite/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    LRS-Lite (Serverless)
   </span>
   
 
@@ -5222,11 +5116,11 @@
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>Learning objective: Given a simulated SIGTERM, compare how the signal propagates under exec-form versus shell-form ENTRYPOINT, and predict whether in-flight work finishes cleanly or is killed.
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>Canvas layout: Two side-by-side process-tree panels, left &quot;Exec form: ENTRYPOINT [\&quot;lrs\&quot;]&quot; (one box, &quot;PID 1: lrs process&quot;), right &quot;Shell form: ENTRYPOINT lrs&quot; (two stacked boxes, &quot;PID 1: /bin/sh -c lrs&quot; above &quot;PID 2 (child): lrs process&quot;). A control strip above: &quot;Send SIGTERM&quot; button and a &quot;Grace period&quot; slider (1-10s, default 5). A countdown and status readout below each panel.
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>Canvas layout: Two side-by-side process-tree panels, left "Exec form: ENTRYPOINT [\"lrs\"]" (one box, "PID 1: lrs process"), right "Shell form: ENTRYPOINT lrs" (two stacked boxes, "PID 1: /bin/sh -c lrs" above "PID 2 (child): lrs process"). A control strip above: "Send SIGTERM" button and a "Grace period" slider (1-10s, default 5). A countdown and status readout below each panel.
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Visual elements: Before SIGTERM, both panels show calm teal boxes with a pulsing &quot;in-flight request&quot; icon. On click, a signal icon travels from a &quot;container runtime&quot; icon down to PID 1 in each panel. Left panel: signal reaches `lrs` directly; box turns amber (&quot;draining&quot;), the request completes and fades, box turns gray (&quot;exited&quot;) before the grace period ends. Right panel: signal reaches the shell, which turns amber, but no arrow continues to the child box, which stays teal (&quot;unaware&quot;) until the countdown hits zero, then turns red (&quot;SIGKILL -- work lost&quot;).
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Visual elements: Before SIGTERM, both panels show calm teal boxes with a pulsing "in-flight request" icon. On click, a signal icon travels from a "container runtime" icon down to PID 1 in each panel. Left panel: signal reaches `lrs` directly; box turns amber ("draining"), the request completes and fades, box turns gray ("exited") before the grace period ends. Right panel: signal reaches the shell, which turns amber, but no arrow continues to the child box, which stays teal ("unaware") until the countdown hits zero, then turns red ("SIGKILL -- work lost").
 </span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Interactive controls: &quot;Send SIGTERM&quot; button starts both panels&#39; animation together; &quot;Grace period&quot; slider adjusts the countdown; &quot;Reset&quot; restores the pre-signal state.
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Interactive controls: "Send SIGTERM" button starts both panels' animation together; "Grace period" slider adjusts the countdown; "Reset" restores the pre-signal state.
 </span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
 </span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Interactive features: Clicking either process box opens an infobox stating its PID, whether it received SIGTERM directly, and — for the child box — that Docker and Kubernetes send SIGTERM only to PID 1 by default.
 </span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>

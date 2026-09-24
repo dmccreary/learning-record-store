@@ -1,0 +1,3582 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Review questions on the Canonical Activity IRI, the three-verb set, fragment naming, object type mapping, the Start/Pause dwell pattern, producer-excluded fields, and the transport and field-to-column mapping rules.">
+      
+      
+        <meta name="author" content="Dan McCreary">
+      
+      
+        <link rel="canonical" href="https://dmccreary.github.io/learning-record-store/chapters/32-producer-contract-conformant-statements/quiz/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../../../learning-graph/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
+    
+    
+      
+        <title>Quiz: The Producer Contract - Writing Conformant Statements - Learning Record Store</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/extra.css">
+    
+      <link rel="stylesheet" href="../../../css/mascot.css">
+    
+      <link rel="stylesheet" href="../../../css/lrs-xapi.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#quiz-the-producer-contract-writing-conformant-statements" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Learning Record Store" class="md-header__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  <img src="../../../img/mascot/neutral.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Learning Record Store
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Quiz: The Producer Contract - Writing Conformant Statements
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Learning Record Store" class="md-nav__button md-logo" aria-label="Learning Record Store" data-md-component="logo">
+      
+  <img src="../../../img/mascot/neutral.png" alt="logo">
+
+    </a>
+    Learning Record Store
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/dmccreary/learning-record-store" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub Repo
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../course-description/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Course Description
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../stories/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Stories
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Chapters
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Chapters
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../01-lms-to-experience-api/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    1. From Learning Management Systems to the Experience API
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../02-anatomy-of-xapi-statement/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    2. The Anatomy of an xAPI Statement
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../03-ieee-standardization-xapi-cmi5/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    3. IEEE Standardization of xAPI and cmi5
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../04-standards-governance-ecosystem/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    4. Standards Governance and the Wider Interoperability Ecosystem
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../05-system-context-architectural-planes/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    5. System Context and the Five Architectural Planes
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../06-multi-tenancy-rosters-identity/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    6. Multi-Tenancy, Rosters, and Pseudonymous Identity
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../07-property-graph-data-model/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    7. The Property Graph Data Model
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../08-summary-vertices-ingestion/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    8. Summary Vertices and Statement Ingestion Mechanics
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../09-twelve-core-lrs-functions/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    9. The Twelve Core LRS Functions
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../10-choosing-technology-stack/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    10. Choosing the Technology Stack
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../11-adrs-and-capacity-model/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    11. Architecture Decision Records and the Capacity Model
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../12-bayesian-knowledge-tracing/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    12. Bayesian Knowledge Tracing for Mastery
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../13-component-design-in-depth/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    13. Component Design in Depth
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../14-kafka-clickhouse-graph-schema/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    14. Kafka Topics, ClickHouse Schema, and Graph Constraints
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../15-privacy-and-dashboard-mechanics/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    15. Privacy Enforcement and Dashboard Mechanics
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../16-container-image-and-cli/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    16. The Container Image and the Role Dispatcher CLI
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../17-compose-makefile-supply-chain/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    17. Docker Compose, the Makefile, and the Image Supply Chain
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../18-config-migration-backup-rollout/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    18. Configuration, Migration, Backup, and Rollout
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../19-failure-modes-and-verification/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    19. Failure Modes and Verification
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../20-deviations-roadmap-open-questions/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    20. Spec Deviations, the Delivery Roadmap, and Open Questions
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../21-hardware-cost-dev-environment/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    21. Hardware Sizing, Cost, and the Development Environment
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../22-proving-the-architecture-mvp/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    22. Proving the Architecture - the MVP Plan
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../23-production-infrastructure-cloud/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    23. Production Infrastructure and Cloud Services
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../24-three-personas-and-admin-uis/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    24. Meet the Three Personas and the Admin UI Surface
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../25-district-admin-rosters-deployments/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    25. District Administrator - Rosters, Deployments, and Registries
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../26-district-admin-access-control/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    26. District Administrator - Access Control and System Configuration
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../27-compliance-and-district-reporting/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    27. Compliance, Privacy Law, and District-Level Reporting
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../28-teacher-dashboards-student-reports/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    28. Teacher Dashboards and Student-Level Reports
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../29-class-level-reports-and-tools/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    29. Class-Level Reports and Teacher Tools
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../30-author-dashboards-content-reports/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    30. Textbook Author Dashboards and Content Reports
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../31-designing-ab-experiments/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    31. Designing and Reading A/B Experiments
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_33" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    32. The Producer Contract - Writing Conformant Statements
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5_33" id="__nav_5_33_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_33_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_33">
+            <span class="md-nav__icon md-icon"></span>
+            32. The Producer Contract - Writing Conformant Statements
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Quiz
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Quiz
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-does-the-trailing-slash-rule-require-and-why-does-it-matter" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. What does the Trailing Slash Rule require, and why does it matter?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-which-of-the-three-valid-verbs-must-carry-a-resultduration-field" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Which of the three valid verbs must carry a result.duration field?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-why-does-a-shuffled-quiz-need-the-randomized-order-naming-rule-instead-of-the-ordinal-question-iri-fragment-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Why does a shuffled quiz need the Randomized Order Naming Rule instead of the ordinal Question IRI Fragment form?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-why-does-the-contract-define-a-separate-control-object-type-rather-than-mapping-a-slider-or-button-to-microsim" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Why does the contract define a separate Control Object Type rather than mapping a slider or button to MicroSim?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-a-student-drags-a-slider-on-a-microsim-to-change-a-simulations-speed-according-to-the-three-verb-set-which-verb-should-the-producer-emit-and-what-result-field-is-required" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. A student drags a slider on a MicroSim to change a simulation's speed. According to the three-verb set, which verb should the producer emit, and what result field is required?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-a-textbooks-quiz-shuffles-its-five-questions-into-a-new-random-order-every-time-a-student-loads-the-page-according-to-the-fragment-naming-rules-how-should-the-producer-identify-the-question-about-mitochondria-across-different-loads" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. A textbook's quiz shuffles its five questions into a new random order every time a student loads the page. According to the fragment-naming rules, how should the producer identify "the question about mitochondria" across different loads?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-a-developer-testing-a-new-microsim-hardcodes-district_id-demo-district-42-directly-into-the-statement-body-to-speed-up-local-testing-planning-to-remove-it-before-shipping-why-does-this-violate-the-producer-contract-regardless-of-intent" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. A developer testing a new MicroSim hardcodes district_id: "demo-district-42" directly into the Statement body to speed up local testing, planning to remove it before shipping. Why does this violate the producer contract regardless of intent?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-why-does-the-start-pause-dwell-pattern-emit-nothing-when-a-microsim-is-started-waiting-instead-until-pause-to-emit-a-single-experienced-verb-statement" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Why does the Start Pause Dwell Pattern emit nothing when a MicroSim is started, waiting instead until Pause to emit a single Experienced Verb statement?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-why-is-the-textbook-version-grouping-iri-a-required-field-on-every-statement-given-that-objectid-already-uniquely-identifies-the-microsim-or-page-itself" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Why is the Textbook Version Grouping IRI a required field on every Statement, given that object.id already uniquely identifies the MicroSim or page itself?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-the-concept-extension-fields-key-is-singular-concept_id-but-the-destination-clickhouse-column-is-a-plural-array-concept_ids-why-doesnt-this-mismatch-cause-a-data-problem-and-what-real-limitation-does-it-reveal" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. The Concept Extension Field's key is singular (concept_id), but the destination ClickHouse column is a plural array (concept_ids). Why doesn't this mismatch cause a data problem, and what real limitation does it reveal?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-a-developer-argues-the-trailing-slash-on-objectid-is-just-a-style-preference-ill-skip-it-since-it-makes-the-urls-look-cleaner-without-one-evaluate-this-reasoning-against-what-this-chapter-establishes-about-the-trailing-slash-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. A developer argues, "the trailing slash on object.id is just a style preference — I'll skip it since it makes the URLs look cleaner without one." Evaluate this reasoning against what this chapter establishes about the Trailing Slash Rule.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-a-textbook-author-is-building-a-new-interactive-diagram-with-an-explore-mode-students-click-parts-to-inspect-them-and-a-quiz-mode-students-are-asked-to-find-a-specific-part-the-diagram-has-a-part-labeled-chloroplast-using-this-chapters-rules-construct-the-two-object-iris-and-their-object-types-this-diagram-should-emit-and-explain-why-they-must-be-two-distinct-objects-rather-than-one" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. A textbook author is building a new interactive diagram with an explore mode (students click parts to inspect them) and a quiz mode (students are asked to find a specific part). The diagram has a part labeled "chloroplast." Using this chapter's rules, construct the two object IRIs and their object types this diagram should emit, and explain why they must be two distinct objects rather than one.
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../learning-graph/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Learning Graph
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../sims/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    MicroSims
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../specs/lrs-spec-v1/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Specifications
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../lrs-lite/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    LRS-Lite (Serverless)
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../demo/graph-queries/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Demo
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../case-studies/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Case Studies
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../glossary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Glossary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../license/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contact/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contact
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-does-the-trailing-slash-rule-require-and-why-does-it-matter" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. What does the Trailing Slash Rule require, and why does it matter?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-which-of-the-three-valid-verbs-must-carry-a-resultduration-field" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Which of the three valid verbs must carry a result.duration field?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-why-does-a-shuffled-quiz-need-the-randomized-order-naming-rule-instead-of-the-ordinal-question-iri-fragment-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Why does a shuffled quiz need the Randomized Order Naming Rule instead of the ordinal Question IRI Fragment form?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-why-does-the-contract-define-a-separate-control-object-type-rather-than-mapping-a-slider-or-button-to-microsim" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Why does the contract define a separate Control Object Type rather than mapping a slider or button to MicroSim?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-a-student-drags-a-slider-on-a-microsim-to-change-a-simulations-speed-according-to-the-three-verb-set-which-verb-should-the-producer-emit-and-what-result-field-is-required" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. A student drags a slider on a MicroSim to change a simulation's speed. According to the three-verb set, which verb should the producer emit, and what result field is required?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-a-textbooks-quiz-shuffles-its-five-questions-into-a-new-random-order-every-time-a-student-loads-the-page-according-to-the-fragment-naming-rules-how-should-the-producer-identify-the-question-about-mitochondria-across-different-loads" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. A textbook's quiz shuffles its five questions into a new random order every time a student loads the page. According to the fragment-naming rules, how should the producer identify "the question about mitochondria" across different loads?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-a-developer-testing-a-new-microsim-hardcodes-district_id-demo-district-42-directly-into-the-statement-body-to-speed-up-local-testing-planning-to-remove-it-before-shipping-why-does-this-violate-the-producer-contract-regardless-of-intent" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. A developer testing a new MicroSim hardcodes district_id: "demo-district-42" directly into the Statement body to speed up local testing, planning to remove it before shipping. Why does this violate the producer contract regardless of intent?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-why-does-the-start-pause-dwell-pattern-emit-nothing-when-a-microsim-is-started-waiting-instead-until-pause-to-emit-a-single-experienced-verb-statement" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Why does the Start Pause Dwell Pattern emit nothing when a MicroSim is started, waiting instead until Pause to emit a single Experienced Verb statement?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-why-is-the-textbook-version-grouping-iri-a-required-field-on-every-statement-given-that-objectid-already-uniquely-identifies-the-microsim-or-page-itself" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Why is the Textbook Version Grouping IRI a required field on every Statement, given that object.id already uniquely identifies the MicroSim or page itself?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-the-concept-extension-fields-key-is-singular-concept_id-but-the-destination-clickhouse-column-is-a-plural-array-concept_ids-why-doesnt-this-mismatch-cause-a-data-problem-and-what-real-limitation-does-it-reveal" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. The Concept Extension Field's key is singular (concept_id), but the destination ClickHouse column is a plural array (concept_ids). Why doesn't this mismatch cause a data problem, and what real limitation does it reveal?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-a-developer-argues-the-trailing-slash-on-objectid-is-just-a-style-preference-ill-skip-it-since-it-makes-the-urls-look-cleaner-without-one-evaluate-this-reasoning-against-what-this-chapter-establishes-about-the-trailing-slash-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. A developer argues, "the trailing slash on object.id is just a style preference — I'll skip it since it makes the URLs look cleaner without one." Evaluate this reasoning against what this chapter establishes about the Trailing Slash Rule.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-a-textbook-author-is-building-a-new-interactive-diagram-with-an-explore-mode-students-click-parts-to-inspect-them-and-a-quiz-mode-students-are-asked-to-find-a-specific-part-the-diagram-has-a-part-labeled-chloroplast-using-this-chapters-rules-construct-the-two-object-iris-and-their-object-types-this-diagram-should-emit-and-explain-why-they-must-be-two-distinct-objects-rather-than-one" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. A textbook author is building a new interactive diagram with an explore mode (students click parts to inspect them) and a quiz mode (students are asked to find a specific part). The diagram has a part labeled "chloroplast." Using this chapter's rules, construct the two object IRIs and their object types this diagram should emit, and explain why they must be two distinct objects rather than one.
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/dmccreary/learning-record-store/blob/main/docs/chapters/32-producer-contract-conformant-statements/quiz.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="quiz-the-producer-contract-writing-conformant-statements">Quiz: The Producer Contract - Writing Conformant Statements<a class="headerlink" href="#quiz-the-producer-contract-writing-conformant-statements" title="Permanent link">&para;</a></h1>
+<p>Test your understanding of this project's producer contract for writing conformant xAPI statements with these review questions.</p>
+<hr />
+<h4 id="1-what-does-the-trailing-slash-rule-require-and-why-does-it-matter">1. What does the Trailing Slash Rule require, and why does it matter?<a class="headerlink" href="#1-what-does-the-trailing-slash-rule-require-and-why-does-it-matter" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>object.id for a page must always end in a trailing slash, because ClickHouse's ORDER BY treats a slash and no-slash version of the same URL as different strings, splitting one page's engagement into two rows</li>
+<li>Every Statement must include a trailing slash in its verb.id field</li>
+<li>The trailing slash indicates that a Statement has been voided</li>
+<li>The trailing slash is a stylistic convention with no effect on how statements are stored</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>A</strong>. Because ClickHouse orders rows by <code>object_id</code> among other fields, a page IRI with and without a trailing slash sorts as two different strings, silently splitting one page's engagement into two separate rows and a duplicate <code>PageEngagement</code> vertex. B misapplies the rule to an unrelated field. C confuses it with the voiding mechanism from an earlier chapter. D directly contradicts the real, measurable data consequence this chapter describes.</p>
+<p><strong>Concept Tested:</strong> Canonical Activity IRI / Trailing Slash Rule</p>
+<p><strong>See:</strong> <a href="../#naming-one-activity-for-a-lifetime">Naming One Activity for a Lifetime</a></p>
+</details>
+<hr />
+<h4 id="2-which-of-the-three-valid-verbs-must-carry-a-resultduration-field">2. Which of the three valid verbs must carry a result.duration field?<a class="headerlink" href="#2-which-of-the-three-valid-verbs-must-carry-a-resultduration-field" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>The Answered Verb</li>
+<li>The Interacted Verb</li>
+<li>All three verbs require result.duration equally</li>
+<li>The Experienced Verb</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>D</strong>. The Experienced Verb, emitted for page or MicroSim engagement, must carry <code>result.duration</code>. A instead requires <code>result.success</code> and, when scored, <code>result.score.scaled</code>. B requires no specific result field, since its value travels as a Context Extension. C is false — each verb has its own distinct requirement, not a shared one.</p>
+<p><strong>Concept Tested:</strong> Experienced Verb</p>
+<p><strong>See:</strong> <a href="../#exactly-three-verbs">Exactly Three Verbs</a></p>
+</details>
+<hr />
+<h4 id="3-why-does-a-shuffled-quiz-need-the-randomized-order-naming-rule-instead-of-the-ordinal-question-iri-fragment-form">3. Why does a shuffled quiz need the Randomized Order Naming Rule instead of the ordinal Question IRI Fragment form?<a class="headerlink" href="#3-why-does-a-shuffled-quiz-need-the-randomized-order-naming-rule-instead-of-the-ordinal-question-iri-fragment-form" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Because ordinal fragments are only valid for MicroSim controls, never for questions</li>
+<li>Because the Named Sub-Activity Fragment rule only applies to quizzes with fewer than five questions</li>
+<li>Because when question order changes on every load, the ordinal position stops being a stable identity — a reload, not even an edit, would change which question sits at position 3 — so the question must instead be named by a stable label</li>
+<li>Because a shuffled quiz cannot emit the Answered Verb at all</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>C</strong>. Once question order shuffles on every load, a position-based fragment no longer identifies the same question reliably, so a stable, named fragment is required instead. A misapplies ordinal fragments to controls, which use a different naming rule entirely. B invents an arbitrary question-count threshold. D is false — shuffled quizzes still emit the Answered Verb, just with a different fragment scheme.</p>
+<p><strong>Concept Tested:</strong> Randomized Order Naming Rule</p>
+<p><strong>See:</strong> <a href="../#fragments-questions-controls-and-the-shuffle-problem">Fragments: Questions, Controls, and the Shuffle Problem</a></p>
+</details>
+<hr />
+<h4 id="4-why-does-the-contract-define-a-separate-control-object-type-rather-than-mapping-a-slider-or-button-to-microsim">4. Why does the contract define a separate Control Object Type rather than mapping a slider or button to MicroSim?<a class="headerlink" href="#4-why-does-the-contract-define-a-separate-control-object-type-rather-than-mapping-a-slider-or-button-to-microsim" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Because Control Object Type only exists for backward compatibility with SCORM and carries no functional purpose</li>
+<li>Because a control's IRI is fragment-qualified, and typing it MicroSim would mint a separate PageEngagement vertex per control, the same kind of failure the Trailing Slash Rule guards against</li>
+<li>Because a control can never appear on the same page as a MicroSim</li>
+<li>Because MicroSim is reserved exclusively for graded content, and controls are never graded</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>B</strong>. Because a control's IRI carries a fragment, typing it MicroSim would fragment one page's engagement rollup into a separate vertex per control — the same structural failure the Trailing Slash Rule was designed to prevent. A invents an unfounded historical rationale. C is false — controls commonly live inside MicroSims. D invents an unrelated grading restriction that plays no role in this design choice.</p>
+<p><strong>Concept Tested:</strong> Control Object Type</p>
+<p><strong>See:</strong> <a href="../#what-kind-of-object-is-this">What Kind of Object Is This?</a></p>
+</details>
+<hr />
+<h4 id="5-a-student-drags-a-slider-on-a-microsim-to-change-a-simulations-speed-according-to-the-three-verb-set-which-verb-should-the-producer-emit-and-what-result-field-is-required">5. A student drags a slider on a MicroSim to change a simulation's speed. According to the three-verb set, which verb should the producer emit, and what result field is required?<a class="headerlink" href="#5-a-student-drags-a-slider-on-a-microsim-to-change-a-simulations-speed-according-to-the-three-verb-set-which-verb-should-the-producer-emit-and-what-result-field-is-required" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Experienced Verb, with a required result.duration</li>
+<li>Answered Verb, with a required result.success</li>
+<li>Completed Verb, with no result field required</li>
+<li>Interacted Verb, with no specific result field required — the value travels as a Context Extension instead</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>D</strong>. Manipulating a control matches the Interacted Verb exactly, which requires no specific <code>result</code> field, since the manipulated value travels as a Context Extension instead. A and B each apply a verb meant for a different kind of activity entirely. C names a verb this contract explicitly excludes as invalid.</p>
+<p><strong>Concept Tested:</strong> Interacted Verb</p>
+<p><strong>See:</strong> <a href="../#exactly-three-verbs">Exactly Three Verbs</a></p>
+</details>
+<hr />
+<h4 id="6-a-textbooks-quiz-shuffles-its-five-questions-into-a-new-random-order-every-time-a-student-loads-the-page-according-to-the-fragment-naming-rules-how-should-the-producer-identify-the-question-about-mitochondria-across-different-loads">6. A textbook's quiz shuffles its five questions into a new random order every time a student loads the page. According to the fragment-naming rules, how should the producer identify "the question about mitochondria" across different loads?<a class="headerlink" href="#6-a-textbooks-quiz-shuffles-its-five-questions-into-a-new-random-order-every-time-a-student-loads-the-page-according-to-the-fragment-naming-rules-how-should-the-producer-identify-the-question-about-mitochondria-across-different-loads" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Using its ordinal position each time, e.g., #q3, regardless of where it appears in the current shuffle</li>
+<li>Using a randomly generated UUID fragment that changes on every page load</li>
+<li>Using a stable, prefixed named fragment such as #q-mitochondria, so the same question is recognized as the same object no matter where it lands in the shuffle</li>
+<li>Using no fragment at all, relying on object.id alone to distinguish the five questions</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>C</strong>. A stable, prefixed named fragment keeps the same question recognized as the same object across every shuffled load, which is exactly what the Randomized Order Naming Rule requires. A would silently merge six different questions into position-keyed rows across loads. B would break the identity needed for a rollup to group correctly at all. D would leave all five questions indistinguishable from each other.</p>
+<p><strong>Concept Tested:</strong> Question IRI Fragment (randomized order)</p>
+<p><strong>See:</strong> <a href="../#fragments-questions-controls-and-the-shuffle-problem">Fragments: Questions, Controls, and the Shuffle Problem</a></p>
+</details>
+<hr />
+<h4 id="7-a-developer-testing-a-new-microsim-hardcodes-district_id-demo-district-42-directly-into-the-statement-body-to-speed-up-local-testing-planning-to-remove-it-before-shipping-why-does-this-violate-the-producer-contract-regardless-of-intent">7. A developer testing a new MicroSim hardcodes <code>district_id: "demo-district-42"</code> directly into the Statement body to speed up local testing, planning to remove it before shipping. Why does this violate the producer contract regardless of intent?<a class="headerlink" href="#7-a-developer-testing-a-new-microsim-hardcodes-district_id-demo-district-42-directly-into-the-statement-body-to-speed-up-local-testing-planning-to-remove-it-before-shipping-why-does-this-violate-the-producer-contract-regardless-of-intent" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Because district_id is a Producer Excluded Field, assigned only by the gateway from the caller's authentication token — a producer claiming any value for it, even temporarily, is exactly the tenancy claim the isolation model exists to prevent</li>
+<li>Because district_id does not exist as a field in the xAPI specification at all</li>
+<li>Because hardcoding any field is permitted as long as a comment explains it will be removed later</li>
+<li>Because district_id must always be supplied by the producer, and omitting it is the actual violation</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>A</strong>. <code>district_id</code> is one of the fields the Learning Record Store, not the producer, is the sole authority over, and even a temporary hardcoded value is exactly the kind of tenancy claim the isolation model is built to prevent. B is false — <code>district_id</code> is a real, meaningfully used field in this schema. C invents an exception the contract never grants. D reverses the actual rule entirely.</p>
+<p><strong>Concept Tested:</strong> District ID Server-Assigned (Producer Excluded Field)</p>
+<p><strong>See:</strong> <a href="../#what-a-producer-must-never-send">What a Producer Must Never Send</a></p>
+</details>
+<hr />
+<h4 id="8-why-does-the-start-pause-dwell-pattern-emit-nothing-when-a-microsim-is-started-waiting-instead-until-pause-to-emit-a-single-experienced-verb-statement">8. Why does the Start Pause Dwell Pattern emit nothing when a MicroSim is started, waiting instead until Pause to emit a single Experienced Verb statement?<a class="headerlink" href="#8-why-does-the-start-pause-dwell-pattern-emit-nothing-when-a-microsim-is-started-waiting-instead-until-pause-to-emit-a-single-experienced-verb-statement" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Because the Experienced Verb technically cannot be emitted at the moment a MicroSim starts, only when it stops</li>
+<li>Because emitting a statement at Start would violate the Canonical Activity IRI rule</li>
+<li>Because Start events are reserved exclusively for the Answered Verb</li>
+<li>Because a student who starts a simulation and walks away produces no evidence worth a row, and a "started" statement with no matching "paused" would be an unclosed interval nothing downstream can score — the closed interval itself is the evidence, avoiding an unreliable two-row join under at-least-once delivery</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>D</strong>. Waiting until Pause means the closed interval itself is the evidence, avoiding both an unscoreable unclosed interval from an abandoned session and an unreliable two-row join under at-least-once delivery. A invents a technical impossibility not described anywhere in the chapter. B misapplies an unrelated IRI-naming rule. C invents a verb restriction that has nothing to do with dwell timing.</p>
+<p><strong>Concept Tested:</strong> Start Pause Dwell Pattern</p>
+<p><strong>See:</strong> <a href="../#one-interval-one-statement-the-dwell-pattern">One Interval, One Statement: the Dwell Pattern</a></p>
+</details>
+<hr />
+<h4 id="9-why-is-the-textbook-version-grouping-iri-a-required-field-on-every-statement-given-that-objectid-already-uniquely-identifies-the-microsim-or-page-itself">9. Why is the Textbook Version Grouping IRI a required field on every Statement, given that object.id already uniquely identifies the MicroSim or page itself?<a class="headerlink" href="#9-why-is-the-textbook-version-grouping-iri-a-required-field-on-every-statement-given-that-objectid-already-uniquely-identifies-the-microsim-or-page-itself" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Because object.id and the Grouping IRI are actually required to be identical strings, so the Grouping IRI is just a redundant confirmation</li>
+<li>Because object.id names the activity itself, not which textbook and version a student was reading it through, and because a single MicroSim can be embedded by more than one textbook, a Statement that cannot be attributed to a specific textbook version cannot later be replayed against the content it described</li>
+<li>Because the Grouping IRI is only required for the Interacted Verb, never for the other two verbs</li>
+<li>Because ClickHouse cannot store a Statement at all without a Grouping IRI present, regardless of what the activity is</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>B</strong>. Because one MicroSim can be embedded across multiple textbooks, and <code>object.id</code> names only the activity itself, the Grouping IRI is the only field that ties a Statement back to a specific textbook version — essential for later replayability. A wrongly claims the two fields must match. C invents an unfounded per-verb restriction; the field is required across all three. D overstates a design requirement into an absolute storage-layer failure.</p>
+<p><strong>Concept Tested:</strong> Textbook Version Grouping IRI</p>
+<p><strong>See:</strong> <a href="../#tying-a-statement-to-a-textbook-version">Tying a Statement to a Textbook Version</a></p>
+</details>
+<hr />
+<h4 id="10-the-concept-extension-fields-key-is-singular-concept_id-but-the-destination-clickhouse-column-is-a-plural-array-concept_ids-why-doesnt-this-mismatch-cause-a-data-problem-and-what-real-limitation-does-it-reveal">10. The Concept Extension Field's key is singular (<code>concept_id</code>), but the destination ClickHouse column is a plural array (<code>concept_ids</code>). Why doesn't this mismatch cause a data problem, and what real limitation does it reveal?<a class="headerlink" href="#10-the-concept-extension-fields-key-is-singular-concept_id-but-the-destination-clickhouse-column-is-a-plural-array-concept_ids-why-doesnt-this-mismatch-cause-a-data-problem-and-what-real-limitation-does-it-reveal" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Because the mismatch is actually a bug that silently corrupts every Statement's concept_ids column</li>
+<li>Because concept_id and concept_ids refer to two completely unrelated pieces of data with no connection to each other</li>
+<li>Because the processor wraps the single extension value into a one-element array on the way into the plural column, which works correctly today but means a producer currently has no way to say that one page covers three concepts at once through this mechanism</li>
+<li>Because the singular/plural mismatch is resolved by the Concept Enrichment Path immediately, making the extension field obsolete</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>C</strong>. The processor safely wraps the single value into a one-element array, so no data corruption occurs — but this also reveals that a producer currently has no way to attribute one Statement to multiple concepts through this mechanism. A wrongly labels working, intentional behavior as a bug. B falsely denies the direct relationship between the two fields. D overstates the Concept Enrichment Path's status, which the chapter explicitly describes as deferred, not implemented.</p>
+<p><strong>Concept Tested:</strong> Concept Extension Field</p>
+<p><strong>See:</strong> <a href="../#attaching-a-concept-without-a-concept-graph">Attaching a Concept Without a Concept Graph</a></p>
+</details>
+<hr />
+<h4 id="11-a-developer-argues-the-trailing-slash-on-objectid-is-just-a-style-preference-ill-skip-it-since-it-makes-the-urls-look-cleaner-without-one-evaluate-this-reasoning-against-what-this-chapter-establishes-about-the-trailing-slash-rule">11. A developer argues, "the trailing slash on object.id is just a style preference — I'll skip it since it makes the URLs look cleaner without one." Evaluate this reasoning against what this chapter establishes about the Trailing Slash Rule.<a class="headerlink" href="#11-a-developer-argues-the-trailing-slash-on-objectid-is-just-a-style-preference-ill-skip-it-since-it-makes-the-urls-look-cleaner-without-one-evaluate-this-reasoning-against-what-this-chapter-establishes-about-the-trailing-slash-rule" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>The reasoning is sound, since trailing slashes are purely cosmetic and have no effect on how ClickHouse stores or queries data</li>
+<li>The reasoning is incorrect: ClickHouse's ORDER BY treats a slash and no-slash version of a URL as different strings, so dropping the slash silently splits one page's engagement into two separate rows and mints a duplicate PageEngagement vertex — a real data-integrity consequence, not a cosmetic one</li>
+<li>The reasoning is sound as long as the developer is consistent and never uses a trailing slash anywhere in the textbook</li>
+<li>The reasoning is irrelevant, since the gateway automatically adds a trailing slash to every object.id regardless of what a producer sends</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>B</strong>. Far from cosmetic, the trailing slash directly affects how ClickHouse orders and groups rows, so omitting it silently fragments one page's engagement data into two separate, never-merging records. A dismisses a real, measurable consequence as purely stylistic. C wrongly assumes internal consistency alone prevents the splitting problem, when it still occurs regardless. D invents an automatic-correction behavior the gateway does not perform.</p>
+<p><strong>Concept Tested:</strong> Trailing Slash Rule (evaluated)</p>
+<p><strong>See:</strong> <a href="../#naming-one-activity-for-a-lifetime">Naming One Activity for a Lifetime</a></p>
+</details>
+<hr />
+<h4 id="12-a-textbook-author-is-building-a-new-interactive-diagram-with-an-explore-mode-students-click-parts-to-inspect-them-and-a-quiz-mode-students-are-asked-to-find-a-specific-part-the-diagram-has-a-part-labeled-chloroplast-using-this-chapters-rules-construct-the-two-object-iris-and-their-object-types-this-diagram-should-emit-and-explain-why-they-must-be-two-distinct-objects-rather-than-one">12. A textbook author is building a new interactive diagram with an explore mode (students click parts to inspect them) and a quiz mode (students are asked to find a specific part). The diagram has a part labeled "chloroplast." Using this chapter's rules, construct the two object IRIs and their object types this diagram should emit, and explain why they must be two distinct objects rather than one.<a class="headerlink" href="#12-a-textbook-author-is-building-a-new-interactive-diagram-with-an-explore-mode-students-click-parts-to-inspect-them-and-a-quiz-mode-students-are-asked-to-find-a-specific-part-the-diagram-has-a-part-labeled-chloroplast-using-this-chapters-rules-construct-the-two-object-iris-and-their-object-types-this-diagram-should-emit-and-explain-why-they-must-be-two-distinct-objects-rather-than-one" title="Permanent link">&para;</a></h4>
+<div class="upper-alpha">
+<ol>
+<li>Emit a single IRI, #chloroplast, typed Control for both modes, since both interactions happen on the same visual pixel</li>
+<li>Emit #chloroplast typed Control for the explore-mode inspection (no result.success required) and #q-chloroplast typed Question for the quiz-mode challenge (requires result.success) — two distinct objects because inspecting and answering need different result fields to be honest, even though both concern the same labeled part</li>
+<li>Emit #q-chloroplast for both modes, since anything involving a quiz must always use the Question type</li>
+<li>Emit no fragment at all for either mode, relying on the page-level object.id alone to represent both interactions</li>
+</ol>
+</div>
+<details class="question">
+<summary>Show Answer</summary>
+<p>The correct answer is <strong>B</strong>. The chapter's own test for splitting an IRI is whether two acts need different <code>result</code> fields to be honest — inspecting has no <code>success</code> field, answering must have one — so the two modes are correctly modeled as two separate objects sharing the same underlying concept. A wrongly collapses two objects that need different result semantics into one. C wrongly forces the explore-mode inspection into the Question type it does not belong to. D would make the five (or more) parts on the diagram indistinguishable from each other.</p>
+<p><strong>Concept Tested:</strong> Object Definition Type Map / Control Object Type (design synthesis)</p>
+<p><strong>See:</strong> <a href="../#what-kind-of-object-is-this">What Kind of Object Is This?</a></p>
+</details>
+<hr />
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Content">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Content
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../../learning-graph/" class="md-footer__link md-footer__link--next" aria-label="Next: Introduction">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Introduction
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Dan McCreary. Licensed under <a href="license/">CC BY-NC-SA 4.0</a> for non-commercial use.
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "content.action.edit", "navigation.expand", "navigation.path", "navigation.prune", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../../js/katex.js"></script>
+      
+        <script src="../../../js/quiz-xapi.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>
