@@ -37,6 +37,7 @@ nav:
   - Course Description: course-description.md
   - Stories:
       - Introduction: stories/index.md
+      - LRS Graphic Novel Story Ideas (Claude): stories/story-ideas-claude.md
       - LRS Graphic Novel Story Ideas: stories/story-ideas-antigravity.md
       - LRS Feedback Story Ideas (ChatGPT): stories/story-ideas-chatgpt.md
       - The Red Node Before Monday: stories/the-red-node-before-monday/index.md
@@ -218,15 +219,6 @@ nav:
     - xAPI Endpoint and HTTP Verbs: sims/xapi-endpoint-http-verbs/index.md
     - xAPI Statement Building Blocks: sims/xapi-statement-triple/index.md
     - xAPI Vocabulary Matching Pairs: sims/xapi-vocabulary-matching-pairs/index.md
-
-  - Stories:
-      - Introduction: stories/index.md
-      - LRS Graphic Novel Stories Claude: stories/story-ideas-claude/index.md
-      - LRS Graphic Novel Story Ideas: stories/story-ideas-antigravity.md
-      - LRS Feedback Story Ideas (ChatGPT): stories/story-ideas-chatgpt.md
-      - The Red Node Before Monday: stories/the-red-node-before-monday/index.md
-      - The Simulation Everyone Escaped: stories/the-simulation-everyone-escaped/index.md
-      - Two Paths Through the Storm: stories/two-paths-through-the-storm/index.md
 
   - Specifications:
       - LRS Specification (v1): specs/lrs-spec-v1.md
