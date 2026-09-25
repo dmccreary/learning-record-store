@@ -305,6 +305,8 @@ nav:
       - MVP Plan: specs/mvp-plan.md
       - Security Audit Findings: specs/security-audit-findings.md
 
+  - LRS-Lite (Serverless):
+      - Analysis and Implementation Plan: lrs-lite/index.md
 
   - Demo:
       - Live Graph Demo: demo/graph-queries.md
