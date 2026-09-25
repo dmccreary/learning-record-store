@@ -78,4 +78,4 @@ After using this diagram, students will be able to:
 
 - [Experience API specification](https://github.com/adlnet/xAPI-Spec)
 - [Learning Locker documentation](https://learninglocker.atlassian.net/wiki/spaces/DOCS)
-- [Production LRS case-study report](../../case-studies/summary.md)
+- [Production LRS case-study report](../../case-studies/higher-ed-summary.md)
