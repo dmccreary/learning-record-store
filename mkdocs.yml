@@ -43,41 +43,115 @@ nav:
       - The Red Node Before Monday: stories/the-red-node-before-monday/index.md
       - The Simulation Everyone Escaped: stories/the-simulation-everyone-escaped/index.md
       - Two Paths Through the Storm: stories/two-paths-through-the-storm/index.md
+      - The School That Faded from the Map: stories/the-school-that-faded-from-the-map/index.md
+      - The Question with Two Right Answers: stories/the-question-with-two-right-answers/index.md
+      - The Case of the Missing Tuesday: stories/the-case-of-the-missing-tuesday/index.md
+      - A New Classroom, the Same Learning Journey: stories/a-new-classroom-the-same-learning-journey/index.md
+      - The Small Group Behind the Curtain: stories/the-small-group-behind-the-curtain/index.md
+      - Reading, Doing, and the Empty Middle: stories/reading-doing-and-the-empty-middle/index.md
+      - The Chapter with the Vanishing Ending: stories/the-chapter-with-the-vanishing-ending/index.md
+      - The Three Versions of Wednesday: stories/the-three-versions-of-wednesday/index.md
+      - The Evidence Council: stories/the-evidence-council/index.md
+      - "Shifting Gears: The Five Levels of AI in Learning": stories/shifting-gears/index.md
 
   - Chapters:
       - List of Chapters: chapters/index.md
-      - 1. From Learning Management Systems to the Experience API: chapters/01-lms-to-experience-api/index.md
-      - 2. The Anatomy of an xAPI Statement: chapters/02-anatomy-of-xapi-statement/index.md
-      - 3. IEEE Standardization of xAPI and cmi5: chapters/03-ieee-standardization-xapi-cmi5/index.md
-      - 4. Standards Governance and the Wider Interoperability Ecosystem: chapters/04-standards-governance-ecosystem/index.md
-      - 5. System Context and the Five Architectural Planes: chapters/05-system-context-architectural-planes/index.md
-      - 6. Multi-Tenancy, Rosters, and Pseudonymous Identity: chapters/06-multi-tenancy-rosters-identity/index.md
-      - 7. The Property Graph Data Model: chapters/07-property-graph-data-model/index.md
-      - 8. Summary Vertices and Statement Ingestion Mechanics: chapters/08-summary-vertices-ingestion/index.md
-      - 9. The Twelve Core LRS Functions: chapters/09-twelve-core-lrs-functions/index.md
-      - 10. Choosing the Technology Stack: chapters/10-choosing-technology-stack/index.md
-      - 11. Architecture Decision Records and the Capacity Model: chapters/11-adrs-and-capacity-model/index.md
-      - 12. Bayesian Knowledge Tracing for Mastery: chapters/12-bayesian-knowledge-tracing/index.md
-      - 13. Component Design in Depth: chapters/13-component-design-in-depth/index.md
-      - 14. Kafka Topics, ClickHouse Schema, and Graph Constraints: chapters/14-kafka-clickhouse-graph-schema/index.md
-      - 15. Privacy Enforcement and Dashboard Mechanics: chapters/15-privacy-and-dashboard-mechanics/index.md
-      - 16. The Container Image and the Role Dispatcher CLI: chapters/16-container-image-and-cli/index.md
-      - 17. Docker Compose, the Makefile, and the Image Supply Chain: chapters/17-compose-makefile-supply-chain/index.md
-      - 18. Configuration, Migration, Backup, and Rollout: chapters/18-config-migration-backup-rollout/index.md
-      - 19. Failure Modes and Verification: chapters/19-failure-modes-and-verification/index.md
-      - 20. Spec Deviations, the Delivery Roadmap, and Open Questions: chapters/20-deviations-roadmap-open-questions/index.md
-      - 21. Hardware Sizing, Cost, and the Development Environment: chapters/21-hardware-cost-dev-environment/index.md
-      - 22. Proving the Architecture - the MVP Plan: chapters/22-proving-the-architecture-mvp/index.md
-      - 23. Production Infrastructure and Cloud Services: chapters/23-production-infrastructure-cloud/index.md
-      - 24. Meet the Three Personas and the Admin UI Surface: chapters/24-three-personas-and-admin-uis/index.md
-      - 25. District Administrator - Rosters, Deployments, and Registries: chapters/25-district-admin-rosters-deployments/index.md
-      - 26. District Administrator - Access Control and System Configuration: chapters/26-district-admin-access-control/index.md
-      - 27. Compliance, Privacy Law, and District-Level Reporting: chapters/27-compliance-and-district-reporting/index.md
-      - 28. Teacher Dashboards and Student-Level Reports: chapters/28-teacher-dashboards-student-reports/index.md
-      - 29. Class-Level Reports and Teacher Tools: chapters/29-class-level-reports-and-tools/index.md
-      - 30. Textbook Author Dashboards and Content Reports: chapters/30-author-dashboards-content-reports/index.md
-      - 31. Designing and Reading A/B Experiments: chapters/31-designing-ab-experiments/index.md
-      - 32. The Producer Contract - Writing Conformant Statements: chapters/32-producer-contract-conformant-statements/index.md
+      - 1. From Learning Management Systems to the Experience API:
+          - Content: chapters/01-lms-to-experience-api/index.md
+          - Quiz: chapters/01-lms-to-experience-api/quiz.md
+      - 2. The Anatomy of an xAPI Statement:
+          - Content: chapters/02-anatomy-of-xapi-statement/index.md
+          - Quiz: chapters/02-anatomy-of-xapi-statement/quiz.md
+      - 3. IEEE Standardization of xAPI and cmi5:
+          - Content: chapters/03-ieee-standardization-xapi-cmi5/index.md
+          - Quiz: chapters/03-ieee-standardization-xapi-cmi5/quiz.md
+      - 4. Standards Governance and the Wider Interoperability Ecosystem:
+          - Content: chapters/04-standards-governance-ecosystem/index.md
+          - Quiz: chapters/04-standards-governance-ecosystem/quiz.md
+      - 5. System Context and the Five Architectural Planes:
+          - Content: chapters/05-system-context-architectural-planes/index.md
+          - Quiz: chapters/05-system-context-architectural-planes/quiz.md
+      - 6. Multi-Tenancy, Rosters, and Pseudonymous Identity:
+          - Content: chapters/06-multi-tenancy-rosters-identity/index.md
+          - Quiz: chapters/06-multi-tenancy-rosters-identity/quiz.md
+      - 7. The Property Graph Data Model:
+          - Content: chapters/07-property-graph-data-model/index.md
+          - Quiz: chapters/07-property-graph-data-model/quiz.md
+      - 8. Summary Vertices and Statement Ingestion Mechanics:
+          - Content: chapters/08-summary-vertices-ingestion/index.md
+          - Quiz: chapters/08-summary-vertices-ingestion/quiz.md
+      - 9. The Twelve Core LRS Functions:
+          - Content: chapters/09-twelve-core-lrs-functions/index.md
+          - Quiz: chapters/09-twelve-core-lrs-functions/quiz.md
+      - 10. Choosing the Technology Stack:
+          - Content: chapters/10-choosing-technology-stack/index.md
+          - Quiz: chapters/10-choosing-technology-stack/quiz.md
+      - 11. Architecture Decision Records and the Capacity Model:
+          - Content: chapters/11-adrs-and-capacity-model/index.md
+          - Quiz: chapters/11-adrs-and-capacity-model/quiz.md
+      - 12. Bayesian Knowledge Tracing for Mastery:
+          - Content: chapters/12-bayesian-knowledge-tracing/index.md
+          - Quiz: chapters/12-bayesian-knowledge-tracing/quiz.md
+      - 13. Component Design in Depth:
+          - Content: chapters/13-component-design-in-depth/index.md
+          - Quiz: chapters/13-component-design-in-depth/quiz.md
+      - 14. Kafka Topics, ClickHouse Schema, and Graph Constraints:
+          - Content: chapters/14-kafka-clickhouse-graph-schema/index.md
+          - Quiz: chapters/14-kafka-clickhouse-graph-schema/quiz.md
+      - 15. Privacy Enforcement and Dashboard Mechanics:
+          - Content: chapters/15-privacy-and-dashboard-mechanics/index.md
+          - Quiz: chapters/15-privacy-and-dashboard-mechanics/quiz.md
+      - 16. The Container Image and the Role Dispatcher CLI:
+          - Content: chapters/16-container-image-and-cli/index.md
+          - Quiz: chapters/16-container-image-and-cli/quiz.md
+      - 17. Docker Compose, the Makefile, and the Image Supply Chain:
+          - Content: chapters/17-compose-makefile-supply-chain/index.md
+          - Quiz: chapters/17-compose-makefile-supply-chain/quiz.md
+      - 18. Configuration, Migration, Backup, and Rollout:
+          - Content: chapters/18-config-migration-backup-rollout/index.md
+          - Quiz: chapters/18-config-migration-backup-rollout/quiz.md
+      - 19. Failure Modes and Verification:
+          - Content: chapters/19-failure-modes-and-verification/index.md
+          - Quiz: chapters/19-failure-modes-and-verification/quiz.md
+      - 20. Spec Deviations, the Delivery Roadmap, and Open Questions:
+          - Content: chapters/20-deviations-roadmap-open-questions/index.md
+          - Quiz: chapters/20-deviations-roadmap-open-questions/quiz.md
+      - 21. Hardware Sizing, Cost, and the Development Environment:
+          - Content: chapters/21-hardware-cost-dev-environment/index.md
+          - Quiz: chapters/21-hardware-cost-dev-environment/quiz.md
+      - 22. Proving the Architecture - the MVP Plan:
+          - Content: chapters/22-proving-the-architecture-mvp/index.md
+          - Quiz: chapters/22-proving-the-architecture-mvp/quiz.md
+      - 23. Production Infrastructure and Cloud Services:
+          - Content: chapters/23-production-infrastructure-cloud/index.md
+          - Quiz: chapters/23-production-infrastructure-cloud/quiz.md
+      - 24. Meet the Three Personas and the Admin UI Surface:
+          - Content: chapters/24-three-personas-and-admin-uis/index.md
+          - Quiz: chapters/24-three-personas-and-admin-uis/quiz.md
+      - 25. District Administrator - Rosters, Deployments, and Registries:
+          - Content: chapters/25-district-admin-rosters-deployments/index.md
+          - Quiz: chapters/25-district-admin-rosters-deployments/quiz.md
+      - 26. District Administrator - Access Control and System Configuration:
+          - Content: chapters/26-district-admin-access-control/index.md
+          - Quiz: chapters/26-district-admin-access-control/quiz.md
+      - 27. Compliance, Privacy Law, and District-Level Reporting:
+          - Content: chapters/27-compliance-and-district-reporting/index.md
+          - Quiz: chapters/27-compliance-and-district-reporting/quiz.md
+      - 28. Teacher Dashboards and Student-Level Reports:
+          - Content: chapters/28-teacher-dashboards-student-reports/index.md
+          - Quiz: chapters/28-teacher-dashboards-student-reports/quiz.md
+      - 29. Class-Level Reports and Teacher Tools:
+          - Content: chapters/29-class-level-reports-and-tools/index.md
+          - Quiz: chapters/29-class-level-reports-and-tools/quiz.md
+      - 30. Textbook Author Dashboards and Content Reports:
+          - Content: chapters/30-author-dashboards-content-reports/index.md
+          - Quiz: chapters/30-author-dashboards-content-reports/quiz.md
+      - 31. Designing and Reading A/B Experiments:
+          - Content: chapters/31-designing-ab-experiments/index.md
+          - Quiz: chapters/31-designing-ab-experiments/quiz.md
+      - 32. The Producer Contract - Writing Conformant Statements:
+          - Content: chapters/32-producer-contract-conformant-statements/index.md
+          - Quiz: chapters/32-producer-contract-conformant-statements/quiz.md
 
   - Learning Graph:
       - Introduction: learning-graph/index.md
@@ -87,6 +161,7 @@ nav:
       - Concept Taxonomy: learning-graph/concept-taxonomy.md
       - Graph Quality Analysis: learning-graph/quality-metrics.md
       - Taxonomy Distribution: learning-graph/taxonomy-distribution.md
+      - Quiz Generation Report: learning-graph/quiz-generation-report.md
 
   - MicroSims:
     - List of MicroSims: sims/index.md
@@ -224,10 +299,13 @@ nav:
       - LRS Specification (v1): specs/lrs-spec-v1.md
       - LRS Design & Deployment (v1): specs/lrs-design-v1.md
       - xAPI Producer Contract (v1): specs/xapi-producer-contract-v1.md
+      - LRS-Lite Design (v1): specs/learning-record-store-lite-design.md
       - Hardware Requirements & Cost Estimate: specs/hardware-requirements.md
       - Dev Environment Setup: specs/dev-environment-setup.md
       - MVP Plan: specs/mvp-plan.md
-  
+      - Security Audit Findings: specs/security-audit-findings.md
+
+
   - Demo:
       - Live Graph Demo: demo/graph-queries.md
 
@@ -336,6 +414,7 @@ exclude_docs: |
   **/image-prompts*.md
   **/cover-prompt.md
   **/TODO.md
+  specs/security-audit-prompt-for-fable.md
 
 # Rebuild on changes during `mkdocs serve`
 watch:

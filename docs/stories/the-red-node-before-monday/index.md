@@ -10,7 +10,7 @@ social:
 
 # The Red Node Before Monday
 
-<!-- ![The four-person team follows a prerequisite gap](./cover.png) -->
+![The four-person team follows a prerequisite gap](./cover.png)
 <details>
 <summary>Cover Image Prompt</summary>
 (This is the Cover Image. Do not include this label in the image.)
@@ -24,76 +24,93 @@ This fictional eight-panel story takes place at Cedar Grove Middle School in the
 
 ### Prologue – A Mark Is Not a Meaning
 
-By Friday afternoon, one red node seemed to know more about Leila than Leila knew
-about herself. It did not. The mark recorded a pattern in recent answers; only people
-could discover the story behind it. One event at a time, the team followed the clue
-backward before deciding what should happen next.
+Learning graphs use the color of a node to show concept mastery. Green means a
+student has mastered a concept; red means the evidence says they have not — at least
+not yet. Leila Brooks is a 13-year-old science student taking an Ecology course
+built on a Level 3 interactive intelligent textbook, one that records learning
+events and adapts to each learner's progress.
+
+One Friday afternoon, a red node on the learning graph *seemed* to know more about
+Leila than Leila knew about herself. It did not. The red mark recorded only a
+pattern in her recent answers — ecosystem quiz questions that kept coming back
+wrong. A mark like that is a clue, not a label, and only people could discover the
+story behind it. One event at a time, the team followed the clue backward before
+deciding what should happen next.
 
 ## Panel 1: Friday's Last Question
 
-<!-- ![Leila studies beside the red Ecosystems node](./panel-01.png) -->
+![Leila studies beside the red Ecosystems node](./panel-01.png)
 <details><summary>Image Prompt</summary>
 (This is Panel 01. Do not include the panel number in the image.)
 Generate a wide-landscape 16:9 image in the warm contemporary educational-comic style, depicting panel 1 of 8 in Room 214 at Cedar Grove Middle School at 3:35 p.m. on a Friday in early October. Show Leila Brooks, a 13-year-old Black American girl with a slender age-appropriate build, rich dark-brown skin, heart-shaped full-cheeked face, broad nose, large dark-brown eyes, shoulder-length center-parted two-strand twists held by two symmetrical matte amber barrettes, teal zip hoodie over a cream polo, navy trousers, cinnamon high-tops, and amber left-wrist band. She sits at a lab table with tired but determined eyes, one hand on an amber science notebook containing a food web and the other beside a tablet showing a single amber-red node labeled Ecosystems. Rowan, a small rounded cinnamon-and-cream red panda with round teal glasses, teal neckerchief, ringed tail, and a connected-dots satchel, sits at desk height and looks thoughtfully at the record. Include a sharpened pencil, three crossed-out ecosystem answers, a backpack with a cream lightning-bolt patch, empty stools, long amber window shadows, and a wall clock just after 3:35. Palette: navy, teal, cream, cinnamon, amber, and one restrained red clue. Emotional tone: fatigue with dignity and unresolved curiosity, not failure. No brands or logos. Generate the image immediately without asking clarifying questions.
 </details>
 
-Leila had studied every night, yet the ecosystem questions kept turning red. “I know
-the vocabulary,” she said, tapping her food web. Rowan did not explain the mark away.
-He looked from the answer history to Leila and asked, “What does the evidence show?”
+Rowan is the textbook's red-panda learning guide, helping people follow evidence
+without deciding for them. Leila had studied every night, yet the ecosystem questions
+kept turning red. “I know the vocabulary,” she said, tapping her food web. Rowan did
+not explain the mark away. He looked from the answer history to Leila and asked,
+“What does the evidence show?”
 
 ## Panel 2: The Pattern Is Larger
 
-<!-- ![Maya and Leila examine the class heatmap](./panel-02.png) -->
+![Maya and Leila examine the class heatmap](./panel-02.png)
 <details><summary>Image Prompt</summary>
 (This is Panel 02. Do not include the panel number in the image.)
 Generate a wide-landscape 16:9 image in the same warm educational-comic style, depicting panel 2 of 8 in Room 214 at 3:42 p.m. Show Ms. Maya Chen, a 35-year-old Chinese American woman with a compact athletic build, light warm-beige skin, softly square face, rounded cheeks, a small beauty mark below her left eye, dark-brown almond eyes, and blue-black hair in a low center-parted ponytail with two face-framing strands; she wears a deep-teal cardigan with pushed-up sleeves, pale-blue button-front shirt, charcoal ankle trousers, white sneakers, amber atom pin, and dark-teal school lanyard. Maya sits at Leila's eye level and turns a wall-mounted heatmap toward her. Leila retains her exact twists, amber barrettes, teal hoodie, cream polo, navy trousers, cinnamon high-tops, and amber wristband. The heatmap shows several anonymous amber squares in the Ecosystems column, while names and scores remain blurred except on Maya's authorized view. Include Maya's black marker behind her right ear, Leila's amber notebook, Rowan tracing a line across three amber squares, labeled class columns, a privacy shield icon, autumn light, and two empty lab stools. Palette: teal, navy, cream, amber, cinnamon. Emotional tone: concern becoming a shared investigation. No brands. Generate the image immediately without asking clarifying questions.
 </details>
 
-Maya checked the class view and found that Leila was not alone. Several students who
-participated well in discussion stumbled on the same kind of question. “That makes
-this a pattern worth investigating,” Maya said, “not a verdict about any one person.”
+Ms. Maya Chen is the teacher of Leila's Ecology class. Maya opened her
+roster-authorized class view on the school dashboard and found that Leila was not
+alone. Several students who participated well in discussion stumbled on the same
+kind of question. “That makes this a pattern worth investigating,” Maya said, “not a
+verdict about any one person.”
 
 ## Panel 3: Follow the Arrow Upstream
 
-<!-- ![The concept graph reveals Energy Transfer](./panel-03.png) -->
+![The concept graph reveals Energy Transfer](./panel-03.png)
 <details><summary>Image Prompt</summary>
 (This is Panel 03. Do not include the panel number in the image.)
 Generate a wide-landscape 16:9 image in the same warm educational-comic style, depicting panel 3 of 8 in Room 214 at 3:48 p.m. Maya Chen retains her low ponytail, left-eye beauty mark, teal rolled-sleeve cardigan, pale-blue shirt, amber atom pin, charcoal trousers, and teal lanyard. Leila Brooks retains her shoulder-length twists, two amber barrettes, teal hoodie over cream polo, amber left-wrist band, and amber notebook. They stand beside a large navy concept graph: Ecosystems is amber-red at the right, arrows lead left through Food Webs to Energy Transfer, and Energy Transfer glows amber-red while earlier prerequisites remain teal. Rowan, the small cinnamon-and-cream red panda with round teal glasses, teal neckerchief, ringed tail, and satchel, uses one paw to trace the arrow backward without touching any private student record. Include exactly five legible concept nodes, thin gold dependency arrows, a magnified upstream path, Maya's open palm, Leila leaning forward, a small legend reading “teal: secure / amber: review,” and late-afternoon light. Emotional tone: the instant a hidden relationship becomes visible. Generate the image immediately without asking clarifying questions.
 </details>
 
-Maya followed the dependency arrows upstream. The first shared weakness was not
-ecosystems at all; it was energy transfer, a concept the book had treated as settled.
-Leila pointed to her food web. “That is where I lose track of what moves where.”
+Maya brought up the learning graph for the course. Starting at the red Ecosystems
+node, she followed the dependency arrows upstream. The first shared weakness was not
+ecosystems at all; it was **energy transfer** — a prerequisite concept the book had
+treated as settled. Leila pointed to her food web. “That is where I lose track of
+what moves where.”
 
 ## Panel 4: A District Clue, Not a Student File
 
-<!-- ![Elena examines a de-identified district rollup](./panel-04.png) -->
+![Elena examines a de-identified district rollup](./panel-04.png)
 <details><summary>Image Prompt</summary>
 (This is Panel 04. Do not include the panel number in the image.)
 Generate a wide-landscape 16:9 image in the same warm educational-comic style, depicting panel 4 of 8 in a district review room at 4:00 p.m. Show Dr. Elena Ruiz, a 47-year-old Mexican American woman of medium build with warm medium-brown skin, oval high-cheekboned face, dark-brown eyes behind thin rectangular deep-teal glasses, and a collarbone-length wavy espresso bob with a side part and one narrow silver streak at her right temple; she wears a navy blazer over a cream collarless blouse, charcoal trousers, hammered-gold circular studs, and an amber watch on her left wrist. Elena studies a large de-identified district chart showing four school icons and an amber Energy Transfer band across three schools, with no names or student rows. Rowan stands desk-high beside the screen in his cinnamon-and-cream fur, round teal glasses, teal neckerchief, ringed tail, and connected-dots satchel, holding one sealed evidence card rather than exposing it. Include Elena's navy folio, an aggregation-threshold badge, blurred section counts, a small privacy lock, a map of four schools, a timestamp after 4:00, and warm overhead light. Emotional tone: careful recognition and responsibility, never command or surveillance. Generate the image immediately without asking clarifying questions.
 </details>
 
-Elena looked only at a de-identified district rollup. The same prerequisite gap
-appeared across several schools using the same chapter version. She did not open
-Leila's record; she did not need to. The aggregate evidence was enough to ask whether
+Dr. Elena Ruiz is the school district's learning director. Her role gives her a
+district-wide view of how students are progressing in the Ecology course — but only
+in de-identified aggregate. In that rollup, the same prerequisite gap appeared
+across several schools using the same chapter version. She did not open Leila's
+record; she did not need to. The aggregate evidence was enough to ask whether
 teachers and materials needed support.
 
 ## Panel 5: Build the Missing Bridge
 
-<!-- ![Noah designs a short energy-transfer bridge activity](./panel-05.png) -->
+![Noah designs a short energy-transfer bridge activity](./panel-05.png)
 <details><summary>Image Prompt</summary>
 (This is Panel 05. Do not include the panel number in the image.)
 Generate a wide-landscape 16:9 image in the same warm educational-comic style, depicting panel 5 of 8 in a small design studio at 4:08 p.m. Show Noah Okafor, a tall lean 31-year-old Nigerian American man with deep umber-brown skin, a long oval face, broad nose, high forehead, dark-brown eyes behind round translucent amber glasses, a very short boxed beard and mustache, and dense black hair in a neat flat-topped coil cut with faded sides; he wears an open cinnamon overshirt over a cream crew-neck shirt, dark indigo trousers, teal canvas shoes, and a narrow deep-teal bracelet on his right wrist, drawing with a black stylus in his left hand. His tablet shows a three-step bridge activity: sunlight card, plant card, and animal card connected by movable gold arrows. Include Maya's de-identified note on a side panel, no student names, a thumbnail of the red upstream node, three paper prototypes, a mug without a logo, a charcoal laptop sleeve, Rowan offering a blank evidence card from his satchel, and a desk lamp casting warm amber light. Emotional tone: accountable concentration and constructive urgency. Generate the image immediately without asking clarifying questions.
 </details>
 
+Noah Okafor designs the interactive intelligent textbook used in the Ecology course.
 Noah compared the textbook sequence with Maya's note. The chapter had named energy
-transfer, but it had not asked learners to practice tracing it. He built a five-minute
-bridge activity that made each transfer visible, then sent Maya a preview instead of
-pretending the first design had been complete.
+transfer, but it had never asked learners to practice tracing it. He built a
+five-minute bridge activity that made each transfer visible, then sent Maya a
+preview instead of pretending the first design had been complete.
 
 ## Panel 6: One Arrow at a Time
 
-<!-- ![Students practice tracing energy through a food web](./panel-06.png) -->
+![Students practice tracing energy through a food web](./panel-06.png)
 <details><summary>Image Prompt</summary>
 (This is Panel 06. Do not include the panel number in the image.)
 Generate a wide-landscape 16:9 image in the same warm educational-comic style, depicting panel 6 of 8 in Room 214 on Monday morning at 9:10 a.m. Maya Chen retains her low center-parted ponytail, left-eye beauty mark, teal cardigan with rolled sleeves, pale-blue shirt, amber atom pin, charcoal trousers, white sneakers, and teal lanyard; she crouches at student eye level with open hands. Leila Brooks retains her shoulder-length twists, symmetrical amber barrettes, teal hoodie, cream polo, navy trousers, cinnamon high-tops, and amber left-wrist band; she actively drags one gold energy arrow from sunlight to grass on a tablet. Show four diverse unnamed classmates around the lab table, each with a distinct stable accessory, and Rowan at desk height in round teal glasses, teal neckerchief, cinnamon-and-cream fur, ringed tail, and satchel. Include physical sunlight, grass, rabbit, and hawk cards; gold yarn arrows; Leila's amber notebook; a wall concept node changing from amber to half-teal; bright morning light; and no scores. Emotional tone: low-pressure practice and growing clarity. Generate the image immediately without asking clarifying questions.
@@ -105,7 +122,7 @@ energy is moving,” she said. “The animal is not making it from nothing.”
 
 ## Panel 7: The Next Records
 
-<!-- ![Energy Transfer turns teal before Ecosystems](./panel-07.png) -->
+![Energy Transfer turns teal before Ecosystems](./panel-07.png)
 <details><summary>Image Prompt</summary>
 (This is Panel 07. Do not include the panel number in the image.)
 Generate a wide-landscape 16:9 image in the same warm educational-comic style, depicting panel 7 of 8 in Room 214 later Monday at 11:45 a.m. Leila retains her exact twists, amber barrettes, teal hoodie, cream polo, navy trousers, cinnamon high-tops, amber wristband, and amber notebook; she sits forward with focused confidence and a small tooth-gap smile. Maya retains her low ponytail, teal cardigan, pale-blue shirt, atom pin, charcoal trousers, and lanyard, watching from beside rather than over Leila's shoulder. A wall graph clearly shows Energy Transfer now teal while Ecosystems is amber and improving, with a short timeline of three new evidence cards. Rowan, the desk-high cinnamon-and-cream red panda with teal glasses, neckerchief, ringed tail, and satchel, connects the new cards with a glowing gold thread. Include Leila's correct annotated food web, a green-teal check on the bridge activity, no rank or reward badge, the same Room 214 windows, three classmates working independently, and soft midday light. Emotional tone: earned progress without a magical instant cure. Generate the image immediately without asking clarifying questions.
@@ -117,7 +134,7 @@ team's hypothesis—and because Leila could explain the science in her own words
 
 ## Panel 8: Four Views, One Decision
 
-<!-- ![The team reviews what changed and what to check next](./panel-08.png) -->
+![The team reviews what changed and what to check next](./panel-08.png)
 <details><summary>Image Prompt</summary>
 (This is Panel 08. Do not include the panel number in the image.)
 Generate a wide-landscape 16:9 image in the same warm educational-comic style, depicting panel 8 of 8 in Room 214 after school on Monday. Leila appears with her rich dark-brown skin, heart-shaped face, shoulder-length twists, two amber barrettes, teal hoodie, cream polo, navy trousers, cinnamon high-tops, amber wristband, and open amber notebook. Maya appears with her light warm-beige skin, left-eye beauty mark, low blue-black ponytail, rolled teal cardigan, pale-blue shirt, amber atom pin, charcoal trousers, and lanyard. Noah appears on a large video tile with deep umber-brown skin, flat-topped coils, close beard, round amber glasses, cinnamon overshirt, cream shirt, and left-hand stylus. Elena appears on a second tile with warm medium-brown skin, rectangular teal glasses, wavy espresso bob with right-temple silver streak, navy blazer, cream blouse, gold studs, and amber watch. Rowan stands between the screen and table with cinnamon-and-cream fur, teal glasses and neckerchief, ringed tail, and satchel. Include four aligned evidence views—student explanation, class heatmap, content revision, district rollup—plus a teal Energy Transfer node, improving amber Ecosystems node, Elena's coaching calendar, Noah's bridge-version card, and the exact handwritten words “check again Friday” in Leila's notebook. Emotional tone: shared accountability and cautious celebration. Generate the image immediately without asking clarifying questions.

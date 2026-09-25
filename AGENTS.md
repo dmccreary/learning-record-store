@@ -21,6 +21,17 @@ glossary, sims under `docs/sims/`):
 - `book-media-generator`, `book-publisher`, `book-installer` for slides/images/audio,
   publishing, and site features (GA4, mascot, kanban, …)
 
+### Standalone story introductions
+
+Every story under `docs/stories/*/index.md` must work for a reader who has not read the
+story-ideas page, a character sheet, or any earlier story. Before a named character's
+first mention in narrative prose, introduce the character with their full name and a
+short, plain-language sentence explaining their role or relationship to the story.
+Repeat the introduction in every standalone story, including for recurring characters.
+Titles, frontmatter, image prompts, captions, and prior stories do not count as an
+introduction. If Rowan appears by name in the narrative, introduce him as the
+textbook's red-panda learning guide before that first narrative mention.
+
 **LRS backend** (`src/lrs/`, `tests/`, `dashboards/`, specs in `docs/specs/`):
 
 - `engineering:code-review`, `engineering:testing-strategy`, `engineering:debug`,

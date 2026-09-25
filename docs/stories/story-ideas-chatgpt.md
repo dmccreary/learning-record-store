@@ -201,6 +201,8 @@ academic labels, or emotional diagnoses that the story does not establish.
 
 ### 1. The Red Node Before Monday
 
+**Status:** Done
+
 **[Read the complete 8-panel story →](the-red-node-before-monday/index.md)**
 
 | | |
@@ -226,6 +228,8 @@ Dr. Ruiz directs support toward a shared need instead of a hunch.
 
 ### 2. The Simulation Everyone Escaped
 
+**Status:** Done
+
 **[Read the complete 7-panel story →](the-simulation-everyone-escaped/index.md)**
 
 | | |
@@ -250,6 +254,8 @@ feedback; Dr. Ruiz sees that the licensed resource is now usable district-wide.
 ---
 
 ### 3. Two Paths Through the Storm
+
+**Status:** Done
 
 **[Read the complete 9-panel story →](two-paths-through-the-storm/index.md)**
 
@@ -278,6 +284,10 @@ better experience for the next learner.
 
 ### 4. The School That Faded from the Map
 
+**Status:** Done
+
+**[Read the complete 8-panel story →](the-school-that-faded-from-the-map/index.md)**
+
 | | |
 |---|---|
 | **Setting** | The district adoption dashboard during the first month of school |
@@ -303,6 +313,10 @@ story behind it.
 
 ### 5. The Question with Two Right Answers
 
+**Status:** Done
+
+**[Read the complete 6-panel story →](the-question-with-two-right-answers/index.md)**
+
 | | |
 |---|---|
 | **Setting** | A quiz on renewable and nonrenewable energy |
@@ -326,6 +340,10 @@ question from distorting district decisions.
 
 ### 6. The Case of the Missing Tuesday
 
+**Status:** Done
+
+**[Read the complete 8-panel story →](the-case-of-the-missing-tuesday/index.md)**
+
 | | |
 |---|---|
 | **Setting** | A dashboard that suddenly shows an entire day with no learning activity |
@@ -348,6 +366,10 @@ explain, and recover from a data-pipeline problem.
 ---
 
 ### 7. A New Classroom, the Same Learning Journey
+
+**Status:** Done
+
+**[Read the complete 8-panel story →](a-new-classroom-the-same-learning-journey/index.md)**
 
 | | |
 |---|---|
@@ -373,6 +395,10 @@ earned.
 
 ### 8. The Small Group Behind the Curtain
 
+**Status:** Done
+
+**[Read the complete 7-panel story →](the-small-group-behind-the-curtain/index.md)**
+
 | | |
 |---|---|
 | **Setting** | A district review of outcomes for a very small student group |
@@ -397,6 +423,10 @@ public data points.
 
 ### 9. Reading, Doing, and the Empty Middle
 
+**Status:** Done
+
+**[Read the complete 7-panel story →](reading-doing-and-the-empty-middle/index.md)**
+
 | | |
 |---|---|
 | **Setting** | A chapter where students read extensively but rarely practice |
@@ -419,6 +449,10 @@ halfway.
 ---
 
 ### 10. The Chapter with the Vanishing Ending
+
+**Status:** Done
+
+**[Read the complete 8-panel story →](the-chapter-with-the-vanishing-ending/index.md)**
 
 | | |
 |---|---|
@@ -444,6 +478,10 @@ heavy.
 
 ### 11. The Three Versions of Wednesday
 
+**Status:** Done
+
+**[Read the complete 9-panel story →](the-three-versions-of-wednesday/index.md)**
+
 | | |
 |---|---|
 | **Setting** | Three schools unknowingly use three releases of the same textbook. |
@@ -467,6 +505,10 @@ the exact page students actually saw.
 ---
 
 ### 12. The Evidence Council
+
+**Status:** Done
+
+**[Read the complete 10-panel story →](the-evidence-council/index.md)**
 
 | | |
 |---|---|
