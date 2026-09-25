@@ -2136,6 +2136,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#recommended-defaults" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recommended defaults
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#what-coppa-asks-of-lrs-lite" class="md-nav__link">
     <span class="md-ellipsis">
       What COPPA asks of LRS-Lite
@@ -2491,10 +2500,11 @@ The single-server tier costs <strong>$300–2,500/month</strong> and the full-sc
    <strong>cross-organization analytics</strong>, and <strong>push alerts</strong>. Each can be added back with a
    function that runs only when needed (<a href="#step-9-verdict-a-dashboard-quality-scorecard">§2 Step 9</a>).</li>
 </ol>
-<p>The largest risk is <strong>content, not infrastructure</strong>. Only 1 of the book's 32 chapters has a
-quiz today, and only 3 of that quiz's 10 "Concept Tested" labels exactly match a
-learning-graph concept. Until more concepts have assessments, most of the personal
-learning graph can reach <em>exposed</em> but not <em>green</em>
+<p>The largest risk is <strong>content, not infrastructure</strong>. Every chapter now has a quiz (352
+questions), but only 228 of their "Concept Tested" labels (65%) exactly match a
+learning-graph concept. Only 226 of the 578 concepts have any quiz item, and just <strong>2</strong> have
+the two distinct items the green rule needs. Until more concepts have assessments, most
+of the personal learning graph can reach <em>exposed</em> but not <em>green</em>
 (<a href="#95-concept-mapping-which-concept-did-this-evidence-touch">§9.5</a>).</p>
 <p><strong>Students under 13 are supported</strong> (<a href="#121-students-under-13-coppa">§12.1</a>). Consent comes
 either from the school acting for parents (FTC guidance) or from signed parent forms.
@@ -2503,7 +2513,15 @@ progress views, but nothing is transmitted. Under the FTC's COPPA FAQ that is no
 collection. Parents exercise their rights to review, delete, and stop collection through
 a parent view. We recommend <strong>against</strong> parent-owned AWS accounts or shared parent
 credentials: they would not move the COPPA obligations, they conflict with AWS's terms,
-and they would make the required retention and deletion controls unenforceable.</p>
+and they would make the required retention and deletion controls unenforceable. The
+<strong>recommended defaults</strong>:</p>
+<ul>
+<li>a signed student-data privacy agreement first;</li>
+<li>school authorization plus a family notice letter with an opt-out;</li>
+<li>data in the district's own AWS account;</li>
+<li>deletion 60 days after the course ends;</li>
+<li>the students' existing school Google sign-in, with no email stored.</li>
+</ul>
 <table>
 <thead>
 <tr>
@@ -4828,7 +4846,7 @@ references), so the viewer computes an order with Kahn's algorithm, as <code>cat
 already does.</p>
 <h3 id="95-concept-mapping-which-concept-did-this-evidence-touch">9.5 Concept mapping: which concept did this evidence touch?<a class="headerlink" href="#95-concept-mapping-which-concept-did-this-evidence-touch" title="Permanent link">&para;</a></h3>
 <p>Mastery needs every piece of evidence tied to concept IDs. Measured against this repo on
-2026-09-24:</p>
+2026-09-25, after quizzes were generated for all 32 chapters:</p>
 <table>
 <thead>
 <tr>
@@ -4846,7 +4864,7 @@ already does.</p>
 <tr>
 <td>Quiz questions</td>
 <td>The "Concept Tested" line in <code>quiz.md</code></td>
-<td>⚠️ <strong>Only 1 of 32 chapters has a quiz</strong>, and only <strong>3 of its 10</strong> "Concept Tested" labels exactly match a graph concept</td>
+<td>⚠️ <strong>All 32 chapters have a quiz (352 questions)</strong>, but only <strong>228 (65%)</strong> of the "Concept Tested" labels exactly match a graph concept. Only <strong>226 of 578</strong> concepts have at least one quiz item, and <strong>2</strong> have two or more</td>
 </tr>
 <tr>
 <td>MicroSims</td>
@@ -4862,12 +4880,14 @@ concepts with no assessed evidence source. The report shows which concepts can n
 green and why.</p>
 <p><strong>Consequence:</strong> the green graph needs <strong>content work</strong> that the engineering does not
 replace. The mastery rule asks for at least two distinct assessment items per concept. For
-578 concepts that is <strong>about 1,160 items</strong>. The current pattern of ten questions per
-chapter would yield about 320, fewer than one per concept. Three complementary ways to
-close the gap:</p>
+578 concepts that is <strong>about 1,160 items</strong>. The chapter quizzes supply 352, about 11 per
+chapter, and the matching labels spread them almost one per concept. That is less than a
+third of what is needed. Three complementary ways to close the gap:</p>
 <ol>
-<li><strong>Chapter quizzes</strong> for the remaining 31 chapters (<code>quiz-generator</code>), with the skill
-   changed to emit exact learning-graph labels (or IDs) in "Concept Tested".</li>
+<li><strong>Fix and extend the chapter quizzes.</strong> Correct the 124 "Concept Tested" labels that
+   don't match a graph concept, and change the <code>quiz-generator</code> skill to emit exact
+   learning-graph labels (or IDs) and to prefer a second item on an already-covered
+   concept over a first item on a new one.</li>
 <li><strong>Inline concept checks:</strong> two short questions per concept, embedded in the chapter
    where the concept is taught and emitted as <code>answered</code> with the same fragment scheme
    (<a href="../specs/xapi-producer-contract-v1/#2-question-iris-the-fragment-scheme-resolved-2026-07-16">contract §2</a>).</li>
@@ -5124,6 +5144,57 @@ on the amended COPPA Rule
 (<a href="https://www.govinfo.gov/content/pkg/FR-2025-04-22/pdf/2025-05904.pdf">90 FR 16918, April 22, 2025</a>),
 in force since 2025-06-23 with compliance required from 2026-04-22, and on the FTC's
 <a href="https://www.ftc.gov/business-guidance/resources/complying-coppa-frequently-asked-questions">COPPA FAQ</a>.</em></p>
+<h4 id="recommended-defaults">Recommended defaults<a class="headerlink" href="#recommended-defaults" title="Permanent link">&para;</a></h4>
+<p><em>Recommended 2026-09-25. Awaiting confirmation by the school and its counsel. The rest of
+this section explains the options behind each row.</em></p>
+<table>
+<thead>
+<tr>
+<th>Decision</th>
+<th>Recommendation</th>
+<th>Why</th>
+<th>Fallback</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1. Agreement</strong></td>
+<td>Before anything else, sign the <strong>SDPC National Data Privacy Agreement</strong> between the district and whoever operates the book</td>
+<td>School authorization relies on a school–operator agreement (COPPA FAQ §N.2), and FERPA's school-official exception needs one too</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>2. Consent route</strong></td>
+<td><strong>Route 1, school authorization, plus a notice letter to families with an opt-out.</strong> The letter explains what is recorded, carries the parent-view <strong>link code</strong>, and has an opt-out box. Opting out puts the child into local-only mode</td>
+<td>Every student is supported from the first day, and the teacher's view has no gaps. Parents stay informed and keep the right to refuse that COPPA gives them anyway</td>
+<td><strong>Route 2, signed parent forms</strong>, where district policy or state law requires them</td>
+</tr>
+<tr>
+<td><strong>3. Data custody</strong></td>
+<td>The bucket and Cognito pools live in the <strong>district's own AWS account</strong>. The project supplies the code and the infrastructure template, and <strong>never holds student data</strong></td>
+<td>The school plainly controls the records, which is what FERPA's school-official exception and COPPA's school-authorization guidance turn on. Cost is about $1/month on the district's bill (<a href="#13-cost-model">§13</a>)</td>
+<td>The project's AWS account, under the signed agreement</td>
+</tr>
+<tr>
+<td><strong>4. Retention</strong></td>
+<td><strong>Delete everything 60 days after the course's last day</strong>, using a date-based S3 lifecycle <em>expiration</em> rule on the course prefix. Publish the period in the privacy notice. Students can download their record before the date</td>
+<td>Sixty days covers grade questions and end-of-term review. COPPA forbids indefinite retention, and an automatic rule makes deletion provable</td>
+<td>A longer period, such as the end of the school year plus 30 days, only with the reason stated in the notice</td>
+</tr>
+<tr>
+<td><strong>5. Data for improving the textbook</strong></td>
+<td>Keep nothing past the deletion date unless the agreement <strong>explicitly permits it</strong>, and then only <strong>class-level totals with no student identifiers</strong></td>
+<td>Data collected under school authorization may be used "only to provide the requested online education service" (<a href="https://www.ftc.gov/system/files/ftc_gov/pdf/Policy%20Statement%20of%20the%20Federal%20Trade%20Commission%20on%20Education%20Technology.pdf">FTC, 2022</a>)</td>
+<td>Nothing is kept</td>
+</tr>
+<tr>
+<td><strong>6. Sign-in</strong></td>
+<td><strong>The accounts students already use</strong>, most likely <strong>school Google accounts</strong> on Chromebooks. The school's Google admin marks LRS-Lite <em>Trusted</em> once. Cognito requests only <code>openid profile</code> and maps no email attribute, so <strong>no email is stored</strong></td>
+<td>One click, no new passwords, and it works at home with the same account. Without email, most of the privacy difference from code cards disappears</td>
+<td>Teacher-issued <strong>code cards</strong> for grades K–2 or schools without Google or Microsoft accounts. Clever only if the district already licenses Clever Complete</td>
+</tr>
+</tbody>
+</table>
 <h4 id="what-coppa-asks-of-lrs-lite">What COPPA asks of LRS-Lite<a class="headerlink" href="#what-coppa-asks-of-lrs-lite" title="Permanent link">&para;</a></h4>
 <p>LRS-Lite collects <strong>personal information</strong> in COPPA's sense, even with no names:</p>
 <ul>
@@ -5149,7 +5220,7 @@ school and the book's publisher may divide the role by contract.</p>
 <tr>
 <td>Notice</td>
 <td>§312.4</td>
-<td>A plain-language privacy notice page (<code>docs/lrs-lite/privacy.md</code>) that serves as the online notice, plus a direct notice given to the school, or to parents under Route 2 below</td>
+<td>A plain-language privacy notice page (<code>docs/lrs-lite/privacy.md</code>) that serves as the online notice, plus a direct notice to the school, the <strong>family notice letter</strong> (recommended default), and under Route 2 the consent form</td>
 </tr>
 <tr>
 <td>Consent before collection</td>
@@ -5199,9 +5270,14 @@ existing guidance". The conditions (COPPA FAQ §N):</p>
 </ul>
 <p>Under this route the school handles parents' requests and relays them. LRS-Lite fits all
 four conditions as designed: its only purpose is the student's own learning and the
-teacher's instruction. Many districts send families a notice or form even under this
-route. Some state laws require it (for example California's SOPIPA, Illinois's SOPPA, and
-New York's Education Law 2-d).</p>
+teacher's instruction.</p>
+<p>The recommended default adds a <strong>notice letter</strong> to families. It is not a consent form,
+and nobody has to return it. It says what is recorded, where the record is kept, who can
+see it, and when it is deleted. It includes the parent-view link code and an opt-out box.
+A parent who opts out, on the letter or later in the parent view, puts their child into
+local-only mode. Many districts send such a letter anyway, and some state laws have their
+own notice requirements (for example California's SOPIPA, Illinois's SOPPA, and New York's
+Education Law 2-d).</p>
 <p><strong>Route 2: signed parental consent forms.</strong> This is the forms part of your proposal, and
 it is sound. "A consent form to be signed by the parent and returned to the operator by
 postal mail, facsimile, or electronic scan" is an approved method of verifiable parental
@@ -5228,7 +5304,9 @@ architecture already supports that mode:</p>
 <li><strong>When consent arrives, upgrading is seamless.</strong> The local event set merges into the
   new cloud record by the same set union that syncs devices (<a href="#step-4-keep-many-browsers-consistent-without-a-coordinator">Step 4</a>).
   The history recorded before consent is uploaded <strong>only if the parent opts in</strong> on the
-  consent form. Otherwise the student starts fresh in the cloud.</li>
+  consent form or notice letter. Otherwise the student starts fresh in the cloud. Under
+  Route 1 this rarely matters, because students are authorized from the first day of the
+  course.</li>
 </ul>
 <p>Local-only is the <strong>default</strong> until a consent status is set, so a missing form can
 never cause data to be transmitted. Two cautions for counsel: the book's pages are
@@ -5264,7 +5342,7 @@ accounts</strong>, for four reasons:</p>
 <p><strong>What achieves the goal of parental control instead: a parent view.</strong> A parent signs in
 with <em>their own</em> account (Google, Microsoft, or email and password through the same
 Cognito user pool, inside the free 10,000-MAU tier) and enters the link code from the
-consent form. A small function then serves that parent's requests. It runs only when
+notice letter or consent form. A small function then serves that parent's requests. It runs only when
 invoked, like the others in <a href="#113-when-a-function-should-run">§11.3</a>:</p>
 <table>
 <thead>
@@ -5301,15 +5379,19 @@ only permission to read a child's prefix on a parent's behalf.</p>
 </thead>
 <tbody>
 <tr>
-<td><strong>Google Workspace for Education</strong></td>
-<td>Since 2023-10-23, users designated under 18 are <strong>blocked from third-party apps the admin has not configured</strong>. The school's Google admin must mark LRS-Lite's sign-in client as <em>Trusted</em> or <em>Limited</em>, or allow apps that request only basic sign-in information (<a href="https://knowledge.workspace.google.com/admin/getting-started/editions/manage-access-to-unconfigured-third-party-apps-for-users-designated-as-under-18">Google</a>). Google's education terms put COPPA consent for under-13 users, and parental consent for third-party offerings "to the extent required by applicable law", on the school (<a href="https://workspace.google.com/terms/education_terms/">Workspace for Education terms</a>), which is Route 1 or Route 2</td>
+<td><strong>Google Workspace for Education</strong> (<strong>recommended</strong> where the school uses Google)</td>
+<td>Configure Cognito's Google identity provider with <code>openid profile</code> scopes and no email attribute mapping (verify in Phase 4). Since 2023-10-23, users designated under 18 are <strong>blocked from third-party apps the admin has not configured</strong>. The school's Google admin must mark LRS-Lite's sign-in client as <em>Trusted</em> or <em>Limited</em>, or allow apps that request only basic sign-in information (<a href="https://knowledge.workspace.google.com/admin/getting-started/editions/manage-access-to-unconfigured-third-party-apps-for-users-designated-as-under-18">Google</a>). Google's education terms put COPPA consent for under-13 users, and parental consent for third-party offerings "to the extent required by applicable law", on the school (<a href="https://workspace.google.com/terms/education_terms/">Workspace for Education terms</a>), which is Route 1 or Route 2</td>
 </tr>
 <tr>
-<td><strong>Clever or ClassLink</strong> (common in K–8)</td>
+<td><strong>Microsoft 365</strong> (the equivalent recommendation where the school uses Microsoft)</td>
+<td>Cognito federates Microsoft Entra ID over OIDC or SAML. Those users cost $0.015/MAU after the first 50, about $1.50/month for 150 students (<a href="#13-cost-model">§13</a>)</td>
+</tr>
+<tr>
+<td><strong>Clever or ClassLink</strong> (common in K–8; only if already licensed)</td>
 <td>Both publish OpenID Connect endpoints that Cognito can federate. Clever's OIDC requires a <em>Clever Complete</em> subscription (<a href="https://dev.clever.com/docs/oidc-implementation">Clever</a>). Cognito integration with either is <strong>untested</strong>. OIDC/SAML users cost $0.015/MAU after the first 50</td>
 </tr>
 <tr>
-<td><strong>Teacher-issued class codes</strong> (most private)</td>
+<td><strong>Teacher-issued class codes</strong> (most private; the fallback for K–2 or schools without Google or Microsoft)</td>
 <td>The teacher's page creates Cognito accounts named by random codes, printed on badge cards with a short PIN. <strong>No email and no real name enter the system.</strong> The teacher keeps the code-to-name roster on paper or in their own browser. This is still personal information (an identifier combined with learning records), but it is the minimum possible</td>
 </tr>
 </tbody>
@@ -5564,16 +5646,17 @@ before any sync exists. The estimate assumes one developer familiar with the cod
   <code>answer_revealed_before</code>, <code>device_id</code>, <code>device_seq</code>, <code>hlc</code>, <code>summarizer_version</code>).</li>
 <li>Write <code>plugins/lrs_lite_concept_map.py</code>, which emits <code>concept-map.json</code> and the coverage
   report.</li>
-<li>Fix chapter 1's "Concept Tested" labels and update the <code>quiz-generator</code> skill to emit
-  exact labels.</li>
-<li><strong>With the school:</strong> choose the consent route (school authorization or signed parent
-  forms), the sign-in option for young students, and the retention period
-  (<a href="#121-students-under-13-coppa">§12.1</a>). Start the privacy notice and the
-  information-security program early, since the school's counsel will want to review
-  them.</li>
+<li>Fix the 124 non-matching "Concept Tested" labels across the 32 quizzes, and update the
+  <code>quiz-generator</code> skill to emit exact labels.</li>
+<li><strong>With the school:</strong> confirm the recommended defaults in <a href="#121-students-under-13-coppa">§12.1</a>.
+  Start the SDPC agreement, set up the district AWS account, and draft the family notice
+  letter, the privacy notice, and the information-security program early, since the
+  school's counsel will want to review them. Ask the school's Google admin to mark
+  LRS-Lite <em>Trusted</em>.</li>
 </ul>
 <p><strong>Exit:</strong> <code>concept-map.json</code> builds, and the coverage report lists every concept's
-evidence sources. The consent route and retention period are agreed with the school.</p>
+evidence sources. The school has confirmed the consent route, data custody, retention
+period, and sign-in method.</p>
 <h3 id="phase-1-local-store-reader-quiz-meter-2-weeks">Phase 1 — Local store, reader, quiz, meter (2 weeks)<a class="headerlink" href="#phase-1-local-store-reader-quiz-meter-2-weeks" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>lrs-lite-db.js</code> (IndexedDB schema, transactions, sealing with <code>CompressionStream</code>, byte
@@ -5666,8 +5749,9 @@ local-only mode.</p>
   stored checkpoint, and replays statements into the full LRS gateway.</li>
 <li>Erasure script, runbook, and a family-facing explainer.</li>
 <li><strong>COPPA package for the school's counsel:</strong> the privacy notice with the published
-  retention period (<code>docs/lrs-lite/privacy.md</code>), the direct notice to the school or to
-  parents, the consent-form template (with link code and pre-consent-history opt-in), and
+  retention period (<code>docs/lrs-lite/privacy.md</code>), the direct notice to the school, the family
+  notice letter (with link code and opt-out), the consent-form template for Route 2 (with
+  link code and pre-consent-history opt-in), and
   the written information-security program. Confirm that no book used by pilot students
   loads analytics.</li>
 <li>A dry run with 3 real students across a Chromebook, a home laptop, and a phone.</li>
@@ -5779,30 +5863,45 @@ with its own <code>package.json</code>, so the Python gates are unaffected.</p>
 <td>A dashboard server</td>
 <td>The data is ~11 KB per student</td>
 </tr>
+<tr>
+<td>L-A9</td>
+<td><strong>Under-13 defaults:</strong> school authorization plus a notice letter with opt-out; local-only until authorized; data in the district's AWS account; 60-day post-course deletion; existing school sign-in with no email stored (<a href="#121-students-under-13-coppa">§12.1</a>)</td>
+<td>Mandatory signed forms; parent-owned AWS accounts</td>
+<td>Full coverage from day one, school custody, provable deletion, minimal personal data</td>
+</tr>
 </tbody>
 </table>
 <h3 id="152-questions-for-the-project-owner">15.2 Questions for the project owner<a class="headerlink" href="#152-questions-for-the-project-owner" title="Permanent link">&para;</a></h3>
 <ol>
-<li><strong>Identity provider.</strong> Do the pilot schools use Google Workspace, Microsoft 365, or
-   Clever/ClassLink? Or should young students use teacher-issued class codes? <em>Answered in
-   part on 2026-09-24: students under 13 will participate. See <a href="#121-students-under-13-coppa">§12.1</a>.
-   Still open: which consent route the school chooses (school authorization or signed
-   parent forms), and the retention period.</em></li>
-<li><strong>Default sync mode.</strong> Automatic small syncs after a one-time notice (recommended), or
-   ask every time?</li>
-<li><strong>Teacher view in the pilot.</strong> This document assumes yes. If not, Phase 5 can be
-   dropped.</li>
-<li><strong>Hosting.</strong> Stay on the shared <code>dmccreary.github.io</code> origin, or give pilot books a
-   custom domain for storage isolation?</li>
-<li><strong>AWS or Cloudflare.</strong> This plan uses S3 because the request named it. Cloudflare
-   R2 + Workers is a close alternative with zero egress fees (<a href="#35-serverless-backends-compared">§3.5</a>).</li>
-<li><strong>Quizzes for all chapters.</strong> Green coverage depends on it (<a href="#95-concept-mapping-which-concept-did-this-evidence-touch">§9.5</a>).
-   Should the pilot's chapters get quizzes before launch?</li>
-<li><strong>Stakes.</strong> Is LRS-Lite evidence strictly formative? If any of it feeds grades, the
-   verified-quiz function moves into scope.</li>
-<li><strong>The earlier draft.</strong> Should <code>specs/learning-record-store-lite-design.md</code> be revised to
-   match this document, or retired in favor of it?</li>
+<li><strong>Students under 13: consent, custody, retention, sign-in.</strong> <em>Answered in part.
+   2026-09-24: students under 13 will participate. 2026-09-25: recommended defaults
+   recorded in <a href="#121-students-under-13-coppa">§12.1</a>:</em><ul>
+<li>the SDPC agreement first;</li>
+<li>school authorization plus a family notice letter with an opt-out;</li>
+<li>data in the district's own AWS account;</li>
+<li>deletion 60 days after the course ends;</li>
+<li>school Google sign-in with no email stored.</li>
+</ul>
+</li>
 </ol>
+<p><em>Still needed: the school's and counsel's confirmation, and whether the school uses
+   Google, Microsoft, or neither.</em>
+2. <strong>Default sync mode.</strong> Automatic small syncs after a one-time notice (recommended), or
+   ask every time?
+3. <strong>Teacher view in the pilot.</strong> This document assumes yes. If not, Phase 5 can be
+   dropped.
+4. <strong>Hosting.</strong> Stay on the shared <code>dmccreary.github.io</code> origin, or give pilot books a
+   custom domain for storage isolation?
+5. <strong>AWS or Cloudflare.</strong> This plan uses S3 because the request named it. Cloudflare
+   R2 + Workers is a close alternative with zero egress fees (<a href="#35-serverless-backends-compared">§3.5</a>).
+6. <strong>Assessment items per concept.</strong> Every chapter now has a quiz, but green needs two
+   distinct items per concept, and only 2 concepts have that today
+   (<a href="#95-concept-mapping-which-concept-did-this-evidence-touch">§9.5</a>). Should the
+   pilot's chapters get inline concept checks before launch?
+7. <strong>Stakes.</strong> Is LRS-Lite evidence strictly formative? If any of it feeds grades, the
+   verified-quiz function moves into scope.
+8. <strong>The earlier draft.</strong> Should <code>specs/learning-record-store-lite-design.md</code> be revised to
+   match this document, or retired in favor of it?</p>
 <hr />
 <h2 id="16-references">16. References<a class="headerlink" href="#16-references" title="Permanent link">&para;</a></h2>
 <p>Research was carried out on 2026-09-24. Prices and browser-support facts change, so
