@@ -107,8 +107,12 @@ function moveInfoboxToNode(node) {
     const containerRect = container.getBoundingClientRect();
     const infoboxHeight = infobox.offsetHeight;
 
-    // Maximum allowed top position to keep infobox visible
-    const maxAllowedTop = Math.max(0, containerRect.height - infoboxHeight - 20);
+    // Keep the infobox beside the DIAGRAM. .main-content also holds the xAPI panel, so
+    // clamping to its full height would let the infobox slide down over the log.
+    const diagram = document.getElementById('diagramContainer');
+    const limitBottom = diagram ? diagram.getBoundingClientRect().bottom - containerRect.top
+                                : containerRect.height;
+    const maxAllowedTop = Math.max(0, limitBottom - infoboxHeight - 20);
 
     let offset;
 
@@ -138,6 +142,8 @@ function moveInfoboxToNode(node) {
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.querySelector('.main-content');
     container.addEventListener('mousemove', (e) => {
+        // Working the xAPI panel's controls must not drag the infobox around.
+        if (e.target.closest('.xapi-panel')) return;
         const containerRect = container.getBoundingClientRect();
         lastMouseY = e.clientY - containerRect.top;
 
@@ -233,6 +239,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Click outside to unlock
 document.addEventListener('click', (e) => {
+    // Pressing Simulate Done, switching modes, or clicking a log line keeps the pin.
+    if (e.target.closest('.xapi-panel')) return;
     if (lockedNode && !e.target.closest('.mermaid .node')) {
         lockedNode = null;
         clearHighlights();
@@ -314,8 +322,10 @@ document.addEventListener('click', (e) => {
   var statementCount = 0;
   var pageShownAt = Date.now();
   var pageClosed = false;
+  var lastStatement = null;
 
-  // Compact xAPI (LRS-Lite). metadata.json → "xapi": {"compact": true|false}. When compact,
+  // Compact xAPI (LRS-Lite). metadata.json → "xapi": {"compact": true|false} sets the STARTING
+  // mode; the Full/Compact radio in the panel then switches it live. When compact,
   // node studies are folded into ONE `experienced` summary emitted when the diagram loses
   // focus (docs/lrs-lite/index.md §6); the summary's duration replaces the page-level
   // interval below. When false, or without lrs-lite-sim.js, the full stream is unchanged.
@@ -323,7 +333,15 @@ document.addEventListener('click', (e) => {
     ? LRSLite.sim({ name: 'Scientific Method Workflow', concept: 'iterative-investigation',
                     publish: publish })
     : null;
-  if (xapi) xapi.ready.then(showXapiMode);
+  if (xapi) {
+    xapi.ready.then(function (session) {
+      panel();
+      var r = document.querySelector('input[name="xapi-mode"][value="' +
+        (session.compact ? 'compact' : 'full') + '"]');
+      if (r) r.checked = true;
+      showXapiMode(session);
+    });
+  }
 
   function uuid() {
     if (window.crypto && window.crypto.randomUUID) return window.crypto.randomUUID();
@@ -445,12 +463,25 @@ document.addEventListener('click', (e) => {
     if (el) return el;
     var wrap = document.createElement('div');
     wrap.className = 'xapi-panel';
-    wrap.innerHTML =
+    // Full/Compact and Simulate Done need lrs-lite-sim.js; the formatted view needs
+    // xapi-json-viewer.js. Each appears only when its script is loaded.
+    var controls = xapi
+      ? '<div class="xapi-controls"><span class="xapi-controls-label">xAPI events:</span>' +
+        '<label><input type="radio" name="xapi-mode" value="full"> Full</label>' +
+        '<label><input type="radio" name="xapi-mode" value="compact"> Compact</label>' +
+        '<button type="button" id="xapi-done">Simulate Done</button></div>'
+      : '';
+    var viewBtn = window.XapiJsonViewer
+      ? '<button type="button" id="xapi-view" class="xapi-view-btn" disabled ' +
+        'title="Open the most recent statement, formatted, in a new tab">' +
+        'View Formatted JSON ↗</button>'
+      : '';
+    wrap.innerHTML = controls +
       '<div class="xapi-panel-header"><strong>xAPI statements emitted:</strong> ' +
       '<span id="stmt-count">0</span><span class="xapi-header-note"> &mdash; pause on a step ' +
       'for &gt;0.6s, or click to pin it. <span id="xapi-mode"></span> Engagement only: no ' +
       'statement here claims the student understands anything. Nothing is sent to a ' +
-      'server.</span></div>' +
+      'server.</span>' + viewBtn + '</div>' +
       '<div id="xapi-log" class="xapi-log"></div>';
     // Append INSIDE .main-content (the flex row) and let CSS wrap it onto its own full
     // row via `flex: 1 0 100%`. Two placements that do NOT work:
@@ -460,21 +491,84 @@ document.addEventListener('click', (e) => {
     //     get a usable width here.
     var mc = document.querySelector('.main-content');
     (mc || document.body).appendChild(wrap);
+
+    wrap.querySelectorAll('input[name="xapi-mode"]').forEach(function (r) {
+      r.addEventListener('change', function () { setMode(r.value === 'compact'); });
+    });
+    var done = document.getElementById('xapi-done');
+    if (done) done.addEventListener('click', simulateDone);
+    var view = document.getElementById('xapi-view');
+    if (view) view.addEventListener('click', function () { viewStatement(lastStatement); });
     return document.getElementById('xapi-log');
+  }
+
+  // --- Full / Compact / Simulate Done ----------------------------------------------
+  // Each mode owns its own record of page dwell: full mode the page interval below,
+  // compact mode the session summary. Switching closes the one being left, so dwell is
+  // neither lost nor counted twice.
+  function setMode(compact) {
+    if (compact) {
+      closePageInterval('mode-switch');   // full → compact: emit full mode's dwell so far
+      xapi.setCompact(true);
+    } else {
+      xapi.setCompact(false);             // compact → full: flushes a 'mode-switch' summary
+      pageShownAt = Date.now();           // full-mode dwell starts counting from now
+      pageClosed = false;
+    }
+    note('switched to ' + (compact ? 'COMPACT' : 'FULL') + ' mode');
+    showXapiMode(xapi);
+  }
+
+  // What the host page would trigger by taking focus from the iframe. Compact: end the
+  // session and emit its one summary. Full: close the page-level dwell interval, exactly
+  // as a hidden tab does — then start a new one, since the reader is still here.
+  function simulateDone() {
+    var before = statementCount;
+    if (xapi && xapi.compact) {
+      xapi.end('simulated-done');
+      note(statementCount === before
+        ? 'simulated done — nothing folded yet, so no summary'
+        : 'summary emitted — press View Formatted JSON ↗ (or click the line) to read it');
+      return;
+    }
+    closePageInterval('simulated-done');
+    note(statementCount === before
+      ? 'simulated done — under 1s on the page, so no dwell to emit'
+      : 'page dwell emitted — full mode had already sent every step you studied');
+    pageShownAt = Date.now();
+    pageClosed = false;
+  }
+
+  function viewStatement(st) {
+    if (st && window.XapiJsonViewer) {
+      XapiJsonViewer.open(st, { source: 'the Scientific Method MicroSim' });
+    }
+  }
+
+  function clickable(div, st) {
+    if (!window.XapiJsonViewer) return;
+    div.classList.add('xapi-log-clickable');
+    div.title = 'Click to view this statement formatted, in a new tab';
+    div.addEventListener('click', function () { viewStatement(st); });
   }
 
   function publish(st, summary) {
     statementCount++;
+    lastStatement = st;
     if (window.LRSLite) LRSLite.record(st);
     var log = panel();
     var a = document.createElement('div');
     a.className = 'xapi-log-line';
     a.textContent = '▸ ' + summary;
+    clickable(a, st);
     log.appendChild(a);
     var b = document.createElement('div');
     b.className = 'xapi-log-line xapi-log-raw';
     b.textContent = JSON.stringify(st);
+    clickable(b, st);
     log.appendChild(b);
+    var view = document.getElementById('xapi-view');
+    if (view) view.disabled = false;
     while (log.childElementCount > 80) log.removeChild(log.firstChild);
     log.scrollTop = log.scrollHeight;
     var c = document.getElementById('stmt-count');
@@ -498,9 +592,10 @@ document.addEventListener('click', (e) => {
     var el = document.getElementById('xapi-mode');
     if (!el) return;
     el.textContent = session.compact
-      ? 'Compact mode: studies are folded into ONE summary, emitted when the diagram ' +
-        'loses focus (scroll away, switch tabs, or go idle).'
-      : 'Full mode: one statement per step studied, plus the page dwell on tab-hide.';
+      ? 'COMPACT (LRS-Lite): studies are folded into ONE summary, emitted when the diagram ' +
+        'loses focus. Press Simulate Done to see it.'
+      : 'FULL (full LRS): one statement per step studied, plus the page dwell when the ' +
+        'diagram loses focus.';
   }
 
   // --- wire up --------------------------------------------------------------------

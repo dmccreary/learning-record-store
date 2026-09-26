@@ -3628,6 +3628,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#full-vs-compact-simulate-done-and-view-formatted-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      Full vs. Compact, Simulate Done, and View Formatted JSON
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -5322,6 +5331,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#full-vs-compact-simulate-done-and-view-formatted-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      Full vs. Compact, Simulate Done, and View Formatted JSON
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -5354,9 +5372,9 @@
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
 <p>The scientific method is the systematic process that scientists use to investigate phenomena, acquire new knowledge, and correct or integrate existing knowledge. This interactive flowchart visualizes each step of the scientific method as used in physics and all scientific disciplines.</p>
 <h2 id="interactive-diagram">Interactive Diagram<a class="headerlink" href="#interactive-diagram" title="Permanent link">&para;</a></h2>
-<iframe src="main.html" width="100%" height="1600px" scrolling="no"></iframe>
+<iframe src="main.html" width="100%" height="2140px" scrolling="no"></iframe>
 <p><a href="main.html">View Fullscreen</a></p>
-<div class="language-html highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">&lt;</span><span class="nt">iframe</span> <span class="na">src</span><span class="o">=</span><span class="s">"main.html"</span> <span class="na">width</span><span class="o">=</span><span class="s">"100%"</span> <span class="na">height</span><span class="o">=</span><span class="s">"1600px"</span> <span class="na">scrolling</span><span class="o">=</span><span class="s">"no"</span><span class="p">&gt;&lt;/</span><span class="nt">iframe</span><span class="p">&gt;</span>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">&lt;</span><span class="nt">iframe</span> <span class="na">src</span><span class="o">=</span><span class="s">"main.html"</span> <span class="na">width</span><span class="o">=</span><span class="s">"100%"</span> <span class="na">height</span><span class="o">=</span><span class="s">"2140px"</span> <span class="na">scrolling</span><span class="o">=</span><span class="s">"no"</span><span class="p">&gt;&lt;/</span><span class="nt">iframe</span><span class="p">&gt;</span>
 </span></code></pre></div>
 <h2 id="process-steps">Process Steps<a class="headerlink" href="#process-steps" title="Permanent link">&para;</a></h2>
 <ol>
@@ -5521,15 +5539,34 @@ exist under a different <code>textbook_id</code>.</p>
 </tr>
 </tbody>
 </table>
-<p><strong>Compact mode (this diagram's setting).</strong> The table above is the <em>full</em> stream. This
-diagram's <a href="metadata.json"><code>metadata.json</code></a> sets <code>"xapi": {"compact": true, ...}</code>, so the
-same hovers and pins are <strong>folded</strong> into one session instead. When the diagram loses focus
-(you switch tabs, leave the page, scroll it mostly out of view, or go idle), it emits
-<strong>one</strong> <code>experienced</code> summary. Its <code>controls</code> extension lists each step studied with its
-dwell (<code>ms</code>), how it was studied (<code>modes</code>: hover or pinned), and its concept. Its duration
-replaces the page-level interval, and <code>statements_represented</code> counts the full-mode
-statements it stands for. Set <code>compact</code> to <code>false</code> to see the full stream. The panel header
-says which mode is active, and <code>make test-sims</code> checks both modes.</p>
+<h3 id="full-vs-compact-simulate-done-and-view-formatted-json">Full vs. Compact, Simulate Done, and View Formatted JSON<a class="headerlink" href="#full-vs-compact-simulate-done-and-view-formatted-json" title="Permanent link">&para;</a></h3>
+<p>The xAPI panel under the diagram has the same controls as the
+<a href="../bouncing-ball/">Bouncing Ball</a> and <a href="../sine-wave/">Sine Wave</a> sims:</p>
+<ul>
+<li><strong>xAPI events: Full / Compact.</strong> <strong>Full</strong> (the default) is the stream in the table above:
+  one statement per step studied, sent as it happens, the way a full LRS ingests it.
+  <strong>Compact</strong> is <a href="../../lrs-lite/#6-producer-side-summarization">LRS-Lite</a>'s
+  stream: the same hovers and pins are <strong>folded</strong> into one session, and when the diagram
+  loses focus it emits <strong>one</strong> <code>experienced</code> summary. Its <code>controls</code> extension lists each
+  step studied with its dwell (<code>ms</code>), how it was studied (<code>modes</code>: hover or pinned), and
+  its concept. <code>statements_represented</code> counts the Full statements it stands for.</li>
+<li><strong>Simulate Done</strong> does what the host page does when the reader moves on (switches tabs,
+  leaves, scrolls away, or goes idle). In <strong>Compact</strong> it ends the session and emits the
+  summary. In <strong>Full</strong> it closes the <strong>page-level dwell interval</strong> and emits that
+  <code>experienced</code> statement, exactly as hiding the tab would. This is the difference from
+  Sine Wave: a diagram has no Start/Pause, but it does have time on the page, and in Full
+  mode that is the one thing not already sent.</li>
+<li><strong>View Formatted JSON ↗</strong> opens the most recent statement in a new tab, pretty-printed,
+  with the compact-only fields highlighted and a table explaining each field. Clicking any
+  line in the log opens that statement instead.</li>
+</ul>
+<p><strong>Switching modes never loses or double-counts dwell.</strong> Each mode keeps its own record of
+time on the page: Full mode keeps the page interval, and Compact mode keeps the session
+summary. Switching from Full to Compact emits Full mode's page interval so far
+(<code>run-ended-by: "mode-switch"</code>). Switching back emits the compact summary
+(<code>end_reason: "mode-switch"</code>), and a fresh page interval starts from then. The starting
+mode comes from the <code>xapi</code> block in <a href="metadata.json"><code>metadata.json</code></a>, which is Full here.
+<code>make test-sims</code> checks both modes, both switches, Simulate Done, and the formatted view.</p>
 <p><strong>Why steps are <code>Control</code> and the page is <code>MicroSim</code>:</strong> the page-level statement's object is
 the page IRI with no fragment, so it becomes exactly <strong>one</strong> <code>PageEngagement</code> vertex. Each
 step's object is fragment-qualified (<code>…/scientific-method/#hypothesis</code>) and typed <code>Control</code>,

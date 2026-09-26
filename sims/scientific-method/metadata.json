@@ -83,7 +83,7 @@
   },
   "identifier": "https://dmccreary.github.io/learning-record-store/sims/scientific-method/",
   "xapi": {
-    "compact": true,
+    "compact": false,
     "idleMs": 90000,
     "offscreenMs": 10000,
     "blurMs": 30000
