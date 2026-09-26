@@ -25,17 +25,44 @@ const EFFECT = {
   Identity: { lights: ['amber', 'green', 'green'], answer: 'Some data loss', note: 'Identity down: statements cannot be pseudonymized/resolved; ingestion degrades until it recovers.' }
 };
 
+// ---- xAPI (docs/js/lrs-sim.js). Without it (p5.js editor) the sim still runs, silently. ----
+// Full vs. Compact and any teaching panel come from config; this production sim shows nothing.
+// The evidence is the CHECKED prediction: each Kill is one `answered` for the service it
+// predicts (#q-kafka), in both modes. Choosing a service or a prediction, Restore, and Reset
+// are exposure evidence of the page concept, and fold into the Compact summary.
+const PAGE_CONCEPT = 353;   // Chaos Kill Test
+// The learning-graph failure mode each question tests. Deliberately NOT mapped (their answers
+// reach no concept rollup; see metadata.json): Gateway and Processor have no failure-mode
+// concept in the learning graph, and Identity's answer above contradicts Chapter 19 (Identity
+// Service Unavailable loses no data), so its `success` would credit the wrong belief.
+const FAILURE_CONCEPT = { Kafka: 334, ClickHouse: 335, Neo4j: 336, Summarizer: 337, Redis: 340 };
+let lrs = null, serviceEv, predictionEv, restoreEv, resetEv;
+const questions = {};
+let roundStartedAt = null;  // when the service was chosen: the sim clears the prediction then
+let lastCheck = null;       // { s, p, at } of the last answer this round
+
 function setup() {
   updateCanvasSize();
   const canvas = createCanvas(containerWidth, canvasHeight);
   canvas.parent(document.querySelector('main'));
   textSize(13);
   svcSel = createSelect(); svcSel.position(10, drawHeight + 8); svcSel.option('Pick a service'); SERVICES.forEach(function (s) { svcSel.option(s); });
-  svcSel.changed(function () { killed = null; revealed = false; prediction = null; });
-  killBtn = createButton('Kill'); killBtn.position(160, drawHeight + 8); killBtn.mousePressed(function () { const s = svcSel.value(); if (SERVICES.indexOf(s) >= 0 && prediction) { killed = s; revealed = true; } });
-  restoreBtn = createButton('Restore'); restoreBtn.position(210, drawHeight + 8); restoreBtn.mousePressed(function () { killed = null; revealed = false; });
-  resetBtn = createButton('Reset'); resetBtn.position(280, drawHeight + 8); resetBtn.mousePressed(function () { killed = null; revealed = false; prediction = null; svcSel.selected('Pick a service'); });
+  svcSel.changed(function () { killed = null; revealed = false; prediction = null; xapiService(svcSel.value()); });
+  killBtn = createButton('Kill'); killBtn.position(160, drawHeight + 8); killBtn.mousePressed(function () { const s = svcSel.value(); if (SERVICES.indexOf(s) >= 0 && prediction) { killed = s; revealed = true; xapiCheck(s, prediction); } });
+  restoreBtn = createButton('Restore'); restoreBtn.position(210, drawHeight + 8); restoreBtn.mousePressed(function () { const wasDown = killed; killed = null; revealed = false; if (lrs && wasDown) restoreEv.press('restore'); });
+  resetBtn = createButton('Reset'); resetBtn.position(280, drawHeight + 8); resetBtn.mousePressed(function () { const dirty = killed || prediction || SERVICES.indexOf(svcSel.value()) >= 0; killed = null; revealed = false; prediction = null; svcSel.selected('Pick a service'); xapiReset(dirty); });
   describe('Predict then verify how killing a service affects ingestion, graph freshness, and latency.', LABEL);
+
+  if (window.LRSSim) {
+    const c = LRS.conceptId(PAGE_CONCEPT);
+    // No Run control, so time on the sim is page dwell (Full: one `experienced` on focus loss).
+    lrs = LRSSim.create({ name: 'Chaos Kill Test Simulator', concept: c, pageDwell: true,
+                          mount: '#xapi-slot', source: 'the Chaos Kill Test Simulator MicroSim' });
+    serviceEv = lrs.item('service-select', { name: 'Service to Kill', concept: c });
+    predictionEv = lrs.item('prediction', { name: 'Data-Loss Prediction', concept: c });
+    restoreEv = lrs.button('restore-button', { name: 'Restore Button', concept: c });
+    resetEv = lrs.button('reset-button', { name: 'Reset Button', concept: c });
+  }
 }
 function draw() {
   updateCanvasSize();
@@ -51,8 +78,15 @@ function draw() {
     const x = margin + i * iw + iw / 2;
     const dead = killed === s;
     fill(dead ? '#c0392b' : '#2a9d8f'); noStroke(); rectMode(CENTER); rect(x, iy + 24, iw - 8, 44, 6); rectMode(CORNER);
-    fill('#fff'); textAlign(CENTER, CENTER); textSize(10); text(s, x, iy + 18, iw - 8);
-    fill(dead ? '#ffd0d0' : '#d7f5ee'); textSize(9); text(dead ? '✕ down' : '● healthy', x, iy + 34);
+    // No box width in text(): with one, p5 treats x as the box's LEFT edge, which pushed every
+    // name half a box right and clipped it ("Gate", "Ka"). Centre on x; shrink a name that won't fit.
+    fill('#fff'); textAlign(CENTER, CENTER); textSize(10);
+    if (textWidth(s) > iw - 12) textSize(10 * (iw - 12) / textWidth(s));
+    text(s, x, iy + 18);
+    const status = dead ? '✕ down' : '● healthy';
+    fill(dead ? '#ffd0d0' : '#d7f5ee'); textSize(9);
+    if (textWidth(status) > iw - 12) textSize(9 * (iw - 12) / textWidth(status));
+    text(status, x, iy + 34);
   });
 
   // status lights
@@ -93,7 +127,48 @@ function mouseIsInside(x, y, w, h) { return mouseX > x && mouseX < x + w && mous
 function mousePressed() {
   const preds = ['No data loss', 'Some data loss', 'System fully down'];
   const py = 200, pw = (canvasWidth - 2 * margin) / 3;
-  preds.forEach(function (p, i) { const x = margin + i * pw; if (mouseIsInside(x + 6, py, pw - 12, 34)) prediction = p; });
+  // xAPI reports from INSIDE the hit branch: mousePressed() fires for every click on the page.
+  // Picking is not answering; the answer is emitted at Kill, when the pick is checked.
+  preds.forEach(function (p, i) { const x = margin + i * pw; if (mouseIsInside(x + 6, py, pw - 12, 34)) { const changed = prediction !== p; prediction = p; if (lrs && changed) predictionEv.study('select'); } });
 }
+// ---- xAPI helpers: each is a no-op without the runtime ----
+// A new service starts a new round (the sim itself clears the prediction when it changes).
+function xapiService(s) {
+  if (!lrs) return;
+  lastCheck = null;
+  roundStartedAt = SERVICES.indexOf(s) >= 0 ? Date.now() : null;
+  if (roundStartedAt) serviceEv.study('select');   // back to "Pick a service" is not a choice
+}
+// Kill with a prediction checks it: one class-5 answer, emitted now, in both modes. Every
+// attempt counts, wrong ones included; pressing Kill again on the pair already checked this
+// round (a double-click, or Restore then Kill) is not a new attempt.
+function xapiCheck(s, p) {
+  if (!lrs || (lastCheck && lastCheck.s === s && lastCheck.p === p)) return;
+  const now = Date.now(), q = xapiQuestion(s);
+  q.attempts++;
+  q.handle.answer({ success: p === EFFECT[s].answer, response: LRS.slug(p),
+                    durationMs: now - (lastCheck ? lastCheck.at : roundStartedAt || now),
+                    extensions: { 'attempt-number': q.attempts } });
+  lastCheck = { s: s, p: p, at: now };
+}
+function xapiQuestion(s) {
+  const key = 'q-' + LRS.slug(s);
+  if (!questions[key]) {
+    const n = FAILURE_CONCEPT[s];
+    if (n === undefined) {
+      console.warn('[chaos-kill-test-simulator] no concept mapped for "' + s +
+                   '" — its answers will reach no concept rollup (contract §6)');
+    }
+    questions[key] = { attempts: 0, handle: lrs.question(key, {
+      name: 'Predict the effect of killing ' + s, concept: n === undefined ? undefined : LRS.conceptId(n) }) };
+  }
+  return questions[key];
+}
+function xapiReset(dirty) {
+  if (!lrs) return;
+  lastCheck = null; roundStartedAt = null;
+  if (dirty) resetEv.press('reset');                 // a Reset with nothing to reset is not evidence
+}
+
 function windowResized() { updateCanvasSize(); resizeCanvas(containerWidth, canvasHeight); redraw(); }
 function updateCanvasSize() { const c = document.querySelector('main').getBoundingClientRect(); containerWidth = Math.floor(c.width) || 640; canvasWidth = containerWidth; }

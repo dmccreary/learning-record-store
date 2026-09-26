@@ -96,7 +96,7 @@ def open_sim(page: Any, docs_url: str) -> Callable[[str, dict[str, Any] | None],
     loaded the policy.
     """
 
-    def _open(sim: str, xapi: dict[str, Any] | None) -> Any:
+    def _open(sim: str, xapi: dict[str, Any] | None, query: str = "") -> Any:
         def rewrite_metadata(route: Any) -> None:
             response = route.fetch()
             meta = response.json()
@@ -118,8 +118,8 @@ def open_sim(page: Any, docs_url: str) -> Callable[[str, dict[str, Any] | None],
             )
 
         page.route(f"**/sims/{sim}/metadata.json", rewrite_metadata)
-        page.route("**/__host__.html", host_page)
-        page.goto(f"{docs_url}/__host__.html")
+        page.route("**/__host__.html*", host_page)   # `*`: the URL-switch tests add a query
+        page.goto(f"{docs_url}/__host__.html{query}")
         frame = page.locator("iframe#sim").element_handle().content_frame()
         frame.wait_for_function(
             "window.LRSLite && document.documentElement.dataset.xapiMode", timeout=20000
@@ -370,6 +370,61 @@ def test_l6_missing_xapi_block_defaults_to_compact(open_sim: Any) -> None:
     assert mode(frame) == "compact"
     frame.evaluate(MOVE_SLIDER, [0, [5, 7, 9]])
     assert statements(frame) == []
+
+
+# ------------------------------------------------------------------------ URL switch ----
+# `?xapi=` on the embedding page (or the sim's own URL) overrides every config layer for one
+# visit, so any instrumented sim can be shown as a teaching aid without editing a file.
+
+FRAME_HEIGHT = "document.querySelector('iframe#sim').clientHeight"
+
+
+def test_url_switch_turns_a_production_sim_into_a_teaching_aid(open_sim: Any, page: Any) -> None:
+    frame = open_sim("bouncing-ball", {**FAST, "teaching": False}, "?xapi=teaching")
+    frame.wait_for_selector(".xapi-log")
+    assert mode(frame) == "full"  # teaching starts on Full
+    assert frame.get_by_label("Full").is_checked()
+
+    # The host iframe is 700 px, sized for the sim alone: the panel would be clipped, so the
+    # sim grows its frame to fit the panel, and keeps up as the log fills.
+    frame.evaluate(MOVE_SLIDER, [0, list(range(1, 21))])
+    frame.wait_for_timeout(300)
+    height = page.evaluate(FRAME_HEIGHT)
+    panel_bottom = frame.evaluate(
+        "document.querySelector('.xapi-panel').getBoundingClientRect().bottom + scrollY")
+    assert height > 700
+    assert height >= panel_bottom
+
+
+def test_url_switch_teaching_compact_starts_on_compact(open_sim: Any) -> None:
+    frame = open_sim("bouncing-ball", {**FAST, "teaching": False}, "?xapi=teaching,compact")
+    frame.wait_for_selector(".xapi-log")
+    assert mode(frame) == "compact"
+    assert frame.get_by_label("Compact").is_checked()
+
+
+def test_url_switch_production_hides_a_teaching_sims_panel(open_sim: Any, page: Any) -> None:
+    teaching_sim = {**FAST, "compact": False, "teaching": True}
+    frame = open_sim("bouncing-ball", teaching_sim, "?xapi=production")
+    frame.get_by_role("button", name="Start").click()
+    frame.wait_for_timeout(400)
+    frame.get_by_role("button", name="Pause").click()
+    assert frame.locator(".xapi-log").count() == 0
+    assert verbs(statements(frame)) == ["interacted", "interacted", "experienced"]  # still Full
+    assert page.evaluate(FRAME_HEIGHT) == 700  # a teaching sim's frame is never resized
+
+
+def test_url_switch_on_the_sims_own_url(page: Any, docs_url: str) -> None:
+    def production(route: Any) -> None:
+        meta = route.fetch().json()
+        meta["xapi"] = {"teaching": False}
+        route.fulfill(body=json.dumps(meta), content_type="application/json")
+
+    page.route("**/sims/bouncing-ball/metadata.json", production)
+    page.goto(f"{docs_url}/sims/bouncing-ball/main.html?xapi=full")
+    page.wait_for_function("document.documentElement.dataset.xapiMode", timeout=20000)
+    assert page.evaluate("document.documentElement.dataset.xapiMode") == "full"
+    assert page.locator(".xapi-log").count() == 0  # a stream choice alone shows no panel
 
 
 # -------------------------------------------------------------------------- sine-wave ----
@@ -692,3 +747,14 @@ def test_quiz_answers_pass_through_with_a_log_but_no_mode_switch(
     page.locator("label.quiz-choice").nth(5).click()
     assert page.evaluate("LRSLite.statements.length") == 1
     assert page.get_by_role("button", name="View Formatted JSON").is_enabled()
+
+
+def test_url_switch_hides_the_quiz_log(page: Any, docs_url: str) -> None:
+    # This book shows its quiz logs (lrs-config.js `quizzes.teaching`); the URL overrides it.
+    page.route("**/chapters/99-test/quiz/*", lambda route: route.fulfill(
+        content_type="text/html", body=QUIZ_PAGE))
+    page.goto(f"{docs_url}/chapters/99-test/quiz/?xapi=production")
+    page.wait_for_function("document.documentElement.dataset.xapiMode", timeout=20000)
+    page.locator("label.quiz-choice").nth(0).click()
+    assert page.locator(".xapi-log").count() == 0
+    assert page.evaluate("LRSLite.statements.length") == 1  # the answer is still emitted

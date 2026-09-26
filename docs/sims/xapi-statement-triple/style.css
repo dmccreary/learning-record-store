@@ -122,3 +122,42 @@ html, body {
     stroke: #e63946 !important;
     stroke-width: 3px !important;
 }
+
+/* ---------------------------------------------------------------------------
+   xAPI teaching panel: PLACEMENT only (its look is ../../css/lrs-xapi.css).
+   xapi.js has the runtime append the panel to <body>, and the runtime builds it
+   ONLY when metadata.json says `teaching: true`. Every rule here is scoped to
+   `body:has(> .xapi-panel)`, so an embed without the panel keeps the original
+   fill-the-iframe layout above exactly.
+
+   That layout pins html, body and .container to 100% of the iframe, which leaves
+   no room below it. With the panel present, the diagram row takes the diagram's
+   natural height instead (all five parts visible, no inner scroll), and the
+   panel follows it. index.md's iframe is sized for row + a full log.
+   --------------------------------------------------------------------------- */
+body:has(> .xapi-panel),
+body:has(> .xapi-panel) .container,
+body:has(> .xapi-panel) .diagram-panel {
+    height: auto;
+}
+
+/* The row's height comes from the diagram alone. Without `contain: size` a long
+   definition in the narrow Details column would make the row, and so the whole
+   frame, grow on a click and push the log out of the iframe; with it, the text
+   scrolls inside the column, as it always did. */
+body:has(> .xapi-panel) .info-panel {
+    height: auto;
+    contain: size;
+}
+
+/* One frame height from the book's ~700 px content column up. The diagram grows
+   with the column (about 1 px taller per px wider) until ~870 px; at 900 px that
+   pushed the log 66 px out of an iframe sized at 700. Capped here, it stops
+   growing at its 700 px size and is centred in the wider panel instead. */
+body:has(> .xapi-panel) .mermaid svg {
+    max-height: 440px;
+}
+
+body > .xapi-panel {
+    margin: 10px;
+}

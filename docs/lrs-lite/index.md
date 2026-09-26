@@ -989,6 +989,24 @@ and a sim's own `metadata.json` `xapi` block overrides it for that sim (not a se
 | `offscreenMs` | 10000 | The sim less than 25% visible for this long ends the session |
 | `blurMs` | 30000 | The frame losing keyboard focus for this long ends the session |
 
+**The URL switch overrides both layers for one visit (added 2026-09-26).** Put `?xapi=` on a
+sim's page, or on the lesson or chapter page that embeds it, and every instrumented sim on
+that page follows it. No file is edited:
+
+| Token | Effect |
+|---|---|
+| `teaching` | Shows the teaching panel. It starts on Full, like every teaching sim. |
+| `teaching,compact` | The same, starting on Compact. |
+| `full` / `compact` | Chooses the stream without the panel. Read the statements with `LRSLite.statements` in the console. |
+| `production` | Hides the panel on a teaching sim, to show what production looks like. |
+
+A production sim's iframe was sized without the panel. When only the URL turns the panel
+on, the sim grows its own iframe to fit it: same-origin, grow-only, following the log as
+it fills. A sim laid out to fill its frame (100vh) can't be fitted that way. It stops and
+says so in the console, and `add-xapi-events-to-microsim`'s `check-xapi.py` flags it (its
+`url` mode). Code: `urlPolicy()` in `lrs-lite-sim.js` and `_fitFrame()` in `lrs-sim.js`.
+Tests: `test_url_switch_*` in `tests/test_microsim_compact_xapi.py`.
+
 **A key missing from the sim's block comes from the book's `lrs-config.js`, then from the
 defaults: compact and silent.** A sim with no policy is in summary mode: not silent about
 the data, and not verbose. The evidence map is the next

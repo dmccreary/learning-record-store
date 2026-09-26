@@ -13,6 +13,10 @@
             flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' }
         });
     </script>
+    <!-- The xAPI panel's look, shared with every sim and site page. An iframe payload does
+         not inherit the site's stylesheets. Loaded BEFORE style.css so this sim's own
+         placement rules for the panel win at equal specificity. -->
+    <link rel="stylesheet" href="../../css/lrs-xapi.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -57,6 +61,19 @@ flowchart TB
             'Context': { title: 'Context', description: 'The circumstances around the experience &mdash; the course, section, instructor, or registration. Here, Biology 101, Section 2. <span class="req optional">Optional</span>' }
         };
     </script>
+    <!-- xAPI runtime (docs/js). The diagram still works without it.
+         lrs-config.js        this textbook's identity and default xAPI policy; loads first
+         lrs-xapi.js          builds every contract-v1 statement
+         lrs-lite-sim.js      compact (LRS-Lite) sessions and focus-loss detection
+         lrs-sim.js           the API the sim calls: evidence classes, statement log, teaching UI
+         xapi-json-viewer.js  opens a statement, formatted, in a new tab -->
+    <script src="../../js/lrs-config.js"></script>
+    <script src="../../js/lrs-xapi.js"></script>
+    <script src="../../js/lrs-lite-sim.js"></script>
+    <script src="../../js/lrs-sim.js"></script>
+    <script src="../../js/xapi-json-viewer.js"></script>
     <script src="script.js"></script>
+    <!-- AFTER script.js: xapi.js wraps its setupNodeInteractions(), so that must exist. -->
+    <script src="xapi.js"></script>
 </body>
 </html>

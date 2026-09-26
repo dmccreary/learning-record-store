@@ -202,7 +202,7 @@ Before looking at the interactive breakdown below, hold onto one more idea: **St
 
 #### Diagram: xAPI Statement Building Blocks
 
-<iframe src="../../sims/xapi-statement-triple/main.html" width="100%" height="382px" scrolling="no"></iframe>
+<iframe src="../../sims/xapi-statement-triple/main.html" width="100%" height="790px" scrolling="no"></iframe>
 
 <details markdown="1">
 <summary>xAPI Statement Building Blocks</summary>

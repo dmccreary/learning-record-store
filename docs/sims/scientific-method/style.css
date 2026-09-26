@@ -250,3 +250,15 @@ footer {
   min-width: 0;
   margin: 16px 0 0 0;
 }
+
+/* Below 600px .main-content turns into a column (the Responsive Design block above). A
+   column flex container that WRAPS sizes each item to its max-content width, which
+   min-width cannot stop, so one raw-JSON log line made the page ~5,800px wide at phone
+   width. A column needs no wrapping: the panel is already on its own row. Found by the
+   add-xapi-events-to-microsim skill's check-xapi.py at 375px, 2026-09-26. */
+@media (max-width: 600px) {
+  .main-content { flex-wrap: nowrap; }
+  /* The Responsive Design block sets the infobox to width: 100%, and its 15px padding and
+     2px border were added on top: 34px wider than the column at 375px. */
+  .infobox { box-sizing: border-box; }
+}

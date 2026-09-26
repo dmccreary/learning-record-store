@@ -32,6 +32,10 @@
 // then from DEFAULTS. With neither, the sim is COMPACT and silent, per §6.4: a sim with no
 // policy is in summary mode — not silent about the data, and not verbose.
 //
+// Above all of them sits the URL switch (urlPolicy below): `?xapi=teaching` on the sim's
+// page — or on the lesson or chapter page that embeds it — shows the teaching panel for
+// that visit, so any instrumented sim can become a teaching aid without editing a file.
+//
 // A teaching sim may override the policy at runtime with session.setCompact(bool), so a
 // reader can flip between the two streams. Leaving compact flushes the open session
 // (end_reason 'mode-switch') so nothing already folded is lost.
@@ -82,6 +86,48 @@
     } catch (e) { /* CustomEvent unavailable: the array is still authoritative */ }
   }
 
+  // ── The URL switch: a viewer's explicit request wins over every config layer ─────
+  //
+  //   ?xapi=teaching            show the teaching panel; starts on Full, like every teaching sim
+  //   ?xapi=teaching,compact    the same, starting on Compact
+  //   ?xapi=full | compact      choose the stream without the panel (read LRSLite.statements)
+  //   ?xapi=production          hide the panel on a teaching sim, to see what production shows
+  //
+  // Read from the sim's own URL AND, inside an iframe, from the embedding page's URL. That is
+  // what makes it useful: readers never see main.html's URL, so `?xapi=teaching` on a lesson
+  // or chapter page turns every instrumented sim on that page into a teaching aid, with no
+  // file edited. Tokens combine with `,` or `+`; a later token wins over an earlier one, and
+  // the embedding page's tokens are read after the sim's own.
+  function urlPolicy() {
+    var tokens = [];
+    function read(loc) {
+      try {
+        var v = new URLSearchParams(loc.search).get('xapi');
+        if (v) tokens = tokens.concat(v.split(/[\s,+]+/));
+      } catch (e) { /* no URLSearchParams, or a location we may not read */ }
+    }
+    read(global.location);
+    try {
+      if (global.parent && global.parent !== global) read(global.parent.location);
+    } catch (e) { /* cross-origin embed: only the sim's own URL counts */ }
+
+    var out = {};
+    tokens.forEach(function (t) {
+      t = t.toLowerCase();
+      if (t === 'teaching') out.teaching = true;
+      else if (t === 'production') out.teaching = false;
+      else if (t === 'full') out.compact = false;
+      else if (t === 'compact') out.compact = true;
+      else if (t && global.console) {
+        global.console.warn('[lrs-lite-sim] unknown ?xapi= token "' + t +
+                            '" — use teaching, production, full or compact');
+      }
+    });
+    // Teaching sims start on Full (Dan, 2026-09-26): each statement is what they teach.
+    if (out.teaching === true && out.compact === undefined) out.compact = false;
+    return out;
+  }
+
   // Config -> policy. Resolves, never rejects: an unreadable metadata.json is "no policy".
   //   opts.metadata === false  a page with no metadata.json of its own (a chapter quiz): skip it
   //   opts.policy              keys the page sets itself, over the book's and under the sim's
@@ -94,15 +140,18 @@
       : Promise.resolve(null);
 
     return fetched.then(function (meta) {
-      // Precedence, lowest first: DEFAULTS < this book's lrs-config.js `xapi` < this sim's
-      // metadata.json `xapi`. An agent changes a whole textbook in one file, or one sim in its own.
+      // Precedence, lowest first: DEFAULTS < this book's lrs-config.js `xapi` < the page's own
+      // `policy` option < this sim's metadata.json `xapi` < the URL switch. An agent changes a
+      // whole textbook in one file, or one sim in its own; a viewer changes one visit in the URL.
       var cfg = global.LRS_CONFIG;
       var book = (cfg && typeof cfg.xapi === 'object' && cfg.xapi) || {};
       var page = opts.policy || {};
       var block = (meta && typeof meta.xapi === 'object' && meta.xapi) || {};
+      var url = urlPolicy();
       var policy = {};
       for (var k in DEFAULTS) {
-        policy[k] = block[k] !== undefined ? block[k]
+        policy[k] = url[k] !== undefined ? url[k]
+                  : block[k] !== undefined ? block[k]
                   : page[k] !== undefined ? page[k]
                   : book[k] !== undefined ? book[k]
                   : DEFAULTS[k];
@@ -110,7 +159,13 @@
       // Only an explicit `false` turns compaction off; only an explicit `true` shows teaching UI.
       policy.compact = policy.compact !== false;
       policy.teaching = policy.teaching === true;
-      policy.source = meta && meta.xapi ? 'metadata.json' : cfg && cfg.xapi ? 'lrs-config.js' : 'default';
+      // True when ONLY the URL turned the panel on. The sim's iframe was then sized without
+      // the panel, so lrs-sim.js grows the frame to fit it (teaching sims were sized for it).
+      var configured = block.teaching !== undefined ? block.teaching
+                     : page.teaching !== undefined ? page.teaching : book.teaching;
+      policy.teachingFromUrl = url.teaching === true && configured !== true;
+      policy.source = Object.keys(url).length ? '?xapi= URL switch'
+                    : meta && meta.xapi ? 'metadata.json' : cfg && cfg.xapi ? 'lrs-config.js' : 'default';
       return policy;
     });
   }

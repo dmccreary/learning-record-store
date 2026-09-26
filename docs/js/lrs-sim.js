@@ -26,6 +26,9 @@
 //   compact   true -> LRS-Lite, one summary per session; false -> the full per-interaction stream
 //   teaching  true -> show the statement log, the Full/Compact switch, Simulate Done, and View
 //             Formatted JSON. Only for sims that TEACH xAPI; production sims are silent.
+// A viewer can override both for one visit with the URL switch `?xapi=teaching` (on the sim's
+// page or the page that embeds it; lrs-lite-sim.js urlPolicy). A production sim switched on
+// that way grows its iframe to fit the panel (_fitFrame).
 //
 // The teaching controls live in this panel, in HTML, for every library — p5 included. They
 // operate on the xAPI stream, not the simulation, so they belong beside the log they affect,
@@ -285,6 +288,53 @@
     this.kept.forEach(function (k) { self._render(k.st, k.text); });
     this._syncControls();
     this._update();
+    if (this.session.policy && this.session.policy.teachingFromUrl) this._fitFrame();
+  };
+
+  // `?xapi=teaching` on a PRODUCTION sim: its iframe was sized without this panel (and often
+  // has scrolling="no"), so the panel would be clipped. Grow the embedding iframe to fit it,
+  // and keep following it: the log fills, and content ABOVE the panel can grow too (the FDM
+  // chart reveals an info box on click). Same-origin only (frameElement is null otherwise),
+  // and grow-only. Teaching sims never get here: their iframes are sized for the panel (the
+  // add-xapi-events-to-microsim skill, step 8).
+  //
+  // One layout cannot be fitted: one sized by its frame (100vh, or html/body at 100%). Every
+  // time the frame grows, the content above the panel grows by the same amount and pushes
+  // the panel back out. That is detectable exactly: the panel moved down by as much as the
+  // viewport grew. Stop there and say so, rather than chasing the frame forever.
+  Sim.prototype._fitFrame = function () {
+    var frame = null;
+    try { frame = global.frameElement; } catch (e) { return; }
+    if (!frame || !this.panelEl) return;
+    var panel = this.panelEl;
+    var base = frame.clientHeight;
+    var last = null;
+    var stopped = false;
+    function fit() {
+      if (stopped) return;
+      var box = panel.getBoundingClientRect();
+      var top = box.top + (global.scrollY || 0);
+      var vh = global.innerHeight;
+      if (last && vh > last.vh && top > last.top && Math.abs((top - last.top) - (vh - last.vh)) <= 2) {
+        stopped = true;
+        if (global.console) {
+          global.console.warn('[lrs-sim] this sim is laid out to fill its frame (100vh or 100%), so ' +
+            'the ?xapi=teaching panel cannot be fitted by growing the iframe. Pin its height while ' +
+            'the panel is present: body:has(> .xapi-panel) <container> { height: <px> }');
+        }
+        return;
+      }
+      last = { top: top, vh: vh };
+      var need = Math.ceil(top + box.height +
+                           (parseFloat(global.getComputedStyle(panel).marginBottom) || 0) + 16);
+      if (need > base && need > frame.clientHeight) frame.style.height = need + 'px';
+    }
+    fit();
+    if (typeof ResizeObserver === 'function') {
+      var ro = new ResizeObserver(fit);
+      ro.observe(panel);                 // the log filling
+      ro.observe(document.body);         // content above the panel growing (or the frame itself)
+    }
   };
 
   Sim.prototype._render = function (st, text) {

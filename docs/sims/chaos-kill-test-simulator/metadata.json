@@ -20,5 +20,19 @@
   "chapter_title": "Failure Modes and Verification",
   "chapter_dir": "19-failure-modes-and-verification",
   "chapter_rel_dir": "chapters/19-failure-modes-and-verification",
-  "canvasHeight": 480
+  "canvasHeight": 480,
+  "xapi": {
+    "concept": "learning-record-store-353",
+    "objects": {
+      "service-select": "learning-record-store-353",
+      "prediction": "learning-record-store-353",
+      "restore-button": "learning-record-store-353",
+      "reset-button": "learning-record-store-353",
+      "q-kafka": "learning-record-store-334",
+      "q-clickhouse": "learning-record-store-335",
+      "q-neo4j": "learning-record-store-336",
+      "q-summarizer": "learning-record-store-337",
+      "q-redis": "learning-record-store-340"
+    }
+  }
 }
