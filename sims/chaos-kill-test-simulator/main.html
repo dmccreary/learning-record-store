@@ -6,13 +6,30 @@
     <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
     <title>Chaos Kill Test Simulator</title>
     <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/p5.js"></script>
+    <!-- The xAPI panel's look, shared with every sim and site page. -->
+    <link rel="stylesheet" href="../../css/lrs-xapi.css">
     <style>
         body { margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; }
         main { display: block; }
+        /* Only shown if the config ever says `teaching: true`; this production sim renders no panel. */
+        .xapi-panel { margin: 12px 10px 0 10px; }
     </style>
+    <!-- xAPI runtime (docs/js). The sim still runs without it, e.g. pasted into the p5.js editor.
+         lrs-config.js        this textbook's identity and default xAPI policy; loads first
+         lrs-xapi.js          builds every contract-v1 statement
+         lrs-lite-sim.js      compact (LRS-Lite) sessions and focus-loss detection
+         lrs-sim.js           the API the sim calls: evidence classes, statement log, teaching UI
+         xapi-json-viewer.js  opens a statement, formatted, in a new tab -->
+    <script src="../../js/lrs-config.js"></script>
+    <script src="../../js/lrs-xapi.js"></script>
+    <script src="../../js/lrs-lite-sim.js"></script>
+    <script src="../../js/lrs-sim.js"></script>
+    <script src="../../js/xapi-json-viewer.js"></script>
     <script src="chaos-kill-test-simulator.js"></script>
 </head>
 <body>
     <main></main>
+    <!-- lrs-sim.js puts the xAPI statement log here only when the config says `teaching: true`. -->
+    <div id="xapi-slot"></div>
 </body>
 </html>

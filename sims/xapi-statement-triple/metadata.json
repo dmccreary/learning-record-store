@@ -20,5 +20,26 @@
   "chapter_title": "From Learning Management Systems to the Experience API",
   "chapter_dir": "01-lms-to-experience-api",
   "chapter_rel_dir": "chapters/01-lms-to-experience-api",
-  "canvasHeight": 380
+  "canvasHeight": 788,
+  "pedagogical": {
+    "keyQuestions": [
+      "Click Verb, then open the statement it emitted. Which of its fields is the Actor, the Verb, the Object, the Result, and the Context? Which of them did the diagram call Optional?",
+      "The diagram's example Statement uses the verb completed, but clicking a part emits interacted. Why does this book allow only answered, experienced, and interacted?",
+      "Click all five parts in Full mode, then do the same in Compact mode and press Simulate Done. How many statements does each mode produce, and what does statements_represented in the compact summary count?",
+      "Clicking empty space clears the Details box but emits nothing. Why is that not evidence?",
+      "Every statement this diagram emits is interacted or experienced. Can it tell a teacher that a student knows what an Actor is? What would it need to add?"
+    ]
+  },
+  "xapi": {
+    "compact": false,
+    "teaching": true,
+    "concept": "learning-record-store-15",
+    "objects": {
+      "actor": "learning-record-store-9",
+      "verb": "learning-record-store-10",
+      "object": "learning-record-store-11",
+      "result": "learning-record-store-13",
+      "context": "learning-record-store-14"
+    }
+  }
 }

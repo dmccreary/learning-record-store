@@ -4224,6 +4224,41 @@ and a sim's own <code>metadata.json</code> <code>xapi</code> block overrides it 
 </tr>
 </tbody>
 </table>
+<p><strong>The URL switch overrides both layers for one visit (added 2026-09-26).</strong> Put <code>?xapi=</code> on a
+sim's page, or on the lesson or chapter page that embeds it, and every instrumented sim on
+that page follows it. No file is edited:</p>
+<table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>teaching</code></td>
+<td>Shows the teaching panel. It starts on Full, like every teaching sim.</td>
+</tr>
+<tr>
+<td><code>teaching,compact</code></td>
+<td>The same, starting on Compact.</td>
+</tr>
+<tr>
+<td><code>full</code> / <code>compact</code></td>
+<td>Chooses the stream without the panel. Read the statements with <code>LRSLite.statements</code> in the console.</td>
+</tr>
+<tr>
+<td><code>production</code></td>
+<td>Hides the panel on a teaching sim, to show what production looks like.</td>
+</tr>
+</tbody>
+</table>
+<p>A production sim's iframe was sized without the panel. When only the URL turns the panel
+on, the sim grows its own iframe to fit it: same-origin, grow-only, following the log as
+it fills. A sim laid out to fill its frame (100vh) can't be fitted that way. It stops and
+says so in the console, and <code>add-xapi-events-to-microsim</code>'s <code>check-xapi.py</code> flags it (its
+<code>url</code> mode). Code: <code>urlPolicy()</code> in <code>lrs-lite-sim.js</code> and <code>_fitFrame()</code> in <code>lrs-sim.js</code>.
+Tests: <code>test_url_switch_*</code> in <code>tests/test_microsim_compact_xapi.py</code>.</p>
 <p><strong>A key missing from the sim's block comes from the book's <code>lrs-config.js</code>, then from the
 defaults: compact and silent.</strong> A sim with no policy is in summary mode: not silent about
 the data, and not verbose. The evidence map is the next

@@ -14,7 +14,8 @@ window.LRS_CONFIG = {
   // (src/lrs/catalog.py) namespaces them as {repo-slug}-{ConceptID}; LRS.conceptId() does the same.
   conceptPrefix: 'learning-record-store',
   // The xAPI policy for EVERY MicroSim in this book. A sim's metadata.json `xapi` block
-  // overrides any of these keys for that one sim (lrs-lite-sim.js, loadPolicy).
+  // overrides any of these keys for that one sim (lrs-lite-sim.js, loadPolicy), and a viewer
+  // can override both for one visit with the URL switch ?xapi=teaching (or production, full, compact).
   //   compact   true  -> LRS-Lite: one summary statement per session
   //             false -> the full per-interaction stream (full LRS)
   //   teaching  true  -> show the statement log, Full/Compact switch, Simulate Done, and

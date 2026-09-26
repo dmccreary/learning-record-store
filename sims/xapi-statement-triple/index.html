@@ -4719,6 +4719,75 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#this-diagram-emits-the-thing-it-describes" class="md-nav__link">
+    <span class="md-ellipsis">
+      This Diagram Emits the Thing It Describes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="This Diagram Emits the Thing It Describes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-each-action-emits" class="md-nav__link">
+    <span class="md-ellipsis">
+      What each action emits
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#full-vs-compact" class="md-nav__link">
+    <span class="md-ellipsis">
+      Full vs. Compact
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#which-concepts-it-records" class="md-nav__link">
+    <span class="md-ellipsis">
+      Which concepts it records
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-it-cannot-tell-you" class="md-nav__link">
+    <span class="md-ellipsis">
+      What it cannot tell you
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where-the-mode-comes-from" class="md-nav__link">
+    <span class="md-ellipsis">
+      Where the mode comes from
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#things-worth-asking" class="md-nav__link">
+    <span class="md-ellipsis">
+      Things worth asking
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#specification" class="md-nav__link">
     <span class="md-ellipsis">
       Specification
@@ -5059,6 +5128,75 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#this-diagram-emits-the-thing-it-describes" class="md-nav__link">
+    <span class="md-ellipsis">
+      This Diagram Emits the Thing It Describes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="This Diagram Emits the Thing It Describes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-each-action-emits" class="md-nav__link">
+    <span class="md-ellipsis">
+      What each action emits
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#full-vs-compact" class="md-nav__link">
+    <span class="md-ellipsis">
+      Full vs. Compact
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#which-concepts-it-records" class="md-nav__link">
+    <span class="md-ellipsis">
+      Which concepts it records
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-it-cannot-tell-you" class="md-nav__link">
+    <span class="md-ellipsis">
+      What it cannot tell you
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where-the-mode-comes-from" class="md-nav__link">
+    <span class="md-ellipsis">
+      Where the mode comes from
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#things-worth-asking" class="md-nav__link">
+    <span class="md-ellipsis">
+      Things worth asking
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#specification" class="md-nav__link">
     <span class="md-ellipsis">
       Specification
@@ -5100,40 +5238,237 @@
 
 
 <h1 id="xapi-statement-building-blocks">xAPI Statement Building Blocks<a class="headerlink" href="#xapi-statement-building-blocks" title="Permanent link">&para;</a></h1>
-<iframe src="main.html" width="100%" height="382"></iframe>
+<iframe src="main.html" width="100%" height="790"></iframe>
 
 <p><a class="md-button md-button--primary" href="main.html">Run MicroSim in Fullscreen</a></p>
+<h2 id="this-diagram-emits-the-thing-it-describes">This Diagram Emits the Thing It Describes<a class="headerlink" href="#this-diagram-emits-the-thing-it-describes" title="Permanent link">&para;</a></h2>
+<p>The diagram breaks one example Statement into its five parts. Clicking a part emits a
+<strong>real</strong> xAPI Statement, and that Statement has the same five parts. The panel under the
+diagram shows it. Nothing is sent to a server. Click <strong>Verb</strong>, then click the new line in
+the log (or press <strong>View Formatted JSON ↗</strong>) and match each part:</p>
+<table>
+<thead>
+<tr>
+<th>Part</th>
+<th>In the diagram's example</th>
+<th>In the Statement your click just emitted</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Actor</strong></td>
+<td>Maya</td>
+<td><code>actor</code>: the demo account <code>demo-student</code></td>
+</tr>
+<tr>
+<td><strong>Verb</strong></td>
+<td>completed</td>
+<td><code>verb</code>: <code>interacted</code></td>
+</tr>
+<tr>
+<td><strong>Object</strong></td>
+<td>the Photosynthesis Quiz, Activity Type <em>quiz</em></td>
+<td><code>object</code>: <code>…/sims/xapi-statement-triple/#verb</code>, typed <code>Control</code></td>
+</tr>
+<tr>
+<td><strong>Result</strong></td>
+<td>scored 9/10</td>
+<td><code>result</code>: <code>engagement-mode: click</code></td>
+</tr>
+<tr>
+<td><strong>Context</strong></td>
+<td>Biology 101, Section 2</td>
+<td><code>context</code>: the textbook version (<code>grouping</code>), this page (<code>parent</code>), and the concept you studied (<code>concept_id</code>)</td>
+</tr>
+</tbody>
+</table>
+<p>Why <code>interacted</code> and not <code>completed</code>? This book's
+<a href="../../specs/xapi-producer-contract-v1/#3-verbs-resolved">producer contract</a> allows
+exactly three verbs: <code>answered</code>, <code>experienced</code>, and <code>interacted</code>. Clicking a part to read
+its definition is an interaction. It is not a completion, and it is not an answer.</p>
+<h3 id="what-each-action-emits">What each action emits<a class="headerlink" href="#what-each-action-emits" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>You do this</th>
+<th>It emits</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Click a part</td>
+<td>one <code>interacted</code> statement, <code>engagement-mode: click</code>, carrying that part's concept</td>
+<td>Clicking is the act the diagram was designed for ("Click a labeled part…"). Clicking the part that is already selected counts again: it is still a deliberate click.</td>
+</tr>
+<tr>
+<td>Click empty space</td>
+<td>nothing (the log shows a note)</td>
+<td>Clearing the Details box is not evidence of studying anything.</td>
+</tr>
+<tr>
+<td>Hover over a part</td>
+<td>nothing</td>
+<td>The diagram only brightens the box; hovering is not how it is meant to be used.</td>
+</tr>
+<tr>
+<td>Leave the page, hide the tab, or press <strong>Simulate Done</strong></td>
+<td>one <code>experienced</code> statement for your time on the page</td>
+<td>The diagram has no Start/Pause, so the interval is time on the page. Under one second is a glance and emits nothing.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="full-vs-compact">Full vs. Compact<a class="headerlink" href="#full-vs-compact" title="Permanent link">&para;</a></h3>
+<p>The <strong>xAPI events</strong> radio buttons switch between the two statement streams this book
+describes. The diagram starts on <strong>Full</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Built for</th>
+<th>What the log shows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Full</strong></td>
+<td>A full LRS on a good network</td>
+<td>One <code>interacted</code> statement per click, <strong>as you click</strong>, plus the page-dwell <code>experienced</code> statement when the diagram loses focus.</td>
+</tr>
+<tr>
+<td><strong>Compact</strong></td>
+<td><a href="../../lrs-lite/#6-producer-side-summarization">LRS-Lite</a>, a small store in the browser</td>
+<td><strong>Nothing while you click.</strong> Your clicks are folded into <strong>one</strong> <code>experienced</code> summary, emitted when the diagram loses focus. Its <code>controls</code> extension lists each part you clicked, how many times, and its concept. <code>statements_represented</code> counts the Full statements it stands for.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Try it:</strong></p>
+<ol>
+<li>On <strong>Full</strong>, click all five parts once. Count the statements.</li>
+<li>Switch to <strong>Compact</strong> and click all five again. The log stays silent, except for notes
+   saying each click was folded.</li>
+<li>Press <strong>Simulate Done</strong>. One summary appears. Open it with <strong>View Formatted JSON ↗</strong>
+   and find <code>statements_represented</code>.</li>
+<li>Press <strong>Simulate Done</strong> again. No statement appears: the session already ended, and a
+   new one starts only when you click a part again.</li>
+</ol>
+<p>Switching modes closes whatever the mode being left has open, so nothing is lost or
+counted twice. Full → Compact emits the page interval so far (<code>run-ended-by:
+"mode-switch"</code>); Compact → Full emits the folded summary (<code>end_reason: "mode-switch"</code>).</p>
+<h3 id="which-concepts-it-records">Which concepts it records<a class="headerlink" href="#which-concepts-it-records" title="Permanent link">&para;</a></h3>
+<p>Every statement carries one <code>concept_id</code> from this book's
+<a href="../../learning-graph/learning-graph.csv">learning graph</a>. All six are Chapter 1 concepts.</p>
+<table>
+<thead>
+<tr>
+<th>Object</th>
+<th>Fragment</th>
+<th>Concept</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Actor</td>
+<td><code>#actor</code></td>
+<td><code>learning-record-store-9</code> Actor</td>
+</tr>
+<tr>
+<td>Verb</td>
+<td><code>#verb</code></td>
+<td><code>learning-record-store-10</code> Verb</td>
+</tr>
+<tr>
+<td>Object (Activity)</td>
+<td><code>#object</code></td>
+<td><code>learning-record-store-11</code> Object Activity</td>
+</tr>
+<tr>
+<td>Result</td>
+<td><code>#result</code></td>
+<td><code>learning-record-store-13</code> Result</td>
+</tr>
+<tr>
+<td>Context</td>
+<td><code>#context</code></td>
+<td><code>learning-record-store-14</code> Context</td>
+</tr>
+<tr>
+<td>The page (dwell, the Compact summary)</td>
+<td>none</td>
+<td><code>learning-record-store-15</code> Statement</td>
+</tr>
+</tbody>
+</table>
+<p>The Object box also shows its Activity Type (<em>quiz</em>), but a statement carries only one
+concept, and the box is the Object.</p>
+<h3 id="what-it-cannot-tell-you">What it cannot tell you<a class="headerlink" href="#what-it-cannot-tell-you" title="Permanent link">&para;</a></h3>
+<p>Every statement here is <code>interacted</code> or <code>experienced</code>. Only <code>answered</code> carries
+<code>result.success</code>, and only that reaches a mastery estimate. So this diagram records
+<strong>which parts a student opened, how often, and in what order</strong>. It cannot record whether
+the student knows what an Actor is. That would take a question, such as "which part of
+this Statement is the Context?", emitted as <code>answered</code>.</p>
+<h3 id="where-the-mode-comes-from">Where the mode comes from<a class="headerlink" href="#where-the-mode-comes-from" title="Permanent link">&para;</a></h3>
+<p>The book's <a href="../../js/lrs-config.js"><code>docs/js/lrs-config.js</code></a> sets every MicroSim to
+<code>compact: true, teaching: false</code>: compact, and silent. This sim's
+<a href="metadata.json"><code>metadata.json</code></a> overrides that, because the diagram exists to teach what
+a Statement is:</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">"xapi"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"compact"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nt">"teaching"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nt">"concept"</span><span class="p">:</span><span class="w"> </span><span class="s2">"learning-record-store-15"</span><span class="p">,</span><span class="w"> </span><span class="nt">"objects"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"actor"</span><span class="p">:</span><span class="w"> </span><span class="s2">"learning-record-store-9"</span><span class="p">,</span><span class="w"> </span><span class="nt">"…"</span><span class="p">:</span><span class="w"> </span><span class="s2">"…"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+</span></code></pre></div>
+<p><code>teaching: true</code> shows the log, the Full/Compact switch, Simulate Done, and View
+Formatted JSON. <code>concept</code> and <code>objects</code> record the concept map above; they do not change
+the mode.</p>
+<p>A reader can override both layers for one visit from the URL. Add <code>?xapi=teaching</code> to any
+page that embeds an instrumented MicroSim, and every such sim on that page shows its
+statement log, even production sims such as the
+<a href="../chaos-kill-test-simulator/?xapi=teaching">Chaos Kill Test Simulator</a>. Add
+<code>?xapi=production</code> to this page to see what the diagram looks like with the log hidden.</p>
+<h3 id="things-worth-asking">Things worth asking<a class="headerlink" href="#things-worth-asking" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Click <strong>Verb</strong>, then open the statement it emitted. Which of its fields is the Actor,
+   the Verb, the Object, the Result, and the Context? Which of them did the diagram call
+   <em>Optional</em>?</li>
+<li>The diagram's example uses the verb <em>completed</em>, but clicking a part emits
+   <code>interacted</code>. Why does this book allow only <code>answered</code>, <code>experienced</code>, and
+   <code>interacted</code>?</li>
+<li>Click all five parts in Full mode, then do the same in Compact mode and press
+   Simulate Done. How many statements does each mode produce, and what does
+   <code>statements_represented</code> count?</li>
+<li>Clicking empty space clears the Details box but emits nothing. Why is that not
+   evidence?</li>
+<li>Can this diagram tell a teacher that a student knows what an Actor is? What would it
+   need to add?</li>
+</ol>
 <h2 id="specification">Specification<a class="headerlink" href="#specification" title="Permanent link">&para;</a></h2>
 <p>The full specification below is extracted from
 <a href="../../chapters/01-lms-to-experience-api/">Chapter 1: From Learning Management Systems to the Experience API</a>.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Type: infographic
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>**sim-id:** xapi-statement-triple&lt;br/&gt;
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>**Library:** Mermaid&lt;br/&gt;
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>**Status:** Specified
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>**Template:** https://dmccreary.github.io/xapi-course/sims/xapi-statement-triple/&lt;br/&gt;
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>Bloom Taxonomy: Understand (L2)
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>Bloom Taxonomy Verb: exemplify, classify
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>Learning objective: Give the learner a first, plain-language mental model of the five Statement components (Actor, Verb, Object Activity, Result, Context) using one worked example, before Chapter 2 formalizes the JSON structure.
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>Purpose: Show a single example Statement broken into its labeled parts, so the reader can see the vocabulary just introduced in the prose applied to one concrete sentence.
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>Layout: A horizontal sentence strip reading "Maya | completed | the Photosynthesis Quiz" with the words "Actor", "Verb", "Object Activity" as labels beneath each phrase, plus two additional connected boxes below labeled "Result: scored 9/10" and "Context: Biology 101, Section 2".
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>Data Visibility Requirements:
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Stage 1: Show the plain English sentence "Maya completed the Photosynthesis Quiz, scoring 9 out of 10, in Biology 101."
-</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>Stage 2: Highlight and label "Maya" as Actor.
-</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>Stage 3: Highlight and label "completed" as Verb.
-</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>Stage 4: Highlight and label "the Photosynthesis Quiz" as Object Activity, with its Activity Type ("quiz") shown as a small sub-tag.
-</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>Stage 5: Reveal the Result box: "scored 9/10."
-</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>Stage 6: Reveal the Context box: "Biology 101, Section 2."
-</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>
-</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>Interactive features: Each of the five labeled parts (Actor, Verb, Object Activity, Result, Context) is clickable. Clicking opens an infobox with that term's one-sentence definition, matching the definition given in this chapter's prose, plus the note "Required" or "Optional."
-</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>
-</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>Instructional Rationale: A step-through, data-visible worked example is appropriate for this Understand-level objective because the learner needs to trace one concrete Statement piece by piece before generalizing. Continuous animation or particle effects would obscure exactly which words map to which component.
-</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>
-</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>Implementation: Mermaid diagram (or equivalent static-layout HTML/CSS) with click handlers wired to an infobox panel, matching the reused template's existing interaction pattern.
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Type: infographic
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>**sim-id:** xapi-statement-triple&lt;br/&gt;
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>**Library:** Mermaid&lt;br/&gt;
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>**Status:** Specified
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>**Template:** https://dmccreary.github.io/xapi-course/sims/xapi-statement-triple/&lt;br/&gt;
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>Bloom Taxonomy: Understand (L2)
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>Bloom Taxonomy Verb: exemplify, classify
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>Learning objective: Give the learner a first, plain-language mental model of the five Statement components (Actor, Verb, Object Activity, Result, Context) using one worked example, before Chapter 2 formalizes the JSON structure.
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>Purpose: Show a single example Statement broken into its labeled parts, so the reader can see the vocabulary just introduced in the prose applied to one concrete sentence.
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>Layout: A horizontal sentence strip reading "Maya | completed | the Photosynthesis Quiz" with the words "Actor", "Verb", "Object Activity" as labels beneath each phrase, plus two additional connected boxes below labeled "Result: scored 9/10" and "Context: Biology 101, Section 2".
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>Data Visibility Requirements:
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>Stage 1: Show the plain English sentence "Maya completed the Photosynthesis Quiz, scoring 9 out of 10, in Biology 101."
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>Stage 2: Highlight and label "Maya" as Actor.
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>Stage 3: Highlight and label "completed" as Verb.
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>Stage 4: Highlight and label "the Photosynthesis Quiz" as Object Activity, with its Activity Type ("quiz") shown as a small sub-tag.
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>Stage 5: Reveal the Result box: "scored 9/10."
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>Stage 6: Reveal the Context box: "Biology 101, Section 2."
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>Interactive features: Each of the five labeled parts (Actor, Verb, Object Activity, Result, Context) is clickable. Clicking opens an infobox with that term's one-sentence definition, matching the definition given in this chapter's prose, plus the note "Required" or "Optional."
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>
+</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>Instructional Rationale: A step-through, data-visible worked example is appropriate for this Understand-level objective because the learner needs to trace one concrete Statement piece by piece before generalizing. Continuous animation or particle effects would obscure exactly which words map to which component.
+</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>
+</span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>Implementation: Mermaid diagram (or equivalent static-layout HTML/CSS) with click handlers wired to an infobox panel, matching the reused template's existing interaction pattern.
 </span></code></pre></div>
 <h2 id="related-resources">Related Resources<a class="headerlink" href="#related-resources" title="Permanent link">&para;</a></h2>
 <ul>
