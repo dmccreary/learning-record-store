@@ -5521,6 +5521,15 @@ exist under a different <code>textbook_id</code>.</p>
 </tr>
 </tbody>
 </table>
+<p><strong>Compact mode (this diagram's setting).</strong> The table above is the <em>full</em> stream. This
+diagram's <a href="metadata.json"><code>metadata.json</code></a> sets <code>"xapi": {"compact": true, ...}</code>, so the
+same hovers and pins are <strong>folded</strong> into one session instead. When the diagram loses focus
+(you switch tabs, leave the page, scroll it mostly out of view, or go idle), it emits
+<strong>one</strong> <code>experienced</code> summary. Its <code>controls</code> extension lists each step studied with its
+dwell (<code>ms</code>), how it was studied (<code>modes</code>: hover or pinned), and its concept. Its duration
+replaces the page-level interval, and <code>statements_represented</code> counts the full-mode
+statements it stands for. Set <code>compact</code> to <code>false</code> to see the full stream. The panel header
+says which mode is active, and <code>make test-sims</code> checks both modes.</p>
 <p><strong>Why steps are <code>Control</code> and the page is <code>MicroSim</code>:</strong> the page-level statement's object is
 the page IRI with no fragment, so it becomes exactly <strong>one</strong> <code>PageEngagement</code> vertex. Each
 step's object is fragment-qualified (<code>…/scientific-method/#hypothesis</code>) and typed <code>Control</code>,

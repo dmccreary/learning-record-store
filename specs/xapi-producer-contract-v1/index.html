@@ -1472,6 +1472,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="7. Start/Pause: the dwell pattern [NEW 2026-07-16]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-button-press-interaction-evidence-new-2026-09-26" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1 Button-press interaction evidence [NEW 2026-09-26]
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2062,6 +2077,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="7. Start/Pause: the dwell pattern [NEW 2026-07-16]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-button-press-interaction-evidence-new-2026-09-26" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1 Button-press interaction evidence [NEW 2026-09-26]
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2588,8 +2618,10 @@ than silently written down.</p>
 express until this section existed. The reference implementation is
 <a href="../../sims/bouncing-ball/"><code>docs/sims/bouncing-ball/</code></a>.</p>
 <blockquote>
-<p><strong>A Start/Pause pair is ONE run interval, and a run interval is ONE <code>experienced</code> statement,
-emitted on Pause, carrying the elapsed time as <code>result.duration</code>.</strong></p>
+<p><strong>A Start/Pause pair is ONE run interval, and a run interval's DURATION is carried by ONE
+<code>experienced</code> statement, emitted on Pause, carrying the elapsed time as <code>result.duration</code>.</strong>
+Button presses may additionally emit <code>interacted</code> statements (§7.1) — that is evidence
+the control was touched, never evidence of how long the interval lasted.</p>
 </blockquote>
 <table>
 <thead>
@@ -2602,23 +2634,23 @@ emitted on Pause, carrying the elapsed time as <code>result.duration</code>.</st
 <tbody>
 <tr>
 <td><strong>Start</strong></td>
-<td><strong>Nothing.</strong> Record the wall clock.</td>
-<td>A student who starts a sim and walks away has produced no evidence. A <code>started</code> with no matching <code>paused</code> is an unclosed interval nothing can score, and it would inflate <code>statements_compressed</code> with rows that carry no duration.</td>
+<td>Wall clock recorded. No <code>experienced</code> yet. An <code>interacted</code> press event MAY also be emitted (§7.1) — it carries no duration.</td>
+<td>A student who starts a sim and walks away has produced no <em>dwell</em> evidence. An <code>experienced</code> with no matching close would be an unclosed interval nothing can score, and it would inflate <code>statements_compressed</code> with rows that carry no duration.</td>
 </tr>
 <tr>
 <td><strong>Pause</strong></td>
-<td><strong>One</strong> <code>experienced</code>, <code>result.duration</code> = elapsed.</td>
-<td>The interval <em>is</em> the evidence. <code>result.duration</code> is the only field feeding <code>dwell_ms_total</code>, and one statement carries it as well as two do.</td>
+<td><strong>One</strong> <code>experienced</code>, <code>result.duration</code> = elapsed. An <code>interacted</code> press event MAY also be emitted (§7.1) for the same click.</td>
+<td>The interval <em>is</em> the dwell evidence. <code>result.duration</code> is the only field feeding <code>dwell_ms_total</code>, and one statement carries it as well as two do.</td>
 </tr>
 <tr>
 <td><strong>Tab hidden while running</strong></td>
-<td>The same <code>experienced</code>, flushed.</td>
+<td>The same <code>experienced</code>, flushed. <strong>No</strong> <code>interacted</code> — this is not a button press.</td>
 <td>Start-it-and-close-the-tab is the <strong>common</strong> case, not the edge case. Without a flush the modal student emits nothing at all. Use <code>visibilitychange</code>, not <code>beforeunload</code> — it is the only one that fires reliably on mobile Safari.</td>
 </tr>
 <tr>
 <td><strong>Run &lt; 250 ms</strong></td>
-<td><strong>Nothing.</strong></td>
-<td>A mis-click is not engagement. Emitting it puts <code>PT0S</code> rows into <code>dwell_ms_total</code> and pollutes the C-6 ratio with noise.</td>
+<td>The <code>interacted</code> press events still fire, if emitted at all (§7.1) — the clicks happened. <strong>No</strong> <code>experienced</code>.</td>
+<td>A mis-click is not <em>dwell</em> evidence. Emitting it puts <code>PT0S</code> rows into <code>dwell_ms_total</code> and pollutes the C-6 ratio with noise. It is still evidence the control was touched.</td>
 </tr>
 </tbody>
 </table>
@@ -2626,12 +2658,40 @@ emitted on Pause, carrying the elapsed time as <code>result.duration</code>.</st
 <code>simulation</code> → <code>MicroSim</code> (§5). The Start/Pause button is <em>not</em> its own activity: what is being
 measured is engagement with the simulation, and the button is merely how the student expressed it. A
 button-fragment IRI here would land the dwell in a <code>PageEngagement</code> vertex named after a button.</p>
-<p><strong>Why not two statements.</strong> The literal instrumentation — <code>started</code> on Start, <code>paused</code> on Pause — is
-more xAPI-idiomatic and is what most LRS integrations do. It is rejected here because it doubles
-statement volume for zero additional information, requires the reader to reconstruct duration by
-pair-joining statements at read time (ordering under at-least-once delivery makes that unreliable), and
-produces unclosed intervals whenever a student never pauses. The pattern above degrades gracefully:
-the worst case is a <em>missing</em> interval, never a <em>wrong</em> one.</p>
+<p><strong>Why not two statements <em>for duration</em>.</strong> The literal instrumentation — a <code>started</code> verb on Start, a
+<code>paused</code> verb on Pause, with the reader reconstructing <code>result.duration</code> by pair-joining them — is more
+xAPI-idiomatic and is what most LRS integrations do. It is rejected here because it doubles statement
+volume for zero additional information, requires the reader to reconstruct duration at read time
+(ordering under at-least-once delivery makes that unreliable), and produces unclosed intervals whenever
+a student never pauses. The pattern above degrades gracefully: the worst case is a <em>missing</em> interval,
+never a <em>wrong</em> one. Note also that <code>started</code>/<code>paused</code> are not in the v1 verb set at all (§3) — this
+was never available as a literal option, only as the shape to avoid.</p>
+<h3 id="71-button-press-interaction-evidence-new-2026-09-26">7.1 Button-press interaction evidence  <strong>[NEW 2026-09-26]</strong><a class="headerlink" href="#71-button-press-interaction-evidence-new-2026-09-26" title="Permanent link">&para;</a></h3>
+<p>The reference implementation (<code>bouncing-ball.js</code>) additionally emits an <code>interacted</code> statement for the
+Start press and another for the Pause press — object <code>…/sims/bouncing-ball/#start-pause-control</code>, typed
+<code>Control</code> (§5), <code>result.extensions["https://w3id.org/lrs/ext/action"]</code> = <code>"start"</code> or <code>"pause"</code>, no
+<code>result.duration</code>. One fragment id for both presses: the button's label toggles, but per §2's test
+("would an edit that does not change what the thing <em>is</em> change its IRI?") it stays one control.</p>
+<p><strong>This is additive, not the rejected pattern above.</strong> The rejected pattern computes <code>result.duration</code>
+<em>from</em> a start/pause pair. These <code>interacted</code> statements carry no duration at all and are never read
+to derive one — <code>result.duration</code> still comes from exactly one <code>experienced</code> statement, unchanged. What
+they add is answering a different question ("was the control touched, and how many times?") that the
+dwell statement cannot answer on its own — the same reason <code>#speed-slider</code> gets its own <code>interacted</code>
+stream alongside the page-level <code>experienced</code>. The honest cost: a full Start→Pause cycle now emits
+<strong>three</strong> statements instead of one, not two.</p>
+<p><strong>A press event MUST NOT fire on a flush.</strong> <code>visibilitychange</code>, idle, scroll-away, and blur end an
+interval the same way Pause does, but the student did not click anything, so no <code>interacted</code> fires for
+those — only the <code>experienced</code> closing the interval. Emitting a synthetic "pause" press on a flush would
+misrepresent an automatic timeout as a deliberate act.</p>
+<p><strong>Compact mode.</strong> Under LRS-Lite (<code>docs/lrs-lite/index.md</code> §6), each press folds into the session via
+<code>Session.touch('start-pause-control', undefined, {mode, concept})</code> exactly like a slider step, and
+contributes to the same <code>statements_represented</code> count — it is still evidence the full stream would
+have emitted, just compressed the same way.</p>
+<p><strong>This is optional per emitter, not a v1 requirement.</strong> A MicroSim with a Start/Pause control MAY skip
+the button-press <code>interacted</code> statements and keep emitting only the dwell pattern above; nothing about
+§7's core rule (one <code>experienced</code> per interval, on Pause) changes. <code>sine-wave.js</code> and
+<code>scientific-method</code>'s page-level dwell, which have no Start/Pause control at all, are unaffected either
+way.</p>
 <p><strong>Paused-by-default is load-bearing.</strong> The MicroSim standard requires every sim to load paused. That
 is primarily pedagogical — a sim animating as a student scrolls past is a distraction. But it is also a
 data rule here: an auto-running sim would emit dwell the student never chose to spend, and every
@@ -2917,6 +2977,17 @@ version, and real districts supply their own.</p>
   "fix the URI" was not a one-line job.</li>
 <li>~~<strong>Start/Pause has no contracted representation.</strong>~~ Now §7, with
   <a href="../../sims/bouncing-ball/"><code>bouncing-ball</code></a> as the reference emitter.</li>
+</ul>
+<p><strong>Closed 2026-09-26:</strong></p>
+<ul>
+<li>~~<strong>Start/Pause button presses carry no interaction evidence, only the closed
+  interval does.</strong>~~ Now §7.1. <code>bouncing-ball.js</code> emits an <code>interacted</code> statement per
+  press (<code>#start-pause-control</code>, <code>action: start|pause</code>), additive to the unchanged §7
+  dwell pattern — it does not reconstruct <code>result.duration</code> from the pair, so it is not
+  the two-statement pattern §7 rejects. Also: the speed slider moved off the sim's
+  umbrella <code>motion</code> concept onto its own <code>adjustable-speed</code> (§6 already allows one
+  <code>concept_id</code> per statement; this just picks a more specific one for the slider).
+  <code>tests/test_microsim_compact_xapi.py</code> covers both, full mode and compact.</li>
 </ul>
 
 

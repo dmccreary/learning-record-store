@@ -30,6 +30,7 @@
   ],
   "concepts": [
     "Motion",
+    "Adjustable Speed",
     "Velocity",
     "Collision",
     "Boundary Detection",
@@ -70,10 +71,18 @@
     ],
     "interactionStyle": "manipulate",
     "keyQuestions": [
-      "Why does pressing Start emit no xAPI statement at all?",
-      "A student starts the simulation and closes the tab without pausing. What is emitted, and why?",
-      "Why does the speed slider produce a different object_type than the Start/Pause button?",
-      "Why is the ball paused when the page loads instead of already moving?"
+      "Pressing Start emits an interacted statement now — so why does the sim still need a separate experienced statement on Pause instead of computing duration from the two presses?",
+      "A student starts the simulation and closes the tab without pausing. What is emitted, and what is not?",
+      "Why do the Start and Pause buttons share one object_id instead of two?",
+      "Why does the speed slider get its own concept_id instead of reusing the sim's motion concept?",
+      "Why is the ball paused when the page loads instead of already moving?",
+      "Do the same actions in Full and then Compact mode. How many statements does each produce, and what does statements_represented in the compact summary tell you?"
     ]
+  },
+  "xapi": {
+    "compact": false,
+    "idleMs": 90000,
+    "offscreenMs": 10000,
+    "blurMs": 30000
   }
 }

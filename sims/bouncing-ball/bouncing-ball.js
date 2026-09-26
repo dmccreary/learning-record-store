@@ -1,6 +1,7 @@
 // Bouncing Ball — width-responsive p5.js MicroSim, instrumented for xAPI.
 // Adapted from the microsim-generator p5 template (MicroSim template version 2026.03).
-// CANVAS_HEIGHT = 430 — use this for the iframe height that embeds this MicroSim.
+// CANVAS_HEIGHT = 470 — the p5 canvas only; the xAPI log panel below it adds ~380px
+// at a 700px content width, so index.md embeds main.html in an 860px iframe.
 //
 // WHY THIS SIM EXISTS
 // -------------------
@@ -17,7 +18,10 @@
 let containerWidth;
 let canvasWidth = 400;
 let drawHeight = 400;
-let controlHeight = 30;
+// Two control rows: Start + speed slider, then the xAPI mode radio + Simulate Done.
+let controlHeight = 70;
+let row1Y = drawHeight + 5;
+let row2Y = drawHeight + 40;
 let canvasHeight = drawHeight + controlHeight;
 let containerHeight = canvasHeight;
 let margin = 25;
@@ -33,6 +37,10 @@ let dx = speed;
 let dy = speed;
 let speedSlider;
 let startButton;
+let modeRadio;
+let doneButton;
+let viewButton;   // opens the latest statement formatted in a new tab (xapi-json-viewer.js)
+let lastStatement = null;
 
 // The default state of every MicroSim must be paused. A simulation that animates as a
 // student scrolls past is a distraction and a source of cognitive load. This is a
@@ -47,14 +55,26 @@ const ACTIVITY_BASE_ID = 'https://dmccreary.github.io/learning-record-store/sims
 // The textbook version IRI — contract §4. NOT this sim's page URL.
 const VERSION_IRI = 'https://dmccreary.github.io/learning-record-store/textbook/lrs/v1.0.0';
 // This sim's concept. Without it, concept_ids is empty and the statement is skipped by
-// mv_student_concept_rollup's own WHERE notEmpty(concept_ids).
+// mv_student_concept_rollup's own WHERE notEmpty(concept_ids). Used for the whole-sim
+// dwell statement (experienced) and the Start/Pause button's own interacted statements —
+// both are evidence of engaging with the ball's motion.
 const CONCEPT_ID = 'motion';
+// The speed slider gets its OWN concept, not CONCEPT_ID (contract §6: one concept_id per
+// statement). "Adjustable speed" is what a slider drag is actually evidence of; folding
+// it into the umbrella 'motion' concept would blur two different things a downstream
+// mastery model might want to tell apart. Same illustrative-placeholder status as
+// CONCEPT_ID — see docs/sims/bouncing-ball/index.md for the full list of candidates.
+const SPEED_CONCEPT_ID = 'adjustable-speed';
 
 const MAX_LOG_LINES = 60;
 
 // Start/Pause bracket a dwell interval. `runStartedAt` is the wall clock at Start, or
-// null while paused. Start emits NOTHING — a student who starts the sim and walks away
-// has produced no evidence, and an unclosed interval is worse than no interval.
+// null while paused. Pressing Start emits an `interacted` statement (the click itself is
+// evidence — see recordControlAction below), but NOT an `experienced` interval: a student
+// who starts the sim and walks away has produced no *dwell* evidence, and an unclosed
+// interval is worse than no interval. Dwell still comes from exactly one statement, on
+// Pause — contract §7's "why not two statements" argument is about not reconstructing
+// duration from a start/pause pair, and that is unchanged here.
 let runStartedAt = null;
 
 // Deadband for the speed slider, matching sine-wave's Option C strategy (see
@@ -64,6 +84,14 @@ let lastEmittedSpeed = null;
 const SPEED_EMIT_STEP = 1;
 
 let statementCount = 0;
+
+// ------------------------------------------------------ compact xAPI (LRS-Lite) ----
+// metadata.json → "xapi": {"compact": true|false} sets the STARTING mode; the Full/Compact
+// radio then switches it live (session.setCompact). When compact, the speed slider and the
+// Start/Pause runs below are folded into ONE `experienced` summary that is emitted when
+// the sim loses focus (docs/lrs-lite/index.md §6). When false — or when lrs-lite-sim.js is
+// absent, as in the p5.js editor — the full per-interaction stream is emitted unchanged.
+let xapi = null;
 
 // ---------------------------------------------------------------- p5 setup ----
 function setup() {
@@ -81,15 +109,59 @@ function setup() {
   textSize(defaultTextSize);
 
   startButton = createButton('Start');
-  startButton.position(10, drawHeight + 5);
+  startButton.position(10, row1Y);
   startButton.mousePressed(toggleSimulation);
 
   speedSlider = createSlider(0, 20, speed);
-  speedSlider.position(sliderLeftMargin, drawHeight + 5);
+  speedSlider.position(sliderLeftMargin, row1Y);
   speedSlider.size(canvasWidth - sliderLeftMargin - margin);
   speedSlider.input(handleSpeedInput);
 
   lastEmittedSpeed = speed;
+
+  // Created BEFORE the visibilitychange listener below, so in compact mode the session
+  // ends first — and beforeEnd closes a still-running interval into the summary.
+  if (window.LRSLite) {
+    xapi = LRSLite.sim({
+      name: 'Bouncing Ball Simulation',
+      concept: CONCEPT_ID,
+      publish: publish,
+      beforeEnd: function (reason) { if (isRunning) closeRunInterval(reason); }
+    });
+
+    // Full vs. Compact, so a reader can compare the two streams on the same actions.
+    // Needs lrs-lite-sim.js, so it is not created in the p5.js editor (full mode only).
+    modeRadio = createRadio();
+    modeRadio.option('full', 'Full');
+    modeRadio.option('compact', 'Compact');
+    modeRadio.position(110, row2Y + 2);
+    modeRadio.style('font-size', defaultTextSize + 'px');
+    modeRadio.changed(handleModeChange);
+
+    xapi.ready.then(function (session) {
+      modeRadio.selected(session.compact ? 'compact' : 'full');
+      showXapiMode(session);
+    });
+  }
+
+  // Stands in for the host page taking focus away from the iframe (scroll away, tab
+  // switch, leaving). Not a button press in the xAPI sense, so it emits no interacted.
+  doneButton = createButton('Simulate Done');
+  doneButton.position(xapi ? 290 : 10, row2Y);
+  doneButton.mousePressed(simulateDone);
+
+  // A one-line JSON statement is unreadable; this opens the latest one pretty-printed and
+  // explained in a new tab. A tab, not an inline panel: this sim lives in a fixed-height
+  // iframe, and a ~60-line statement would be clipped or force the iframe taller.
+  const header = document.querySelector('.xapi-panel-header');
+  if (window.XapiJsonViewer && header) {
+    viewButton = createButton('View Formatted JSON ↗');
+    viewButton.parent(header);
+    viewButton.class('xapi-view-btn');
+    viewButton.attribute('disabled', '');
+    viewButton.attribute('title', 'Open the most recent statement, formatted, in a new tab');
+    viewButton.mousePressed(function () { viewStatement(lastStatement); });
+  }
 
   // If the student navigates away or hides the tab while the sim is running, the dwell
   // interval is still real evidence — flush it rather than lose it. Without this, the
@@ -103,8 +175,9 @@ function setup() {
   });
 
   describe(
-    'Interactive bouncing ball simulation with a speed slider and a start/pause button. ' +
-    'Emits xAPI statements to the log panel below the canvas.',
+    'Interactive bouncing ball simulation with a speed slider, a start/pause button, a ' +
+    'Full/Compact xAPI mode selector, and a Simulate Done button. Emits xAPI statements ' +
+    'to the log panel below the canvas.',
     LABEL
   );
 }
@@ -148,20 +221,109 @@ function draw() {
   noStroke();
   textAlign(LEFT, CENTER);
   textSize(defaultTextSize);
-  text('Speed: ' + speed, 70, drawHeight + 15);
+  text('Speed: ' + speed, 70, row1Y + 10);
+  if (xapi) text('xAPI events:', 10, row2Y + 12);
+}
+
+// ------------------------------------------------------ Full / Compact / Done ----
+
+function handleModeChange() {
+  const compact = modeRadio.value() === 'compact';
+  // Leaving compact flushes the open session as a 'mode-switch' summary, so the reader
+  // sees what had been folded instead of losing it.
+  xapi.setCompact(compact);
+  appendLogLine('· switched to ' + (compact ? 'COMPACT' : 'FULL') + ' mode');
+  showXapiMode(xapi);
+}
+
+// What the host page would trigger by taking focus from the iframe. Compact: end the
+// session and emit its one summary. Full: close a running interval, exactly as a hidden
+// tab does — there is nothing else open to flush.
+function simulateDone() {
+  if (xapi && xapi.compact) {
+    const before = LRSLite.statements.length;
+    xapi.end('simulated-done');
+    if (LRSLite.statements.length === before) {
+      appendLogLine('· simulated done — nothing folded yet, so no summary');
+    } else if (viewButton) {
+      appendLogLine('· summary emitted — press View Formatted JSON ↗ (or click the line) to read it');
+    }
+    return;
+  }
+  if (isRunning) {
+    closeRunInterval('simulated-done');
+  } else {
+    appendLogLine('· simulated done — full mode already emitted everything; nothing open');
+  }
 }
 
 // ------------------------------------------------------- the Start/Pause plan ----
 
 function toggleSimulation() {
   if (isRunning) {
+    // The click itself is evidence, distinct from the dwell interval it also closes.
+    recordControlAction('pause');
     closeRunInterval('paused');
   } else {
-    // Start: take the clock and emit nothing. See runStartedAt above.
+    recordControlAction('start');
+    // Start: take the clock. See runStartedAt above — the interval itself still emits
+    // nothing until Pause (or a flush) closes it.
     runStartedAt = Date.now();
     isRunning = true;
     startButton.html('Pause');
+    if (xapi) xapi.setBusy(true);   // a running sim is engaged even without input
   }
+}
+
+// A literal Start or Pause button press — always real evidence, unlike the dwell interval
+// it may or may not close into something worth scoring (see the <250ms mis-click filter
+// below). Deliberately NOT called from closeRunInterval(), which also runs on flushes
+// (tab-hidden, idle, ...) that are not button presses at all.
+function recordControlAction(action) {
+  if (xapi && xapi.compact) {
+    xapi.touch('start-pause-control', undefined, { mode: action, concept: CONCEPT_ID });
+    appendLogLine('· ' + action + ' folded into the session summary');
+    return;
+  }
+  emitControlInteracted(action);
+}
+
+function emitControlInteracted(action) {
+  const statement = {
+    id: generateUuid(),
+    actor: {
+      objectType: 'Agent',
+      name: 'demo-student',
+      account: { homePage: 'https://demo.example.edu', name: 'demo-student' }
+    },
+    // `interacted` — contract §3. One button, one stable fragment id: the label toggles
+    // between "Start" and "Pause" but that does not change what the control IS (contract
+    // §2's "would an edit that does not change what the thing is change its IRI?" test).
+    verb: { id: 'http://adlnet.gov/expapi/verbs/interacted', display: { 'en-US': 'interacted' } },
+    object: {
+      id: ACTIVITY_BASE_ID + '#start-pause-control',
+      objectType: 'Activity',
+      definition: {
+        name: { 'en-US': 'Start/Pause Control' },
+        // -> object_type 'Control' (contract §5), same reasoning as #speed-slider: a
+        // fragment-qualified MicroSim would become its own PageEngagement row.
+        type: 'http://adlnet.gov/expapi/activities/interaction'
+      }
+    },
+    result: {
+      extensions: { 'https://w3id.org/lrs/ext/action': action }
+    },
+    context: {
+      contextActivities: {
+        grouping: [{ id: VERSION_IRI }],
+        parent: [{ id: ACTIVITY_BASE_ID }]
+      },
+      extensions: { 'https://w3id.org/lrs/ext/concept_id': CONCEPT_ID }
+    },
+    timestamp: new Date().toISOString()
+  };
+
+  publish(statement, 'interacted   ' + action + '-pause-control');
 }
 
 // Emit exactly ONE `experienced` statement carrying the elapsed run time. This is the
@@ -173,11 +335,18 @@ function closeRunInterval(reason) {
   runStartedAt = null;
   isRunning = false;
   startButton.html('Start');
+  if (xapi) xapi.setBusy(false);
 
   // A run shorter than a tick is a mis-click, not engagement. Emitting it would put
   // PT0S rows into dwell_ms_total and inflate statements_compressed with noise.
   if (elapsedMs < 250) {
     appendLogLine('· run under 250ms — treated as a mis-click, no statement emitted');
+    return;
+  }
+
+  if (xapi && xapi.compact) {
+    xapi.run(elapsedMs);
+    appendLogLine('· run ' + msToIso8601Duration(elapsedMs) + ' folded into the session summary');
     return;
   }
 
@@ -239,6 +408,11 @@ function handleSpeedInput() {
   }
   const previous = lastEmittedSpeed;
   lastEmittedSpeed = value;
+  if (xapi && xapi.compact) {
+    xapi.touch('speed-slider', value, { concept: SPEED_CONCEPT_ID });
+    appendLogLine('· speed=' + value + ' folded into the session summary');
+    return;
+  }
   emitInteracted(value, previous);
 }
 
@@ -276,7 +450,7 @@ function emitInteracted(value, previousValue) {
         grouping: [{ id: VERSION_IRI }],
         parent: [{ id: ACTIVITY_BASE_ID }]
       },
-      extensions: { 'https://w3id.org/lrs/ext/concept_id': CONCEPT_ID }
+      extensions: { 'https://w3id.org/lrs/ext/concept_id': SPEED_CONCEPT_ID }
     },
     timestamp: new Date().toISOString()
   };
@@ -289,10 +463,24 @@ function emitInteracted(value, previousValue) {
 
 function publish(statement, summary) {
   statementCount++;
-  appendLogLine('▸ ' + summary);
-  appendRaw(statement);
+  if (window.LRSLite) LRSLite.record(statement);
+  lastStatement = statement;
+  makeClickable(appendLogLine('▸ ' + summary), statement);
+  makeClickable(appendRaw(statement), statement);
+  if (viewButton) viewButton.removeAttribute('disabled');
   const counter = document.getElementById('stmt-count');
   if (counter) counter.textContent = String(statementCount);
+}
+
+// Say in the panel which mode metadata.json selected, so a reader knows what to expect.
+function showXapiMode(session) {
+  const el = document.getElementById('xapi-mode');
+  if (!el) return;
+  el.textContent = session.compact
+    ? 'COMPACT (LRS-Lite) — slider moves, Start/Pause presses, and runs are folded into ONE ' +
+      'experienced summary, emitted when the sim loses focus. Press Simulate Done to see it.'
+    : 'FULL (full LRS) — every slider step and Start/Pause press is its own interacted ' +
+      'statement; Pause also closes the run into one experienced statement.';
 }
 
 function appendLogLine(line) {
@@ -304,6 +492,21 @@ function appendLogLine(line) {
   log.appendChild(div);
   while (log.childElementCount > MAX_LOG_LINES) log.removeChild(log.firstChild);
   log.scrollTop = log.scrollHeight;
+  return div;
+}
+
+function viewStatement(statement) {
+  if (statement && window.XapiJsonViewer) {
+    XapiJsonViewer.open(statement, { source: 'the Bouncing Ball MicroSim' });
+  }
+}
+
+// Clicking a statement's log line opens that statement formatted.
+function makeClickable(div, statement) {
+  if (!div || !window.XapiJsonViewer) return;
+  div.classList.add('xapi-log-clickable');
+  div.title = 'Click to view this statement formatted, in a new tab';
+  div.addEventListener('click', function () { viewStatement(statement); });
 }
 
 function appendRaw(statement) {
@@ -315,6 +518,7 @@ function appendRaw(statement) {
   log.appendChild(div);
   while (log.childElementCount > MAX_LOG_LINES) log.removeChild(log.firstChild);
   log.scrollTop = log.scrollHeight;
+  return div;
 }
 
 // ----------------------------------------------------------------- helpers ----

@@ -1540,9 +1540,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#why-the-button-and-the-slider-produce-different-object_types" class="md-nav__link">
+  <a href="#why-the-buttons-two-statement-types-get-different-object_types" class="md-nav__link">
     <span class="md-ellipsis">
-      Why the button and the slider produce different object_types
+      Why the button's two statement types get different object_types
     </span>
   </a>
   
@@ -1550,6 +1550,48 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#full-vs-compact-xapi-streams" class="md-nav__link">
+    <span class="md-ellipsis">
+      Full vs. Compact xAPI Streams
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Full vs. Compact xAPI Streams">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#try-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      Try it
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where-the-starting-mode-comes-from" class="md-nav__link">
+    <span class="md-ellipsis">
+      Where the starting mode comes from
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#concepts-this-sim-could-evidence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Concepts This Sim Could Evidence
+    </span>
+  </a>
   
 </li>
       
@@ -5106,9 +5148,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#why-the-button-and-the-slider-produce-different-object_types" class="md-nav__link">
+  <a href="#why-the-buttons-two-statement-types-get-different-object_types" class="md-nav__link">
     <span class="md-ellipsis">
-      Why the button and the slider produce different object_types
+      Why the button's two statement types get different object_types
     </span>
   </a>
   
@@ -5116,6 +5158,48 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#full-vs-compact-xapi-streams" class="md-nav__link">
+    <span class="md-ellipsis">
+      Full vs. Compact xAPI Streams
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Full vs. Compact xAPI Streams">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#try-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      Try it
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where-the-starting-mode-comes-from" class="md-nav__link">
+    <span class="md-ellipsis">
+      Where the starting mode comes from
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#concepts-this-sim-could-evidence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Concepts This Sim Could Evidence
+    </span>
+  </a>
   
 </li>
       
@@ -5161,11 +5245,20 @@
 
 
 <h1 id="bouncing-ball">Bouncing Ball<a class="headerlink" href="#bouncing-ball" title="Permanent link">&para;</a></h1>
-<iframe src="main.html" height="700px" scrolling="no"></iframe>
+<iframe src="main.html" height="860px" scrolling="no"></iframe>
 
 <p><a class="md-button md-button--primary" href="main.html">Run the Bouncing Ball MicroSim Fullscreen</a></p>
 <p>A ball bounces inside the drawing region. The slider changes its speed; the
 <strong>Start/Pause</strong> button runs and halts the animation.</p>
+<p>The second row of controls is about the <strong>data</strong>, not the ball:</p>
+<ul>
+<li><strong>xAPI events: Full / Compact</strong> switches between the two statement streams this book
+  describes — the <strong>Full</strong> per-interaction stream a full LRS ingests over a good network,
+  and the <strong>Compact</strong> stream <a href="../../lrs-lite/">LRS-Lite</a> stores in the browser.</li>
+<li><strong>Simulate Done</strong> does what the host page does when the student moves on: it takes
+  focus away from the sim. In Compact mode that is the moment the one summary statement
+  is emitted.</li>
+</ul>
 <p>Note that the ball is <strong>not moving when the page loads</strong>. That is deliberate, and it is
 a MicroSim standard with no exceptions: a simulation that animates as a student scrolls
 past is a distraction and a source of cognitive load. Here it also matters for the data
@@ -5180,9 +5273,11 @@ the statements appear in the log panel under the canvas so you can read them. Bu
 shape is exactly what a real gateway would accept, which is the point of a test emitter:
 if the shape is wrong here, it is wrong everywhere.</p>
 <h2 id="the-startpause-plan">The Start/Pause Plan<a class="headerlink" href="#the-startpause-plan" title="Permanent link">&para;</a></h2>
-<p>The naive instrumentation emits a statement when the student presses Start and another
-when they press Pause. This sim does <strong>not</strong> do that. It emits <strong>one statement per run
-interval</strong>, on Pause:</p>
+<p>The naive instrumentation emits <strong>one</strong> statement per button press — <code>started</code> on Start,
+<code>paused</code> on Pause — and reconstructs the dwell interval by pairing them up at read time.
+This sim does <strong>not</strong> compute duration that way. It still emits exactly <strong>one</strong>
+<code>experienced</code> statement per run interval, on Pause, and that statement alone carries
+<code>result.duration</code>:</p>
 <table>
 <thead>
 <tr>
@@ -5194,53 +5289,181 @@ interval</strong>, on Pause:</p>
 <tbody>
 <tr>
 <td><strong>Start</strong></td>
-<td><em>Nothing.</em> The wall clock is recorded.</td>
-<td>A student who starts the sim and walks away has produced no evidence. A <code>started</code> with no matching <code>paused</code> is an unclosed interval that nothing can score.</td>
+<td>One <code>interacted</code> statement — the button press itself. The wall clock is also recorded, but nothing about the <em>interval</em> is emitted yet.</td>
+<td>The press is real evidence a control was touched, but a student who starts the sim and walks away has produced no <em>dwell</em> evidence. An <code>experienced</code> with no matching close would be an unclosed interval that nothing can score.</td>
 </tr>
 <tr>
 <td><strong>Pause</strong></td>
-<td>One <code>experienced</code> statement, with <code>result.duration</code> = the elapsed run time.</td>
-<td>The interval is the evidence. <code>result.duration</code> is the only field that feeds <code>dwell_ms_total</code>, and one statement carries it as well as two would.</td>
+<td>One <code>interacted</code> statement for the press, then one <code>experienced</code> statement with <code>result.duration</code> = the elapsed run time.</td>
+<td>Two different questions, two different statements: "was the control touched?" (<code>interacted</code>, no duration) and "how long did the sim run?" (<code>experienced</code>, <code>result.duration</code>). Neither substitutes for the other.</td>
 </tr>
 <tr>
 <td><strong>Tab hidden while running</strong></td>
-<td>The same <code>experienced</code> statement, flushed.</td>
-<td>Start-it-and-close-the-tab is the <em>common</em> case, not the edge case. Without the flush it would emit nothing at all.</td>
+<td>Only the <code>experienced</code> statement, flushed — no <code>interacted</code>.</td>
+<td>This is a flush, not a click. Start-it-and-close-the-tab is the <em>common</em> case, not the edge case; without the flush the run interval would emit nothing at all.</td>
 </tr>
 <tr>
 <td><strong>Run shorter than 250 ms</strong></td>
-<td><em>Nothing.</em></td>
-<td>A mis-click is not engagement. Emitting it would put <code>PT0S</code> rows into <code>dwell_ms_total</code>.</td>
+<td>The Start/Pause <code>interacted</code> statements still fire (the clicks happened); the <code>experienced</code> statement does not.</td>
+<td>A mis-click is not <em>dwell</em> evidence. Emitting it would put <code>PT0S</code> rows into <code>dwell_ms_total</code>. It is still evidence the control was touched, which is what <code>interacted</code> is for.</td>
 </tr>
 <tr>
 <td><strong>Speed slider moved</strong></td>
-<td>An <code>interacted</code> statement, throttled by a deadband.</td>
+<td>An <code>interacted</code> statement, throttled by a deadband, tagged with its own concept <code>adjustable-speed</code>.</td>
 <td>See the trade-off discussion in <a href="../sine-wave/#architecture-trade-off-where-should-the-scoring-happen">Sine Wave</a>. The raw <code>input</code> event fires hundreds of times per drag; almost none of those values carry new information.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="why-the-button-and-the-slider-produce-different-object_types">Why the button and the slider produce different <code>object_type</code>s<a class="headerlink" href="#why-the-button-and-the-slider-produce-different-object_types" title="Permanent link">&para;</a></h3>
+<p><strong>Why this isn't the naive pattern after all.</strong> Contract <a href="../../specs/xapi-producer-contract-v1/#7-startpause-the-dwell-pattern">§7</a>
+rejects computing <code>result.duration</code> by pairing a <code>started</code> and a <code>paused</code> statement — that
+still holds, and nothing here does it. The <code>interacted</code> statements added for the Start and
+Pause presses carry no duration at all; they exist alongside the single <code>experienced</code>
+dwell statement, not instead of it. Pressing Start→Pause once now emits <strong>three</strong>
+statements instead of one (two <code>interacted</code>, one <code>experienced</code>) — more statements, but for
+genuinely different information, not a reconstruction of the same fact from two pieces.</p>
+<h3 id="why-the-buttons-two-statement-types-get-different-object_types">Why the button's two statement types get different <code>object_type</code>s<a class="headerlink" href="#why-the-buttons-two-statement-types-get-different-object_types" title="Permanent link">&para;</a></h3>
 <p>This is subtle and it is the kind of thing that silently corrupts a metric:</p>
 <ul>
-<li>The <strong>Start/Pause statement</strong>'s object is the <strong>page itself</strong> —
+<li>The <strong>dwell (<code>experienced</code>) statement</strong>'s object is the <strong>page itself</strong> —
   <code>…/sims/bouncing-ball/</code>, no fragment — typed <code>MicroSim</code>. That is what makes it roll up
   into exactly one <code>PageEngagement</code> row for this sim.</li>
-<li>The <strong>slider statement</strong>'s object is a <strong>control</strong> —
+<li>The <strong>button-press (<code>interacted</code>) statement</strong>'s object is a <strong>control</strong> —
+  <code>…/sims/bouncing-ball/#start-pause-control</code> — typed <code>Control</code>. Same fragment for both
+  Start and Pause presses: the button's label toggles, but it is still one control.</li>
+<li>The <strong>slider statement</strong>'s object is also a <strong>control</strong> —
   <code>…/sims/bouncing-ball/#speed-slider</code> — typed <code>Control</code>.</li>
 </ul>
-<p><code>mv_student_page_rollup</code> groups by <code>object_id</code>. If the slider were also typed <code>MicroSim</code>,
-every control on the page would become <strong>its own <code>PageEngagement</code> row</strong> for a page the
-student visited once — the same defect as naming <code>main.html</code> instead of the page. So
-controls are deliberately excluded from the page rollup; they are engagement evidence for
-the concept rollup instead.</p>
+<p><code>mv_student_page_rollup</code> groups by <code>object_id</code>. If the button-press or slider statements
+were also typed <code>MicroSim</code>, every control on the page would become <strong>its own
+<code>PageEngagement</code> row</strong> for a page the student visited once — the same defect as naming
+<code>main.html</code> instead of the page. So controls are deliberately excluded from the page
+rollup; they are engagement evidence for the concept rollup instead.</p>
+<h2 id="full-vs-compact-xapi-streams">Full vs. Compact xAPI Streams<a class="headerlink" href="#full-vs-compact-xapi-streams" title="Permanent link">&para;</a></h2>
+<p>The same student actions can be reported two ways. Use the <strong>xAPI events</strong> radio buttons
+to compare them:</p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Built for</th>
+<th>What the log panel shows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Full</strong></td>
+<td>The full LRS: high-bandwidth network, a gateway and queue that absorb thousands of statements per second</td>
+<td>The stream described above: one <code>interacted</code> per slider step past the deadband, one <code>interacted</code> per Start/Pause press, one <code>experienced</code> per completed run. Statements appear <strong>as you act</strong>.</td>
+</tr>
+<tr>
+<td><strong>Compact</strong></td>
+<td><a href="../../lrs-lite/#6-producer-side-summarization">LRS-Lite</a>: a 10 MB browser store, no server</td>
+<td><strong>Nothing while you work.</strong> Slider steps, Start/Pause presses, and runs are folded into <strong>one</strong> <code>experienced</code> summary, emitted when the sim loses focus. A run still going at that moment is closed into the summary.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="try-it">Try it<a class="headerlink" href="#try-it" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Leave the mode on <strong>Full</strong>. Move the slider a few times, press <strong>Start</strong>, wait, press
+   <strong>Pause</strong>. Count the statements.</li>
+<li>Switch to <strong>Compact</strong> and repeat exactly the same actions. The log stays silent.</li>
+<li>Press <strong>Simulate Done</strong>. One <code>experienced</code> statement appears.</li>
+<li>Press <strong>View Formatted JSON ↗</strong> in the log panel. The statement opens in a new tab,
+   formatted and explained. Find <code>statements_represented</code>: that is how many Full
+   statements it replaced. The highlighted lines are what compact mode adds, including
+   <code>runs</code> (your Start/Pause intervals) and the Start/Pause control's <code>modes</code> count.</li>
+<li>Press <strong>Simulate Done</strong> again. Nothing happens — the session already ended, and a new
+   one starts only when you interact again.</li>
+</ol>
+<p>Any line in the log can also be clicked to open that statement formatted. In Full mode
+that includes the <code>interacted</code> press events, whose <code>action</code> is <code>start</code> or <code>pause</code>. The tab
+is built in your browser, not inside the sim, because the sim sits in a fixed-height frame
+and a 70-line statement would not fit. Nothing is sent to a server.</p>
+<p><strong>What "Simulate Done" stands for.</strong> Embedded in a textbook page, the sim is in an iframe,
+and the session ends when the host page takes focus away: the student switches tabs,
+leaves the page, scrolls the sim mostly out of view for <code>offscreenMs</code>, or stops
+interacting for <code>idleMs</code> while it is paused. The button fires that same ending on demand
+(<code>end_reason: "simulated-done"</code>), so you don't have to scroll away to see it. In <strong>Full</strong>
+mode there is nothing folded to flush; if the ball is running, Simulate Done closes the run
+into its <code>experienced</code> statement, exactly as a hidden tab would. Either way it never emits
+an <code>interacted</code> statement — it is not a button press on the sim's own controls, it is the
+page going away.</p>
+<p><strong>Switching modes mid-session.</strong> Going from Compact back to Full ends the open session
+first, so anything already folded is emitted as a summary with <code>end_reason: "mode-switch"</code>
+rather than silently lost. If the ball was running, that also pauses it.</p>
+<h3 id="where-the-starting-mode-comes-from">Where the starting mode comes from<a class="headerlink" href="#where-the-starting-mode-comes-from" title="Permanent link">&para;</a></h3>
+<p>The radio's starting position is read from the <code>xapi</code> block in this sim's
+<a href="metadata.json"><code>metadata.json</code></a> — the same switch every instrumented sim uses:</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">"xapi"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"compact"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nt">"idleMs"</span><span class="p">:</span><span class="w"> </span><span class="mi">90000</span><span class="p">,</span><span class="w"> </span><span class="nt">"offscreenMs"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="p">,</span><span class="w"> </span><span class="nt">"blurMs"</span><span class="p">:</span><span class="w"> </span><span class="mi">30000</span><span class="w"> </span><span class="p">}</span>
+</span></code></pre></div>
+<p>The summary is an ordinary contract statement on this page's IRI. Its extensions carry
+the session: <code>controls</code> (the speed slider's count/min/max/last value and its <code>concept</code>;
+the Start/Pause control's press count and a <code>modes</code> breakdown of <code>start</code> vs. <code>pause</code>),
+<code>runs</code> (count and total milliseconds), <code>active_ms</code>, <code>end_reason</code>, and
+<code>statements_represented</code>, which counts the full-mode statements it stands for. The panel
+header says which mode is active.</p>
+<p>This sim starts in Full mode because it is the producer contract's reference emitter for
+the Start/Pause pattern. A <code>metadata.json</code> with no <code>xapi</code> block starts compact. The radio
+is a teaching control: other sims take their mode from <code>metadata.json</code> alone.
+<code>make test-sims</code> checks both modes, the live switch, and Simulate Done in headless
+Chromium.</p>
+<h2 id="concepts-this-sim-could-evidence">Concepts This Sim Could Evidence<a class="headerlink" href="#concepts-this-sim-could-evidence" title="Permanent link">&para;</a></h2>
+<p>Every <code>concept_id</code> in this sim so far is an <strong>illustrative placeholder</strong> — this book's own
+learning graph is about learning record stores, not physics, so <code>motion</code> and
+<code>adjustable-speed</code> stand in for what a <em>consuming</em> physics textbook's graph might call
+them (the same role <code>sine-wave</code>'s <code>sine-wave</code> and <code>scientific-method</code>'s
+<code>iterative-investigation</code> play). Rename them freely for a real deployment.</p>
+<p>What's wired up today is <strong>exposure evidence only</strong> — dwell and interaction counts, never
+a <code>success</code>. Nothing here is <code>answered</code>, so nothing currently reaches a BKT mastery
+estimate as <em>assessed</em> evidence (see <a href="../../lrs-lite/#9-estimating-mastery-in-the-browser">LRS-Lite §9</a>:
+"reading and exploring mark a concept exposed, never mastered"). Candidates for what else
+this sim could tag, and what it would take to make each one <em>assessed</em> rather than merely
+<em>exposed</em>:</p>
+<table>
+<thead>
+<tr>
+<th>Candidate <code>concept_id</code></th>
+<th>What's already evidence for it</th>
+<th>What's still missing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>boundary-reflection</code> (or <code>collision-prediction</code>)</td>
+<td>Nothing yet, but <code>metadata.json</code>'s <code>learningObjectives</code> already names it — "Predict where the ball will travel after a collision with a boundary" — and <code>pedagogical.supportsPrediction</code> is already <code>true</code>.</td>
+<td>A prediction UI (e.g., click where the ball will be, or which wall it hits next) that calls <code>xapi.predict('boundary-reflection', correct)</code> before the bounce happens. This is the one candidate below that's a real, not cosmetic, feature.</td>
+</tr>
+<tr>
+<td><code>constant-velocity-motion</code></td>
+<td>The run interval itself — <code>dx</code>/<code>dy</code> never change between bounces.</td>
+<td>Nothing extra to instrument; would just be a second concept tag on the existing <code>experienced</code> dwell statement, if multi-concept statements existed (contract §6 open item 5: v1 allows only one <code>concept_id</code> per statement).</td>
+</tr>
+<tr>
+<td><code>two-dimensional-motion</code> / <code>vector-components</code></td>
+<td>Same as above — <code>dx</code> and <code>dy</code> update independently.</td>
+<td>Same limitation: one <code>concept_id</code> per statement in v1.</td>
+</tr>
+<tr>
+<td><code>simulation-control</code></td>
+<td>The new Start/Pause <code>interacted</code> statements, if retagged off the umbrella <code>motion</code> concept.</td>
+<td>Nothing — this is a naming choice, not a feature. Swap <code>CONCEPT_ID</code> for a dedicated constant in <code>recordControlAction</code>'s <code>touch()</code>/<code>emitControlInteracted()</code> calls if you want button-press evidence to roll up separately from dwell evidence.</td>
+</tr>
+</tbody>
+</table>
 <h2 id="things-worth-asking">Things Worth Asking<a class="headerlink" href="#things-worth-asking" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Why does pressing Start emit no xAPI statement at all?</li>
+<li>Pressing Start now emits an <code>interacted</code> statement. So why does the sim still need a
+   <em>separate</em> <code>experienced</code> statement on Pause, instead of computing the run's duration
+   from the Start and Pause timestamps?</li>
 <li>A student starts the simulation and closes the tab without pausing. What is emitted,
-   and why?</li>
-<li>Why does the speed slider produce a different <code>object_type</code> than the Start/Pause
-   button?</li>
+   and what is not?</li>
+<li>Why do the Start and Pause presses share <strong>one</strong> fragment id, <code>#start-pause-control</code>,
+   instead of <code>#start-button</code> and <code>#pause-button</code>?</li>
+<li>Why does the speed slider get its own <code>concept_id</code> (<code>adjustable-speed</code>) instead of
+   reusing the sim's <code>motion</code> concept?</li>
 <li>Why is the ball paused when the page loads instead of already moving?</li>
+<li>In compact mode, a student moves the slider five times, presses Start, then Pause. How
+   many statements does the log hold, and what does <code>statements_represented</code> say?</li>
 </ol>
 <h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
 <ul>

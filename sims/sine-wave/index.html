@@ -3520,6 +3520,33 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#three-concepts-amplitude-frequency-and-phase" class="md-nav__link">
+    <span class="md-ellipsis">
+      Three Concepts: Amplitude, Frequency, and Phase
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#full-vs-compact-xapi-streams" class="md-nav__link">
+    <span class="md-ellipsis">
+      Full vs. Compact xAPI Streams
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reading-a-statement-view-formatted-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reading a Statement: View Formatted JSON
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#architecture-trade-off-where-should-the-scoring-happen" class="md-nav__link">
     <span class="md-ellipsis">
       Architecture Trade-off: Where Should the Scoring Happen?
@@ -5079,6 +5106,33 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#three-concepts-amplitude-frequency-and-phase" class="md-nav__link">
+    <span class="md-ellipsis">
+      Three Concepts: Amplitude, Frequency, and Phase
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#full-vs-compact-xapi-streams" class="md-nav__link">
+    <span class="md-ellipsis">
+      Full vs. Compact xAPI Streams
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reading-a-statement-view-formatted-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reading a Statement: View Formatted JSON
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#architecture-trade-off-where-should-the-scoring-happen" class="md-nav__link">
     <span class="md-ellipsis">
       Architecture Trade-off: Where Should the Scoring Happen?
@@ -5125,19 +5179,26 @@
 
 
 <h1 id="sine-wave">Sine Wave<a class="headerlink" href="#sine-wave" title="Permanent link">&para;</a></h1>
-<iframe src="main.html" height="1160px" scrolling="no"></iframe>
+<iframe src="main.html" height="1330px" scrolling="no"></iframe>
 
 <p><a class="md-button md-button--primary" href="main.html">Run the Sine Wave MicroSim Fullscreen</a></p>
-<p><a href="https://editor.p5js.org/dmccreary/sketches/CkgBfjdKl">Edit the Sine Wave MicroSim Using the p5.js Editor</a>
-In this demo, we use three range control sliders to change 
-the ways a sine wave is drawn on a canvas.
+<p>In this demo, we use three range control sliders to change
+the ways a sine wave is drawn on a canvas, following y = A·sin(2πf·x + φ).
 The three parameters are:</p>
 <ol>
-<li>amplitude</li>
-<li>period</li>
-<li>and phase</li>
+<li><strong>amplitude</strong> (A): the height of the wave's peak, from 0 to 1, read directly off the
+   tick marks on the y-axis</li>
+<li><strong>frequency</strong> (f): how many complete cycles fit across the drawing width</li>
+<li><strong>phase</strong> (φ): the angle, in radians from −π to π, where the wave starts its cycle</li>
 </ol>
-<p><a href="https://editor.p5js.org/dmccreary/sketches/f7E377T03">Edit This MicroSim with the P5.js Editor</a></p>
+<p>The <strong>period</strong> is not a slider. It is shown at the top of the drawing as T = 1/f, because
+it is not a separate setting: it is always the reciprocal of the frequency. Doubling the
+frequency halves the period, and the readout shows that as you drag.</p>
+<p>Phase is an <strong>angle</strong>, not a distance, and the drawing shows it in both radians and
+degrees. At φ = π/2 (90°) the sine wave starts at its peak and becomes a cosine wave. At
+φ = ±π (180°) it is flipped upside down. An angle means the same thing at any frequency.
+A horizontal shift in pixels, which is what this slider used to be, does not: the same
+shift moves a high-frequency wave through more of its cycle than a low-frequency one.</p>
 <h2 id="simulating-an-xapi-event-stream">Simulating an xAPI Event Stream<a class="headerlink" href="#simulating-an-xapi-event-stream" title="Permanent link">&para;</a></h2>
 <p>Two checkboxes below the sliders turn this MicroSim into a small demo of how
 this project's <a href="../../specs/lrs-spec-v1/">Learning Record Store</a> turns raw
@@ -5145,7 +5206,7 @@ interactions into evidence of understanding:</p>
 <ul>
 <li><strong>Show Raw xAPI Events</strong> streams one simulated xAPI statement (Actor–Verb–Object,
   with a <code>result.extensions</code> payload carrying the new slider value) every time a
-  student drags the amplitude, period, or phase slider. This is intentionally
+  student drags the amplitude, frequency, or phase slider. This is intentionally
   noisy — a single drag can generate dozens of statements — to illustrate why an
   LRS never stores one graph vertex per statement.</li>
 <li><strong>Show MicroSim Summary</strong> compresses that same stream into the kind of
@@ -5154,8 +5215,108 @@ interactions into evidence of understanding:</p>
   slider's range they explored, how many times they reversed direction (a signal
   of active comparison rather than a single accidental nudge), and a heuristic,
   clearly-labeled <em>estimated probability</em> that the student understands amplitude,
-  period, and phase — not a substitute for a real formative assessment.</li>
+  frequency, and phase — not a substitute for a real formative assessment.</li>
 </ul>
+<h3 id="three-concepts-amplitude-frequency-and-phase">Three Concepts: Amplitude, Frequency, and Phase<a class="headerlink" href="#three-concepts-amplitude-frequency-and-phase" title="Permanent link">&para;</a></h3>
+<p>Each slider is evidence for exactly one concept, carried as the statement's <code>concept_id</code>,
+and each slider is <strong>named for that concept</strong>. The control a student drags and the
+concept the stream says it was evidence for use the same word:</p>
+<table>
+<thead>
+<tr>
+<th>Slider</th>
+<th>Control IRI fragment</th>
+<th><code>concept_id</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Amplitude</td>
+<td><code>#amplitude-slider</code></td>
+<td><code>amplitude</code></td>
+</tr>
+<tr>
+<td>Frequency</td>
+<td><code>#frequency-slider</code></td>
+<td><code>frequency</code></td>
+</tr>
+<tr>
+<td>Phase</td>
+<td><code>#phase-slider</code></td>
+<td><code>phase</code></td>
+</tr>
+</tbody>
+</table>
+<p>An earlier version of this sim had a <strong>Period</strong> slider whose statements were tagged
+<code>frequency</code>. That worked, but it put two words on one piece of evidence: the student
+dragged "Period" while the LRS recorded "frequency". Physics and signals courses, and most
+wave simulations, have students control frequency and read the period off it. That is
+also the more intuitive direction: slide right and you get more waves.</p>
+<p>The <strong>MicroSim Summary</strong> panel estimates, per concept, the probability that the student
+understands it. The estimate combines three pieces of evidence: how much of the slider's
+range was explored, how many times the student <strong>reversed direction</strong> (active comparison
+rather than one accidental nudge), and how many movements were made. It is a heuristic
+from exploration alone: nothing in this sim asks a question, so it can show that a
+student <em>explored</em> a concept, not that they can <em>answer</em> questions about it.</p>
+<h3 id="full-vs-compact-xapi-streams">Full vs. Compact xAPI Streams<a class="headerlink" href="#full-vs-compact-xapi-streams" title="Permanent link">&para;</a></h3>
+<p>The <strong>xAPI events: Full / Compact</strong> radio buttons switch between the two streams this book
+describes, on the same slider moves:</p>
+<ul>
+<li><strong>Full</strong> (the full LRS, high-bandwidth network, robust back end). One <code>interacted</code>
+  statement per detected movement, as described above. Every statement appears as you drag.</li>
+<li><strong>Compact</strong> (<a href="../../lrs-lite/#6-producer-side-summarization">LRS-Lite</a>, a small
+  browser store, no server). <strong>Nothing while you drag.</strong> Movements are folded into one
+  session, and when the sim loses focus it emits <strong>one</strong> <code>experienced</code> summary. Its
+  <code>controls</code> extension holds, per slider, the <code>concept</code>, the movement count <code>n</code>, <code>min</code>,
+  <code>max</code>, <code>last</code>, and <code>reversals</code>. <code>statements_represented</code> says how many Full statements
+  the summary replaced.</li>
+</ul>
+<p><strong>Simulate Done</strong> does what the host page does when the student moves on — switches tabs,
+leaves the page, scrolls the sim mostly out of view for <code>offscreenMs</code>, or stops for
+<code>idleMs</code>. In Compact mode that ends the session and emits the summary
+(<code>end_reason: "simulated-done"</code>). In Full mode there is nothing to flush: this sim has no
+Start/Pause, so there is no open run interval, and every movement has already been sent.
+Both controls turn on <strong>Show Raw xAPI Events</strong> so you can see the result.</p>
+<div class="admonition note">
+<p class="admonition-title">Why the compact summary carries <code>reversals</code></p>
+<p>Coverage (<code>min</code>, <code>max</code>) and the movement count survive compression unchanged. Direction
+changes don't: a Full stream is an <strong>ordered</strong> sequence of values, so a reader can count
+reversals by walking it, but a summary has no order left to walk. So the compact
+summary carries <code>reversals</code> explicitly. Without it, the Compact stream could not
+support the same understanding estimate the Full stream does.</p>
+</div>
+<p>Try it: leave the radio on <strong>Full</strong>, drag each slider back and forth, and count the
+statements. Switch to <strong>Compact</strong> and repeat the same moves: the log stays silent. Press
+<strong>Simulate Done</strong>: one statement appears, and its <code>statements_represented</code> is roughly the
+count you saw in Full mode. Then press <strong>View Formatted JSON ↗</strong> in the raw event panel
+to read that statement properly.</p>
+<h3 id="reading-a-statement-view-formatted-json">Reading a Statement: View Formatted JSON<a class="headerlink" href="#reading-a-statement-view-formatted-json" title="Permanent link">&para;</a></h3>
+<p>In the log, each statement is one long line of JSON, which is accurate but hard to read.
+<strong>View Formatted JSON ↗</strong> opens the most recent statement in a <strong>new tab</strong>, and clicking
+any line in the log opens that statement instead. The tab shows:</p>
+<ul>
+<li>the statement <strong>pretty-printed with line numbers and colors</strong>, exactly as it was
+  emitted;</li>
+<li>the fields compact mode adds <strong>highlighted</strong> (<code>statements_represented</code>, <code>end_reason</code>,
+  <code>controls</code>, …), so you can see what a summary adds to an ordinary xAPI statement;</li>
+<li>a <strong>How to read it</strong> table explaining each field that is present;</li>
+<li><strong>Copy JSON</strong> and <strong>Download .json</strong> buttons.</li>
+</ul>
+<p>It opens in a new tab, not inside the sim, because the sim is embedded in a fixed-height
+frame. A 70-line statement would either be cut off inside it or force the frame much
+taller for every reader. The tab is built in your browser; nothing is sent to a server. Switching from Compact back to Full also ends the session
+first (<code>end_reason: "mode-switch"</code>), so folded movements are never lost.</p>
+<p>The radio starts from the <code>xapi</code> block in this sim's <a href="metadata.json"><code>metadata.json</code></a>.
+It starts on <strong>Full</strong>, like the <a href="../bouncing-ball/">Bouncing Ball</a> sim, so a reader
+sees the per-movement stream first and then watches Compact shrink it:</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">"xapi"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"compact"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nt">"idleMs"</span><span class="p">:</span><span class="w"> </span><span class="mi">90000</span><span class="p">,</span><span class="w"> </span><span class="nt">"offscreenMs"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="p">,</span><span class="w"> </span><span class="nt">"blurMs"</span><span class="p">:</span><span class="w"> </span><span class="mi">30000</span><span class="w"> </span><span class="p">}</span>
+</span></code></pre></div>
+<p>The <strong>MicroSim Summary</strong> panel works the same in both modes, because it is computed from
+the movements themselves. Compact mode is Option B in the trade-off below, with one
+difference that matters: the summary is itself a statement in the log. The log still
+records that a session happened and how much it compressed, just not each individual
+movement. <code>make test-sims</code> checks both modes, the live switch, and Simulate Done in
+headless Chromium.</p>
 <h3 id="architecture-trade-off-where-should-the-scoring-happen">Architecture Trade-off: Where Should the Scoring Happen?<a class="headerlink" href="#architecture-trade-off-where-should-the-scoring-happen" title="Permanent link">&para;</a></h3>
 <p>To keep the demo self-contained, the compression above runs entirely in the
 browser: <code>sine-wave.js</code> computes the three probability scores from this one
@@ -5184,7 +5345,7 @@ version of this</strong> — <code>handleSliderInput()</code> in <code>sine-wave
 once the value has moved by at least that much, which is why one full slider
 sweep produces on the order of 60 statements instead of the hundreds of raw
 <code>input</code> events the browser actually fires. A real implementation could tune
-that threshold — or make it adaptive — independently for amplitude, period,
+that threshold — or make it adaptive — independently for amplitude, frequency,
 and phase.</p>
 <table>
 <thead>

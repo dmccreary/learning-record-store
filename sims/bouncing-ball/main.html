@@ -50,7 +50,24 @@
         .xapi-log-raw {
             color: #6f8f6f;
         }
+        .xapi-log-clickable {
+            cursor: pointer;
+        }
+        .xapi-log-clickable:hover {
+            background: #2d3a2d;
+        }
+        .xapi-view-btn {
+            margin-left: 8px;
+            font-size: 12px;
+        }
     </style>
+    <!-- Statement construction (the producer contract) and compact-mode sessions.
+         metadata.json's "xapi" block chooses compact or full. The sim still runs
+         without these two files (e.g. pasted into the p5.js editor). -->
+    <script src="../../js/lrs-xapi.js"></script>
+    <script src="../../js/lrs-lite-sim.js"></script>
+    <!-- Opens a statement pretty-printed and explained in a new tab. Optional too. -->
+    <script src="../../js/xapi-json-viewer.js"></script>
     <!-- Put your script file name here -->
     <script src="bouncing-ball.js"></script>
 </head>
@@ -61,9 +78,9 @@
         <div class="xapi-panel-header">
             <strong>xAPI statements emitted:</strong> <span id="stmt-count">0</span>
             <span class="xapi-header-note">
-                &mdash; press <em>Start</em>, wait, then <em>Pause</em>: one
+                &mdash; <span id="xapi-mode">press <em>Start</em>, wait, then <em>Pause</em>: one
                 <code>experienced</code> statement carries the whole run as
-                <code>result.duration</code>. Nothing is sent to a server.
+                <code>result.duration</code>.</span> Nothing is sent to a server.
             </span>
         </div>
         <div id="xapi-log" class="xapi-log"></div>

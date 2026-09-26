@@ -1,4 +1,6 @@
-// p5.js code to generate a sine wave with amplitude, frequency and period controls
+// p5.js code to generate a sine wave with amplitude, frequency and phase controls.
+// Frequency is in cycles across the drawing width; the period (1/f, in widths) is
+// displayed beside it rather than controlled, so students see both and how they relate.
 // Width-responsive version.
 //
 // This MicroSim also simulates how a Learning Record Store (LRS) turns raw
@@ -11,20 +13,33 @@
 
 let canvasWidth = 600;
 let drawHeight = 400;
-let controlHeight = 120;
+// Three slider rows, two checkbox rows, then the xAPI mode radio + Simulate Done.
+let controlHeight = 150;
+let xapiRowY = drawHeight + 122;
 let canvasHeight = drawHeight + controlHeight;
 let halfWidth, halfHeight;
-let amplitude = 100;
+let amplitude = 0.5;
+// One unit on the y-axis, in pixels. Amplitude is measured in these units and the axis is
+// tick-marked in them, so the number on the label is one you can read off the graph.
+// 0.9 of the half-height leaves a margin above and below a full-amplitude wave.
+const Y_UNIT_PX = 180;
 let phase = 0;
 
-let amplitudeSlider, periodSlider, phaseSlider;
-let sliderLeftMargin = 120;
+let frequency = 2;
+
+let amplitudeSlider, frequencySlider, phaseSlider;
+let sliderLeftMargin = 130;
 
 // ---- xAPI simulation configuration ----
+// `concept` is the concept_id each slider is evidence for (contract §6: one per
+// statement). Each slider is named for the concept it is evidence for, so the control a
+// student drags and the concept_id in the stream use the same word.
 const SLIDER_META = {
-  amplitude: { min: 0, max: 200, default: 100, label: 'Amplitude Slider', round: 0 },
-  period: { min: 1, max: 100, default: 50, label: 'Period Slider', round: 0 },
-  phase: { min: -Math.PI * 100, max: Math.PI * 100, default: 0, label: 'Phase Slider', round: 2 }
+  amplitude: { min: 0, max: 1, default: 0.5, step: 0.01, label: 'Amplitude Slider', round: 2, concept: 'amplitude' },
+  frequency: { min: 1, max: 10, default: 2, step: 0.1, label: 'Frequency Slider', round: 1, concept: 'frequency' },
+  // Phase is an ANGLE in radians, the φ in y = A·sin(2πf·x + φ) — not a horizontal
+  // shift in pixels, which would change meaning with the canvas width and the frequency.
+  phase: { min: -Math.PI, max: Math.PI, default: 0, step: 0.01, label: 'Phase Slider', round: 2, concept: 'phase' }
 };
 // The canonical published page IRI — see docs/specs/xapi-producer-contract-v1.md §1.
 // It is mkdocs.yml's site_url + this sim's nav path, with the trailing slash.
@@ -42,12 +57,22 @@ const MAX_STORED_EVENTS = 400;
 const MAX_LOG_LINES_RENDERED = 150;
 
 let stats = {};             // per-slider interaction stats
-let xapiEvents = [];        // stored statements, capped at MAX_STORED_EVENTS
-let totalEventsGenerated = 0;
+let xapiEvents = [];        // emitted statements, capped at MAX_STORED_EVENTS
+let totalEventsGenerated = 0;   // detected slider movements (what full mode emits one statement per)
+let emittedCount = 0;           // statements actually emitted (full: one per movement; compact: summaries)
+
+// Compact xAPI (LRS-Lite). metadata.json → "xapi": {"compact": true|false}. When compact,
+// slider movements are folded into ONE `experienced` summary emitted when the sim loses
+// focus (docs/lrs-lite/index.md §6) — Option B in the trade-off table on this sim's page,
+// but with the summary itself kept as a real statement in the log. When false, or when
+// lrs-lite-sim.js is absent (the p5.js editor), the full stream below is emitted unchanged.
+let xapi = null;
 let firstInteractionTime = null;
 let lastInteractionTime = null;
 
 let showRawCheckbox, showSummaryCheckbox;
+let modeRadio, doneButton;
+let viewButton;   // opens the latest statement formatted in a new tab (xapi-json-viewer.js)
 let rawPanel, rawLogEl, rawCountEl;
 let summaryPanel;
 
@@ -61,15 +86,18 @@ function setup() {
   textSize(16);
 
   // Create sliders
-  amplitudeSlider = createSlider(SLIDER_META.amplitude.min, SLIDER_META.amplitude.max, SLIDER_META.amplitude.default);
+  const a = SLIDER_META.amplitude;
+  amplitudeSlider = createSlider(a.min, a.max, a.default, a.step);
   amplitudeSlider.position(sliderLeftMargin, drawHeight + 10);
   amplitudeSlider.size(canvasWidth - sliderLeftMargin - 15);
 
-  periodSlider = createSlider(SLIDER_META.period.min, SLIDER_META.period.max, SLIDER_META.period.default);
-  periodSlider.position(sliderLeftMargin, drawHeight + 30);
-  periodSlider.size(canvasWidth - sliderLeftMargin - 15);
+  const f = SLIDER_META.frequency;
+  frequencySlider = createSlider(f.min, f.max, f.default, f.step);
+  frequencySlider.position(sliderLeftMargin, drawHeight + 30);
+  frequencySlider.size(canvasWidth - sliderLeftMargin - 15);
 
-  phaseSlider = createSlider(SLIDER_META.phase.min, SLIDER_META.phase.max, SLIDER_META.phase.default, 0.01);
+  const p = SLIDER_META.phase;
+  phaseSlider = createSlider(p.min, p.max, p.default, p.step);
   phaseSlider.position(sliderLeftMargin, drawHeight + 50);
   phaseSlider.size(canvasWidth - sliderLeftMargin - 15);
 
@@ -86,6 +114,30 @@ function setup() {
   buildXapiPanels(mainElement);
   attachSliderXapiHandlers();
 
+  if (window.LRSLite) {
+    xapi = LRSLite.sim({ name: 'Sine Wave', concept: 'sine-wave', publish: publishStatement });
+
+    // Full vs. Compact, so a reader can compare the two streams on the same slider moves.
+    // Needs lrs-lite-sim.js, so it is not created in the p5.js editor (full mode only).
+    modeRadio = createRadio();
+    modeRadio.option('full', 'Full');
+    modeRadio.option('compact', 'Compact');
+    modeRadio.position(110, xapiRowY + 2);
+    modeRadio.style('font-size', '16px');
+    modeRadio.changed(handleModeChange);
+
+    xapi.ready.then(function (session) {
+      modeRadio.selected(session.compact ? 'compact' : 'full');
+      updateRawCount();
+    });
+  }
+
+  // Stands in for the host page taking focus away from the iframe (scroll away, tab
+  // switch, leaving) — the moment a compact session emits its one summary.
+  doneButton = createButton('Simulate Done');
+  doneButton.position(xapi ? 290 : 10, xapiRowY);
+  doneButton.mousePressed(simulateDone);
+
   // Refresh the summary panel once a second so elapsed-time metrics stay live.
   setInterval(() => {
     if (showSummaryCheckbox.checked()) {
@@ -93,9 +145,10 @@ function setup() {
     }
   }, 1000);
 
-  describe('An interactive sine wave with sliders for amplitude, period and phase. ' +
+  describe('An interactive sine wave with sliders for amplitude, frequency and phase. ' +
     'Optional panels simulate the xAPI events those sliders would generate and a ' +
-    'compressed summary of the resulting interaction evidence.', LABEL);
+    'compressed summary of the resulting interaction evidence. A Full/Compact selector ' +
+    'switches the xAPI stream, and Simulate Done ends a compact session.', LABEL);
 }
 
 function updateCanvasSize() {
@@ -113,7 +166,7 @@ function windowResized() {
 
   // Resize sliders
   amplitudeSlider.size(canvasWidth - sliderLeftMargin - 15);
-  periodSlider.size(canvasWidth - sliderLeftMargin - 15);
+  frequencySlider.size(canvasWidth - sliderLeftMargin - 15);
   phaseSlider.size(canvasWidth - sliderLeftMargin - 15);
 }
 
@@ -128,7 +181,7 @@ function draw() {
   rect(0, drawHeight, canvasWidth, controlHeight);
   noStroke();
   amplitude = amplitudeSlider.value();
-  period = periodSlider.value();
+  frequency = frequencySlider.value();
   phase = phaseSlider.value();
 
   // draw the title
@@ -138,19 +191,46 @@ function draw() {
   textAlign(CENTER, TOP);
   text('Sine Wave', canvasWidth * 0.33, 10);
 
+  // The slider's float step can land on -0.00; show a clean zero.
+  const phaseShown = Math.abs(phase) < 0.005 ? 0 : phase;
+
   // draw slider labels
   textSize(16);
   textAlign(LEFT, BASELINE);
-  text('Amplitude: ' + amplitude/100,    10, drawHeight + 25);
-  text('Period: '    + period,           10, drawHeight + 45);
-  text('Phase: '     + phase.toFixed(2), 10, drawHeight + 65);
+  text('Amplitude: ' + amplitude.toFixed(2), 10, drawHeight + 25);
+  text('Frequency: ' + frequency.toFixed(1), 10, drawHeight + 45);
+  text('Phase: '     + phaseShown.toFixed(2) + ' rad', 10, drawHeight + 65);
+  if (xapi) text('xAPI events:', 10, xapiRowY + 16);
 
   // draw on the standard axis to keep text upright
   drawAxis();
+  push();
   translate(canvasWidth / 2, drawHeight / 2);
-
   scale(1, -1); // Flip y-axis to make positive y up
-  drawSineWave(amplitude, 1/period, phase);
+  drawSineWave(amplitude, frequency, phase);
+  pop();
+
+  // Drawn LAST so the wave passes behind it, never over it.
+  drawReadout(phaseShown);
+}
+
+// All four parameters in their units. The period is derived, not controlled: it is shown
+// beside the frequency it comes from.
+function drawReadout(phaseShown) {
+  textSize(14);
+  const lines = [
+    'Amplitude A = ' + amplitude.toFixed(2) + ' (peak height on the y-axis)',
+    'Frequency f = ' + frequency.toFixed(1) + ' cycles across the width',
+    'Period T = 1/f = ' + (1 / frequency).toFixed(2) + ' of the width',
+    'Phase φ = ' + phaseShown.toFixed(2) + ' rad = ' + Math.round(degrees(phaseShown)) + '°'
+  ];
+  const boxW = Math.max(...lines.map(t => textWidth(t))) + 12;
+  noStroke();
+  fill(255, 255, 255, 215);
+  rect(4, 38, boxW, lines.length * 18 + 6, 4);
+  fill('black');
+  textAlign(LEFT, TOP);
+  lines.forEach((t, i) => text(t, 10, 42 + i * 18));
 }
 
 function setLineDash(list) {
@@ -170,6 +250,19 @@ function drawAxis() {
   line(0, halfHeight, canvasWidth, halfHeight)
   // vertical line
   line(halfWidth, 0, halfWidth, drawHeight)
+
+  // y-axis ticks in amplitude units, so A can be read directly off the graph
+  setLineDash([1, 0])
+  textSize(12)
+  textAlign(LEFT, CENTER)
+  for (const v of [-1, -0.5, 0.5, 1]) {
+    const py = halfHeight - v * Y_UNIT_PX
+    stroke('gray')
+    line(halfWidth - 5, py, halfWidth + 5, py)
+    noStroke()
+    fill('dimgray')
+    text(String(v), halfWidth + 8, py)
+  }
 }
 
 function drawSineWave(amplitude, frequency, phase) {
@@ -179,8 +272,10 @@ function drawSineWave(amplitude, frequency, phase) {
   // turn off dash line
   setLineDash([1, 0])
   beginShape();
+    // `frequency` cycles fit across the canvas width, whatever that width is.
+    const k = TWO_PI * frequency / canvasWidth;
     for (let x = -canvasWidth / 2; x < canvasWidth / 2; x++) {
-      let y = amplitude * sin(frequency * (x - phase));
+      let y = amplitude * Y_UNIT_PX * sin(k * x + phase);
       vertex(x, y);
     }
   endShape();
@@ -205,6 +300,7 @@ function initStats() {
       lastRawVal: SLIDER_META[key].default,
       lastDir: 0,
       reversals: 0,
+      pendingReversals: 0,    // reversals not yet carried by a compact touch
       lastEmittedVal: null,
       attempts: 0,
       successes: 0,
@@ -219,8 +315,8 @@ function attachSliderXapiHandlers() {
   amplitudeSlider.input(() => handleSliderInput('amplitude', amplitudeSlider.value()));
   amplitudeSlider.changed(() => handleSliderChanged('amplitude', amplitudeSlider.value()));
 
-  periodSlider.input(() => handleSliderInput('period', periodSlider.value()));
-  periodSlider.changed(() => handleSliderChanged('period', periodSlider.value()));
+  frequencySlider.input(() => handleSliderInput('frequency', frequencySlider.value()));
+  frequencySlider.changed(() => handleSliderChanged('frequency', frequencySlider.value()));
 
   phaseSlider.input(() => handleSliderInput('phase', phaseSlider.value()));
   phaseSlider.changed(() => handleSliderChanged('phase', phaseSlider.value()));
@@ -239,6 +335,7 @@ function handleSliderInput(key, value) {
   if (dir !== 0) {
     if (s.lastDir !== 0 && dir !== s.lastDir) {
       s.reversals++;
+      s.pendingReversals++;
     }
     s.lastDir = dir;
   }
@@ -255,7 +352,7 @@ function handleSliderInput(key, value) {
   const range = meta.max - meta.min;
   const emitStep = range / 60;
   if (s.lastEmittedVal === null || Math.abs(value - s.lastEmittedVal) >= emitStep) {
-    emitXapiStatement(key, value, s.lastEmittedVal);
+    emitOrFold(key, value, s.lastEmittedVal);
     s.lastEmittedVal = value;
     s.count++;
   }
@@ -280,7 +377,7 @@ function handleSliderChanged(key, value) {
   // Make sure the final settled value is always captured in the stream, even
   // if it fell below the emit-throttle step.
   if (s.lastEmittedVal !== value) {
-    emitXapiStatement(key, value, s.lastEmittedVal);
+    emitOrFold(key, value, s.lastEmittedVal);
     s.lastEmittedVal = value;
     s.count++;
   }
@@ -288,6 +385,64 @@ function handleSliderChanged(key, value) {
   if (showSummaryCheckbox.checked()) {
     renderSummaryPanel();
   }
+}
+
+// One detected movement: a full statement, or one more interaction folded into the
+// compact session. The summary panel counts movements either way.
+// The three per-concept understanding estimates in the summary panel are computed from
+// range coverage, direction reversals, and movement count. Both streams must carry that
+// evidence: the full stream implicitly (ordered values, one per movement), the compact
+// summary explicitly (n, min, max, and `reversals`, since a summary has no order).
+function emitOrFold(key, value, previousValue) {
+  totalEventsGenerated++;
+  const s = stats[key];
+  const reversals = s.pendingReversals;
+  s.pendingReversals = 0;
+  if (xapi && xapi.compact) {
+    xapi.touch(key + '-slider', roundForDisplay(key, value),
+      { concept: SLIDER_META[key].concept, reversals: reversals });
+    updateRawCount();
+    return;
+  }
+  emitXapiStatement(key, value, previousValue);
+}
+
+// ---- Full / Compact / Simulate Done ----
+
+// Both controls are about the raw stream, so make sure it is on screen.
+function showRawStream() {
+  if (!showRawCheckbox.checked()) {
+    showRawCheckbox.checked(true);
+    toggleRawPanel();
+  }
+}
+
+function handleModeChange() {
+  const compact = modeRadio.value() === 'compact';
+  // Leaving compact flushes the open session as a 'mode-switch' summary, so folded
+  // movements are emitted rather than lost.
+  xapi.setCompact(compact);
+  showRawStream();
+  appendNoteLine('switched to ' + (compact ? 'COMPACT' : 'FULL') + ' mode');
+  updateRawCount();
+}
+
+// What the host page would trigger by taking focus from the iframe. This sim has no
+// Start/Pause, so in full mode there is no open interval to close: every movement is
+// already a statement, and there is nothing left to send.
+function simulateDone() {
+  showRawStream();
+  if (xapi && xapi.compact) {
+    const before = emittedCount;
+    xapi.end('simulated-done');
+    if (emittedCount === before) {
+      appendNoteLine('simulated done — no movements folded yet, so no summary');
+    } else if (viewButton) {
+      appendNoteLine('summary emitted — press View Formatted JSON ↗ (or click the line) to read it');
+    }
+    return;
+  }
+  appendNoteLine('simulated done — full mode already emitted every movement; nothing to flush');
 }
 
 function emitXapiStatement(key, value, previousValue) {
@@ -340,19 +495,28 @@ function emitXapiStatement(key, value, previousValue) {
       },
       // Without this, concept_ids is empty and mv_student_concept_rollup skips the
       // statement entirely via its own WHERE notEmpty(concept_ids).
-      extensions: { 'https://w3id.org/lrs/ext/concept_id': key }
+      extensions: { 'https://w3id.org/lrs/ext/concept_id': meta.concept }
     },
     timestamp: now.toISOString()
   };
 
-  totalEventsGenerated++;
+  publishStatement(statement);
+}
+
+// Every emitted statement — a full-mode `interacted` or a compact-mode summary — lands here.
+function publishStatement(statement) {
+  emittedCount++;
+  if (window.LRSLite) LRSLite.record(statement);
   xapiEvents.push(statement);
   if (xapiEvents.length > MAX_STORED_EVENTS) {
     xapiEvents.shift();
   }
+  if (viewButton) viewButton.removeAttribute('disabled');
 
   if (showRawCheckbox.checked()) {
     appendRawLogLine(statement);
+  } else {
+    updateRawCount();
   }
 }
 
@@ -407,6 +571,18 @@ function buildXapiPanels(mainElement) {
   rawHeader.appendChild(rawTitle);
   rawHeader.appendChild(rawCountEl);
 
+  // A one-line JSON statement is unreadable; this opens the latest one pretty-printed and
+  // explained in a new tab. A tab, not an inline panel: this sim lives in a fixed-height
+  // iframe, and a ~60-line statement would be clipped or force the iframe taller.
+  if (window.XapiJsonViewer) {
+    viewButton = createButton('View Formatted JSON ↗');
+    viewButton.parent(rawHeader);
+    viewButton.class('xapi-view-btn');
+    viewButton.attribute('disabled', '');
+    viewButton.attribute('title', 'Open the most recent statement, formatted, in a new tab');
+    viewButton.mousePressed(() => viewStatement(xapiEvents[xapiEvents.length - 1]));
+  }
+
   rawLogEl = document.createElement('div');
   rawLogEl.className = 'xapi-log';
 
@@ -434,10 +610,27 @@ function toggleSummaryPanel() {
   if (on) renderSummaryPanel();
 }
 
-function appendRawLogLine(statement) {
+function viewStatement(statement) {
+  if (statement && window.XapiJsonViewer) {
+    XapiJsonViewer.open(statement, { source: 'the Sine Wave MicroSim' });
+  }
+}
+
+// One raw log line. Clicking it opens that statement formatted.
+function makeLogLine(statement) {
   const line = document.createElement('div');
   line.className = 'xapi-log-line';
   line.textContent = JSON.stringify(statement);
+  if (window.XapiJsonViewer) {
+    line.classList.add('xapi-log-clickable');
+    line.title = 'Click to view this statement formatted, in a new tab';
+    line.addEventListener('click', () => viewStatement(statement));
+  }
+  return line;
+}
+
+function appendRawLogLine(statement) {
+  const line = makeLogLine(statement);
   rawLogEl.appendChild(line);
   while (rawLogEl.children.length > MAX_LOG_LINES_RENDERED) {
     rawLogEl.removeChild(rawLogEl.firstChild);
@@ -446,22 +639,35 @@ function appendRawLogLine(statement) {
   updateRawCount();
 }
 
+// A log line that is NOT a statement. Not kept in xapiEvents, so re-rendering drops it.
+function appendNoteLine(msg) {
+  const line = document.createElement('div');
+  line.className = 'xapi-log-line xapi-log-note';
+  line.textContent = '· ' + msg;
+  rawLogEl.appendChild(line);
+  rawLogEl.scrollTop = rawLogEl.scrollHeight;
+}
+
 function renderFullRawLog() {
   rawLogEl.innerHTML = '';
   const toShow = xapiEvents.slice(-MAX_LOG_LINES_RENDERED);
   for (const stmt of toShow) {
-    const line = document.createElement('div');
-    line.className = 'xapi-log-line';
-    line.textContent = JSON.stringify(stmt);
-    rawLogEl.appendChild(line);
+    rawLogEl.appendChild(makeLogLine(stmt));
   }
   rawLogEl.scrollTop = rawLogEl.scrollHeight;
   updateRawCount();
 }
 
 function updateRawCount() {
-  const noun = totalEventsGenerated === 1 ? 'statement' : 'statements';
-  rawCountEl.textContent = ' — one statement per detected slider movement (' + totalEventsGenerated + ' ' + noun + ' so far)';
+  const noun = emittedCount === 1 ? 'statement' : 'statements';
+  if (xapi && xapi.compact) {
+    rawCountEl.textContent = ' — COMPACT (LRS-Lite): one summary statement per session, emitted ' +
+      'when the sim loses focus — press Simulate Done (' + emittedCount + ' ' + noun +
+      ' emitted, ' + totalEventsGenerated + ' slider movements so far)';
+  } else {
+    rawCountEl.textContent = ' — FULL (full LRS): one statement per detected slider movement (' +
+      emittedCount + ' ' + noun + ' so far)';
+  }
 }
 
 function renderSummaryPanel() {
@@ -472,7 +678,9 @@ function renderSummaryPanel() {
   const conceptRows = keys.map(k => {
     const s = stats[k];
     const meta = SLIDER_META[k];
-    return { key: k, label: capitalize(k), s, meta, score: computeConceptScore(s, meta) };
+    // Label by CONCEPT, and name the slider too if it ever differs from its concept.
+    const label = capitalize(meta.concept) + (meta.concept !== k ? ' (' + k + ' slider)' : '');
+    return { key: k, label, s, meta, score: computeConceptScore(s, meta) };
   });
 
   const overallScore = conceptRows.reduce((sum, r) => sum + r.score, 0) / conceptRows.length;
@@ -480,7 +688,7 @@ function renderSummaryPanel() {
 
   let html = '';
   html += '<div class="xapi-panel-header"><strong>MicroSim Summary</strong>' +
-    '<span class="xapi-header-note"> — compressed from ' + totalEventsGenerated + ' raw statements</span></div>';
+    '<span class="xapi-header-note"> — compressed from ' + totalEventsGenerated + ' slider movements</span></div>';
 
   html += '<div class="xapi-concept-scores">';
   for (const r of conceptRows) {
