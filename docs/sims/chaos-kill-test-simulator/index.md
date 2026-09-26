@@ -1,7 +1,7 @@
 ---
 title: Chaos Kill Test Simulator
 description: Given a choice of which service to kill in a simulated staging environment, predict the resulting system behavior before revealing it, reinforcing this chapter's failure-mode-to-behavior mapping.
-status: implemented
+status: instrumented
 library: p5.js
 bloom_level: Evaluate (L5)
 ---

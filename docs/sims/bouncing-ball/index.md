@@ -6,6 +6,7 @@ og:image: /sims/bouncing-ball/bouncing-ball.png
 twitter:image: /sims/bouncing-ball/bouncing-ball.png
 social:
    cards: false
+status: instrumented
 ---
 # Bouncing Ball
 

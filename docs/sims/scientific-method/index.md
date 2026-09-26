@@ -2,6 +2,7 @@
 title: Scientific Method Workflow
 description: An interactive flowchart of the scientific method — question, hypothesis, experiment, analysis, and conclusion — as used across scientific disciplines.
 quality_score: 67
+status: instrumented
 ---
 
 # Scientific Method Workflow

@@ -1,7 +1,7 @@
 ---
 title: xAPI Statement Building Blocks
 description: Give the learner a first, plain-language mental model of the five Statement components (Actor, Verb, Object Activity, Result, Context) using one worked example, before Chapter 2 formalizes the JSON structure.
-status: implemented
+status: instrumented
 library: Mermaid
 bloom_level: Understand (L2)
 ---

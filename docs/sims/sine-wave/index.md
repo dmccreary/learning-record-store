@@ -7,6 +7,7 @@ og:image: /sims/sine-wave/sine-wave.png
 twitter:image: /sims/sine-wave/sine-wave.png
 social:
    cards: false
+status: instrumented
 ---
 # Sine Wave
 
