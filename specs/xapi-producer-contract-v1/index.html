@@ -2934,13 +2934,24 @@ version, and real districts supply their own.</p>
    the student labour over?" lives only in <code>lrs.statements</code>. Deliberate for now — the log is the
    system of record, so a rollup can be added later without re-collecting anything.</p>
 <ol>
-<li><strong>Every emitter still renders; none POSTs, and the shape has never been validated by a
+<li>
+<p><strong>Every emitter still renders; none POSTs, and the shape has never been validated by a
     consumer.</strong> <code>docs/js/lrs-xapi.js</code> now enforces the rules this document states — it rejects
     non-v1 verbs and types outright, and warns on a <code>main.html</code> IRI, a fragment-qualified
     <code>MicroSim</code>/<code>Page</code>, an <code>answered</code> with no <code>success</code>, and a local origin. That is a real
     improvement over five hand-written copies, but <strong>it is the producer marking its own homework</strong>.
     Until the gateway exists, "conforms to the contract" means "conforms to one JS file's reading of
-    it."</li>
+    it."</p>
+<p><strong>Update 2026-09-26: the five copies are now one.</strong> Every emitter — the four sims and the chapter
+quizzes — builds every statement through <code>lrs-xapi.js</code>'s <code>LRS.build()</code>, via the shared MicroSim API
+<code>docs/js/lrs-sim.js</code>. The page IRI and grouping IRI now come from a per-book
+<code>docs/js/lrs-config.js</code>, so the same runtime serves any textbook. Still producer-side only: the
+homework-marking caveat above stands until a consumer validates the shape.</p>
+<p><strong>Answers are never folded (2026-09-26).</strong> Under LRS-Lite's compact mode, which folds a sim
+session's exposure evidence into one <code>experienced</code> summary, <code>answered</code> statements still pass
+through one per attempt, in both modes. §3's <code>answered</code> + <code>result.success</code> shape is therefore the
+only form assessed evidence ever takes, whichever LRS receives it.</p>
+</li>
 </ol>
 <p><strong>Closed 2026-07-16:</strong></p>
 <ul>
@@ -3086,6 +3097,16 @@ version, and real districts supply their own.</p>
       <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
         <script src="../../js/katex.js"></script>
+      
+        <script src="../../js/lrs-config.js"></script>
+      
+        <script src="../../js/lrs-xapi.js"></script>
+      
+        <script src="../../js/lrs-lite-sim.js"></script>
+      
+        <script src="../../js/lrs-sim.js"></script>
+      
+        <script src="../../js/xapi-json-viewer.js"></script>
       
         <script src="../../js/quiz-xapi.js"></script>
       

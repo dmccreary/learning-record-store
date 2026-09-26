@@ -1454,6 +1454,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#full-vs-compact-the-one-place-both-behaviours-meet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Full vs. Compact: the one place both behaviours meet
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#two-verb-families-from-one-artifact" class="md-nav__link">
     <span class="md-ellipsis">
       Two verb families from one artifact
@@ -5210,6 +5219,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#full-vs-compact-the-one-place-both-behaviours-meet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Full vs. Compact: the one place both behaviours meet
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#two-verb-families-from-one-artifact" class="md-nav__link">
     <span class="md-ellipsis">
       Two verb families from one artifact
@@ -5394,6 +5412,24 @@
 Nothing is sent to a server — statements render in the panel below the diagram so you can read the
 wire format directly. This sim is the reference emitter for three things nothing else in the textbook
 does.</p>
+<h3 id="full-vs-compact-the-one-place-both-behaviours-meet">Full vs. Compact: the one place both behaviours meet<a class="headerlink" href="#full-vs-compact-the-one-place-both-behaviours-meet" title="Permanent link">&para;</a></h3>
+<p>The panel has the same <strong>xAPI events: Full / Compact</strong> switch, <strong>Simulate Done</strong>, and <strong>View Formatted
+JSON ↗</strong> as the <a href="../bouncing-ball/">Bouncing Ball</a> and <a href="../sine-wave/">Sine Wave</a> sims,
+and this is the sim where Compact mode shows its most important rule:</p>
+<ul>
+<li><strong>Explore</strong> inspections are <em>exposure</em> evidence. In Compact mode they are folded into the one
+  <code>experienced</code> summary emitted when the sim loses focus (or when you press Simulate Done).</li>
+<li><strong>Quiz</strong> answers are <em>assessed</em> evidence, and they are <strong>never folded</strong>. In both modes each attempt
+  is sent as its own <code>answered</code> statement the moment you click. The order of attempts (wrong, wrong,
+  right) is exactly what Bayesian Knowledge Tracing reads, so a summary that reduced them to a count
+  would throw away the evidence that matters most.</li>
+</ul>
+<p>Try it: switch to <strong>Compact</strong>, inspect a structure (nothing appears), then switch to <strong>Quiz</strong> and
+click a wrong answer: an <code>answered</code> statement appears at once. Press <strong>Simulate Done</strong>: the summary's
+<code>statements_represented</code> counts only the inspection.</p>
+<p>The starting mode and the teaching panel come from this sim's <a href="metadata.json"><code>metadata.json</code></a>
+<code>xapi</code> block (<code>"compact": false, "teaching": true</code>), over the book's
+<a href="../../js/lrs-config.js"><code>lrs-config.js</code></a> default.</p>
 <h3 id="two-verb-families-from-one-artifact">Two verb families from one artifact<a class="headerlink" href="#two-verb-families-from-one-artifact" title="Permanent link">&para;</a></h3>
 <p>The same six hotspots are <strong>two different sets of activities</strong>, depending on what the student is
 being asked to do with them:</p>
@@ -5629,6 +5665,16 @@ diagram earns a mastery signal. Per-hotspot dwell is recorded but reaches no rol
       <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
         <script src="../../js/katex.js"></script>
+      
+        <script src="../../js/lrs-config.js"></script>
+      
+        <script src="../../js/lrs-xapi.js"></script>
+      
+        <script src="../../js/lrs-lite-sim.js"></script>
+      
+        <script src="../../js/lrs-sim.js"></script>
+      
+        <script src="../../js/xapi-json-viewer.js"></script>
       
         <script src="../../js/quiz-xapi.js"></script>
       

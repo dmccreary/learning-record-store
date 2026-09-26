@@ -2965,14 +2965,15 @@ coordinator. S3's conditional writes supply the one atomic operation needed.</p>
 LRS-Lite has no server, so compression moves to the <strong>producer</strong>: the MicroSim, the page
 reader, and the quiz. This matches L-6.</p>
 <ul>
-<li>A MicroSim keeps its session state in memory, such as which controls were touched, the
-  range explored, goals reached, and predictions made. When the sim <strong>loses focus</strong>
+<li>A MicroSim keeps its session state in memory, such as which controls were touched and the
+  range explored. When the sim <strong>loses focus</strong>
   (scrolled out of view, tab hidden, page left, or idle), it emits <strong>one</strong> summary
   statement (<a href="#6-producer-side-summarization">§6</a>).</li>
 <li>A chapter page tracks <em>active</em> reading time, maximum scroll depth, and sections viewed,
   and emits <strong>one</strong> reading summary when it is hidden.</li>
 <li>Quiz answers are already at the right grain, one statement per attempt, and pass through
-  unchanged. Each attempt is separate evidence.</li>
+  unchanged. Each attempt is separate evidence. The same holds for a MicroSim's checked
+  predictions and goals: they are answers, so they pass through too, and are never folded.</li>
 </ul>
 <p><strong>What is lost:</strong> the per-drag sequence, the same trade the earlier draft made knowingly.
 <strong>What is kept:</strong> every outcome mastery depends on (answers, goals, predictions) and every
@@ -4024,7 +4025,7 @@ teaches one vocabulary:</p>
 <tr>
 <td><code>m:{sim_iri}</code></td>
 <td><code>MicroSimEngagement</code></td>
-<td><code>sessions</code>, <code>active_ms_total</code>, <code>interaction_count</code>, <code>range_coverage_max</code>, <code>goals_met</code>, <code>predictions</code>, <code>last_seen</code></td>
+<td><code>sessions</code>, <code>active_ms_total</code>, <code>interaction_count</code>, <code>range_coverage_max</code>, <code>goals_met</code> and <code>predictions</code> (both derived from the sim's own <code>answered</code> statements), <code>last_seen</code></td>
 </tr>
 <tr>
 <td><code>q:{question_iri}</code></td>
@@ -4130,15 +4131,13 @@ in the summary. A sim that loads paused and is never started records only its ac
 </span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">      </span><span class="nt">"https://w3id.org/lrs/ext/controls"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"slip"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"n"</span><span class="p">:</span><span class="w"> </span><span class="mi">22</span><span class="p">,</span><span class="w"> </span><span class="nt">"min"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.02</span><span class="p">,</span><span class="w"> </span><span class="nt">"max"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.41</span><span class="p">},</span>
 </span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">                                             </span><span class="nt">"guess"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"n"</span><span class="p">:</span><span class="w"> </span><span class="mi">18</span><span class="p">,</span><span class="w"> </span><span class="nt">"min"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> </span><span class="nt">"max"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">}},</span>
 </span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">      </span><span class="nt">"https://w3id.org/lrs/ext/range_coverage"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.64</span><span class="p">,</span>
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">      </span><span class="nt">"https://w3id.org/lrs/ext/goals"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"see-crash-after-wrong"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nt">"reach-0.95"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">},</span>
-</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">      </span><span class="nt">"https://w3id.org/lrs/ext/predictions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"correct"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="nt">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">},</span>
-</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">      </span><span class="nt">"https://w3id.org/lrs/ext/end_reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"scrolled-away"</span><span class="p">,</span>
-</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">      </span><span class="nt">"https://w3id.org/lrs/ext/xapi_mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"compact"</span>
-</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">  </span><span class="p">},</span>
-</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">  </span><span class="nt">"context"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"extensions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"https://w3id.org/lrs/ext/concept_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"slip-parameter"</span><span class="p">,</span>
-</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">                             </span><span class="nt">"https://w3id.org/lrs/ext/statements_represented"</span><span class="p">:</span><span class="w"> </span><span class="mi">57</span><span class="p">}}</span>
-</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="p">}</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">      </span><span class="nt">"https://w3id.org/lrs/ext/end_reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"scrolled-away"</span><span class="p">,</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">      </span><span class="nt">"https://w3id.org/lrs/ext/xapi_mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"compact"</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">  </span><span class="nt">"context"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"extensions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"https://w3id.org/lrs/ext/concept_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"slip-parameter"</span><span class="p">,</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">                             </span><span class="nt">"https://w3id.org/lrs/ext/statements_represented"</span><span class="p">:</span><span class="w"> </span><span class="mi">57</span><span class="p">}}</span>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="p">}</span>
 </span></code></pre></div>
 <p><code>statements_represented</code> counts the full-mode statements the summary stands for: every
 slider step past its deadband, every Start/Pause run, every step studied. It keeps the
@@ -4146,35 +4145,48 @@ compression ratio observable at the producer, as spec requirement C-6 asks. The
 implementation (<code>docs/js/lrs-lite-sim.js</code>, 2026-09-25) also records <code>session_ms</code>
 (wall-clock length of the session) and, for Start/Pause sims, <code>runs</code>
 (<code>{count, ms}</code>).</p>
+<p><strong>A summary carries exposure evidence only. Answers, predictions, and goals are never folded
+into it</strong> (decided 2026-09-26). Each checked answer is its own <code>answered</code> statement,
+emitted as it happens, in both Compact and Full mode. The per-attempt order is what BKT
+reads (wrong, wrong, right is different evidence from right, wrong, wrong); each answer
+keeps its question IRI; and the per-question rollups stay replayable (C-2). The storage
+cost is small: <a href="#step-2-measure-the-data-before-choosing-the-machinery">Step 2</a> already
+budgets about 15 answers a day. An earlier draft of this section folded
+<code>goals: {…}</code> and <code>predictions: {correct, total}</code> into the summary; that is withdrawn.</p>
 <p><em>(Actor, grouping, <code>id</code>, <code>timestamp</code>, <code>device_id</code>, <code>device_seq</code>, and <code>hlc</code> are omitted
 for brevity.)</em> The new extension IRIs must be added to the producer contract's extension
 table so the full LRS's processor can fold them on replay (Phase 0 of
 <a href="#14-implementation-plan">§14</a>).</p>
 <h3 id="63-the-author-api">6.3 The author API<a class="headerlink" href="#63-the-author-api" title="Permanent link">&para;</a></h3>
-<p>The MicroSim author writes one line per control and one per goal. The library handles
-focus, timing, and emission:</p>
+<p>The MicroSim author declares one handle per control or question. The library
+(<code>docs/js/lrs-sim.js</code>, implemented 2026-09-26) handles focus, timing, the Full/Compact
+decision, and emission:</p>
 <div class="language-js highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">// in setup(), after updateCanvasSize() and createCanvas(...)</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kd">const</span><span class="w"> </span><span class="nx">sim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">LRSLite</span><span class="p">.</span><span class="nx">sim</span><span class="p">({</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'BKT Four Parameters Explorer'</span><span class="p">,</span><span class="w"> </span><span class="nx">concept</span><span class="o">:</span><span class="w"> </span><span class="s1">'slip-parameter'</span><span class="p">,</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">                         </span><span class="nx">publish</span><span class="o">:</span><span class="w"> </span><span class="nx">publish</span><span class="w"> </span><span class="p">});</span><span class="w">   </span><span class="c1">// reads ./metadata.json → "xapi"</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="nx">slipSlider</span><span class="p">.</span><span class="nx">input</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">sim</span><span class="p">.</span><span class="nx">touch</span><span class="p">(</span><span class="s1">'slip'</span><span class="p">,</span><span class="w"> </span><span class="nx">slipSlider</span><span class="p">.</span><span class="nx">value</span><span class="p">()));</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="nx">guessSlider</span><span class="p">.</span><span class="nx">input</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">sim</span><span class="p">.</span><span class="nx">touch</span><span class="p">(</span><span class="s1">'guess'</span><span class="p">,</span><span class="w"> </span><span class="nx">guessSlider</span><span class="p">.</span><span class="nx">value</span><span class="p">()));</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="c1">// performance evidence, the kind that can turn a concept green</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">pl</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mf">0.95</span><span class="p">)</span><span class="w"> </span><span class="nx">sim</span><span class="p">.</span><span class="nx">goal</span><span class="p">(</span><span class="s1">'reach-0.95'</span><span class="p">);</span>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="nx">checkButton</span><span class="p">.</span><span class="nx">mousePressed</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">sim</span><span class="p">.</span><span class="nx">predict</span><span class="p">(</span><span class="s1">'trajectory-after-wrong'</span><span class="p">,</span><span class="w"> </span><span class="nx">studentPick</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="nx">truth</span><span class="p">));</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kd">const</span><span class="w"> </span><span class="nx">lrs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">LRSSim</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'BKT Four Parameters Explorer'</span><span class="p">,</span><span class="w"> </span><span class="nx">concept</span><span class="o">:</span><span class="w"> </span><span class="s1">'slip-parameter'</span><span class="w"> </span><span class="p">});</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="kd">const</span><span class="w"> </span><span class="nx">slip</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nx">lrs</span><span class="p">.</span><span class="nx">slider</span><span class="p">(</span><span class="s1">'slip-slider'</span><span class="p">,</span><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">concept</span><span class="o">:</span><span class="w"> </span><span class="s1">'slip-parameter'</span><span class="p">,</span><span class="w">  </span><span class="nx">min</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="nx">max</span><span class="o">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="nx">initial</span><span class="o">:</span><span class="w"> </span><span class="mf">0.1</span><span class="w"> </span><span class="p">});</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="kd">const</span><span class="w"> </span><span class="nx">guess</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">lrs</span><span class="p">.</span><span class="nx">slider</span><span class="p">(</span><span class="s1">'guess-slider'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">concept</span><span class="o">:</span><span class="w"> </span><span class="s1">'guess-parameter'</span><span class="p">,</span><span class="w"> </span><span class="nx">min</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="nx">max</span><span class="o">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="nx">initial</span><span class="o">:</span><span class="w"> </span><span class="mf">0.2</span><span class="w"> </span><span class="p">});</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="nx">slipSlider</span><span class="p">.</span><span class="nx">input</span><span class="p">(()</span><span class="w">  </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">slip</span><span class="p">.</span><span class="nx">input</span><span class="p">(</span><span class="nx">slipSlider</span><span class="p">.</span><span class="nx">value</span><span class="p">()));</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="nx">guessSlider</span><span class="p">.</span><span class="nx">input</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">guess</span><span class="p">.</span><span class="nx">input</span><span class="p">(</span><span class="nx">guessSlider</span><span class="p">.</span><span class="nx">value</span><span class="p">()));</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="c1">// performance evidence, the kind that can turn a concept green: a checked answer</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="kd">const</span><span class="w"> </span><span class="nx">trajectory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">lrs</span><span class="p">.</span><span class="nx">question</span><span class="p">(</span><span class="s1">'q-trajectory-after-wrong'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">concept</span><span class="o">:</span><span class="w"> </span><span class="s1">'slip-parameter'</span><span class="w"> </span><span class="p">});</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="nx">checkButton</span><span class="p">.</span><span class="nx">mousePressed</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">  </span><span class="nx">trajectory</span><span class="p">.</span><span class="nx">answer</span><span class="p">({</span><span class="w"> </span><span class="nx">success</span><span class="o">:</span><span class="w"> </span><span class="nx">studentPick</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="nx">truth</span><span class="p">,</span><span class="w"> </span><span class="nx">response</span><span class="o">:</span><span class="w"> </span><span class="nx">studentPick</span><span class="w"> </span><span class="p">}));</span>
 </span></code></pre></div>
-<p><code>touch()</code> records <strong>exploration</strong>, which counts as engagement and exposure. <code>goal()</code> and
-<code>predict()</code> record <strong>performance</strong>, which counts as assessed evidence
-(<a href="#91-evidence-classes">§9.1</a>). Keeping the two distinct is what stops the personal graph
-from turning green because a student wiggled a slider.</p>
+<p><code>slider()</code>, <code>item()</code>, <code>button()</code>, and <code>runner()</code> record <strong>exploration</strong>, which counts as
+engagement and exposure and is what Compact mode folds. <code>question().answer()</code> records
+<strong>performance</strong>, which counts as assessed evidence (<a href="#91-evidence-classes">§9.1</a>) and is
+never folded. A goal reached is an answer with <code>success: true</code>. Keeping the two distinct is
+what stops the personal graph from turning green because a student wiggled a slider.</p>
 <h3 id="64-per-sim-policy-the-xapi-block-in-metadatajson">6.4 Per-sim policy: the <code>xapi</code> block in <code>metadata.json</code><a class="headerlink" href="#64-per-sim-policy-the-xapi-block-in-metadatajson" title="Permanent link">&para;</a></h3>
-<p>The policy lives in the sim's existing <code>metadata.json</code>, not in a separate <code>config.json</code>.
-One file per sim is easier for authors and tooling to keep straight. <strong>Implemented
-2026-09-25</strong> in <code>docs/js/lrs-lite-sim.js</code>, with three test sims (<code>bouncing-ball</code>,
-<code>sine-wave</code>, <code>scientific-method</code>) and headless-Chromium tests of both modes
-(<code>make test-sims</code>):</p>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">"xapi"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"compact"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nt">"idleMs"</span><span class="p">:</span><span class="w"> </span><span class="mi">90000</span><span class="p">,</span><span class="w"> </span><span class="nt">"offscreenMs"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="p">,</span><span class="w"> </span><span class="nt">"blurMs"</span><span class="p">:</span><span class="w"> </span><span class="mi">30000</span><span class="w"> </span><span class="p">}</span>
+<p>The policy lives in two places, and an agent can edit either one: the book's
+<code>docs/js/lrs-config.js</code> <code>xapi</code> block sets the default for every MicroSim in the textbook,
+and a sim's own <code>metadata.json</code> <code>xapi</code> block overrides it for that sim (not a separate
+<code>config.json</code>). <strong>Implemented 2026-09-25/26</strong> in <code>docs/js/lrs-lite-sim.js</code> and
+<code>docs/js/lrs-sim.js</code>, with four sims (<code>bouncing-ball</code>, <code>sine-wave</code>, <code>scientific-method</code>,
+<code>animal-cell</code>), the chapter quizzes, and headless-Chromium tests (<code>make test-sims</code>):</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">"xapi"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"compact"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nt">"teaching"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nt">"idleMs"</span><span class="p">:</span><span class="w"> </span><span class="mi">90000</span><span class="p">,</span><span class="w"> </span><span class="nt">"offscreenMs"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="p">,</span><span class="w"> </span><span class="nt">"blurMs"</span><span class="p">:</span><span class="w"> </span><span class="mi">30000</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
 <table>
 <thead>
@@ -4188,7 +4200,12 @@ One file per sim is easier for authors and tooling to keep straight. <strong>Imp
 <tr>
 <td><code>compact</code></td>
 <td><code>true</code></td>
-<td><code>true</code>: fold interactions into a session and emit one summary on focus loss. <code>false</code>: the sim's full per-interaction stream</td>
+<td><code>true</code>: fold interactions into a session and emit one summary on focus loss. <code>false</code>: the sim's full per-interaction stream. Answers pass through either way</td>
+</tr>
+<tr>
+<td><code>teaching</code></td>
+<td><code>false</code></td>
+<td><code>true</code>: show the statement log, the Full/Compact switch, Simulate Done, and View Formatted JSON. Only for sims that teach what xAPI events are; production sims stay silent</td>
 </tr>
 <tr>
 <td><code>idleMs</code></td>
@@ -4207,20 +4224,19 @@ One file per sim is easier for authors and tooling to keep straight. <strong>Imp
 </tr>
 </tbody>
 </table>
-<p><strong>A missing block or key, or an unreadable <code>metadata.json</code>, means compact.</strong> A sim with no
-policy is in summary mode: not silent, and not verbose. The evidence map is the next
+<p><strong>A key missing from the sim's block comes from the book's <code>lrs-config.js</code>, then from the
+defaults: compact and silent.</strong> A sim with no policy is in summary mode: not silent about
+the data, and not verbose. The evidence map is the next
 extension of the same block. It is not implemented yet:</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nt">"xapi"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">"compact"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="nt">"concepts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"slip-parameter"</span><span class="p">,</span><span class="w"> </span><span class="s2">"guess-parameter"</span><span class="p">],</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="nt">"goals"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="nt">"see-crash-after-wrong"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"concept"</span><span class="p">:</span><span class="w"> </span><span class="s2">"slip-parameter"</span><span class="p">,</span><span class="w"> </span><span class="nt">"weight"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.6</span><span class="w"> </span><span class="p">},</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="nt">"reach-0.95"</span><span class="p">:</span><span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="nt">"concept"</span><span class="p">:</span><span class="w"> </span><span class="s2">"evidence-conditioning-step"</span><span class="p">,</span><span class="w"> </span><span class="nt">"weight"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.6</span><span class="w"> </span><span class="p">}</span>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">  </span><span class="p">},</span>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">  </span><span class="nt">"predictions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="nt">"trajectory-after-wrong"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"concept"</span><span class="p">:</span><span class="w"> </span><span class="s2">"slip-parameter"</span><span class="p">,</span><span class="w"> </span><span class="nt">"weight"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.8</span><span class="w"> </span><span class="p">}</span>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">  </span><span class="p">}</span>
-</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="p">}</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="nt">"questions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="nt">"q-see-crash-after-wrong"</span><span class="p">:</span><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nt">"concept"</span><span class="p">:</span><span class="w"> </span><span class="s2">"slip-parameter"</span><span class="p">,</span><span class="w"> </span><span class="nt">"weight"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.6</span><span class="w"> </span><span class="p">},</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="nt">"q-reach-0.95"</span><span class="p">:</span><span class="w">             </span><span class="p">{</span><span class="w"> </span><span class="nt">"concept"</span><span class="p">:</span><span class="w"> </span><span class="s2">"evidence-conditioning-step"</span><span class="p">,</span><span class="w"> </span><span class="nt">"weight"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.6</span><span class="w"> </span><span class="p">},</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="nt">"q-trajectory-after-wrong"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"concept"</span><span class="p">:</span><span class="w"> </span><span class="s2">"slip-parameter"</span><span class="p">,</span><span class="w"> </span><span class="nt">"weight"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.8</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="p">}</span>
 </span></code></pre></div>
 <p>Without <code>concepts</code>, the sim inherits the <strong>concepts of the chapter that embeds it</strong> as
 <em>exposure-only</em> evidence. Tooling can generate the block from the chapter's concept list,
@@ -4724,16 +4740,16 @@ of an opportunity to learn.</p>
 </tr>
 <tr>
 <td>MicroSim prediction checked (committed before the sim shows the outcome)</td>
-<td>sim summary <code>predictions</code></td>
-<td>correct ÷ total</td>
+<td><code>answered</code> from the sim (<code>#q-…</code> Question)</td>
+<td>1 or 0 per attempt</td>
 <td>0.8</td>
 <td><strong>Assessed</strong></td>
 </tr>
 <tr>
 <td>MicroSim goal achieved</td>
-<td>sim summary <code>goals</code></td>
+<td><code>answered</code> from the sim, <code>success: true</code></td>
 <td>1 per goal met</td>
-<td>0.6 (from <code>metadata.json</code> → <code>xapi.goals</code>), with a raised guess parameter (0.4) because trial and error with feedback inflates success</td>
+<td>0.6 (from <code>metadata.json</code> → <code>xapi.questions</code>), with a raised guess parameter (0.4) because trial and error with feedback inflates success</td>
 <td><strong>Assessed</strong></td>
 </tr>
 <tr>
@@ -4913,8 +4929,8 @@ already does.</p>
 </tr>
 <tr>
 <td>MicroSims</td>
-<td><code>metadata.json</code> → <code>xapi.concepts</code>, <code>goals</code>, <code>predictions</code></td>
-<td>❌ No sim declares these yet (three test sims have the <code>compact</code> switch only). Fallback: the embedding chapter's concepts as exposure (124 embeds across chapters)</td>
+<td><code>metadata.json</code> → <code>xapi.concepts</code>, <code>questions</code></td>
+<td>❌ No sim declares these yet (four teaching sims have the <code>compact</code>/<code>teaching</code> switches only). Fallback: the embedding chapter's concepts as exposure (124 embeds across chapters)</td>
 </tr>
 </tbody>
 </table>
@@ -4936,7 +4952,7 @@ third of what is needed. Three complementary ways to close the gap:</p>
 <li><strong>Inline concept checks:</strong> two short questions per concept, embedded in the chapter
    where the concept is taught and emitted as <code>answered</code> with the same fragment scheme
    (<a href="../specs/xapi-producer-contract-v1/#2-question-iris-the-fragment-scheme-resolved-2026-07-16">contract §2</a>).</li>
-<li><strong>MicroSim predictions and goals</strong> in each sim's <code>metadata.json</code> <code>xapi</code> block, for the sims that already teach
+<li><strong>MicroSim predictions and goals</strong> (emitted as <code>answered</code>) in each sim's <code>metadata.json</code> <code>xapi</code> block, for the sims that already teach
    those concepts.</li>
 </ol>
 <p>A pilot does not need the whole book. Covering <strong>the chapters the pilot actually teaches</strong>
@@ -5687,7 +5703,7 @@ before any sync exists. The estimate assumes one developer familiar with the cod
 <li>Ratify the ADRs in <a href="#15-architecture-decisions-and-open-questions">§15</a>.</li>
 <li>Add the new extension IRIs to the <a href="../specs/xapi-producer-contract-v1/">producer contract</a>
   (<code>active_ms</code>, <code>scroll_depth_max</code>, <code>sections_seen</code>, <code>read_state</code>, <code>interaction_count</code>,
-  <code>controls</code>, <code>range_coverage</code>, <code>goals</code>, <code>predictions</code>, <code>end_reason</code>, <code>first_attempt</code>,
+  <code>controls</code>, <code>range_coverage</code>, <code>end_reason</code>, <code>first_attempt</code>,
   <code>answer_revealed_before</code>, <code>device_id</code>, <code>device_seq</code>, <code>hlc</code>, <code>summarizer_version</code>).</li>
 <li>Write <code>plugins/lrs_lite_concept_map.py</code>, which emits <code>concept-map.json</code> and the coverage
   report.</li>
@@ -5720,8 +5736,9 @@ process finishes.</p>
   <a href="#61-what-loses-focus-means-for-a-microsim">§6.1</a>, and the <code>metadata.json</code> <code>compact</code>
   switch in three test sims (<code>bouncing-ball</code>, <code>sine-wave</code>, <code>scientific-method</code>), tested on
   and off by <code>make test-sims</code>.</li>
-<li>Add goals and predictions to a sim that assesses something (<code>bkt-four-parameters-explorer</code>),
-  and implement the <code>xapi.concepts</code>/<code>goals</code>/<code>predictions</code> keys.</li>
+<li>Add checked predictions and goals — <code>question().answer()</code>, which pass through as <code>answered</code> —
+  to a sim that assesses something (<code>bkt-four-parameters-explorer</code>), and implement the
+  <code>xapi.concepts</code>/<code>questions</code> keys.</li>
 <li>Update the <code>microsim-generator</code> templates so new sims include the session API and an
   <code>xapi</code> block in <code>metadata.json</code>.</li>
 </ul>
@@ -6143,6 +6160,16 @@ from abstracts or secondary summaries only.</p>
       <script src="../assets/javascripts/bundle.83f73b43.min.js"></script>
       
         <script src="../js/katex.js"></script>
+      
+        <script src="../js/lrs-config.js"></script>
+      
+        <script src="../js/lrs-xapi.js"></script>
+      
+        <script src="../js/lrs-lite-sim.js"></script>
+      
+        <script src="../js/lrs-sim.js"></script>
+      
+        <script src="../js/xapi-json-viewer.js"></script>
       
         <script src="../js/quiz-xapi.js"></script>
       

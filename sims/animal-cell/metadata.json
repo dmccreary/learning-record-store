@@ -69,5 +69,12 @@
     ],
     "interactionStyle": "explore-and-quiz"
   },
-  "identifier": "https://dmccreary.github.io/learning-record-store/sims/animal-cell/"
+  "identifier": "https://dmccreary.github.io/learning-record-store/sims/animal-cell/",
+  "xapi": {
+    "compact": false,
+    "teaching": true,
+    "idleMs": 90000,
+    "offscreenMs": 10000,
+    "blurMs": 30000
+  }
 }

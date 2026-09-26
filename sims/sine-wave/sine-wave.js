@@ -3,19 +3,18 @@
 // displayed beside it rather than controlled, so students see both and how they relate.
 // Width-responsive version.
 //
-// This MicroSim also simulates how a Learning Record Store (LRS) turns raw
-// user interactions into xAPI statements, and how those statements get
-// compressed into summary vertices (see docs/specs/lrs-spec-v1.md, section 4.3).
-//   - "Show Raw xAPI Events" streams one simulated xAPI statement per detected
-//     slider movement.
-//   - "Show MicroSim Summary" compresses that stream into engagement metrics,
+// This MicroSim also teaches how a Learning Record Store (LRS) turns raw user interactions
+// into xAPI statements, and how those statements get compressed into summary vertices
+// (see docs/specs/lrs-spec-v1.md, section 4.3).
+//   - Teaching versions show the raw xAPI statement stream below the canvas, with its
+//     Full/Compact switch and Simulate Done (docs/js/lrs-sim.js renders all of it).
+//   - "Show MicroSim Summary" compresses the slider movements into engagement metrics,
 //     modeled on the ConceptMastery / MicroSimEngagement summary vertices.
 
 let canvasWidth = 600;
 let drawHeight = 400;
-// Three slider rows, two checkbox rows, then the xAPI mode radio + Simulate Done.
-let controlHeight = 150;
-let xapiRowY = drawHeight + 122;
+// Three slider rows, then the Show MicroSim Summary checkbox.
+let controlHeight = 100;
 let canvasHeight = drawHeight + controlHeight;
 let halfWidth, halfHeight;
 let amplitude = 0.5;
@@ -30,7 +29,6 @@ let frequency = 2;
 let amplitudeSlider, frequencySlider, phaseSlider;
 let sliderLeftMargin = 130;
 
-// ---- xAPI simulation configuration ----
 // `concept` is the concept_id each slider is evidence for (contract §6: one per
 // statement). Each slider is named for the concept it is evidence for, so the control a
 // student drags and the concept_id in the stream use the same word.
@@ -41,39 +39,22 @@ const SLIDER_META = {
   // shift in pixels, which would change meaning with the canvas width and the frequency.
   phase: { min: -Math.PI, max: Math.PI, default: 0, step: 0.01, label: 'Phase Slider', round: 2, concept: 'phase' }
 };
-// The canonical published page IRI — see docs/specs/xapi-producer-contract-v1.md §1.
-// It is mkdocs.yml's site_url + this sim's nav path, with the trailing slash.
-//
-// This was previously 'https://dmccreary.github.io/microsims/sims/sine-wave/main.html',
-// which was wrong twice: it named a different repo's Pages site, and it named
-// main.html — the iframe payload — rather than the page. main.html is the load-bearing
-// half: MkDocs serves index.md at /sims/sine-wave/ and copies main.html beside it, so
-// citing main.html mints a SECOND IRI for one activity. student_page_rollup is
-// ORDER BY (district_id, student_key, object_id), so two IRIs put one student's
-// engagement in two rows that never merge — under-reporting the C-6 compression ratio
-// at the producer, before any server-side code runs.
-const ACTIVITY_BASE_ID = 'https://dmccreary.github.io/learning-record-store/sims/sine-wave/';
-const MAX_STORED_EVENTS = 400;
-const MAX_LOG_LINES_RENDERED = 150;
 
-let stats = {};             // per-slider interaction stats
-let xapiEvents = [];        // emitted statements, capped at MAX_STORED_EVENTS
-let totalEventsGenerated = 0;   // detected slider movements (what full mode emits one statement per)
-let emittedCount = 0;           // statements actually emitted (full: one per movement; compact: summaries)
-
-// Compact xAPI (LRS-Lite). metadata.json → "xapi": {"compact": true|false}. When compact,
-// slider movements are folded into ONE `experienced` summary emitted when the sim loses
-// focus (docs/lrs-lite/index.md §6) — Option B in the trade-off table on this sim's page,
-// but with the summary itself kept as a real statement in the log. When false, or when
-// lrs-lite-sim.js is absent (the p5.js editor), the full stream below is emitted unchanged.
-let xapi = null;
+let stats = {};                 // per-slider interaction stats, for the MicroSim Summary panel
+let totalEventsGenerated = 0;   // slider movements reported (one Full statement, or one Compact fold, each)
 let firstInteractionTime = null;
 let lastInteractionTime = null;
 
-let showRawCheckbox, showSummaryCheckbox;
-let modeRadio, doneButton;
-let viewButton;   // opens the latest statement formatted in a new tab (xapi-json-viewer.js)
-let rawPanel, rawLogEl, rawCountEl;
+// ---- xAPI, through the shared runtime (docs/js/lrs-sim.js) ----
+// Each slider is one continuous-parameter control. lrs-sim.js decides Full vs. Compact from
+// config (this sim's metadata.json `xapi` block, over the book's lrs-config.js), builds every
+// statement, and renders the statement log with its Full/Compact switch and Simulate Done —
+// only when the config says `teaching: true`. Without lrs-sim.js (pasted into the p5.js
+// editor) the sim still runs; it just emits nothing.
+let x = null;
+let sliderEvidence = {};        // SLIDER_META key -> x.slider(...) handle
+
+let showSummaryCheckbox;
 let summaryPanel;
 
 function setup() {
@@ -101,42 +82,40 @@ function setup() {
   phaseSlider.position(sliderLeftMargin, drawHeight + 50);
   phaseSlider.size(canvasWidth - sliderLeftMargin - 15);
 
-  // Checkboxes for the xAPI event simulation
-  showRawCheckbox = createCheckbox('Show Raw xAPI Events', false);
-  showRawCheckbox.position(10, drawHeight + 74);
-  showRawCheckbox.changed(toggleRawPanel);
-
   showSummaryCheckbox = createCheckbox('Show MicroSim Summary', false);
-  showSummaryCheckbox.position(10, drawHeight + 98);
+  showSummaryCheckbox.position(10, drawHeight + 74);
   showSummaryCheckbox.changed(toggleSummaryPanel);
 
   initStats();
-  buildXapiPanels(mainElement);
-  attachSliderXapiHandlers();
+  // The statement log mounts ABOVE the summary panel, so it goes in its own slot first.
+  const rawSlot = document.createElement('div');
+  mainElement.appendChild(rawSlot);
+  summaryPanel = document.createElement('div');
+  summaryPanel.className = 'xapi-panel xapi-summary-panel';
+  summaryPanel.style.display = 'none';
+  mainElement.appendChild(summaryPanel);
+  attachSliderHandlers();
 
-  if (window.LRSLite) {
-    xapi = LRSLite.sim({ name: 'Sine Wave', concept: 'sine-wave', publish: publishStatement });
-
-    // Full vs. Compact, so a reader can compare the two streams on the same slider moves.
-    // Needs lrs-lite-sim.js, so it is not created in the p5.js editor (full mode only).
-    modeRadio = createRadio();
-    modeRadio.option('full', 'Full');
-    modeRadio.option('compact', 'Compact');
-    modeRadio.position(110, xapiRowY + 2);
-    modeRadio.style('font-size', '16px');
-    modeRadio.changed(handleModeChange);
-
-    xapi.ready.then(function (session) {
-      modeRadio.selected(session.compact ? 'compact' : 'full');
-      updateRawCount();
+  if (window.LRSSim) {
+    x = LRSSim.create({
+      name: 'Sine Wave',
+      concept: 'sine-wave',
+      source: 'the Sine Wave MicroSim',
+      mount: rawSlot,
+      title: 'Raw xAPI Event Stream — statements emitted:',
+      foldNotes: false,       // compact mode's log stays silent until the summary
+      modeText: (compact, sim) => compact
+        ? 'COMPACT (LRS-Lite): one summary statement per session, emitted when the sim loses ' +
+          'focus — press Simulate Done (' + sim.interactions + ' slider movements folded so far).'
+        : 'FULL (full LRS): one statement per detected slider movement.'
     });
+    for (const key of Object.keys(SLIDER_META)) {
+      const m = SLIDER_META[key];
+      sliderEvidence[key] = x.slider(key + '-slider', {
+        name: m.label, concept: m.concept, min: m.min, max: m.max, initial: m.default, round: m.round
+      });
+    }
   }
-
-  // Stands in for the host page taking focus away from the iframe (scroll away, tab
-  // switch, leaving) — the moment a compact session emits its one summary.
-  doneButton = createButton('Simulate Done');
-  doneButton.position(xapi ? 290 : 10, xapiRowY);
-  doneButton.mousePressed(simulateDone);
 
   // Refresh the summary panel once a second so elapsed-time metrics stay live.
   setInterval(() => {
@@ -145,10 +124,9 @@ function setup() {
     }
   }, 1000);
 
-  describe('An interactive sine wave with sliders for amplitude, frequency and phase. ' +
-    'Optional panels simulate the xAPI events those sliders would generate and a ' +
-    'compressed summary of the resulting interaction evidence. A Full/Compact selector ' +
-    'switches the xAPI stream, and Simulate Done ends a compact session.', LABEL);
+  describe('An interactive sine wave with sliders for amplitude, frequency and phase, and an ' +
+    'optional compressed summary of the interaction evidence. Teaching versions also show ' +
+    'the raw xAPI event stream below the canvas.', LABEL);
 }
 
 function updateCanvasSize() {
@@ -200,7 +178,6 @@ function draw() {
   text('Amplitude: ' + amplitude.toFixed(2), 10, drawHeight + 25);
   text('Frequency: ' + frequency.toFixed(1), 10, drawHeight + 45);
   text('Phase: '     + phaseShown.toFixed(2) + ' rad', 10, drawHeight + 65);
-  if (xapi) text('xAPI events:', 10, xapiRowY + 16);
 
   // draw on the standard axis to keep text upright
   drawAxis();
@@ -282,26 +259,23 @@ function drawSineWave(amplitude, frequency, phase) {
 }
 
 // ============================================================
-// xAPI event simulation
+// Slider evidence
 //
-// Every slider carries its own interaction stats (touched, min/max reached,
-// direction reversals, attempts/successes per drag). Each slider movement is
-// throttled into a stream of simulated xAPI "interacted" statements, and the
-// stream is compressed on demand into summary metrics.
+// Every slider keeps its own interaction stats (touched, min/max reached, direction
+// reversals, attempts/successes per drag) for the MicroSim Summary panel, and reports each
+// movement to lrs-sim.js, which emits it (Full) or folds it into the session (Compact).
 // ============================================================
 
 function initStats() {
   for (const key of Object.keys(SLIDER_META)) {
     stats[key] = {
       touched: false,
-      count: 0,               // xAPI statements emitted for this slider
+      count: 0,               // movements reported for this slider
       min: null,
       max: null,
       lastRawVal: SLIDER_META[key].default,
       lastDir: 0,
       reversals: 0,
-      pendingReversals: 0,    // reversals not yet carried by a compact touch
-      lastEmittedVal: null,
       attempts: 0,
       successes: 0,
       sessionStartVal: SLIDER_META[key].default,
@@ -311,7 +285,7 @@ function initStats() {
   }
 }
 
-function attachSliderXapiHandlers() {
+function attachSliderHandlers() {
   amplitudeSlider.input(() => handleSliderInput('amplitude', amplitudeSlider.value()));
   amplitudeSlider.changed(() => handleSliderChanged('amplitude', amplitudeSlider.value()));
 
@@ -324,7 +298,6 @@ function attachSliderXapiHandlers() {
 
 function handleSliderInput(key, value) {
   const s = stats[key];
-  const meta = SLIDER_META[key];
   const now = new Date();
 
   if (firstInteractionTime === null) firstInteractionTime = now;
@@ -333,10 +306,7 @@ function handleSliderInput(key, value) {
   const delta = value - s.lastRawVal;
   const dir = delta > 0 ? 1 : (delta < 0 ? -1 : 0);
   if (dir !== 0) {
-    if (s.lastDir !== 0 && dir !== s.lastDir) {
-      s.reversals++;
-      s.pendingReversals++;
-    }
+    if (s.lastDir !== 0 && dir !== s.lastDir) s.reversals++;
     s.lastDir = dir;
   }
 
@@ -347,14 +317,11 @@ function handleSliderInput(key, value) {
   if (s.firstSeen === null) s.firstSeen = now;
   s.lastSeen = now;
 
-  // Throttle the emitted statement stream to roughly 60 statements per full
-  // sweep of the slider, regardless of that slider's numeric range.
-  const range = meta.max - meta.min;
-  const emitStep = range / 60;
-  if (s.lastEmittedVal === null || Math.abs(value - s.lastEmittedVal) >= emitStep) {
-    emitOrFold(key, value, s.lastEmittedVal);
-    s.lastEmittedVal = value;
+  // The runtime's deadband (range/60) throttles the stream to about 60 statements per full
+  // sweep; it returns true when this movement was reported.
+  if (x && sliderEvidence[key].input(value)) {
     s.count++;
+    totalEventsGenerated++;
   }
 
   if (showSummaryCheckbox.checked()) {
@@ -374,164 +341,15 @@ function handleSliderChanged(key, value) {
   }
   s.sessionStartVal = value;
 
-  // Make sure the final settled value is always captured in the stream, even
-  // if it fell below the emit-throttle step.
-  if (s.lastEmittedVal !== value) {
-    emitOrFold(key, value, s.lastEmittedVal);
-    s.lastEmittedVal = value;
+  // The value the student let go at is always reported, even inside the deadband.
+  if (x && sliderEvidence[key].settle(value)) {
     s.count++;
+    totalEventsGenerated++;
   }
 
   if (showSummaryCheckbox.checked()) {
     renderSummaryPanel();
   }
-}
-
-// One detected movement: a full statement, or one more interaction folded into the
-// compact session. The summary panel counts movements either way.
-// The three per-concept understanding estimates in the summary panel are computed from
-// range coverage, direction reversals, and movement count. Both streams must carry that
-// evidence: the full stream implicitly (ordered values, one per movement), the compact
-// summary explicitly (n, min, max, and `reversals`, since a summary has no order).
-function emitOrFold(key, value, previousValue) {
-  totalEventsGenerated++;
-  const s = stats[key];
-  const reversals = s.pendingReversals;
-  s.pendingReversals = 0;
-  if (xapi && xapi.compact) {
-    xapi.touch(key + '-slider', roundForDisplay(key, value),
-      { concept: SLIDER_META[key].concept, reversals: reversals });
-    updateRawCount();
-    return;
-  }
-  emitXapiStatement(key, value, previousValue);
-}
-
-// ---- Full / Compact / Simulate Done ----
-
-// Both controls are about the raw stream, so make sure it is on screen.
-function showRawStream() {
-  if (!showRawCheckbox.checked()) {
-    showRawCheckbox.checked(true);
-    toggleRawPanel();
-  }
-}
-
-function handleModeChange() {
-  const compact = modeRadio.value() === 'compact';
-  // Leaving compact flushes the open session as a 'mode-switch' summary, so folded
-  // movements are emitted rather than lost.
-  xapi.setCompact(compact);
-  showRawStream();
-  appendNoteLine('switched to ' + (compact ? 'COMPACT' : 'FULL') + ' mode');
-  updateRawCount();
-}
-
-// What the host page would trigger by taking focus from the iframe. This sim has no
-// Start/Pause, so in full mode there is no open interval to close: every movement is
-// already a statement, and there is nothing left to send.
-function simulateDone() {
-  showRawStream();
-  if (xapi && xapi.compact) {
-    const before = emittedCount;
-    xapi.end('simulated-done');
-    if (emittedCount === before) {
-      appendNoteLine('simulated done — no movements folded yet, so no summary');
-    } else if (viewButton) {
-      appendNoteLine('summary emitted — press View Formatted JSON ↗ (or click the line) to read it');
-    }
-    return;
-  }
-  appendNoteLine('simulated done — full mode already emitted every movement; nothing to flush');
-}
-
-function emitXapiStatement(key, value, previousValue) {
-  const meta = SLIDER_META[key];
-  const now = new Date();
-
-  // Conforms to docs/specs/xapi-producer-contract-v1.md. This sim never POSTs — the
-  // statements are rendered in the log panel below — but it is the shape students read
-  // to learn what an xAPI statement looks like, so it has to be a shape the gateway
-  // would actually accept.
-  const statement = {
-    id: generateUuid(),
-    actor: {
-      objectType: 'Agent',
-      name: 'demo-student',
-      // The demo tenant (contract §10). Was 'https://dmccreary.github.io/microsims/',
-      // which named a website rather than an account namespace.
-      account: { homePage: 'https://demo.example.edu', name: 'demo-student' }
-    },
-    // `interacted` — contract §3. A slider drag is neither an answer nor dwell.
-    verb: { id: 'http://adlnet.gov/expapi/verbs/interacted', display: { 'en-US': 'interacted' } },
-    object: {
-      // Page IRI + control fragment. ACTIVITY_BASE_ID ends in '/', so this reads
-      // …/sims/sine-wave/#amplitude-slider — one page, one control.
-      id: ACTIVITY_BASE_ID + '#' + key + '-slider',
-      objectType: 'Activity',
-      definition: {
-        name: { 'en-US': meta.label },
-        // → object_type 'Control' (contract §5). Deliberately NOT MicroSim: this IRI
-        // carries a fragment, and mv_student_page_rollup GROUPs BY object_id, so a
-        // MicroSim-typed slider would become its own PageEngagement row.
-        type: 'http://adlnet.gov/expapi/activities/interaction'
-      }
-    },
-    result: {
-      extensions: {
-        // The LRS extension namespace (contract §6), not a per-site one.
-        'https://w3id.org/lrs/ext/value': roundForDisplay(key, value),
-        'https://w3id.org/lrs/ext/previous-value':
-          previousValue === null ? null : roundForDisplay(key, previousValue)
-      }
-    },
-    context: {
-      contextActivities: {
-        // grouping[0] is the TEXTBOOK VERSION IRI (contract §4) — not the page URL.
-        // It previously held this sim's own page URL, which is what `parent` is for.
-        grouping: [{ id: 'https://dmccreary.github.io/learning-record-store/textbook/lrs/v1.0.0' }],
-        // The page this control belongs to.
-        parent: [{ id: ACTIVITY_BASE_ID }]
-      },
-      // Without this, concept_ids is empty and mv_student_concept_rollup skips the
-      // statement entirely via its own WHERE notEmpty(concept_ids).
-      extensions: { 'https://w3id.org/lrs/ext/concept_id': meta.concept }
-    },
-    timestamp: now.toISOString()
-  };
-
-  publishStatement(statement);
-}
-
-// Every emitted statement — a full-mode `interacted` or a compact-mode summary — lands here.
-function publishStatement(statement) {
-  emittedCount++;
-  if (window.LRSLite) LRSLite.record(statement);
-  xapiEvents.push(statement);
-  if (xapiEvents.length > MAX_STORED_EVENTS) {
-    xapiEvents.shift();
-  }
-  if (viewButton) viewButton.removeAttribute('disabled');
-
-  if (showRawCheckbox.checked()) {
-    appendRawLogLine(statement);
-  } else {
-    updateRawCount();
-  }
-}
-
-function roundForDisplay(key, value) {
-  const places = SLIDER_META[key].round;
-  const factor = Math.pow(10, places);
-  return Math.round(value * factor) / factor;
-}
-
-function generateUuid() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-    const r = Math.random() * 16 | 0;
-    const v = c === 'x' ? r : (r & 0x3 | 0x8);
-    return v.toString(16);
-  });
 }
 
 function computeConceptScore(s, meta) {
@@ -553,121 +371,12 @@ function capitalize(word) {
   return word.charAt(0).toUpperCase() + word.slice(1);
 }
 
-// ---- DOM panels ----
-
-function buildXapiPanels(mainElement) {
-  // Raw event stream panel
-  rawPanel = document.createElement('div');
-  rawPanel.className = 'xapi-panel xapi-raw-panel';
-  rawPanel.style.display = 'none';
-
-  const rawHeader = document.createElement('div');
-  rawHeader.className = 'xapi-panel-header';
-  const rawTitle = document.createElement('strong');
-  rawTitle.textContent = 'Raw xAPI Event Stream';
-  rawCountEl = document.createElement('span');
-  rawCountEl.className = 'xapi-header-note';
-  rawCountEl.textContent = ' — one statement per detected slider movement (0 so far)';
-  rawHeader.appendChild(rawTitle);
-  rawHeader.appendChild(rawCountEl);
-
-  // A one-line JSON statement is unreadable; this opens the latest one pretty-printed and
-  // explained in a new tab. A tab, not an inline panel: this sim lives in a fixed-height
-  // iframe, and a ~60-line statement would be clipped or force the iframe taller.
-  if (window.XapiJsonViewer) {
-    viewButton = createButton('View Formatted JSON ↗');
-    viewButton.parent(rawHeader);
-    viewButton.class('xapi-view-btn');
-    viewButton.attribute('disabled', '');
-    viewButton.attribute('title', 'Open the most recent statement, formatted, in a new tab');
-    viewButton.mousePressed(() => viewStatement(xapiEvents[xapiEvents.length - 1]));
-  }
-
-  rawLogEl = document.createElement('div');
-  rawLogEl.className = 'xapi-log';
-
-  rawPanel.appendChild(rawHeader);
-  rawPanel.appendChild(rawLogEl);
-
-  // Summary panel
-  summaryPanel = document.createElement('div');
-  summaryPanel.className = 'xapi-panel xapi-summary-panel';
-  summaryPanel.style.display = 'none';
-
-  mainElement.appendChild(rawPanel);
-  mainElement.appendChild(summaryPanel);
-}
-
-function toggleRawPanel() {
-  const on = showRawCheckbox.checked();
-  rawPanel.style.display = on ? 'block' : 'none';
-  if (on) renderFullRawLog();
-}
+// ---- MicroSim Summary panel ----
 
 function toggleSummaryPanel() {
   const on = showSummaryCheckbox.checked();
   summaryPanel.style.display = on ? 'block' : 'none';
   if (on) renderSummaryPanel();
-}
-
-function viewStatement(statement) {
-  if (statement && window.XapiJsonViewer) {
-    XapiJsonViewer.open(statement, { source: 'the Sine Wave MicroSim' });
-  }
-}
-
-// One raw log line. Clicking it opens that statement formatted.
-function makeLogLine(statement) {
-  const line = document.createElement('div');
-  line.className = 'xapi-log-line';
-  line.textContent = JSON.stringify(statement);
-  if (window.XapiJsonViewer) {
-    line.classList.add('xapi-log-clickable');
-    line.title = 'Click to view this statement formatted, in a new tab';
-    line.addEventListener('click', () => viewStatement(statement));
-  }
-  return line;
-}
-
-function appendRawLogLine(statement) {
-  const line = makeLogLine(statement);
-  rawLogEl.appendChild(line);
-  while (rawLogEl.children.length > MAX_LOG_LINES_RENDERED) {
-    rawLogEl.removeChild(rawLogEl.firstChild);
-  }
-  rawLogEl.scrollTop = rawLogEl.scrollHeight;
-  updateRawCount();
-}
-
-// A log line that is NOT a statement. Not kept in xapiEvents, so re-rendering drops it.
-function appendNoteLine(msg) {
-  const line = document.createElement('div');
-  line.className = 'xapi-log-line xapi-log-note';
-  line.textContent = '· ' + msg;
-  rawLogEl.appendChild(line);
-  rawLogEl.scrollTop = rawLogEl.scrollHeight;
-}
-
-function renderFullRawLog() {
-  rawLogEl.innerHTML = '';
-  const toShow = xapiEvents.slice(-MAX_LOG_LINES_RENDERED);
-  for (const stmt of toShow) {
-    rawLogEl.appendChild(makeLogLine(stmt));
-  }
-  rawLogEl.scrollTop = rawLogEl.scrollHeight;
-  updateRawCount();
-}
-
-function updateRawCount() {
-  const noun = emittedCount === 1 ? 'statement' : 'statements';
-  if (xapi && xapi.compact) {
-    rawCountEl.textContent = ' — COMPACT (LRS-Lite): one summary statement per session, emitted ' +
-      'when the sim loses focus — press Simulate Done (' + emittedCount + ' ' + noun +
-      ' emitted, ' + totalEventsGenerated + ' slider movements so far)';
-  } else {
-    rawCountEl.textContent = ' — FULL (full LRS): one statement per detected slider movement (' +
-      emittedCount + ' ' + noun + ' so far)';
-  }
 }
 
 function renderSummaryPanel() {

@@ -1573,9 +1573,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#where-the-starting-mode-comes-from" class="md-nav__link">
+  <a href="#where-the-mode-comes-from" class="md-nav__link">
     <span class="md-ellipsis">
-      Where the starting mode comes from
+      Where the mode comes from
     </span>
   </a>
   
@@ -5181,9 +5181,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#where-the-starting-mode-comes-from" class="md-nav__link">
+  <a href="#where-the-mode-comes-from" class="md-nav__link">
     <span class="md-ellipsis">
-      Where the starting mode comes from
+      Where the mode comes from
     </span>
   </a>
   
@@ -5245,12 +5245,13 @@
 
 
 <h1 id="bouncing-ball">Bouncing Ball<a class="headerlink" href="#bouncing-ball" title="Permanent link">&para;</a></h1>
-<iframe src="main.html" height="860px" scrolling="no"></iframe>
+<iframe src="main.html" height="830px" scrolling="no"></iframe>
 
 <p><a class="md-button md-button--primary" href="main.html">Run the Bouncing Ball MicroSim Fullscreen</a></p>
 <p>A ball bounces inside the drawing region. The slider changes its speed; the
 <strong>Start/Pause</strong> button runs and halts the animation.</p>
-<p>The second row of controls is about the <strong>data</strong>, not the ball:</p>
+<p>The <strong>xAPI panel</strong> below the canvas is about the <strong>data</strong>, not the ball. Its controls
+are not part of the simulation, so they sit with the statement log they affect:</p>
 <ul>
 <li><strong>xAPI events: Full / Compact</strong> switches between the two statement streams this book
   describes — the <strong>Full</strong> per-interaction stream a full LRS ingests over a good network,
@@ -5388,25 +5389,33 @@ mode there is nothing folded to flush; if the ball is running, Simulate Done clo
 into its <code>experienced</code> statement, exactly as a hidden tab would. Either way it never emits
 an <code>interacted</code> statement — it is not a button press on the sim's own controls, it is the
 page going away.</p>
-<p><strong>Switching modes mid-session.</strong> Going from Compact back to Full ends the open session
-first, so anything already folded is emitted as a summary with <code>end_reason: "mode-switch"</code>
-rather than silently lost. If the ball was running, that also pauses it.</p>
-<h3 id="where-the-starting-mode-comes-from">Where the starting mode comes from<a class="headerlink" href="#where-the-starting-mode-comes-from" title="Permanent link">&para;</a></h3>
-<p>The radio's starting position is read from the <code>xapi</code> block in this sim's
-<a href="metadata.json"><code>metadata.json</code></a> — the same switch every instrumented sim uses:</p>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">"xapi"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"compact"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nt">"idleMs"</span><span class="p">:</span><span class="w"> </span><span class="mi">90000</span><span class="p">,</span><span class="w"> </span><span class="nt">"offscreenMs"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="p">,</span><span class="w"> </span><span class="nt">"blurMs"</span><span class="p">:</span><span class="w"> </span><span class="mi">30000</span><span class="w"> </span><span class="p">}</span>
+<p><strong>Switching modes mid-session.</strong> A switch closes whatever the mode being left has open, so
+nothing is lost and nothing is counted twice. Going from Full to Compact closes a running
+run as its <code>experienced</code> statement (<code>run-ended-by: "mode-switch"</code>). Going from Compact to
+Full emits the folded session as a summary (<code>end_reason: "mode-switch"</code>). Either way, a
+running ball pauses.</p>
+<h3 id="where-the-mode-comes-from">Where the mode comes from<a class="headerlink" href="#where-the-mode-comes-from" title="Permanent link">&para;</a></h3>
+<p>Two config files decide the mode, and an agent can change either one:</p>
+<ul>
+<li><strong>The textbook's</strong> <a href="../../js/lrs-config.js"><code>docs/js/lrs-config.js</code></a> sets the default for
+  every MicroSim in the book. Here it is <code>xapi: { compact: true, teaching: false }</code>:
+  compact, and silent.</li>
+<li><strong>This sim's</strong> <a href="metadata.json"><code>metadata.json</code></a> <code>xapi</code> block overrides it for this one sim:</li>
+</ul>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">"xapi"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"compact"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nt">"teaching"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nt">"idleMs"</span><span class="p">:</span><span class="w"> </span><span class="mi">90000</span><span class="p">,</span><span class="w"> </span><span class="nt">"offscreenMs"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="p">,</span><span class="w"> </span><span class="nt">"blurMs"</span><span class="p">:</span><span class="w"> </span><span class="mi">30000</span><span class="w"> </span><span class="p">}</span>
 </span></code></pre></div>
+<p><code>teaching: true</code> is what shows the statement log, the Full/Compact switch, Simulate Done,
+and View Formatted JSON. They exist only to teach what xAPI events are. A production
+MicroSim leaves <code>teaching</code> off: it emits the same statements, silently, in whichever mode
+its config says. This sim starts on Full because it is the producer contract's reference emitter for the Start/Pause pattern.</p>
 <p>The summary is an ordinary contract statement on this page's IRI. Its extensions carry
 the session: <code>controls</code> (the speed slider's count/min/max/last value and its <code>concept</code>;
 the Start/Pause control's press count and a <code>modes</code> breakdown of <code>start</code> vs. <code>pause</code>),
 <code>runs</code> (count and total milliseconds), <code>active_ms</code>, <code>end_reason</code>, and
 <code>statements_represented</code>, which counts the full-mode statements it stands for. The panel
 header says which mode is active.</p>
-<p>This sim starts in Full mode because it is the producer contract's reference emitter for
-the Start/Pause pattern. A <code>metadata.json</code> with no <code>xapi</code> block starts compact. The radio
-is a teaching control: other sims take their mode from <code>metadata.json</code> alone.
-<code>make test-sims</code> checks both modes, the live switch, and Simulate Done in headless
-Chromium.</p>
+<p><code>make test-sims</code> checks both modes, the live switch, Simulate Done, the silent
+production mode, and the book-wide default in headless Chromium.</p>
 <h2 id="concepts-this-sim-could-evidence">Concepts This Sim Could Evidence<a class="headerlink" href="#concepts-this-sim-could-evidence" title="Permanent link">&para;</a></h2>
 <p>Every <code>concept_id</code> in this sim so far is an <strong>illustrative placeholder</strong> — this book's own
 learning graph is about learning record stores, not physics, so <code>motion</code> and
@@ -5572,6 +5581,16 @@ this sim could tag, and what it would take to make each one <em>assessed</em> ra
       <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
         <script src="../../js/katex.js"></script>
+      
+        <script src="../../js/lrs-config.js"></script>
+      
+        <script src="../../js/lrs-xapi.js"></script>
+      
+        <script src="../../js/lrs-lite-sim.js"></script>
+      
+        <script src="../../js/lrs-sim.js"></script>
+      
+        <script src="../../js/xapi-json-viewer.js"></script>
       
         <script src="../../js/quiz-xapi.js"></script>
       

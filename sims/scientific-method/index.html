@@ -3635,6 +3635,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Full vs. Compact, Simulate Done, and View Formatted JSON">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#where-the-mode-comes-from" class="md-nav__link">
+    <span class="md-ellipsis">
+      Where the mode comes from
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -5338,6 +5353,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Full vs. Compact, Simulate Done, and View Formatted JSON">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#where-the-mode-comes-from" class="md-nav__link">
+    <span class="md-ellipsis">
+      Where the mode comes from
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -5484,7 +5514,7 @@ same claim:</p>
 </ul>
 <p>To measure understanding, this diagram needs questions. <code>metadata.json</code> has no
 <code>pedagogical.keyQuestions</code> yet; adding them, and wiring them the way the
-<a href="../../chapters/01-what-is-an-ibook-lrs/quiz.md">chapter quiz</a> is wired, is what would
+<a href="../../chapters/01-lms-to-experience-api/quiz/">chapter quiz</a> is wired, is what would
 produce <code>answered</code> statements and a real mastery signal.</p>
 <h3 id="prior-exposure-the-same-diagram-lives-in-more-than-one-textbook">Prior exposure: the same diagram lives in more than one textbook<a class="headerlink" href="#prior-exposure-the-same-diagram-lives-in-more-than-one-textbook" title="Permanent link">&para;</a></h3>
 <p>This workflow appears in physics and chemistry courses too. That has a consequence worth
@@ -5564,9 +5594,22 @@ exist under a different <code>textbook_id</code>.</p>
 time on the page: Full mode keeps the page interval, and Compact mode keeps the session
 summary. Switching from Full to Compact emits Full mode's page interval so far
 (<code>run-ended-by: "mode-switch"</code>). Switching back emits the compact summary
-(<code>end_reason: "mode-switch"</code>), and a fresh page interval starts from then. The starting
-mode comes from the <code>xapi</code> block in <a href="metadata.json"><code>metadata.json</code></a>, which is Full here.
+(<code>end_reason: "mode-switch"</code>), and a fresh page interval starts from then.
 <code>make test-sims</code> checks both modes, both switches, Simulate Done, and the formatted view.</p>
+<h4 id="where-the-mode-comes-from">Where the mode comes from<a class="headerlink" href="#where-the-mode-comes-from" title="Permanent link">&para;</a></h4>
+<p>Two config files decide the mode, and an agent can change either one:</p>
+<ul>
+<li><strong>The textbook's</strong> <a href="../../js/lrs-config.js"><code>docs/js/lrs-config.js</code></a> sets the default for
+  every MicroSim in the book. Here it is <code>xapi: { compact: true, teaching: false }</code>:
+  compact, and silent.</li>
+<li><strong>This sim's</strong> <a href="metadata.json"><code>metadata.json</code></a> <code>xapi</code> block overrides it for this one sim:</li>
+</ul>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">"xapi"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"compact"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nt">"teaching"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nt">"idleMs"</span><span class="p">:</span><span class="w"> </span><span class="mi">90000</span><span class="p">,</span><span class="w"> </span><span class="nt">"offscreenMs"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="p">,</span><span class="w"> </span><span class="nt">"blurMs"</span><span class="p">:</span><span class="w"> </span><span class="mi">30000</span><span class="w"> </span><span class="p">}</span>
+</span></code></pre></div>
+<p><code>teaching: true</code> is what shows the statement log, the Full/Compact switch, Simulate Done,
+and View Formatted JSON. They exist only to teach what xAPI events are. A production
+MicroSim leaves <code>teaching</code> off: it emits the same statements, silently, in whichever mode
+its config says. This diagram starts on <strong>Full</strong>, like the other two teaching sims.</p>
 <p><strong>Why steps are <code>Control</code> and the page is <code>MicroSim</code>:</strong> the page-level statement's object is
 the page IRI with no fragment, so it becomes exactly <strong>one</strong> <code>PageEngagement</code> vertex. Each
 step's object is fragment-qualified (<code>…/scientific-method/#hypothesis</code>) and typed <code>Control</code>,
@@ -5677,6 +5720,16 @@ what the (student, concept) grain exists to do.</p>
       <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
         <script src="../../js/katex.js"></script>
+      
+        <script src="../../js/lrs-config.js"></script>
+      
+        <script src="../../js/lrs-xapi.js"></script>
+      
+        <script src="../../js/lrs-lite-sim.js"></script>
+      
+        <script src="../../js/lrs-sim.js"></script>
+      
+        <script src="../../js/xapi-json-viewer.js"></script>
       
         <script src="../../js/quiz-xapi.js"></script>
       

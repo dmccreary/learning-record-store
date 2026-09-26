@@ -13,20 +13,24 @@
 // many full-mode statements it stands for (`statements_represented`), so the compression
 // stays observable — the producer-side version of spec C-6.
 //
-// CONTROLLED BY metadata.json
-// ---------------------------
+// CONTROLLED BY CONFIG: lrs-config.js (the book) and metadata.json (the sim)
+// -------------------------------------------------------------------------
 // The sim's own metadata.json (fetched relative to main.html) may carry:
 //
-//   "xapi": { "compact": true, "idleMs": 90000, "offscreenMs": 10000, "blurMs": 30000 }
+//   "xapi": { "compact": true, "teaching": false,
+//             "idleMs": 90000, "offscreenMs": 10000, "blurMs": 30000 }
 //
 //   compact      true  -> fold into a session, emit one summary on focus loss
 //                false -> the sim emits its full per-interaction stream, unchanged
+//   teaching     true  -> the sim shows its teaching UI (statement log, Full/Compact switch,
+//                         Simulate Done, View Formatted JSON) — only for sims that teach xAPI
 //   idleMs       no input for this long (and the sim is not running) ends the session
 //   offscreenMs  the sim mostly (< 25%) out of view for this long ends the session
 //   blurMs       the frame losing keyboard focus for this long ends the session
 //
-// A missing block, a missing key, or an unreadable metadata.json means COMPACT, per
-// §6.4: a sim with no policy is in summary mode — not silent, and not verbose.
+// Any key missing from the sim's block comes from the book's lrs-config.js `xapi` block,
+// then from DEFAULTS. With neither, the sim is COMPACT and silent, per §6.4: a sim with no
+// policy is in summary mode — not silent about the data, and not verbose.
 //
 // A teaching sim may override the policy at runtime with session.setCompact(bool), so a
 // reader can flip between the two streams. Leaving compact flushes the open session
@@ -57,6 +61,7 @@
 
   var DEFAULTS = {
     compact: true,
+    teaching: false,
     idleMs: 90000,
     offscreenMs: 10000,
     blurMs: 30000
@@ -77,23 +82,35 @@
     } catch (e) { /* CustomEvent unavailable: the array is still authoritative */ }
   }
 
-  // metadata.json -> policy. Resolves, never rejects: an unreadable file is "no policy".
-  function loadPolicy() {
-    var fetched = (typeof fetch === 'function')
+  // Config -> policy. Resolves, never rejects: an unreadable metadata.json is "no policy".
+  //   opts.metadata === false  a page with no metadata.json of its own (a chapter quiz): skip it
+  //   opts.policy              keys the page sets itself, over the book's and under the sim's
+  function loadPolicy(opts) {
+    opts = opts || {};
+    var fetched = (typeof fetch === 'function' && opts.metadata !== false)
       ? fetch('metadata.json', { cache: 'no-cache' })
           .then(function (r) { return r.ok ? r.json() : null; })
           .catch(function () { return null; })
       : Promise.resolve(null);
 
     return fetched.then(function (meta) {
+      // Precedence, lowest first: DEFAULTS < this book's lrs-config.js `xapi` < this sim's
+      // metadata.json `xapi`. An agent changes a whole textbook in one file, or one sim in its own.
+      var cfg = global.LRS_CONFIG;
+      var book = (cfg && typeof cfg.xapi === 'object' && cfg.xapi) || {};
+      var page = opts.policy || {};
       var block = (meta && typeof meta.xapi === 'object' && meta.xapi) || {};
       var policy = {};
       for (var k in DEFAULTS) {
-        policy[k] = (block[k] !== undefined) ? block[k] : DEFAULTS[k];
+        policy[k] = block[k] !== undefined ? block[k]
+                  : page[k] !== undefined ? page[k]
+                  : book[k] !== undefined ? book[k]
+                  : DEFAULTS[k];
       }
-      // Only an explicit `false` turns compaction off.
+      // Only an explicit `false` turns compaction off; only an explicit `true` shows teaching UI.
       policy.compact = policy.compact !== false;
-      policy.source = meta && meta.xapi ? 'metadata.json' : 'default';
+      policy.teaching = policy.teaching === true;
+      policy.source = meta && meta.xapi ? 'metadata.json' : cfg && cfg.xapi ? 'lrs-config.js' : 'default';
       return policy;
     });
   }
@@ -104,7 +121,8 @@
   //   name:      'Bouncing Ball Simulation',   // object.definition.name
   //   concept:   'motion',                     // context concept_id (contract §6)
   //   publish:   function (statement, summaryText) { ... },   // the sim's log panel
-  //   beforeEnd: function (reason) { ... }     // optional: close open intervals first
+  //   beforeEnd: function (reason) { ... },    // optional: close open intervals first
+  //   metadata, policy                          // optional: see loadPolicy()
   // }
   function Session(opts) {
     var self = this;
@@ -123,7 +141,7 @@
     this.listening = false;
     this.pendingCompact = null;   // a setCompact() before the policy loaded wins over it
 
-    this.ready = loadPolicy().then(function (policy) {
+    this.ready = loadPolicy(this.opts).then(function (policy) {
       self.policy = policy;
       self._applyMode(self.pendingCompact !== null ? self.pendingCompact : policy.compact);
       return self;
@@ -157,8 +175,6 @@
     this.represented = 0;        // full-mode statements this session stands for
     this.controls = {};
     this.runs = { count: 0, ms: 0 };
-    this.goals = {};
-    this.predictions = { correct: 0, total: 0 };
   };
 
   Session.prototype._open = function () {
@@ -274,18 +290,11 @@
     this.represented++;
   };
 
-  // Performance evidence (§6.3). No sim uses these yet; they exist so the summary shape
-  // is the one the mastery engine (§9) will read.
-  Session.prototype.goal = function (name) {
-    this._open();
-    this.goals[name] = true;
-  };
-
-  Session.prototype.predict = function (name, correct) {
-    this._open();
-    this.predictions.total++;
-    if (correct) this.predictions.correct++;
-  };
+  // There is deliberately NO way to fold an answer, prediction, or goal into a session.
+  // Checked answers pass through in both modes as their own `answered` statements (Dan,
+  // 2026-09-26; lrs-sim.js `question().answer()`): BKT reads the ORDER of attempts, each
+  // answer keeps its question IRI, and the per-question rollups stay replayable (C-2).
+  // A summary carries exposure evidence only.
 
   Session.prototype.setBusy = function (busy) {
     this.busy = !!busy;
@@ -318,9 +327,8 @@
   };
 
   Session.prototype._summary = function (reason) {
-    var goalCount = Object.keys(this.goals).length;
     // No evidence at all — nothing worth a statement.
-    if (!this.represented && !goalCount && !this.predictions.total) return null;
+    if (!this.represented) return null;
     if (!global.LRS) {
       if (global.console) global.console.warn('[lrs-lite-sim] lrs-xapi.js not loaded — summary dropped');
       return null;
@@ -335,8 +343,6 @@
       controls: this.controls
     };
     if (this.runs.count) ext.runs = this.runs;
-    if (goalCount) ext.goals = this.goals;
-    if (this.predictions.total) ext.predictions = this.predictions;
 
     return global.LRS.build({
       verb: 'experienced',
