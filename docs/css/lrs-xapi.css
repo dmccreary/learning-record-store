@@ -80,3 +80,15 @@
 .xapi-log-clickable { cursor: pointer; }
 .xapi-log-clickable:hover { background: #2d3a2d; }
 .xapi-view-btn { margin-left: 8px; font-size: 12px; }
+
+/* Material resets <button> styling on site pages, which leaves these reading as plain text.
+   Give them a visible button shape in both contexts (site pages and sim iframes). */
+.xapi-view-btn, .xapi-done {
+  border: 1px solid var(--md-default-fg-color--lighter, #9a9a9a);
+  border-radius: 4px;
+  padding: 2px 8px;
+  background: var(--md-default-bg-color, #f6f6f6);
+  color: var(--md-default-fg-color, #222);
+  cursor: pointer;
+}
+.xapi-view-btn:disabled { opacity: 0.5; cursor: default; }

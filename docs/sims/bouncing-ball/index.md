@@ -9,14 +9,15 @@ social:
 ---
 # Bouncing Ball
 
-<iframe src="main.html" height="860px" scrolling="no"></iframe>
+<iframe src="main.html" height="830px" scrolling="no"></iframe>
 
 [Run the Bouncing Ball MicroSim Fullscreen](./main.html){ .md-button .md-button--primary }
 
 A ball bounces inside the drawing region. The slider changes its speed; the
 **Start/Pause** button runs and halts the animation.
 
-The second row of controls is about the **data**, not the ball:
+The **xAPI panel** below the canvas is about the **data**, not the ball. Its controls
+are not part of the simulation, so they sit with the statement log they affect:
 
 - **xAPI events: Full / Compact** switches between the two statement streams this book
   describes — the **Full** per-interaction stream a full LRS ingests over a good network,
@@ -123,18 +124,29 @@ into its `experienced` statement, exactly as a hidden tab would. Either way it n
 an `interacted` statement — it is not a button press on the sim's own controls, it is the
 page going away.
 
-**Switching modes mid-session.** Going from Compact back to Full ends the open session
-first, so anything already folded is emitted as a summary with `end_reason: "mode-switch"`
-rather than silently lost. If the ball was running, that also pauses it.
+**Switching modes mid-session.** A switch closes whatever the mode being left has open, so
+nothing is lost and nothing is counted twice. Going from Full to Compact closes a running
+run as its `experienced` statement (`run-ended-by: "mode-switch"`). Going from Compact to
+Full emits the folded session as a summary (`end_reason: "mode-switch"`). Either way, a
+running ball pauses.
 
-### Where the starting mode comes from
+### Where the mode comes from
 
-The radio's starting position is read from the `xapi` block in this sim's
-[`metadata.json`](metadata.json) — the same switch every instrumented sim uses:
+Two config files decide the mode, and an agent can change either one:
+
+- **The textbook's** [`docs/js/lrs-config.js`](../../js/lrs-config.js) sets the default for
+  every MicroSim in the book. Here it is `xapi: { compact: true, teaching: false }`:
+  compact, and silent.
+- **This sim's** [`metadata.json`](metadata.json) `xapi` block overrides it for this one sim:
 
 ```json
-"xapi": { "compact": false, "idleMs": 90000, "offscreenMs": 10000, "blurMs": 30000 }
+"xapi": { "compact": false, "teaching": true, "idleMs": 90000, "offscreenMs": 10000, "blurMs": 30000 }
 ```
+
+`teaching: true` is what shows the statement log, the Full/Compact switch, Simulate Done,
+and View Formatted JSON. They exist only to teach what xAPI events are. A production
+MicroSim leaves `teaching` off: it emits the same statements, silently, in whichever mode
+its config says. This sim starts on Full because it is the producer contract's reference emitter for the Start/Pause pattern.
 
 The summary is an ordinary contract statement on this page's IRI. Its extensions carry
 the session: `controls` (the speed slider's count/min/max/last value and its `concept`;
@@ -143,11 +155,8 @@ the Start/Pause control's press count and a `modes` breakdown of `start` vs. `pa
 `statements_represented`, which counts the full-mode statements it stands for. The panel
 header says which mode is active.
 
-This sim starts in Full mode because it is the producer contract's reference emitter for
-the Start/Pause pattern. A `metadata.json` with no `xapi` block starts compact. The radio
-is a teaching control: other sims take their mode from `metadata.json` alone.
-`make test-sims` checks both modes, the live switch, and Simulate Done in headless
-Chromium.
+`make test-sims` checks both modes, the live switch, Simulate Done, the silent
+production mode, and the book-wide default in headless Chromium.
 
 ## Concepts This Sim Could Evidence
 

@@ -132,7 +132,7 @@ same claim:
 
 To measure understanding, this diagram needs questions. `metadata.json` has no
 `pedagogical.keyQuestions` yet; adding them, and wiring them the way the
-[chapter quiz](../../chapters/01-what-is-an-ibook-lrs/quiz.md) is wired, is what would
+[chapter quiz](../../chapters/01-lms-to-experience-api/quiz.md) is wired, is what would
 produce `answered` statements and a real mastery signal.
 
 ### Prior exposure: the same diagram lives in more than one textbook
@@ -197,9 +197,26 @@ The xAPI panel under the diagram has the same controls as the
 time on the page: Full mode keeps the page interval, and Compact mode keeps the session
 summary. Switching from Full to Compact emits Full mode's page interval so far
 (`run-ended-by: "mode-switch"`). Switching back emits the compact summary
-(`end_reason: "mode-switch"`), and a fresh page interval starts from then. The starting
-mode comes from the `xapi` block in [`metadata.json`](metadata.json), which is Full here.
+(`end_reason: "mode-switch"`), and a fresh page interval starts from then.
 `make test-sims` checks both modes, both switches, Simulate Done, and the formatted view.
+
+#### Where the mode comes from
+
+Two config files decide the mode, and an agent can change either one:
+
+- **The textbook's** [`docs/js/lrs-config.js`](../../js/lrs-config.js) sets the default for
+  every MicroSim in the book. Here it is `xapi: { compact: true, teaching: false }`:
+  compact, and silent.
+- **This sim's** [`metadata.json`](metadata.json) `xapi` block overrides it for this one sim:
+
+```json
+"xapi": { "compact": false, "teaching": true, "idleMs": 90000, "offscreenMs": 10000, "blurMs": 30000 }
+```
+
+`teaching: true` is what shows the statement log, the Full/Compact switch, Simulate Done,
+and View Formatted JSON. They exist only to teach what xAPI events are. A production
+MicroSim leaves `teaching` off: it emits the same statements, silently, in whichever mode
+its config says. This diagram starts on **Full**, like the other two teaching sims.
 
 **Why steps are `Control` and the page is `MicroSim`:** the page-level statement's object is
 the page IRI with no fragment, so it becomes exactly **one** `PageEngagement` vertex. Each

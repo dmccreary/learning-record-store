@@ -10,7 +10,7 @@ social:
 ---
 # Sine Wave
 
-<iframe src="main.html" height="1330px" scrolling="no"></iframe>
+<iframe src="main.html" height="1340px" scrolling="no"></iframe>
 
 [Run the Sine Wave MicroSim Fullscreen](./main.html){ .md-button .md-button--primary }
 
@@ -35,16 +35,16 @@ shift moves a high-frequency wave through more of its cycle than a low-frequency
 
 ## Simulating an xAPI Event Stream
 
-Two checkboxes below the sliders turn this MicroSim into a small demo of how
-this project's [Learning Record Store](../../specs/lrs-spec-v1.md) turns raw
-interactions into evidence of understanding:
+Two panels below the sliders turn this MicroSim into a small demo of how this project's
+[Learning Record Store](../../specs/lrs-spec-v1.md) turns raw interactions into evidence
+of understanding:
 
-- **Show Raw xAPI Events** streams one simulated xAPI statement (Actor–Verb–Object,
-  with a `result.extensions` payload carrying the new slider value) every time a
-  student drags the amplitude, frequency, or phase slider. This is intentionally
-  noisy — a single drag can generate dozens of statements — to illustrate why an
-  LRS never stores one graph vertex per statement.
-- **Show MicroSim Summary** compresses that same stream into the kind of
+- The **Raw xAPI Event Stream** panel shows one xAPI statement (Actor–Verb–Object, with a
+  `result.extensions` payload carrying the new slider value) every time a student drags
+  the amplitude, frequency, or phase slider. This is intentionally noisy — a single drag
+  can generate dozens of statements — to illustrate why an LRS never stores one graph
+  vertex per statement. Its controls (Full/Compact, Simulate Done) are described below.
+- The **Show MicroSim Summary** checkbox compresses that same stream into the kind of
   evidence the LRS spec's `ConceptMastery` and `MicroSimEngagement` summary
   vertices hold: whether the student tried all three controls, how much of each
   slider's range they explored, how many times they reversed direction (a signal
@@ -79,8 +79,8 @@ student *explored* a concept, not that they can *answer* questions about it.
 
 ### Full vs. Compact xAPI Streams
 
-The **xAPI events: Full / Compact** radio buttons switch between the two streams this book
-describes, on the same slider moves:
+The **xAPI events: Full / Compact** radio buttons at the top of the Raw xAPI Event Stream
+panel switch between the two streams this book describes, on the same slider moves:
 
 - **Full** (the full LRS, high-bandwidth network, robust back end). One `interacted`
   statement per detected movement, as described above. Every statement appears as you drag.
@@ -96,7 +96,6 @@ leaves the page, scrolls the sim mostly out of view for `offscreenMs`, or stops 
 `idleMs`. In Compact mode that ends the session and emits the summary
 (`end_reason: "simulated-done"`). In Full mode there is nothing to flush: this sim has no
 Start/Pause, so there is no open run interval, and every movement has already been sent.
-Both controls turn on **Show Raw xAPI Events** so you can see the result.
 
 !!! note "Why the compact summary carries `reversals`"
     Coverage (`min`, `max`) and the movement count survive compression unchanged. Direction
@@ -108,8 +107,9 @@ Both controls turn on **Show Raw xAPI Events** so you can see the result.
 Try it: leave the radio on **Full**, drag each slider back and forth, and count the
 statements. Switch to **Compact** and repeat the same moves: the log stays silent. Press
 **Simulate Done**: one statement appears, and its `statements_represented` is roughly the
-count you saw in Full mode. Then press **View Formatted JSON ↗** in the raw event panel
-to read that statement properly.
+count you saw in Full mode. Then press **View Formatted JSON ↗** in the Raw xAPI Event Stream panel
+to read that statement properly. Switching from Compact back to Full also ends the
+session first (`end_reason: "mode-switch"`), so folded movements are never lost.
 
 ### Reading a Statement: View Formatted JSON
 
@@ -126,16 +126,25 @@ any line in the log opens that statement instead. The tab shows:
 
 It opens in a new tab, not inside the sim, because the sim is embedded in a fixed-height
 frame. A 70-line statement would either be cut off inside it or force the frame much
-taller for every reader. The tab is built in your browser; nothing is sent to a server. Switching from Compact back to Full also ends the session
-first (`end_reason: "mode-switch"`), so folded movements are never lost.
+taller for every reader. The tab is built in your browser; nothing is sent to a server.
 
-The radio starts from the `xapi` block in this sim's [`metadata.json`](metadata.json).
-It starts on **Full**, like the [Bouncing Ball](../bouncing-ball/index.md) sim, so a reader
-sees the per-movement stream first and then watches Compact shrink it:
+### Where the mode comes from
+
+Two config files decide the mode, and an agent can change either one:
+
+- **The textbook's** [`docs/js/lrs-config.js`](../../js/lrs-config.js) sets the default for
+  every MicroSim in the book. Here it is `xapi: { compact: true, teaching: false }`:
+  compact, and silent.
+- **This sim's** [`metadata.json`](metadata.json) `xapi` block overrides it for this one sim:
 
 ```json
-"xapi": { "compact": false, "idleMs": 90000, "offscreenMs": 10000, "blurMs": 30000 }
+"xapi": { "compact": false, "teaching": true, "idleMs": 90000, "offscreenMs": 10000, "blurMs": 30000 }
 ```
+
+`teaching: true` is what shows the statement log, the Full/Compact switch, Simulate Done,
+and View Formatted JSON. They exist only to teach what xAPI events are. A production
+MicroSim leaves `teaching` off: it emits the same statements, silently, in whichever mode
+its config says. This sim starts on **Full**, like the [Bouncing Ball](../bouncing-ball/index.md) sim, so a reader sees the per-movement stream first and then watches Compact shrink it.
 
 The **MicroSim Summary** panel works the same in both modes, because it is computed from
 the movements themselves. Compact mode is Option B in the trade-off below, with one

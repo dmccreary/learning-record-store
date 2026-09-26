@@ -1,5 +1,179 @@
 # TODO
 
+## `add-xapi-events-to-microsim` skill — phased plan (started 2026-09-26)
+
+**Goal:** a Claude Code skill (in `~/Documents/ws/ibook-skills/skills/add-xapi-events-to-microsim/`)
+that instruments almost any MicroSim — p5.js, Mermaid, vis-network, vis-timeline, Chart.js, Plotly,
+Leaflet, plain HTML/SVG — to emit both the **Full** xAPI stream (full LRS) and the **Compact** stream
+(LRS-Lite). Proven so far on three sims in this repo: `bouncing-ball` (p5, sliders + Start/Pause),
+`sine-wave` (p5, sliders only), `scientific-method` (Mermaid, hover/pin + page dwell), plus
+`animal-cell` (image overlay, quiz → `answered`, full mode only).
+
+**Core design:** the skill classifies every interaction into an *evidence class* and a per-library
+*adapter* only says which event that is. Per-sim code should be a thin mapping (~20–60 lines) onto a
+shared runtime, never a copy of the runtime.
+
+| # | Evidence class | Full stream | Compact (LRS-Lite) |
+|---|---|---|---|
+| 1 | Continuous parameter (slider, zoom, numeric input) | `interacted` per deadband step (default range/60), `value` + `previous-value` | `touch(ctrl, v, {concept, reversals})` |
+| 2 | Discrete inspection (click, hover ≥ 600 ms, pin, legend toggle, select) | `interacted`, `engagement-mode`, duration | `touch(ctrl, _, {mode, ms, concept})` |
+| 3 | Run/Pause | press `interacted` (`action`) + one `experienced` per run (contract §7/§7.1) | `run(ms)` + press touches |
+| 4 | Page dwell (no Run control) | `experienced` on focus loss (≥ 1 s) | carried by the session summary |
+| 5 | Assessment (quiz, prediction, goal) | `answered` with `success` | **open decision A** |
+| 6 | Focus loss (tab hidden, scroll away, idle, blur, Simulate Done) | closes the open interval | `end(reason)` → one summary |
+
+**Library priority** (grep of `main.html` across the ~5,000 sims in the sibling repos, 2026-09-26 —
+the catalog's `library` field is empty for 45% of sims, so the skill must detect from script tags):
+p5.js ~3,580 (**~1,750 use canvas `mousePressed`/`mouseDragged` — untested pattern**), vis-network
+531 (93 repos), Mermaid 373, Chart.js 304 (63 repos), vis-timeline 96 (42 repos), Leaflet 48, venn 21,
+Plotly 10 (8 repos), D3 5.
+
+### Decided
+
+- **Full and Compact apply to ALL textbooks** (Dan, 2026-09-26). Every instrumented sim in every book
+  supports both streams; the starting mode comes from the sim's `metadata.json` `xapi` block. The
+  runtime is identical in every book — only the per-book config differs.
+- **Distribution via `book-installer`** (Dan, 2026-09-26): a new installer feature copies the pinned
+  runtime into a book's `docs/js/` and writes its config; **`init-textbook` installs it by default
+  for every new book.** (A CDN link was the rejected alternative.)
+- **Teaching sims start on Full** (Dan, 2026-09-26) — `bouncing-ball`, `sine-wave`,
+  `scientific-method` all set `"compact": false`. A `metadata.json` with no `xapi` block means Compact.
+- **Formatted JSON always opens in a new tab** via `docs/js/xapi-json-viewer.js`, with syntax colors and
+  compact-only lines highlighted. Never an inline dump. (Dan, 2026-09-26; also in Claude's memory.)
+- **Concept ids are namespaced** (Dan, 2026-09-26), in the form the seeder already uses:
+  `{repo-slug}-{ConceptID}`, e.g. `biology-42` (`src/lrs/catalog.py`, "CONCEPT IDS ARE NAMESPACED"),
+  so an xAPI `concept_id` joins directly to the graph's Concept vertex. The prefix is per book, so it
+  lives in `lrs-config.js` (`conceptPrefix`); `LRS.conceptId(42)` → `learning-record-store-42`.
+  This book's three demo sims keep illustrative slugs (`motion`, `amplitude`): their physics concepts
+  are not in this book's LRS learning graph. **Mismatch to resolve:** the seeder's `textbook_id` is
+  `tb-{repo-slug}`, but the grouping IRI (contract §4) says `lrs` for this book.
+
+### Still open — needs Dan's call
+
+- ~~**A. Assessment evidence in Compact mode.**~~ **Decided (Dan, 2026-09-26): pass through.** Every
+  checked answer — chapter quiz items, sim quizzes, checked predictions, goals reached — is an
+  `answered` statement in **both** modes, emitted as it happens, never folded. Only exposure evidence
+  (classes 1–4) folds into the Compact summary. Why: per-attempt order is what BKT reads (wrong,
+  wrong, right ≠ right, wrong, wrong), each answer keeps its question IRI, the per-question rollups
+  stay replayable (C-2), and the storage cost is small (LRS-Lite's budget already assumes ~15 answers
+  a day). Matches LRS-Lite §2 Step 5. Consequence: `lrs-lite-sim.js`'s folding `predict()`/`goal()`
+  are replaced by an `answer` evidence class in `lrs-sim.js`.
+- ~~**B. `concept_id` format.**~~ Decided: namespaced (above). Still open under it: contract §12
+  item 5, one `concept_id` per statement, when a vis-network node touches several concepts.
+- ~~**C. Teaching UI vs. silent.**~~ **Decided (Dan, 2026-09-26):** the Full/Compact radio (and the
+  statement log, Simulate Done, View Formatted JSON) is **teaching UI only**, for sims that teach what
+  xAPI events are. It never appears on production MicroSims. **The mode comes from config, never from
+  the sim**, in two layers an agent can edit: the book's `lrs-config.js` `xapi` block sets the default
+  for the whole textbook; a sim's `metadata.json` `xapi` block overrides it for that one sim. Keys:
+  `compact` (the stream), `teaching` (show the teaching UI), plus the focus-loss timers.
+- ~~**D. p5 teaching controls.**~~ **Decided (Dan, 2026-09-26): in the shared HTML panel, for every
+  library, p5 included.** They operate on the xAPI stream, not the simulation, so they are not
+  MicroSim controls and the p5 builtin-controls rule does not apply to them. Payoff: a production p5
+  sim (teaching off) keeps its original canvas with no empty control row, and no sim carries its own
+  copy of the teaching UI. Done the same day: bouncing-ball's canvas back to 430 px, sine-wave's
+  control area 150 → 100 px (its "Show Raw xAPI Events" checkbox is gone; teaching sims always show
+  the stream).
+
+### Phase 0 — shared runtime, in this repo (prerequisite; DONE 2026-09-26)
+
+Finishes the "four originals are not migrated" item under *Cross-cutting — DO THIS FIRST* below.
+`make test-sims` (21 headless tests) is the regression net: it must stay green at every step.
+
+- [x] **0.1 Per-book config** (2026-09-26). New `docs/js/lrs-config.js` sets `window.LRS_CONFIG`:
+  `siteUrl`, `textbookId`, `version`, `conceptPrefix`, and the book-wide `xapi` policy
+  (`{ compact: true, teaching: false }` here). `lrs-xapi.js` reads it (falls back to this book with a
+  console warning) and gained `LRS.conceptId(42)`. Loaded first in all four instrumented `main.html`s.
+  **Not yet** in `mkdocs.yml` `extra_javascript` — add it when `quiz-xapi.js` migrates (0.6).
+- [x] **0.2 One MicroSim-facing API** (2026-09-26): `docs/js/lrs-sim.js`, `LRSSim.create({...})`.
+  Evidence classes `slider` (`.input`/`.settle`, deadband + reversal tracking), `item` (`.study`),
+  `button` (`.press`), `runner` (`.start`/`.stop`), `pageDwell: true`; `emit(spec)` for anything
+  else. Every statement goes through `LRS.build`. Owns the log panel, Full/Compact switch
+  (`setCompact`), Simulate Done (`done`), View Formatted JSON, clickable lines — all shown **only
+  when the config says `teaching: true`**, always in the panel's HTML (decision D). `lrs-lite-sim.js` now resolves the
+  policy as DEFAULTS < `lrs-config.js` `xapi` < `metadata.json` `xapi`, and knows `teaching`.
+- [x] **0.3 `sine-wave` migrated** — 740 → 448 lines, no hand-built statements left.
+- [x] **0.4 `bouncing-ball` migrated** — 569 → 192 lines; its static panel in `main.html` is now a
+  `#xapi-slot` placeholder. Behavior change: switching Full → Compact while the ball runs now closes
+  the run (`run-ended-by: mode-switch`) and pauses it, symmetric with Compact → Full.
+- [x] **0.5 `scientific-method` migrated** — 653 → 386 lines.
+  After 0.3–0.5: `make test-sims` 23/23 green (2 new: production sims are silent but still record;
+  the book config sets the default and a sim's block overrides it). Heights re-measured with a full
+  log at 700 and 900 px, after decision D moved the controls into the panel: bouncing-ball 823
+  (iframe 860 → 830), sine-wave 1329 (iframe 1330 → 1340), scientific-method 2114 (iframe 2140). Consoles clean. Known trade-off: pasted into the p5.js
+  editor without the runtime, the p5 sims still run but emit nothing (they used to emit Full).
+- [x] **0.6 `animal-cell` and `quiz-xapi.js` migrated** (2026-09-26). New evidence class
+  `question(key, o).answer({success, response, score, durationMs, extensions})` in `lrs-sim.js`:
+  `answered` + Question object, emitted as it happens in BOTH modes (decision A). `lrs-lite-sim.js`'s
+  folding `goal()`/`predict()` are removed. Animal Cell now has Compact mode + the teaching panel
+  (`metadata.json` `xapi: {compact: false, teaching: true}`; still fits its 960 px iframe — 958 px at
+  375 px wide, full log). Chapter quizzes: `LRSSim.create({metadata: false, policy, modeControls:
+  false})` — no `metadata.json`, and no Full/Compact switch because every quiz statement is an answer;
+  their teaching flag is the book's `lrs-config.js` `quizzes.teaching`. The runtime now loads
+  site-wide from `mkdocs.yml` `extra_javascript`. Verified against the real Material-rendered
+  chapter 1 quiz (10 questions wired, `#q1`… IRIs) plus a fixture test. `make test-sims` 26/26.
+  **Follow-up:** quiz `concept_id`s are still slugs of the "Concept Tested" label; map them to
+  namespaced learning-graph ConceptIDs (decision B) — only ~65% of labels match exactly.
+- [x] **0.7 Done** (2026-09-26). `LRS.emitter` removed from `lrs-xapi.js` (nothing used it); contract
+  §12 item 10 updated (five implementations → one; answers never folded); `docs/lrs-lite/index.md`
+  §2 Step 5, §6.2–6.4, §9 evidence table and Phase 0/1 plan updated for pass-through answers and
+  the two-layer config.
+
+**Phase 0 is complete.** Next: Phase 1, draft the skill.
+
+### Phase 1 — draft the skill (NEXT)
+
+`SKILL.md` workflow: detect library from script tags → inventory interactions → classify into evidence
+classes → map `concept_id`s from `docs/learning-graph/learning-graph.csv` (record the map in
+`metadata.json`) → confirm runtime + config installed → wire the adapter → set the `xapi` block →
+re-measure iframe height at 700 px and check layout → verify both modes headless → lesson text.
+`references/`: contract digest, evidence classes, concept mapping, pitfalls (below), one adapter per
+library. `scripts/`: `detect-library.py`, `check-xapi.py` (generalized from
+`tests/test_microsim_compact_xapi.py`: rewrite `metadata.json` in flight, drive interactions, validate
+the contract), `measure-iframe.py`. Adapters for p5 DOM controls, HTML/SVG, Mermaid, image-overlay are
+**verified**; the rest ship marked **unverified** until their Phase 2 pilot passes.
+
+### Phase 2 — one pilot per library (each becomes a skill eval)
+
+| Library | Pilot sim | What it must prove |
+|---|---|---|
+| vis-network | `3d-printing-course/docs/sims/graph-viewer` | node click/hover (`interaction.hover: true`), zoom as continuous; node ids often *are* concept ids; multi-concept (decision B) |
+| Chart.js | `3d-printing-course/docs/sims/fdm-price-history` | `onClick`/`onHover` (dwell threshold), legend toggle while keeping the default handler |
+| vis-timeline | `Digital-Transformation-with-AI-Spring-2026/docs/sims/timeline` | `select`, `itemover`/`itemout`, `rangechanged` with `byUser` (never `rangechange`) |
+| p5 canvas | `3d-printing-course/docs/sims/ideation-sketch-canvas` | `mouseDragged` hit-testing; a drag = one continuous move (see *Ranked* item 4 below) |
+| Leaflet | `food-science/docs/sims/world-fermented-foods-map` | `zoomend`/`moveend` also fire on programmatic `setView` — filter |
+| Plotly | `data-science-course/docs/sims/plotly-interactive-features-microsim` | `plotly_relayout` also fires on autosize — filter |
+
+Also instrument the `microsim-generator` templates (`assets/templates/{p5,chartjs,plotly,mermaid,
+vis-network,timeline,map}`) so newly generated sims are born instrumented.
+
+### Phase 3 — distribution and scale
+
+- `book-installer` feature: install pinned runtime (`lrs-config.js` generated from `mkdocs.yml`
+  `site_url` + a textbook id/version), `lrs-xapi.js`, `lrs-lite-sim.js`, `lrs-sim.js`,
+  `xapi-json-viewer.js`, `lrs-xapi.css`. **`init-textbook` includes it by default.**
+- `microsim-generator` guides emit instrumented sims from birth.
+- Batch mode: instrument a whole book, with a verification report.
+
+### Pitfalls learned the hard way (2026-09-25/26) — these become `references/pitfalls.md`
+
+- Only three verbs (`answered`, `experienced`, `interacted`). "start-simulation" is an `interacted` with
+  `action: start`, never a new verb.
+- Fragment ids are stable local names: one `#start-pause-control` for a toggling button; name a slider
+  for its concept (`#frequency-slider`, not `#period-slider` tagged `frequency`).
+- Values in the units the student sees (amplitude was pixels ÷ 100; phase was a pixel shift).
+- A flush (tab hidden, idle, scroll-away, Simulate Done) is never a button press — no `interacted`.
+- A compact summary has no order, so it must carry `reversals` explicitly.
+- A mode switch closes the record being left, so dwell is never lost or double-counted.
+- p5 sims must still run pasted into the p5.js editor: guard every call on the runtime existing.
+- Teaching controls (Full/Compact, Simulate Done, View JSON) are HTML in the shared panel, never on a
+  p5 canvas: they are not MicroSim controls, and putting them on the canvas leaves an empty row in
+  production.
+- Flex-item panels need `min-width: 0`, or one unwrapped JSON line widens the page to thousands of px.
+- Clicks and mouse moves inside the xAPI panel must not trigger the sim's own handlers
+  (scientific-method's click-outside-unpins and follow-the-mouse infobox).
+- Re-measure iframe height after adding the panel, with a **full** log, at a 700 px width.
+- Browser caches stale shared JS during testing — bypass the cache before trusting a result.
+
 ## Learning graph — quality follow-up
 
 - **Tighten the terminal-node rate in `docs/learning-graph/learning-graph.csv`.**
@@ -346,14 +520,15 @@ wrong in the direction of *over-reporting* evidence, which is the dangerous dire
   an emitter cannot supply a page IRI, therefore cannot supply a wrong one. (sine-wave's was wrong
   twice.)
 
-  **STILL OUTSTANDING — the four originals are not migrated:**
+  **STILL OUTSTANDING — the four originals are not migrated.** Now being finished as **Phase 0** of
+  the `add-xapi-events-to-microsim` plan at the top of this file (2026-09-26):
 
   | Copy | Status |
   |---|---|
-  | `docs/js/quiz-xapi.js` | Own impl. Derives, but does **not** strip `main.html` — latent §1 bug if ever iframed. Its "locally the path has no base path" comment is wrong. |
-  | `sims/bouncing-ball/bouncing-ball.js` | Own impl. Hardcodes `ACTIVITY_BASE_ID`. |
-  | `sims/sine-wave/sine-wave.js` | Own impl. Hardcodes it. |
-  | `sims/scientific-method/script.js` | Own impl. Hardcodes it. |
+  | `docs/js/quiz-xapi.js` | ~~Own impl.~~ **Migrated 2026-09-26** (Phase 0.6); `LRS.pageIri()` now strips `main.html`. |
+  | `sims/bouncing-ball/bouncing-ball.js` | ~~Own impl.~~ **Migrated to `lrs-sim.js` 2026-09-26** (Phase 0.4). |
+  | `sims/sine-wave/sine-wave.js` | ~~Own impl.~~ **Migrated 2026-09-26** (Phase 0.3). |
+  | `sims/scientific-method/script.js` | ~~Own impl.~~ **Migrated 2026-09-26** (Phase 0.5). |
 
   **Be honest about what this means: there are now FIVE implementations, four of which still
   disagree.** The extraction stops the bleeding for new emitters; it has not healed the old ones.

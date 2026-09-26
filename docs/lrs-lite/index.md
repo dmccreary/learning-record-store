@@ -315,14 +315,15 @@ The full LRS compresses on the server ([spec §5.6](../specs/lrs-spec-v1.md#56-s
 LRS-Lite has no server, so compression moves to the **producer**: the MicroSim, the page
 reader, and the quiz. This matches L-6.
 
-- A MicroSim keeps its session state in memory, such as which controls were touched, the
-  range explored, goals reached, and predictions made. When the sim **loses focus**
+- A MicroSim keeps its session state in memory, such as which controls were touched and the
+  range explored. When the sim **loses focus**
   (scrolled out of view, tab hidden, page left, or idle), it emits **one** summary
   statement ([§6](#6-producer-side-summarization)).
 - A chapter page tracks *active* reading time, maximum scroll depth, and sections viewed,
   and emits **one** reading summary when it is hidden.
 - Quiz answers are already at the right grain, one statement per attempt, and pass through
-  unchanged. Each attempt is separate evidence.
+  unchanged. Each attempt is separate evidence. The same holds for a MicroSim's checked
+  predictions and goals: they are answers, so they pass through too, and are never folded.
 
 **What is lost:** the per-drag sequence, the same trade the earlier draft made knowingly.
 **What is kept:** every outcome mastery depends on (answers, goals, predictions) and every
@@ -835,7 +836,7 @@ teaches one vocabulary:
 |---|---|---|
 | `c:{concept_id}` | `ConceptMastery` | `p_mastery`, `state`, `assessed_n`, `exposure_n`, `attempts`, `successes`, `first_seen`, `last_seen`, `mastered_at`, `statements_compressed` |
 | `p:{page_iri}` | `PageEngagement` | `active_ms_total`, `visit_count`, `scroll_depth_max`, `sections_seen`, `read_state` (visited/skimmed/read), `first_seen`, `last_seen` |
-| `m:{sim_iri}` | `MicroSimEngagement` | `sessions`, `active_ms_total`, `interaction_count`, `range_coverage_max`, `goals_met`, `predictions`, `last_seen` |
+| `m:{sim_iri}` | `MicroSimEngagement` | `sessions`, `active_ms_total`, `interaction_count`, `range_coverage_max`, `goals_met` and `predictions` (both derived from the sim's own `answered` statements), `last_seen` |
 | `q:{question_iri}` | `QuestionResponse` | `attempts`, `successes`, `first_attempt_success`, `last_response`, `last_seen` |
 | `s:{date}:{device_id}` | `LearningSession` | `started_at`, `ended_at`, `active_ms`, `objects_touched`, `event_count` |
 | `b:` | *(book singleton)* | `last_page`, `pages_read`, `concepts_mastered`, `quiz_summary`, `devices_seen` |
@@ -910,8 +911,6 @@ A summary is an ordinary contract-v1 `experienced` statement on the sim's page I
       "https://w3id.org/lrs/ext/controls": {"slip": {"n": 22, "min": 0.02, "max": 0.41},
                                              "guess": {"n": 18, "min": 0.1, "max": 0.5}},
       "https://w3id.org/lrs/ext/range_coverage": 0.64,
-      "https://w3id.org/lrs/ext/goals": {"see-crash-after-wrong": true, "reach-0.95": false},
-      "https://w3id.org/lrs/ext/predictions": {"correct": 2, "total": 3},
       "https://w3id.org/lrs/ext/end_reason": "scrolled-away",
       "https://w3id.org/lrs/ext/xapi_mode": "compact"
     }
@@ -928,6 +927,15 @@ implementation (`docs/js/lrs-lite-sim.js`, 2026-09-25) also records `session_ms`
 (wall-clock length of the session) and, for Start/Pause sims, `runs`
 (`{count, ms}`).
 
+**A summary carries exposure evidence only. Answers, predictions, and goals are never folded
+into it** (decided 2026-09-26). Each checked answer is its own `answered` statement,
+emitted as it happens, in both Compact and Full mode. The per-attempt order is what BKT
+reads (wrong, wrong, right is different evidence from right, wrong, wrong); each answer
+keeps its question IRI; and the per-question rollups stay replayable (C-2). The storage
+cost is small: [Step 2](#step-2-measure-the-data-before-choosing-the-machinery) already
+budgets about 15 answers a day. An earlier draft of this section folded
+`goals: {…}` and `predictions: {correct, total}` into the summary; that is withdrawn.
+
 *(Actor, grouping, `id`, `timestamp`, `device_id`, `device_seq`, and `hlc` are omitted
 for brevity.)* The new extension IRIs must be added to the producer contract's extension
 table so the full LRS's processor can fold them on replay (Phase 0 of
@@ -935,60 +943,65 @@ table so the full LRS's processor can fold them on replay (Phase 0 of
 
 ### 6.3 The author API
 
-The MicroSim author writes one line per control and one per goal. The library handles
-focus, timing, and emission:
+The MicroSim author declares one handle per control or question. The library
+(`docs/js/lrs-sim.js`, implemented 2026-09-26) handles focus, timing, the Full/Compact
+decision, and emission:
 
 ```js
 // in setup(), after updateCanvasSize() and createCanvas(...)
-const sim = LRSLite.sim({ name: 'BKT Four Parameters Explorer', concept: 'slip-parameter',
-                         publish: publish });   // reads ./metadata.json → "xapi"
+const lrs = LRSSim.create({ name: 'BKT Four Parameters Explorer', concept: 'slip-parameter' });
 
-slipSlider.input(() => sim.touch('slip', slipSlider.value()));
-guessSlider.input(() => sim.touch('guess', guessSlider.value()));
+const slip  = lrs.slider('slip-slider',  { concept: 'slip-parameter',  min: 0, max: 0.5, initial: 0.1 });
+const guess = lrs.slider('guess-slider', { concept: 'guess-parameter', min: 0, max: 0.5, initial: 0.2 });
+slipSlider.input(()  => slip.input(slipSlider.value()));
+guessSlider.input(() => guess.input(guessSlider.value()));
 
-// performance evidence, the kind that can turn a concept green
-if (pl >= 0.95) sim.goal('reach-0.95');
-checkButton.mousePressed(() => sim.predict('trajectory-after-wrong', studentPick === truth));
+// performance evidence, the kind that can turn a concept green: a checked answer
+const trajectory = lrs.question('q-trajectory-after-wrong', { concept: 'slip-parameter' });
+checkButton.mousePressed(() =>
+  trajectory.answer({ success: studentPick === truth, response: studentPick }));
 ```
 
-`touch()` records **exploration**, which counts as engagement and exposure. `goal()` and
-`predict()` record **performance**, which counts as assessed evidence
-([§9.1](#91-evidence-classes)). Keeping the two distinct is what stops the personal graph
-from turning green because a student wiggled a slider.
+`slider()`, `item()`, `button()`, and `runner()` record **exploration**, which counts as
+engagement and exposure and is what Compact mode folds. `question().answer()` records
+**performance**, which counts as assessed evidence ([§9.1](#91-evidence-classes)) and is
+never folded. A goal reached is an answer with `success: true`. Keeping the two distinct is
+what stops the personal graph from turning green because a student wiggled a slider.
 
 ### 6.4 Per-sim policy: the `xapi` block in `metadata.json`
 
-The policy lives in the sim's existing `metadata.json`, not in a separate `config.json`.
-One file per sim is easier for authors and tooling to keep straight. **Implemented
-2026-09-25** in `docs/js/lrs-lite-sim.js`, with three test sims (`bouncing-ball`,
-`sine-wave`, `scientific-method`) and headless-Chromium tests of both modes
-(`make test-sims`):
+The policy lives in two places, and an agent can edit either one: the book's
+`docs/js/lrs-config.js` `xapi` block sets the default for every MicroSim in the textbook,
+and a sim's own `metadata.json` `xapi` block overrides it for that sim (not a separate
+`config.json`). **Implemented 2026-09-25/26** in `docs/js/lrs-lite-sim.js` and
+`docs/js/lrs-sim.js`, with four sims (`bouncing-ball`, `sine-wave`, `scientific-method`,
+`animal-cell`), the chapter quizzes, and headless-Chromium tests (`make test-sims`):
 
 ```json
-"xapi": { "compact": true, "idleMs": 90000, "offscreenMs": 10000, "blurMs": 30000 }
+"xapi": { "compact": true, "teaching": false, "idleMs": 90000, "offscreenMs": 10000, "blurMs": 30000 }
 ```
 
 | Key | Default | Meaning |
 |---|---|---|
-| `compact` | `true` | `true`: fold interactions into a session and emit one summary on focus loss. `false`: the sim's full per-interaction stream |
+| `compact` | `true` | `true`: fold interactions into a session and emit one summary on focus loss. `false`: the sim's full per-interaction stream. Answers pass through either way |
+| `teaching` | `false` | `true`: show the statement log, the Full/Compact switch, Simulate Done, and View Formatted JSON. Only for sims that teach what xAPI events are; production sims stay silent |
 | `idleMs` | 90000 | No input for this long, while the sim is not running, ends the session |
 | `offscreenMs` | 10000 | The sim less than 25% visible for this long ends the session |
 | `blurMs` | 30000 | The frame losing keyboard focus for this long ends the session |
 
-**A missing block or key, or an unreadable `metadata.json`, means compact.** A sim with no
-policy is in summary mode: not silent, and not verbose. The evidence map is the next
+**A key missing from the sim's block comes from the book's `lrs-config.js`, then from the
+defaults: compact and silent.** A sim with no policy is in summary mode: not silent about
+the data, and not verbose. The evidence map is the next
 extension of the same block. It is not implemented yet:
 
 ```json
 "xapi": {
   "compact": true,
   "concepts": ["slip-parameter", "guess-parameter"],
-  "goals": {
-    "see-crash-after-wrong": { "concept": "slip-parameter", "weight": 0.6 },
-    "reach-0.95":            { "concept": "evidence-conditioning-step", "weight": 0.6 }
-  },
-  "predictions": {
-    "trajectory-after-wrong": { "concept": "slip-parameter", "weight": 0.8 }
+  "questions": {
+    "q-see-crash-after-wrong":  { "concept": "slip-parameter", "weight": 0.6 },
+    "q-reach-0.95":             { "concept": "evidence-conditioning-step", "weight": 0.6 },
+    "q-trajectory-after-wrong": { "concept": "slip-parameter", "weight": 0.8 }
   }
 }
 ```
@@ -1333,8 +1346,8 @@ of an opportunity to learn.
 |---|---|---|---|---|
 | Quiz answer, first attempt, answer not revealed | `answered` | 1 or 0 | 1.0 | **Assessed** |
 | Quiz answer, retry or after revealing the answer | `answered` | 1 or 0 | 0.25 | Assessed (weak) |
-| MicroSim prediction checked (committed before the sim shows the outcome) | sim summary `predictions` | correct ÷ total | 0.8 | **Assessed** |
-| MicroSim goal achieved | sim summary `goals` | 1 per goal met | 0.6 (from `metadata.json` → `xapi.goals`), with a raised guess parameter (0.4) because trial and error with feedback inflates success | **Assessed** |
+| MicroSim prediction checked (committed before the sim shows the outcome) | `answered` from the sim (`#q-…` Question) | 1 or 0 per attempt | 0.8 | **Assessed** |
+| MicroSim goal achieved | `answered` from the sim, `success: true` | 1 per goal met | 0.6 (from `metadata.json` → `xapi.questions`), with a raised guess parameter (0.4) because trial and error with feedback inflates success | **Assessed** |
 | MicroSim exploration (coverage ≥ 0.5, active ≥ 60 s) | sim summary | — | opportunity only | Exposure |
 | Page read (`read_state = read`) | page summary | — | opportunity only | Exposure |
 | Page skimmed or visited | page summary | — | none | Visit only |
@@ -1437,7 +1450,7 @@ Mastery needs every piece of evidence tied to concept IDs. Measured against this
 |---|---|---|
 | Chapter pages | The chapter `index.md` "Concepts Covered" list | ✅ **578 of 578** entries exactly match learning-graph labels. The mapping is exact and free |
 | Quiz questions | The "Concept Tested" line in `quiz.md` | ⚠️ **All 32 chapters have a quiz (352 questions)**, but only **228 (65%)** of the "Concept Tested" labels exactly match a graph concept. Only **226 of 578** concepts have at least one quiz item, and **2** have two or more |
-| MicroSims | `metadata.json` → `xapi.concepts`, `goals`, `predictions` | ❌ No sim declares these yet (three test sims have the `compact` switch only). Fallback: the embedding chapter's concepts as exposure (124 embeds across chapters) |
+| MicroSims | `metadata.json` → `xapi.concepts`, `questions` | ❌ No sim declares these yet (four teaching sims have the `compact`/`teaching` switches only). Fallback: the embedding chapter's concepts as exposure (124 embeds across chapters) |
 
 A build-time hook (`plugins/lrs_lite_concept_map.py`) generates `concept-map.json`, about
 60 KB and served statically, so it doesn't count against the 10 MB. It maps every page
@@ -1458,7 +1471,7 @@ third of what is needed. Three complementary ways to close the gap:
 2. **Inline concept checks:** two short questions per concept, embedded in the chapter
    where the concept is taught and emitted as `answered` with the same fragment scheme
    ([contract §2](../specs/xapi-producer-contract-v1.md#2-question-iris-the-fragment-scheme-resolved-2026-07-16)).
-3. **MicroSim predictions and goals** in each sim's `metadata.json` `xapi` block, for the sims that already teach
+3. **MicroSim predictions and goals** (emitted as `answered`) in each sim's `metadata.json` `xapi` block, for the sims that already teach
    those concepts.
 
 A pilot does not need the whole book. Covering **the chapters the pilot actually teaches**
@@ -1896,7 +1909,7 @@ before any sync exists. The estimate assumes one developer familiar with the cod
 - Ratify the ADRs in [§15](#15-architecture-decisions-and-open-questions).
 - Add the new extension IRIs to the [producer contract](../specs/xapi-producer-contract-v1.md)
   (`active_ms`, `scroll_depth_max`, `sections_seen`, `read_state`, `interaction_count`,
-  `controls`, `range_coverage`, `goals`, `predictions`, `end_reason`, `first_attempt`,
+  `controls`, `range_coverage`, `end_reason`, `first_attempt`,
   `answer_revealed_before`, `device_id`, `device_seq`, `hlc`, `summarizer_version`).
 - Write `plugins/lrs_lite_concept_map.py`, which emits `concept-map.json` and the coverage
   report.
@@ -1931,8 +1944,9 @@ process finishes.
   [§6.1](#61-what-loses-focus-means-for-a-microsim), and the `metadata.json` `compact`
   switch in three test sims (`bouncing-ball`, `sine-wave`, `scientific-method`), tested on
   and off by `make test-sims`.
-- Add goals and predictions to a sim that assesses something (`bkt-four-parameters-explorer`),
-  and implement the `xapi.concepts`/`goals`/`predictions` keys.
+- Add checked predictions and goals — `question().answer()`, which pass through as `answered` —
+  to a sim that assesses something (`bkt-four-parameters-explorer`), and implement the
+  `xapi.concepts`/`questions` keys.
 - Update the `microsim-generator` templates so new sims include the session API and an
   `xapi` block in `metadata.json`.
 

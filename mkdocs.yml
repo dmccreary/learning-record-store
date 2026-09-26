@@ -403,6 +403,13 @@ extra_css:
 # Custom JavaScript
 extra_javascript:
   - js/katex.js
+  # The xAPI runtime, in load order: this book's identity and policy (lrs-config.js) first.
+  # Defining these is all they do on a page with nothing to instrument.
+  - js/lrs-config.js
+  - js/lrs-xapi.js
+  - js/lrs-lite-sim.js
+  - js/lrs-sim.js
+  - js/xapi-json-viewer.js
   # Makes chapter quiz options answerable and emits one xAPI `answered` statement per
   # question — see docs/specs/xapi-producer-contract-v1.md. Loads site-wide and no-ops on
   # any page without a quiz.
@@ -415,6 +422,10 @@ exclude_docs: |
   **/image-prompt*.md
   **/image-prompts*.md
   **/cover-prompt.md
+  img/cover-image-prompt.md
+  img/mascot/character-sheet.md
+  img/ugly-svg-mascot/character-sheet.md
+  learning-graph/index-template.md
   **/TODO.md
   specs/security-audit-prompt-for-fable.md
 

@@ -1,8 +1,10 @@
 """L-6: MicroSims emit compact xAPI — one summary when the sim loses focus — when their
 metadata.json says so, and their full per-interaction stream when it does not.
 
-Spec: docs/lrs-lite/index.md §6 (L-6 is requirement 6 of §1.2). Library:
-docs/js/lrs-lite-sim.js. Sims: bouncing-ball, sine-wave, scientific-method.
+Spec: docs/lrs-lite/index.md §6 (L-6 is requirement 6 of §1.2). Runtime: docs/js/lrs-sim.js
+over lrs-lite-sim.js and lrs-xapi.js, configured by lrs-config.js. Sims: bouncing-ball,
+sine-wave, scientific-method, animal-cell; plus the chapter quizzes (docs/js/quiz-xapi.js),
+whose answers pass through in both modes.
 
 Each test drives a real sim in headless Chromium, embedded in an iframe the way the book
 embeds it, and rewrites that sim's metadata.json in flight (page.route). So compact ON,
@@ -37,6 +39,9 @@ EXT = "https://w3id.org/lrs/ext/"
 
 # Short timers so focus loss happens within a test's patience, not a student's.
 FAST = {"idleMs": 60000, "offscreenMs": 300, "blurMs": 60000}
+# The teaching UI (log, Full/Compact switch, Simulate Done, View JSON) exists only when the
+# config says so; these sims are teaching sims, so the tests that replace the block keep it.
+FAST["teaching"] = True
 
 HIDE_TAB = """() => {
   Object.defineProperty(document, 'visibilityState', {configurable: true, get: () => 'hidden'});
@@ -326,6 +331,40 @@ def test_l6_bouncing_ball_clicking_a_log_line_opens_that_statement(
     assert "…/ext/action" in tab.locator("table").inner_text()
 
 
+def test_l6_production_sim_is_silent_but_still_records(open_sim: Any) -> None:
+    # teaching: false is every production MicroSim: no log, no Full/Compact switch, no
+    # Simulate Done, no View JSON — but the statements are still produced.
+    frame = open_sim("bouncing-ball", {**FAST, "compact": False, "teaching": False})
+    frame.get_by_role("button", name="Start").click()
+    frame.wait_for_timeout(400)
+    frame.get_by_role("button", name="Pause").click()
+
+    assert verbs(statements(frame)) == ["interacted", "interacted", "experienced"]
+    assert frame.locator(".xapi-panel").count() == 0
+    assert frame.locator("input[type=radio]").count() == 0
+    assert frame.get_by_role("button", name="Simulate Done").count() == 0
+
+
+def test_l6_book_config_sets_the_default_and_the_sim_block_overrides_it(
+    open_sim: Any, page: Any
+) -> None:
+    # The whole textbook's default lives in lrs-config.js; a sim's metadata.json overrides it.
+    def full_teaching_book(route: Any) -> None:
+        body = route.fetch().text().replace(
+            "xapi: { compact: true, teaching: false }", "xapi: { compact: false, teaching: true }"
+        )
+        route.fulfill(body=body, content_type="application/javascript")
+
+    page.route("**/js/lrs-config.js", full_teaching_book)
+
+    frame = open_sim("sine-wave", None)  # no sim block: the book decides
+    assert mode(frame) == "full"
+    assert frame.get_by_label("Full").is_checked()
+
+    frame = open_sim("sine-wave", {"compact": True})  # the sim's own block wins
+    assert mode(frame) == "compact"
+
+
 def test_l6_missing_xapi_block_defaults_to_compact(open_sim: Any) -> None:
     frame = open_sim("bouncing-ball", None)
     assert mode(frame) == "compact"
@@ -406,11 +445,10 @@ def test_l6_sine_wave_simulate_done_emits_the_compact_summary(open_sim: Any) -> 
 
 def test_l6_sine_wave_view_formatted_json_opens_the_summary(open_sim: Any, page: Any) -> None:
     frame = open_sim("sine-wave", {"compact": True, **FAST})
-    # The raw panel starts hidden, so find the button by class rather than by role.
     assert frame.locator("button.xapi-view-btn").is_disabled()  # nothing to show yet
 
     frame.evaluate(MOVE_SLIDER, [0, [0.75, 0.9, 0.6]])
-    frame.get_by_role("button", name="Simulate Done").click()  # also reveals the raw panel
+    frame.get_by_role("button", name="Simulate Done").click()
     view = frame.get_by_role("button", name="View Formatted JSON")
     assert view.is_enabled()
 
@@ -540,3 +578,117 @@ def test_l6_scientific_method_switching_modes_never_loses_or_doubles_dwell(
     assert len(sts) == 4
     assert sts[3]["result"]["extensions"][EXT + "end_reason"] == "mode-switch"
     assert sts[3]["context"]["extensions"][EXT + "statements_represented"] == 1
+
+
+# ------------------------------------------------------------------------ animal-cell ----
+# Explore inspections are exposure evidence (fold in Compact); quiz answers are assessed
+# evidence and pass through in BOTH modes (decision A, 2026-09-26).
+
+CLICK_MARKER = """(which) => {
+  const target = sim.quizQueue[sim.quizIndex];
+  const pick = which === 'right' ? target : sim.data.callouts.find(c => c.id !== target.id);
+  sim.markers.get(pick.id).click();
+}"""
+
+
+def _animal_cell_ready(frame: Any) -> None:
+    frame.wait_for_function("typeof sim !== 'undefined' && sim.markers.size > 0", timeout=20000)
+
+
+def test_l6_animal_cell_full_stream(open_sim: Any) -> None:
+    frame = open_sim("animal-cell", {"compact": False, **FAST})
+    _animal_cell_ready(frame)
+    frame.evaluate("sim.markers.get(sim.data.callouts[0].id).click()")  # explore: inspect
+    frame.get_by_role("button", name="Quiz").click()
+    frame.evaluate(CLICK_MARKER, "wrong")
+    frame.evaluate(CLICK_MARKER, "right")
+
+    sts = statements(frame)
+    assert verbs(sts) == ["interacted", "answered", "answered"]
+    assert sts[0]["result"]["extensions"][EXT + "engagement-mode"] == "click"
+    assert [s["result"]["success"] for s in sts[1:]] == [False, True]
+    assert sts[1]["object"]["id"] == sts[2]["object"]["id"]  # one question, two attempts
+    assert "#q-" in sts[1]["object"]["id"]  # named: the quiz order is shuffled (contract §2)
+
+
+def test_l6_animal_cell_answers_pass_through_even_in_compact(open_sim: Any) -> None:
+    frame = open_sim("animal-cell", {"compact": True, **FAST})
+    _animal_cell_ready(frame)
+    frame.evaluate("sim.markers.get(sim.data.callouts[0].id).click()")  # explore: folded
+    assert statements(frame) == []
+
+    frame.get_by_role("button", name="Quiz").click()
+    frame.evaluate(CLICK_MARKER, "wrong")
+    frame.evaluate(CLICK_MARKER, "wrong")
+    frame.evaluate(CLICK_MARKER, "right")
+
+    # Sent as they happened, in order — never folded. BKT reads this sequence.
+    sts = statements(frame)
+    assert verbs(sts) == ["answered"] * 3
+    assert [s["result"]["success"] for s in sts] == [False, False, True]
+    assert [s["result"]["extensions"][EXT + "attempt-number"] for s in sts] == [1, 2, 3]
+
+    frame.get_by_role("button", name="Simulate Done").click()
+    sts = statements(frame)
+    assert len(sts) == 4
+    summary = sts[3]
+    assert summary["result"]["extensions"][EXT + "end_reason"] == "simulated-done"
+    # The summary folds the one inspection. The answers were never folded into it.
+    assert summary["context"]["extensions"][EXT + "statements_represented"] == 1
+
+
+# ---------------------------------------------------------------------- chapter quiz ----
+# quiz-xapi.js runs on rendered site pages, which the static server cannot produce, so this
+# fixture reproduces the markup mkdocs-material renders for `??? question "Show Answer"`.
+
+QUIZ_PAGE = """<!doctype html><html><head><title>Quiz: Test Chapter</title></head><body><article>
+<h4>1. What does xAPI stand for?</h4>
+<div class="upper-alpha"><ol><li>Experience API</li><li>Extended API</li>
+<li>External API</li><li>Exchange API</li></ol></div>
+<details class="question"><summary>Show Answer</summary>
+<p>The correct answer is <strong>A</strong>.</p>
+<p><strong>Concept Tested:</strong> Experience API</p></details>
+<h4>2. Which verb carries result.success?</h4>
+<div class="upper-alpha"><ol><li>experienced</li><li>answered</li>
+<li>interacted</li><li>completed</li></ol></div>
+<details class="question"><summary>Show Answer</summary>
+<p>The correct answer is <strong>B</strong>.</p>
+<p><strong>Concept Tested:</strong> Answered Verb</p></details>
+</article>
+<script src="/js/lrs-config.js"></script>
+<script src="/js/lrs-xapi.js"></script>
+<script src="/js/lrs-lite-sim.js"></script>
+<script src="/js/lrs-sim.js"></script>
+<script src="/js/xapi-json-viewer.js"></script>
+<script src="/js/quiz-xapi.js"></script>
+</body></html>"""
+
+
+def test_quiz_answers_pass_through_with_a_log_but_no_mode_switch(
+    page: Any, docs_url: str
+) -> None:
+    page.route("**/chapters/99-test/quiz/", lambda route: route.fulfill(
+        content_type="text/html", body=QUIZ_PAGE))
+    page.goto(f"{docs_url}/chapters/99-test/quiz/")
+    page.wait_for_selector(".xapi-panel")  # lrs-config.js `quizzes.teaching` is true here
+
+    # Every quiz statement is an answer, and answers pass through in both modes, so the
+    # Full/Compact switch would change nothing — it is not shown.
+    assert page.locator(".xapi-controls").count() == 0
+
+    page.locator("label.quiz-choice").nth(0).click()  # q1: A, correct
+    sts = page.evaluate("LRSLite.statements")
+    assert len(sts) == 1
+    st = sts[0]
+    assert st["verb"]["id"] == "http://adlnet.gov/expapi/verbs/answered"
+    assert st["object"]["id"] == SITE + "chapters/99-test/quiz/#q1"  # one-based, §2
+    assert st["result"]["success"] is True and st["result"]["response"] == "A"
+    assert st["context"]["extensions"][EXT + "concept_id"] == "experience-api"
+    # Emitted at once even though the book's default mode is compact.
+    assert page.evaluate("document.documentElement.dataset.xapiMode") == "compact"
+
+    # q2: reveal the answer first, then choose — a peeked answer is not evidence.
+    page.locator("details.question").nth(1).locator("summary").click()
+    page.locator("label.quiz-choice").nth(5).click()
+    assert page.evaluate("LRSLite.statements.length") == 1
+    assert page.get_by_role("button", name="View Formatted JSON").is_enabled()

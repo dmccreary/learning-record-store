@@ -84,11 +84,16 @@ flowchart TD
         </footer>
     </div>
 
-    <!-- Statement construction (the producer contract) and compact-mode sessions.
-         metadata.json's "xapi" block chooses compact or full. -->
+    <!-- xAPI runtime (docs/js). The diagram still works without it.
+         lrs-config.js        this textbook's identity and default xAPI policy; loads first
+         lrs-xapi.js          builds every contract-v1 statement
+         lrs-lite-sim.js      compact (LRS-Lite) sessions and focus-loss detection
+         lrs-sim.js           the API the sim calls: evidence classes, statement log, teaching UI
+         xapi-json-viewer.js  opens a statement, formatted, in a new tab -->
+    <script src="../../js/lrs-config.js"></script>
     <script src="../../js/lrs-xapi.js"></script>
     <script src="../../js/lrs-lite-sim.js"></script>
-    <!-- Opens a statement pretty-printed and explained in a new tab. Optional too. -->
+    <script src="../../js/lrs-sim.js"></script>
     <script src="../../js/xapi-json-viewer.js"></script>
     <script src="script.js"></script>
 </body>

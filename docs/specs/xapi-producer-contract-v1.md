@@ -645,6 +645,17 @@ Everything the DDL reads, and where it comes from. If a row here is wrong, a rol
     Until the gateway exists, "conforms to the contract" means "conforms to one JS file's reading of
     it."
 
+    **Update 2026-09-26: the five copies are now one.** Every emitter — the four sims and the chapter
+    quizzes — builds every statement through `lrs-xapi.js`'s `LRS.build()`, via the shared MicroSim API
+    `docs/js/lrs-sim.js`. The page IRI and grouping IRI now come from a per-book
+    `docs/js/lrs-config.js`, so the same runtime serves any textbook. Still producer-side only: the
+    homework-marking caveat above stands until a consumer validates the shape.
+
+    **Answers are never folded (2026-09-26).** Under LRS-Lite's compact mode, which folds a sim
+    session's exposure evidence into one `experienced` summary, `answered` statements still pass
+    through one per attempt, in both modes. §3's `answered` + `result.success` shape is therefore the
+    only form assessed evidence ever takes, whichever LRS receives it.
+
 **Closed 2026-07-16:**
 
 - ~~**Does a hotspot's `object_type` depend on the mode it is clicked in?**~~ **Resolved: no.**

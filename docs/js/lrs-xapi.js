@@ -20,7 +20,9 @@
 // copy-paste from carrying a stale base into a new sim.
 //
 // This module makes §1 true by construction: an emitter cannot supply a page IRI at all,
-// so it cannot supply a wrong one.
+// so it cannot supply a wrong one. As of 2026-09-26 all of them go through it: every sim and
+// the chapter quizzes call lrs-sim.js, which builds every statement here with LRS.build().
+// The statement log that used to live here (LRS.emitter) moved to lrs-sim.js with them.
 //
 // LOADS IN TWO CONTEXTS
 // ---------------------
@@ -31,19 +33,33 @@
 // Both contexts must produce the SAME IRI for the same activity — see pageIri() below,
 // which is where that gets interesting.
 //
-// NOTHING HERE POSTS. Statements render into a panel. The gateway does not exist yet
-// (see TODO.md's critical path); when it does, `transport` is the only thing that
-// changes and no emitter should need editing.
+// NOTHING HERE POSTS. Every statement reaches LRSLite.record() (lrs-lite-sim.js), and a
+// teaching page also renders it. When the LRS-Lite store or the gateway exists, that one
+// seam is where it attaches; no emitter should need editing.
 
 (function (global) {
   'use strict';
 
+  // ── This textbook's identity (lrs-config.js) ──────────────────────────────
+  // The runtime is identical in every book; window.LRS_CONFIG is the one per-book part.
+  // Without it this falls back to the learning-record-store book, and says so: in any
+  // other book that fallback would stamp every statement with the wrong site (§1).
+  var CFG = global.LRS_CONFIG;
+  if (!CFG) {
+    CFG = {};
+    warn('no window.LRS_CONFIG — load lrs-config.js before lrs-xapi.js. ' +
+         'Falling back to the learning-record-store book, whose IRIs are wrong for any other book.');
+  }
+
   // ── Contract constants ────────────────────────────────────────────────────
   // §1: the canonical site root. NOT window.location.origin — a statement emitted
   // from a local `mkdocs serve` must carry the PUBLISHED IRI, never 127.0.0.1.
-  var SITE_URL       = 'https://dmccreary.github.io/learning-record-store/';
-  var SITE_BASE_PATH = '/learning-record-store/';        // the GitHub Pages project base
-  var VERSION_IRI    = SITE_URL + 'textbook/lrs/v1.0.0'; // §4 — the textbook VERSION, not a page
+  var SITE_URL = CFG.siteUrl || 'https://dmccreary.github.io/learning-record-store/';
+  if (SITE_URL.charAt(SITE_URL.length - 1) !== '/') SITE_URL += '/';
+  var SITE_BASE_PATH = new URL(SITE_URL).pathname;       // the GitHub Pages project base
+  // §4 — the textbook VERSION, not a page
+  var VERSION_IRI = SITE_URL + 'textbook/' + (CFG.textbookId || 'lrs') + '/' + (CFG.version || 'v1.0.0');
+  var CONCEPT_PREFIX = CFG.conceptPrefix || 'learning-record-store';
   var EXT            = 'https://w3id.org/lrs/ext/';      // §6. sine-wave once used a
                                                          // different namespace here; that is
                                                          // exactly what a shared constant prevents.
@@ -122,6 +138,12 @@
     return String(s).toLowerCase().trim()
       .replace(/[^\w\s-]/g, '')
       .replace(/\s+/g, '-');
+  }
+
+  // A learning-graph ConceptID, namespaced for this book: 42 -> 'learning-record-store-42'.
+  // Same form as the seeder's Concept ids, so a statement joins straight to its vertex.
+  function conceptId(id) {
+    return CONCEPT_PREFIX + '-' + id;
   }
 
   function uuid() {
@@ -252,80 +274,6 @@
     if (global.console && global.console.warn) global.console.warn('[lrs-xapi] ' + msg);
   }
 
-  // ── Emitter ───────────────────────────────────────────────────────────────
-
-  function Emitter(opts) {
-    opts = opts || {};
-    this.iri        = pageIri();
-    this.count      = 0;
-    this.statements = [];
-    this.mount      = opts.mount || null;   // selector or element for the panel
-    this.note       = opts.note  || '';     // panel header explanation
-    this.logEl      = null;
-  }
-
-  Emitter.prototype.emit = function (spec, summary) {
-    var st = build(spec);
-    this.statements.push(st);
-    this.count++;
-    this.render(st, summary);
-    return st;
-  };
-
-  Emitter.prototype.panel = function () {
-    if (this.logEl && this.logEl.isConnected) return this.logEl;
-
-    var wrap = document.createElement('div');
-    wrap.className = 'xapi-panel';
-    wrap.innerHTML =
-      '<div class="xapi-panel-header"><strong>xAPI statements emitted:</strong> ' +
-      '<span class="xapi-count">0</span>' +
-      '<span class="xapi-header-note"> &mdash; ' + this.note + '</span></div>' +
-      '<div class="xapi-log"></div>';
-
-    var host = null;
-    if (typeof this.mount === 'string') host = document.querySelector(this.mount);
-    else if (this.mount)               host = this.mount;
-    host = host || document.querySelector('article') || document.body;
-    host.appendChild(wrap);
-
-    this.wrapEl = wrap;
-    this.logEl  = wrap.querySelector('.xapi-log');
-    return this.logEl;
-  };
-
-  Emitter.prototype.render = function (st, summary) {
-    var log = this.panel();
-
-    var a = document.createElement('div');
-    a.className   = 'xapi-log-line';
-    a.textContent = '▸ ' + summary;
-    log.appendChild(a);
-
-    var b = document.createElement('div');
-    b.className   = 'xapi-log-line xapi-log-raw';
-    b.textContent = JSON.stringify(st);
-    log.appendChild(b);
-
-    while (log.childElementCount > 80) log.removeChild(log.firstChild);
-    log.scrollTop = log.scrollHeight;
-
-    var c = this.wrapEl.querySelector('.xapi-count');
-    if (c) c.textContent = String(this.count);
-  };
-
-  // A line in the log that is NOT a statement — used to say why something was
-  // deliberately not emitted. "Nothing happened" and "nothing was recorded, on purpose"
-  // look identical otherwise, and the second is the interesting one.
-  Emitter.prototype.note_ = function (msg) {
-    var log = this.panel();
-    var d = document.createElement('div');
-    d.className   = 'xapi-log-line xapi-log-note';
-    d.textContent = '· ' + msg;
-    log.appendChild(d);
-    log.scrollTop = log.scrollHeight;
-  };
-
   global.LRS = {
     SITE_URL: SITE_URL,
     VERSION_IRI: VERSION_IRI,
@@ -333,10 +281,10 @@
     VERB: VERB,
     TYPE: TYPE,
     pageIri: pageIri,
+    conceptId: conceptId,
     slug: slug,
     uuid: uuid,
     isoDuration: isoDuration,
-    build: build,
-    emitter: function (opts) { return new Emitter(opts); }
+    build: build
   };
 })(typeof window !== 'undefined' ? window : this);

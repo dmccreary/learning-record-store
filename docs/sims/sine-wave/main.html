@@ -5,6 +5,8 @@
     <title>Sine Wave MicroSim Using p5.js version 1.11.10</title>
     <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/p5.js"></script>
 
+    <!-- The xAPI panel's look, shared with every sim and site page. -->
+    <link rel="stylesheet" href="../../css/lrs-xapi.css">
     <style>
         body {
             margin: 0;
@@ -14,50 +16,13 @@
         canvas {
             display: block;
         }
+        /* The panel's LOOK comes from css/lrs-xapi.css (linked above). Only its placement
+           and log height are local: they are sized for this sim's iframe. */
         .xapi-panel {
             margin: 12px 10px 0 10px;
-            border: 1px solid silver;
-            border-radius: 6px;
-            background: white;
-            padding: 10px 12px;
-            box-sizing: border-box;
-        }
-        .xapi-panel-header {
-            font-size: 14px;
-            margin-bottom: 6px;
-            color: #222;
-        }
-        .xapi-header-note {
-            color: #666;
-            font-weight: normal;
         }
         .xapi-log {
             max-height: 150px;
-            overflow-y: auto;
-            background: #1e1e1e;
-            color: #b5f4b5;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 11px;
-            line-height: 1.5;
-            padding: 8px;
-            border-radius: 4px;
-        }
-        .xapi-log-line {
-            white-space: nowrap;
-            overflow-x: auto;
-        }
-        .xapi-log-note {
-            color: #f0c674;
-        }
-        .xapi-log-clickable {
-            cursor: pointer;
-        }
-        .xapi-log-clickable:hover {
-            background: #2d3a2d;
-        }
-        .xapi-view-btn {
-            margin-left: 8px;
-            font-size: 12px;
         }
         .xapi-concept-scores {
             display: grid;
@@ -164,12 +129,16 @@
             color: #555;
         }
     </style>
-    <!-- Statement construction (the producer contract) and compact-mode sessions.
-         metadata.json's "xapi" block chooses compact or full. The sim still runs
-         without these two files (e.g. pasted into the p5.js editor). -->
+    <!-- xAPI runtime (docs/js). The sim still runs without it, e.g. pasted into the p5.js editor.
+         lrs-config.js        this textbook's identity and default xAPI policy; loads first
+         lrs-xapi.js          builds every contract-v1 statement
+         lrs-lite-sim.js      compact (LRS-Lite) sessions and focus-loss detection
+         lrs-sim.js           the API the sim calls: evidence classes, statement log, teaching UI
+         xapi-json-viewer.js  opens a statement, formatted, in a new tab -->
+    <script src="../../js/lrs-config.js"></script>
     <script src="../../js/lrs-xapi.js"></script>
     <script src="../../js/lrs-lite-sim.js"></script>
-    <!-- Opens a statement pretty-printed and explained in a new tab. Optional too. -->
+    <script src="../../js/lrs-sim.js"></script>
     <script src="../../js/xapi-json-viewer.js"></script>
     <!-- Put your script file name here -->
     <script src="sine-wave.js"></script>

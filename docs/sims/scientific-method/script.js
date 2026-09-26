@@ -287,19 +287,7 @@ document.addEventListener('click', (e) => {
 
 (function () {
   'use strict';
-
-  // Canonical published page IRI — contract §1: site_url + nav path + trailing slash.
-  var ACTIVITY_BASE_ID = 'https://dmccreary.github.io/learning-record-store/sims/scientific-method/';
-  // The textbook version IRI (§4) — NOT this page's URL. Physics/chemistry would send
-  // their own here while `object.id` above stays identical. That difference is the only
-  // thing distinguishing the exposures, and only in the log.
-  var VERSION_IRI = 'https://dmccreary.github.io/learning-record-store/textbook/lrs/v1.0.0';
-
-  // A mouse crossing a tall top-down diagram passes over many nodes in a few hundred ms.
-  // None of that is evidence. Only a deliberate pause is. Same instinct as the bouncing
-  // ball's sub-250ms mis-click filter and sine-wave's slider deadband: not all
-  // interaction is evidence.
-  var HOVER_EVIDENCE_MS = 600;
+  if (!window.LRSSim) return;   // the diagram works without the xAPI runtime; it just emits nothing
 
   // 12 nodes -> 9 concepts (metadata.json `concepts`). Several nodes share a concept:
   // the concept rollup's grain is (student, concept), so Decision1/Accept/Revise all
@@ -319,303 +307,56 @@ document.addEventListener('click', (e) => {
     End:         'iterative-investigation'
   };
 
-  var statementCount = 0;
-  var pageShownAt = Date.now();
-  var pageClosed = false;
-  var lastStatement = null;
+  // Through the shared runtime (docs/js/lrs-sim.js): Full vs. Compact comes from config (this
+  // sim's metadata.json `xapi` block, over the book's lrs-config.js), and so does the teaching
+  // UI — the statement log with its Full/Compact switch, Simulate Done, and View Formatted JSON.
+  var lrs = LRSSim.create({
+    name: 'Scientific Method Workflow',
+    concept: 'iterative-investigation',
+    source: 'the Scientific Method MicroSim',
+    // No Start/Pause control, so the dwell interval is simply time on the page: one
+    // `experienced` per visit in Full mode, carried by the session summary in Compact.
+    pageDwell: true,
+    // Inside .main-content, the flex row; style.css gives the panel its own full-width row.
+    mount: '.main-content',
+    modeText: function (compact) {
+      return 'Pause on a step for >0.6s, or click to pin it. ' + (compact
+        ? 'COMPACT (LRS-Lite): studies are folded into ONE summary, emitted when the diagram ' +
+          'loses focus. Press Simulate Done to see it.'
+        : 'FULL (full LRS): one statement per step studied, plus the page dwell when the ' +
+          'diagram loses focus.') +
+        ' Engagement only: no statement here claims the student understands anything.';
+    }
+  });
 
-  // Compact xAPI (LRS-Lite). metadata.json → "xapi": {"compact": true|false} sets the STARTING
-  // mode; the Full/Compact radio in the panel then switches it live. When compact,
-  // node studies are folded into ONE `experienced` summary emitted when the diagram loses
-  // focus (docs/lrs-lite/index.md §6); the summary's duration replaces the page-level
-  // interval below. When false, or without lrs-lite-sim.js, the full stream is unchanged.
-  var xapi = window.LRSLite
-    ? LRSLite.sim({ name: 'Scientific Method Workflow', concept: 'iterative-investigation',
-                    publish: publish })
-    : null;
-  if (xapi) {
-    xapi.ready.then(function (session) {
-      panel();
-      var r = document.querySelector('input[name="xapi-mode"][value="' +
-        (session.compact ? 'compact' : 'full') + '"]');
-      if (r) r.checked = true;
-      showXapiMode(session);
+  // One inspection handle per step. The fragment names the node by its stable KEY, not its
+  // position (contract §2): reordering the diagram must not re-point an IRI at another step.
+  var steps = {};
+  Object.keys(NODE_CONCEPT).forEach(function (key) {
+    steps[key] = lrs.item(key.toLowerCase(), {
+      name: (nodeInfo[key] && nodeInfo[key].title) || key,
+      concept: NODE_CONCEPT[key]
     });
-  }
-
-  function uuid() {
-    if (window.crypto && window.crypto.randomUUID) return window.crypto.randomUUID();
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-      var r = Math.floor(Math.random() * 16);
-      return (c === 'x' ? r : (r % 4) + 8).toString(16);
-    });
-  }
-
-  function isoDuration(ms) {
-    var t = ms / 1000, h = Math.floor(t / 3600), m = Math.floor((t % 3600) / 60);
-    var s = Math.round((t % 60) * 100) / 100, out = 'PT';
-    if (h) out += h + 'H';
-    if (m) out += m + 'M';
-    return out + s + 'S';
-  }
-
-  function base(verbId, verbDisplay) {
-    return {
-      id: uuid(),
-      actor: {
-        objectType: 'Agent',
-        name: 'demo-student',
-        account: { homePage: 'https://demo.example.edu', name: 'demo-student' }
-      },
-      verb: { id: 'http://adlnet.gov/expapi/verbs/' + verbId, display: { 'en-US': verbDisplay } },
-      timestamp: new Date().toISOString()
-    };
-  }
-
-  // --- page-level dwell -----------------------------------------------------------
-  // The degenerate case for a mostly-static diagram: no Start/Pause control exists, so
-  // the interval is simply time-on-page. Flushed on tab-hide, exactly as contract §7
-  // requires — start-it-and-close-the-tab is the common case, not the edge case.
-  function closePageInterval(reason) {
-    if (xapi && xapi.compact) return;   // the session summary carries the page's dwell
-    if (pageClosed) return;
-    pageClosed = true;
-    var elapsed = Date.now() - pageShownAt;
-    if (elapsed < 1000) return; // a glance is not engagement
-
-    var st = base('experienced', 'experienced');
-    st.object = {
-      objectType: 'Activity',
-      id: ACTIVITY_BASE_ID,                      // page IRI, no fragment -> one PageEngagement row
-      definition: {
-        name: { 'en-US': 'Scientific Method Workflow' },
-        type: 'http://adlnet.gov/expapi/activities/simulation'   // -> object_type MicroSim (§5)
-      }
-    };
-    st.result = {
-      duration: isoDuration(elapsed),            // the only field feeding dwell_ms_total
-      extensions: { 'https://w3id.org/lrs/ext/run-ended-by': reason }
-    };
-    st.context = {
-      contextActivities: { grouping: [{ id: VERSION_IRI }] },
-      extensions: { 'https://w3id.org/lrs/ext/concept_id': 'iterative-investigation' }
-    };
-    publish(st, 'experienced  page  ' + st.result.duration + '  (' + reason + ')');
-  }
-
-  // --- per-node study -------------------------------------------------------------
-  function emitNodeStudy(key, dwellMs, mode) {
-    var concept = NODE_CONCEPT[key];
-    if (!concept) return;
-
-    if (xapi && xapi.compact) {
-      xapi.touch('#' + key.toLowerCase(), undefined, { ms: dwellMs, mode: mode, concept: concept });
-      note(key.toLowerCase() + ' [' + mode + '] folded into the session summary');
-      return;
-    }
-
-    var st = base('interacted', 'interacted');   // not `answered`: no success, no knowledge claim
-    st.object = {
-      objectType: 'Activity',
-      // Fragment names the node by its stable KEY, not its position. Reordering the
-      // diagram must not re-point the IRI at a different step. (Contract §2 defines
-      // `#q{N}` for numbered questions only; a named sub-activity uses its name.)
-      id: ACTIVITY_BASE_ID + '#' + key.toLowerCase(),
-      definition: {
-        name: { 'en-US': (nodeInfo[key] && nodeInfo[key].title) || key },
-        // -> object_type 'Control' (§5). Deliberately NOT MicroSim: this IRI carries a
-        // fragment and mv_student_page_rollup GROUPs BY object_id, so a MicroSim-typed
-        // node would become its own PageEngagement vertex — 12 of them for one page.
-        type: 'http://adlnet.gov/expapi/activities/interaction'
-      }
-    };
-    st.result = {
-      // NOTE: duration on a Control reaches no rollup. mv_student_page_rollup sums
-      // duration_ms but excludes Control; mv_student_concept_rollup ignores duration
-      // entirely. Per-node dwell lives in lrs.statements only. Kept because it is the
-      // signal a teacher would actually want ("which step did they labour over?") and
-      // because the log is the system of record — a rollup can be added later without
-      // re-collecting it.
-      duration: isoDuration(dwellMs),
-      extensions: {
-        // 'hover' = transient attention (>600ms, so not a mouse crossing the diagram).
-        // 'pinned' = the student clicked to lock the infobox — unambiguous intent.
-        // Same object, materially different strength of evidence.
-        'https://w3id.org/lrs/ext/engagement-mode': mode
-      }
-    };
-    st.context = {
-      contextActivities: {
-        grouping: [{ id: VERSION_IRI }],
-        parent: [{ id: ACTIVITY_BASE_ID }]
-      },
-      // Without this the statement is skipped entirely by mv_student_concept_rollup's
-      // own WHERE notEmpty(concept_ids) — it would reach nothing.
-      extensions: { 'https://w3id.org/lrs/ext/concept_id': concept }
-    };
-    publish(st, 'interacted   ' + key.toLowerCase() + '  ' + isoDuration(dwellMs) +
-                '  [' + mode + ']  -> ' + concept);
-  }
-
-  // --- output panel ---------------------------------------------------------------
-  function panel() {
-    var el = document.getElementById('xapi-log');
-    if (el) return el;
-    var wrap = document.createElement('div');
-    wrap.className = 'xapi-panel';
-    // Full/Compact and Simulate Done need lrs-lite-sim.js; the formatted view needs
-    // xapi-json-viewer.js. Each appears only when its script is loaded.
-    var controls = xapi
-      ? '<div class="xapi-controls"><span class="xapi-controls-label">xAPI events:</span>' +
-        '<label><input type="radio" name="xapi-mode" value="full"> Full</label>' +
-        '<label><input type="radio" name="xapi-mode" value="compact"> Compact</label>' +
-        '<button type="button" id="xapi-done">Simulate Done</button></div>'
-      : '';
-    var viewBtn = window.XapiJsonViewer
-      ? '<button type="button" id="xapi-view" class="xapi-view-btn" disabled ' +
-        'title="Open the most recent statement, formatted, in a new tab">' +
-        'View Formatted JSON ↗</button>'
-      : '';
-    wrap.innerHTML = controls +
-      '<div class="xapi-panel-header"><strong>xAPI statements emitted:</strong> ' +
-      '<span id="stmt-count">0</span><span class="xapi-header-note"> &mdash; pause on a step ' +
-      'for &gt;0.6s, or click to pin it. <span id="xapi-mode"></span> Engagement only: no ' +
-      'statement here claims the student understands anything. Nothing is sent to a ' +
-      'server.</span>' + viewBtn + '</div>' +
-      '<div id="xapi-log" class="xapi-log"></div>';
-    // Append INSIDE .main-content (the flex row) and let CSS wrap it onto its own full
-    // row via `flex: 1 0 100%`. Two placements that do NOT work:
-    //   - a plain third flex column: it becomes a narrow column clipped at the edge;
-    //   - a sibling after .main-content: `.container` has no width rule, so a block
-    //     child collapses to its padding (~26px). Only .main-content's flex children
-    //     get a usable width here.
-    var mc = document.querySelector('.main-content');
-    (mc || document.body).appendChild(wrap);
-
-    wrap.querySelectorAll('input[name="xapi-mode"]').forEach(function (r) {
-      r.addEventListener('change', function () { setMode(r.value === 'compact'); });
-    });
-    var done = document.getElementById('xapi-done');
-    if (done) done.addEventListener('click', simulateDone);
-    var view = document.getElementById('xapi-view');
-    if (view) view.addEventListener('click', function () { viewStatement(lastStatement); });
-    return document.getElementById('xapi-log');
-  }
-
-  // --- Full / Compact / Simulate Done ----------------------------------------------
-  // Each mode owns its own record of page dwell: full mode the page interval below,
-  // compact mode the session summary. Switching closes the one being left, so dwell is
-  // neither lost nor counted twice.
-  function setMode(compact) {
-    if (compact) {
-      closePageInterval('mode-switch');   // full → compact: emit full mode's dwell so far
-      xapi.setCompact(true);
-    } else {
-      xapi.setCompact(false);             // compact → full: flushes a 'mode-switch' summary
-      pageShownAt = Date.now();           // full-mode dwell starts counting from now
-      pageClosed = false;
-    }
-    note('switched to ' + (compact ? 'COMPACT' : 'FULL') + ' mode');
-    showXapiMode(xapi);
-  }
-
-  // What the host page would trigger by taking focus from the iframe. Compact: end the
-  // session and emit its one summary. Full: close the page-level dwell interval, exactly
-  // as a hidden tab does — then start a new one, since the reader is still here.
-  function simulateDone() {
-    var before = statementCount;
-    if (xapi && xapi.compact) {
-      xapi.end('simulated-done');
-      note(statementCount === before
-        ? 'simulated done — nothing folded yet, so no summary'
-        : 'summary emitted — press View Formatted JSON ↗ (or click the line) to read it');
-      return;
-    }
-    closePageInterval('simulated-done');
-    note(statementCount === before
-      ? 'simulated done — under 1s on the page, so no dwell to emit'
-      : 'page dwell emitted — full mode had already sent every step you studied');
-    pageShownAt = Date.now();
-    pageClosed = false;
-  }
-
-  function viewStatement(st) {
-    if (st && window.XapiJsonViewer) {
-      XapiJsonViewer.open(st, { source: 'the Scientific Method MicroSim' });
-    }
-  }
-
-  function clickable(div, st) {
-    if (!window.XapiJsonViewer) return;
-    div.classList.add('xapi-log-clickable');
-    div.title = 'Click to view this statement formatted, in a new tab';
-    div.addEventListener('click', function () { viewStatement(st); });
-  }
-
-  function publish(st, summary) {
-    statementCount++;
-    lastStatement = st;
-    if (window.LRSLite) LRSLite.record(st);
-    var log = panel();
-    var a = document.createElement('div');
-    a.className = 'xapi-log-line';
-    a.textContent = '▸ ' + summary;
-    clickable(a, st);
-    log.appendChild(a);
-    var b = document.createElement('div');
-    b.className = 'xapi-log-line xapi-log-raw';
-    b.textContent = JSON.stringify(st);
-    clickable(b, st);
-    log.appendChild(b);
-    var view = document.getElementById('xapi-view');
-    if (view) view.disabled = false;
-    while (log.childElementCount > 80) log.removeChild(log.firstChild);
-    log.scrollTop = log.scrollHeight;
-    var c = document.getElementById('stmt-count');
-    if (c) c.textContent = String(statementCount);
-  }
-
-  // A log line that is NOT a statement: what compact mode folded instead of emitting.
-  function note(msg) {
-    var log = panel();
-    var d = document.createElement('div');
-    d.className = 'xapi-log-line xapi-log-note';
-    d.textContent = '· ' + msg;
-    log.appendChild(d);
-    while (log.childElementCount > 80) log.removeChild(log.firstChild);
-    log.scrollTop = log.scrollHeight;
-  }
-
-  // Say in the panel which mode metadata.json selected.
-  function showXapiMode(session) {
-    panel();
-    var el = document.getElementById('xapi-mode');
-    if (!el) return;
-    el.textContent = session.compact
-      ? 'COMPACT (LRS-Lite): studies are folded into ONE summary, emitted when the diagram ' +
-        'loses focus. Press Simulate Done to see it.'
-      : 'FULL (full LRS): one statement per step studied, plus the page dwell when the ' +
-        'diagram loses focus.';
-  }
+  });
 
   // --- wire up --------------------------------------------------------------------
   document.addEventListener('DOMContentLoaded', function () {
     setTimeout(function () {
       var nodes = document.querySelectorAll('.mermaid .node');
-      if (!nodes.length) return;
-      panel();
 
       nodes.forEach(function (node) {
         var enteredAt = null;
 
         node.addEventListener('mouseenter', function () { enteredAt = Date.now(); });
 
+        // A mouse crossing a tall top-down diagram passes over many nodes in a few hundred
+        // ms. None of that is evidence; only a deliberate pause is (LRSSim.HOVER_MS).
         node.addEventListener('mouseleave', function () {
           if (enteredAt === null) return;
           var dwell = Date.now() - enteredAt;
           enteredAt = null;
           var key = getNodeKey(node);
-          if (key && dwell >= HOVER_EVIDENCE_MS) emitNodeStudy(key, dwell, 'hover');
+          if (key && dwell >= LRSSim.HOVER_MS) steps[key].study('hover', dwell);
         });
 
         // Pinning is deliberate, so it always counts regardless of dwell.
@@ -626,28 +367,20 @@ document.addEventListener('click', (e) => {
           // locked, the student pinned it. (Clicking a pinned node UNLOCKS it — lockedNode
           // is then null, so unpinning correctly emits nothing.)
           if (key && lockedNode === node) {
-            emitNodeStudy(key, Date.now() - (enteredAt || Date.now()), 'pinned');
-            // Close the hover interval WITHOUT emitting. A pin and a hover on the same
+            steps[key].study('pinned', Date.now() - (enteredAt || Date.now()));
+            // Close the hover interval WITHOUT reporting it. A pin and a hover on the same
             // visit are one engagement with one node, not two: pinning is simply the
-            // stronger evidence for it. Emitting both double-counts that node in
-            // mv_student_concept_rollup's statements_compressed and inflates C-6 with
-            // duplicates of a single act.
+            // stronger evidence for it. Reporting both double-counts that node in
+            // mv_student_concept_rollup's statements_compressed.
             //
-            // An earlier version set `enteredAt = Date.now()` here and claimed it
-            // prevented the double-count. It did not — restarting the clock only delays
-            // the hover, so any linger past HOVER_EVIDENCE_MS still fired a second
-            // statement. Clicking all 12 nodes produced 24 statements. `null` is what
-            // actually suppresses it: mouseleave returns early when enteredAt is null.
-            // Re-entering the node later starts a fresh interval, which is correct — that
-            // is a genuinely separate visit.
+            // `null`, not `Date.now()`: restarting the clock only delays the hover, so any
+            // linger past the threshold still fired a second statement (clicking all 12
+            // nodes once produced 24). mouseleave returns early on null; re-entering the
+            // node later starts a fresh, genuinely separate visit.
             enteredAt = null;
           }
         });
       });
     }, 1200); // after Mermaid renders (the sim's own handlers use 1000)
-
-    document.addEventListener('visibilitychange', function () {
-      if (document.visibilityState === 'hidden') closePageInterval('tab-hidden');
-    });
   });
 })();

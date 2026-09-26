@@ -19,6 +19,27 @@ Nothing is sent to a server — statements render in the panel below the diagram
 wire format directly. This sim is the reference emitter for three things nothing else in the textbook
 does.
 
+### Full vs. Compact: the one place both behaviours meet
+
+The panel has the same **xAPI events: Full / Compact** switch, **Simulate Done**, and **View Formatted
+JSON ↗** as the [Bouncing Ball](../bouncing-ball/index.md) and [Sine Wave](../sine-wave/index.md) sims,
+and this is the sim where Compact mode shows its most important rule:
+
+- **Explore** inspections are *exposure* evidence. In Compact mode they are folded into the one
+  `experienced` summary emitted when the sim loses focus (or when you press Simulate Done).
+- **Quiz** answers are *assessed* evidence, and they are **never folded**. In both modes each attempt
+  is sent as its own `answered` statement the moment you click. The order of attempts (wrong, wrong,
+  right) is exactly what Bayesian Knowledge Tracing reads, so a summary that reduced them to a count
+  would throw away the evidence that matters most.
+
+Try it: switch to **Compact**, inspect a structure (nothing appears), then switch to **Quiz** and
+click a wrong answer: an `answered` statement appears at once. Press **Simulate Done**: the summary's
+`statements_represented` counts only the inspection.
+
+The starting mode and the teaching panel come from this sim's [`metadata.json`](metadata.json)
+`xapi` block (`"compact": false, "teaching": true`), over the book's
+[`lrs-config.js`](../../js/lrs-config.js) default.
+
 ### Two verb families from one artifact
 
 The same six hotspots are **two different sets of activities**, depending on what the student is
