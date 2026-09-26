@@ -15,7 +15,7 @@
 # build context above the repo root.
 COMPOSE := docker compose --env-file .env -f deploy/docker-compose.yml
 
-.PHONY: help stores up down clean logs seed smoke smoke-graph smoke-mastery perf burst rebuild test lint
+.PHONY: help stores up down clean logs seed smoke smoke-graph smoke-mastery perf burst rebuild test lint test-sims
 
 help:          ## Show this help
 	@grep -E '^[a-z-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-14s\033[0m %s\n", $$1, $$2}'
@@ -59,6 +59,12 @@ rebuild:       ## Rebuild a projection from the immutable log (§7.4)
 
 test:          ## Integration tests against the same images as compose
 	uv run pytest tests/ -v
+
+# Headless-Chromium tests for the MicroSims' compact-xAPI switch (docs/lrs-lite §6).
+# Playwright is pulled in for this run only; its version matches the browsers
+# already cached by the MicroSim screenshot tooling. Needs network for the p5/Mermaid CDN.
+test-sims:     ## MicroSim compact-xAPI on/off tests in headless Chromium (L-6)
+	uv run --with playwright==1.58.0 pytest tests/test_microsim_compact_xapi.py -v
 
 lint:
 	uv run ruff check src tests && uv run mypy

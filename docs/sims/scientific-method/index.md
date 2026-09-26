@@ -171,6 +171,16 @@ exist under a different `textbook_id`.
 | Click a step to pin it | one `interacted`, `engagement-mode: pinned` | Unambiguous intent — pinning is a decision, so it counts regardless of dwell. |
 | Leave the page / hide the tab | one `experienced` with `result.duration` | Page-level dwell (contract §7). This diagram has no Start/Pause control, so the interval is simply time on the page. |
 
+**Compact mode (this diagram's setting).** The table above is the *full* stream. This
+diagram's [`metadata.json`](metadata.json) sets `"xapi": {"compact": true, ...}`, so the
+same hovers and pins are **folded** into one session instead. When the diagram loses focus
+(you switch tabs, leave the page, scroll it mostly out of view, or go idle), it emits
+**one** `experienced` summary. Its `controls` extension lists each step studied with its
+dwell (`ms`), how it was studied (`modes`: hover or pinned), and its concept. Its duration
+replaces the page-level interval, and `statements_represented` counts the full-mode
+statements it stands for. Set `compact` to `false` to see the full stream. The panel header
+says which mode is active, and `make test-sims` checks both modes.
+
 **Why steps are `Control` and the page is `MicroSim`:** the page-level statement's object is
 the page IRI with no fragment, so it becomes exactly **one** `PageEngagement` vertex. Each
 step's object is fragment-qualified (`…/scientific-method/#hypothesis`) and typed `Control`,

@@ -10,20 +10,28 @@ social:
 ---
 # Sine Wave
 
-<iframe src="main.html" height="1160px" scrolling="no"></iframe>
+<iframe src="main.html" height="1330px" scrolling="no"></iframe>
 
 [Run the Sine Wave MicroSim Fullscreen](./main.html){ .md-button .md-button--primary }
 
-[Edit the Sine Wave MicroSim Using the p5.js Editor](https://editor.p5js.org/dmccreary/sketches/CkgBfjdKl)
-In this demo, we use three range control sliders to change 
-the ways a sine wave is drawn on a canvas.
+In this demo, we use three range control sliders to change
+the ways a sine wave is drawn on a canvas, following y = A·sin(2πf·x + φ).
 The three parameters are:
 
-1. amplitude
-2. period
-3. and phase
+1. **amplitude** (A): the height of the wave's peak, from 0 to 1, read directly off the
+   tick marks on the y-axis
+2. **frequency** (f): how many complete cycles fit across the drawing width
+3. **phase** (φ): the angle, in radians from −π to π, where the wave starts its cycle
 
-[Edit This MicroSim with the P5.js Editor](https://editor.p5js.org/dmccreary/sketches/f7E377T03)
+The **period** is not a slider. It is shown at the top of the drawing as T = 1/f, because
+it is not a separate setting: it is always the reciprocal of the frequency. Doubling the
+frequency halves the period, and the readout shows that as you drag.
+
+Phase is an **angle**, not a distance, and the drawing shows it in both radians and
+degrees. At φ = π/2 (90°) the sine wave starts at its peak and becomes a cosine wave. At
+φ = ±π (180°) it is flipped upside down. An angle means the same thing at any frequency.
+A horizontal shift in pixels, which is what this slider used to be, does not: the same
+shift moves a high-frequency wave through more of its cycle than a low-frequency one.
 
 ## Simulating an xAPI Event Stream
 
@@ -33,7 +41,7 @@ interactions into evidence of understanding:
 
 - **Show Raw xAPI Events** streams one simulated xAPI statement (Actor–Verb–Object,
   with a `result.extensions` payload carrying the new slider value) every time a
-  student drags the amplitude, period, or phase slider. This is intentionally
+  student drags the amplitude, frequency, or phase slider. This is intentionally
   noisy — a single drag can generate dozens of statements — to illustrate why an
   LRS never stores one graph vertex per statement.
 - **Show MicroSim Summary** compresses that same stream into the kind of
@@ -42,7 +50,99 @@ interactions into evidence of understanding:
   slider's range they explored, how many times they reversed direction (a signal
   of active comparison rather than a single accidental nudge), and a heuristic,
   clearly-labeled *estimated probability* that the student understands amplitude,
-  period, and phase — not a substitute for a real formative assessment.
+  frequency, and phase — not a substitute for a real formative assessment.
+
+### Three Concepts: Amplitude, Frequency, and Phase
+
+Each slider is evidence for exactly one concept, carried as the statement's `concept_id`,
+and each slider is **named for that concept**. The control a student drags and the
+concept the stream says it was evidence for use the same word:
+
+| Slider | Control IRI fragment | `concept_id` |
+|---|---|---|
+| Amplitude | `#amplitude-slider` | `amplitude` |
+| Frequency | `#frequency-slider` | `frequency` |
+| Phase | `#phase-slider` | `phase` |
+
+An earlier version of this sim had a **Period** slider whose statements were tagged
+`frequency`. That worked, but it put two words on one piece of evidence: the student
+dragged "Period" while the LRS recorded "frequency". Physics and signals courses, and most
+wave simulations, have students control frequency and read the period off it. That is
+also the more intuitive direction: slide right and you get more waves.
+
+The **MicroSim Summary** panel estimates, per concept, the probability that the student
+understands it. The estimate combines three pieces of evidence: how much of the slider's
+range was explored, how many times the student **reversed direction** (active comparison
+rather than one accidental nudge), and how many movements were made. It is a heuristic
+from exploration alone: nothing in this sim asks a question, so it can show that a
+student *explored* a concept, not that they can *answer* questions about it.
+
+### Full vs. Compact xAPI Streams
+
+The **xAPI events: Full / Compact** radio buttons switch between the two streams this book
+describes, on the same slider moves:
+
+- **Full** (the full LRS, high-bandwidth network, robust back end). One `interacted`
+  statement per detected movement, as described above. Every statement appears as you drag.
+- **Compact** ([LRS-Lite](../../lrs-lite/index.md#6-producer-side-summarization), a small
+  browser store, no server). **Nothing while you drag.** Movements are folded into one
+  session, and when the sim loses focus it emits **one** `experienced` summary. Its
+  `controls` extension holds, per slider, the `concept`, the movement count `n`, `min`,
+  `max`, `last`, and `reversals`. `statements_represented` says how many Full statements
+  the summary replaced.
+
+**Simulate Done** does what the host page does when the student moves on — switches tabs,
+leaves the page, scrolls the sim mostly out of view for `offscreenMs`, or stops for
+`idleMs`. In Compact mode that ends the session and emits the summary
+(`end_reason: "simulated-done"`). In Full mode there is nothing to flush: this sim has no
+Start/Pause, so there is no open run interval, and every movement has already been sent.
+Both controls turn on **Show Raw xAPI Events** so you can see the result.
+
+!!! note "Why the compact summary carries `reversals`"
+    Coverage (`min`, `max`) and the movement count survive compression unchanged. Direction
+    changes don't: a Full stream is an **ordered** sequence of values, so a reader can count
+    reversals by walking it, but a summary has no order left to walk. So the compact
+    summary carries `reversals` explicitly. Without it, the Compact stream could not
+    support the same understanding estimate the Full stream does.
+
+Try it: leave the radio on **Full**, drag each slider back and forth, and count the
+statements. Switch to **Compact** and repeat the same moves: the log stays silent. Press
+**Simulate Done**: one statement appears, and its `statements_represented` is roughly the
+count you saw in Full mode. Then press **View Formatted JSON ↗** in the raw event panel
+to read that statement properly.
+
+### Reading a Statement: View Formatted JSON
+
+In the log, each statement is one long line of JSON, which is accurate but hard to read.
+**View Formatted JSON ↗** opens the most recent statement in a **new tab**, and clicking
+any line in the log opens that statement instead. The tab shows:
+
+- the statement **pretty-printed with line numbers and colors**, exactly as it was
+  emitted;
+- the fields compact mode adds **highlighted** (`statements_represented`, `end_reason`,
+  `controls`, …), so you can see what a summary adds to an ordinary xAPI statement;
+- a **How to read it** table explaining each field that is present;
+- **Copy JSON** and **Download .json** buttons.
+
+It opens in a new tab, not inside the sim, because the sim is embedded in a fixed-height
+frame. A 70-line statement would either be cut off inside it or force the frame much
+taller for every reader. The tab is built in your browser; nothing is sent to a server. Switching from Compact back to Full also ends the session
+first (`end_reason: "mode-switch"`), so folded movements are never lost.
+
+The radio starts from the `xapi` block in this sim's [`metadata.json`](metadata.json).
+It starts on **Full**, like the [Bouncing Ball](../bouncing-ball/index.md) sim, so a reader
+sees the per-movement stream first and then watches Compact shrink it:
+
+```json
+"xapi": { "compact": false, "idleMs": 90000, "offscreenMs": 10000, "blurMs": 30000 }
+```
+
+The **MicroSim Summary** panel works the same in both modes, because it is computed from
+the movements themselves. Compact mode is Option B in the trade-off below, with one
+difference that matters: the summary is itself a statement in the log. The log still
+records that a session happened and how much it compressed, just not each individual
+movement. `make test-sims` checks both modes, the live switch, and Simulate Done in
+headless Chromium.
 
 ### Architecture Trade-off: Where Should the Scoring Happen?
 
@@ -76,7 +176,7 @@ version of this** — `handleSliderInput()` in `sine-wave.js` computes
 once the value has moved by at least that much, which is why one full slider
 sweep produces on the order of 60 statements instead of the hundreds of raw
 `input` events the browser actually fires. A real implementation could tune
-that threshold — or make it adaptive — independently for amplitude, period,
+that threshold — or make it adaptive — independently for amplitude, frequency,
 and phase.
 
 | Dimension | A: every raw interaction | B: summary only, sent on blur | C: threshold-triggered events |

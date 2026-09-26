@@ -406,27 +406,63 @@ Nearly every MicroSim has a Start/Pause control, and it is the interaction the v
 express until this section existed. The reference implementation is
 [`docs/sims/bouncing-ball/`](../sims/bouncing-ball/index.md).
 
-> **A Start/Pause pair is ONE run interval, and a run interval is ONE `experienced` statement,
-> emitted on Pause, carrying the elapsed time as `result.duration`.**
+> **A Start/Pause pair is ONE run interval, and a run interval's DURATION is carried by ONE
+> `experienced` statement, emitted on Pause, carrying the elapsed time as `result.duration`.**
+> Button presses may additionally emit `interacted` statements (§7.1) — that is evidence
+> the control was touched, never evidence of how long the interval lasted.
 
 | Event | Emit | Why |
 |---|---|---|
-| **Start** | **Nothing.** Record the wall clock. | A student who starts a sim and walks away has produced no evidence. A `started` with no matching `paused` is an unclosed interval nothing can score, and it would inflate `statements_compressed` with rows that carry no duration. |
-| **Pause** | **One** `experienced`, `result.duration` = elapsed. | The interval *is* the evidence. `result.duration` is the only field feeding `dwell_ms_total`, and one statement carries it as well as two do. |
-| **Tab hidden while running** | The same `experienced`, flushed. | Start-it-and-close-the-tab is the **common** case, not the edge case. Without a flush the modal student emits nothing at all. Use `visibilitychange`, not `beforeunload` — it is the only one that fires reliably on mobile Safari. |
-| **Run < 250 ms** | **Nothing.** | A mis-click is not engagement. Emitting it puts `PT0S` rows into `dwell_ms_total` and pollutes the C-6 ratio with noise. |
+| **Start** | Wall clock recorded. No `experienced` yet. An `interacted` press event MAY also be emitted (§7.1) — it carries no duration. | A student who starts a sim and walks away has produced no *dwell* evidence. An `experienced` with no matching close would be an unclosed interval nothing can score, and it would inflate `statements_compressed` with rows that carry no duration. |
+| **Pause** | **One** `experienced`, `result.duration` = elapsed. An `interacted` press event MAY also be emitted (§7.1) for the same click. | The interval *is* the dwell evidence. `result.duration` is the only field feeding `dwell_ms_total`, and one statement carries it as well as two do. |
+| **Tab hidden while running** | The same `experienced`, flushed. **No** `interacted` — this is not a button press. | Start-it-and-close-the-tab is the **common** case, not the edge case. Without a flush the modal student emits nothing at all. Use `visibilitychange`, not `beforeunload` — it is the only one that fires reliably on mobile Safari. |
+| **Run < 250 ms** | The `interacted` press events still fire, if emitted at all (§7.1) — the clicks happened. **No** `experienced`. | A mis-click is not *dwell* evidence. Emitting it puts `PT0S` rows into `dwell_ms_total` and pollutes the C-6 ratio with noise. It is still evidence the control was touched. |
 
 **The object is the page, not the button.** `object.id` is the sim's page IRI with no fragment, typed
 `simulation` → `MicroSim` (§5). The Start/Pause button is *not* its own activity: what is being
 measured is engagement with the simulation, and the button is merely how the student expressed it. A
 button-fragment IRI here would land the dwell in a `PageEngagement` vertex named after a button.
 
-**Why not two statements.** The literal instrumentation — `started` on Start, `paused` on Pause — is
-more xAPI-idiomatic and is what most LRS integrations do. It is rejected here because it doubles
-statement volume for zero additional information, requires the reader to reconstruct duration by
-pair-joining statements at read time (ordering under at-least-once delivery makes that unreliable), and
-produces unclosed intervals whenever a student never pauses. The pattern above degrades gracefully:
-the worst case is a *missing* interval, never a *wrong* one.
+**Why not two statements *for duration*.** The literal instrumentation — a `started` verb on Start, a
+`paused` verb on Pause, with the reader reconstructing `result.duration` by pair-joining them — is more
+xAPI-idiomatic and is what most LRS integrations do. It is rejected here because it doubles statement
+volume for zero additional information, requires the reader to reconstruct duration at read time
+(ordering under at-least-once delivery makes that unreliable), and produces unclosed intervals whenever
+a student never pauses. The pattern above degrades gracefully: the worst case is a *missing* interval,
+never a *wrong* one. Note also that `started`/`paused` are not in the v1 verb set at all (§3) — this
+was never available as a literal option, only as the shape to avoid.
+
+### 7.1 Button-press interaction evidence  **[NEW 2026-09-26]**
+
+The reference implementation (`bouncing-ball.js`) additionally emits an `interacted` statement for the
+Start press and another for the Pause press — object `…/sims/bouncing-ball/#start-pause-control`, typed
+`Control` (§5), `result.extensions["https://w3id.org/lrs/ext/action"]` = `"start"` or `"pause"`, no
+`result.duration`. One fragment id for both presses: the button's label toggles, but per §2's test
+("would an edit that does not change what the thing *is* change its IRI?") it stays one control.
+
+**This is additive, not the rejected pattern above.** The rejected pattern computes `result.duration`
+*from* a start/pause pair. These `interacted` statements carry no duration at all and are never read
+to derive one — `result.duration` still comes from exactly one `experienced` statement, unchanged. What
+they add is answering a different question ("was the control touched, and how many times?") that the
+dwell statement cannot answer on its own — the same reason `#speed-slider` gets its own `interacted`
+stream alongside the page-level `experienced`. The honest cost: a full Start→Pause cycle now emits
+**three** statements instead of one, not two.
+
+**A press event MUST NOT fire on a flush.** `visibilitychange`, idle, scroll-away, and blur end an
+interval the same way Pause does, but the student did not click anything, so no `interacted` fires for
+those — only the `experienced` closing the interval. Emitting a synthetic "pause" press on a flush would
+misrepresent an automatic timeout as a deliberate act.
+
+**Compact mode.** Under LRS-Lite (`docs/lrs-lite/index.md` §6), each press folds into the session via
+`Session.touch('start-pause-control', undefined, {mode, concept})` exactly like a slider step, and
+contributes to the same `statements_represented` count — it is still evidence the full stream would
+have emitted, just compressed the same way.
+
+**This is optional per emitter, not a v1 requirement.** A MicroSim with a Start/Pause control MAY skip
+the button-press `interacted` statements and keep emitting only the dwell pattern above; nothing about
+§7's core rule (one `experienced` per interval, on Pause) changes. `sine-wave.js` and
+`scientific-method`'s page-level dwell, which have no Start/Pause control at all, are unaffected either
+way.
 
 **Paused-by-default is load-bearing.** The MicroSim standard requires every sim to load paused. That
 is primarily pedagogical — a sim animating as a student scrolls past is a distraction. But it is also a
@@ -644,3 +680,14 @@ Everything the DDL reads, and where it comes from. If a row here is wrong, a rol
   "fix the URI" was not a one-line job.
 - ~~**Start/Pause has no contracted representation.**~~ Now §7, with
   [`bouncing-ball`](../sims/bouncing-ball/index.md) as the reference emitter.
+
+**Closed 2026-09-26:**
+
+- ~~**Start/Pause button presses carry no interaction evidence, only the closed
+  interval does.**~~ Now §7.1. `bouncing-ball.js` emits an `interacted` statement per
+  press (`#start-pause-control`, `action: start|pause`), additive to the unchanged §7
+  dwell pattern — it does not reconstruct `result.duration` from the pair, so it is not
+  the two-statement pattern §7 rejects. Also: the speed slider moved off the sim's
+  umbrella `motion` concept onto its own `adjustable-speed` (§6 already allows one
+  `concept_id` per statement; this just picks a more specific one for the slider).
+  `tests/test_microsim_compact_xapi.py` covers both, full mode and compact.

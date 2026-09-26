@@ -133,7 +133,7 @@ The request, broken into testable requirements:
 ### 1.3 What this document changes in the earlier draft
 
 The earlier [LRS-Lite draft](../specs/learning-record-store-lite-design.md) got most things
-right: IndexedDB, producer-side summarization with a per-sim `config.json`, per-student S3
+right: IndexedDB, producer-side summarization with a per-sim policy file, per-student S3
 prefixes, delegated identity, a replay script, and a migration path. This document keeps
 all of that. It revises five points, each for a reason given later:
 
@@ -767,7 +767,7 @@ sequenceDiagram
 | `docs/lrs-lite/privacy.md` | Privacy notice, including the published retention period (COPPA §312.4, §312.10) |
 | `docs/lrs-lite/security-program.md` | Written information-security program (COPPA §312.8(b)) |
 | `docs/sims/personal-learning-graph/` | Mastery-colored learning-graph viewer (fork of `sims/graph-viewer`) |
-| `docs/sims/*/config.json` | Per-sim emission policy and evidence mapping |
+| `docs/sims/*/metadata.json` → `xapi` block | Per-sim emission policy (compact or full) and, later, the evidence mapping ([§6.4](#64-per-sim-policy-the-xapi-block-in-metadatajson)) |
 | `deploy/lrs-lite/` | Infrastructure as code: bucket, CORS, lifecycle, Cognito, IAM roles, budget alarm |
 | `scripts/lrs-lite-replay.mjs` | Rebuilds and verifies summaries from a student's segments, and replays them into the full LRS |
 
@@ -912,13 +912,21 @@ A summary is an ordinary contract-v1 `experienced` statement on the sim's page I
       "https://w3id.org/lrs/ext/range_coverage": 0.64,
       "https://w3id.org/lrs/ext/goals": {"see-crash-after-wrong": true, "reach-0.95": false},
       "https://w3id.org/lrs/ext/predictions": {"correct": 2, "total": 3},
-      "https://w3id.org/lrs/ext/end_reason": "scrolled-away"
+      "https://w3id.org/lrs/ext/end_reason": "scrolled-away",
+      "https://w3id.org/lrs/ext/xapi_mode": "compact"
     }
   },
   "context": {"extensions": {"https://w3id.org/lrs/ext/concept_id": "slip-parameter",
-                             "https://w3id.org/lrs/ext/interaction_count_represented": 57}}
+                             "https://w3id.org/lrs/ext/statements_represented": 57}}
 }
 ```
+
+`statements_represented` counts the full-mode statements the summary stands for: every
+slider step past its deadband, every Start/Pause run, every step studied. It keeps the
+compression ratio observable at the producer, as spec requirement C-6 asks. The
+implementation (`docs/js/lrs-lite-sim.js`, 2026-09-25) also records `session_ms`
+(wall-clock length of the session) and, for Start/Pause sims, `runs`
+(`{count, ms}`).
 
 *(Actor, grouping, `id`, `timestamp`, `device_id`, `device_seq`, and `hlc` are omitted
 for brevity.)* The new extension IRIs must be added to the producer contract's extension
@@ -932,7 +940,8 @@ focus, timing, and emission:
 
 ```js
 // in setup(), after updateCanvasSize() and createCanvas(...)
-const sim = LRSLite.sim();                 // reads ./config.json; defaults if absent
+const sim = LRSLite.sim({ name: 'BKT Four Parameters Explorer', concept: 'slip-parameter',
+                         publish: publish });   // reads ./metadata.json → "xapi"
 
 slipSlider.input(() => sim.touch('slip', slipSlider.value()));
 guessSlider.input(() => sim.touch('guess', guessSlider.value()));
@@ -947,15 +956,32 @@ checkButton.mousePressed(() => sim.predict('trajectory-after-wrong', studentPick
 ([§9.1](#91-evidence-classes)). Keeping the two distinct is what stops the personal graph
 from turning green because a student wiggled a slider.
 
-### 6.4 `config.json` v2
+### 6.4 Per-sim policy: the `xapi` block in `metadata.json`
 
-This extends the earlier draft's schema (§5.2 there) with an evidence map:
+The policy lives in the sim's existing `metadata.json`, not in a separate `config.json`.
+One file per sim is easier for authors and tooling to keep straight. **Implemented
+2026-09-25** in `docs/js/lrs-lite-sim.js`, with three test sims (`bouncing-ball`,
+`sine-wave`, `scientific-method`) and headless-Chromium tests of both modes
+(`make test-sims`):
 
 ```json
-{
-  "schema": "lrs-lite-config/v2",
-  "emission": { "mode": "summary", "idle_ms": 90000, "offscreen_ms": 10000,
-                "min_active_ms": 3000, "max_summaries_per_hour": 20 },
+"xapi": { "compact": true, "idleMs": 90000, "offscreenMs": 10000, "blurMs": 30000 }
+```
+
+| Key | Default | Meaning |
+|---|---|---|
+| `compact` | `true` | `true`: fold interactions into a session and emit one summary on focus loss. `false`: the sim's full per-interaction stream |
+| `idleMs` | 90000 | No input for this long, while the sim is not running, ends the session |
+| `offscreenMs` | 10000 | The sim less than 25% visible for this long ends the session |
+| `blurMs` | 30000 | The frame losing keyboard focus for this long ends the session |
+
+**A missing block or key, or an unreadable `metadata.json`, means compact.** A sim with no
+policy is in summary mode: not silent, and not verbose. The evidence map is the next
+extension of the same block. It is not implemented yet:
+
+```json
+"xapi": {
+  "compact": true,
   "concepts": ["slip-parameter", "guess-parameter"],
   "goals": {
     "see-crash-after-wrong": { "concept": "slip-parameter", "weight": 0.6 },
@@ -967,10 +993,9 @@ This extends the earlier draft's schema (§5.2 there) with an evidence map:
 }
 ```
 
-A missing `config.json` means summary mode, with the sim inheriting the **concepts of the
-chapter that embeds it** as *exposure-only* evidence. Tooling can generate
-`config.json` stubs from the chapter's concept list. The `microsim-generator` skill's
-template should emit one for every new sim.
+Without `concepts`, the sim inherits the **concepts of the chapter that embeds it** as
+*exposure-only* evidence. Tooling can generate the block from the chapter's concept list,
+and the `microsim-generator` skill's template should emit one for every new sim.
 
 ### 6.5 Page reading summaries
 
@@ -1309,7 +1334,7 @@ of an opportunity to learn.
 | Quiz answer, first attempt, answer not revealed | `answered` | 1 or 0 | 1.0 | **Assessed** |
 | Quiz answer, retry or after revealing the answer | `answered` | 1 or 0 | 0.25 | Assessed (weak) |
 | MicroSim prediction checked (committed before the sim shows the outcome) | sim summary `predictions` | correct ÷ total | 0.8 | **Assessed** |
-| MicroSim goal achieved | sim summary `goals` | 1 per goal met | 0.6 (from `config.json`), with a raised guess parameter (0.4) because trial and error with feedback inflates success | **Assessed** |
+| MicroSim goal achieved | sim summary `goals` | 1 per goal met | 0.6 (from `metadata.json` → `xapi.goals`), with a raised guess parameter (0.4) because trial and error with feedback inflates success | **Assessed** |
 | MicroSim exploration (coverage ≥ 0.5, active ≥ 60 s) | sim summary | — | opportunity only | Exposure |
 | Page read (`read_state = read`) | page summary | — | opportunity only | Exposure |
 | Page skimmed or visited | page summary | — | none | Visit only |
@@ -1412,7 +1437,7 @@ Mastery needs every piece of evidence tied to concept IDs. Measured against this
 |---|---|---|
 | Chapter pages | The chapter `index.md` "Concepts Covered" list | ✅ **578 of 578** entries exactly match learning-graph labels. The mapping is exact and free |
 | Quiz questions | The "Concept Tested" line in `quiz.md` | ⚠️ **All 32 chapters have a quiz (352 questions)**, but only **228 (65%)** of the "Concept Tested" labels exactly match a graph concept. Only **226 of 578** concepts have at least one quiz item, and **2** have two or more |
-| MicroSims | `config.json` `concepts`, `goals`, `predictions` | ❌ No sim has one yet. Fallback: the embedding chapter's concepts as exposure (124 embeds across chapters) |
+| MicroSims | `metadata.json` → `xapi.concepts`, `goals`, `predictions` | ❌ No sim declares these yet (three test sims have the `compact` switch only). Fallback: the embedding chapter's concepts as exposure (124 embeds across chapters) |
 
 A build-time hook (`plugins/lrs_lite_concept_map.py`) generates `concept-map.json`, about
 60 KB and served statically, so it doesn't count against the 10 MB. It maps every page
@@ -1433,7 +1458,7 @@ third of what is needed. Three complementary ways to close the gap:
 2. **Inline concept checks:** two short questions per concept, embedded in the chapter
    where the concept is taught and emitted as `answered` with the same fragment scheme
    ([contract §2](../specs/xapi-producer-contract-v1.md#2-question-iris-the-fragment-scheme-resolved-2026-07-16)).
-3. **MicroSim predictions and goals** in `config.json`, for the sims that already teach
+3. **MicroSim predictions and goals** in each sim's `metadata.json` `xapi` block, for the sims that already teach
    those concepts.
 
 A pilot does not need the whole book. Covering **the chapters the pilot actually teaches**
@@ -1902,11 +1927,14 @@ process finishes.
 
 ### Phase 2 — MicroSim sessions (2 weeks)
 
-- `lrs-lite-sim.js` with every focus-loss signal from [§6.1](#61-what-loses-focus-means-for-a-microsim).
-- Retrofit three reference sims (`sine-wave`, `bouncing-ball`, `bkt-four-parameters-explorer`)
-  with `config.json`, goals, and predictions.
-- Update the `microsim-generator` templates so new sims include the session API and a
-  `config.json` stub.
+- ✅ *Done 2026-09-25:* `docs/js/lrs-lite-sim.js` with every focus-loss signal from
+  [§6.1](#61-what-loses-focus-means-for-a-microsim), and the `metadata.json` `compact`
+  switch in three test sims (`bouncing-ball`, `sine-wave`, `scientific-method`), tested on
+  and off by `make test-sims`.
+- Add goals and predictions to a sim that assesses something (`bkt-four-parameters-explorer`),
+  and implement the `xapi.concepts`/`goals`/`predictions` keys.
+- Update the `microsim-generator` templates so new sims include the session API and an
+  `xapi` block in `metadata.json`.
 
 **Exit:** 40 slider drags produce one statement. Switching tabs mid-session emits the
 summary. Scrolling the iframe off screen for 10 s emits it. Returning starts a new

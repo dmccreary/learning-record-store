@@ -315,6 +315,16 @@ document.addEventListener('click', (e) => {
   var pageShownAt = Date.now();
   var pageClosed = false;
 
+  // Compact xAPI (LRS-Lite). metadata.json → "xapi": {"compact": true|false}. When compact,
+  // node studies are folded into ONE `experienced` summary emitted when the diagram loses
+  // focus (docs/lrs-lite/index.md §6); the summary's duration replaces the page-level
+  // interval below. When false, or without lrs-lite-sim.js, the full stream is unchanged.
+  var xapi = window.LRSLite
+    ? LRSLite.sim({ name: 'Scientific Method Workflow', concept: 'iterative-investigation',
+                    publish: publish })
+    : null;
+  if (xapi) xapi.ready.then(showXapiMode);
+
   function uuid() {
     if (window.crypto && window.crypto.randomUUID) return window.crypto.randomUUID();
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -349,6 +359,7 @@ document.addEventListener('click', (e) => {
   // the interval is simply time-on-page. Flushed on tab-hide, exactly as contract §7
   // requires — start-it-and-close-the-tab is the common case, not the edge case.
   function closePageInterval(reason) {
+    if (xapi && xapi.compact) return;   // the session summary carries the page's dwell
     if (pageClosed) return;
     pageClosed = true;
     var elapsed = Date.now() - pageShownAt;
@@ -378,6 +389,12 @@ document.addEventListener('click', (e) => {
   function emitNodeStudy(key, dwellMs, mode) {
     var concept = NODE_CONCEPT[key];
     if (!concept) return;
+
+    if (xapi && xapi.compact) {
+      xapi.touch('#' + key.toLowerCase(), undefined, { ms: dwellMs, mode: mode, concept: concept });
+      note(key.toLowerCase() + ' [' + mode + '] folded into the session summary');
+      return;
+    }
 
     var st = base('interacted', 'interacted');   // not `answered`: no success, no knowledge claim
     st.object = {
@@ -431,8 +448,9 @@ document.addEventListener('click', (e) => {
     wrap.innerHTML =
       '<div class="xapi-panel-header"><strong>xAPI statements emitted:</strong> ' +
       '<span id="stmt-count">0</span><span class="xapi-header-note"> &mdash; pause on a step ' +
-      'for &gt;0.6s, or click to pin it. Engagement only: no statement here claims the ' +
-      'student understands anything. Nothing is sent to a server.</span></div>' +
+      'for &gt;0.6s, or click to pin it. <span id="xapi-mode"></span> Engagement only: no ' +
+      'statement here claims the student understands anything. Nothing is sent to a ' +
+      'server.</span></div>' +
       '<div id="xapi-log" class="xapi-log"></div>';
     // Append INSIDE .main-content (the flex row) and let CSS wrap it onto its own full
     // row via `flex: 1 0 100%`. Two placements that do NOT work:
@@ -447,6 +465,7 @@ document.addEventListener('click', (e) => {
 
   function publish(st, summary) {
     statementCount++;
+    if (window.LRSLite) LRSLite.record(st);
     var log = panel();
     var a = document.createElement('div');
     a.className = 'xapi-log-line';
@@ -460,6 +479,28 @@ document.addEventListener('click', (e) => {
     log.scrollTop = log.scrollHeight;
     var c = document.getElementById('stmt-count');
     if (c) c.textContent = String(statementCount);
+  }
+
+  // A log line that is NOT a statement: what compact mode folded instead of emitting.
+  function note(msg) {
+    var log = panel();
+    var d = document.createElement('div');
+    d.className = 'xapi-log-line xapi-log-note';
+    d.textContent = '· ' + msg;
+    log.appendChild(d);
+    while (log.childElementCount > 80) log.removeChild(log.firstChild);
+    log.scrollTop = log.scrollHeight;
+  }
+
+  // Say in the panel which mode metadata.json selected.
+  function showXapiMode(session) {
+    panel();
+    var el = document.getElementById('xapi-mode');
+    if (!el) return;
+    el.textContent = session.compact
+      ? 'Compact mode: studies are folded into ONE summary, emitted when the diagram ' +
+        'loses focus (scroll away, switch tabs, or go idle).'
+      : 'Full mode: one statement per step studied, plus the page dwell on tab-hide.';
   }
 
   // --- wire up --------------------------------------------------------------------

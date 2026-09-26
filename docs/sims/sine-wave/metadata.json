@@ -1,6 +1,6 @@
 {
   "title": "Sine Wave",
-  "description": "Interactive simulation of sine wave amplitude, period and phase, with optional panels that simulate the xAPI event stream those sliders generate and the compressed MicroSim engagement summary an LRS would derive from it.",
+  "description": "Interactive simulation of sine wave amplitude, frequency and phase, with the period shown as 1/f, with optional panels that simulate the xAPI event stream those sliders generate and the compressed MicroSim engagement summary an LRS would derive from it.",
   "creator": "Dan McCreary",
   "date": "2025-11-24",
   "subject": [
@@ -25,6 +25,9 @@
   ],
   "concepts": [
     "Sine Wave",
+    "Amplitude",
+    "Frequency",
+    "Phase",
     "xAPI",
     "Learning Record Store"
   ],
@@ -75,6 +78,18 @@
       "corrective",
       "explanatory"
     ],
-    "interactionStyle": "manipulate"
+    "interactionStyle": "manipulate",
+    "keyQuestions": [
+      "Make the same slider moves in Full and then Compact mode. How many statements does each produce?",
+      "Why does the compact summary carry a reversals count for each slider, when the full stream never states one?",
+      "Why is the period shown as a readout instead of having its own slider?",
+      "Why does Simulate Done emit nothing in Full mode for this sim, when it closes a run in the Bouncing Ball sim?"
+    ]
+  },
+  "xapi": {
+    "compact": false,
+    "idleMs": 90000,
+    "offscreenMs": 10000,
+    "blurMs": 30000
   }
 }

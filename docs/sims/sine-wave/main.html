@@ -46,6 +46,19 @@
             white-space: nowrap;
             overflow-x: auto;
         }
+        .xapi-log-note {
+            color: #f0c674;
+        }
+        .xapi-log-clickable {
+            cursor: pointer;
+        }
+        .xapi-log-clickable:hover {
+            background: #2d3a2d;
+        }
+        .xapi-view-btn {
+            margin-left: 8px;
+            font-size: 12px;
+        }
         .xapi-concept-scores {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -151,6 +164,13 @@
             color: #555;
         }
     </style>
+    <!-- Statement construction (the producer contract) and compact-mode sessions.
+         metadata.json's "xapi" block chooses compact or full. The sim still runs
+         without these two files (e.g. pasted into the p5.js editor). -->
+    <script src="../../js/lrs-xapi.js"></script>
+    <script src="../../js/lrs-lite-sim.js"></script>
+    <!-- Opens a statement pretty-printed and explained in a new tab. Optional too. -->
+    <script src="../../js/xapi-json-viewer.js"></script>
     <!-- Put your script file name here -->
     <script src="sine-wave.js"></script>
 </head>
