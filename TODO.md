@@ -153,14 +153,16 @@ aids). The tokens are `teaching`, `teaching,compact`, `full`, `compact` and `pro
   - the `describe(…, LABEL)` caption makes the page 534 px in a 482 px iframe;
   - ~~service names are clipped~~ (fixed 2026-09-26: `text()` got a box width, so p5 took x as the box's left edge);
   - Gateway/Processor have no failure-mode concept in the learning graph.
-- **The eval-instrumented sims were adopted (2026-09-26), uncommitted until Dan says "publish".**
+- **The eval-instrumented sims were adopted and published (2026-09-26):** here in `a6c0062`, and in
+  3d-printing-course in `6d31ad6`.
   - Here: `chaos-kill-test-simulator` (production). Also `xapi-statement-triple` (teaching sim);
     its iframe and chapter 1's embed are now 790 px, set via `sync-iframe-heights.py`.
   - In `../3d-printing-course`: `fdm-price-history`, plus the runtime in `docs/js/` and `docs/css/`
     and its `lrs-config.js` (`textbookId: '3d-printing-course'`, still the open decision above).
   - Verified in the real books: check-xapi 49/6/0, 51/0/0 and 51/0/0; `make test-sims` 26/26; both
     `mkdocs build`s clean.
-  - Once 3d-printing-course is published, flip the skill's Chart.js adapter from "piloted" to "verified".
+  - Done: the skill's Chart.js adapter, Mermaid click-to-pin template, and p5-canvas click/predict path
+    are now **verified**. p5-canvas drags are still unverified (pilot: `ideation-sketch-canvas`).
 - **Decision evidence for `textbookId`:** both eval baselines chose the seeder's
   `tb-{repo-slug}`. The skill's `install-runtime.py` defaults to the bare repo slug. Pick one.
 - **Done this session:** scientific-method's phone layout. At under 600 px, a wrapping column flex made the page
