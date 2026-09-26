@@ -472,3 +472,71 @@ def test_l6_scientific_method(open_sim: Any, compact: bool) -> None:
     assert all(c["n"] == 1 and c["modes"] == {"pinned": 1} and c["concept"] for c in
                controls.values())
     assert summary["context"]["extensions"][EXT + "statements_represented"] == 2
+
+
+def _pin_two_steps(frame: Any) -> None:
+    frame.wait_for_selector(".mermaid .node", timeout=20000)
+    frame.wait_for_timeout(1500)  # the sim wires its node handlers 1.2 s after load
+    nodes = frame.locator(".mermaid .node")
+    nodes.nth(1).click()
+    nodes.nth(3).click()
+
+
+def test_l6_scientific_method_simulate_done_emits_the_compact_summary(
+    open_sim: Any, page: Any
+) -> None:
+    frame = open_sim("scientific-method", {"compact": False, **FAST})
+    assert frame.get_by_label("Full").is_checked()
+    frame.get_by_label("Compact").check()
+    assert mode(frame) == "compact"
+
+    _pin_two_steps(frame)
+    assert statements(frame) == []
+    frame.get_by_role("button", name="Simulate Done").click()
+
+    sts = statements(frame)
+    assert len(sts) == 1
+    assert_contract_summary(sts[0], SITE + "sims/scientific-method/", "iterative-investigation")
+    assert sts[0]["result"]["extensions"][EXT + "end_reason"] == "simulated-done"
+    assert sts[0]["context"]["extensions"][EXT + "statements_represented"] == 2
+
+    with page.context.expect_page() as opened:
+        frame.get_by_role("button", name="View Formatted JSON").click()
+    tab = opened.value
+    tab.wait_for_load_state()
+    assert sts[0]["id"] in tab.locator(".sub").first.inner_text()
+    assert "stands for 2 full-mode statements" in tab.locator(".banner").inner_text()
+
+
+def test_l6_scientific_method_simulate_done_in_full_mode_emits_page_dwell(
+    open_sim: Any,
+) -> None:
+    frame = open_sim("scientific-method", {"compact": False, **FAST})
+    _pin_two_steps(frame)  # also puts > 1 s on the page
+    frame.get_by_role("button", name="Simulate Done").click()
+
+    sts = statements(frame)
+    assert verbs(sts) == ["interacted", "interacted", "experienced"]
+    assert sts[2]["object"]["id"] == SITE + "sims/scientific-method/"
+    assert sts[2]["result"]["extensions"][EXT + "run-ended-by"] == "simulated-done"
+    # Pressing a control in the xAPI panel must not un-pin the step being studied.
+    assert frame.locator(".mermaid .node.highlighted").count() == 1
+
+
+def test_l6_scientific_method_switching_modes_never_loses_or_doubles_dwell(
+    open_sim: Any,
+) -> None:
+    frame = open_sim("scientific-method", {"compact": False, **FAST})
+    _pin_two_steps(frame)
+    frame.get_by_label("Compact").check()  # full → compact closes full mode's page interval
+    sts = statements(frame)
+    assert verbs(sts) == ["interacted", "interacted", "experienced"]
+    assert sts[2]["result"]["extensions"][EXT + "run-ended-by"] == "mode-switch"
+
+    frame.locator(".mermaid .node").nth(5).click()  # folded, not emitted
+    assert len(statements(frame)) == 3
+    frame.get_by_label("Full").check()  # compact → full flushes the folded session
+    sts = statements(frame)
+    assert len(sts) == 4
+    assert sts[3]["result"]["extensions"][EXT + "end_reason"] == "mode-switch"
+    assert sts[3]["context"]["extensions"][EXT + "statements_represented"] == 1

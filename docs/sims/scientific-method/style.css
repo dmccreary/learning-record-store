@@ -244,5 +244,9 @@ footer {
    becomes a narrow clipped third column instead of claiming its own full-width row. */
 .xapi-panel {
   flex: 1 0 100%;
+  /* A flex item's min-width defaults to its content width, and each raw statement is
+     one unwrapped line of JSON — without this the panel (and the page) grows thousands
+     of pixels wide in full mode. With it, each log line scrolls on its own instead. */
+  min-width: 0;
   margin: 16px 0 0 0;
 }

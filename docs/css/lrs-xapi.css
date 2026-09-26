@@ -62,3 +62,21 @@
 .xapi-log-line { white-space: nowrap; overflow-x: auto; }
 .xapi-log-raw  { color: #6f8f6f; }
 .xapi-log-note { color: #e6c07b; white-space: normal; }
+
+/* Full/Compact + Simulate Done row, for sims that build their controls in HTML
+   rather than p5 (p5 sims use createRadio/createButton on the canvas instead). */
+.xapi-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 14px;
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+.xapi-controls-label { font-weight: bold; }
+.xapi-controls label { cursor: pointer; }
+
+/* A statement's log line opens it formatted in a new tab (js/xapi-json-viewer.js). */
+.xapi-log-clickable { cursor: pointer; }
+.xapi-log-clickable:hover { background: #2d3a2d; }
+.xapi-view-btn { margin-left: 8px; font-size: 12px; }

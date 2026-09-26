@@ -12,11 +12,11 @@ The scientific method is the systematic process that scientists use to investiga
 
 ## Interactive Diagram
 
-<iframe src="main.html" width="100%" height="1600px" scrolling="no"></iframe>
+<iframe src="main.html" width="100%" height="2140px" scrolling="no"></iframe>
 [View Fullscreen](./main.html)
 
 ```html
-<iframe src="main.html" width="100%" height="1600px" scrolling="no"></iframe>
+<iframe src="main.html" width="100%" height="2140px" scrolling="no"></iframe>
 ```
 ## Process Steps
 
@@ -171,15 +171,35 @@ exist under a different `textbook_id`.
 | Click a step to pin it | one `interacted`, `engagement-mode: pinned` | Unambiguous intent — pinning is a decision, so it counts regardless of dwell. |
 | Leave the page / hide the tab | one `experienced` with `result.duration` | Page-level dwell (contract §7). This diagram has no Start/Pause control, so the interval is simply time on the page. |
 
-**Compact mode (this diagram's setting).** The table above is the *full* stream. This
-diagram's [`metadata.json`](metadata.json) sets `"xapi": {"compact": true, ...}`, so the
-same hovers and pins are **folded** into one session instead. When the diagram loses focus
-(you switch tabs, leave the page, scroll it mostly out of view, or go idle), it emits
-**one** `experienced` summary. Its `controls` extension lists each step studied with its
-dwell (`ms`), how it was studied (`modes`: hover or pinned), and its concept. Its duration
-replaces the page-level interval, and `statements_represented` counts the full-mode
-statements it stands for. Set `compact` to `false` to see the full stream. The panel header
-says which mode is active, and `make test-sims` checks both modes.
+### Full vs. Compact, Simulate Done, and View Formatted JSON
+
+The xAPI panel under the diagram has the same controls as the
+[Bouncing Ball](../bouncing-ball/index.md) and [Sine Wave](../sine-wave/index.md) sims:
+
+- **xAPI events: Full / Compact.** **Full** (the default) is the stream in the table above:
+  one statement per step studied, sent as it happens, the way a full LRS ingests it.
+  **Compact** is [LRS-Lite](../../lrs-lite/index.md#6-producer-side-summarization)'s
+  stream: the same hovers and pins are **folded** into one session, and when the diagram
+  loses focus it emits **one** `experienced` summary. Its `controls` extension lists each
+  step studied with its dwell (`ms`), how it was studied (`modes`: hover or pinned), and
+  its concept. `statements_represented` counts the Full statements it stands for.
+- **Simulate Done** does what the host page does when the reader moves on (switches tabs,
+  leaves, scrolls away, or goes idle). In **Compact** it ends the session and emits the
+  summary. In **Full** it closes the **page-level dwell interval** and emits that
+  `experienced` statement, exactly as hiding the tab would. This is the difference from
+  Sine Wave: a diagram has no Start/Pause, but it does have time on the page, and in Full
+  mode that is the one thing not already sent.
+- **View Formatted JSON ↗** opens the most recent statement in a new tab, pretty-printed,
+  with the compact-only fields highlighted and a table explaining each field. Clicking any
+  line in the log opens that statement instead.
+
+**Switching modes never loses or double-counts dwell.** Each mode keeps its own record of
+time on the page: Full mode keeps the page interval, and Compact mode keeps the session
+summary. Switching from Full to Compact emits Full mode's page interval so far
+(`run-ended-by: "mode-switch"`). Switching back emits the compact summary
+(`end_reason: "mode-switch"`), and a fresh page interval starts from then. The starting
+mode comes from the `xapi` block in [`metadata.json`](metadata.json), which is Full here.
+`make test-sims` checks both modes, both switches, Simulate Done, and the formatted view.
 
 **Why steps are `Control` and the page is `MicroSim`:** the page-level statement's object is
 the page IRI with no fragment, so it becomes exactly **one** `PageEngagement` vertex. Each
