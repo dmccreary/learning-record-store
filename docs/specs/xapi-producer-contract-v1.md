@@ -654,7 +654,10 @@ Everything the DDL reads, and where it comes from. If a row here is wrong, a rol
     **Answers are never folded (2026-09-26).** Under LRS-Lite's compact mode, which folds a sim
     session's exposure evidence into one `experienced` summary, `answered` statements still pass
     through one per attempt, in both modes. §3's `answered` + `result.success` shape is therefore the
-    only form assessed evidence ever takes, whichever LRS receives it.
+    only form assessed evidence ever takes, whichever LRS receives it. An answer does open the sim's
+    compact session, without being counted in it. So a visit made only of answers still ends in one
+    summary, carrying its time on the sim with `statements_represented: 0`. Chapter quiz pages, which
+    are not MicroSims, never emit a summary (`docs/lrs-lite/index.md` §6.2).
 
 **Closed 2026-07-16:**
 

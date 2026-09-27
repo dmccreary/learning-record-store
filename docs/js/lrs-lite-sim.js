@@ -228,6 +228,7 @@
     this.activeMs = 0;
     this.interactions = 0;
     this.represented = 0;        // full-mode statements this session stands for
+    this.answers = 0;            // answers passed through (never folded; they only open the session)
     this.controls = {};
     this.runs = { count: 0, ms: 0 };
   };
@@ -350,6 +351,17 @@
   // 2026-09-26; lrs-sim.js `question().answer()`): BKT reads the ORDER of attempts, each
   // answer keeps its question IRI, and the per-question rollups stay replayable (C-2).
   // A summary carries exposure evidence only.
+  //
+  // But an answer IS engagement with the sim, so it opens the session. Without that, a visit
+  // whose only evidence was answers (a student who went straight through a drilldown's three
+  // questions) ended in no summary at all, and its time on the sim was lost (found in
+  // eight-hour-entrepreneur's symptom-root-cause-drilldown, 2026-09-26). The answer adds
+  // nothing to statements_represented, interaction_count or controls: the summary of such a
+  // visit says "0 statements folded", truthfully, and carries only the time.
+  Session.prototype.answered = function () {
+    this._open();
+    this.answers++;
+  };
 
   Session.prototype.setBusy = function (busy) {
     this.busy = !!busy;
@@ -382,8 +394,9 @@
   };
 
   Session.prototype._summary = function (reason) {
-    // No evidence at all — nothing worth a statement.
-    if (!this.represented) return null;
+    // No evidence at all — nothing worth a statement. Answers count as evidence of engagement
+    // here, though they were emitted on their own and are not folded into the summary.
+    if (!this.represented && !this.answers) return null;
     if (!global.LRS) {
       if (global.console) global.console.warn('[lrs-lite-sim] lrs-xapi.js not loaded — summary dropped');
       return null;

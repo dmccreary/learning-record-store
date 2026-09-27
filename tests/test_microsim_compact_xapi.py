@@ -692,6 +692,37 @@ def test_l6_animal_cell_answers_pass_through_even_in_compact(open_sim: Any) -> N
     assert summary["context"]["extensions"][EXT + "statements_represented"] == 1
 
 
+def test_l6_answers_alone_still_end_in_a_summary(open_sim: Any) -> None:
+    # A visit whose only evidence is answers. Before 2026-09-26 an answer never opened the
+    # compact session, so such a visit ended in no summary and its time on the sim was lost
+    # (found in eight-hour-entrepreneur's symptom-root-cause-drilldown).
+    frame = open_sim("animal-cell", {"compact": True, **FAST})
+    _animal_cell_ready(frame)
+    frame.get_by_role("button", name="Quiz").click()  # the sim's own mode switch: not evidence
+    frame.evaluate(CLICK_MARKER, "wrong")
+    frame.evaluate(CLICK_MARKER, "right")
+    assert verbs(statements(frame)) == ["answered"] * 2  # sent at once, as always
+
+    frame.evaluate(HIDE_TAB)
+    sts = statements(frame)
+    assert verbs(sts) == ["answered", "answered", "experienced"]
+    summary = sts[2]
+    assert_contract_summary(summary, SITE + "sims/animal-cell/", "animal-cell-structure")
+    assert summary["result"]["extensions"][EXT + "end_reason"] == "tab-hidden"
+    # It carries the time on the sim and, truthfully, folds nothing: the answers passed through.
+    assert summary["context"]["extensions"][EXT + "statements_represented"] == 0
+    assert summary["result"]["extensions"][EXT + "interaction_count"] == 0
+    assert summary["result"]["extensions"][EXT + "controls"] == {}
+
+
+def test_l6_a_visit_with_no_evidence_still_emits_nothing(open_sim: Any) -> None:
+    frame = open_sim("animal-cell", {"compact": True, **FAST})
+    _animal_cell_ready(frame)
+    frame.get_by_role("button", name="Quiz").click()  # not evidence, and no answer given
+    frame.evaluate(HIDE_TAB)
+    assert statements(frame) == []
+
+
 # ---------------------------------------------------------------------- chapter quiz ----
 # quiz-xapi.js runs on rendered site pages, which the static server cannot produce, so this
 # fixture reproduces the markup mkdocs-material renders for `??? question "Show Answer"`.
@@ -747,6 +778,11 @@ def test_quiz_answers_pass_through_with_a_log_but_no_mode_switch(
     page.locator("label.quiz-choice").nth(5).click()
     assert page.evaluate("LRSLite.statements.length") == 1
     assert page.get_by_role("button", name="View Formatted JSON").is_enabled()
+
+    # A quiz page is not a MicroSim, so its answers never open a compact session: leaving
+    # the page emits no summary (one would be typed MicroSim, misnaming the page, §5).
+    page.evaluate(HIDE_TAB)
+    assert page.evaluate("LRSLite.statements.length") == 1
 
 
 def test_url_switch_hides_the_quiz_log(page: Any, docs_url: str) -> None:

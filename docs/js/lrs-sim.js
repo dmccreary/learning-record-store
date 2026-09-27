@@ -550,6 +550,11 @@
       }
     }, 'answered  ' + this.key + '  ' + (r.response !== undefined ? r.response + '  ' : '') +
        (r.success ? '✓' : '✗') + (o.concept ? '  → ' + o.concept : ''));
+    // In Compact, the answer also opens the sim's session (without folding into it), so a
+    // visit made only of answers still ends in a summary carrying its time on the sim. Not
+    // on a page with no metadata.json of its own, i.e. a chapter quiz. That page is not a
+    // MicroSim, and a summary typed MicroSim would misname it (contract §5).
+    if (sim.compact && sim.opts.metadata !== false) sim.session.answered();
   };
 
   // ── 3b. A Start/Pause run interval ────────────────────────────────────────
