@@ -4153,6 +4153,15 @@ keeps its question IRI; and the per-question rollups stay replayable (C-2). The 
 cost is small: <a href="#step-2-measure-the-data-before-choosing-the-machinery">Step 2</a> already
 budgets about 15 answers a day. An earlier draft of this section folded
 <code>goals: {…}</code> and <code>predictions: {correct, total}</code> into the summary; that is withdrawn.</p>
+<p><strong>An answer still opens the session</strong> (fixed 2026-09-26). An answer is engagement with the
+sim, even though it is never folded. Before this fix, a visit whose only evidence was answers
+ended in no summary at all. A student who went straight through a drilldown's three questions
+left three <code>answered</code> statements and no record of their time on the sim. Now such a visit
+ends in one summary like any other, with <code>statements_represented: 0</code>, <code>interaction_count: 0</code>
+and empty <code>controls</code>. That is true, since nothing was folded, and it still carries the
+duration and <code>active_ms</code>. A visit with neither interactions nor answers still emits nothing.
+Chapter quiz pages are excluded (<code>quiz-xapi.js</code> creates its instance with <code>metadata: false</code>).
+They are not MicroSims, so a summary typed <code>MicroSim</code> would misname them.</p>
 <p><em>(Actor, grouping, <code>id</code>, <code>timestamp</code>, <code>device_id</code>, <code>device_seq</code>, and <code>hlc</code> are omitted
 for brevity.)</em> The new extension IRIs must be added to the producer contract's extension
 table so the full LRS's processor can fold them on replay (Phase 0 of

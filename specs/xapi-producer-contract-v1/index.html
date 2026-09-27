@@ -2950,7 +2950,10 @@ homework-marking caveat above stands until a consumer validates the shape.</p>
 <p><strong>Answers are never folded (2026-09-26).</strong> Under LRS-Lite's compact mode, which folds a sim
 session's exposure evidence into one <code>experienced</code> summary, <code>answered</code> statements still pass
 through one per attempt, in both modes. §3's <code>answered</code> + <code>result.success</code> shape is therefore the
-only form assessed evidence ever takes, whichever LRS receives it.</p>
+only form assessed evidence ever takes, whichever LRS receives it. An answer does open the sim's
+compact session, without being counted in it. So a visit made only of answers still ends in one
+summary, carrying its time on the sim with <code>statements_represented: 0</code>. Chapter quiz pages, which
+are not MicroSims, never emit a summary (<code>docs/lrs-lite/index.md</code> §6.2).</p>
 </li>
 </ol>
 <p><strong>Closed 2026-07-16:</strong></p>
